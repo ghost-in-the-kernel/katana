@@ -1,0 +1,392 @@
+{
+  "about": "Katana's modules (docs/ROADMAP.md 3.3): one per concern, each with its purpose, what it takes and gives, what it may import and what it must not. test/modules.test holds every import in the source to this file. importsFrom says where an entry's import lists come from: 'roadmap' when 3.3 states them, 'pipeline' when they are read off the pipeline of 3.1 because 3.3 is silent. entryPoints are filled as each module is built.",
+  "rules": [
+    {
+      "id": "MOD-01",
+      "rule": "No module imports a model client.",
+      "source": "R-004"
+    },
+    {
+      "id": "MOD-02",
+      "rule": "rt/ imports nothing: no module of ours, no third-party library. It ships inside the customer's suite.",
+      "source": "ROADMAP 3.3"
+    },
+    {
+      "id": "MOD-03",
+      "rule": "lower/ reads sir/ only and decides nothing: every branch on a COBOL property is in sir/ or intent/.",
+      "source": "ROADMAP 3.3, 4.2"
+    },
+    {
+      "id": "MOD-04",
+      "rule": "passes/ writes Java only through lower/'s emitter, so no pass can lose a provenance comment.",
+      "source": "ROADMAP 3.3, R-024 (reserved)"
+    },
+    {
+      "id": "MOD-05",
+      "rule": "oracle/ never imports lower/ or passes/: the referee does not read the players' code.",
+      "source": "ROADMAP 3.3"
+    },
+    {
+      "id": "MOD-06",
+      "rule": "front/ knows nothing of what COBOL means: it imports no module of ours.",
+      "source": "ROADMAP 3.3"
+    }
+  ],
+  "modules": {
+    "front": {
+      "purpose": "Parsing and preprocessing: COBOL and copybooks to a parse tree with COPY and REPLACE resolved, and a source map to file, line and column.",
+      "inputs": [
+        "COBOL source",
+        "copybooks"
+      ],
+      "outputs": [
+        "parse tree",
+        "source map"
+      ],
+      "mayImport": [],
+      "mustNotImport": [
+        "profile",
+        "sir",
+        "lower",
+        "rt",
+        "oracle",
+        "intent",
+        "passes",
+        "ledger",
+        "findings",
+        "cli",
+        "project",
+        "bench"
+      ],
+      "importsFrom": "roadmap",
+      "phase": 2,
+      "entryPoints": []
+    },
+    "profile": {
+      "purpose": "The dialect profile: its schema, the mapping to GnuCOBOL's dialect flags, and its content hash.",
+      "inputs": [
+        "compile options"
+      ],
+      "outputs": [
+        "profile",
+        "profile hash",
+        "GnuCOBOL configuration"
+      ],
+      "mayImport": [],
+      "mustNotImport": [
+        "front",
+        "sir",
+        "lower",
+        "rt",
+        "oracle",
+        "intent",
+        "passes",
+        "ledger",
+        "findings",
+        "cli",
+        "project",
+        "bench"
+      ],
+      "importsFrom": "pipeline",
+      "phase": 1,
+      "entryPoints": []
+    },
+    "findings": {
+      "purpose": "What is wrong with the input program, and what cannot be made exact; said first, before any Java.",
+      "inputs": [
+        "findings raised by sir/check and the other modules"
+      ],
+      "outputs": [
+        "the findings report"
+      ],
+      "mayImport": [],
+      "mustNotImport": [
+        "lower",
+        "rt",
+        "passes",
+        "cli",
+        "project",
+        "bench"
+      ],
+      "importsFrom": "pipeline",
+      "phase": 2,
+      "entryPoints": []
+    },
+    "sir": {
+      "purpose": "The Semantic IR: types, build (tree to IR), check (invariants), contract (the facts a back end must honor).",
+      "inputs": [
+        "parse tree",
+        "source map",
+        "profile"
+      ],
+      "outputs": [
+        "Semantic IR"
+      ],
+      "mayImport": [
+        "front",
+        "profile",
+        "findings"
+      ],
+      "mustNotImport": [
+        "lower",
+        "rt",
+        "oracle",
+        "intent",
+        "passes",
+        "ledger",
+        "cli",
+        "project",
+        "bench"
+      ],
+      "importsFrom": "pipeline",
+      "phase": 2,
+      "entryPoints": []
+    },
+    "lower": {
+      "purpose": "The literal lowering: Semantic IR to Java source through one emitter, one provenance comment per statement. Decides nothing.",
+      "inputs": [
+        "Semantic IR"
+      ],
+      "outputs": [
+        "literal Java",
+        "manifest"
+      ],
+      "mayImport": [
+        "sir"
+      ],
+      "mustNotImport": [
+        "front",
+        "rt",
+        "oracle",
+        "intent",
+        "passes",
+        "ledger",
+        "cli",
+        "project",
+        "bench"
+      ],
+      "importsFrom": "roadmap",
+      "phase": 3,
+      "entryPoints": []
+    },
+    "rt": {
+      "purpose": "The Java runtime the literal links against: Record, Field, Decimal, ArithProfile, Dispatcher, files, SORT, CALL. Pure Java; ships.",
+      "inputs": [],
+      "outputs": [
+        "the runtime jar"
+      ],
+      "mayImport": [],
+      "mustNotImport": [
+        "front",
+        "profile",
+        "sir",
+        "lower",
+        "oracle",
+        "intent",
+        "passes",
+        "ledger",
+        "findings",
+        "cli",
+        "project",
+        "bench"
+      ],
+      "importsFrom": "roadmap",
+      "phase": 3,
+      "entryPoints": []
+    },
+    "oracle": {
+      "purpose": "The fixture model, the cobc and java lanes, the gate, the comparator, DD binding, the DFSORT subset, the LE and assembler stubs.",
+      "inputs": [
+        "fixture",
+        "copybooks",
+        "a jar for the java lane"
+      ],
+      "outputs": [
+        "the oracle report",
+        "the gate's report"
+      ],
+      "mayImport": [
+        "front",
+        "profile",
+        "sir",
+        "findings"
+      ],
+      "mustNotImport": [
+        "lower",
+        "passes",
+        "rt",
+        "intent",
+        "ledger",
+        "cli",
+        "project",
+        "bench"
+      ],
+      "importsFrom": "pipeline",
+      "phase": 1,
+      "entryPoints": []
+    },
+    "intent": {
+      "purpose": "The Intent IR: fact kinds, the inference rules (each named, each with evidence), confirmation state, the review file format.",
+      "inputs": [
+        "Semantic IR",
+        "the review file"
+      ],
+      "outputs": [
+        "Intent IR"
+      ],
+      "mayImport": [
+        "sir",
+        "profile",
+        "findings"
+      ],
+      "mustNotImport": [
+        "front",
+        "lower",
+        "rt",
+        "oracle",
+        "passes",
+        "ledger",
+        "cli",
+        "project",
+        "bench"
+      ],
+      "importsFrom": "pipeline",
+      "phase": 5,
+      "entryPoints": []
+    },
+    "ledger": {
+      "purpose": "The proof ledger: the append-only store, the line schema, the provenance map writer, the report writer.",
+      "inputs": [
+        "ledger lines from passes and builds"
+      ],
+      "outputs": [
+        "ledger",
+        "map",
+        "proof report"
+      ],
+      "mayImport": [
+        "profile",
+        "sir",
+        "intent"
+      ],
+      "mustNotImport": [
+        "front",
+        "lower",
+        "rt",
+        "oracle",
+        "passes",
+        "cli",
+        "project",
+        "bench"
+      ],
+      "importsFrom": "pipeline",
+      "phase": 5,
+      "entryPoints": []
+    },
+    "passes": {
+      "purpose": "Refactoring passes: each a file, each with its obligations, its proof and its ledger lines.",
+      "inputs": [
+        "Semantic IR",
+        "Intent IR",
+        "literal Java"
+      ],
+      "outputs": [
+        "Java",
+        "ledger lines"
+      ],
+      "mayImport": [
+        "sir",
+        "intent",
+        "ledger",
+        "lower"
+      ],
+      "mustNotImport": [
+        "front",
+        "rt",
+        "oracle",
+        "cli",
+        "project",
+        "bench"
+      ],
+      "importsFrom": "roadmap",
+      "phase": 6,
+      "entryPoints": []
+    },
+    "project": {
+      "purpose": "The workflows on disk: build, prove, pass, report, pack, fixture.",
+      "inputs": [
+        "a program, its copybooks, a profile, fixtures"
+      ],
+      "outputs": [
+        "the deliverable on disk"
+      ],
+      "mayImport": [
+        "front",
+        "profile",
+        "findings",
+        "sir",
+        "lower",
+        "oracle",
+        "intent",
+        "ledger",
+        "passes"
+      ],
+      "mustNotImport": [
+        "rt",
+        "cli",
+        "bench"
+      ],
+      "importsFrom": "pipeline",
+      "phase": 8,
+      "entryPoints": []
+    },
+    "cli": {
+      "purpose": "Turns what was typed into a workflow in project/ and prints what it did. The work is in project/.",
+      "inputs": [
+        "the command line"
+      ],
+      "outputs": [
+        "what it did, on stdout; --json reports"
+      ],
+      "mayImport": [
+        "project"
+      ],
+      "mustNotImport": [
+        "front",
+        "profile",
+        "findings",
+        "sir",
+        "lower",
+        "rt",
+        "oracle",
+        "intent",
+        "ledger",
+        "passes",
+        "bench"
+      ],
+      "importsFrom": "pipeline",
+      "phase": 8,
+      "entryPoints": []
+    },
+    "bench": {
+      "purpose": "The corpus runner: NIST, the GnuCOBOL autotests, CardDemo; scores recorded and held by a test.",
+      "inputs": [
+        "corpus"
+      ],
+      "outputs": [
+        "recorded scores"
+      ],
+      "mayImport": [
+        "project",
+        "oracle"
+      ],
+      "mustNotImport": [
+        "rt",
+        "cli"
+      ],
+      "importsFrom": "pipeline",
+      "phase": 3,
+      "entryPoints": []
+    }
+  }
+}
