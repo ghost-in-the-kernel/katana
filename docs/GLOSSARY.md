@@ -1,8 +1,12 @@
 # Glossary: one word per thing
 
 A term here is the only word for its concept in code, comments and documents; the aliases listed
-beside it are what *not* to write (`test/glossary.test` fails on an alias outside this file). Add a
-term before using a new word for a concept; add an alias the first time a synonym is caught.
+beside it are what *not* to write. An alias in backticks is **enforced**: `test/glossary.test` fails
+when it appears in a document outside this file and `docs/research/` (the study's notes keep their
+own words). An alias without backticks is a review guide: a word that is wrong for this concept but
+right for another ("run" is an execution, "source" is a source map), so a test cannot judge it. Add a
+term before using a new word for a concept; put an alias in backticks the first time a test could
+have caught a real slip (R-039).
 
 | Term | Means | Not |
 | --- | --- | --- |
@@ -17,7 +21,7 @@ term before using a new word for a concept; add an alias the first time a synony
 | **ledger** | the proof ledger: append-only record of pass, fact, run, symbol, COBOL node, profile | log, history, audit trail (use only when quoting a regulator) |
 | **map** | the provenance map written from the ledger: per Java symbol, what it stands on | trace, lineage, kernel map (that is the tool's own: see below) |
 | **kernel map** | the tool's own append-only function ledger, `docs/KERNEL-MAP.md` | map |
-| **literal** | the pinned Java the lowering emits, a byte-image machine; never shipped | JOBOL (quote only), intermediate, lowered Java, golden |
+| **literal** | the pinned Java the lowering emits, a byte-image machine; never shipped | JOBOL (quote only), intermediate, lowered Java |
 | **golden** | a recorded expected output a test holds the code to | baseline, snapshot, reference (use "reference log" only for eval-nist's files) |
 | **fixture** | a content-addressed job description: steps, DDs with layouts and encodings, environment, stubs, optional mainframe gold | test case, scenario, harness (that is the whole oracle tool) |
 | **lane** | one runner over a fixture: the cobc lane, the java lane, the Hercules lane | side, leg, run |

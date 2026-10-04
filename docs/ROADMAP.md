@@ -282,7 +282,7 @@ work in the plan per unit of later pain avoided.
 | `CLAUDE.md` | the routing table: task → files, contract, tests; the commands; the two rules | `docs.test`: every path it names exists (SRC-15) |
 | `theGhost.md` | every decision R-001..., with Decision / Why / Held by / Source / Status / See also | `ghost.test`: ids unique and sequential; a superseded decision names its successor and the successor names it; two in-force decisions tagged with the same subject do not conflict (a `conflicts-with:` line is a failure) |
 | `docs/decisions.md` | one line per decision, 20 words max, written by a script | `ghost.test` compares |
-| `docs/GLOSSARY.md` | one canonical term per concept, aliases listed | `glossary.test`: a listed alias appearing in a doc outside the glossary fails |
+| `docs/GLOSSARY.md` | one canonical term per concept, aliases listed; an alias in backticks is enforced, the rest are a review guide (R-039) | `glossary.test`: an enforced alias appearing in a doc outside the glossary and `docs/research/` fails |
 | `docs/SEMANTIC-IR.md` | the Semantic IR contract, invariants SIR-nn | `sir-doc.test`: every exported type and invariant in the doc, and the reverse |
 | `docs/PROFILE.md` | the dialect profile fields and their GnuCOBOL mapping | `profile.test` |
 | `docs/PROOF.md` | what a proof is, what it covers, what it never covers | `report.test`: the shipped proof report quotes it verbatim |

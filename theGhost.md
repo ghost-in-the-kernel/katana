@@ -146,16 +146,36 @@ the question is closed).
 - **See also:** R-002
 - **subject:** disclosure
 
-### R-038: Doc tests are plain Java 21 until Gradle arrives
-- **Decision:** The phase-0 document tests (`ghost`, `glossary`, `docs`, `modules`, `todo`) are
-  single-file Java 21 programs under `test/`, run with `java test/<Name>.java` by one script; the exit
-  code is the verdict. Phase 0.3 moves them under Gradle and JUnit with their bodies unchanged.
+### R-038: Doc tests are plain Java 21, no dependencies, until Gradle arrives
+- **Decision:** The phase-0 document tests (`ghost`, `glossary`, `docs`, `modules`, `todo`) are plain
+  Java 21 classes under `test/` with shared helpers (`Check.java`, `Json.java`), compiled together and
+  run by `test/run.sh`; the exit code is the verdict; no dependency. Phase 0.3 moves them under
+  Gradle and JUnit with their bodies unchanged.
 - **Why:** They are needed before the build system exists (phase 0.2 precedes 0.3), and a dependency
-  taken for a test is a dependency the offline build must vendor.
+  taken for a test is a dependency the offline build must vendor. The first wording ("single-file
+  programs run with `java test/<Name>.java`") was wrong: a Java single-file program cannot use a
+  second source file, so each test would have carried its own copy of the helpers, against the
+  "duplicate helpers: 0" metric (docs/AGENT.md).
 - **Held by:** `test/run.sh`; after 0.3, the Gradle `test` task.
-- **Source:** Opus, during phase 0.2, confirmed by Ghost, 2026-10-04.
+- **Source:** Opus, during phase 0.2; wording corrected by Opus; confirmed by Ghost, 2026-10-04.
 - **Status:** in force
 - **subject:** toolchain
+
+### R-039: Glossary aliases are enforced only when marked
+- **Decision:** In `docs/GLOSSARY.md`, an alias in backticks is enforced: `test/glossary.test` fails
+  when it appears in a document outside the glossary and `docs/research/`. An alias without backticks
+  is a review guide and no test judges it. "Golden" is a term and is not an alias of anything.
+- **Why:** The first rule ("a listed alias appearing in a doc outside the glossary fails") gave 60+
+  failures on the day's documents, most of them words that are wrong for one concept and right for
+  another: "run" is an execution, "source" is a source map, "error" is the tool failing, "map" is the
+  provenance map. A test that fails on correct prose is a test that gets switched off (Suite Builder,
+  G-107: rules that fired on good code became warnings). The study's notes under `docs/research/`
+  were written before the glossary and keep their words.
+- **Held by:** `test/glossary.test`; the glossary's own header.
+- **Source:** Opus, during phase 0.2; decided by Ghost, 2026-10-04.
+- **Status:** in force
+- **See also:** R-008 (the tithe adds backticks as slips are caught)
+- **subject:** glossary
 
 ---
 
