@@ -14,6 +14,9 @@ TRANREPT-STUDY's frozen sort and report hashes and CREASTMT end to end (R-048), 
   precision"): the one IBM semantic still unverified (R-049, `docs/PROFILE.md`). Blocks phase 3.1.
   Closes when Ghost pastes the topic URL (path-style `ibm.com/docs/en/SS6SG3_6.4.0/pg/ref/<topic>.html`
   URLs are reachable when the id is known) or attaches the PDF (SC27-8714) for a full read.
+- **Two more IBM texts to confirm when reachable**, neither blocking: IDCAMS reads columns 2–72
+  (DFSMS Access Method Services Commands; the lane applies it, J-035, two secondary sources); the
+  Enterprise COBOL rule for tab characters in source (R-016 assumes 8-column stops, as a finding).
 - Counsel on R-002's license texts and R-015 (EPL-2.0 grammars), before any copy leaves the repo.
 - Counsel on JUnit 5 (EPL-2.0, vendored for tests only, unmodified, never shipped): a lighter
   question than R-015's che4z grammars, which would be modified and shipped inside the compiler. The

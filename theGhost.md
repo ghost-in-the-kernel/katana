@@ -400,6 +400,24 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** P-12, R-020, R-022, F-10
 - **subject:** profile
 
+### R-016: The indicator column is read permissively; a tab is expanded to the next 8-column stop, as a finding
+- **Decision:** Column 7 accepts any indicator character GnuCOBOL or Enterprise COBOL accepts. A tab
+  anywhere in a source or copy line is expanded to spaces to the next tab stop at columns 9, 17, 25 ...
+  (every 8, from column 1) before columns are mapped; the source map keeps the original column; a
+  finding records each file with tabs ("tab in source, expanded under the 8-column assumption").
+  The cobc lane preprocesses copybooks and sources the same way into a shadow copy, so the two lanes
+  compile identical text. The 8-column assumption is a hypothesis until the Enterprise COBOL text on
+  tabs is read; the finding says so.
+- **Why:** CardDemo's `CUSTREC.cpy` carries tabs in the indicator area and `cobc` rejects it (the
+  study); CREASTMT's full run, moved into 1.5 by R-048, cannot close without a policy. Two lanes that
+  see different text prove nothing about each other, so the expansion is done once, upstream of both.
+- **Held by:** `front/` (phase 2) and the cobc lane's preprocessing step; a fixture test on
+  `CUSTREC.cpy`; the finding.
+- **Source:** Opus raised it as a 1.5 prerequisite; decided by Ghost with Reviewer G, 2026-10-04.
+- **Status:** in force
+- **See also:** R-048, R-049, P-03
+- **subject:** front-end
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-010 DFSORT

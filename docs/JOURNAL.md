@@ -439,3 +439,13 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
 - **Note:** the study's F-10 risk ("the manuals were unreachable") was partly an artefact of one
   container's proxy, not of the manuals. Worth remembering when a research finding says "unreachable".
 
+### J-039 Four open choices from 1.3–1.4, decided
+- **Who:** Opus listed, with a lean on each; Ghost decided with Fable. **Class:** decision.
+- **Found:** (1) IBM fields: already R-049, with TRUNC(STD) mapped to `binary-truncate=yes` over
+  `-std=ibm`, the conflict Opus measured in 1.2. (2) IDCAMS columns 2–72: accepted; the lane's stop
+  on REPROCT is a finding on CardDemo's JCL; manual to confirm. (3) Temp datasets and COBDATFT: built
+  when a fixture needs them (P-11); roadmap 1.4 text amended. (4) R-016 decided: permissive column 7,
+  tabs expanded to 8-column stops upstream of both lanes, as a finding under a stated hypothesis.
+  (5) R-010 after 1.5's measurement, as planned.
+- **Touched:** R-016, ROADMAP 1.4, HANDOFF.
+

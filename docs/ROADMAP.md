@@ -465,8 +465,8 @@ passes.
     fixture with an unpinned clock is refused.
 1.4 **The cobc lane.** DD binding (`DD_<name>`), disposition and GDG handling, temp datasets,
     IDCAMS DEFINE/REPRO/DELETE, IEBGENER, IEFBR14, a PARM driver for `PROCEDURE DIVISION USING`,
-    the LE and assembler stub facade (`CEE3ABD` with abend code capture; `COBDATFT`), indexed files
-    loaded in key order.
+    the LE and assembler stub facade (`CEE3ABD` with abend code capture; `COBDATFT` when a fixture
+    calls it), temp datasets when a fixture declares one, indexed files loaded in key order.
     *Check (R-048):* POSTTRAN reproduces the frozen hash from F-02 (`aed61744…` TRANFILE unload);
     INTCALC runs through the PARM driver; TRANREPT-STUDY and CREASTMT run every step before their
     SORT, which stops the job with a finding naming phase 1.5.
