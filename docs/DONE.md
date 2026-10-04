@@ -28,3 +28,11 @@ The founding commit: `theGhost.md`, `docs/GLOSSARY.md`, `CLAUDE.md`. Then `docs/
 `docs/PROOF.md` as headings with their numbering reserved, `docs/KERNEL-MAP.md` with its format; and
 the doc tests under `test/` (ghost, glossary, docs, modules, todo), run by `test/run.sh` (R-038), each
 held to inputs it must reject. Decisions: R-038, R-039.
+
+### 0.3 The container
+
+`Dockerfile`: the official Gradle 8.14.3 / JDK 21 / Ubuntu 24.04 image pinned by digest, with
+`gnucobol3` 3.1.2-5.1ubuntu1 (R-003). `build.gradle` declares no repository; its only dependencies are
+the jars in `third_party/` (`third_party/MANIFEST.md`), and it refuses any Gradle but 8.14.3. The doc
+tests run under JUnit (`test/DocTests.java`). `.github/workflows/ci.yml` builds the image and runs
+`gradle build --offline` with `--network none`. Checked: a fresh clone built that way in 12 s.

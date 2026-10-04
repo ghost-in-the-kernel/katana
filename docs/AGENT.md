@@ -7,7 +7,8 @@ exists (phase 0.6); until then the measured column is empty, not guessed.
 
 ## The contract
 
-- **AGT-01 A clean clone builds offline.** `./gradlew build` with no network, from `third_party/` (R-001).
+- **AGT-01 A clean clone builds offline.** `gradle build --offline` in the image with `--network none`, from
+  `third_party/` (R-001).
 - **AGT-02 The fast loop runs under 20 s.** Unit tests only: no `cobc`, no `javac` of generated Java.
   Integration is its own target with its own budget: NIST in full under 3 minutes, CardDemo under 1.
 - **AGT-03 Mandatory context stays under 1,500 words.** `CLAUDE.md` plus whatever an agent must read
@@ -25,7 +26,7 @@ exists (phase 0.6); until then the measured column is empty, not guessed.
 
 ## The metrics
 
-Measured by `./gradlew metrics` (phase 0.6) and recorded here at every tithe pass.
+Measured by `gradle metrics` (phase 0.6) and recorded here at every tithe pass.
 
 | Metric | Phase 0 target | Measured | Why it matters to the agent |
 | --- | --- | --- | --- |

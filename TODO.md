@@ -8,10 +8,6 @@ the first open item has a check.
 
 ## Phase 0: founding
 
-### 0.3 The container
-
-Check: a clean clone builds with the network off.
-
 ### 0.6 Kernel map and metrics scripts
 
 Check: `metrics` prints the table of section 5 with phase-0 values.

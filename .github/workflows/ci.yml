@@ -1,0 +1,16 @@
+# The fast loop on every push and pull request, in the pinned image with the network off
+# (docs/ROADMAP.md 0.3): what passes here is what a clean clone builds offline.
+name: ci
+on:
+  push:
+  pull_request:
+jobs:
+  fast-loop:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the image
+        run: docker build -t katana .
+      - name: Build and test, network off
+        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle build --offline --warning-mode fail

@@ -3,16 +3,13 @@
 ## What to work on next
 
 `TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Done so far: 0.1, 0.2,
-0.4 (fetch script and manifest), 0.5.
+0.3, 0.4 (fetch script and manifest), 0.5.
 
 Remaining, each its own commit:
 
-1. **0.3, the container:** Dockerfile pinning GnuCOBOL 3.1.2 by digest, JDK 21, Gradle; `third_party/`
-   with the ANTLR runtime, JUnit and a JSON library vendored with licenses; CI builds the image and
-   runs the fast loop with the network off.
-2. **0.6, scripts:** the kernel-map generator and the metrics script, ported from Suite Builder's
+1. **0.6, scripts:** the kernel-map generator and the metrics script, ported from Suite Builder's
    `scripts/kernel-scan.mjs` and `kernel-metrics.mjs` to Java (or Gradle tasks).
-3. **0.7, tithe pass 0:** the fresh-agent trial ("add a module") on the empty project.
+2. **0.7, tithe pass 0:** the fresh-agent trial ("add a module") on the empty project.
 
 Then phase 1.1: reproduce `Total 426 426 0 0 9610 0 20 118 9748` in CI from `oracle/prototypes/nist/`.
 
