@@ -1,1 +1,3 @@
+// One Gradle project. Katana's modules are not Gradle subprojects: each is an entry in
+// docs/modules.json (how to add one: its `adding` line) and a folder once it has code.
 rootProject.name = 'katana'

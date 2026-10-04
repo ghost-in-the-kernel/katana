@@ -32,15 +32,15 @@ the first module carries real code.
 Measured by `gradle metrics --args=--time` in the image and recorded here at every tithe pass; the
 fast loop and the skipped tests are measured after a run, so the test does not hold them.
 
-| Metric | Phase 0 target | Measured (0.6, 2026-10-04) | Why it matters to the agent |
+| Metric | Phase 0 target | Measured (tithe pass 0, 2026-10-04) | Why it matters to the agent |
 | --- | --- | --- | --- |
-| Mandatory context (words) | < 1,500 | 631 | every task pays it |
-| Fast loop (s) | < 20 | 9 | the agent runs it after every edit |
+| Mandatory context (words) | < 1,500 | 636 | every task pays it |
+| Fast loop (s) | < 20 | 12 | the agent runs it after every edit |
 | Largest source file (lines) | < 400 | 179 | fits a read without paging |
 | Files a routing row opens | ≤ 5 | 4 | first five reads decide the task |
 | Functions over 20 paths | 0 new | 0 | branching is where agents misread |
 | Duplicate helpers (same body, two names) | 0 | 0 | the agent edits one and misses the other |
-| Decisions without `See also` | 0 | 7 | grep misses what links find (T-18) |
+| Decisions without `See also` | 0 | 0 | grep misses what links find (T-18) |
 | Docs lines per source line | < 0.35 | 1.13 (not armed: no module has code yet, R-042) | Suite Builder reached 0.37 and it hurt |
 | Stale generated artifacts | 0 | 0 | detected by test |
 | Skipped tests reported on the fast loop | 0 | 0 | a real skip hides among 119 (T-15) |
