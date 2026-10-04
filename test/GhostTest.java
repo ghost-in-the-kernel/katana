@@ -37,14 +37,17 @@ final class GhostTest {
     }
 
     public static void main(String[] args) {
-        new Check("ghost")
+        run().exit();
+    }
+
+    static Check run() {
+        return new Check("ghost")
                 .repository(check(Check.read("theGhost.md")))
                 .rejects("a conflicting pair both in force", () -> check(PAIR_IN_CONFLICT))
                 .accepts("the same pair once one is superseded", () -> check(PAIR_SUPERSEDED))
                 .rejects("supersession named on one side only", () -> check(ONE_SIDED))
                 .rejects("a duplicate id", () -> check(DUPLICATE))
-                .rejects("a gap the reserved list does not name", () -> check(GAP))
-                .exit();
+                .rejects("a gap the reserved list does not name", () -> check(GAP));
     }
 
     static List<String> check(String text) {

@@ -22,15 +22,18 @@ final class GlossaryTest {
     private static final Pattern ENFORCED = Pattern.compile("`([^`]+)`");
 
     public static void main(String[] args) {
+        run().exit();
+    }
+
+    static Check run() {
         String glossary = Check.read(GLOSSARY);
         Map<String, String> docs = documents();
         String marked = glossary.replace("| batch, run", "| `batch`, run");
-        new Check("glossary")
+        return new Check("glossary")
                 .repository(check(glossary, docs))
                 .rejects("an enforced alias in CLAUDE.md", () -> check(marked, Map.of("CLAUDE.md", Check.read("CLAUDE.md"))))
                 .accepts("an enforced alias in the study's notes", () -> check(marked, Map.of("docs/research/x.md", "a batch job")))
-                .accepts("an alias inside a longer word", () -> check(marked, Map.of("x.md", "batches and abatch")))
-                .exit();
+                .accepts("an alias inside a longer word", () -> check(marked, Map.of("x.md", "batches and abatch")));
     }
 
     static List<String> check(String glossary, Map<String, String> docs) {

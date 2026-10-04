@@ -9,7 +9,8 @@ import java.util.function.Supplier;
 /**
  * What every doc test shares: reading the repository, and holding a checker to the repository and to
  * inputs that must fail (or pass) so a check that has stopped catching anything is caught itself.
- * Plain Java 21 with no dependency until phase 0.3 moves the tests into Gradle and JUnit.
+ * Plain Java 21 with no dependency (R-038); `DocTests` runs each under JUnit in `gradle test`, and
+ * each still runs alone through its `main`.
  */
 // Decision: R-038
 final class Check {
@@ -49,6 +50,10 @@ final class Check {
     Check accepts(String what, Supplier<List<String>> checker) {
         checker.get().forEach(f -> problems.add("wrongly rejects " + what + ": " + f));
         return this;
+    }
+
+    List<String> problems() {
+        return List.copyOf(problems);
     }
 
     void exit() {

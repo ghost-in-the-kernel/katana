@@ -26,13 +26,16 @@ final class TodoTest {
     }
 
     public static void main(String[] args) {
-        new Check("todo")
+        run().exit();
+    }
+
+    static Check run() {
+        return new Check("todo")
                 .repository(check(Check.read("TODO.md"), Check.read("docs/DONE.md")))
                 .rejects("items out of order", () -> check(OUT_OF_ORDER, ""))
                 .rejects("a first open item with no check", () -> check(FIRST_UNCHECKED, ""))
                 .rejects("an item both open and done", () -> check(SOUND, "### 0.3 The container\n"))
-                .accepts("a sound list", () -> check(SOUND, "### 0.1 Repo\n"))
-                .exit();
+                .accepts("a sound list", () -> check(SOUND, "### 0.1 Repo\n"));
     }
 
     static List<String> check(String todo, String done) {

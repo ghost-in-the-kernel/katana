@@ -21,16 +21,19 @@ final class DocsTest {
     private static final Pattern TODO_ITEM = Pattern.compile("(?m)^### (\\d+\\.\\d+) ");
 
     public static void main(String[] args) {
+        run().exit();
+    }
+
+    static Check run() {
         Set<String> open = openSteps(Check.read("TODO.md"));
         Map<String, Integer> phases = modulePhases(Check.read("docs/modules.json"));
-        new Check("docs")
+        return new Check("docs")
                 .repository(check(Check.read("CLAUDE.md"), open, phases, Check::exists))
                 .rejects("a path that does not exist", () -> check("Read `docs/NOWHERE.md`.", open, phases, Check::exists))
                 .rejects("a path whose phase is done", () -> check("`x/types` (phase 2)", Set.of("3.1"), Map.of(), p -> false))
                 .accepts("a path whose phase is open", () -> check("`x/types`\nand (phase 2)", Set.of("2.4"), Map.of(), p -> false))
                 .rejects("a module whose phase is done", () -> check("`sir/`", Set.of("3.1"), Map.of("sir", 2), p -> false))
-                .accepts("a module whose phase is open", () -> check("`sir/`", Set.of("2.4"), Map.of("sir", 2), p -> false))
-                .exit();
+                .accepts("a module whose phase is open", () -> check("`sir/`", Set.of("2.4"), Map.of("sir", 2), p -> false));
     }
 
     static List<String> check(String doc, Set<String> openSteps, Map<String, Integer> modulePhases, Predicate<String> exists) {

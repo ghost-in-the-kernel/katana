@@ -27,15 +27,18 @@ final class ModulesTest {
     private static final Set<String> NOT_SOURCE = Set.of("test", "build", "third_party", "corpus", "docs");
 
     public static void main(String[] args) {
+        run().exit();
+    }
+
+    static Check run() {
         String json = Check.read("docs/modules.json");
-        new Check("modules")
+        return new Check("modules")
                 .repository(check(json, source()))
                 .rejects("lower/ importing oracle/", () -> check(json, Map.of("lower/Emit.java", "package katana.lower;\nimport katana.oracle.Lane;\n")))
                 .rejects("a model client", () -> check(json, Map.of("sir/Build.java", "package katana.sir;\nimport com.anthropic.Client;\n")))
                 .rejects("source outside any module", () -> check(json, Map.of("misc/X.java", "package katana.misc;\n")))
                 .rejects("rt/ allowed an import", () -> check(json.replaceFirst("(\"rt\": \\{[^}]*\"mayImport\": \\[)", "$1\"sir\""), Map.of()))
-                .accepts("an allowed import", () -> check(json, Map.of("sir/Build.java", "package katana.sir;\nimport katana.front.Tree;\nimport java.util.List;\n")))
-                .exit();
+                .accepts("an allowed import", () -> check(json, Map.of("sir/Build.java", "package katana.sir;\nimport katana.front.Tree;\nimport java.util.List;\n")));
     }
 
     @SuppressWarnings("unchecked")

@@ -1,0 +1,36 @@
+// Katana's build: Java 21, offline, every dependency a file under third_party/ (R-001).
+// No repository is declared, so nothing can reach the network; a new dependency is vendored first.
+plugins {
+    id 'java'
+}
+
+// The image pins Gradle (Dockerfile); a different Gradle outside it is refused, not tolerated.
+if (gradle.gradleVersion != '8.14.3') {
+    throw new GradleException("Katana builds with Gradle 8.14.3 (the Dockerfile's image); this is ${gradle.gradleVersion}")
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+    options.encoding = 'UTF-8'
+}
+
+sourceSets {
+    // Until the modules have source, the only code is the doc tests under test/ (R-038).
+    test {
+        java.srcDirs = ['test']
+    }
+}
+
+dependencies {
+    testImplementation fileTree(dir: 'third_party/junit', include: '*.jar')
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    // The doc tests read the repository; they run from its root wherever Gradle is started.
+    systemProperty 'katana.root', rootDir.absolutePath
+    testLogging {
+        events = ['failed', 'skipped']
+        exceptionFormat = 'full'
+    }
+}
