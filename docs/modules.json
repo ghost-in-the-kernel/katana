@@ -1,6 +1,7 @@
 {
-  "about": "Katana's modules (docs/ROADMAP.md 3.3): one per concern, each with its purpose, what it takes and gives, what it may import and what it must not. test/modules.test holds every import in the source to this file. importsFrom says where an entry's import lists come from: 'roadmap' when 3.3 states them, 'pipeline' when they are read off the pipeline of 3.1 because 3.3 is silent. entryPoints are filled as each module is built.",
+  "about": "Katana's modules (docs/ROADMAP.md 3.3): one per concern, each with its purpose, what it takes and gives, what it may import and what it must not. test/ModulesTest.java holds every import in the source to this file. importsFrom says where an entry's import lists come from: 'roadmap' when 3.3 states them, 'pipeline' when they are read off the pipeline of 3.1 because 3.3 is silent. entryPoints are filled as each module is built.",
   "package": "Each module's Java lives in its folder under the package katana.<module> (katana.sir, katana.lower, ...); the module of an import is the segment after katana.",
+  "adding": "To add a module: one entry here with every field; its folder appears with its first code. A module may import only what its mayImport lists; anything else is refused whether or not mustNotImport names it, so mustNotImport records the refusals worth saying (MOD-02 to MOD-06, and what the pipeline forbids), and other modules' lists need not change. A module another may import goes in that module's mayImport. A new module or a new import changes docs/ROADMAP.md 3.3, which is Ghost's.",
   "rules": [
     {
       "id": "MOD-01",

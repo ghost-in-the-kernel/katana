@@ -1,7 +1,7 @@
 # Glossary: one word per thing
 
 A term here is the only word for its concept in code, comments and documents; the aliases listed
-beside it are what *not* to write. An alias in backticks is **enforced**: `test/glossary.test` fails
+beside it are what *not* to write. An alias in backticks is **enforced**: `test/GlossaryTest.java` fails
 when it appears in a document outside this file and `docs/research/` (the study's notes keep their
 own words). An alias without backticks is a review guide: a word that is wrong for this concept but
 right for another ("run" is an execution, "source" is a source map), so a test cannot judge it. Add a
@@ -11,7 +11,7 @@ have caught a real slip (R-039).
 | Term | Means | Not |
 | --- | --- | --- |
 | **program** | one COBOL compilation unit | source, unit |
-| **module** | one of Katana's own thirteen source units (`docs/modules.json`); "NIST module" (NC, SQ, ...) is NIST's own word for its test groups and is not policed | package (that is Java's), component, layer |
+| **module** | one of Katana's own source units, each an entry in `docs/modules.json` (the count lives only there); "NIST module" (NC, SQ, ...) is NIST's own word for its test groups and is not policed | package (that is Java's), component, layer |
 | **job** | a JCL job of steps | batch, run (a run is an execution) |
 | **step** | one program execution within a job, with its DDs | task |
 | **profile** | the dialect profile: compiler, version, TRUNC, ARITH, NUMPROC, code page, collating sequence, and the GnuCOBOL flag mapping; content-addressed | options, flags, settings, dialect (alone) |

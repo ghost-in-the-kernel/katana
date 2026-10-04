@@ -3,7 +3,7 @@
 The layer beneath the comments. Each decision has a number (R-001), what was decided, why, what holds
 it (a test, a document, a file), who decided and when, a status, and the decisions it touches. A new
 decision is appended; a reversed one is marked `superseded by R-nnn` in the same commit that adds its
-successor, and the successor names it. `test/ghost.test` holds this file: ids unique and sequential,
+successor, and the successor names it. `test/GhostTest.java` holds this file: ids unique and sequential,
 supersession named on both sides, and no two in-force decisions tagged with the same `subject:`
 that carry a `conflicts-with:` line (docs/ROADMAP.md, P-05). `docs/decisions.md` is written from it.
 
@@ -134,7 +134,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   to find, read and change code with little context was treated as work; about a tenth of effort
   went there. Katana is larger, has two languages in the tree, a runtime that ships and a mounted
   corpus, so the share rises.
-- **Held by:** `docs/AGENT.md` and `test/metrics.test`; the kernel map (`docs/KERNEL-MAP.md`).
+- **Held by:** `docs/AGENT.md` and `test/MetricsTest.java`; the kernel map (`docs/KERNEL-MAP.md`).
 - **Source:** Ghost, 2026-10-04.
 - **Status:** in force
 - **See also:** R-040 (a tithe lands like any step), R-042 (when a metric arms)
@@ -167,7 +167,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   programs run with `java test/<Name>.java`") was wrong: a Java single-file program cannot use a
   second source file, so each test would have carried its own copy of the helpers, against the
   "duplicate helpers: 0" metric (docs/AGENT.md).
-- **Held by:** `test/run.sh`; after 0.3, the Gradle `test` task.
+- **Held by:** `test/DocTests.java`, run by `gradle test` since phase 0.3.
 - **Source:** Opus, during phase 0.2; wording corrected by Opus; confirmed by Ghost, 2026-10-04.
 - **Status:** in force
 - **See also:** R-001, R-041 (where the tests went after 0.3)
@@ -183,7 +183,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   provenance map. A test that fails on correct prose is a test that gets switched off (Suite Builder,
   G-107: rules that fired on good code became warnings). The study's notes under `docs/research/`
   were written before the glossary and keep their words.
-- **Held by:** `test/glossary.test`; the glossary's own header.
+- **Held by:** `test/GlossaryTest.java`; the glossary's own header.
 - **Source:** Opus, during phase 0.2; decided by Ghost, 2026-10-04.
 - **Status:** in force
 - **See also:** R-008 (the tithe adds backticks as slips are caught)

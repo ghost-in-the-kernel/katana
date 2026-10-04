@@ -3,7 +3,7 @@
 The roadmap as a chain: items are done in this order, never out of it, and an item that cannot be
 done as written stops the chain and goes to Ghost. Each item's plan is its step in docs/ROADMAP.md
 section 6, by the same number; its check is the roadmap's, copied here. A done item moves to
-docs/DONE.md with its number kept. `test/todo.test` holds this file: headings in numeric order, and
+docs/DONE.md with its number kept. `test/TodoTest.java` holds this file: headings in numeric order, and
 the first open item has a check.
 
 ## Phase 0: founding
