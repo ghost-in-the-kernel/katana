@@ -4,11 +4,14 @@ Working pieces of the equivalence oracle, written by hand during the study. Each
 into `oracle/` in phase 1 (docs/ROADMAP.md) and then deleted from here; nothing in this folder is a
 dependency of anything.
 
-- `nist/`: the harness that ran NIST CCVS85 under GnuCOBOL 3.1.2 to
-  `Total 426 426 0 0 9610 0 20 118 9748` (`summary.log`, matching GnuCOBOL's shipped `summary.txt`).
-  `expand.pl`, `report.pl`, `summary.pl` are from the GnuCOBOL 3.x tree (GPL); per-module
-  `EXEC85.conf` are the harness configurations. The suite itself (`newcob.val`, 28 MB) is fetched
-  from `corpus/eval-nist-cobol85` or `corpus/gnucobol/tests/cobol85`, never committed.
+- `nist/`: the study's run of NIST CCVS85 under GnuCOBOL 3.1.2 to
+  `Total 426 426 0 0 9610 0 20 118 9748` (`summary.log`; `run-all.log`; per-module `report.txt`; the
+  `*.diff.log` files, empty where the run matched GnuCOBOL's shipped expectations). `EXEC85.cob` is
+  NIST's own driver, extracted from `newcob.val` (public domain). The GnuCOBOL harness scripts and
+  its expected-result files that ran beside these were removed under R-045: Katana's harness is a
+  clean-room rewrite from NIST's documentation (R-044), and GPL code stays off the screen while it
+  is written. The suite itself (`newcob.val`) is fetched by `corpus/fetch.sh` at a pinned commit and
+  SHA-256, never committed.
 - `carddemo/`: the CardDemo batch runs. Hand-written: `load_*.cbl` (IDCAMS REPRO stand-ins, loading
   KSDS files in key order), `unload.cbl` (key-ordered logical unload for comparison), `CEE3ABD.cbl`
   (LE abend stub surfacing the abend code), `sortstep.cbl` and `dupsort.cbl` (DFSORT step

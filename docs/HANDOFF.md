@@ -8,11 +8,10 @@ Next: phase 1.1, reproduce `Total 426 426 0 0 9610 0 20 118 9748` in CI, built a
 
 ## Waiting on Ghost
 
-- Whether `expand.pl`, `report.pl`, `summary.pl` (GPL, in `oracle/prototypes/nist/` against R-002) and
-  GnuCOBOL's expected-result files beside them leave the tree; under R-044 nobody opens them.
 - Counsel on R-002's license texts and R-015 (EPL-2.0 grammars), before any copy leaves the repo.
-- Whether JUnit 5 (EPL-2.0, vendored in `third_party/junit/` for tests only, never shipped) needs
-  counsel under R-015 as the che4z grammars do.
+- Counsel on JUnit 5 (EPL-2.0, vendored for tests only, unmodified, never shipped): a lighter
+  question than R-015's che4z grammars, which would be modified and shipped inside the compiler. The
+  two go to counsel together; neither blocks phase 1 (R-045 notes the distinction).
 - The provisional patent application (R-037), before any public disclosure; realistically after
   phase 4, when there is a CardDemo proof to describe.
 - R-010 (DFSORT as generated COBOL or Java) after phase 1.5 measures both.

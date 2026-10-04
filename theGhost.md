@@ -274,6 +274,30 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-002, R-003
 - **subject:** oracle-lane
 
+### R-045: GnuCOBOL and other GPL code stay off the screen while Katana's equivalent is written
+- **Decision:** GnuCOBOL is two things to Katana: an oracle (its `cobc` binary in the pinned image,
+  whose outputs are compared against) and a reference design (read once during the study and
+  summarized in `docs/research/`). Its source code, its harness scripts and its expected-result files
+  are never in this repository and never open on an agent's screen while the Katana code that does
+  the same job is being written. The same holds for opensourcecobol4j and any other GPL code. What may
+  stay: NIST's own material (public domain) and the study's run *outputs*, which are results, not
+  code. `corpus/fetch.sh` fetches only GnuCOBOL's autotests (`tests/testsuite.src`, test input) and
+  only in phase 3. JUnit 5 (EPL-2.0, unmodified, tests only, never shipped) is a different and
+  lighter question from the che4z grammars (R-015: modified, shipped inside the compiler); both go to
+  counsel; neither blocks phase 1.
+- **Why:** R-044 made the NIST harness a clean-room rewrite from NIST's documentation. Opus deleted
+  its local GnuCOBOL clone so nothing in it would be read during 1.1, and the same GPL scripts and
+  expected-result files were sitting in `oracle/prototypes/nist/`, one directory over. A clean room
+  with the reference on the shelf is not a clean room. Removed in the same commit as this decision:
+  `expand.pl`, `report.pl`, `summary.pl`, the per-module `EXEC85.conf`, and GnuCOBOL's shipped
+  `*.txt` expectations.
+- **Held by:** `.gitignore` and `corpus/fetch.sh`; `oracle/prototypes/README.md`; a `test/LicenseTest`
+  (phase 1) that fails on a file whose header names the GPL outside `corpus/` and `third_party/`.
+- **Source:** Opus raised it in HANDOFF during 1.1b; decided by Ghost with Reviewer G, 2026-10-04.
+- **Status:** in force
+- **See also:** R-002, R-015, R-044
+- **subject:** license
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-009 fixture
