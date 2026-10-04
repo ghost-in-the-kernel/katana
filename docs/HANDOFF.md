@@ -19,6 +19,8 @@ Then phase 1.1: reproduce `Total 426 426 0 0 9610 0 20 118 9748` in CI from `ora
 ## Waiting on Ghost
 
 - Counsel on R-002's license texts and R-015 (EPL-2.0 grammars), before any copy leaves the repo.
+- Whether JUnit 5 (EPL-2.0, vendored in `third_party/junit/` for tests only, never shipped) needs
+  counsel under R-015 as the che4z grammars do.
 - The provisional patent application (R-037), before any public disclosure; realistically after
   phase 4, when there is a CardDemo proof to describe.
 - R-010 (DFSORT as generated COBOL or Java) after phase 1.5 measures both.
