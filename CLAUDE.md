@@ -22,6 +22,7 @@ are built (docs/ROADMAP.md says when); a row with no files yet points at the pla
 | Why the rules are what they are (not read first; read when a rule seems arbitrary) | `docs/GHOST-IN-THE-KERNEL.md` | | |
 | The oracle: fixtures, lanes, the gate, the comparator | `oracle/` (phase 1); until then `oracle/prototypes/` | `docs/research/oracle.md` | NIST summary diff empty; CardDemo hashes |
 | A job fixture: what a lane runs; the CardDemo jobs | `oracle/fixture/Schema.java`, `oracle/fixture/FixtureCheck.java`, `oracle/fixture/carddemo/` | `docs/FIXTURE.md` | `test/katana/oracle/fixture/FixtureTest.java`, `test/katana/oracle/fixture/FixtureDocTest.java` |
+| The cobc lane: a fixture's job run under GnuCOBOL | `oracle/lane/CobcLane.java`, `oracle/lane/Steps.java`, `oracle/lane/Idcams.java`, `oracle/lane/carddemo.golden` | `docs/FIXTURE.md`, R-048 | `test/katana/oracle/lane/CardDemoLaneIntegrationTest.java`, `test/katana/oracle/lane/IdcamsTest.java` |
 | The dialect profile | `profile/Profile.java`, `profile/ibm.profile` | `docs/PROFILE.md` | `test/katana/profile/ProfileTest.java` |
 | The front end: grammar, preprocessor, source map | `front/` (phase 2); until then `front/prototypes/` | `docs/research/open_source_tools.md` | parse counts may only rise |
 | The Semantic IR | `sir/types`, `sir/build`, `sir/check` (phase 2) | `docs/SEMANTIC-IR.md` | `sir-doc.test`; data map equals `cobc -C` |
@@ -40,7 +41,8 @@ Everything runs in the pinned image (`Dockerfile`): `docker build -t katana .` o
 `gradle integration` runs what needs `cobc` and the corpus (`corpus/fetch.sh nist-cobol85-test-suite`
 first): NIST under `-std=cobol85` and `-std=ibm` (`-Dkatana.std=ibm` runs one), printing Katana's summary
 (`oracle/nist/RECONCILIATION.md` ties it to the published one, `oracle/nist/IBM-CHANGES.md` says what
-the IBM dialect changes). `corpus/fetch.sh` fetches the corpus. The study's prototypes under `*/prototypes/` each
+the IBM dialect changes), and the CardDemo jobs through the cobc lane (`--tests 'katana.oracle.lane.*'`;
+`corpus/fetch.sh carddemo` first). `corpus/fetch.sh` fetches the corpus. The study's prototypes under `*/prototypes/` each
 say how they ran.
 
 ## Before calling work done

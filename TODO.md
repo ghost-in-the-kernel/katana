@@ -8,15 +8,11 @@ the first open item has a check.
 
 ## Phase 1: the oracle and the corpus
 
-### 1.4 The cobc lane
-
-Check: POSTTRAN and TRANREPT reproduce the frozen hashes from F-02 (`aed61744…` TRANFILE unload;
-`a7d14a96…`, `19b7f04f…` TRANREPT); INTCALC and CREASTMT run once the PARM driver and the
-`CUSTREC.cpy` tab policy exist.
-
 ### 1.5 The DFSORT subset
 
-Check: every CardDemo SORT step runs; an unsupported card is a finding, not a guess.
+Check: every CardDemo SORT step runs; an unsupported card is a finding, not a guess;
+TRANREPT-STUDY reproduces the frozen hashes from F-02 (`a7d14a96…`, `19b7f04f…`) and CREASTMT
+runs end to end once the `CUSTREC.cpy` tab policy (R-016) exists (R-048).
 
 ### 1.6 The determinism gate
 

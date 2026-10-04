@@ -380,3 +380,44 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   are its structure, not its records. Also, JUnit's parameterized-test jar is not vendored.
 - **Resolved:** the strict resolver; keys moved out of the content attributes; a loop for the four
   jobs. **Caught by:** `FixtureTest`, on its first run. **Cost:** one run.
+
+### J-034 Ghost settled R-009 and moved the SORT steps to 1.5
+- **Who:** Opus asked; Ghost decided. **Class:** decision.
+- **Intent:** Phase 1.4's start: its check named TRANREPT's frozen hashes, which came from dates the
+  JCL does not use (J-031) and include the SORT step's own output, though the DFSORT subset is 1.5.
+- **Options:** for the dates, a second fixture with the study's dates, refreezing from the JCL, or
+  changing the one fixture; for SORT, moving those checks to 1.5, or a stopgap sort in 1.4.
+- **Resolved:** Ghost chose the options Opus leaned to: `TRANREPT-STUDY.fixture` beside the JCL's,
+  and SORT steps in 1.5 (R-048); and confirmed that a seconds-only clock stays refused, with 1.6
+  setting its clock outside a fixture. R-009 recorded. The profile's IBM fields go to Fable.
+- **Touched:** `theGhost.md` (R-009, R-048), docs/ROADMAP.md 1.4 and 1.5, `TODO.md`, `HANDOFF.md`.
+
+### J-035 CardDemo's REPROCT opens a comment where IDCAMS does not read
+- **Who:** Opus. **Class:** contradiction.
+- **Intent:** Phase 1.4, TRANREPT's backup step (the REPROC procedure, SYSIN from member REPROCT).
+- **Found:** REPROCT's licence comment starts `/*` in column 1. IDCAMS reads columns 2 to 72 (two
+  secondary sources; IBM's manual is blocked from here), so its first card reads `* Copyright …`,
+  which is not a command. The study never read REPROCT: it copied the KSDS with a COBOL stand-in.
+- **Options:** read column 1 (a guess against the documented rule); refuse the card with a finding.
+- **Resolved:** a finding that names the card and the rule; TRANREPT as written stops there, and
+  TRANREPT-STUDY carries the one command inline as a third commented departure (R-009). Confirming
+  the rule from the manual is in `HANDOFF.md`.
+- **Touched:** `oracle/lane/Idcams.java`, the two TRANREPT fixtures, `HANDOFF.md`.
+
+### J-036 POSTTRAN through the lane matches every frozen file, not just the one checked
+- **Who:** Opus. **Class:** measurement.
+- **Intent:** Phase 1.4's check, POSTTRAN's TRANFILE unload `aed61744…`.
+- **Found:** the lane's first run reproduced it, and also the study's reject file (`86f3b341…`, 43
+  records) and CBTRN02C's stdout (`a33ef3a7…`, 48 lines), return code 4, from the shipped data
+  loaded in key order with TCATBALF from `tcatbal.txt`. INTCALC through the PARM driver wrote 50
+  interest transactions, return code 0. Left out because no fixture needs them yet: temporary
+  datasets (the fixture schema has none) and the COBDATFT stub (none of the four jobs calls it).
+- **Touched:** `oracle/lane/`, `oracle/lane/carddemo.golden`, CI (a lane step of its own).
+
+### J-037 A SORT step allocated its outputs before the lane stopped at it
+- **Who:** Opus. **Class:** failure-caught.
+- **Intent:** Phase 1.4, stopping at SORT (R-048).
+- **Found:** the step's DDs were bound before the lane looked at its program, so CREASTMT's catalog
+  ended with an empty TRXFL.SEQ the job never wrote.
+- **Resolved:** a SORT step stops before anything is allocated. **Caught by:** reading the first
+  report before recording the golden. **Cost:** one run.

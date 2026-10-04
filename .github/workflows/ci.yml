@@ -19,8 +19,9 @@ jobs:
   # run per dialect in the image with the network off, each held to its golden (oracle/nist/
   # programs.golden, programs-ibm.golden); the reconciliation with the published summary and the
   # record of what the IBM dialect changes are in the fast loop. Each run step must finish in 3
-  # minutes, as 1.1 requires. Each step also checks the CardDemo fixtures' sources (phase 1.3), in
-  # well under a second.
+  # minutes, as 1.1 requires. Each NIST step also checks the CardDemo fixtures' sources (phase 1.3),
+  # in well under a second; the CardDemo jobs through the cobc lane (phase 1.4) are a step of their
+  # own, held to oracle/lane/carddemo.golden.
   nist:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -32,7 +33,10 @@ jobs:
         run: sh corpus/fetch.sh nist-cobol85-test-suite carddemo
       - name: Run NIST under cobc -std=cobol85, network off
         timeout-minutes: 3
-        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail -Dkatana.std=cobol85
+        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail -Dkatana.std=cobol85 --tests 'katana.oracle.nist.*' --tests 'katana.oracle.fixture.*'
       - name: Run NIST under cobc -std=ibm, network off
         timeout-minutes: 3
-        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail -Dkatana.std=ibm
+        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail -Dkatana.std=ibm --tests 'katana.oracle.nist.*' --tests 'katana.oracle.fixture.*'
+      - name: Run CardDemo through the cobc lane, network off
+        timeout-minutes: 3
+        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail --tests 'katana.oracle.lane.*'

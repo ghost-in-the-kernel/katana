@@ -467,13 +467,15 @@ passes.
     IDCAMS DEFINE/REPRO/DELETE, IEBGENER, IEFBR14, a PARM driver for `PROCEDURE DIVISION USING`,
     the LE and assembler stub facade (`CEE3ABD` with abend code capture; `COBDATFT`), indexed files
     loaded in key order.
-    *Check:* POSTTRAN and TRANREPT reproduce the frozen hashes from F-02 (`aed61744…` TRANFILE unload;
-    `a7d14a96…`, `19b7f04f…` TRANREPT); INTCALC and CREASTMT run once the PARM driver and the
-    `CUSTREC.cpy` tab policy exist.
+    *Check (R-048):* POSTTRAN reproduces the frozen hash from F-02 (`aed61744…` TRANFILE unload);
+    INTCALC runs through the PARM driver; TRANREPT-STUDY and CREASTMT run every step before their
+    SORT, which stops the job with a finding naming phase 1.5.
 1.5 **The DFSORT subset.** SORT FIELDS, INCLUDE/OMIT, SUM, a first INREC/OUTREC; anything else fails
     loudly with the control card quoted. Implemented as generated COBOL SORT (the `sortstep.cbl`
     pattern) or in Java; decision R-010 after measuring both on TRANREPT.
-    *Check:* every CardDemo SORT step runs; an unsupported card is a finding, not a guess.
+    *Check:* every CardDemo SORT step runs; an unsupported card is a finding, not a guess;
+    TRANREPT-STUDY reproduces the frozen hashes from F-02 (`a7d14a96…`, `19b7f04f…`) and CREASTMT
+    runs end to end once the `CUSTREC.cpy` tab policy (R-016) exists (R-048).
 1.6 **The determinism gate.** The original lane runs twice; the harness refuses to compare against
     anything until the two runs are identical on the logical unload; the report names what differed.
     *Check:* with the clock pinned to seconds only, the gate fails naming TRANFILE column 326; with

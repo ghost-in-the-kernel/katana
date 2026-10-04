@@ -13,9 +13,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * GnuCOBOL's `cobc` and the programs it builds, run as processes (R-003): the oracle uses the binary's
  * behaviour and output, never its source (R-045). Every run has a time limit, so a program that loops
- * is a crash, not a hung build.
+ * is a crash, not a hung build. The cobc lane for jobs (oracle/lane/) has its own runner, since it
+ * binds DDs to files and keeps stdout and stderr apart; this one stays NIST's.
  */
-// Unsure: this is the start of the cobc lane (ROADMAP 1.4) and may move there when the lane is built.
 public final class Cobc {
     /** How a process ended: its exit code (-1 when it was stopped at the time limit) and what it printed. */
     public record Result(int exit, String output) {

@@ -1,0 +1,58 @@
+# CardDemo's TRANREPT as the study ran it (F-02), beside TRANREPT.fixture, which is the JCL as
+# written (R-009). Three departures from the JCL. Two are the date range: the SYMNAMES dates are
+# 2024-03-01 to 2024-03-01 instead of 2022-01-01 to 2022-07-06, and DATEPARM holds the same range.
+# The third is the backup step's SYSIN: the JCL reads it from the REPROCT member, whose licence
+# comment opens in column 1, which IDCAMS does not read (J-035); here its one command is inline. The
+# study did not read REPROCT either: it copied the KSDS with a COBOL stand-in.
+# POSTTRAN under this clock dates all its transactions 2024-03-01, so this run keeps all 257; its
+# sorted file and report are the frozen hashes `a7d14a96…` and `19b7f04f…` (phase 1.5, R-048).
+# DATEPARM-STUDY is the study's own file. The JCL names two steps STEP05R; the procedure's is
+# STEP05R.PRC001 once expanded.
+job TRANREPT
+source carddemo:app/jcl/TRANREPT.jcl
+profile ibm sha256:52d692671d1cfaa5a0c2ad904b95afebee05e5c20773de44ffa7fcaa5edb2c88
+clock 2024-03-01 12:00:00.00 +00:00
+tz UTC
+stub CEE3ABD
+
+dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS org=KSDS lrecl=350 keys=16,0 from=job:POSTTRAN sha256=aed617444207a7ebd2684e589c8569f766fb5d1d8323a25a658f8c4c03020b48
+dataset AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS org=KSDS lrecl=50 keys=16,0 from=carddemo:app/data/ASCII/cardxref.txt framing=lines sha256=d49145cf821e7aae049706569b8bf90f6fb52e0fcc53e8099e39beb55e5c7056
+dataset AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS org=KSDS lrecl=60 keys=2,0 from=carddemo:app/data/ASCII/trantype.txt framing=lines sha256=00e01dfa3a2144cc485dd57c91afe44eb69fbd8b6455e7f27329535820dac8ec
+dataset AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS org=KSDS lrecl=60 keys=6,0 from=carddemo:app/data/ASCII/trancatg.txt framing=lines sha256=b0e57c7d51e580f3c25aad6c501ce02e04fdaeecb2d8b93d7bfb22692a8d86b9
+dataset AWS.M2.CARDDEMO.DATEPARM org=PS lrecl=80 from=repo:oracle/fixture/carddemo/DATEPARM-STUDY framing=fixed sha256=d41a85876489b433a41f19d44f6b67dec623846c88762a43b55a8ec2546e843a
+dataset AWS.M2.CARDDEMO.TRANSACT.BKUP org=GDG
+dataset AWS.M2.CARDDEMO.TRANSACT.DALY org=GDG
+dataset AWS.M2.CARDDEMO.TRANREPT org=GDG
+
+step STEP05R.PRC001 pgm=IDCAMS
+dd SYSPRINT sysout
+dd FILEIN dsn=AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS disp=SHR recfm=F lrecl=350 copybook=CVTRA05Y encoding=ascii
+dd FILEOUT dsn=AWS.M2.CARDDEMO.TRANSACT.BKUP(+1) disp=NEW,CATLG,DELETE recfm=FB lrecl=350 copybook=CVTRA05Y encoding=ascii
+dd SYSIN inline
+|     REPRO INFILE(FILEIN) OUTFILE(FILEOUT)
+
+step STEP05R pgm=SORT
+dd SORTIN dsn=AWS.M2.CARDDEMO.TRANSACT.BKUP(+1) disp=SHR recfm=FB lrecl=350 copybook=CVTRA05Y encoding=ascii
+dd SYMNAMES inline
+| TRAN-CARD-NUM,263,16,ZD
+| TRAN-PROC-DT,305,10,CH
+| PARM-START-DATE,C'2024-03-01'                                      //Date
+| PARM-END-DATE,C'2024-03-01'                                        //Date
+dd SYSIN inline
+|  SORT FIELDS=(TRAN-CARD-NUM,A)
+|  INCLUDE COND=(TRAN-PROC-DT,GE,PARM-START-DATE,AND,
+|          TRAN-PROC-DT,LE,PARM-END-DATE)
+dd SYSOUT sysout
+# DCB=(*.SORTIN): the backup's record format.
+dd SORTOUT dsn=AWS.M2.CARDDEMO.TRANSACT.DALY(+1) disp=NEW,CATLG,DELETE recfm=FB lrecl=350 copybook=CVTRA05Y encoding=ascii
+
+step STEP10R pgm=CBTRN03C
+dd SYSOUT sysout
+dd SYSPRINT sysout
+dd TRANFILE dsn=AWS.M2.CARDDEMO.TRANSACT.DALY(+1) disp=SHR recfm=FB lrecl=350 copybook=CVTRA05Y encoding=ascii
+dd CARDXREF dsn=AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS disp=SHR recfm=F lrecl=50 copybook=CVACT03Y encoding=ascii
+dd TRANTYPE dsn=AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS disp=SHR recfm=F lrecl=60 copybook=CVTRA03Y encoding=ascii
+dd TRANCATG dsn=AWS.M2.CARDDEMO.TRANCATG.VSAM.KSDS disp=SHR recfm=F lrecl=60 copybook=CVTRA04Y encoding=ascii
+# The start and end dates with one byte between them, laid out in CBTRN03C's own storage.
+dd DATEPARM dsn=AWS.M2.CARDDEMO.DATEPARM disp=SHR recfm=F lrecl=80 copybook=- encoding=ascii
+dd TRANREPT dsn=AWS.M2.CARDDEMO.TRANREPT(+1) disp=NEW,CATLG,DELETE recfm=FB lrecl=133 copybook=CVTRA07Y encoding=ascii

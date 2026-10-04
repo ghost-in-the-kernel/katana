@@ -3,10 +3,11 @@
 # report with CBTRN03C. The KSDS starts as POSTTRAN leaves it, by its key-ordered unload's hash.
 # The JCL names two steps STEP05R; the procedure's is STEP05R.PRC001 once expanded.
 #
-# Written as the JCL says: the date range 2022-01-01 to 2022-07-06. POSTTRAN under this clock dates
-# every transaction 2024-03-01, so this range selects none of them; the study's run, whose report
-# hashes phase 1.4 must reproduce, used 2024-03-01 to 2024-03-01 (docs/HANDOFF.md). DATEPARM is
-# not in CardDemo; this one states the JCL's range.
+# Written as the JCL says (R-009): the date range 2022-01-01 to 2022-07-06. POSTTRAN under this clock
+# dates every transaction 2024-03-01, so this range selects none of them; the study's run, whose
+# frozen hashes are held, is TRANREPT-STUDY.fixture. DATEPARM is not in CardDemo; this one states
+# the JCL's range. The cobc lane stops this job at its first step: REPROCT's licence comment opens
+# in column 1, which IDCAMS does not read (J-035).
 job TRANREPT
 source carddemo:app/jcl/TRANREPT.jcl
 profile ibm sha256:52d692671d1cfaa5a0c2ad904b95afebee05e5c20773de44ffa7fcaa5edb2c88

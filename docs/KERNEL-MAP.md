@@ -111,3 +111,84 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | profile | `profile/Profile.java:Profile.canonical` | called by `oracle/fixture/Fixture.java:Fixture.read` and 1 more | 2026-10-04 |  |
 | profile | `profile/Profile.java:Profile.hash` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` | 2026-10-04 |  |
 | profile | `profile/Profile.java:Profile.cobcArguments` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.CobcLane` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.run` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` and 12 more | 2026-10-04 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.run#2` | called by `oracle/lane/CobcLane.java:CobcLane.run` and 12 more | 2026-10-04 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.prepare` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` | 2026-10-04 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.libraries` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` | 2026-10-04 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.end` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` | 2026-10-04 |  |
+| oracle | `oracle/lane/Compiler.java:Compiler.Compiler` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Compiler.java:Compiler.build` | called by `oracle/lane/Datasets.java:Datasets.generated` and 3 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Compiler.java:Compiler.compile` | called by `oracle/fixture/Schema.java:Schema.values` and 5 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Compiler.java:Compiler.firstError` | called by `oracle/lane/Compiler.java:Compiler.build` | 2026-10-04 |  |
+| oracle | `oracle/lane/Compiler.java:Compiler.hash` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.Datasets` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.absolute` | called by `oracle/lane/Datasets.java:Datasets.get` and 4 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.get` | called by `oracle/fixture/Content.java:Content.records` and 44 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.all` | called by `oracle/lane/CobcLane.java:CobcLane.end` | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.sequential` | called by `oracle/lane/Idcams.java:Idcams.repro` and 3 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.indexed` | called by `oracle/lane/Idcams.java:Idcams.define` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.load` | called by `oracle/lane/Datasets.java:Datasets.indexed` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.unload` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 3 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.delete` | called by `oracle/lane/CobcLane.java:CobcLane.prepare` and 5 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.generated` | called by `oracle/lane/Datasets.java:Datasets.load` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.write` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 11 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.removeFiles` | called by `oracle/lane/Datasets.java:Datasets.load` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Exec.java:Exec.Exec` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Exec.java:Exec.run` | called by `oracle/lane/CobcLane.java:CobcLane.run` and 13 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Generated.java:Generated.Shape.tag` | called by `oracle/lane/Datasets.java:Datasets.generated` | 2026-10-04 |  |
+| oracle | `oracle/lane/Generated.java:Generated.Key.of` | called by `oracle/fixture/Fixture.java:Fixture.card` and 33 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Generated.java:Generated.Generated` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Generated.java:Generated.loader` | called by `oracle/lane/Datasets.java:Datasets.load` | 2026-10-04 |  |
+| oracle | `oracle/lane/Generated.java:Generated.unloader` | called by `oracle/lane/Datasets.java:Datasets.unload` | 2026-10-04 |  |
+| oracle | `oracle/lane/Generated.java:Generated.program` | called by `oracle/lane/Generated.java:Generated.loader` and 6 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Generated.java:Generated.keyRecord` | called by `oracle/lane/Generated.java:Generated.program` | 2026-10-04 |  |
+| oracle | `oracle/lane/Generated.java:Generated.parmDriver` | called by `oracle/lane/Programs.java:Programs.run` | 2026-10-04 |  |
+| oracle | `oracle/lane/Generated.java:Generated.cee3abd` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Generated.java:Generated.fixed` | called by `oracle/fixture/Content.java:Content.records` and 3 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.Node.value` | called by `oracle/lane/Idcams.java:Idcams.command` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.Idcams` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.run` | called by `oracle/lane/CobcLane.java:CobcLane.run` and 13 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.command` | called by `oracle/lane/Idcams.java:Idcams.run` | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.delete` | called by `oracle/lane/CobcLane.java:CobcLane.prepare` and 4 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.set` | called by `oracle/lane/Idcams.java:Idcams.command` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.define` | called by `oracle/lane/Idcams.java:Idcams.command` | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.repro` | called by `oracle/lane/Idcams.java:Idcams.command` | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.commands` | called by `oracle/lane/Idcams.java:Idcams.run` | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.nodes` | called by `oracle/lane/Idcams.java:Idcams.run` | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.list` | called by `oracle/lane/Idcams.java:Idcams.command` and 4 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.Programs` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.source` | called by `oracle/lane/Programs.java:Programs.module` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.sourceHashes` | called by `oracle/lane/CobcLane.java:CobcLane.end` | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.module` | called by `oracle/lane/CobcLane.java:CobcLane.libraries` and 3 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.stub` | called by `oracle/lane/CobcLane.java:CobcLane.libraries` | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.run` | called by `oracle/lane/CobcLane.java:CobcLane.run` and 12 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.read` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 5 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.text` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Report.java:Report.line` | called by `oracle/fixture/Fixture.java:Fixture.read` and 10 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Report.java:Report.step` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.Catalog.walk` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Report.java:Report.dataset` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Report.java:Report.finding` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` and 4 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Report.java:Report.steps` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.refusals` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Report.java:Report.datasets` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.refusals` and 4 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Report.java:Report.findings` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Report.java:Report.text` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Start.java:Start.Start` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Start.java:Start.catalog` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` | 2026-10-04 |  |
+| oracle | `oracle/lane/Start.java:Start.dataset` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Start.java:Start.source` | called by `oracle/lane/Programs.java:Programs.module` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Steps.java:Steps.Steps` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Steps.java:Steps.run` | called by `oracle/lane/CobcLane.java:CobcLane.run` and 13 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Steps.java:Steps.bypassed` | called by `oracle/lane/Steps.java:Steps.run` | 2026-10-04 |  |
+| oracle | `oracle/lane/Steps.java:Steps.execute` | called by `oracle/lane/Steps.java:Steps.run` and 3 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Steps.java:Steps.idcams` | called by `oracle/lane/Steps.java:Steps.execute` | 2026-10-04 |  |
+| oracle | `oracle/lane/Steps.java:Steps.program` | called by `oracle/lane/Generated.java:Generated.loader` and 6 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Steps.java:Steps.bind` | called by `oracle/lane/Steps.java:Steps.execute` | 2026-10-04 |  |
+| oracle | `oracle/lane/Steps.java:Steps.allocate` | called by `oracle/lane/Steps.java:Steps.bind` | 2026-10-04 |  |
+| oracle | `oracle/lane/Steps.java:Steps.dispose` | called by `oracle/lane/Steps.java:Steps.execute` | 2026-10-04 |  |
+| oracle | `oracle/lane/Steps.java:Steps.write` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 11 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Utilities.java:Utilities.Utilities` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Utilities.java:Utilities.cards` | called by `oracle/fixture/Fixture.java:Fixture.card` and 4 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Utilities.java:Utilities.sysin` | called by `oracle/lane/Steps.java:Steps.idcams` | 2026-10-04 |  |
+| oracle | `oracle/lane/Utilities.java:Utilities.iebgener` | called by `oracle/lane/Steps.java:Steps.execute` | 2026-10-04 |  |
+| oracle | `oracle/lane/Idcams.java:Idcams.cluster` | called by `oracle/lane/Idcams.java:Idcams.define` | 2026-10-04 |  |

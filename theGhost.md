@@ -140,6 +140,26 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-040 (a tithe lands like any step), R-042 (when a metric arms)
 - **subject:** process
 
+### R-009: The fixture schema
+- **Decision:** A job fixture is the text format `docs/FIXTURE.md` defines and `oracle/fixture/`
+  checks (FIXTURE-01 to 08): addressed by the SHA-256 of its canonical text, each starting dataset
+  held by the SHA-256 of its logical records, valid for one profile named by hash. A clock pinned
+  to the second alone is refused like no clock (FIXTURE-03); a run that must use such a clock (phase
+  1.6's check, which shows the gate failing on it) sets it outside the fixture. A fixture states the
+  JCL as written; a run that departs from it is a second fixture beside it with each departure
+  commented (TRANREPT: `TRANREPT-STUDY.fixture`, the study's dates).
+- **Why:** F-02: hundredths of a second leaked into TRANFILE column 326 when the clock was pinned to
+  the second, so a seconds-only clock is unpinned in effect, and refusing it before a run is cheaper
+  than a gate failure after two; the gate still proves itself on one (J-030). The study's TRANREPT
+  run used dates the JCL does not, and its hashes are the ones phase 1.4 onward reproduce (J-031);
+  keeping the JCL's fixture and the study's side by side loses neither.
+- **Held by:** `docs/FIXTURE.md`; `test/katana/oracle/fixture/FixtureTest.java`, `FixtureDocTest.java`.
+- **Source:** Opus drafted the schema in phase 1.3 and raised both choices; decided by Ghost,
+  2026-10-04. The profile's IBM option fields (J-029) are with Ghost and Fable, not part of this.
+- **Status:** in force
+- **See also:** R-012 (the double-run gate, reserved), R-048
+- **subject:** oracle-fixture
+
 ### R-037: Patent protection is intended; nothing public before a provisional is filed
 - **Decision:** Ghost intends to seek patent protection. Candidate claims: per-pass translation
   validation for legacy migration with an append-only provenance ledger; the double-run determinism
@@ -341,11 +361,25 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-044, R-045, P-03
 - **subject:** oracle-lane
 
+### R-048: SORT steps run in phase 1.5, not 1.4
+- **Decision:** The cobc lane (1.4) runs every step of a fixture except SORT, which stops the job with
+  a finding naming phase 1.5. 1.4's check is POSTTRAN's frozen hashes, INTCALC through the PARM
+  driver, and TRANREPT and CREASTMT up to their SORT steps. 1.5's check gains TRANREPT-STUDY's frozen
+  hashes (`a7d14a96…` is the sort's own output) and CREASTMT end to end, with the `CUSTREC.cpy` tab
+  policy (R-016) that CBSTM03A, after CREASTMT's SORT, needs.
+- **Why:** TRANREPT and CREASTMT each have a SORT step, and the DFSORT subset is 1.5; a stopgap sort
+  in 1.4 would be built twice, and TRANREPT is the job R-010 measures the two sort designs on.
+- **Held by:** docs/ROADMAP.md 1.4 and 1.5; `TODO.md`.
+- **Source:** Opus raised it at the start of 1.4 with a lean; decided by Ghost, 2026-10-04, for the
+  option Opus leaned to.
+- **Status:** in force
+- **See also:** R-009, R-010 (reserved), R-016 (reserved)
+- **subject:** roadmap
+
 ---
 
-Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-009 fixture
-schema; R-010 DFSORT implementation; R-011 what the comparator normalizes and refuses; R-012 the
-double-run gate; R-013 what a proof covers and never covers; R-014 CICS/DB2 grammar graft; R-015
+Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-010 DFSORT
+implementation; R-011 what the comparator normalizes and refuses; R-012 the double-run gate; R-013 what a proof covers and never covers; R-014 CICS/DB2 grammar graft; R-015
 EPL-2.0 grammars (counsel); R-016 indicator-column and tab policy; R-017 the IR is complete; R-018
 the attribute tuple; R-019 byte-image representation; R-020 Decimal with explicit scale; R-021 the
 dispatcher; R-022 TRUNC(OPT) as STD with a finding; R-023 float as IEEE with a finding; R-024 one

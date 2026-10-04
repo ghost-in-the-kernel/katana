@@ -116,3 +116,17 @@ at a pinned commit. The fixture carries a profile hash, so `profile/` was built 
 needs it (`docs/PROFILE.md`): compiler, version, dialect and flags, mapped to cobc arguments and
 hashed; the IBM option fields wait for the manuals. Three choices wait on Ghost as R-009
 (docs/HANDOFF.md).
+
+### 1.4 The cobc lane
+
+`oracle/lane/` runs a fixture's job under GnuCOBOL: the catalog started as the fixture says (each
+source checked against its hash, KSDSs loaded in key order with the alternate keys of the paths over
+them), DDs bound by `DD_<name>` and allocated by disposition, generations, the program built under the
+fixture's profile (a module and a PARM driver when its PROCEDURE DIVISION has USING), the CEE3ABD
+stub reporting the abend code, IDCAMS (DELETE, DEFINE CLUSTER, REPRO, SET), IEFBR14, IEBGENER, COND
+and abend bypass, and every dataset unloaded and hashed at the end. SORT stops the job with a
+finding naming 1.5 (R-048). POSTTRAN reproduces the study's frozen TRANFILE unload (`aed61744…`),
+and with it the reject file (`86f3b341…`) and the program's stdout (`a33ef3a7…`); INTCALC runs
+through the PARM driver; TRANREPT-STUDY and CREASTMT run to their SORT. `oracle/lane/carddemo.golden`
+holds all five reports; CI runs them in a step of their own. Not built, since no fixture needs them
+yet: temporary datasets (the schema has none) and the COBDATFT stub (J-036).

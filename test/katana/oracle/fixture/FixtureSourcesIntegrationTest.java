@@ -43,7 +43,7 @@ class FixtureSourcesIntegrationTest {
             }
         }
         assertEquals(List.of(), wrong);
-        assertEquals(18, checked);
+        assertEquals(23, checked);
     }
 
     private static Path source(String from) {

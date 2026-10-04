@@ -11,7 +11,8 @@ checks it; `test/katana/oracle/fixture/FixtureDocTest.java` holds this document 
 A fixture is written from the JCL, already resolved: procedures expanded (a procedure's step is
 `STEP.PROCSTEP`), symbols substituted, `DCB=(*.ddname)` referbacks written out, and STEPLIB left
 to the library path. What the JCL says that a fixture leaves out or changes is said in a comment
-beside it. Running one (DD binding, utilities, the PARM driver) is phase 1.4; DFSORT is 1.5.
+beside it. `oracle/lane/` runs one under GnuCOBOL (phase 1.4): DD binding, dispositions,
+generations, IDCAMS, IEFBR14, IEBGENER, the PARM driver, the CEE3ABD stub; SORT is phase 1.5 (R-048).
 
 Invariants are numbered FIXTURE-01 onward, in this document only, and a number is never reused.
 
