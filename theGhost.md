@@ -160,6 +160,24 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-012 (the double-run gate, reserved), R-048
 - **subject:** oracle-fixture
 
+### R-016: The indicator column is read permissively; a tab is expanded to the next 8-column stop, as a finding
+- **Decision:** Column 7 accepts any indicator character GnuCOBOL or Enterprise COBOL accepts. A tab
+  anywhere in a source or copy line is expanded to spaces to the next tab stop at columns 9, 17, 25 ...
+  (every 8, from column 1) before columns are mapped; the source map keeps the original column; a
+  finding records each file with tabs ("tab in source, expanded under the 8-column assumption").
+  The cobc lane preprocesses copybooks and sources the same way into a shadow copy, so the two lanes
+  compile identical text. The 8-column assumption is a hypothesis until the Enterprise COBOL text on
+  tabs is read; the finding says so.
+- **Why:** CardDemo's `CUSTREC.cpy` carries tabs in the indicator area and `cobc` rejects it (the
+  study); CREASTMT's full run, moved into 1.5 by R-048, cannot close without a policy. Two lanes that
+  see different text prove nothing about each other, so the expansion is done once, upstream of both.
+- **Held by:** `front/` (phase 2) and the cobc lane's preprocessing step; a fixture test on
+  `CUSTREC.cpy`; the finding.
+- **Source:** Opus raised it as a 1.5 prerequisite; decided by Ghost with Reviewer G, 2026-10-04.
+- **Status:** in force
+- **See also:** R-048, R-049, P-03
+- **subject:** front-end
+
 ### R-037: Patent protection is intended; nothing public before a provisional is filed
 - **Decision:** Ghost intends to seek patent protection. Candidate claims: per-pass translation
   validation for legacy migration with an append-only provenance ledger; the double-run determinism
@@ -373,7 +391,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Source:** Opus raised it at the start of 1.4 with a lean; decided by Ghost, 2026-10-04, for the
   option Opus leaned to.
 - **Status:** in force
-- **See also:** R-009, R-010 (reserved), R-016 (reserved)
+- **See also:** R-009, R-010 (reserved), R-016
 - **subject:** roadmap
 
 ### R-049: The IBM compile options are profile fields now, each with a verification status
@@ -400,29 +418,12 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** P-12, R-020, R-022, F-10
 - **subject:** profile
 
-### R-016: The indicator column is read permissively; a tab is expanded to the next 8-column stop, as a finding
-- **Decision:** Column 7 accepts any indicator character GnuCOBOL or Enterprise COBOL accepts. A tab
-  anywhere in a source or copy line is expanded to spaces to the next tab stop at columns 9, 17, 25 ...
-  (every 8, from column 1) before columns are mapped; the source map keeps the original column; a
-  finding records each file with tabs ("tab in source, expanded under the 8-column assumption").
-  The cobc lane preprocesses copybooks and sources the same way into a shadow copy, so the two lanes
-  compile identical text. The 8-column assumption is a hypothesis until the Enterprise COBOL text on
-  tabs is read; the finding says so.
-- **Why:** CardDemo's `CUSTREC.cpy` carries tabs in the indicator area and `cobc` rejects it (the
-  study); CREASTMT's full run, moved into 1.5 by R-048, cannot close without a policy. Two lanes that
-  see different text prove nothing about each other, so the expansion is done once, upstream of both.
-- **Held by:** `front/` (phase 2) and the cobc lane's preprocessing step; a fixture test on
-  `CUSTREC.cpy`; the finding.
-- **Source:** Opus raised it as a 1.5 prerequisite; decided by Ghost with Reviewer G, 2026-10-04.
-- **Status:** in force
-- **See also:** R-048, R-049, P-03
-- **subject:** front-end
 
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-010 DFSORT
 implementation; R-011 what the comparator normalizes and refuses; R-012 the double-run gate; R-013 what a proof covers and never covers; R-014 CICS/DB2 grammar graft; R-015
-EPL-2.0 grammars (counsel); R-016 indicator-column and tab policy; R-017 the IR is complete; R-018
+EPL-2.0 grammars (counsel); R-017 the IR is complete; R-018
 the attribute tuple; R-019 byte-image representation; R-020 Decimal with explicit scale; R-021 the
 dispatcher; R-022 TRUNC(OPT) as STD with a finding; R-023 float as IEEE with a finding; R-024 one
 emitter; R-025 indexed-file comparison on logical unload; R-026 SORT stability; R-027 stub facade
