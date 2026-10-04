@@ -10,6 +10,11 @@ that carry a `conflicts-with:` line (docs/ROADMAP.md, P-05). `docs/decisions.md`
 Statuses: `proposed`, `in force`, `superseded by R-nnn`, `withdrawn`, `refused` (decided against, so
 the question is closed).
 
+Who may write here: Ghost decides. Any agent may append a decision Ghost has made, and may add or
+correct cross-references (`See also`, `Held by`) on any entry without asking, since those change what
+a decision points at, not what it says. A change to an entry's `Decision`, `Why` or `Status` text is
+Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-042).
+
 ---
 
 ### R-001: Java 21 for everything
@@ -206,6 +211,26 @@ the question is closed).
 - **Status:** in force
 - **See also:** R-001, R-038
 - **subject:** toolchain
+
+### R-042: Who writes theGhost.md; a metric arms when first met; tools live outside the modules
+- **Decision:** Three housekeeping rules from phase 0.6. (a) Any agent may append a decision Ghost
+  made and may add or correct `See also` and `Held by` lines on any entry; `Decision`, `Why` and
+  `Status` text changes need Ghost. (b) A metric in `docs/AGENT.md` is *armed* the first time it is
+  measured within its target; until then it is measured and reported, never ratcheted. "Docs lines per
+  source line" (target < 0.35) arms when the first module carries real code (phase 2); the other nine
+  armed in phase 0. (c) `scripts/` (the kernel-map and metrics tools) and `test/` are outside the
+  thirteen modules; `modules.test` treats them as outside the product.
+- **Why:** (a) `theGhost.md` is Ghost's file; the agent that proposed a decision and the agent that
+  links it need no permission to keep its cross-references true, and the "decisions without See also"
+  metric cannot be worked otherwise. (b) A ratchet on a metric that cannot be met before code exists
+  can only ever report "worse", which trains agents to ignore it; the target is from Suite Builder at
+  maturity and stays. (c) The tools that measure the product are not the product.
+- **Held by:** this file's header; `test/MetricsTest.java` (an unarmed metric is reported with
+  "not armed", not compared); `docs/modules.json` intro.
+- **Source:** Opus raised all three during 0.6; decided by Ghost with Reviewer G, 2026-10-04.
+- **Status:** in force
+- **See also:** R-008, R-038
+- **subject:** process
 
 ---
 

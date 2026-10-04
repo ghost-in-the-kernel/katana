@@ -3,7 +3,10 @@
 What an agent working in Katana can count on, each line a measurable (docs/ROADMAP.md 4.4), and the
 metrics the navigation tithe ratchets (ROADMAP 5, R-008). A metric may improve; it never regresses
 without a decision in `theGhost.md`. `test/MetricsTest.java` holds the table: within its target a
-metric may move freely; past it, it may not get worse than the value measured here.
+metric may move freely; past it, it may not get worse than the value measured here. A metric is
+**armed** the first time it is measured within its target (R-042); until then it is reported with
+"not armed" and not compared. Nine metrics armed in phase 0; "docs lines per source line" arms when
+the first module carries real code.
 
 ## The contract
 
@@ -38,6 +41,6 @@ fast loop and the skipped tests are measured after a run, so the test does not h
 | Functions over 20 paths | 0 new | 0 | branching is where agents misread |
 | Duplicate helpers (same body, two names) | 0 | 0 | the agent edits one and misses the other |
 | Decisions without `See also` | 0 | 7 | grep misses what links find (T-18) |
-| Docs lines per source line | < 0.35 | 1.13 | Suite Builder reached 0.37 and it hurt |
+| Docs lines per source line | < 0.35 | 1.13 (not armed: no module has code yet, R-042) | Suite Builder reached 0.37 and it hurt |
 | Stale generated artifacts | 0 | 0 | detected by test |
 | Skipped tests reported on the fast loop | 0 | 0 | a real skip hides among 119 (T-15) |
