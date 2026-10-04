@@ -15,9 +15,11 @@ jobs:
       - name: Build and test, network off
         run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle build --offline --warning-mode fail
 
-  # NIST through the cobc lane (docs/ROADMAP.md 1.1): the source fetched (network on), then the run
-  # in the image with the network off, held to oracle/nist/programs.golden; the reconciliation with
-  # the published summary is in the fast loop. The run step must finish in 3 minutes, as 1.1 requires.
+  # NIST through the cobc lane (docs/ROADMAP.md 1.1, 1.2): the source fetched (network on), then one
+  # run per dialect in the image with the network off, each held to its golden (oracle/nist/
+  # programs.golden, programs-ibm.golden); the reconciliation with the published summary and the
+  # record of what the IBM dialect changes are in the fast loop. Each run step must finish in 3
+  # minutes, as 1.1 requires.
   nist:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -27,6 +29,9 @@ jobs:
         run: docker build -t katana .
       - name: Fetch the NIST source (pinned, hash-checked)
         run: sh corpus/fetch.sh nist-cobol85-test-suite
-      - name: Run NIST under cobc, network off
+      - name: Run NIST under cobc -std=cobol85, network off
         timeout-minutes: 3
-        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail
+        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail -Dkatana.std=cobol85
+      - name: Run NIST under cobc -std=ibm, network off
+        timeout-minutes: 3
+        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail -Dkatana.std=ibm

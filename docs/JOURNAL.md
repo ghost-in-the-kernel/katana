@@ -290,3 +290,30 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
 - **Cost:** six steps (a to f), about three and a quarter hours (1.1a at about 14:55 UTC, CI green at
   18:10), three Ghost decisions (R-044, R-045, R-047), and three places where NIST's documentation
   and its files disagreed (J-011, J-015, J-022).
+
+### J-027 The IBM run's changes, each measured to one flag
+- **Who:** Opus. **Class:** measurement.
+- **Intent:** Phase 1.2, every change from the cobol85 run either a behaviour the profile must model
+  or a test that depends on the dialect.
+- **Found:** 21 runs change; 101 more failed tests and 7 more programs that do not compile. Adding one
+  GnuCOBOL flag at a time to the cobol85 run reproduces every added failure: `-farithmetic-osvs` 61,
+  `-fno-binary-truncate` 8, `-fsection-segments=ignore` 31 (NC106A needs two of them, 39 and 3); the
+  seventh compile failure, NC211A, is `77 NOTHING`, a word reserved under ibm like the six ST
+  programs' CHAR; ST117A loses its one test because ST115A no longer compiles. The flags were found
+  from `cobc --help` and experiment only (R-045).
+- **Options:** a reviewed list of changes; a record whose causes the test checks against the two
+  goldens.
+- **Resolved:** `IBM-CHANGES.md` with a fixed list of five causes, the measured failures beside each
+  profile cause, held by `DialectChangesTest`. The roadmap names the baseline `nist-ibm.txt`; it is
+  `programs-ibm.golden`, beside `programs.golden`, since the integration test holds both the same way.
+  Flagged here rather than renamed silently.
+- **Touched:** `oracle/nist/` (`Cobc`, `Exec85`, `ModuleRun`, `DialectChanges`, `exec85-ibm.cards`,
+  `programs-ibm.golden`, `IBM-CHANGES.md`), `build.gradle`, CI, `HANDOFF.md`.
+
+### J-028 The paths metric refused a checker over 20 paths
+- **Who:** Opus. **Class:** failure-caught.
+- **Intent:** Phase 1.2, the change record's checker.
+- **Found:** `DialectChanges.check` was written as one function; the fast loop failed with
+  "Functions over 20 paths is 1, worse than the 0.0 recorded".
+- **Resolved:** split into `check`, `causes` and `measured`; no limit raised.
+- **Caught by:** `MetricsTest`, on the first run. **Cost:** one fast loop.

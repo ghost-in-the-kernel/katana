@@ -36,7 +36,9 @@ Everything runs in the pinned image (`Dockerfile`): `docker build -t katana .` o
 20 s). `gradle metrics` prints `docs/AGENT.md`'s numbers and the warnings
 (`--args=--time` also times the fast loop); `gradle kernelMap` adds new functions to the kernel map.
 `gradle integration` runs what needs `cobc` and the corpus (`corpus/fetch.sh nist-cobol85-test-suite`
-first): NIST, printing Katana's summary (`oracle/nist/RECONCILIATION.md` ties it to the published one). `corpus/fetch.sh` fetches the corpus. The study's prototypes under `*/prototypes/` each
+first): NIST under `-std=cobol85` and `-std=ibm` (`-Dkatana.std=ibm` runs one), printing Katana's summary
+(`oracle/nist/RECONCILIATION.md` ties it to the published one, `oracle/nist/IBM-CHANGES.md` says what
+the IBM dialect changes). `corpus/fetch.sh` fetches the corpus. The study's prototypes under `*/prototypes/` each
 say how they ran.
 
 ## Before calling work done

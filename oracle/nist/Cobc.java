@@ -25,23 +25,35 @@ public final class Cobc {
     }
 
     private final Duration limit;
+    private final String dialect;
 
+    /** Under COBOL 85 (`-std=cobol85`). */
     public Cobc(Duration limit) {
-        this.limit = limit;
+        this(limit, "cobol85");
     }
 
-    /** Compiles a source in a folder into an executable (`-x`) named after it, under COBOL 85. */
+    /** Under a GnuCOBOL dialect (`-std=<dialect>`): part of the profile a result is valid for (P-12). */
+    public Cobc(Duration limit, String dialect) {
+        this.limit = limit;
+        this.dialect = dialect;
+    }
+
+    public String dialect() {
+        return dialect;
+    }
+
+    /** Compiles a source in a folder into an executable (`-x`) named after it, under this dialect. */
     public Result compile(Path dir, String source, List<String> flags) {
         return cobc(dir, source, "-x", flags);
     }
 
-    /** Compiles a source in a folder into a module another program CALLs (`-m`), under COBOL 85. */
+    /** Compiles a source in a folder into a module another program CALLs (`-m`), under this dialect. */
     public Result compileModule(Path dir, String source, List<String> flags) {
         return cobc(dir, source, "-m", flags);
     }
 
     private Result cobc(Path dir, String source, String kind, List<String> flags) {
-        List<String> command = new ArrayList<>(List.of("cobc", "-std=cobol85", kind));
+        List<String> command = new ArrayList<>(List.of("cobc", "-std=" + dialect, kind));
         command.addAll(flags);
         command.add(source);
         return run(dir, command, Map.of());

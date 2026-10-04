@@ -83,6 +83,8 @@ tasks.register('integration', Test) {
     systemProperty 'katana.root', rootDir.absolutePath
     // `-Dkatana.record=true` rewrites the integration goldens from the run (their diff is the review).
     systemProperty 'katana.record', System.getProperty('katana.record', 'false')
+    // `-Dkatana.std=ibm` runs one dialect of the NIST run only; by default both.
+    systemProperty 'katana.std', System.getProperty('katana.std', 'cobol85,ibm')
     outputs.upToDateWhen { false }
     testLogging {
         events = ['passed', 'failed', 'skipped']

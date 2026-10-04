@@ -16,8 +16,11 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
- * Every NIST module run under cobc (1.1e), each run held to oracle/nist/programs.golden (R-047).
- * `gradle integration -Dkatana.record=true` rewrites the golden from the run, for review in its diff.
+ * Every NIST module run under cobc, each run held to its golden (R-047): under `-std=cobol85`
+ * oracle/nist/programs.golden (1.1), under `-std=ibm` oracle/nist/programs-ibm.golden (1.2).
+ * `-Dkatana.std=ibm` runs one dialect only (CI runs each in its own step); `-Dkatana.record=true`
+ * rewrites the goldens from the run, for review in their diff. EXEC85 itself is tooling and is always
+ * compiled under COBOL 85.
  */
 @Tag("integration")
 class ModuleRunIntegrationTest {
@@ -32,32 +35,40 @@ class ModuleRunIntegrationTest {
 
     @Test
     void everyRunIsTheGoldens() throws Exception {
-        Path work = ROOT.resolve("build/nist");
+        for (String dialect : System.getProperty("katana.std", "cobol85,ibm").split(",")) everyRunIsTheGolden(dialect);
+    }
+
+    private void everyRunIsTheGolden(String dialect) throws Exception {
+        Path work = ROOT.resolve("build/nist/" + dialect);
         Files.createDirectories(work);
-        Cobc cobc = new Cobc(Duration.ofSeconds(30));
+        Cobc cobc = new Cobc(Duration.ofSeconds(30), dialect);
+        Path overlay = ROOT.resolve("oracle/nist/exec85-" + dialect + ".cards");
+        String base = Files.readString(ROOT.resolve("oracle/nist/exec85.cards"));
+        List<String> cards = Files.exists(overlay) ? Exec85.cards(base, Files.readString(overlay)) : Exec85.cards(base);
         List<Population.Member> extracted = Exec85.run(ROOT.resolve("corpus/nist-cobol85-test-suite/newcob.val"),
-                Exec85.cards(Files.readString(ROOT.resolve("oracle/nist/exec85.cards"))), Files.createTempDirectory(work, "exec85"), cobc);
+                cards, Files.createTempDirectory(work, "exec85"), new Cobc(Duration.ofSeconds(30)));
+        Map<String, String> switches = Exec85.switches(cards);
         RunNotes notes = RunNotes.read(Files.readString(ROOT.resolve("oracle/nist/run-notes")));
         Map<String, Future<List<ModuleRun.Outcome>>> runs = new LinkedHashMap<>();
         List<String> lines = new ArrayList<>();
         try (ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
             for (String module : MODULES) {
                 Path dir = Files.createTempDirectory(work, module);
-                runs.put(module, pool.submit(() -> ModuleRun.run(module, extracted, notes, dir, cobc)));
+                runs.put(module, pool.submit(() -> ModuleRun.run(module, extracted, notes, switches, dir, cobc)));
             }
             for (var run : runs.entrySet()) {
                 Map<String, Integer> seen = new LinkedHashMap<>();
                 for (ModuleRun.Outcome o : run.getValue().get()) lines.add(line(run.getKey(), o, seen.merge(o.program(), 1, Integer::sum)));
             }
         }
-        String got = HEADER + String.join("\n", lines) + "\n";
+        String got = HEADER.replace("-std=cobol85", "-std=" + dialect) + String.join("\n", lines) + "\n";
         Files.writeString(work.resolve("programs.golden"), got);
-        String summary = summary(Reconciliation.golden(got));
+        String summary = summary(Reconciliation.golden(got)).replace("NIST under cobc", "NIST under cobc -std=" + dialect);
         Files.writeString(work.resolve("summary.txt"), summary);
         System.out.print(summary);
-        Path golden = ROOT.resolve("oracle/nist/programs.golden");
+        Path golden = ROOT.resolve(dialect.equals("cobol85") ? "oracle/nist/programs.golden" : "oracle/nist/programs-" + dialect + ".golden");
         if (Boolean.getBoolean("katana.record")) Files.writeString(golden, got);
-        assertEquals(Files.readString(golden), got);
+        assertEquals(Files.exists(golden) ? Files.readString(golden) : "(no golden for -std=" + dialect + ")", got);
     }
 
     /**

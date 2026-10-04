@@ -1,0 +1,6 @@
+# The X-cards that differ under the IBM dialect (`-std=ibm`), laid over exec85.cards by number (1.2).
+# X-cards are implementor-names, so they belong to the profile (P-12): IBM's switches are UPSI-0 to
+# UPSI-7, and `cobc -std=ibm` refuses SWITCH-1 as a system-name. UPSI-n is cobc's runtime switch n.
+# switches: X-51 must be ON at run time and X-52 OFF (Appendix D)
+X-051   UPSI-0.
+X-052   UPSI-1.

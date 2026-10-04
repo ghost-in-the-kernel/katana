@@ -8,10 +8,6 @@ the first open item has a check.
 
 ## Phase 1: the oracle and the corpus
 
-### 1.2 Run NIST under `-std=ibm`
-
-Check: a `nist-ibm.txt` baseline committed and held by a test.
-
 ### 1.3 The job fixture model
 
 Check: the four CardDemo jobs (POSTTRAN, TRANREPT, INTCALC, CREASTMT) are expressible; a fixture

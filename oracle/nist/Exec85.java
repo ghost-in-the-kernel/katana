@@ -37,6 +37,35 @@ public final class Exec85 {
         return annotated.lines().filter(line -> !line.isBlank() && !line.startsWith("#")).toList();
     }
 
+    /** A profile's cards: the base cards with each X-card the overlay holds replaced by the overlay's (1.2). */
+    public static List<String> cards(String base, String overlay) {
+        Map<String, String> over = new java.util.LinkedHashMap<>();
+        for (String card : cards(overlay)) {
+            if (!card.startsWith("X-")) throw new IllegalArgumentException("an overlay holds X-cards only: " + card);
+            over.put(card.substring(0, 5), card);
+        }
+        List<String> merged = new ArrayList<>();
+        for (String card : cards(base)) merged.add(card.startsWith("X-") ? over.getOrDefault(card.substring(0, 5), card) : card);
+        for (String number : over.keySet()) {
+            if (merged.stream().noneMatch(c -> c.startsWith(number))) throw new IllegalArgumentException(number + " is not in the base cards");
+        }
+        return merged;
+    }
+
+    /**
+     * The runtime switches the cards ask for: X-51's switch on and X-52's off (Appendix D), as cobc's
+     * COB_SWITCH_n, where SWITCH-n and UPSI-n are both switch n.
+     */
+    public static Map<String, String> switches(List<String> cards) {
+        Map<String, String> env = new java.util.LinkedHashMap<>();
+        for (String card : cards) {
+            java.util.regex.Matcher m = java.util.regex.Pattern.compile("^X-05([12])\\d*\\s+(?:SWITCH-|UPSI-)(\\d)\\.").matcher(card);
+            if (m.find()) env.put("COB_SWITCH_" + m.group(2), m.group(1).equals("1") ? "ON" : "OFF");
+        }
+        if (env.size() != 2) throw new IllegalArgumentException("X-51 and X-52 must each name a switch: " + env);
+        return env;
+    }
+
     /** EXEC85's source from the population, each of its five files assigned to a name in its folder. */
     public static List<String> program(List<Population.Member> population) {
         Population.Member exec85 = population.stream().filter(m -> m.name().equals("EXEC85")).findFirst()

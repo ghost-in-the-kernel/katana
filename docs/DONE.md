@@ -88,3 +88,16 @@ the per-program conditions in `run-notes`. Katana's own environment took failed 
 `programs.golden` (426 runs) is what each footer reports (R-047); `RECONCILIATION.md` explains every
 program that differs from the published summary with one of eight reasons, four of them rules the
 test applies, and `ReconciliationTest` rebuilds every published row exactly.
+
+### 1.2 Run NIST under `-std=ibm`
+
+The NIST run under both dialects; the IBM profile's own X-cards in `oracle/nist/exec85-ibm.cards`
+(IBM's switches are UPSI-0 and UPSI-1). The baseline is `oracle/nist/programs-ibm.golden` (the
+roadmap's `nist-ibm.txt`, named like the cobol85 golden; J-027): `Total 426 406 19 1 9126 106 29
+143 9404`. 21 runs change from cobol85, each a line of `oracle/nist/IBM-CHANGES.md` with its cause;
+`DialectChangesTest` fails on a change with no line, a line with no change, or a cause that does not
+hold. Three causes are behaviours the profile must model, each one GnuCOBOL flag whose failures were
+measured alone on the cobol85 run and must add up to the run's: `arithmetic-osvs` (61 failures over
+seven programs), `binary-truncation` (8, three), `section-segments` (31, four). Seven programs use a
+word the IBM dialect reserves (CHAR, NOTHING) and no longer compile; one follows a chain that does.
+CI runs each dialect in its own step, each under 3 minutes.

@@ -2,9 +2,9 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 are done.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0, 1.1 and 1.2 are done.
 
-Phase 1.1 is done. Next: phase 1.2, NIST under `-std=ibm`, every change from the cobol85 run recorded.
+Phases 1.1 and 1.2 are done. Next: phase 1.3, the job fixture model.
 
 ## Waiting on Ghost
 
@@ -18,8 +18,10 @@ Phase 1.1 is done. Next: phase 1.2, NIST under `-std=ibm`, every change from the
 
 ## Waiting on a run
 
-- NIST under `-std=ibm` (phase 1.2): never run; the baseline must be recorded before `rt/Decimal` is
-  designed.
+- NIST under `-std=ibm` (phase 1.2) is recorded (`oracle/nist/IBM-CHANGES.md`); three of its causes
+  are what `rt/Decimal` and the profile must model before phase 3.1 freezes the numeric runtime:
+  IBM's intermediate precision (`-farithmetic-osvs`, 61 failures), binary items not truncated
+  (`-fno-binary-truncate`, 8) and segment numbers ignored (`-fsection-segments=ignore`, 31).
 - The IBM Enterprise COBOL 6.x manuals (intermediate results appendix, TRUNC, NUMPROC, SYNC, CICS
   translator output): HTTP 403 from the study's container; must be read from an unblocked network
   before phase 3.1 freezes the numeric runtime.
