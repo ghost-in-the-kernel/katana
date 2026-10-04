@@ -24,7 +24,7 @@ final class ModulesTest {
     private static final Pattern PACKAGE = Pattern.compile("(?m)^package ([\\w.]+);");
     private static final List<String> MODEL_CLIENTS =
             List.of("com.anthropic", "com.openai", "dev.langchain4j", "com.google.cloud.vertexai", "software.amazon.awssdk.services.bedrock");
-    private static final Set<String> NOT_SOURCE = Set.of("test", "build", "third_party", "corpus", "docs");
+    private static final Set<String> NOT_SOURCE = Set.of("test", "scripts", "build", "third_party", "corpus", "docs");
 
     public static void main(String[] args) {
         run().exit();

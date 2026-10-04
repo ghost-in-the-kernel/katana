@@ -8,10 +8,6 @@ the first open item has a check.
 
 ## Phase 0: founding
 
-### 0.6 Kernel map and metrics scripts
-
-Check: `metrics` prints the table of section 5 with phase-0 values.
-
 ### 0.7 Tithe pass 0
 
 Check: the fresh-agent trial on the empty project ("add a module") opens `CLAUDE.md`, then

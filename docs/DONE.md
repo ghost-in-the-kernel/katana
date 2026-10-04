@@ -36,3 +36,11 @@ held to inputs it must reject. Decisions: R-038, R-039.
 the jars in `third_party/` (`third_party/MANIFEST.md`), and it refuses any Gradle but 8.14.3. The doc
 tests run under JUnit (`test/DocTests.java`). `.github/workflows/ci.yml` builds the image and runs
 `gradle build --offline` with `--network none`. Checked: a fresh clone built that way in 12 s.
+
+### 0.6 Kernel map and metrics scripts
+
+Ported from Suite Builder's `kernel-scan.mjs` and `kernel-metrics.mjs` to Java under `scripts/`,
+reading source with the JDK's own parser (no dependency). `gradle metrics` prints the table of
+ROADMAP 5 and the warnings of 4.2; `gradle kernelMap` appends a row per new function in a module to
+`docs/KERNEL-MAP.md` (empty: no module has source yet). `test/MetricsTest.java` ratchets the recorded
+values; `test/KernelMapTest.java` fails on a function the map lacks or one gone with no closing row.

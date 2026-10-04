@@ -23,7 +23,7 @@ are built (docs/ROADMAP.md says when); a row with no files yet points at the pla
 | The Semantic IR | `sir/types`, `sir/build`, `sir/check` (phase 2) | `docs/SEMANTIC-IR.md` | `sir-doc.test`; data map equals `cobc -C` |
 | The literal lowering and the runtime | `lower/`, `rt/` (phase 3) | `docs/research/semantic_traps.md` until `docs/SEMANTIC-IR.md` covers it | the 359 autotests; NIST through the java lane |
 | Intent, passes, the ledger | `intent/`, `passes/`, `ledger/` (phases 5–6) | `docs/PROOF.md` | every golden byte-identical after every pass |
-| The agent's environment | `docs/AGENT.md`, `docs/KERNEL-MAP.md` | `docs/ROADMAP.md` §5 | `test/MetricsTest.java` (phase 0.6) |
+| The agent's environment: metrics, the kernel map | `docs/AGENT.md`, `docs/KERNEL-MAP.md`, `scripts/Metrics.java`, `scripts/KernelMap.java` | `docs/ROADMAP.md` §4.3, §5 | `test/MetricsTest.java`, `test/KernelMapTest.java` |
 | The corpus | `corpus/MANIFEST.md`, `corpus/fetch.sh`, `corpus/scan.sh` | licenses in the manifest | a file with no license fails |
 
 ## Commands
@@ -31,8 +31,9 @@ are built (docs/ROADMAP.md says when); a row with no files yet points at the pla
 Everything runs in the pinned image (`Dockerfile`): `docker build -t katana .` once, then
 `docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle test --offline`.
 `gradle build --offline` builds; `gradle test --offline` is the fast loop (doc and unit tests, under
-20 s). To be written: `gradle integration` (phase 1: cobc lane, NIST, CardDemo), `gradle metrics`
-(phase 0.6). `corpus/fetch.sh` fetches the corpus. The study's prototypes under `*/prototypes/` each
+20 s). `gradle metrics` prints `docs/AGENT.md`'s numbers and the warnings
+(`--args=--time` also times the fast loop); `gradle kernelMap` adds new functions to the kernel map.
+To be written: `gradle integration` (phase 1: cobc lane, NIST, CardDemo). `corpus/fetch.sh` fetches the corpus. The study's prototypes under `*/prototypes/` each
 say how they ran.
 
 ## Before calling work done

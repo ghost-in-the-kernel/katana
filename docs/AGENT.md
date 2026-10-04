@@ -2,8 +2,8 @@
 
 What an agent working in Katana can count on, each line a measurable (docs/ROADMAP.md 4.4), and the
 metrics the navigation tithe ratchets (ROADMAP 5, R-008). A metric may improve; it never regresses
-without a decision in `theGhost.md`. `test/metrics.test` holds this file once the metrics script
-exists (phase 0.6); until then the measured column is empty, not guessed.
+without a decision in `theGhost.md`. `test/MetricsTest.java` holds the table: within its target a
+metric may move freely; past it, it may not get worse than the value measured here.
 
 ## The contract
 
@@ -26,17 +26,18 @@ exists (phase 0.6); until then the measured column is empty, not guessed.
 
 ## The metrics
 
-Measured by `gradle metrics` (phase 0.6) and recorded here at every tithe pass.
+Measured by `gradle metrics --args=--time` in the image and recorded here at every tithe pass; the
+fast loop and the skipped tests are measured after a run, so the test does not hold them.
 
-| Metric | Phase 0 target | Measured | Why it matters to the agent |
+| Metric | Phase 0 target | Measured (0.6, 2026-10-04) | Why it matters to the agent |
 | --- | --- | --- | --- |
-| Mandatory context (words) | < 1,500 | | every task pays it |
-| Fast loop (s) | < 20 | | the agent runs it after every edit |
-| Largest source file (lines) | < 400 | | fits a read without paging |
-| Files a routing row opens | ≤ 5 | | first five reads decide the task |
-| Functions over 20 paths | 0 new | | branching is where agents misread |
-| Duplicate helpers (same body, two names) | 0 | | the agent edits one and misses the other |
-| Decisions without `See also` | 0 | | grep misses what links find (T-18) |
-| Docs lines per source line | < 0.35 | | Suite Builder reached 0.37 and it hurt |
-| Stale generated artifacts | 0 | | detected by test |
-| Skipped tests reported on the fast loop | 0 | | a real skip hides among 119 (T-15) |
+| Mandatory context (words) | < 1,500 | 631 | every task pays it |
+| Fast loop (s) | < 20 | 9 | the agent runs it after every edit |
+| Largest source file (lines) | < 400 | 179 | fits a read without paging |
+| Files a routing row opens | ≤ 5 | 4 | first five reads decide the task |
+| Functions over 20 paths | 0 new | 0 | branching is where agents misread |
+| Duplicate helpers (same body, two names) | 0 | 0 | the agent edits one and misses the other |
+| Decisions without `See also` | 0 | 7 | grep misses what links find (T-18) |
+| Docs lines per source line | < 0.35 | 1.13 | Suite Builder reached 0.37 and it hurt |
+| Stale generated artifacts | 0 | 0 | detected by test |
+| Skipped tests reported on the fast loop | 0 | 0 | a real skip hides among 119 (T-15) |

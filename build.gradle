@@ -15,14 +15,36 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 sourceSets {
-    // Until the modules have source, the only code is the doc tests under test/ (R-038).
+    // The project's own tooling (phase 0.6): the kernel map and the metrics. Never shipped.
+    scripts {
+        java.srcDirs = ['scripts']
+    }
+    // Until the modules have source, the tests are the doc tests and the scripts' tests (R-038).
     test {
         java.srcDirs = ['test']
+        compileClasspath += scripts.output
+        runtimeClasspath += scripts.output
     }
 }
 
 dependencies {
+    scriptsImplementation files('third_party/gson/gson-2.11.0.jar')
+    testImplementation files('third_party/gson/gson-2.11.0.jar')
     testImplementation fileTree(dir: 'third_party/junit', include: '*.jar')
+}
+
+tasks.register('metrics', JavaExec) {
+    description = 'Prints the metrics of docs/AGENT.md and the warnings of docs/ROADMAP.md 4.2.'
+    classpath = sourceSets.scripts.runtimeClasspath
+    mainClass = 'Metrics'
+    systemProperty 'katana.root', rootDir.absolutePath
+}
+
+tasks.register('kernelMap', JavaExec) {
+    description = 'Appends to docs/KERNEL-MAP.md a row for every function in a module it does not hold.'
+    classpath = sourceSets.scripts.runtimeClasspath
+    mainClass = 'KernelMap'
+    systemProperty 'katana.root', rootDir.absolutePath
 }
 
 tasks.named('test') {

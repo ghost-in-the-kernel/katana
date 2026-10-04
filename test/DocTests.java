@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-/** The doc tests of docs/ROADMAP.md 4.1 under JUnit: each must report no problem. */
+/** The tests of docs/ROADMAP.md 4.1 under JUnit, the documents' and the kernel's: each must report no problem. */
 class DocTests {
     @Test
     void ghost() {
@@ -28,5 +28,15 @@ class DocTests {
     @Test
     void todo() {
         assertEquals(List.of(), TodoTest.run().problems());
+    }
+
+    @Test
+    void kernelMap() {
+        assertEquals(List.of(), KernelMapTest.run().problems());
+    }
+
+    @Test
+    void metrics() {
+        assertEquals(List.of(), MetricsTest.run().problems());
     }
 }
