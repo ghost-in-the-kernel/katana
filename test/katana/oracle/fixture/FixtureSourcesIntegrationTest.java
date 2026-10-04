@@ -14,13 +14,14 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Every source a CardDemo fixture cites holds the records its sha256= says (needs `corpus/fetch.sh
- * carddemo`). A `job:` source is checked against the study's frozen unload of that job's dataset
- * (F-02, oracle/prototypes/carddemo) until phase 1.4 produces it.
+ * carddemo`). POSTTRAN's transaction KSDS, as a `job:` source, is checked against the study's frozen
+ * unload (F-02, oracle/prototypes/carddemo); the lane checks every `job:` source when it runs.
  */
 @Tag("integration")
 class FixtureSourcesIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
-    private static final Map<String, Path> FROZEN = Map.of("job:POSTTRAN", ROOT.resolve("oracle/prototypes/carddemo/post1/tranfile.unl"));
+    private static final Path TRANFILE = ROOT.resolve("oracle/prototypes/carddemo/post1/tranfile.unl");
+    private static final Map<String, Path> FROZEN = Map.of("job:POSTTRAN", TRANFILE, "job:POSTTRAN:AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS", TRANFILE);
 
     /** Each fixture's JCL exists, and each dataset's from= source, framed and keyed as declared, hashes to its sha256=. */
     @Test
@@ -33,7 +34,8 @@ class FixtureSourcesIntegrationTest {
                 assertTrue(Files.exists(source(fixture.first("source").values().get(0))), file + ": its JCL");
                 for (Schema.Line d : fixture.datasets()) {
                     Map<String, String> a = d.attributes();
-                    if (!a.containsKey("from")) continue;
+                    // A job: source with no frozen file is checked by the lane when it runs that job.
+                    if (!a.containsKey("from") || (a.get("from").startsWith("job:") && !FROZEN.containsKey(a.get("from")))) continue;
                     String keys = "KSDS".equals(a.get("org")) ? a.get("keys") : null;
                     byte[] bytes = Files.readAllBytes(a.get("from").startsWith("job:") ? FROZEN.get(a.get("from")) : source(a.get("from")));
                     String actual = Content.sha256(Content.records(bytes, a.getOrDefault("framing", "fixed"), Integer.parseInt(a.get("lrecl")), keys));
@@ -43,7 +45,7 @@ class FixtureSourcesIntegrationTest {
             }
         }
         assertEquals(List.of(), wrong);
-        assertEquals(23, checked);
+        assertEquals(28, checked);
     }
 
     private static Path source(String from) {

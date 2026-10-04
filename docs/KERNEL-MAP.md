@@ -195,3 +195,57 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | profile | `profile/Profile.java:Profile.ibmValues` | no caller | 2026-10-04 |  |
 | profile | `profile/Profile.java:Profile.truncation` | called by `profile/Profile.java:Profile.read` | 2026-10-04 |  |
 | profile | `profile/Profile.java:Profile.findings` | no caller | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.concatenates` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.form` | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.existingGeneration` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.start` | 2026-10-04 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.existing` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.tabbed` | called by `oracle/lane/CobcLane.java:CobcLane.end` | 2026-10-04 |  |
+| oracle | `oracle/lane/Report.java:Report.note` | called by `oracle/lane/CobcLane.java:CobcLane.prepare` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Report.java:Report.notes` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.Unsupported.Unsupported` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.SortCards` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.read` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 6 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.symbols` | called by `oracle/lane/SortCards.java:SortCards.read` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.keys` | called by `oracle/lane/SortCards.java:SortCards.read` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.field` | called by `oracle/lane/SortConditions.java:SortConditions.comparison` and 3 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.constant` | called by `oracle/lane/SortConditions.java:SortConditions.comparison` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.isConstant` | called by `oracle/lane/SortCards.java:SortCards.symbols` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.operand` | called by `oracle/lane/SortCards.java:SortCards.read` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.split` | called by `oracle/fixture/Content.java:Content.records` and 20 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.statements` | called by `oracle/lane/SortCards.java:SortCards.read` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.firstWord` | called by `oracle/lane/SortCards.java:SortCards.symbols` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.SortConditions` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.parse` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.clock` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.comparison` | called by `oracle/lane/SortConditions.java:SortConditions.parse` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.field` | called by `oracle/lane/SortConditions.java:SortConditions.comparison` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.character` | called by `oracle/lane/SortConditions.java:SortConditions.comparison` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.zoned` | called by `oracle/lane/SortConditions.java:SortConditions.comparison` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.text` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` and 3 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.holds` | called by `oracle/lane/SortConditions.java:SortConditions.character` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.SortOutrec` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.parse` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.clock` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.item` | called by `oracle/lane/SortOutrec.java:SortOutrec.parse` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.column` | called by `oracle/lane/SortOutrec.java:SortOutrec.parse` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.edit` | called by `oracle/lane/SortOutrec.java:SortOutrec.item` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.build` | called by `oracle/lane/Datasets.java:Datasets.generated` and 4 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Sorts.java:Sorts.Sorts` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Sorts.java:Sorts.run` | called by `oracle/lane/CobcLane.java:CobcLane.run` and 14 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Sorts.java:Sorts.input` | called by `oracle/lane/Sorts.java:Sorts.run` | 2026-10-04 |  |
+| oracle | `oracle/lane/Sorts.java:Sorts.order` | called by `oracle/lane/Sorts.java:Sorts.run` | 2026-10-04 |  |
+| oracle | `oracle/lane/Sorts.java:Sorts.output` | called by `oracle/lane/Sorts.java:Sorts.run` and 3 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Tabs.java:Tabs.Tabs` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Tabs.java:Tabs.expand` | called by `oracle/lane/Programs.java:Programs.read` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Tabs.java:Tabs.has` | called by `oracle/lane/Programs.java:Programs.read` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Tabs.java:Tabs.shadow` | called by `oracle/lane/CobcLane.java:CobcLane.prepare` | 2026-10-04 |  |
+| oracle | `oracle/lane/Utilities.java:Utilities.cards#2` | called by `oracle/fixture/Fixture.java:Fixture.card` and 5 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Zoned.java:Zoned.Zoned` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/Zoned.java:Zoned.value` | called by `oracle/lane/Idcams.java:Idcams.command` and 5 more | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.copied` | called by `oracle/lane/CobcLane.java:CobcLane.end` | 2026-10-04 |  |
+| oracle | `oracle/lane/Programs.java:Programs.runGenerated` | called by `oracle/lane/Sorts.java:Sorts.generated` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCobol.java:SortCobol.SortCobol` | no caller | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCobol.java:SortCobol.source` | called by `oracle/lane/Programs.java:Programs.module` and 3 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCobol.java:SortCobol.record` | called by `oracle/lane/SortCobol.java:SortCobol.source` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCobol.java:SortCobol.collect` | called by `oracle/lane/SortCobol.java:SortCobol.source` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortCobol.java:SortCobol.condition` | called by `oracle/lane/SortCobol.java:SortCobol.source` | 2026-10-04 |  |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.Compare.test` | called by `oracle/lane/SortConditions.java:SortConditions.Group.test` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.Group.test` | called by `oracle/lane/Sorts.java:Sorts.run` | 2026-10-04 |  |
+| oracle | `oracle/lane/Sorts.java:Sorts.generated` | called by `oracle/lane/Datasets.java:Datasets.load` and 2 more | 2026-10-04 |  |

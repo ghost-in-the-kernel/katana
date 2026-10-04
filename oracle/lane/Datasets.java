@@ -22,9 +22,9 @@ final class Datasets {
     /** A dataset in the catalog: its organization (PS or KSDS), its file, its record length, and a KSDS's shape. */
     record Entry(String dsn, String org, Path path, int lrecl, Generated.Shape shape) {}
 
-    private static final Pattern RELATIVE = Pattern.compile("(.+)\\(\\+(\\d+)\\)");
+    private static final Pattern RELATIVE = Pattern.compile("(.+)\\(([+-]?\\d+)\\)");
     private final Map<String, Entry> entries = new TreeMap<>();
-    private final Map<String, String> generations = new HashMap<>();
+    private final Map<String, Integer> generations = new HashMap<>();
     private final Path dir;
     private final Path work;
     private final Compiler compiler;
@@ -37,11 +37,16 @@ final class Datasets {
         this.limit = limit;
     }
 
-    /** A name as the catalog knows it: `BASE(+n)` is the job's n-th new generation, `BASE.Gnnnn V00`. */
+    /** A name as the catalog knows it: with k generations existing at the start, `BASE(0)` is `BASE.G000kV00`, `(-n)` is k-n, `(+n)` is k+n. */
     String absolute(String dsn) {
         Matcher m = RELATIVE.matcher(dsn);
         if (!m.matches()) return dsn;
-        return generations.computeIfAbsent(dsn, d -> String.format("%s.G%04dV00", m.group(1), Integer.parseInt(m.group(2))));
+        return String.format("%s.G%04dV00", m.group(1), generations.getOrDefault(m.group(1), 0) + Integer.parseInt(m.group(2)));
+    }
+
+    /** A GDG base's generations when the job starts. */
+    void existing(String base, int count) {
+        generations.put(base, count);
     }
 
     Entry get(String dsn) {

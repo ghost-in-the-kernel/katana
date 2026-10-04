@@ -34,7 +34,7 @@ is one card of the inline DD above it, kept as written (a lane pads it to 80 byt
 | `dataset` | 1 | `org`, `lrecl`, `keys`, `over`, `unique`, `from`, `framing`, `sha256`, `defined-by` | `empty` | a dataset in the catalog and how it starts |
 | `gold` | 1 | `sha256` | | a dataset's records as the mainframe wrote them |
 | `step` | 1 | `pgm`, `parm`, `cond` | | a step, in order; its DDs follow it |
-| `dd` | 1 | `dsn`, `disp`, `recfm`, `lrecl`, `copybook`, `encoding` | `sysout`, `dummy`, `inline` | a DD of the step above |
+| `dd` | 1 | `dsn`, `disp`, `recfm`, `lrecl`, `copybook`, `encoding` | `sysout`, `dummy`, `inline`, `concat` | a DD of the step above; `concat` adds a dataset to the DD of the same name just above it |
 
 | Attribute | Value |
 | --- | --- |
@@ -43,7 +43,7 @@ is one card of the inline DD above it, kept as written (a lane pads it to 80 byt
 | `keys` | a key as IDCAMS writes it: `length,offset` |
 | `over` | the KSDS a `PATH` reads |
 | `unique` | `yes` or `no`: whether a `PATH`'s keys are unique |
-| `from` | where the records come from: `carddemo:<path>`, `repo:<path>`, or `job:<name>` (what that job leaves) |
+| `from` | where the records come from: `carddemo:<path>`, `repo:<path>`, or `job:<fixture>` (what that fixture's job leaves of this dataset) or `job:<fixture>:<dsn>` (of another dataset) |
 | `framing` | how a file source holds records: `lines` (one a line, padded to lrecl) or `fixed` |
 | `sha256` | the hex SHA-256 of the records |
 | `defined-by` | the step that defines the dataset (IDCAMS DEFINE); it does not exist before |
@@ -83,11 +83,13 @@ index file's pages are never hashed (F-02: BDB pages differ between identical ru
 - **FIXTURE-04 A fixture is valid for one profile.** The profile is named with its hash, and the
   hash must be the named profile's (P-12).
 - **FIXTURE-05 A DD is one of four forms.** `sysout`, `dummy`, `inline` with its cards, or a
-  dataset with all six attributes (`copybook=-` says there is none).
+  dataset with all six attributes (`copybook=-` says there is none); a dataset DD marked `concat`
+  follows a DD of the same name, as JCL's unnamed DD does.
 - **FIXTURE-06 Every dataset says how it starts.** A GDG base (no records), a `PATH` over a KSDS,
   defined by a step, `empty`, or `from=` a source with the `sha256=` of its records; a KSDS has
   `keys=` that fit its `lrecl`.
 - **FIXTURE-07 A step reads only what exists when it starts.** `SHR` and `OLD` need the dataset;
   `NEW` refuses one that exists; `MOD` makes one; a normal disposition of `DELETE` removes it after
-  the step. A generation is `(+n)` of a declared base; older generations are not in the schema yet.
+  the step. A generation is `(+n)` of a declared base, new in this job, or `(0)` or `(-n)`, which the
+  fixture declares as a sequential dataset that exists when the job starts.
 - **FIXTURE-08 A dataset has one record length.** A DD's `lrecl` is the dataset's.

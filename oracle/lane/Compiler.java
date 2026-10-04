@@ -26,12 +26,25 @@ final class Compiler {
     private final List<Path> copybooks;
     private final Path cache;
     private final Duration limit;
+    private final String copybooksHash;
 
+    /** Under a profile, with copybook folders whose every file is part of each compile's cache key. */
     Compiler(Profile profile, List<Path> copybooks, Path cache, Duration limit) {
         this.profile = profile;
         this.copybooks = copybooks;
         this.cache = cache;
         this.limit = limit;
+        StringBuilder all = new StringBuilder();
+        try {
+            for (Path dir : copybooks) {
+                try (var files = Files.list(dir)) {
+                    for (Path f : files.sorted().toList()) all.append(f.getFileName()).append(' ').append(hash(Files.readAllBytes(f), "")).append('\n');
+                }
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        this.copybooksHash = hash(all.toString().getBytes(StandardCharsets.UTF_8), "");
     }
 
     /** Builds a program (`-x`) or a module (`-m`, named NAME.so) into bin, from the source's bytes. */
@@ -39,7 +52,7 @@ final class Compiler {
         List<String> arguments = new ArrayList<>(profile.cobcArguments());
         arguments.add(module ? "-m" : "-x");
         copybooks.forEach(c -> arguments.add("-I" + c));
-        String key = hash(source, String.join(" ", arguments));
+        String key = hash(source, String.join(" ", arguments) + " " + copybooksHash);
         String file = module ? name + ".so" : name;
         try {
             Path dir = Files.createDirectories(cache.resolve(key));

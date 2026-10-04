@@ -100,8 +100,10 @@ public final class FixtureCheck {
     /** FIXTURE-05: a DD is sysout, dummy, inline with its cards, or a dataset with all six attributes. */
     private static void form(Fixture.Step step, Fixture.Dd dd, List<String> refusals) {
         String where = "step " + step.name() + " dd " + dd.name();
-        Set<String> words = dd.line().words();
-        if (words.size() + (dd.attributes().isEmpty() ? 0 : 1) != 1) {
+        Set<String> words = new HashSet<>(dd.line().words());
+        if (words.remove("concat") && (dd.attributes().isEmpty() || !concatenates(step, dd))) {
+            refusals.add(where + ": concat is a dataset DD after one of the same name");
+        } else if (words.size() + (dd.attributes().isEmpty() ? 0 : 1) != 1) {
             refusals.add(where + ": one of sysout, dummy, inline or a dataset");
         } else if (words.contains("inline") && dd.cards().isEmpty()) {
             refusals.add(where + ": inline with no cards");
@@ -110,6 +112,12 @@ public final class FixtureCheck {
                 if (!dd.attributes().containsKey(name)) refusals.add(where + ": a dataset DD needs " + name + "= (copybook=- for none)");
             }
         }
+    }
+
+    /** Whether the DD before this one in its step has the same name (JCL's unnamed DD, FIXTURE-05). */
+    private static boolean concatenates(Fixture.Step step, Fixture.Dd dd) {
+        int at = step.dds().indexOf(dd);
+        return at > 0 && step.dds().get(at - 1).name().equals(dd.name());
     }
 
     /** FIXTURE-06: each dataset says how it starts: a GDG base, a path over a KSDS, defined by a step, empty, or content by hash. */
@@ -124,6 +132,17 @@ public final class FixtureCheck {
         else if (a.containsKey("defined-by") && content) refusals.add(where + ": defined by a step, so it starts with nothing");
         else if (!org.equals("GDG") && !a.containsKey("defined-by")) records(where, dataset, refusals);
         if (org.equals("KSDS") && !keysFit(a)) refusals.add(where + ": a KSDS needs keys=length,offset inside its lrecl");
+        existingGeneration(where, dataset, fixture, refusals);
+    }
+
+    /** A dataset named as a generation exists at the start: (0) or (-n), sequential, of a declared GDG base. */
+    private static void existingGeneration(String where, Schema.Line dataset, Fixture fixture, List<String> refusals) {
+        Matcher g = GENERATION.matcher(dataset.values().get(0));
+        if (!g.matches()) return;
+        if (g.group(2).startsWith("+") || !"PS".equals(dataset.attributes().get("org"))) refusals.add(where + ": an existing generation is (0) or (-n), sequential");
+        if (fixture.datasets().stream().noneMatch(d -> d.values().get(0).equals(g.group(1)) && "GDG".equals(d.attributes().get("org")))) {
+            refusals.add(where + ": " + g.group(1) + " is not a declared GDG base");
+        }
     }
 
     private static void path(String where, Map<String, String> a, Fixture fixture, List<String> refusals) {
@@ -184,12 +203,12 @@ public final class FixtureCheck {
             deleted.forEach(lrecl::remove);
         }
 
-        /** A relative generation must be (+n) of a declared GDG base; (0) and older are not in the schema yet. */
+        /** A relative generation is of a declared GDG base: (+n) a new one, (0) or (-n) one the fixture declares as existing. */
         private boolean generation(String where, String dsn, List<String> refusals) {
             Matcher m = GENERATION.matcher(dsn);
             if (!m.matches()) return true;
             if (!generations.contains(m.group(1))) refusals.add(where + ": " + m.group(1) + " is not a declared GDG base");
-            else if (!m.group(2).startsWith("+")) refusals.add(where + ": generation " + m.group(2) + " needs generations in the catalog, not in the schema yet");
+            else if (!m.group(2).startsWith("+") && !lrecl.containsKey(dsn)) refusals.add(where + ": generation " + m.group(2) + " of " + m.group(1) + " is not declared as a dataset");
             else return true;
             return false;
         }

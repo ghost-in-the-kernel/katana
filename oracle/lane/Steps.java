@@ -21,7 +21,7 @@ import katana.oracle.fixture.Fixture;
  */
 final class Steps {
     /** What a step's DDs are bound to: environment variables, each dataset DD's dataset, its stdin, or why it cannot run. */
-    private record Bound(Map<String, String> env, Map<String, String> dsns, Path stdin, String finding) {}
+    record Bound(Map<String, String> env, Map<String, String> dsns, Map<String, List<String>> inputs, List<String> created, Path stdin, String finding) {}
 
     /** How a step ended: its outcome line, its return code, whether it abended, and a finding that stops the job, or null. */
     record Outcome(String line, int rc, boolean abend, String finding) {}
@@ -34,8 +34,10 @@ final class Steps {
     private final Path work;
     private final Report report;
     private final List<Integer> rcs = new ArrayList<>();
+    private final CobcLane.Sort sort;
 
-    Steps(Fixture fixture, Datasets datasets, Programs programs, Map<String, String> paths, Path work, Report report) {
+    Steps(Fixture fixture, Datasets datasets, Programs programs, Map<String, String> paths, Path work, Report report, CobcLane.Sort sort) {
+        this.sort = sort;
         this.fixture = fixture;
         this.datasets = datasets;
         this.programs = programs;
@@ -79,15 +81,20 @@ final class Steps {
 
     /** Allocates, runs by kind (utility, SORT, program), and applies the dispositions. */
     private Outcome execute(Fixture.Step step, String pgm) {
-        if (SORTS.contains(pgm)) return new Outcome(pgm + " not run: SORT is phase 1.5 (R-048)", 0, false, "SORT is phase 1.5 (R-048); the job stops here");
         Bound bound = bind(step);
-        if (bound.finding() != null) return new Outcome(pgm + " not run", 0, false, bound.finding());
+        if (bound.finding() != null) {
+            bound.created().forEach(datasets::delete);
+            return new Outcome(pgm + " not run", 0, false, bound.finding());
+        }
         Outcome outcome;
-        if (pgm.equals("IEFBR14")) outcome = new Outcome("IEFBR14 rc=0", 0, false, null);
+        if (SORTS.contains(pgm)) outcome = Sorts.run(step, bound, datasets, report, sort == CobcLane.Sort.COBOL ? programs : null);
+        else if (pgm.equals("IEFBR14")) outcome = new Outcome("IEFBR14 rc=0", 0, false, null);
         else if (pgm.equals("IDCAMS")) outcome = idcams(step, bound);
         else if (pgm.equals("IEBGENER")) outcome = Utilities.iebgener(step, bound.dsns(), datasets);
         else outcome = program(step, pgm, bound);
-        dispose(step, outcome.abend());
+        // A step the lane could not finish leaves no dataset it made: what it would have written is unknown.
+        if (outcome.finding() != null) bound.created().forEach(datasets::delete);
+        else dispose(step, outcome.abend());
         return outcome;
     }
 
@@ -98,6 +105,9 @@ final class Steps {
     }
 
     private Outcome program(Fixture.Step step, String pgm, Bound bound) {
+        for (var input : bound.inputs().entrySet()) {
+            if (input.getValue().size() > 1) return new Outcome(pgm + " not run", 0, false, "dd " + input.getKey() + " is concatenated; a program reading one is not in the lane yet");
+        }
         Programs.Ended ended = programs.run(step.name(), pgm, step.line().attributes().get("parm"), bound.env(), bound.stdin());
         if (ended.finding() != null) return new Outcome(pgm + " not run", 0, false, ended.finding());
         String stdout = Programs.text(work.resolve("sysout/" + step.name() + ".stdout"));
@@ -113,6 +123,8 @@ final class Steps {
         Map<String, String> env = new HashMap<>(Map.of("COB_CURRENT_DATE", fixture.first("clock").values().get(0).replaceAll("\\s+", " "),
                 "TZ", fixture.first("tz").values().get(0)));
         Map<String, String> dsns = new HashMap<>();
+        Map<String, List<String>> inputs = new HashMap<>();
+        List<String> created = new ArrayList<>();
         Path stdin = Path.of("/dev/null");
         for (Fixture.Dd dd : step.dds()) {
             Path file = work.resolve((dd.line().words().contains("inline") ? "inline/" : "sysout/") + step.name() + "." + dd.name());
@@ -122,21 +134,26 @@ final class Steps {
                 env.put("DD_" + dd.name(), write(file, Utilities.cards(dd.cards())).toString());
                 if (dd.name().equals("SYSIN")) stdin = write(Path.of(file + ".lines"), (String.join("\n", dd.cards()) + "\n").getBytes(StandardCharsets.ISO_8859_1));
             } else {
-                String finding = allocate(dd, env, dsns);
-                if (finding != null) return new Bound(env, dsns, stdin, finding);
+                String finding = allocate(dd, env, dsns, inputs, created);
+                if (finding != null) return new Bound(env, dsns, inputs, created, stdin, finding);
             }
         }
-        return new Bound(env, dsns, stdin, null);
+        return new Bound(env, dsns, inputs, created, stdin, null);
     }
 
-    /** A dataset DD: NEW makes it (and refuses one that exists), MOD makes it if absent, SHR and OLD need it. */
-    private String allocate(Fixture.Dd dd, Map<String, String> env, Map<String, String> dsns) {
+    /** A dataset DD: NEW makes it (and refuses one that exists), MOD makes it if absent, SHR and OLD need it; a concat one joins the DD's inputs. */
+    private String allocate(Fixture.Dd dd, Map<String, String> env, Map<String, String> dsns, Map<String, List<String>> inputs, List<String> created) {
         String dsn = paths.getOrDefault(dd.attributes().get("dsn"), dd.attributes().get("dsn"));
         String status = dd.attributes().get("disp").split(",")[0];
         Datasets.Entry entry = datasets.get(dsn);
         if (entry != null && status.equals("NEW")) return "dd " + dd.name() + ": NEW, but " + entry.dsn() + " exists";
         if (entry == null && (status.equals("SHR") || status.equals("OLD"))) return "dd " + dd.name() + ": " + datasets.absolute(dsn) + " does not exist";
-        if (entry == null) entry = datasets.sequential(dsn, Integer.parseInt(dd.attributes().get("lrecl")), new byte[0]);
+        if (entry == null) {
+            entry = datasets.sequential(dsn, Integer.parseInt(dd.attributes().get("lrecl")), new byte[0]);
+            created.add(entry.dsn());
+        }
+        inputs.computeIfAbsent(dd.name(), n -> new ArrayList<>()).add(entry.dsn());
+        if (dd.line().words().contains("concat")) return null;
         env.put("DD_" + dd.name(), entry.path().toString());
         dsns.put(dd.name(), entry.dsn());
         return null;

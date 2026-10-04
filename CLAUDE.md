@@ -23,6 +23,7 @@ are built (docs/ROADMAP.md says when); a row with no files yet points at the pla
 | The oracle: fixtures, lanes, the gate, the comparator | `oracle/` (phase 1); until then `oracle/prototypes/` | `docs/research/oracle.md` | NIST summary diff empty; CardDemo hashes |
 | A job fixture: what a lane runs; the CardDemo jobs | `oracle/fixture/Schema.java`, `oracle/fixture/FixtureCheck.java`, `oracle/fixture/carddemo/` | `docs/FIXTURE.md` | `test/katana/oracle/fixture/FixtureTest.java`, `test/katana/oracle/fixture/FixtureDocTest.java` |
 | The cobc lane: a fixture's job run under GnuCOBOL | `oracle/lane/CobcLane.java`, `oracle/lane/Steps.java`, `oracle/lane/Idcams.java`, `oracle/lane/carddemo.golden` | `docs/FIXTURE.md`, R-048 | `test/katana/oracle/lane/CardDemoLaneIntegrationTest.java`, `test/katana/oracle/lane/IdcamsTest.java` |
+| The DFSORT subset in the cobc lane | `oracle/lane/SortCards.java`, `oracle/lane/Sorts.java`, `oracle/lane/SortCobol.java` | R-010 (reserved), R-026 (reserved), R-048 | `test/katana/oracle/lane/SortTest.java`, `test/katana/oracle/lane/SortMeasureIntegrationTest.java` |
 | The dialect profile | `profile/Profile.java`, `profile/ibm.profile` | `docs/PROFILE.md` | `test/katana/profile/ProfileTest.java` |
 | The front end: grammar, preprocessor, source map | `front/` (phase 2); until then `front/prototypes/` | `docs/research/open_source_tools.md` | parse counts may only rise |
 | The Semantic IR | `sir/types`, `sir/build`, `sir/check` (phase 2) | `docs/SEMANTIC-IR.md` | `sir-doc.test`; data map equals `cobc -C` |

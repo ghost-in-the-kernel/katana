@@ -20,10 +20,15 @@ final class Utilities {
 
     /** A utility's SYSIN as cards: the inline DD's, or the records of the dataset it names. */
     static List<String> sysin(Fixture.Step step, Map<String, String> dsns, Datasets datasets) {
+        return cards(step, "SYSIN", dsns, datasets);
+    }
+
+    /** A DD's cards: the inline DD's, or the records of the dataset it names; none when the step has no such DD. */
+    static List<String> cards(Fixture.Step step, String name, Map<String, String> dsns, Datasets datasets) {
         for (Fixture.Dd dd : step.dds()) {
-            if (!dd.name().equals("SYSIN")) continue;
+            if (!dd.name().equals(name)) continue;
             if (dd.line().words().contains("inline")) return dd.cards();
-            Datasets.Entry entry = dsns.containsKey("SYSIN") ? datasets.get(dsns.get("SYSIN")) : null;
+            Datasets.Entry entry = dsns.containsKey(name) ? datasets.get(dsns.get(name)) : null;
             if (entry == null) return List.of();
             String text = new String(datasets.unload(entry), StandardCharsets.ISO_8859_1);
             List<String> cards = new ArrayList<>();

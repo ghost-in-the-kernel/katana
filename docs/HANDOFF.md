@@ -4,12 +4,26 @@
 
 `TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.4 are done.
 
-Phases 1.1 to 1.4 are done. Next: phase 1.5, the DFSORT subset; its check now includes
-TRANREPT-STUDY's frozen sort and report hashes and CREASTMT end to end (R-048), which needs the
-`CUSTREC.cpy` tab policy (R-016) first.
+Phases 1.1 to 1.4 are done. Phase 1.5, the DFSORT subset, is built and in part proven:
+TRANREPT-STUDY reproduces the frozen sort and report (`a7d14a96…`, `19b7f04f…`), and COMBTRAN and
+SORTTEST run every step. It stays open on the two questions below for Ghost (DFSORT record lengths;
+the tab width CUSTREC needs), which CREASTMT and PRTCATBL wait on, and on R-010.
 
 ## Waiting on Ghost
 
+- **DFSORT, an OUTREC record SORTOUT's LRECL does not hold** (J-043; blocks 1.5's CREASTMT and
+  PRTCATBL). CREASTMT's OUTREC builds 328 bytes into a SORTOUT of LRECL 350; PRTCATBL's builds 41
+  into 40. What does DFSORT do: pad the short record (with blanks or binary zeros?) and truncate the
+  long one, with which return code, or stop? The lane stops both with a finding until IBM's text
+  (the DFSORT Application Programming Guide, on SORTOUT LRECL and the PAD/TRUNC options) is read.
+- **R-016's tab width against CUSTREC.cpy** (J-044; blocks 1.5's CREASTMT). At 8-column stops every
+  one of CUSTREC's 17 tabbed lines reaches column 75, so its PICTURE clauses fall past column 72 and
+  CBSTM03A does not compile (`unbalanced parentheses`, `invalid PICTURE character '2'`, as in the
+  study); at 4-column stops it compiles. Keep 8 (CREASTMT never runs), take 4 for CardDemo as a
+  stated hypothesis, or let a fixture declare its sources' tab width?
+- **R-010, the DFSORT implementation** (J-045): measured on TRANREPT-STUDY, both reproduce the
+  frozen hashes; the Java sort runs all five CardDemo SORT steps' cards (228 ms for the job), the
+  generated COBOL sort two of five (334 ms, no OUTREC, no concatenation). Opus leans to the Java sort.
 - **Appendix A of the Enterprise COBOL Programming Guide** ("Intermediate results and arithmetic
   precision"): the one IBM semantic still unverified (R-049, `docs/PROFILE.md`). Blocks phase 3.1.
   Closes when Ghost pastes the topic URL (path-style `ibm.com/docs/en/SS6SG3_6.4.0/pg/ref/<topic>.html`

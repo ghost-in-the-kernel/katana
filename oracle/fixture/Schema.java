@@ -41,7 +41,7 @@ public final class Schema {
         s.put("gold", new Spec(1, Set.of("sha256"), Set.of("sha256"), Set.of()));
         s.put("step", new Spec(1, ordered("pgm", "parm", "cond"), Set.of("pgm"), Set.of()));
         s.put("dd", new Spec(1, ordered("dsn", "disp", "recfm", "lrecl", "copybook", "encoding"), Set.of(),
-                ordered("sysout", "dummy", "inline")));
+                ordered("sysout", "dummy", "inline", "concat")));
         return s;
     }
 
@@ -53,7 +53,7 @@ public final class Schema {
         v.put("keys", Pattern.compile("[1-9]\\d*,\\d+"));
         v.put("over", Pattern.compile(DSN));
         v.put("unique", Pattern.compile("yes|no"));
-        v.put("from", Pattern.compile("(carddemo|repo):[\\w./-]+|job:[A-Z0-9#@$]{1,8}"));
+        v.put("from", Pattern.compile("(carddemo|repo):[\\w./-]+|job:[A-Z0-9#@$-]{1,20}(:" + DSN + ")?"));
         v.put("framing", Pattern.compile("lines|fixed"));
         v.put("sha256", Pattern.compile("[0-9a-f]{64}"));
         v.put("defined-by", Pattern.compile("[A-Z0-9#@$.]{1,17}"));

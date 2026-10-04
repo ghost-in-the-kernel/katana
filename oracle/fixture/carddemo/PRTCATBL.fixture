@@ -1,0 +1,42 @@
+# CardDemo's PRTCATBL (carddemo:app/jcl/PRTCATBL.jcl): delete last run's report, back up the
+# category-balance KSDS (the REPROC procedure, expanded), and sort the backup into a printable report
+# with OUTREC. The KSDS starts as CardDemo ships it. As written, the backup step reads REPROCT, whose
+# comment opens in column 1 (J-035); PRTCATBL-INLINE.fixture carries the command inline.
+#
+# The OUTREC builds 41-byte records (11+1+2+1+4+1, the 12-byte EDIT mask, 9 blanks) into a SORTOUT
+# the JCL declares LRECL=40; what DFSORT does then is not read yet (J-043), so the lane stops there.
+job PRTCATBL
+source carddemo:app/jcl/PRTCATBL.jcl
+profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+clock 2024-03-01 12:00:00.00 +00:00
+tz UTC
+
+dataset AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS org=KSDS lrecl=50 keys=17,0 from=carddemo:app/data/ASCII/tcatbal.txt framing=lines sha256=edaaf7202b8ddd35053db4ac59b992bc3eb5ef64aac22bab9b2aeb6bf6aadd68
+dataset AWS.M2.CARDDEMO.CNTL(REPROCT) org=PS lrecl=80 from=carddemo:app/ctl/REPROCT.ctl framing=lines sha256=d4be5d9e718500a6c3865f3c1857887ab2e024133019e38385ecd5290a381098
+dataset AWS.M2.CARDDEMO.TCATBALF.BKUP org=GDG
+
+# THEFILE has no DCB in the JCL; it is the report's dataset, so its record format is the report's.
+step DELDEF pgm=IEFBR14
+dd THEFILE dsn=AWS.M2.CARDDEMO.TCATBALF.REPT disp=MOD,DELETE recfm=FB lrecl=40 copybook=- encoding=ascii
+
+step STEP05R.PRC001 pgm=IDCAMS
+dd SYSPRINT sysout
+dd FILEIN dsn=AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS disp=SHR recfm=F lrecl=50 copybook=CVTRA01Y encoding=ascii
+dd FILEOUT dsn=AWS.M2.CARDDEMO.TCATBALF.BKUP(+1) disp=NEW,CATLG,DELETE recfm=FB lrecl=50 copybook=CVTRA01Y encoding=ascii
+dd SYSIN dsn=AWS.M2.CARDDEMO.CNTL(REPROCT) disp=SHR recfm=F lrecl=80 copybook=- encoding=ascii
+
+step STEP10R pgm=SORT
+dd SORTIN dsn=AWS.M2.CARDDEMO.TCATBALF.BKUP(+1) disp=SHR recfm=FB lrecl=50 copybook=CVTRA01Y encoding=ascii
+dd SYMNAMES inline
+| TRANCAT-ACCT-ID,1,11,ZD
+| TRANCAT-TYPE-CD,12,2,CH
+| TRANCAT-CD,14,4,ZD
+| TRAN-CAT-BAL,18,11,ZD
+dd SYSIN inline
+|  SORT FIELDS=(TRANCAT-ACCT-ID,A,TRANCAT-TYPE-CD,A,TRANCAT-CD,A)
+|  OUTREC FIELDS=(TRANCAT-ACCT-ID,X,
+|      TRANCAT-TYPE-CD,X,
+|      TRANCAT-CD,X,
+|      TRAN-CAT-BAL,EDIT=(TTTTTTTTT.TT),9X)
+dd SYSOUT sysout
+dd SORTOUT dsn=AWS.M2.CARDDEMO.TCATBALF.REPT disp=NEW,CATLG,DELETE recfm=FB lrecl=40 copybook=- encoding=ascii

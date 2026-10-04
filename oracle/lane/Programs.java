@@ -23,12 +23,15 @@ final class Programs {
     record Ended(int rc, String abend, String finding) {}
 
     private static final Pattern USING = Pattern.compile("(?m)^.{6}[ D].*PROCEDURE\\s+DIVISION\\s+USING");
+    private static final Pattern COPY = Pattern.compile("(?m)^.{6}[ D].*?\\bCOPY\\s+['\"]?([A-Z0-9#@$-]+)");
     private static final Pattern ABEND = Pattern.compile("CEE3ABD abend (U\\d{4}|with no code)");
     private final Path sources;
     private final Compiler compiler;
     private final Path work;
     private final Duration limit;
     private final Map<String, String> sourceHashes = new HashMap<>();
+    private final java.util.Set<String> tabbed = new java.util.TreeSet<>();
+    private final java.util.Set<String> copied = new java.util.TreeSet<>();
 
     Programs(Path sources, Compiler compiler, Path work, Duration limit) {
         this.sources = sources;
@@ -48,11 +51,34 @@ final class Programs {
         return sourceHashes;
     }
 
+    /** The program sources that held tabs, expanded before cobc read them (R-016). */
+    java.util.Set<String> tabbed() {
+        return tabbed;
+    }
+
+    /** The copybooks the programs built so far name in COPY statements. */
+    java.util.Set<String> copied() {
+        return copied;
+    }
+
     /** Builds a called module (`module` lines) into bin; cobc's refusal, or "". */
     String module(String name) {
         Path source = source(name);
         if (source == null) return "no source for module " + name;
         return compiler.build(name, read(source, name), true, work.resolve("bin")).refusal();
+    }
+
+    /** Builds one of the lane's own programs and runs it with SORTIN holding these records and SORTOUT this file; its exit code. */
+    int runGenerated(String name, String source, byte[] sortin, Path sortout) {
+        Compiler.Built built = compiler.build(name, source.getBytes(StandardCharsets.US_ASCII), false, work.resolve("bin"));
+        if (!built.refusal().isEmpty()) throw new IllegalStateException("the lane's " + name + " did not compile: " + built.refusal());
+        try {
+            Path in = Files.write(work.resolve(name + ".in"), sortin);
+            return Exec.run(List.of(built.file().toString()), work, Map.of("DD_SORTIN", in.toString(), "DD_SORTOUT", sortout.toString()),
+                    Path.of("/dev/null"), work.resolve("sysout/" + name + ".stdout"), work.resolve("sysout/" + name + ".stderr"), limit);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     /** Builds a stub from the lane's own source into bin. */
@@ -83,11 +109,15 @@ final class Programs {
         return new Ended(exit, abend.find() ? abend.group(1) : null, null);
     }
 
+    /** A source's bytes as cobc gets them (tabs expanded, R-016), its original hash kept for the report. */
     private byte[] read(Path source, String name) {
         try {
             byte[] bytes = Files.readAllBytes(source);
             sourceHashes.put(name, katana.oracle.fixture.Content.sha256(bytes));
-            return bytes;
+            if (Tabs.has(bytes)) tabbed.add(source.getFileName().toString());
+            Matcher copy = COPY.matcher(new String(bytes, StandardCharsets.ISO_8859_1));
+            while (copy.find()) copied.add(copy.group(1));
+            return Tabs.expand(bytes);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

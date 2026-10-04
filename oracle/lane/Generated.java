@@ -125,7 +125,7 @@ final class Generated {
     }
 
     /** Fixed-form source: each line from column 8, none past column 72. */
-    private static String fixed(List<String> lines) {
+    static String fixed(List<String> lines) {
         StringBuilder text = new StringBuilder();
         for (String line : lines) {
             if (line.length() > 65) throw new IllegalArgumentException("past column 72: " + line);

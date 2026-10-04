@@ -27,7 +27,7 @@ class FixtureTest {
 
     @Test
     void theFourCardDemoJobsAreExpressible() throws Exception {
-        for (String job : List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT")) assertEquals(List.of(), refusals(carddemo(job)), job);
+        for (String job : List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST")) assertEquals(List.of(), refusals(carddemo(job)), job);
     }
 
     @Test
@@ -81,7 +81,7 @@ class FixtureTest {
         String posttran = carddemo("POSTTRAN");
         assertRefused(posttran.replaceAll("(?m)^dataset AWS.M2.CARDDEMO.DALYTRAN.PS .*\n", ""), "AWS.M2.CARDDEMO.DALYTRAN.PS does not exist");
         assertRefused(posttran.replace("dsn=AWS.M2.CARDDEMO.DALYREJS(+1) disp=NEW", "dsn=AWS.M2.CARDDEMO.DALYTRAN.PS disp=NEW"), "NEW, but AWS.M2.CARDDEMO.DALYTRAN.PS already exists");
-        assertRefused(posttran.replace("DALYREJS(+1)", "DALYREJS(0)"), "generation 0 needs generations");
+        assertRefused(posttran.replace("DALYREJS(+1)", "DALYREJS(0)"), "generation 0 of AWS.M2.CARDDEMO.DALYREJS is not declared as a dataset");
         assertRefused(posttran.replace("lrecl=350 copybook=CVTRA06Y", "lrecl=351 copybook=CVTRA06Y"), "lrecl=351, but AWS.M2.CARDDEMO.DALYTRAN.PS has 350");
         String creastmt = carddemo("CREASTMT");
         assertRefused(creastmt.replace("defined-by=DELDEF01", "defined-by=STEP999"), "no step STEP999");

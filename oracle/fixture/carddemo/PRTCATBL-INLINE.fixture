@@ -1,0 +1,38 @@
+# CardDemo's PRTCATBL with one departure from the JCL (R-009): the backup step's one REPRO command
+# inline, since REPROCT's licence comment opens in column 1, which IDCAMS does not read (J-035), and
+# PRTCATBL.fixture, the JCL as written, stops there. Everything else is as PRTCATBL.fixture says.
+job PRTCATBL
+source carddemo:app/jcl/PRTCATBL.jcl
+profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+clock 2024-03-01 12:00:00.00 +00:00
+tz UTC
+
+dataset AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS org=KSDS lrecl=50 keys=17,0 from=carddemo:app/data/ASCII/tcatbal.txt framing=lines sha256=edaaf7202b8ddd35053db4ac59b992bc3eb5ef64aac22bab9b2aeb6bf6aadd68
+dataset AWS.M2.CARDDEMO.TCATBALF.BKUP org=GDG
+
+# THEFILE has no DCB in the JCL; it is the report's dataset, so its record format is the report's.
+step DELDEF pgm=IEFBR14
+dd THEFILE dsn=AWS.M2.CARDDEMO.TCATBALF.REPT disp=MOD,DELETE recfm=FB lrecl=40 copybook=- encoding=ascii
+
+step STEP05R.PRC001 pgm=IDCAMS
+dd SYSPRINT sysout
+dd FILEIN dsn=AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS disp=SHR recfm=F lrecl=50 copybook=CVTRA01Y encoding=ascii
+dd FILEOUT dsn=AWS.M2.CARDDEMO.TCATBALF.BKUP(+1) disp=NEW,CATLG,DELETE recfm=FB lrecl=50 copybook=CVTRA01Y encoding=ascii
+dd SYSIN inline
+|     REPRO INFILE(FILEIN) OUTFILE(FILEOUT)
+
+step STEP10R pgm=SORT
+dd SORTIN dsn=AWS.M2.CARDDEMO.TCATBALF.BKUP(+1) disp=SHR recfm=FB lrecl=50 copybook=CVTRA01Y encoding=ascii
+dd SYMNAMES inline
+| TRANCAT-ACCT-ID,1,11,ZD
+| TRANCAT-TYPE-CD,12,2,CH
+| TRANCAT-CD,14,4,ZD
+| TRAN-CAT-BAL,18,11,ZD
+dd SYSIN inline
+|  SORT FIELDS=(TRANCAT-ACCT-ID,A,TRANCAT-TYPE-CD,A,TRANCAT-CD,A)
+|  OUTREC FIELDS=(TRANCAT-ACCT-ID,X,
+|      TRANCAT-TYPE-CD,X,
+|      TRANCAT-CD,X,
+|      TRAN-CAT-BAL,EDIT=(TTTTTTTTT.TT),9X)
+dd SYSOUT sysout
+dd SORTOUT dsn=AWS.M2.CARDDEMO.TCATBALF.REPT disp=NEW,CATLG,DELETE recfm=FB lrecl=40 copybook=- encoding=ascii

@@ -15,6 +15,7 @@ public final class Report {
     private final Map<String, String> steps = new LinkedHashMap<>();
     private final Map<String, String> datasets = new LinkedHashMap<>();
     private final List<String> findings = new ArrayList<>();
+    private final List<String> notes = new ArrayList<>();
 
     void line(String line) {
         lines.add(line);
@@ -33,6 +34,16 @@ public final class Report {
     void finding(String finding) {
         findings.add(finding);
         lines.add("finding " + finding);
+    }
+
+    /** A finding that does not stop the job: a tab expanded (R-016), equal sort keys kept in order (R-026). */
+    void note(String note) {
+        notes.add(note);
+        lines.add("note " + note);
+    }
+
+    public List<String> notes() {
+        return notes;
     }
 
     /** Each step's outcome by name: `rc=4`, `abend U0999 rc=231`, `bypassed ...`, `not run ...`. */

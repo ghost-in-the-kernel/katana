@@ -18,10 +18,18 @@ import katana.oracle.fixture.Schema;
  * nothing.
  */
 final class Start {
+    private static final java.util.regex.Pattern GENERATION = java.util.regex.Pattern.compile("(.+)\\(([+-]?\\d+)\\)");
+
     private Start() {}
 
     /** Builds the starting catalog; paths gets each PATH's base. Why the job cannot start, or null. */
     static String catalog(Fixture fixture, Datasets datasets, CobcLane.Setup setup, Map<String, String> paths) {
+        Map<String, Integer> existing = new HashMap<>();
+        for (Schema.Line d : fixture.datasets()) {
+            java.util.regex.Matcher g = GENERATION.matcher(d.values().get(0));
+            if (g.matches() && !g.group(2).startsWith("+")) existing.merge(g.group(1), 1 - Integer.parseInt(g.group(2)), Math::max);
+        }
+        existing.forEach(datasets::existing);
         Map<String, List<Generated.Key>> alternates = new HashMap<>();
         for (Schema.Line d : fixture.datasets()) {
             Map<String, String> a = d.attributes();
@@ -47,7 +55,7 @@ final class Start {
         boolean ksds = a.get("org").equals("KSDS");
         byte[] records = new byte[0];
         if (a.containsKey("from")) {
-            byte[] source = source(a.get("from"), dsn, setup);
+            byte[] source = source(a.get("from"), datasets.absolute(dsn), setup);
             if (source == null) return "dataset " + dsn + ": no source " + a.get("from");
             records = Content.records(source, a.getOrDefault("framing", "fixed"), lrecl, ksds ? a.get("keys") : null);
             String actual = Content.sha256(records);
@@ -62,10 +70,10 @@ final class Start {
         return complaint.isEmpty() ? null : "dataset " + dsn + ": loading it: " + complaint;
     }
 
-    /** A source's bytes: a file under a `from=` root, or another job's dataset; null when there is none. */
+    /** A source's bytes: a file under a `from=` root, or another job's dataset (this one's name, or the one `job:NAME:DSN` gives); null when there is none. */
     private static byte[] source(String from, String dsn, CobcLane.Setup setup) {
-        String[] where = from.split(":", 2);
-        if (where[0].equals("job")) return setup.jobs().records(where[1], dsn);
+        String[] where = from.split(":", 3);
+        if (where[0].equals("job")) return setup.jobs().records(where[1], where.length == 3 ? where[2] : dsn);
         var root = setup.sources().get(where[0]);
         try {
             return root == null || !Files.exists(root.resolve(where[1])) ? null : Files.readAllBytes(root.resolve(where[1]));

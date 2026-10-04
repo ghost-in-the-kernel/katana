@@ -3,58 +3,28 @@ package katana.oracle.lane;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import katana.oracle.fixture.Fixture;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
- * Phase 1.4's check (R-048): the CardDemo fixtures through the cobc lane. POSTTRAN reproduces the
- * study's frozen TRANFILE unload (F-02); INTCALC runs through the PARM driver; TRANREPT-STUDY and
- * CREASTMT run every step before their SORT. TRANREPT as the JCL writes it stops earlier, at the
- * REPROCT member's comment in column 1 (J-035). Every report is held by
+ * Phases 1.4 and 1.5 (R-048): the CardDemo fixtures through the cobc lane. POSTTRAN reproduces the
+ * study's frozen TRANFILE unload (F-02); INTCALC runs through the PARM driver; TRANREPT-STUDY
+ * reproduces the frozen sort and report; COMBTRAN and SORTTEST run every step. TRANREPT and PRTCATBL
+ * as the JCL writes them stop at REPROCT's comment in column 1 (J-035); CREASTMT and PRTCATBL-INLINE
+ * stop where an OUTREC builds records SORTOUT's length does not hold (J-043). Every report is held by
  * oracle/lane/carddemo.golden (`-Dkatana.record=true` rewrites it). Needs cobc and `corpus/fetch.sh carddemo`.
  */
 @Tag("integration")
 class CardDemoLaneIntegrationTest {
-    private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
-    private static final List<String> JOBS = List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT");
-    private final Map<String, Report> reports = new HashMap<>();
+    private static final Path ROOT = LaneRuns.ROOT;
+    private static final List<String> JOBS = List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST");
+    private final LaneRuns lane = new LaneRuns(CobcLane.Sort.JAVA, "lane");
 
-    /** A CardDemo fixture through the lane in build/lane/JOB, once per test instance. */
     private Report run(String job) {
-        Report done = reports.get(job);
-        if (done != null) return done;
-        try {
-            Fixture fixture = Fixture.read(Files.readString(ROOT.resolve("oracle/fixture/carddemo/" + job + ".fixture")));
-            Path carddemo = ROOT.resolve("corpus/carddemo");
-            CobcLane.Setup setup = new CobcLane.Setup(ROOT, Map.of("carddemo", carddemo, "repo", ROOT), carddemo.resolve("app/cbl"),
-                    List.of(carddemo.resolve("app/cpy")), ROOT.resolve("build/lane/" + job), ROOT.resolve("build/lane-cache"),
-                    Duration.ofSeconds(60), this::unloaded);
-            Report report = CobcLane.run(fixture, setup);
-            reports.put(job, report);
-            return report;
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    /** A dataset as another fixture's job leaves it: that job run through the lane, its unload read. */
-    private byte[] unloaded(String job, String dsn) {
-        run(job);
-        try {
-            Path file = ROOT.resolve("build/lane/" + job + "/unload/" + dsn);
-            return Files.exists(file) ? Files.readAllBytes(file) : null;
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        return lane.run(job);
     }
 
     @Test
@@ -84,21 +54,35 @@ class CardDemoLaneIntegrationTest {
     }
 
     @Test
-    void theJobsWithASortRunUpToItAndStopThere() {
-        Map<String, String> sorts = Map.of("TRANREPT-STUDY", "STEP05R", "CREASTMT", "STEP010");
-        sorts.forEach((job, sort) -> {
-            Report report = run(job);
-            assertEquals(List.of("step " + sort + ": SORT is phase 1.5 (R-048); the job stops here"), report.findings(), report.text());
-            report.steps().forEach((step, outcome) -> {
-                if (!step.equals(sort) && !outcome.contains("not run")) assertTrue(outcome.endsWith("rc=0"), job + " " + step + " " + outcome);
-            });
-        });
+    void tranreptStudyReproducesTheFrozenSortAndReport() {
+        Report study = run("TRANREPT-STUDY");
+        assertEquals(List.of(), study.findings(), study.text());
+        assertEquals("sha256:a7d14a96d9c6c4c90985d95185804bcb5fb09fabfe88bac74bb6f882da82dd96", study.datasets().get("AWS.M2.CARDDEMO.TRANSACT.DALY.G0001V00"));
+        assertEquals("sha256:19b7f04fad9501a2ce8e1d143857a4ba928d0bbdbf78129ee98d23c2de5fa0e7", study.datasets().get("AWS.M2.CARDDEMO.TRANREPT.G0001V00"));
     }
 
     @Test
-    void tranreptAsWrittenStopsAtReproctsColumnOneComment() {
-        Report tranrept = run("TRANREPT");
-        assertEquals(1, tranrept.findings().size(), tranrept.text());
-        assertTrue(tranrept.findings().get(0).startsWith("step STEP05R.PRC001: IDCAMS: card 1 opens a comment in column 1"), tranrept.text());
+    void combtranAndSorttestRunEveryStep() {
+        for (String job : List.of("COMBTRAN", "SORTTEST")) {
+            Report report = run(job);
+            assertEquals(List.of(), report.findings(), report.text());
+            report.steps().values().forEach(outcome -> assertTrue(outcome.endsWith("rc=0"), job + " " + outcome));
+        }
+        assertTrue(run("COMBTRAN").text().contains("dataset AWS.M2.CARDDEMO.TRANSACT.COMBINED.G0001V00 records=307 "), "POSTTRAN's 257 and INTCALC's 50");
+    }
+
+    @Test
+    void anOutrecLengthSortoutDoesNotHoldStopsTheJob() {
+        assertEquals(List.of("step STEP010: SORT: records of 328 bytes for SORTOUT's lrecl 350"), run("CREASTMT").findings());
+        assertEquals(List.of("step STEP10R: SORT: records of 41 bytes for SORTOUT's lrecl 40"), run("PRTCATBL-INLINE").findings());
+    }
+
+    @Test
+    void tranreptAndPrtcatblAsWrittenStopAtReproctsColumnOneComment() {
+        for (String job : List.of("TRANREPT", "PRTCATBL")) {
+            Report report = run(job);
+            assertEquals(1, report.findings().size(), report.text());
+            assertTrue(report.findings().get(0).startsWith("step STEP05R.PRC001: IDCAMS: card 1 opens a comment in column 1"), report.text());
+        }
     }
 }

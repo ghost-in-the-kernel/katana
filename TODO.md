@@ -10,6 +10,9 @@ the first open item has a check.
 
 ### 1.5 The DFSORT subset
 
+In progress: built; TRANREPT-STUDY, COMBTRAN and SORTTEST pass; CREASTMT and PRTCATBL wait on Ghost
+(docs/HANDOFF.md: DFSORT record lengths, R-016's tab width), and R-010 on its decision.
+
 Check: every CardDemo SORT step runs; an unsupported card is a finding, not a guess;
 TRANREPT-STUDY reproduces the frozen hashes from F-02 (`a7d14a96…`, `19b7f04f…`) and CREASTMT
 runs end to end once the `CUSTREC.cpy` tab policy (R-016) exists (R-048).

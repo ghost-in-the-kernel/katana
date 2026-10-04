@@ -1,0 +1,34 @@
+# CardDemo's COMBTRAN (carddemo:app/jcl/COMBTRAN.jcl): sort the transaction backup and the interest
+# transactions together by transaction id, and load the result into the transaction KSDS. It runs
+# after TRANBKP, which backs the KSDS up and deletes and redefines it, so here the backup is POSTTRAN's
+# KSDS as unloaded, the interest transactions are INTCALC's, and the KSDS starts empty.
+job COMBTRAN
+source carddemo:app/jcl/COMBTRAN.jcl
+profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+clock 2024-03-01 12:00:00.00 +00:00
+tz UTC
+
+dataset AWS.M2.CARDDEMO.TRANSACT.BKUP org=GDG
+dataset AWS.M2.CARDDEMO.TRANSACT.BKUP(0) org=PS lrecl=350 from=job:POSTTRAN:AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS sha256=aed617444207a7ebd2684e589c8569f766fb5d1d8323a25a658f8c4c03020b48
+dataset AWS.M2.CARDDEMO.SYSTRAN org=GDG
+dataset AWS.M2.CARDDEMO.SYSTRAN(0) org=PS lrecl=350 from=job:INTCALC:AWS.M2.CARDDEMO.SYSTRAN.G0001V00 sha256=525dad5ac1869ae56639569b6bf6e83b4b58eaf6fc87e71e10f511b1768a8425
+dataset AWS.M2.CARDDEMO.TRANSACT.COMBINED org=GDG
+dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS org=KSDS lrecl=350 keys=16,0 empty
+
+step STEP05R pgm=SORT
+dd SORTIN dsn=AWS.M2.CARDDEMO.TRANSACT.BKUP(0) disp=SHR recfm=FB lrecl=350 copybook=CVTRA05Y encoding=ascii
+dd SORTIN dsn=AWS.M2.CARDDEMO.SYSTRAN(0) disp=SHR recfm=F lrecl=350 copybook=CVTRA05Y encoding=ascii concat
+dd SYMNAMES inline
+| TRAN-ID,1,16,CH
+dd SYSIN inline
+|  SORT FIELDS=(TRAN-ID,A)
+dd SYSOUT sysout
+# DCB=(*.SORTIN): the backup's record format.
+dd SORTOUT dsn=AWS.M2.CARDDEMO.TRANSACT.COMBINED(+1) disp=NEW,CATLG,DELETE recfm=FB lrecl=350 copybook=CVTRA05Y encoding=ascii
+
+step STEP10 pgm=IDCAMS
+dd SYSPRINT sysout
+dd TRANSACT dsn=AWS.M2.CARDDEMO.TRANSACT.COMBINED(+1) disp=SHR recfm=FB lrecl=350 copybook=CVTRA05Y encoding=ascii
+dd TRANVSAM dsn=AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS disp=SHR recfm=F lrecl=350 copybook=CVTRA05Y encoding=ascii
+dd SYSIN inline
+|    REPRO INFILE(TRANSACT) OUTFILE(TRANVSAM)

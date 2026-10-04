@@ -486,3 +486,53 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   re-applied (Fable's R-016, J-039, J-040, roadmap and HANDOFF text kept). **Caught by:** reading the
   count after the commit, before the push. **Cost:** one rebuilt commit. The same lesson as J-021 and
   J-040: a check whose answer does not stop the next step is not a check; the fetch now runs alone.
+
+### J-043 Two CardDemo OUTRECs build records their SORTOUT's length does not hold
+- **Who:** Opus; for Ghost. **Class:** ambiguity.
+- **Intent:** Phase 1.5, CREASTMT's and PRTCATBL's SORT steps.
+- **Found:** CREASTMT's `OUTREC FIELDS=(1:263,16,17:1,262,279:279,50)` builds 328 bytes into a SORTOUT
+  of LRECL 350; PRTCATBL's builds 41 (11+1+2+1+4+1, a 12-byte EDIT mask, 9X) into LRECL 40. Whether
+  DFSORT pads, truncates or stops, and with what byte and return code, is not in any text reached
+  from here; a web search found the PAD/TRUNC options but not their defaults for reformatted records.
+- **Options:** pad with blanks and truncate (a guess); stop with a finding.
+- **Resolved:** a finding naming both lengths, and the question to Ghost. A step stopped by a finding
+  now also removes the datasets it made, since what it would have written is unknown.
+- **Touched:** `oracle/lane/Sorts.java`, `oracle/lane/Steps.java`, `HANDOFF.md`.
+
+### J-044 R-016's 8-column tabs do not compile CUSTREC; 4-column ones do
+- **Who:** Opus; for Ghost. **Class:** measurement.
+- **Intent:** Phase 1.5, CREASTMT end to end (R-048), which needs CBSTM03A and so CUSTREC.cpy.
+- **Found:** CUSTREC's 17 tabbed lines begin with two tabs. Expanded to 8-column stops each line is 75
+  columns, its PICTURE past column 72, and cobc refuses it exactly as the study found; expanded to
+  4-column stops CBSTM03A compiles. CSLKPCDY.cpy also holds tabs; no program the fixtures run copies
+  it. The lane implements R-016 as decided and reports a tab only in a copybook a compiled program
+  copies.
+- **Resolved:** not changed by Opus: R-016 is Ghost's, and the 8-column stop is its stated hypothesis.
+  CREASTMT stops at its SORT (J-043) before CBSTM03A is reached, so the measurement is from a direct
+  compile. The question is in `HANDOFF.md`.
+- **Touched:** `oracle/lane/Tabs.java`, `HANDOFF.md`.
+
+### J-045 R-010 measured: both sorts reproduce TRANREPT-STUDY
+- **Who:** Opus. **Class:** measurement.
+- **Intent:** Phase 1.5, R-010's measurement on TRANREPT.
+- **Found:** the Java sort and a generated COBOL SORT (`WITH DUPLICATES IN ORDER`, an INPUT PROCEDURE
+  for INCLUDE) both reproduce `a7d14a96…` and `19b7f04f…`. One run each, warm cache: 228 ms and 334 ms
+  for the whole job. The Java sort reads all five CardDemo SORT steps' cards; the generated one two
+  (no OUTREC, no concatenated SORTIN). CBTRN03C's stdout matches the study's too (`e8f3ca3f…`).
+- **Resolved:** the lane runs the Java sort; R-010 is Ghost's, with Opus's lean in `HANDOFF.md`.
+  Equal keys keep input order in both; the lane notes it where it happens, since DFSORT promises that
+  only with EQUALS (R-026).
+- **Touched:** `oracle/lane/SortCards.java`, `SortConditions.java`, `SortOutrec.java`, `Zoned.java`,
+  `Sorts.java`, `SortCobol.java`; four new fixtures (PRTCATBL, PRTCATBL-INLINE, COMBTRAN, SORTTEST);
+  the schema's `concat`, existing generations and `job:NAME:DSN`.
+
+### J-046 Three faults of Opus's own, caught on the way
+- **Who:** Opus (fault and fix). **Class:** failure-caught.
+- **Intent:** Phase 1.5.
+- **Found:** (1) the generated sort's file had a second, shorter record, which made GnuCOBOL read it as
+  variable-length (status 04, nothing released); (2) the compile cache's key, since 1.4, held the
+  source and the arguments but not the copybooks, so a changed copybook could reuse a stale build;
+  (3) every job reported the library's two tabbed copybooks, though none of its programs copied them.
+- **Resolved:** records padded to full length; the copybooks' hashes in the key; a tab reported only
+  for a copybook a program copies. **Caught by:** the measurement's empty output, a read of the cache
+  code while adding shadow copybooks, and reading the first report. **Cost:** three runs.
