@@ -1,0 +1,9 @@
+
+
+                                                    END OF TEST-  SQ201M    NTIS DISTRIBUTION COBOL 85
+
+                                                    012 OF 023  TESTS WERE EXECUTED SUCCESSFULLY
+                                                    NO  TEST(S) FAILED
+                                                    NO  TEST(S) DELETED
+                                                    011 TEST(S) REQUIRE INSPECTION
+ FOR OFFICIAL USE ONLY            ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.                   COPYRIGHT 1985

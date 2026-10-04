@@ -1,0 +1,9 @@
+                                                                                                                        
+                                                                                                                        
+                                                    END OF TEST-  NC105A                                                
+                                                                                                                        
+                                                    129 OF 132  TESTS WERE EXECUTED SUCCESSFULLY                        
+                                                    NO  TEST(S) FAILED                                                  
+                                                    003 TEST(S) DELETED                                                 
+                                                    NO  TEST(S) REQUIRE INSPECTION                                      
+ FOR OFFICIAL USE ONLY            ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH.                   COPYRIGHT 1985

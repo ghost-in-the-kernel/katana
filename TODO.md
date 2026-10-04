@@ -24,8 +24,9 @@ Built in steps, each its own commit (any agent may take the next open one; the s
 - ~~1.1c EXEC85, run~~ done: `oracle/nist/exec85.cards` (the X-cards, each from Appendix D, text in
   column 9) and `Exec85.java`; under cobc it extracts 459 programs, 51 copy members and 2 data files
   with no undefined X-card in live code outside CM (`gradle integration`, 2.5 s).
-- **1.1d The report reader.** A program's printed report to pass, fail, deleted and inspect, from
-  the footer every NIST program prints. Check: unit tests on real report text.
+- ~~1.1d The report reader~~ done: `oracle/nist/Report.java` reads the four footer lines every NIST
+  routine prints (counts in three-character fields, "NO " for zero); real runs of NC101A, NC105A and
+  SQ201M under cobc give the study's counts for them (93/93; 132/129, 3 deleted; 23/12, 11 inspect).
 - **1.1e The module runs.** Each module's programs compiled and run under `cobc -std=cobol85` in
   NIST's order (Appendix B's dependencies, IC's subprograms, SM's copy libraries, DB twice, the
   data files), compile errors and crashes counted. Check: each module's row equals the golden.
