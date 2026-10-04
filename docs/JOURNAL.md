@@ -158,3 +158,73 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   and kept working on the part that was independent of the decision. That is R-043's behaviour
   generalized, and the pattern the journal exists to count.
 
+### J-015 An X-card's text starts in column 9, which the guide's own sample hides
+- **Who:** Opus. **Class:** contradiction (documentation vs. reality), failure-caught.
+- **Intent:** Phase 1.1c, EXEC85's control cards for the cobc lane.
+- **Found:** the User Guide's Appendix E, as scanned, shows `X-001 TAPE1.`; EXEC85 reads the number
+  in columns 3–5, a program-name position in 6–7 and the text from column 9, and a card written as
+  the sample shows is misread without an error.
+- **Options:** trust the sample; read EXEC85's record layout and write to it.
+- **Resolved:** cards rewritten with text in column 9; the card file's header says so; a unit test
+  holds every X-card to it. **Touched:** `oracle/nist/exec85.cards`, `Exec85Test`.
+- **Caught by:** EXEC85's own print file, which lists every undefined card: the undefined list did
+  not shrink after the cards were "fixed", which made the misreading visible.
+- **Cost:** two runs (minutes).
+
+### J-016 A program's counts come from its footer, not its lines
+- **Who:** Opus. **Class:** decision.
+- **Intent:** Phase 1.1d, the report reader.
+- **Found:** counting `PASS` lines in NC101A's report gives 96 for 93 tests: the column heading
+  repeats the word. Every NIST routine ends with a fixed four-line footer from its own END-ROUTINE.
+- **Options:** count per-test lines; read the footer.
+- **Resolved:** the footer, written from NIST's report code; a report without a whole footer gives
+  no counts rather than zeros. Real runs of NC101A, NC105A and SQ201M give the study's counts.
+  **Touched:** `oracle/nist/Report.java`, three report excerpts as fixtures.
+
+### J-017 A reader that drops a field invites a guess where the field was
+- **Who:** Opus. **Class:** failure-caught.
+- **Intent:** Phase 1.1e, telling a SUBRTN (CALLed) from a SUBPRG (run after its main).
+- **Found:** `Population.Member` (1.1b) kept the owner but not the role word from the header; the
+  first runner guessed the role from the name prefix ("IC", "OBIC").
+- **Resolved:** the member keeps its role; the guess is gone. **Touched:** `Population.java`,
+  `ModuleRun.java`. **Caught by:** the author's own reading of the code before running it.
+
+### J-018 The alternate copy libraries were the wrong way round
+- **Who:** Opus. **Class:** failure-caught.
+- **Intent:** Phase 1.1e, placing ALTL1 and ALTLB in the libraries X-47 and X-48 name.
+- **Found:** the guide (3.6) names both members and both cards without saying which goes where;
+  SM207A failed to compile looking for `ALTLIB2/ALTLB`. SM207A's own code settles it: its second
+  test copies ALTLB from X-48's library and passes only if that text *fails*, which is ALTL1's text.
+- **Resolved:** ALTL1 placed in X-48's library under the name ALTLB, with SM207A's logic written
+  beside the mapping. **Touched:** `ModuleRun.java`. **Caught by:** the first full run.
+
+### J-019 What "executed" means in the published summary, read from its outputs
+- **Who:** Opus. **Class:** decision.
+- **Intent:** Phase 1.1e, a module's row: programs, executed, compile errors, crashes.
+- **Found:** the study's outputs record programs that ended on a runtime error (NC401M, file status
+  35) or printed no report (NC302M, a flagging test) as run with zero tests; the guide does not say.
+- **Resolved:** a program that ran to an end, normally or not, is executed with the tests its report
+  gave; only a run stopped at the time limit is a crash; how it ended is kept as a note. With it, the
+  program and executed columns match the golden in ten of twelve modules. **Touched:** `ModuleRun`.
+
+### J-020 The harness refused a removal it could not resolve
+- **Who:** Opus. **Class:** failure-caught (by the environment).
+- **Intent:** cleaning a scratch folder before a hand run (`rm -f *` after a `cd`), and a print file
+  inside a container script.
+- **Found:** Claude Code's safety check blocks a removal whose target it cannot resolve statically,
+  and an `rm` inside a `sh -c` script.
+- **Resolved:** a fresh folder per run instead of cleaning one, and a subfolder per program; no
+  removal needed. **Caught by:** the harness. **Cost:** two retries.
+
+### J-021 A push failed and the command chain carried on
+- **Who:** Opus. **Class:** failure-caught.
+- **Intent:** landing J-015 onward on `main` alone, then rebasing the unmergeable 1.1e work on top.
+- **Found:** Fable pushed R-047 between Opus's fetch and its push, so the push to `main` was refused;
+  the rest of the command was joined partly by `;`, so it went on: a rebase that conflicted in this
+  file, then a forced push (with a lease) that set the branch to `main`'s commit. `main` was never
+  touched; the 1.1e commit stayed in the local branch.
+- **Options:** chain every step with `&&`; or push, check, and only then go on, one step per command.
+- **Resolved:** the conflict resolved by hand (Fable's J-014 kept, Opus's J-019 on the same event
+  dropped, the rest renumbered), the branch restored from the local copy; from here a push that can
+  be refused is its own command, checked before anything follows it.
+- **Caught by:** the output of the next command (`git status`, the reflog). **Cost:** minutes.
