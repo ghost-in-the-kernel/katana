@@ -47,17 +47,30 @@ public final class Cobc {
         return run(dir, command, Map.of());
     }
 
-    /** Runs an executable built in a folder, with these environment variables added. */
+    /** Runs an executable built in a folder, with these environment variables added and nothing on its input. */
     public Result execute(Path dir, String program, Map<String, String> env) {
-        return run(dir, List.of("./" + program), env);
+        return execute(dir, program, env, new byte[0]);
+    }
+
+    /** Runs an executable built in a folder, with these environment variables added and these bytes as its input. */
+    public Result execute(Path dir, String program, Map<String, String> env, byte[] input) {
+        return run(dir, List.of("./" + program), env, input);
     }
 
     private Result run(Path dir, List<String> command, Map<String, String> env) {
+        return run(dir, command, env, new byte[0]);
+    }
+
+    private Result run(Path dir, List<String> command, Map<String, String> env, byte[] input) {
         try {
             ProcessBuilder builder = new ProcessBuilder(command).directory(dir.toFile()).redirectErrorStream(true);
             builder.environment().putAll(env);
             Process process = builder.start();
-            process.getOutputStream().close();
+            try (var stdin = process.getOutputStream()) {
+                stdin.write(input);
+            } catch (IOException e) {
+                // the program ended without reading all its input; what it printed still counts
+            }
             byte[][] output = new byte[1][];
             Thread reader = Thread.ofVirtual().start(() -> {
                 try {

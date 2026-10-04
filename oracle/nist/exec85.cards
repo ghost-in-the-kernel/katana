@@ -94,9 +94,10 @@ X-082   GNUCOBOL.
 X-083   GNUCOBOL.
 # the data description for VALUE OF's data-name (X-86)
 X-086   PIC X(8) VALUE "VALFILE1".
-# ordinal numbers of 'A' and '0' in ASCII, counting from 1 (X-90, X-91)
+# ordinal numbers of 'A' and 'D' in ASCII, counting from 1 (X-90, X-91); the scanned Appendix D
+# reads "'0'" for X-91, but NC174A defines ORDINAL-A-THROUGH-D as X-90 THROUGH X-91, so it is 'D'
 X-090   66.
-X-091   49.
+X-091   69.
 # a file that will not exist at run time
 X-092   NOFILE.
 # then no temporary program fixes (3.4.4)

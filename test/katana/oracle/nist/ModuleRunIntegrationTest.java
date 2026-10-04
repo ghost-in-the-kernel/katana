@@ -31,11 +31,12 @@ class ModuleRunIntegrationTest {
         Cobc cobc = new Cobc(Duration.ofSeconds(30));
         List<Population.Member> extracted = Exec85.run(ROOT.resolve("corpus/nist-cobol85-test-suite/newcob.val"),
                 Exec85.cards(Files.readString(ROOT.resolve("oracle/nist/exec85.cards"))), Files.createTempDirectory(work, "exec85"), cobc);
+        RunNotes notes = RunNotes.read(Files.readString(ROOT.resolve("oracle/nist/run-notes")));
         Map<String, Future<List<ModuleRun.Outcome>>> runs = new LinkedHashMap<>();
         try (ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
             for (String module : golden.keySet()) {
                 Path dir = Files.createTempDirectory(work, module);
-                runs.put(module, pool.submit(() -> ModuleRun.run(module, extracted, dir, cobc)));
+                runs.put(module, pool.submit(() -> ModuleRun.run(module, extracted, notes, dir, cobc)));
             }
             Map<String, String> rows = new LinkedHashMap<>();
             List<String> detail = new ArrayList<>();

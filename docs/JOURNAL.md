@@ -228,3 +228,28 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   dropped, the rest renumbered), the branch restored from the local copy; from here a push that can
   be refused is its own command, checked before anything follows it.
 - **Caught by:** the output of the next command (`git status`, the reflog). **Cost:** minutes.
+
+### J-022 X-91 is the ordinal of 'D', not of '0'
+- **Who:** Opus. **Class:** contradiction (documentation vs. reality), failure-caught.
+- **Intent:** Phase 1.1e, Katana's own environment fixes.
+- **Found:** the scanned Appendix D reads X-91 as "ordinal number of character '0'"; NC174A defines
+  `ORDINAL-A-THROUGH-D` as X-90 THROUGH X-91, so X-91 is 'D' (the scan read D as 0). With 49 ('0'),
+  two CLASS tests failed.
+- **Resolved:** X-91 = 69, with NC174A's definition cited beside the card. **Touched:**
+  `oracle/nist/exec85.cards`. **Caught by:** the per-program comparison with the study's run.
+- **Note:** the second time the scan hid the truth (after J-015); the program text decides.
+
+### J-023 What NIST says about one program is data, beside its page
+- **Who:** Opus. **Class:** decision.
+- **Intent:** Phase 1.1e, the DB debugging switch and files that must be absent.
+- **Found:** the guide gives per-program run conditions: DB programs with the object-time debugging
+  switch on except DB102A (off) and DB103M (on, then off); SQ130A, SQ141A, SQ142A, SQ225A and
+  IX216A–IX218A expect a file not to exist when they start, while other programs rely on files the
+  one before left (3.6).
+- **Options:** special cases in Java; one rule for all (fresh folder per program, which breaks the
+  chains); a data file of conditions, each with its page.
+- **Resolved:** `oracle/nist/run-notes`, read by `RunNotes`; DB's failed tests went from 274 to 0,
+  and the SQ and IX failures to 0. Remaining: NC204M (ACCEPT into a 200-character field from two
+  card lines), SM206A (a debug line in COPY text), OBNC1M (STOP literal with no operator), the IF
+  `ALL` subscript, DB205A (communications): cobc's own behaviour, for the reconciliation (R-047).
+- **Touched:** `oracle/nist/run-notes`, `RunNotes.java`, `ModuleRun.java`, `Cobc.java` (input).

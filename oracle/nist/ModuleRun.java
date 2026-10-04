@@ -16,9 +16,10 @@ import java.util.Optional;
  * chapter 4): its main programs in population order, each followed by its SUBPRG members, which run
  * after it on the files it left; its SUBRTN members compiled as modules for it to CALL; the copy
  * library members beside the programs, with ALTLB and ALTL1 in the libraries X-47 and X-48 name; a
- * data member given to the program it is named after as its card input (X-58); DB103M run twice,
- * with the object-time debugging switch on and then off (DB-1). All of a module's programs share one
- * folder, because a program may read a file the one before it wrote.
+ * data member given to the program it is named after on its standard input, which its ACCEPT
+ * statements read (NC109M tests ACCEPT format 1); and what the guide says of particular programs (the
+ * debugging switch, files that must be absent) taken from oracle/nist/run-notes. All of a module's
+ * programs share one folder, because a program may read a file the one before it wrote.
  */
 public final class ModuleRun {
     /**
@@ -38,7 +39,6 @@ public final class ModuleRun {
     }
 
     static final String PRINT = "PRINTOUT";
-    static final String CARDS = "CARDS";
     /**
      * Where the two alternate-library members go, as a folder and a name: SM207A copies ALTLB from the
      * library X-47 names and expects ALTLB's own text, then ALTLB from X-48's and expects ALTL1's text
@@ -54,7 +54,7 @@ public final class ModuleRun {
     }
 
     /** Runs a module's programs in a folder of their own and returns each run's outcome, in order. */
-    public static List<Outcome> run(String module, List<Population.Member> extracted, Path dir, Cobc cobc) {
+    public static List<Outcome> run(String module, List<Population.Member> extracted, RunNotes notes, Path dir, Cobc cobc) {
         try {
             Files.createDirectories(dir);
             Map<String, Population.Member> data = new HashMap<>();
@@ -65,7 +65,7 @@ public final class ModuleRun {
             List<Outcome> outcomes = new ArrayList<>();
             for (Population.Member main : extracted) {
                 if (!main.kind().equals("COBOL") || !main.name().equals(main.owner()) || !module(main).equals(module)) continue;
-                outcomes.addAll(runMain(main, extracted, data, dir, cobc));
+                outcomes.addAll(runMain(main, extracted, data, notes, dir, cobc));
             }
             return outcomes;
         } catch (IOException e) {
@@ -75,7 +75,7 @@ public final class ModuleRun {
 
     /** A main program with its SUBRTN modules, then each of its SUBPRG members in order. */
     private static List<Outcome> runMain(Population.Member main, List<Population.Member> extracted,
-                                         Map<String, Population.Member> data, Path dir, Cobc cobc) throws IOException {
+                                         Map<String, Population.Member> data, RunNotes notes, Path dir, Cobc cobc) throws IOException {
         List<Outcome> outcomes = new ArrayList<>();
         for (Population.Member sub : extracted) {
             if (sub.owner().equals(main.name()) && !sub.name().equals(main.name()) && isSubroutine(sub)) {
@@ -84,41 +84,53 @@ public final class ModuleRun {
                 if (!compiled.ok()) return List.of(Outcome.compileError(main.name(), sub.name() + ": " + compiled.output()));
             }
         }
-        outcomes.addAll(runProgram(main, data, dir, cobc));
+        outcomes.addAll(runProgram(main, data, notes, dir, cobc));
         for (Population.Member sub : extracted) {
             if (sub.owner().equals(main.name()) && !sub.name().equals(main.name()) && !isSubroutine(sub)) {
-                outcomes.addAll(runProgram(sub, data, dir, cobc));
+                outcomes.addAll(runProgram(sub, data, notes, dir, cobc));
             }
         }
         return outcomes;
     }
 
-    /** One program compiled and run, twice for DB103M (DB-1); its card input written first if it has one. */
-    private static List<Outcome> runProgram(Population.Member program, Map<String, Population.Member> data, Path dir, Cobc cobc)
-            throws IOException {
+    /** One program compiled and run once per debugging setting its run note gives, its absent files removed first. */
+    private static List<Outcome> runProgram(Population.Member program, Map<String, Population.Member> data, RunNotes notes,
+                                            Path dir, Cobc cobc) throws IOException {
         write(dir, program);
         Cobc.Result compiled = cobc.compile(dir, program.name() + ".CBL", List.of());
         if (!compiled.ok()) return List.of(Outcome.compileError(program.name(), compiled.output()));
-        List<Map<String, String>> runs = program.name().equals("DB103M")
-                ? List.of(Map.of("COB_SET_DEBUG", "Y"), Map.of("COB_SET_DEBUG", "N"))
-                : List.of(Map.of());
+        RunNotes.Note note = notes.of(program.name(), module(program));
+        byte[] input = data.containsKey(program.name())
+                ? String.join("\n", data.get(program.name()).lines()).concat("\n").getBytes(StandardCharsets.ISO_8859_1)
+                : new byte[0];
         List<Outcome> outcomes = new ArrayList<>();
-        for (Map<String, String> extra : runs) {
-            if (data.containsKey(program.name())) Files.write(dir.resolve(CARDS), data.get(program.name()).lines(), StandardCharsets.ISO_8859_1);
+        for (String debug : note.debug()) {
+            for (String file : note.absent()) removeFile(dir, file);
             Files.deleteIfExists(dir.resolve(PRINT));
-            Map<String, String> env = new HashMap<>(extra);
+            Map<String, String> env = new HashMap<>();
+            if (!debug.isEmpty()) env.put("COB_SET_DEBUG", debug.equals("on") ? "Y" : "N");
             env.put("COB_LIBRARY_PATH", ".");
             env.put("COB_SWITCH_1", "ON");
             env.put("COB_SWITCH_2", "OFF");
-            Cobc.Result ran = cobc.execute(dir, program.name(), env);
+            Cobc.Result ran = cobc.execute(dir, program.name(), env, input);
             Path print = dir.resolve(PRINT);
             String printed = Files.exists(print) ? Files.readString(print, StandardCharsets.ISO_8859_1) : "";
             Optional<Report.Counts> counts = Report.read(printed);
             String error = ran.exit() == -1 ? "timed out" : null;
-            String note = !ran.ok() && error == null ? "exit " + ran.exit() + ": " + firstLine(ran.output()) : counts.isEmpty() ? "no report" : "";
-            outcomes.add(new Outcome(program.name(), error, note, counts));
+            String ended = !ran.ok() && error == null ? "exit " + ran.exit() + ": " + firstLine(ran.output()) : counts.isEmpty() ? "no report" : "";
+            outcomes.add(new Outcome(program.name(), error, ended, counts));
         }
         return outcomes;
+    }
+
+    /** A file and, for an indexed file, its alternate-key parts (NAME.1, NAME.2, ...). */
+    private static void removeFile(Path dir, String name) throws IOException {
+        try (var files = Files.list(dir)) {
+            for (Path p : files.toList()) {
+                String f = p.getFileName().toString();
+                if (f.equals(name) || f.matches(java.util.regex.Pattern.quote(name) + "\\.\\d+")) Files.delete(p);
+            }
+        }
     }
 
     private static boolean isSubroutine(Population.Member member) {

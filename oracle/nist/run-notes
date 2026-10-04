@@ -1,0 +1,15 @@
+# How the cobc lane runs particular programs, as NIST says: the CCVS85 User Guide 4.2's note on the
+# program (chapter 4, page given) or the program's own header. One program (or a module, as "DB*")
+# per line: its name, then settings, then '#' and where it is said.
+#   debug=on | off | on,off   the object-time debugging switch for its run, or for each of two runs
+#   absent=FILE[,FILE]        files that must not exist when it starts (an indexed file with its .n parts)
+DB*      debug=on               # DB-1 to DB-5: "compiled and executed with both compile and object time debugging switches enabled"
+DB102A   debug=off              # DB-1: "the compile time debugging switch is on and the object time switch is off"
+DB103M   debug=on,off           # DB-1: "executed twice; once with the object time debugging switch enabled (on) and once ... disabled (off)"
+SQ130A   absent=MASS1           # SQ-7: "attempts to open for I-O a mass storage file which is not present"
+SQ141A   absent=TAPE1           # header: "an OPEN for INPUT on a tape file which is not present"
+SQ142A   absent=TAPE1           # header: as SQ141A
+SQ225A   absent=MASS1           # SQ-18: "attempts to open for extend a mass storage file which is not present"
+IX216A   absent=INDEX2          # header and IX-9: SELECT OPTIONAL on X-25, opened EXTEND, status 05 expected
+IX217A   absent=INDEX1,INDEX2   # IX-9: "creates optional indexed files by the OPEN I-O and OPEN EXTEND statements"
+IX218A   absent=INDEX1,INDEX2   # IX-9: "a sequential READ on a non-existent optional indexed file"
