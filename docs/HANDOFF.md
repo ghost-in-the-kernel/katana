@@ -8,10 +8,6 @@ Next: phase 1.1, reproduce `Total 426 426 0 0 9610 0 20 118 9748` in CI, built a
 
 ## Waiting on Ghost
 
-- 1.1e: what Katana's NIST golden means. The published totals carry conventions of GnuCOBOL's
-  harness that NIST's material does not state (TODO 1.1e, B to E). Either Katana infers and copies
-  each from the study's outputs, or its golden follows NIST's own footers and a reconciliation lists
-  every program where it differs from the published summary, and why.
 - Counsel on R-002's license texts and R-015 (EPL-2.0 grammars), before any copy leaves the repo.
 - Counsel on JUnit 5 (EPL-2.0, vendored for tests only, unmodified, never shipped): a lighter
   question than R-015's che4z grammars, which would be modified and shipped inside the compiler. The
