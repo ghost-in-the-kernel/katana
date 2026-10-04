@@ -61,7 +61,17 @@ module is proposed, not added). The third, phrased as a proposal and asked by a 
 
 ## Phase 1: the oracle and the corpus
 
-### 1.1b The population reader (a step of 1.1, which is still open)
+### 1.1 Reproduce NIST in CI
+
+Done in six steps (a to f). Katana's own harness (R-044, R-045), written from NIST's population file,
+EXEC85 and the CCVS85 User Guide: `oracle/nist/` extracts the 459 programs with EXEC85 under cobc,
+runs the twelve modules (426 runs) and reads each footer. Its golden is what NIST's footers say
+(R-047): `Total 426 413 12 1 9343 5 29 143 9520`; `RECONCILIATION.md` explains every difference from
+the published `Total 426 426 0 0 9610 0 20 118 9748` in 45 lines, and the fast loop rebuilds every
+published row from them. CI's `nist` job runs it with the network off: 85 s on 2026-10-04 (run 43),
+under the 3-minute limit its step enforces.
+
+### 1.1b The population reader (a step of 1.1)
 
 `oracle/nist/Population.java` reads NIST's population format. The corpus README and the User Guide
 both describe a member as `*HEADER,kind,name` to `*END-OF,name`; 68 of `newcob.val`'s 512 members
@@ -70,7 +80,7 @@ say otherwise, naming their main program first and themselves last
 by reading the real file rather than trusting the description; the reader's count (512: 459
 programs, 51 copy members, 2 data files) now says which is true.
 
-### 1.1e The module runs (a step of 1.1, which is still open)
+### 1.1e The module runs (a step of 1.1)
 
 `oracle/nist/ModuleRun.java` runs all twelve modules under cobc as NIST's guide says (mains in order
 with their SUBPRG chains, SUBRTN modules, copy libraries, data on standard input, DB103M twice), with

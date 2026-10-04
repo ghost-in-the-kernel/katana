@@ -278,3 +278,15 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
 - **Resolved:** a reason of its own, `source-altered`, rather than folding it into cobc's behaviour.
   The tests NIST deletes and the published run counts as passes (NC174A, SM208A, SQ106A) may be the
   same alteration seen without a change of total. **Touched:** `RECONCILIATION.md`.
+
+### J-026 Phase 1.1 closed: NIST in CI, every difference explained
+- **Who:** Opus. **Class:** measurement.
+- **Intent:** 1.1's check: the NIST run in CI under 3 minutes, every difference from the published
+  summary explained (R-047).
+- **Found:** CI run 43 (`cd56c8d`): the `nist` job's run step took 85 s (image build 44 s, fetch 2 s,
+  not counted against the limit); the fast loop 17 s. Katana's total `426 413 12 1 9343 5 29 143 9520`;
+  the published total rebuilt exactly from it by the 45 reconciliation lines.
+- **Touched:** `DONE.md`, `TODO.md`, `HANDOFF.md`.
+- **Cost:** six steps (a to f), about three and a quarter hours (1.1a at about 14:55 UTC, CI green at
+  18:10), three Ghost decisions (R-044, R-045, R-047), and three places where NIST's documentation
+  and its files disagreed (J-011, J-015, J-022).

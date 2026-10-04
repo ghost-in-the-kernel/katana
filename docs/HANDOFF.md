@@ -2,9 +2,9 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 is done.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 are done.
 
-Next: phase 1.1, reproduce `Total 426 426 0 0 9610 0 20 118 9748` in CI, built as R-044 decides.
+Phase 1.1 is done. Next: phase 1.2, NIST under `-std=ibm`, every change from the cobol85 run recorded.
 
 ## Waiting on Ghost
 

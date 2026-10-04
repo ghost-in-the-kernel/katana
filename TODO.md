@@ -8,31 +8,6 @@ the first open item has a check.
 
 ## Phase 1: the oracle and the corpus
 
-### 1.1 Reproduce NIST in CI
-
-Check: the summary diff against GnuCOBOL's shipped summary is empty, in CI, under 3 minutes. Under
-R-044 the harness is Katana's own, so "empty" means its totals equal the published ones, recorded
-as a golden: `Total 426 426 0 0 9610 0 20 118 9748`, and each module's row.
-
-Built in steps, each its own commit (any agent may take the next open one; the source is NIST's
-`newcob.val`, its EXEC85, and the CCVS85 User Guide 4.2, never GnuCOBOL's harness):
-
-- ~~1.1a The source, pinned~~ done: `corpus/fetch.sh` fetches `newcob.val` at a pinned commit and
-  refuses it unless its SHA-256 is `744a0498...3274`.
-- ~~1.1b The population reader~~ done: `oracle/nist/Population.java`; `newcob.val` reads to 512
-  members (459 programs, 51 copy members, 2 data files), subprograms named by their own header field.
-- ~~1.1c EXEC85, run~~ done: `oracle/nist/exec85.cards` (the X-cards, each from Appendix D, text in
-  column 9) and `Exec85.java`; under cobc it extracts 459 programs, 51 copy members and 2 data files
-  with no undefined X-card in live code outside CM (`gradle integration`, 2.5 s).
-- ~~1.1d The report reader~~ done: `oracle/nist/Report.java` reads the four footer lines every NIST
-  routine prints (counts in three-character fields, "NO " for zero); real runs of NC101A, NC105A and
-  SQ201M under cobc give the study's counts for them (93/93; 132/129, 3 deleted; 23/12, 11 inspect).
-- ~~1.1e The module runs~~ done: `oracle/nist/ModuleRun.java` runs every module under cobc (426 runs,
-  about 70 s); `programs.golden` records each run (R-047); `RECONCILIATION.md` explains every difference
-  from the published summary in 45 lines and `ReconciliationTest` rebuilds all twelve published rows.
-- **1.1f The summary and CI.** `gradle integration` prints the summary and compares it with the
-  golden; a CI job fetches the corpus, then runs it with the network off. Check: the item's own.
-
 ### 1.2 Run NIST under `-std=ibm`
 
 Check: a `nist-ibm.txt` baseline committed and held by a test.
