@@ -18,6 +18,7 @@ are built (docs/ROADMAP.md says when); a row with no files yet points at the pla
 | A module of Katana: add one, or change what it may import | `docs/modules.json` (its `adding` line) | `docs/ROADMAP.md` §3.3 | `test/ModulesTest.java` |
 | A decision, a plan, what to work on | `theGhost.md`, `TODO.md`, `docs/HANDOFF.md` | `theGhost.md` | `test/GhostTest.java` |
 | A word | `docs/GLOSSARY.md` | | `test/GlossaryTest.java` |
+| Why the rules are what they are (not read first; read when a rule seems arbitrary) | `docs/GHOST-IN-THE-KERNEL.md` | | |
 | The oracle: fixtures, lanes, the gate, the comparator | `oracle/` (phase 1); until then `oracle/prototypes/` | `docs/research/oracle.md` | NIST summary diff empty; CardDemo hashes |
 | The front end: grammar, preprocessor, source map | `front/` (phase 2); until then `front/prototypes/` | `docs/research/open_source_tools.md` | parse counts may only rise |
 | The Semantic IR | `sir/types`, `sir/build`, `sir/check` (phase 2) | `docs/SEMANTIC-IR.md` | `sir-doc.test`; data map equals `cobc -C` |
