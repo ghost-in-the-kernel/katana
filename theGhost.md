@@ -226,7 +226,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   measured within its target; until then it is measured and reported, never ratcheted. "Docs lines per
   source line" (target < 0.35) arms when the first module carries real code (phase 2); the other nine
   armed in phase 0. (c) `scripts/` (the kernel-map and metrics tools) and `test/` are outside the
-  thirteen modules; `modules.test` treats them as outside the product.
+  modules; `modules.test` treats them as outside the product.
 - **Why:** (a) `theGhost.md` is Ghost's file; the agent that proposed a decision and the agent that
   links it need no permission to keep its cross-references true, and the "decisions without See also"
   metric cannot be worked otherwise. (b) A ratchet on a metric that cannot be met before code exists
@@ -238,6 +238,25 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Status:** in force
 - **See also:** R-008, R-038
 - **subject:** process
+
+### R-043: A new module or import is a decision; an agent proposes it and stops
+- **Decision:** Adding a module, or a new import between modules, changes the architecture
+  (`docs/modules.json`'s set and docs/ROADMAP.md 3.3), so it is Ghost's to approve. An agent asked
+  for one drafts the `modules.json` entry and the 3.3 line as a proposal (in its reply or on a branch
+  that is not merged), says it is waiting on Ghost, and stops; it does not edit `main`. An agent that
+  cannot tell whether the asker is Ghost says so and proposes. The fresh-agent trial is phrased the
+  same way ("say what you would change, then stop") and is scored on navigation and on changing
+  nothing.
+- **Why:** The two phase-0 trials both read "add a module" as permission to add one; one changed
+  3.3, which the adding line already named as Ghost's, and flagged that it could not tell who was
+  asking. The ambiguity was the task's, not the agents'. A module set that any agent may grow is the
+  Suite Builder Cypress mistake waiting to happen again (P-04).
+- **Held by:** `docs/modules.json` "adding" line; the `CLAUDE.md` routing row for a module;
+  docs/ROADMAP.md 0.7 and §5.
+- **Source:** Opus's trial report, 2026-10-04; decided by Ghost with Reviewer G.
+- **Status:** in force
+- **See also:** R-007, R-042
+- **subject:** architecture
 
 ---
 
