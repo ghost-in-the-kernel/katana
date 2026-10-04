@@ -6,12 +6,11 @@ configuration. Content-addressed; its hash appears in the Semantic IR header, th
 every fixture and every ledger line (R-007). `test/katana/profile/ProfileTest.java` holds this
 document to `profile/`.
 
-Built in phase 1.3, where a fixture first carries the hash, with only the fields that can be stated
-from what was measured: the compiler, its version, its dialect, and GnuCOBOL flags set beyond the
-dialect. The IBM compile options (TRUNC, ARITH, NUMPROC, code page, collating sequence) are not
-fields yet: their IBM meaning must be read from the Enterprise COBOL manuals first, which the study
-could not reach (docs/HANDOFF.md), and phase 3.1 needs them before the numeric runtime is frozen.
-Adding one is a new profile, with a new hash, never a change to an old one.
+Built in phase 1.3, where a fixture first carries the hash, with the fields that can be stated from
+what was measured: the compiler, its version, its dialect, and GnuCOBOL flags set beyond the dialect.
+The IBM compile options are fields from R-049 (below), each carrying what is known of its meaning
+and how well it is known; `docs/research/ibm-options.md` holds the sourced facts. Adding a field is a
+new profile, with a new hash, never a change to an old one.
 
 Invariants are numbered PROFILE-01 onward, in this document only, and a number is never reused.
 
@@ -26,6 +25,37 @@ A profile is a file of `field value` lines (`#` starts a comment): `profile/ibm.
 | `version` | its version, as `cobc --version` prints it | `3.1.2` |
 | `dialect` | the `-std` dialect | `ibm` |
 | `flag` | a GnuCOBOL dialect flag set beyond the dialect, `name=value`; repeatable | `binary-truncate=yes` |
+| `ibm.trunc` | IBM TRUNC: `STD`, `OPT` or `BIN` (default `STD`) | `STD` |
+| `ibm.numproc` | IBM NUMPROC: `PFD` or `NOPFD` (default `NOPFD`; `MIG` is Enterprise COBOL 4 only and is recorded as `MIG` with a finding) | `NOPFD` |
+| `ibm.arith` | IBM ARITH: `COMPAT` (18 digits) or `EXTEND` (31) (default `COMPAT`) | `COMPAT` |
+| `ibm.codepage` | IBM CODEPAGE: the EBCDIC CCSID (default `1140`) | `1140` |
+| `ibm.invdata` | IBM INVDATA / ZONEDATA (6.1 to 6.4): `PFD`, `NOPFD`, `MIG`, or an INVDATA pair such as `FORCENUMCMP,CLEANSIGN`; `NO` for NOINVDATA (default `NO`) | `NO` |
+| `ibm.version` | the Enterprise COBOL release the options are read as (defaults and option sets differ by release) | `6.4` |
+
+The IBM fields describe the *source* program's compilation on z/OS; the cobc lane cannot set them,
+and the literal lowering reads them. The program collating sequence is not a field: it comes from
+the program's own `PROGRAM COLLATING SEQUENCE` clause, which the Semantic IR carries.
+
+## What each IBM field means, and how well it is known (R-049)
+
+Every semantic the lowering takes from an IBM field has a status: **verified** (quoted from a primary
+IBM source in `docs/research/ibm-options.md`) or **hypothesis** (recollection of the Programming
+Guide, not yet read). A lowering that depends on a hypothesis says so in its findings and in the proof
+report ("valid under hypothesis H-n"), until the manual text is read and the status changes.
+
+| Field | Verified (primary source) | Hypothesis (to confirm from the Programming Guide) | GnuCOBOL flag |
+| --- | --- | --- | --- |
+| `ibm.trunc` | STD: result truncated to the PICTURE's digits (base 10). BIN: truncated to the halfword/fullword/doubleword (base 2). OPT: assumes the data fits; "results are dependent on the particular code sequence generated". Default STD. | BIN makes binary receivers behave as COMP-5; TRUNC has no effect on COMP-5; size error under BIN/COMP-5 is against binary capacity. | `binary-truncate` (yes = STD, no = BIN); OPT lowered as STD with finding (R-022) |
+| `ibm.numproc` | PFD assumes preferred signs (C +, D −, F unsigned) and skips sign fix-up; NOPFD fixes up every reference; MIG fixes up receivers only (COBOL 4) and is unsupported in 6.x. NUMERIC test: PFD respects the PICTURE (C/D signed, F unsigned); NOPFD/MIG pass any valid sign. Default NOPFD. | Zoned preferred signs are the same nibbles in the low-order byte. | `hostsign` partly; the rest is in `rt/` sign codecs |
+| `ibm.arith` | COMPAT 18 digits, EXTEND 31 for items, literals and intermediates; EXTEND rounds floating intermediates to 31 (APAR PH64935). Default COMPAT. | Intermediate cap 30 (COMPAT) / 31 (EXTEND). | `numeric-literal-length`; the cap in `rt/Decimal` |
+| `ibm.codepage` | Default CCSID 1140. | Governs alphanumeric literal and data encoding and national conversions. | none (the cobc lane is ASCII; `rt/` carries EBCDIC) |
+| `ibm.invdata` | ZONEDATA(NOPFD/MIG): packed-vs-display compare done alphanumerically; unsigned DISPLAY senders have the sign forced to F; INVDATA(FORCENUMCMP, CLEANSIGN) replaces ZONEDATA. Default NOINVDATA. | — | none; `rt/` |
+| Appendix A, intermediate results | **Nothing verified.** | i/d rules for + − × ÷ **, dmax (receiver decimals, +1 under ROUNDED, operand decimals except divisors and exponents), division d = max(d1−d2, dmax), the 30/31 cap with the "d reduced to max(dmax, cap−i)" rule, floating point when any operand is float or an exponent is non-integer, dmax in conditions. The one measured point: `1/3*300` into `999V99` is 99.00 under `-std=ibm` (`arithmetic-osvs`) and 99.99 exact. | `arithmetic-osvs` |
+
+**Appendix A is the open item.** Phase 3.1 (`rt/Decimal`, `ArithProfile`) may not be frozen while
+it is a hypothesis. Path-style IBM URLs (`https://www.ibm.com/docs/en/SS6SG3_6.4.0/pg/ref/<topic>.html`)
+are reachable when the topic id is known; the Programming Guide PDF is reachable but too large for
+the fetch tool. Ghost can close it by pasting the Appendix A topic URL or attaching the PDF.
 
 ## The GnuCOBOL mapping
 

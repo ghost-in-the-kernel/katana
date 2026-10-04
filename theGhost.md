@@ -376,6 +376,30 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-009, R-010 (reserved), R-016 (reserved)
 - **subject:** roadmap
 
+### R-049: The IBM compile options are profile fields now, each with a verification status
+- **Decision:** The profile gains `ibm.trunc`, `ibm.numproc`, `ibm.arith`, `ibm.codepage`,
+  `ibm.invdata` and `ibm.version`, with IBM's documented defaults (STD, NOPFD, COMPAT, 1140,
+  NOINVDATA). They describe the source program's compilation on z/OS; the cobc lane cannot set them,
+  the literal lowering reads them. Every semantic the lowering takes from one carries a status in
+  `docs/PROFILE.md`: *verified* (quoted from a primary IBM source, `docs/research/ibm-options.md`) or
+  *hypothesis*. A lowering that depends on a hypothesis says so in its findings and the proof report
+  ("valid under hypothesis H-n"). The program collating sequence is not a field; it is read from the
+  program. Appendix A (intermediate results) is wholly hypothesis and blocks phase 3.1, not phase 1.
+- **Why:** The study's container could not reach IBM's manuals at all (F-10). From this session the
+  performance-tuning papers, the compiler-option tables, the Customization Guide and eleven APARs
+  were reached and quoted: TRUNC, NUMPROC, ARITH, CODEPAGE and ZONEDATA/INVDATA semantics are now
+  verified; the Programming Guide's Appendix A still is not (its PDF is reachable but too large for
+  the fetch tool; its HTML topic id is unknown). Waiting for a complete reading would hold the
+  profile hostage to one appendix; recording what is known with its status lets phase 1 and 2
+  proceed and makes the open item visible in every proof until it closes.
+- **Held by:** `docs/PROFILE.md` (the fields and the status table); `ProfileTest` (a profile states
+  every field, PROFILE-02); the proof report's hypothesis line (phase 3).
+- **Source:** Opus raised the fields as R-009's third choice (J-029); the sourcing by a research agent
+  under Fable, 2026-10-04; decided by Ghost with Reviewer G.
+- **Status:** in force
+- **See also:** P-12, R-020, R-022, F-10
+- **subject:** profile
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-010 DFSORT

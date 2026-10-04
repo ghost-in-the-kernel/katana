@@ -421,3 +421,21 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   ended with an empty TRXFL.SEQ the job never wrote.
 - **Resolved:** a SORT step stops before anything is allocated. **Caught by:** reading the first
   report before recording the golden. **Cost:** one run.
+
+### J-038 The IBM manuals, reached in part
+- **Who:** Fable, with a research agent; decided by Ghost. **Class:** measurement → decision.
+- **Intent:** R-009's third choice: what the profile's IBM fields are and mean (J-029).
+- **Found:** from this session's network, IBM's performance-tuning papers, compiler-option tables,
+  Customization Guide and eleven APARs were reachable and quotable where the study's container got
+  403 on everything. TRUNC, NUMPROC, ARITH, CODEPAGE and ZONEDATA/INVDATA semantics and defaults are
+  now verified from primary text. The Programming Guide's Appendix A (intermediate results) is still
+  not: its PDF is reachable but 700 pages defeat the fetch tool; its HTML topic id is unknown and
+  guesses return 403.
+- **Options:** wait for the full appendix before adding any field; add the fields with what is
+  verified and mark the rest hypothesis.
+- **Resolved:** R-049: fields added with IBM defaults; every semantic carries verified/hypothesis;
+  a lowering on a hypothesis says so in its proof; Appendix A blocks 3.1, not 1.x.
+- **Touched:** R-049, `docs/PROFILE.md`, `docs/research/ibm-options.md`, `HANDOFF.md`.
+- **Note:** the study's F-10 risk ("the manuals were unreachable") was partly an artefact of one
+  container's proxy, not of the manuals. Worth remembering when a research finding says "unreachable".
+

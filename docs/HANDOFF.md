@@ -10,8 +10,10 @@ TRANREPT-STUDY's frozen sort and report hashes and CREASTMT end to end (R-048), 
 
 ## Waiting on Ghost
 
-- The profile's IBM option fields (TRUNC, ARITH, NUMPROC, code page, collating sequence; J-029):
-  Ghost is consulting Fable. R-009's other two choices are decided (R-009, R-048).
+- **Appendix A of the Enterprise COBOL Programming Guide** ("Intermediate results and arithmetic
+  precision"): the one IBM semantic still unverified (R-049, `docs/PROFILE.md`). Blocks phase 3.1.
+  Closes when Ghost pastes the topic URL (path-style `ibm.com/docs/en/SS6SG3_6.4.0/pg/ref/<topic>.html`
+  URLs are reachable when the id is known) or attaches the PDF (SC27-8714) for a full read.
 - Counsel on R-002's license texts and R-015 (EPL-2.0 grammars), before any copy leaves the repo.
 - Counsel on JUnit 5 (EPL-2.0, vendored for tests only, unmodified, never shipped): a lighter
   question than R-015's che4z grammars, which would be modified and shipped inside the compiler. The
