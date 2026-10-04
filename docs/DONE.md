@@ -21,10 +21,10 @@ written.
 The founding commit: the study's prototypes under `front/prototypes/`, `lower/prototypes/` and
 `oracle/prototypes/`, each a prototype to be absorbed, not a dependency.
 
-### 0.2 The documents of 4.1 (the doc tests are still open)
+### 0.2 The documents of 4.1 and their tests
 
-The founding commit: `theGhost.md` R-001 to R-008 and R-037, `docs/GLOSSARY.md`, `CLAUDE.md`. Then:
-`docs/modules.json` (the modules of 3.3 and their import rules), `docs/AGENT.md` (the contract of
-4.4 and the metrics of section 5), `TODO.md` and this file, `docs/SEMANTIC-IR.md`, `docs/PROFILE.md`
-and `docs/PROOF.md` as headings with their invariant numbering reserved, and `docs/KERNEL-MAP.md`
-with its format.
+The founding commit: `theGhost.md`, `docs/GLOSSARY.md`, `CLAUDE.md`. Then `docs/modules.json`,
+`docs/AGENT.md`, `TODO.md` and this file, `docs/SEMANTIC-IR.md`, `docs/PROFILE.md` and
+`docs/PROOF.md` as headings with their numbering reserved, `docs/KERNEL-MAP.md` with its format; and
+the doc tests under `test/` (ghost, glossary, docs, modules, todo), run by `test/run.sh` (R-038), each
+held to inputs it must reject. Decisions: R-038, R-039.

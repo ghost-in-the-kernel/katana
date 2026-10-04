@@ -8,11 +8,6 @@ the first open item has a check.
 
 ## Phase 0: founding
 
-### 0.2 The doc tests (the rest of 0.2)
-
-Check: every doc test passes on the empty project; `ghost.test` fails on a deliberately conflicting
-pair, then passes when one is superseded.
-
 ### 0.3 The container
 
 Check: a clean clone builds with the network off.

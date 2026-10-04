@@ -14,20 +14,21 @@ are built (docs/ROADMAP.md says when); a row with no files yet points at the pla
 
 | Task | Start here | Contract | Tests |
 | --- | --- | --- | --- |
-| Phase 0: founding the repository | `docs/ROADMAP.md` §6 phase 0, `docs/HANDOFF.md` | `docs/ROADMAP.md` §3.3, §4 | the doc tests, once written |
-| A module of Katana: its purpose, what it may import | `docs/modules.json` | `docs/ROADMAP.md` §3.3 | `test/modules.test` |
-| A decision, a plan, what to work on | `theGhost.md`, `TODO.md`, `docs/HANDOFF.md` | `theGhost.md` | `test/ghost.test` |
-| A word | `docs/GLOSSARY.md` | | `test/glossary.test` |
+| Phase 0: founding the repository | `docs/ROADMAP.md` §6 phase 0, `docs/HANDOFF.md` | `docs/ROADMAP.md` §3.3, §4 | `test/run.sh` (the doc tests) |
+| A module of Katana: its purpose, what it may import | `docs/modules.json` | `docs/ROADMAP.md` §3.3 | `test/ModulesTest.java` |
+| A decision, a plan, what to work on | `theGhost.md`, `TODO.md`, `docs/HANDOFF.md` | `theGhost.md` | `test/GhostTest.java` |
+| A word | `docs/GLOSSARY.md` | | `test/GlossaryTest.java` |
 | The oracle: fixtures, lanes, the gate, the comparator | `oracle/` (phase 1); until then `oracle/prototypes/` | `docs/research/oracle.md` | NIST summary diff empty; CardDemo hashes |
 | The front end: grammar, preprocessor, source map | `front/` (phase 2); until then `front/prototypes/` | `docs/research/open_source_tools.md` | parse counts may only rise |
 | The Semantic IR | `sir/types`, `sir/build`, `sir/check` (phase 2) | `docs/SEMANTIC-IR.md` | `sir-doc.test`; data map equals `cobc -C` |
 | The literal lowering and the runtime | `lower/`, `rt/` (phase 3) | `docs/research/semantic_traps.md` until `docs/SEMANTIC-IR.md` covers it | the 359 autotests; NIST through the java lane |
 | Intent, passes, the ledger | `intent/`, `passes/`, `ledger/` (phases 5–6) | `docs/PROOF.md` | every golden byte-identical after every pass |
-| The agent's environment | `docs/AGENT.md`, `docs/KERNEL-MAP.md` | `docs/ROADMAP.md` §5 | `test/metrics.test` |
+| The agent's environment | `docs/AGENT.md`, `docs/KERNEL-MAP.md` | `docs/ROADMAP.md` §5 | `test/MetricsTest.java` (phase 0.6) |
 | The corpus | `corpus/MANIFEST.md`, `corpus/fetch.sh`, `corpus/scan.sh` | licenses in the manifest | a file with no license fails |
 
 ## Commands
 
+`test/run.sh` runs the doc tests (plain Java 21, R-038) until phase 0.3 moves them into Gradle.
 To be written in phase 0.3 and 0.6: `./gradlew build` (offline), `./gradlew test` (the fast loop,
 under 20 s), `./gradlew integration` (cobc lane, NIST, CardDemo), `./gradlew metrics`,
 `corpus/fetch.sh`. Until then, the study's prototypes under `*/prototypes/` each say how they ran.
