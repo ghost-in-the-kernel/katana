@@ -87,6 +87,8 @@ ODO = `OCCURS ... DEPENDING`, C3 = COMP-3/COMPUTATIONAL-3, GOTO = `GO TO`, ALTER
 - License: public domain (US government work, NIST CCVS85 v4.0, Oct 1992), README states it.
 - Single file `newcob.val` (348,271 lines, 512 `*HEADER` entries: 459 COBOL programs, 51 COPY
   members, 2 DATA files). Needs EXEC85 (the first program in the file) to split.
+- Fetched by `fetch.sh` at commit `0428c3cf` and checked by SHA-256 (`744a0498...3274`): the source of
+  the NIST run in `oracle/` (R-044).
 
 ### nistcobol85 (z390development)
 - URL: https://github.com/z390development/nistcobol85

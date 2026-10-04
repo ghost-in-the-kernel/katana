@@ -10,7 +10,28 @@ the first open item has a check.
 
 ### 1.1 Reproduce NIST in CI
 
-Check: the summary diff against GnuCOBOL's shipped summary is empty, in CI, under 3 minutes.
+Check: the summary diff against GnuCOBOL's shipped summary is empty, in CI, under 3 minutes. Under
+R-044 the harness is Katana's own, so "empty" means its totals equal the published ones, recorded
+as a golden: `Total 426 426 0 0 9610 0 20 118 9748`, and each module's row.
+
+Built in steps, each its own commit (any agent may take the next open one; the source is NIST's
+`newcob.val`, its EXEC85, and the CCVS85 User Guide 4.2, never GnuCOBOL's harness):
+
+- **1.1a The source, pinned.** `corpus/fetch.sh` fetches `newcob.val` at a pinned commit; the
+  oracle refuses a copy whose SHA-256 is not `744a04982095a3abea29a9df5faf63d226083edecc7b5bf34bc412eae0d53274`.
+- **1.1b The population reader.** `oracle/` reads a population-format file into its members
+  (`*HEADER,COBOL|CLBRY|DATA*,name[,SUBRTN,name]` to `*END-OF`), and EXEC85's indented output too.
+  Check: unit tests on a small population; all 512 members of `newcob.val` read.
+- **1.1c EXEC85, run.** The control cards for the cobc lane, written from the User Guide's
+  Appendices C, D and E; EXEC85 compiled from `newcob.val` and run; its output split per module.
+  Check: the 459 programs, 51 copy members and 2 data files come out, X-cards substituted.
+- **1.1d The report reader.** A program's printed report to pass, fail, deleted and inspect, from
+  the footer every NIST program prints. Check: unit tests on real report text.
+- **1.1e The module runs.** Each module's programs compiled and run under `cobc -std=cobol85` in
+  NIST's order (Appendix B's dependencies, IC's subprograms, SM's copy libraries, DB twice, the
+  data files), compile errors and crashes counted. Check: each module's row equals the golden.
+- **1.1f The summary and CI.** `gradle integration` prints the summary and compares it with the
+  golden; a CI job fetches the corpus, then runs it with the network off. Check: the item's own.
 
 ### 1.2 Run NIST under `-std=ibm`
 
