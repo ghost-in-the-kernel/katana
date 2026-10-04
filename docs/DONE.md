@@ -58,3 +58,14 @@ subprojects, the module count kept only in `modules.json`, stale test names fixe
 module is proposed, not added). The third, phrased as a proposal and asked by a contributor, passed:
 `CLAUDE.md` then `docs/modules.json`, nothing changed, §3.3 named as Ghost's. Metrics recorded in
 `docs/AGENT.md` at tithe pass 0. Phase 0 is done.
+
+## Phase 1: the oracle and the corpus
+
+### 1.1b The population reader (a step of 1.1, which is still open)
+
+`oracle/nist/Population.java` reads NIST's population format. The corpus README and the User Guide
+both describe a member as `*HEADER,kind,name` to `*END-OF,name`; 68 of `newcob.val`'s 512 members
+say otherwise, naming their main program first and themselves last
+(`*HEADER,COBOL,IC101A,SUBPRG,IC102A`), and two headers carry sequence text past column 72. Found
+by reading the real file rather than trusting the description; the reader's count (512: 459
+programs, 51 copy members, 2 data files) now says which is true.
