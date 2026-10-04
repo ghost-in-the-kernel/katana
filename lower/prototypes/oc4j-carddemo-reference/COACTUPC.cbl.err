@@ -1,0 +1,353 @@
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:856: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph '0000-MAIN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:862: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:862: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:862: Error: Unknown statement 'HANDLE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:862: Error: Unknown statement 'ABEND'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:863: Error: Unknown statement 'ABEND-ROUTINE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:864: Error: Unknown statement 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:880: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:952: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:952: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:953: Error: 'SYNCPOINT' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:954: Error: 'END-EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:956: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:956: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:956: Error: 'XCTL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:957: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:957: Error: Redefinition of 'CDEMO-TO-PROGRAM'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:24: Error: 'CDEMO-TO-PROGRAM' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:958: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:958: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:959: Error: Unknown statement 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:964: Error: Redefinition of 'ACUP-DETAILS-NOT-FETCHED'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:656: Error: 'ACUP-DETAILS-NOT-FETCHED' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:965: Error: Redefinition of 'CDEMO-PGM-ENTER'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:30: Error: 'CDEMO-PGM-ENTER' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:966: Error: Redefinition of 'CDEMO-FROM-PROGRAM'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:22: Error: 'CDEMO-FROM-PROGRAM' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:966: Error: Redefinition of 'LIT-MENUPGM'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:557: Error: 'LIT-MENUPGM' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:967: Error: Redefinition of 'CDEMO-PGM-REENTER'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:31: Error: 'CDEMO-PGM-REENTER' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:978: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:978: Error: Redefinition of 'ACUP-CHANGES-OKAYED-AND-DONE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:665: Error: 'ACUP-CHANGES-OKAYED-AND-DONE' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:979: Error: Redefinition of 'ACUP-CHANGES-FAILED'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:666: Error: 'ACUP-CHANGES-FAILED' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:994: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1002: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph 'COMMON-RETURN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1013: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1013: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1014: Error: 'TRANSID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1014: Error: 'TRANSID' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1014: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1014: Error: Redefinition of 'LIT-THISTRANID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:535: Error: 'LIT-THISTRANID' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1015: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1015: Error: Redefinition of 'WS-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:850: Error: 'WS-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1016: Error: Redefinition of 'WS-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:850: Error: 'WS-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph '1100-RECEIVE-MAP':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1038: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1038: Error: 'RECEIVE' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1038: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1038: Error: Unknown statement 'RECEIVE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1038: Error: Unknown statement 'MAP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1038: Error: Redefinition of 'LIT-THISMAP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:539: Error: 'LIT-THISMAP' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1039: Error: Unknown statement 'MAPSET'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1039: Error: Redefinition of 'LIT-THISMAPSET'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:537: Error: 'LIT-THISMAPSET' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1040: Error: Redefinition of 'CACTUPAI'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COACTUP.CPY:17: Error: 'CACTUPAI' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1041: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1041: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:40: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1042: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1042: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:42: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1043: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1017: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1076: Error: FUNCTION TEST-NUMVAL-C not implemented
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1090: Error: FUNCTION TEST-NUMVAL-C not implemented
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1104: Error: FUNCTION TEST-NUMVAL-C not implemented
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1118: Error: FUNCTION TEST-NUMVAL-C not implemented
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1132: Error: FUNCTION TEST-NUMVAL-C not implemented
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph '1250-EDIT-SIGNED-9V2':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:2199: Error: FUNCTION TEST-NUMVAL-C not implemented
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph '3400-SEND-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3594: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3594: Error: 'SEND' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3594: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3594: Error: 'SEND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3594: Error: 'MAP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3595: Error: 'MAPSET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3596: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3596: Error: Redefinition of 'CACTUPAO'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COACTUP.CPY:343: Error: 'CACTUPAO' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3599: Error: Unknown statement 'FREEKB'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3600: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3600: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:40: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph '9200-GETCARDXREF-BYACCT':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3654: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3654: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3655: Error: 'DATASET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3655: Error: 'DATASET' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3655: Error: Redefinition of 'LIT-CARDXREFNAME-ACCT-PATH'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:581: Error: 'LIT-CARDXREFNAME-ACCT-PATH' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3656: Error: Unknown statement 'RIDFLD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3656: Error: Redefinition of 'WS-CARD-RID-ACCT-ID-X'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:382: Error: 'WS-CARD-RID-ACCT-ID-X' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3657: Error: Unknown statement 'KEYLENGTH'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3657: Error: Redefinition of 'WS-CARD-RID-ACCT-ID-X'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:382: Error: 'WS-CARD-RID-ACCT-ID-X' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3658: Error: Redefinition of 'CARD-XREF-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CVACT03Y.cpy:4: Error: 'CARD-XREF-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3659: Error: Redefinition of 'CARD-XREF-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CVACT03Y.cpy:4: Error: 'CARD-XREF-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3660: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3660: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:40: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3661: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3661: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:42: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3662: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1017: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3665: Error: 'NORMAL' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3665: Error: 'NORMAL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3665: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3668: Error: 'NOTFND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3668: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph '9300-GETACCTDATA-BYACCT':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3703: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3703: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3704: Error: 'DATASET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3704: Error: 'DATASET' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3704: Error: Redefinition of 'LIT-ACCTFILENAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:573: Error: 'LIT-ACCTFILENAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3705: Error: Unknown statement 'RIDFLD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3705: Error: Redefinition of 'WS-CARD-RID-ACCT-ID-X'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:382: Error: 'WS-CARD-RID-ACCT-ID-X' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3706: Error: Unknown statement 'KEYLENGTH'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3706: Error: Redefinition of 'WS-CARD-RID-ACCT-ID-X'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:382: Error: 'WS-CARD-RID-ACCT-ID-X' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3707: Error: Redefinition of 'ACCOUNT-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CVACT01Y.cpy:4: Error: 'ACCOUNT-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3708: Error: Redefinition of 'ACCOUNT-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CVACT01Y.cpy:4: Error: 'ACCOUNT-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3709: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3709: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:40: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3710: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3710: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:42: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3711: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1017: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3714: Error: 'NORMAL' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3714: Error: 'NORMAL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3714: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3716: Error: 'NOTFND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3716: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph '9400-GETCUSTDATA-BYCUST':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3753: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3753: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3754: Error: 'DATASET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3754: Error: 'DATASET' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3754: Error: Redefinition of 'LIT-CUSTFILENAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:575: Error: 'LIT-CUSTFILENAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3755: Error: Unknown statement 'RIDFLD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3755: Error: Redefinition of 'WS-CARD-RID-CUST-ID-X'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:379: Error: 'WS-CARD-RID-CUST-ID-X' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3756: Error: Unknown statement 'KEYLENGTH'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3756: Error: Redefinition of 'WS-CARD-RID-CUST-ID-X'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:379: Error: 'WS-CARD-RID-CUST-ID-X' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3757: Error: Redefinition of 'CUSTOMER-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CVCUS01Y.cpy:4: Error: 'CUSTOMER-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3758: Error: Redefinition of 'CUSTOMER-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CVCUS01Y.cpy:4: Error: 'CUSTOMER-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3759: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3759: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:40: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3760: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3760: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:42: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3761: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1017: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3764: Error: 'NORMAL' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3764: Error: 'NORMAL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3764: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3766: Error: 'NOTFND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3766: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph '9600-WRITE-PROCESSING':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3894: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3894: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3895: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3895: Error: Redefinition of 'LIT-ACCTFILENAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:573: Error: 'LIT-ACCTFILENAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3897: Error: Unknown statement 'RIDFLD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3897: Error: Redefinition of 'WS-CARD-RID-ACCT-ID-X'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:382: Error: 'WS-CARD-RID-ACCT-ID-X' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3898: Error: Unknown statement 'KEYLENGTH'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3898: Error: Redefinition of 'WS-CARD-RID-ACCT-ID-X'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:382: Error: 'WS-CARD-RID-ACCT-ID-X' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3899: Error: Redefinition of 'ACCOUNT-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CVACT01Y.cpy:4: Error: 'ACCOUNT-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3900: Error: Redefinition of 'ACCOUNT-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CVACT01Y.cpy:4: Error: 'ACCOUNT-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3901: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3901: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:40: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3902: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3902: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:42: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3903: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1017: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3907: Error: 'NORMAL' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3907: Error: 'NORMAL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3907: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3921: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3921: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3922: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3922: Error: Redefinition of 'LIT-CUSTFILENAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:575: Error: 'LIT-CUSTFILENAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3924: Error: Unknown statement 'RIDFLD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3924: Error: Redefinition of 'WS-CARD-RID-CUST-ID-X'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:379: Error: 'WS-CARD-RID-CUST-ID-X' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3925: Error: Unknown statement 'KEYLENGTH'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3925: Error: Redefinition of 'WS-CARD-RID-CUST-ID-X'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:379: Error: 'WS-CARD-RID-CUST-ID-X' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3926: Error: Redefinition of 'CUSTOMER-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CVCUS01Y.cpy:4: Error: 'CUSTOMER-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3927: Error: Redefinition of 'CUSTOMER-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CVCUS01Y.cpy:4: Error: 'CUSTOMER-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3928: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3928: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:40: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3929: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3929: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:42: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3930: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1017: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3934: Error: 'NORMAL' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3934: Error: 'NORMAL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3934: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4065: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4065: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4066: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4066: Error: Redefinition of 'LIT-ACCTFILENAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:573: Error: 'LIT-ACCTFILENAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4067: Error: Redefinition of 'ACCT-UPDATE-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:418: Error: 'ACCT-UPDATE-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4068: Error: Redefinition of 'ACCT-UPDATE-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:418: Error: 'ACCT-UPDATE-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4069: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4069: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:40: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4070: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4070: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:42: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph 'END-EXEC':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4076: Error: 'NORMAL' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4076: Error: 'NORMAL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4076: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4085: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4085: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4085: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4086: Error: Redefinition of 'LIT-CUSTFILENAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:575: Error: 'LIT-CUSTFILENAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4087: Error: Redefinition of 'CUST-UPDATE-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:434: Error: 'CUST-UPDATE-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4088: Error: Redefinition of 'CUST-UPDATE-RECORD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:434: Error: 'CUST-UPDATE-RECORD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4089: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4089: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:40: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4090: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4090: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:42: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph 'END-EXEC':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4095: Error: 'NORMAL' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4095: Error: 'NORMAL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4095: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4099: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4099: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4100: Error: 'SYNCPOINT' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4100: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy: In paragraph 'YYYY-STORE-PFKEY':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:22: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:24: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:26: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:26: Error: 'DFHPA1' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:28: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:28: Error: 'DFHPA2' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:30: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:32: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:34: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:36: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:38: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:40: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:42: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:44: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:46: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:48: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:50: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:52: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:54: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:54: Error: 'DFHPF13' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:56: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:56: Error: 'DFHPF14' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:58: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:58: Error: 'DFHPF15' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:60: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:60: Error: 'DFHPF16' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:62: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:62: Error: 'DFHPF17' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:64: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:64: Error: 'DFHPF18' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:66: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:66: Error: 'DFHPF19' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:68: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:68: Error: 'DFHPF20' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:70: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:70: Error: 'DFHPF21' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:72: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:72: Error: 'DFHPF22' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:74: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:74: Error: 'DFHPF23' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:76: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSSTRPFY.cpy:76: Error: 'DFHPF24' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl: In paragraph 'ABEND-ROUTINE':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4211: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4211: Error: 'SEND' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4211: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4211: Error: 'SEND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4212: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4212: Error: Redefinition of 'ABEND-DATA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSMSG02Y.cpy:21: Error: 'ABEND-DATA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4213: Error: Redefinition of 'ABEND-DATA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSMSG02Y.cpy:21: Error: 'ABEND-DATA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4214: Error: Unknown statement 'NOHANDLE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4216: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1017: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4218: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4218: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4218: Error: Unknown statement 'HANDLE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4218: Error: Unknown statement 'ABEND'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4220: Error: 'END-EXEC' ambiguous; need qualification
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:1017: Error: 'END-EXEC' in 'MAIN SECTION' defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:3601: Error: 'END-EXEC' in 'MAIN SECTION' defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4071: Error: 'END-EXEC' in 'MAIN SECTION' defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4091: Error: 'END-EXEC' in 'MAIN SECTION' defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4222: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4222: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4222: Error: 'ABEND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl:4223: Error: 'ABCODE' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSUTLDPY.cpy: In paragraph 'EDIT-MONTH':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSUTLDPY.cpy:126: Error: FUNCTION TEST-NUMVAL not implemented
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSUTLDPY.cpy: In paragraph 'EDIT-DAY':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSUTLDPY.cpy:170: Error: FUNCTION TEST-NUMVAL not implemented

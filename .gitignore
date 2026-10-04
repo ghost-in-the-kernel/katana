@@ -1,0 +1,25 @@
+# build
+build/
+target/
+.gradle/
+*.class
+*.jar
+!third_party/**/*.jar
+# runs: nothing a customer gave us, nothing a run produced, ever
+customers/
+runs/
+*.ksds
+*.idx
+*.db
+*.tmp
+newcob.val
+newcob.tmp
+# corpus clones are fetched by script, never committed (corpus/MANIFEST.md lists them)
+corpus/*/
+!corpus/MANIFEST.md
+!corpus/scan.sh
+!corpus/scan.tsv
+!corpus/fetch.sh
+# agent scratch
+.idea/
+.vscode/

@@ -1,0 +1,36 @@
+Picked up JAVA_TOOL_OPTIONS: 
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+PASS	FIXED	1139ms	units=1	CBACT01C.cbl
+PASS	FIXED	76ms	units=1	CBACT02C.cbl
+PASS	FIXED	82ms	units=1	CBACT03C.cbl
+PASS	FIXED	381ms	units=1	CBACT04C.cbl
+PASS	FIXED	77ms	units=1	CBCUS01C.cbl
+PASS	FIXED	233ms	units=1	CBEXPORT.cbl
+PASS	FIXED	203ms	units=1	CBIMPORT.cbl
+PASS	FIXED	308ms	units=1	CBSTM03A.CBL
+PASS	FIXED	39ms	units=1	CBSTM03B.CBL
+PASS	FIXED	229ms	units=1	CBTRN01C.cbl
+PASS	FIXED	333ms	units=1	CBTRN02C.cbl
+PASS	FIXED	469ms	units=1	CBTRN03C.cbl
+PASS	FIXED	3543ms	units=1	COACTUPC.cbl
+PASS	FIXED	1295ms	units=1	COACTVWC.cbl
+PASS	FIXED	245ms	units=1	COADM01C.cbl
+PASS	FIXED	644ms	units=1	COBIL00C.cbl
+PASS	FIXED	7ms	units=1	COBSWAIT.cbl
+PASS	FIXED	1251ms	units=1	COCRDLIC.cbl
+PASS	FIXED	432ms	units=1	COCRDSLC.cbl
+PASS	FIXED	1015ms	units=1	COCRDUPC.cbl
+PASS	FIXED	270ms	units=1	COMEN01C.cbl
+PASS	FIXED	4110ms	units=1	CORPT00C.cbl
+PASS	FIXED	162ms	units=1	COSGN00C.cbl
+PASS	FIXED	935ms	units=1	COTRN00C.cbl
+PASS	FIXED	474ms	units=1	COTRN01C.cbl
+PASS	FIXED	704ms	units=1	COTRN02C.cbl
+PASS	FIXED	891ms	units=1	COUSR00C.cbl
+PASS	FIXED	220ms	units=1	COUSR01C.cbl
+PASS	FIXED	425ms	units=1	COUSR02C.cbl
+PASS	FIXED	263ms	units=1	COUSR03C.cbl
+PASS	FIXED	41ms	units=1	CSUTLDTC.cbl
+SUMMARY	pass=31	fail=0	total=31

@@ -1,0 +1,2 @@
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBIMPORT.cbl: In paragraph '9999-ABEND-PROGRAM':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBIMPORT.cbl:40: Error: An indexed key 'EXPORT-SEQUENCE-NUM' is not found in a file record

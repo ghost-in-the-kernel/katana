@@ -1,0 +1,101 @@
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COMEN02Y.cpy:93: Error: Size of 'CDEMO-MENU-OPTIONS' larger than size of 'CDEMO-MENU-OPTIONS-DATA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:69: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl: In paragraph 'MAIN-PARA':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:82: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:86: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:93: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:107: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:107: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:107: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:108: Error: 'TRANSID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:108: Error: 'TRANSID' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:108: Error: Redefinition of 'WS-TRANID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:37: Error: 'WS-TRANID' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:109: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:109: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl: In paragraph 'PROCESS-ENTER-KEY':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:148: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:148: Error: Invalid expression
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:148: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:148: Error: Invalid expression
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:148: Error: 'INQUIRE' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:149: Error: Invalid expression
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:149: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:148: Error: Wrong number of WHEN parameters
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:149: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:149: Error: Redefinition of 'CDEMO-MENU-OPT-PGMNAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COMEN02Y.cpy:97: Error: 'CDEMO-MENU-OPT-PGMNAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:149: Error: Redefinition of 'WS-OPTION'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:46: Error: 'WS-OPTION' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:150: Error: Unknown statement 'NOHANDLE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:151: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:110: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:152: Error: 'EIBRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:152: Error: 'NORMAL' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:152: Error: 'NORMAL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:152: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:156: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:156: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:156: Error: 'XCTL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:157: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:157: Error: Redefinition of 'CDEMO-MENU-OPT-PGMNAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COMEN02Y.cpy:97: Error: 'CDEMO-MENU-OPT-PGMNAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:157: Error: Redefinition of 'WS-OPTION'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:46: Error: 'WS-OPTION' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:158: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:158: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:159: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:110: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:168: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:169: Error: Redefinition of 'CDEMO-MENU-OPT-PGMNAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COMEN02Y.cpy:97: Error: 'CDEMO-MENU-OPT-PGMNAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:169: Error: Redefinition of 'WS-OPTION'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:46: Error: 'WS-OPTION' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:177: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:184: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:184: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:185: Error: 'XCTL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:185: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:185: Error: Redefinition of 'CDEMO-MENU-OPT-PGMNAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COMEN02Y.cpy:97: Error: 'CDEMO-MENU-OPT-PGMNAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:185: Error: Redefinition of 'WS-OPTION'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:46: Error: 'WS-OPTION' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:186: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:186: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:187: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:110: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl: In paragraph 'RETURN-TO-SIGNON-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:201: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:201: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:201: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:202: Error: Unknown statement 'XCTL'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:202: Error: Redefinition of 'CDEMO-TO-PROGRAM'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:24: Error: 'CDEMO-TO-PROGRAM' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl: In paragraph 'SEND-MENU-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:215: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:215: Error: 'SEND' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:215: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:215: Error: 'SEND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:216: Error: 'MAP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:217: Error: 'MAPSET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:218: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:218: Error: Redefinition of 'COMEN1AO'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COMEN01.CPY:139: Error: 'COMEN1AO' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl: In paragraph 'RECEIVE-MENU-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:227: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:227: Error: 'RECEIVE' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:227: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:227: Error: Unknown statement 'RECEIVE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:228: Error: Unknown statement 'MAP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:229: Error: Unknown statement 'MAPSET'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:230: Error: Redefinition of 'COMEN1AI'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COMEN01.CPY:17: Error: 'COMEN1AI' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:231: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:231: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:43: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:232: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:232: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl:44: Error: 'WS-REAS-CD' previously defined here

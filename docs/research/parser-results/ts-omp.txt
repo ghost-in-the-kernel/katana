@@ -1,0 +1,33 @@
+/home/claude/cobol-research/tools/tree-sitter-cobol/run_ts.py:7: DeprecationWarning: int argument support is deprecated
+  lang = Language(fn())
+PASS COBOL Programming Course #2 - Learning COBOL/Labs/cbl/ADDAMT.cobol
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0001.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0001
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0002.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0002
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0004.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0004
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0005.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0005
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0006.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0006
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0007
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0008.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0008
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0009.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0009
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0010.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0010
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0011.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0011
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0012.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0012
+PASS COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0013.cobol
+PASS COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0014.cobol
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0033.cobol errors=1 first@7:7 | PROGRAM-ID.    CBL0033
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL006A.cobol errors=1 first@4:7 | PROGRAM-ID.    CBL006A
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBLC1.cobol errors=1 first@4:7 | PROGRAM-ID.    CBL0006
+FAIL COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol errors=2 first@62:11 | MOVE FUNCTION CURRENT-DATE(1:8) TO YYYYMMDD.
+PASS COBOL Programming Course #2 - Learning COBOL/Labs/cbl/HELLO.cobol
+PASS COBOL Programming Course #2 - Learning COBOL/Labs/cbl/PAYROL00.cobol
+PASS COBOL Programming Course #2 - Learning COBOL/Labs/cbl/PAYROL0X.cobol
+PASS COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol
+PASS COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol
+FAIL COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106.cbl errors=1 first@7:7 | PROGRAM-ID.    CBL0106
+FAIL COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106C.cbl errors=1 first@7:7 | PROGRAM-ID.    CBL0106C
+FAIL COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl errors=3 first@7:7 | PROGRAM-ID.    CBLDB21
+FAIL COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl errors=3 first@9:7 | ENVIRONMENT DIVISION.
+FAIL COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl errors=3 first@7:7 | PROGRAM-ID.    CBLDB23
+PASS COBOL Programming Course #4 - Testing/Labs/cbl/DEPTPAY.CBL
+PASS COBOL Programming Course #4 - Testing/Labs/cbl/EMPPAY.CBL
+SUMMARY pass=10 fail=20 total=30

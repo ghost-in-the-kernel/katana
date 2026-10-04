@@ -1,0 +1,82 @@
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COADM02Y.cpy:55: Error: Size of 'CDEMO-ADMIN-OPTIONS' larger than size of 'CDEMO-ADMIN-OPTIONS-DATA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:69: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl: In paragraph 'MAIN-PARA':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:77: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:77: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:78: Error: 'CONDITION' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:78: Error: Unknown statement 'HANDLE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:78: Error: Unknown statement 'CONDITION'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:78: Error: Unknown statement 'PGMIDERR'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:78: Error: Unknown statement 'PGMIDERR-ERR-PARA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:79: Error: Unknown statement 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:86: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:90: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:97: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:111: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:111: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:111: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:112: Error: 'TRANSID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:112: Error: 'TRANSID' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:112: Error: Redefinition of 'WS-TRANID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:37: Error: 'WS-TRANID' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:113: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:113: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl: In paragraph 'PROCESS-ENTER-KEY':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:145: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:145: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:146: Error: 'XCTL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:146: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:146: Error: Redefinition of 'CDEMO-ADMIN-OPT-PGMNAME'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COADM02Y.cpy:59: Error: 'CDEMO-ADMIN-OPT-PGMNAME' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:146: Error: Redefinition of 'WS-OPTION'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:46: Error: 'WS-OPTION' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:147: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:147: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:148: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:114: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:158: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl: In paragraph 'RETURN-TO-SIGNON-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:168: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:168: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:168: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:169: Error: Unknown statement 'XCTL'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:169: Error: Redefinition of 'CDEMO-TO-PROGRAM'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:24: Error: 'CDEMO-TO-PROGRAM' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl: In paragraph 'SEND-MENU-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:182: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:182: Error: 'SEND' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:182: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:182: Error: 'SEND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:183: Error: 'MAP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:184: Error: 'MAPSET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:185: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:185: Error: Redefinition of 'COADM1AO'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COADM01.CPY:139: Error: 'COADM1AO' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl: In paragraph 'RECEIVE-MENU-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:194: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:194: Error: 'RECEIVE' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:194: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:194: Error: Unknown statement 'RECEIVE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:195: Error: Unknown statement 'MAP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:196: Error: Unknown statement 'MAPSET'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:197: Error: Redefinition of 'COADM1AI'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COADM01.CPY:17: Error: 'COADM1AI' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:198: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:198: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:43: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:199: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:199: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:44: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl: In paragraph 'PGMIDERR-ERR-PARA':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:280: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:280: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:280: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:281: Error: 'TRANSID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:281: Error: 'TRANSID' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:281: Error: Redefinition of 'WS-TRANID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:37: Error: 'WS-TRANID' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:282: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl:282: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here

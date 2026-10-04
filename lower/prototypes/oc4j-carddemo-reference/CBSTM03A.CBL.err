@@ -1,0 +1,33 @@
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:6: Error: Invalid picture string - 'X(2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:7: Error: Invalid picture string - 'X(2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:8: Error: Invalid picture string - 'X(2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:9: Error: Invalid picture string - 'X(5'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:10: Error: Invalid picture string - 'X(5'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:11: Error: Invalid picture string - 'X(5'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:12: Error: Invalid picture string - 'X(0'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:13: Error: Invalid picture string - 'X(0'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:14: Error: Invalid picture string - 'X(1'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:15: Error: Invalid picture string - 'X(1'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:16: Error: Invalid picture string - 'X(1'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:17: Error: Invalid picture string - '9(0'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:18: Error: Invalid picture string - 'X(2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:19: Error: Invalid picture string - 'X(1'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:20: Error: Invalid picture string - 'X(1'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:21: Error: Invalid picture string - 'X(0'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CUSTREC.cpy:22: Error: Invalid picture string - '9(0'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL: In paragraph '0000-START':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:301: Error: ALTER statement is obsolete and unsupported
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:304: Error: ALTER statement is obsolete and unsupported
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:307: Error: ALTER statement is obsolete and unsupported
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:310: Error: ALTER statement is obsolete and unsupported
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL: In paragraph '5000-CREATE-STATEMENT':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:468: Warning: CUST-FIRST-NAME and ' ' and ST-NAME have not same national type!
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:468: Warning: CUST-MIDDLE-NAME and ' ' and ST-NAME have not same national type!
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:468: Warning: CUST-LAST-NAME and ' ' and ST-NAME have not same national type!
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:470: Error: Invalid source for MOVE
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:471: Error: Invalid source for MOVE
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:480: Warning: CUST-ADDR-LINE-3 and ' ' and ST-ADD3 have not same national type!
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:480: Warning: CUST-ADDR-STATE-CD and ' ' and ST-ADD3 have not same national type!
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:480: Warning: CUST-ADDR-COUNTRY-CD and ' ' and ST-ADD3 have not same national type!
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:480: Warning: CUST-ADDR-ZIP and ' ' and ST-ADD3 have not same national type!
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL:485: Error: Invalid source for MOVE

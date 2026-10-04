@@ -1,0 +1,98 @@
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:76: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl: In paragraph 'MAIN-PARA':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:90: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:94: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:108: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:134: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:134: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:134: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:135: Error: 'TRANSID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:135: Error: 'TRANSID' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:135: Error: Redefinition of 'WS-TRANID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:37: Error: 'WS-TRANID' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:136: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:136: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl: In paragraph 'RETURN-TO-PREV-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:205: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:205: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:206: Error: 'XCTL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:206: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:206: Error: Redefinition of 'CDEMO-TO-PROGRAM'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:24: Error: 'CDEMO-TO-PROGRAM' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:207: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:207: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl: In paragraph 'SEND-USRDEL-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:219: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:219: Error: 'SEND' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:219: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:219: Error: 'SEND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:220: Error: 'MAP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:221: Error: 'MAPSET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:222: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:222: Error: Redefinition of 'COUSR3AO'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COUSR03.CPY:85: Error: 'COUSR3AO' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl: In paragraph 'RECEIVE-USRDEL-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:232: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:232: Error: 'RECEIVE' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:232: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:232: Error: Unknown statement 'RECEIVE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:233: Error: Unknown statement 'MAP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:234: Error: Unknown statement 'MAPSET'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:235: Error: Redefinition of 'COUSR3AI'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COUSR03.CPY:17: Error: 'COUSR3AI' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:236: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:236: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:43: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:237: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:237: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:44: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl: In paragraph 'READ-USER-SEC-FILE':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:269: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:269: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:270: Error: 'DATASET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:270: Error: 'DATASET' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:270: Error: Redefinition of 'WS-USRSEC-FILE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:39: Error: 'WS-USRSEC-FILE' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:271: Error: Redefinition of 'SEC-USER-DATA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSUSR01Y.cpy:17: Error: 'SEC-USER-DATA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:272: Error: Redefinition of 'SEC-USER-DATA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSUSR01Y.cpy:17: Error: 'SEC-USER-DATA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:273: Error: Unknown statement 'RIDFLD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:273: Error: Redefinition of 'SEC-USR-ID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSUSR01Y.cpy:18: Error: 'SEC-USR-ID' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:274: Error: Unknown statement 'KEYLENGTH'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:274: Error: Redefinition of 'SEC-USR-ID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSUSR01Y.cpy:18: Error: 'SEC-USR-ID' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:276: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:276: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:43: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:277: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:277: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:44: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl: In paragraph 'END-EXEC':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:281: Error: 'NORMAL' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:281: Error: 'NORMAL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:281: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:287: Error: 'NOTFND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:287: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl: In paragraph 'DELETE-USER-SEC-FILE':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:307: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:307: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:308: Error: 'DATASET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:308: Error: 'DATASET' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:308: Error: Redefinition of 'WS-USRSEC-FILE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:39: Error: 'WS-USRSEC-FILE' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:309: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:309: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:43: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:310: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:310: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:44: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl: In paragraph 'END-EXEC':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:314: Error: 'NORMAL' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:314: Error: 'NORMAL' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:314: Error: 'DFHRESP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:323: Error: 'NOTFND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl:323: Error: 'DFHRESP' undefined

@@ -1,0 +1,264 @@
+FAIL CM101M.CBL CM101M.CBL:36: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL CM102M.CBL CM102M.CBL:36: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL CM103M.CBL CM103M.CBL:36: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL CM104M.CBL CM104M.CBL:36: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL CM105M.CBL CM105M.CBL:36: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL CM201M.CBL CM201M.CBL:59: error: syntax error, unexpected Identifier
+FAIL CM202M.CBL CM202M.CBL:36: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL CM401M.CBL CM401M.CBL:17: error: 'CQ' is not defined
+FAIL DB101A.CBL DB101A.CBL:64: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL DB102A.CBL DB102A.CBL:58: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL DB103M.CBL DB103M.CBL:56: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL DB104A.CBL DB104A.CBL:79: error: invalid indicator 'C' at column 7
+FAIL DB105A.CBL DB105A.CBL:93: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL DB201A.CBL DB201A.CBL:64: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL DB202A.CBL DB202A.CBL:63: error: invalid indicator 'C' at column 7
+FAIL DB203A.CBL DB203A.CBL:73: error: invalid indicator 'C' at column 7
+FAIL DB204A.CBL DB204A.CBL:68: error: invalid indicator 'C' at column 7
+FAIL DB205A.CBL DB205A.CBL:38: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL IC112A.CBL IC112A.CBL:63: error: invalid indicator 'C' at column 7
+FAIL IC114A.CBL IC114A.CBL:444: error: invalid indicator 'X' at column 7
+FAIL IC115A.CBL IC115A.CBL:55: error: invalid indicator 'C' at column 7
+FAIL IF119A.CBL IF119A.CBL:612: error: syntax error, unexpected ALL
+FAIL IF120A.CBL IF120A.CBL:503: error: syntax error, unexpected ALL
+FAIL IF121A.CBL IF121A.CBL:500: error: syntax error, unexpected ALL
+FAIL IF122A.CBL IF122A.CBL:522: error: syntax error, unexpected ALL
+FAIL IF123A.CBL IF123A.CBL:615: error: syntax error, unexpected ALL
+FAIL IF128A.CBL IF128A.CBL:549: error: syntax error, unexpected ALL
+FAIL IF129A.CBL IF129A.CBL:552: error: syntax error, unexpected ALL
+FAIL IF132A.CBL IF132A.CBL:498: error: syntax error, unexpected ALL
+FAIL IF137A.CBL IF137A.CBL:531: error: syntax error, unexpected ALL
+FAIL IF138A.CBL IF138A.CBL:498: error: syntax error, unexpected ALL
+FAIL IF141A.CBL IF141A.CBL:525: error: syntax error, unexpected ALL
+FAIL IF402M.CBL IF402M.CBL:59: error: syntax error, unexpected ALL
+FAIL IX101A.CBL IX101A.CBL:88: error: invalid indicator 'C' at column 7
+FAIL IX102A.CBL IX102A.CBL:100: error: invalid indicator 'C' at column 7
+FAIL IX103A.CBL IX103A.CBL:98: error: invalid indicator 'C' at column 7
+FAIL IX104A.CBL IX104A.CBL:103: error: invalid indicator 'C' at column 7
+FAIL IX105A.CBL IX105A.CBL:72: error: invalid indicator 'C' at column 7
+FAIL IX106A.CBL IX106A.CBL:101: error: invalid indicator 'C' at column 7
+FAIL IX107A.CBL IX107A.CBL:133: error: invalid indicator 'C' at column 7
+FAIL IX108A.CBL IX108A.CBL:112: error: invalid indicator 'C' at column 7
+FAIL IX109A.CBL IX109A.CBL:98: error: invalid indicator 'C' at column 7
+FAIL IX110A.CBL IX110A.CBL:84: error: invalid indicator 'C' at column 7
+FAIL IX111A.CBL IX111A.CBL:60: error: invalid indicator 'C' at column 7
+FAIL IX112A.CBL IX112A.CBL:86: error: invalid indicator 'C' at column 7
+FAIL IX113A.CBL IX113A.CBL:87: error: invalid indicator 'C' at column 7
+FAIL IX114A.CBL IX114A.CBL:83: error: invalid indicator 'C' at column 7
+FAIL IX115A.CBL IX115A.CBL:84: error: invalid indicator 'C' at column 7
+FAIL IX116A.CBL IX116A.CBL:84: error: invalid indicator 'C' at column 7
+FAIL IX117A.CBL IX117A.CBL:83: error: invalid indicator 'C' at column 7
+FAIL IX118A.CBL IX118A.CBL:83: error: invalid indicator 'C' at column 7
+FAIL IX119A.CBL IX119A.CBL:86: error: invalid indicator 'C' at column 7
+FAIL IX120A.CBL IX120A.CBL:85: error: invalid indicator 'C' at column 7
+FAIL IX121A.CBL IX121A.CBL:90: error: invalid indicator 'C' at column 7
+FAIL IX201A.CBL IX201A.CBL:89: error: invalid indicator 'C' at column 7
+FAIL IX202A.CBL IX202A.CBL:92: error: invalid indicator 'C' at column 7
+FAIL IX203A.CBL IX203A.CBL:92: error: invalid indicator 'C' at column 7
+FAIL IX204A.CBL IX204A.CBL:113: error: invalid indicator 'C' at column 7
+FAIL IX205A.CBL IX205A.CBL:120: error: invalid indicator 'C' at column 7
+FAIL IX206A.CBL IX206A.CBL:117: error: invalid indicator 'C' at column 7
+FAIL IX207A.CBL IX207A.CBL:135: error: invalid indicator 'C' at column 7
+FAIL IX208A.CBL IX208A.CBL:129: error: invalid indicator 'C' at column 7
+FAIL IX209A.CBL IX209A.CBL:225: error: invalid indicator 'C' at column 7
+FAIL IX210A.CBL IX210A.CBL:228: error: invalid indicator 'C' at column 7
+FAIL IX211A.CBL IX211A.CBL:172: error: invalid indicator 'C' at column 7
+FAIL IX212A.CBL IX212A.CBL:87: error: invalid indicator 'C' at column 7
+FAIL IX213A.CBL IX213A.CBL:86: error: invalid indicator 'C' at column 7
+FAIL IX214A.CBL IX214A.CBL:231: error: invalid indicator 'C' at column 7
+FAIL IX215A.CBL IX215A.CBL:185: error: invalid indicator 'C' at column 7
+FAIL IX216A.CBL IX216A.CBL:122: error: invalid indicator 'C' at column 7
+FAIL IX217A.CBL IX217A.CBL:87: error: invalid indicator 'C' at column 7
+FAIL IX218A.CBL IX218A.CBL:118: error: invalid indicator 'C' at column 7
+FAIL IX302M.CBL IX302M.CBL:15: error: missing file description for FILE TFIL
+FAIL NC103A.CBL NC103A.CBL:232: error: syntax error, unexpected Identifier
+FAIL NC104A.CBL NC104A.CBL:42: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL NC105A.CBL NC105A.CBL:41: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL NC108M.CBL NC108M.CBL:37: error: invalid indicator 'A' at column 7
+FAIL NC174A.CBL NC174A.CBL:33: error: invalid indicator 'A' at column 7
+FAIL NC204M.CBL NC204M.CBL:41: error: invalid system-name 'XXXXX057'
+FAIL NC211A.CBL NC211A.CBL:35: error: invalid indicator 'A' at column 7
+FAIL NC220M.CBL NC220M.CBL:36: error: invalid system-name 'XXXXX056'
+FAIL NC254A.CBL NC254A.CBL:31: error: invalid indicator 'A' at column 7
+FAIL NC302M.CBL NC302M.CBL:21: error: syntax error, unexpected Identifier, expecting Literal
+FAIL NC401M.CBL NC401M.CBL:17: error: invalid system-name 'XXXXX056'
+FAIL OBNC1M.CBL OBNC1M.CBL:94: error: syntax error, unexpected Identifier, expecting Literal
+FAIL OBSQ1A.CBL OBSQ1A.CBL:99: error: invalid indicator 'C' at column 7
+FAIL RL101A.CBL RL101A.CBL:69: error: invalid indicator 'C' at column 7
+FAIL RL102A.CBL RL102A.CBL:58: error: invalid indicator 'C' at column 7
+FAIL RL103A.CBL RL103A.CBL:59: error: invalid indicator 'C' at column 7
+FAIL RL104A.CBL RL104A.CBL:66: error: invalid indicator 'C' at column 7
+FAIL RL105A.CBL RL105A.CBL:70: error: invalid indicator 'C' at column 7
+FAIL RL106A.CBL RL106A.CBL:72: error: invalid indicator 'C' at column 7
+FAIL RL107A.CBL RL107A.CBL:74: error: invalid indicator 'C' at column 7
+FAIL RL108A.CBL RL108A.CBL:65: error: invalid indicator 'C' at column 7
+FAIL RL109A.CBL RL109A.CBL:74: error: invalid indicator 'C' at column 7
+FAIL RL110A.CBL RL110A.CBL:59: error: invalid indicator 'C' at column 7
+FAIL RL111A.CBL RL111A.CBL:68: error: invalid indicator 'C' at column 7
+FAIL RL112A.CBL RL112A.CBL:66: error: invalid indicator 'C' at column 7
+FAIL RL113A.CBL RL113A.CBL:66: error: invalid indicator 'C' at column 7
+FAIL RL114A.CBL RL114A.CBL:66: error: invalid indicator 'C' at column 7
+FAIL RL115A.CBL RL115A.CBL:66: error: invalid indicator 'C' at column 7
+FAIL RL116A.CBL RL116A.CBL:73: error: invalid indicator 'C' at column 7
+FAIL RL117A.CBL RL117A.CBL:63: error: invalid indicator 'C' at column 7
+FAIL RL118A.CBL RL118A.CBL:60: error: invalid indicator 'C' at column 7
+FAIL RL119A.CBL RL119A.CBL:60: error: invalid indicator 'C' at column 7
+FAIL RL201A.CBL RL201A.CBL:55: error: invalid indicator 'C' at column 7
+FAIL RL202A.CBL RL202A.CBL:58: error: invalid indicator 'C' at column 7
+FAIL RL203A.CBL RL203A.CBL:58: error: invalid indicator 'C' at column 7
+FAIL RL204A.CBL RL204A.CBL:70: error: invalid indicator 'C' at column 7
+FAIL RL205A.CBL RL205A.CBL:129: error: invalid indicator 'C' at column 7
+FAIL RL206A.CBL RL206A.CBL:55: error: invalid indicator 'C' at column 7
+FAIL RL207A.CBL RL207A.CBL:59: error: invalid indicator 'C' at column 7
+FAIL RL208A.CBL RL208A.CBL:58: error: invalid indicator 'C' at column 7
+FAIL RL209A.CBL RL209A.CBL:58: error: invalid indicator 'C' at column 7
+FAIL RL210A.CBL RL210A.CBL:55: error: invalid indicator 'C' at column 7
+FAIL RL211A.CBL RL211A.CBL:55: error: invalid indicator 'C' at column 7
+FAIL RL212A.CBL RL212A.CBL:55: error: invalid indicator 'C' at column 7
+FAIL RL213A.CBL RL213A.CBL:59: error: invalid indicator 'C' at column 7
+FAIL RL302M.CBL RL302M.CBL:16: error: missing file description for FILE TFIL
+FAIL RW101A.CBL RW101A.CBL:90: error: invalid indicator 'C' at column 7
+FAIL RW102A.CBL RW102A.CBL:82: error: invalid indicator 'C' at column 7
+FAIL RW103A.CBL RW103A.CBL:95: error: invalid indicator 'C' at column 7
+FAIL RW104A.CBL RW104A.CBL:92: error: invalid indicator 'C' at column 7
+FAIL SG101A.CBL SG101A.CBL:42: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL SG102A.CBL SG102A.CBL:41: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL SG103A.CBL SG103A.CBL:40: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL SG104A.CBL SG104A.CBL:60: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL SG105A.CBL SG105A.CBL:60: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL SG106A.CBL SG106A.CBL:60: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL SG201A.CBL SG201A.CBL:46: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL SG202A.CBL SG202A.CBL:44: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL SG203A.CBL SG203A.CBL:42: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL SG204A.CBL SG204A.CBL:70: error: syntax error, unexpected Identifier, expecting OMITTED or STANDARD
+FAIL SM101A.CBL K1FDA.CPY:2: error: invalid indicator 'C' at column 7
+FAIL SM102A.CBL SM102A.CBL:46: error: invalid indicator 'C' at column 7
+FAIL SM103A.CBL SM103A.CBL:109: error: invalid indicator 'C' at column 7
+FAIL SM104A.CBL SM104A.CBL:49: error: invalid indicator 'C' at column 7
+FAIL SM105A.CBL SM105A.CBL:77: error: invalid indicator 'C' at column 7
+FAIL SM106A.CBL K6SCA.CPY:168: error: invalid indicator 'S' at column 7
+FAIL SM201A.CBL K1FDA.CPY:2: error: invalid indicator 'C' at column 7
+FAIL SM202A.CBL SM202A.CBL:49: error: invalid indicator 'C' at column 7
+FAIL SM203A.CBL SM203A.CBL:34: error: invalid indicator 'A' at column 7
+FAIL SM204A.CBL SM204A.CBL:49: error: invalid indicator 'C' at column 7
+FAIL SM205A.CBL SM205A.CBL:82: error: invalid indicator 'C' at column 7
+FAIL SQ101M.CBL SQ101M.CBL:75: error: invalid indicator 'C' at column 7
+FAIL SQ102A.CBL SQ102A.CBL:70: error: invalid indicator 'C' at column 7
+FAIL SQ103A.CBL SQ103A.CBL:78: error: invalid indicator 'C' at column 7
+FAIL SQ104A.CBL SQ104A.CBL:87: error: invalid indicator 'C' at column 7
+FAIL SQ105A.CBL SQ105A.CBL:70: error: invalid indicator 'C' at column 7
+FAIL SQ106A.CBL SQ106A.CBL:95: error: invalid indicator 'C' at column 7
+FAIL SQ107A.CBL SQ107A.CBL:79: error: invalid indicator 'C' at column 7
+FAIL SQ108A.CBL SQ108A.CBL:67: error: invalid indicator 'C' at column 7
+FAIL SQ109M.CBL SQ109M.CBL:71: error: invalid indicator 'C' at column 7
+FAIL SQ110M.CBL SQ110M.CBL:72: error: invalid indicator 'C' at column 7
+FAIL SQ111A.CBL SQ111A.CBL:72: error: invalid indicator 'C' at column 7
+FAIL SQ112A.CBL SQ112A.CBL:76: error: invalid indicator 'C' at column 7
+FAIL SQ113A.CBL SQ113A.CBL:76: error: invalid indicator 'C' at column 7
+FAIL SQ114A.CBL SQ114A.CBL:87: error: invalid indicator 'C' at column 7
+FAIL SQ115A.CBL SQ115A.CBL:69: error: invalid indicator 'C' at column 7
+FAIL SQ116A.CBL SQ116A.CBL:67: error: invalid indicator 'C' at column 7
+FAIL SQ117A.CBL SQ117A.CBL:67: error: invalid indicator 'C' at column 7
+FAIL SQ121A.CBL SQ121A.CBL:78: error: invalid indicator 'C' at column 7
+FAIL SQ122A.CBL SQ122A.CBL:55: error: invalid indicator 'C' at column 7
+FAIL SQ123A.CBL SQ123A.CBL:64: error: invalid indicator 'C' at column 7
+FAIL SQ124A.CBL SQ124A.CBL:72: error: invalid indicator 'C' at column 7
+FAIL SQ125A.CBL SQ125A.CBL:55: error: invalid indicator 'C' at column 7
+FAIL SQ126A.CBL SQ126A.CBL:84: error: invalid indicator 'C' at column 7
+FAIL SQ127A.CBL SQ127A.CBL:79: error: invalid indicator 'C' at column 7
+FAIL SQ128A.CBL SQ128A.CBL:56: error: invalid indicator 'C' at column 7
+FAIL SQ129A.CBL SQ129A.CBL:62: error: invalid indicator 'C' at column 7
+FAIL SQ130A.CBL SQ130A.CBL:61: error: invalid indicator 'C' at column 7
+FAIL SQ131A.CBL SQ131A.CBL:69: error: invalid indicator 'C' at column 7
+FAIL SQ132A.CBL SQ132A.CBL:54: error: invalid indicator 'C' at column 7
+FAIL SQ133A.CBL SQ133A.CBL:67: error: invalid indicator 'C' at column 7
+FAIL SQ134A.CBL SQ134A.CBL:73: error: invalid indicator 'C' at column 7
+FAIL SQ135A.CBL SQ135A.CBL:52: error: invalid indicator 'C' at column 7
+FAIL SQ136A.CBL SQ136A.CBL:58: error: invalid indicator 'C' at column 7
+FAIL SQ137A.CBL SQ137A.CBL:58: error: invalid indicator 'C' at column 7
+FAIL SQ138A.CBL SQ138A.CBL:58: error: invalid indicator 'C' at column 7
+FAIL SQ139A.CBL SQ139A.CBL:60: error: invalid indicator 'C' at column 7
+FAIL SQ140A.CBL SQ140A.CBL:60: error: invalid indicator 'C' at column 7
+FAIL SQ141A.CBL SQ141A.CBL:60: error: invalid indicator 'C' at column 7
+FAIL SQ142A.CBL SQ142A.CBL:60: error: invalid indicator 'C' at column 7
+FAIL SQ143A.CBL SQ143A.CBL:53: error: invalid indicator 'C' at column 7
+FAIL SQ144A.CBL SQ144A.CBL:61: error: invalid indicator 'C' at column 7
+FAIL SQ146A.CBL SQ146A.CBL:53: error: invalid indicator 'C' at column 7
+FAIL SQ147A.CBL SQ147A.CBL:54: error: invalid indicator 'C' at column 7
+FAIL SQ148A.CBL SQ148A.CBL:57: error: invalid indicator 'C' at column 7
+FAIL SQ149A.CBL SQ149A.CBL:54: error: invalid indicator 'C' at column 7
+FAIL SQ150A.CBL SQ150A.CBL:53: error: invalid indicator 'C' at column 7
+FAIL SQ151A.CBL SQ151A.CBL:54: error: invalid indicator 'C' at column 7
+FAIL SQ152A.CBL SQ152A.CBL:55: error: invalid indicator 'C' at column 7
+FAIL SQ153A.CBL SQ153A.CBL:57: error: invalid indicator 'C' at column 7
+FAIL SQ154A.CBL SQ154A.CBL:54: error: invalid indicator 'C' at column 7
+FAIL SQ155A.CBL SQ155A.CBL:53: error: invalid indicator 'C' at column 7
+FAIL SQ156A.CBL SQ156A.CBL:53: error: invalid indicator 'C' at column 7
+FAIL SQ201M.CBL SQ201M.CBL:64: error: invalid indicator 'C' at column 7
+FAIL SQ202A.CBL SQ202A.CBL:51: error: invalid indicator 'C' at column 7
+FAIL SQ203A.CBL SQ203A.CBL:70: error: invalid indicator 'C' at column 7
+FAIL SQ204A.CBL SQ204A.CBL:58: error: invalid indicator 'C' at column 7
+FAIL SQ205A.CBL SQ205A.CBL:60: error: invalid indicator 'C' at column 7
+FAIL SQ206A.CBL SQ206A.CBL:69: error: invalid indicator 'C' at column 7
+FAIL SQ207M.CBL SQ207M.CBL:66: error: invalid indicator 'C' at column 7
+FAIL SQ208M.CBL SQ208M.CBL:61: error: invalid indicator 'C' at column 7
+FAIL SQ209M.CBL SQ209M.CBL:58: error: invalid indicator 'C' at column 7
+FAIL SQ210M.CBL SQ210M.CBL:56: error: invalid indicator 'C' at column 7
+FAIL SQ211A.CBL SQ211A.CBL:56: error: invalid indicator 'C' at column 7
+FAIL SQ212A.CBL SQ212A.CBL:78: error: invalid indicator 'C' at column 7
+FAIL SQ213A.CBL SQ213A.CBL:65: error: invalid indicator 'C' at column 7
+FAIL SQ214A.CBL SQ214A.CBL:65: error: invalid indicator 'C' at column 7
+FAIL SQ215A.CBL SQ215A.CBL:55: error: invalid indicator 'C' at column 7
+FAIL SQ216A.CBL SQ216A.CBL:67: error: invalid indicator 'C' at column 7
+FAIL SQ217A.CBL SQ217A.CBL:67: error: invalid indicator 'C' at column 7
+FAIL SQ218A.CBL SQ218A.CBL:68: error: invalid indicator 'C' at column 7
+FAIL SQ219A.CBL SQ219A.CBL:70: error: invalid indicator 'C' at column 7
+FAIL SQ220A.CBL SQ220A.CBL:70: error: invalid indicator 'C' at column 7
+FAIL SQ221A.CBL SQ221A.CBL:68: error: invalid indicator 'C' at column 7
+FAIL SQ222A.CBL SQ222A.CBL:67: error: invalid indicator 'C' at column 7
+FAIL SQ223A.CBL SQ223A.CBL:67: error: invalid indicator 'C' at column 7
+FAIL SQ224A.CBL SQ224A.CBL:63: error: invalid indicator 'C' at column 7
+FAIL SQ225A.CBL SQ225A.CBL:62: error: invalid indicator 'C' at column 7
+FAIL SQ226A.CBL SQ226A.CBL:71: error: invalid indicator 'C' at column 7
+FAIL SQ227A.CBL SQ227A.CBL:68: error: invalid indicator 'C' at column 7
+FAIL SQ228A.CBL SQ228A.CBL:63: error: invalid indicator 'C' at column 7
+FAIL SQ229A.CBL SQ229A.CBL:54: error: invalid indicator 'C' at column 7
+FAIL SQ230A.CBL SQ230A.CBL:53: error: invalid indicator 'C' at column 7
+FAIL SQ302M.CBL SQ302M.CBL:15: error: missing file description for FILE TFIL
+FAIL SQ401M.CBL SQ401M.CBL:82: error: syntax error, unexpected Identifier
+FAIL ST101A.CBL ST101A.CBL:54: error: invalid indicator 'C' at column 7
+FAIL ST102A.CBL ST102A.CBL:51: error: invalid indicator 'C' at column 7
+FAIL ST103A.CBL ST103A.CBL:41: error: invalid indicator 'C' at column 7
+FAIL ST104A.CBL ST104A.CBL:40: error: invalid indicator 'C' at column 7
+FAIL ST105A.CBL ST105A.CBL:60: error: invalid indicator 'C' at column 7
+FAIL ST106A.CBL ST106A.CBL:73: error: invalid indicator 'C' at column 7
+FAIL ST107A.CBL ST107A.CBL:40: error: invalid indicator 'C' at column 7
+FAIL ST109A.CBL ST109A.CBL:53: error: invalid indicator 'C' at column 7
+FAIL ST110A.CBL ST110A.CBL:44: error: invalid indicator 'C' at column 7
+FAIL ST111A.CBL ST111A.CBL:53: error: invalid indicator 'C' at column 7
+FAIL ST112M.CBL ST112M.CBL:40: error: invalid indicator 'C' at column 7
+FAIL ST113M.CBL ST113M.CBL:43: error: invalid indicator 'C' at column 7
+FAIL ST114M.CBL ST114M.CBL:40: error: invalid indicator 'C' at column 7
+FAIL ST115A.CBL ST115A.CBL:84: error: invalid indicator 'C' at column 7
+FAIL ST116A.CBL ST116A.CBL:107: error: invalid indicator 'C' at column 7
+FAIL ST117A.CBL ST117A.CBL:102: error: invalid indicator 'C' at column 7
+FAIL ST119A.CBL ST119A.CBL:54: error: invalid indicator 'C' at column 7
+FAIL ST120A.CBL ST120A.CBL:51: error: invalid indicator 'C' at column 7
+FAIL ST121A.CBL ST121A.CBL:41: error: invalid indicator 'C' at column 7
+FAIL ST122A.CBL ST122A.CBL:62: error: invalid indicator 'C' at column 7
+FAIL ST123A.CBL ST123A.CBL:60: error: invalid indicator 'C' at column 7
+FAIL ST124A.CBL ST124A.CBL:66: error: invalid indicator 'C' at column 7
+FAIL ST125A.CBL ST125A.CBL:82: error: invalid indicator 'C' at column 7
+FAIL ST126A.CBL ST126A.CBL:53: error: invalid indicator 'C' at column 7
+FAIL ST131A.CBL ST131A.CBL:68: error: invalid indicator 'C' at column 7
+FAIL ST132A.CBL ST132A.CBL:63: error: invalid indicator 'C' at column 7
+FAIL ST133A.CBL ST133A.CBL:84: error: invalid indicator 'C' at column 7
+FAIL ST134A.CBL ST134A.CBL:70: error: invalid indicator 'C' at column 7
+FAIL ST135A.CBL ST135A.CBL:68: error: invalid indicator 'C' at column 7
+FAIL ST136A.CBL ST136A.CBL:48: error: invalid indicator 'C' at column 7
+FAIL ST137A.CBL ST137A.CBL:119: error: invalid indicator 'C' at column 7
+FAIL ST139A.CBL ST139A.CBL:143: error: invalid indicator 'C' at column 7
+FAIL ST140A.CBL ST140A.CBL:156: error: invalid indicator 'C' at column 7
+FAIL ST144A.CBL ST144A.CBL:158: error: invalid indicator 'C' at column 7
+FAIL ST146A.CBL ST146A.CBL:65: error: invalid indicator 'C' at column 7
+FAIL ST147A.CBL ST147A.CBL:166: error: invalid indicator 'C' at column 7

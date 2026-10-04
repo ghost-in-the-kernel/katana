@@ -1,0 +1,39 @@
+Picked up JAVA_TOOL_OPTIONS: 
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+PASS	FIXED	2054ms	units=1	CBACT01C.cbl
+PASS	FIXED	116ms	units=1	CBACT02C.cbl
+PASS	FIXED	111ms	units=1	CBACT03C.cbl
+PASS	FIXED	822ms	units=1	CBACT04C.cbl
+PASS	FIXED	166ms	units=1	CBCUS01C.cbl
+PASS	FIXED	384ms	units=1	CBEXPORT.cbl
+PASS	FIXED	286ms	units=1	CBIMPORT.cbl
+PASS	FIXED	619ms	units=1	CBSTM03A.CBL
+PASS	FIXED	81ms	units=1	CBSTM03B.CBL
+PASS	FIXED	401ms	units=1	CBTRN01C.cbl
+PASS	FIXED	353ms	units=1	CBTRN02C.cbl
+PASS	FIXED	571ms	units=1	CBTRN03C.cbl
+FAIL	COACTUPC.cbl	FIXED: CobolPreprocessorException: Could not find copy book 'CSUTLDWY' in directory of COBOL input file or copy books param object.
+FAIL	COACTVWC.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHBMSCA in directory of COBOL input file or copy books param object.
+FAIL	COADM01C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	COBIL00C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+PASS	FIXED	6ms	units=1	COBSWAIT.cbl
+FAIL	COCRDLIC.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHBMSCA in directory of COBOL input file or copy books param object.
+FAIL	COCRDSLC.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHBMSCA in directory of COBOL input file or copy books param object.
+FAIL	COCRDUPC.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHBMSCA in directory of COBOL input file or copy books param object.
+FAIL	COMEN01C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	CORPT00C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	COSGN00C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	COTRN00C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	COTRN01C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	COTRN02C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	COUSR00C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	COUSR01C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	COUSR02C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	COUSR03C.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+PASS	FIXED	76ms	units=1	CSUTLDTC.cbl
+SUMMARY	pass=14	fail=17	total=31
+KIND	12	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+KIND	4	FIXED: CobolPreprocessorException: Could not find copy book DFHBMSCA in directory of COBOL input file or copy books param object.
+KIND	1	FIXED: CobolPreprocessorException: Could not find copy book 'x' in directory of COBOL input file or copy books param object.

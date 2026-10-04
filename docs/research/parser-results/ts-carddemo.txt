@@ -1,0 +1,34 @@
+/home/claude/cobol-research/tools/tree-sitter-cobol/run_ts.py:7: DeprecationWarning: int argument support is deprecated
+  lang = Language(fn())
+PASS CBACT01C.cbl
+PASS CBACT02C.cbl
+PASS CBACT03C.cbl
+FAIL CBACT04C.cbl errors=1 first@194:40 | IF TRANCAT-ACCT-ID NOT= WS-LAST-ACCT-NUM
+PASS CBCUS01C.cbl
+FAIL CBEXPORT.cbl errors=5 first@74:7 | FD  CUSTOMER-INPUT.
+FAIL CBIMPORT.cbl errors=1 first@1:7 | IDENTIFICATION DIVISION.
+FAIL CBSTM03A.CBL errors=1 first@157:13 | 88  HTML-L08 VALUE '<table  align="center" frame="box" styl
+PASS CBSTM03B.CBL
+PASS CBTRN01C.cbl
+PASS CBTRN02C.cbl
+FAIL CBTRN03C.cbl errors=1 first@181:39 | IF WS-CURR-CARD-NUM NOT= TRAN-CARD-NUM
+FAIL COACTUPC.cbl errors=1 first@859:7 | 0000-MAIN.
+FAIL COACTVWC.cbl errors=1 first@262:7 | 0000-MAIN.
+FAIL COADM01C.cbl errors=1 first@75:7 | MAIN-PARA.
+FAIL COBIL00C.cbl errors=1 first@99:7 | MAIN-PARA.
+PASS COBSWAIT.cbl
+FAIL COCRDLIC.cbl errors=1 first@616:24 | TRANSID (LIT-THISTRANID)
+FAIL COCRDSLC.cbl errors=1 first@248:7 | 0000-MAIN.
+FAIL COCRDUPC.cbl errors=1 first@367:7 | 0000-MAIN.
+FAIL COMEN01C.cbl errors=1 first@75:7 | MAIN-PARA.
+FAIL CORPT00C.cbl errors=1 first@163:7 | MAIN-PARA.
+FAIL COSGN00C.cbl errors=1 first@73:7 | MAIN-PARA.
+FAIL COTRN00C.cbl errors=1 first@95:7 | MAIN-PARA.
+FAIL COTRN01C.cbl errors=1 first@86:7 | MAIN-PARA.
+FAIL COTRN02C.cbl errors=1 first@107:7 | MAIN-PARA.
+FAIL COUSR00C.cbl errors=1 first@98:7 | MAIN-PARA.
+FAIL COUSR01C.cbl errors=1 first@71:7 | MAIN-PARA.
+FAIL COUSR02C.cbl errors=1 first@82:7 | MAIN-PARA.
+FAIL COUSR03C.cbl errors=1 first@82:7 | MAIN-PARA.
+PASS CSUTLDTC.cbl
+SUMMARY pass=9 fail=22 total=31

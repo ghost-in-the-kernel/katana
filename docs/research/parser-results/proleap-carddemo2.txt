@@ -1,0 +1,37 @@
+Picked up JAVA_TOOL_OPTIONS: 
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+PASS	FIXED	2156ms	units=1	CBACT01C.cbl
+PASS	FIXED	149ms	units=1	CBACT02C.cbl
+PASS	FIXED	183ms	units=1	CBACT03C.cbl
+PASS	FIXED	830ms	units=1	CBACT04C.cbl
+PASS	FIXED	70ms	units=1	CBCUS01C.cbl
+PASS	FIXED	221ms	units=1	CBEXPORT.cbl
+PASS	FIXED	303ms	units=1	CBIMPORT.cbl
+PASS	FIXED	472ms	units=1	CBSTM03A.CBL
+PASS	FIXED	86ms	units=1	CBSTM03B.CBL
+PASS	FIXED	303ms	units=1	CBTRN01C.cbl
+PASS	FIXED	341ms	units=1	CBTRN02C.cbl
+PASS	FIXED	399ms	units=1	CBTRN03C.cbl
+FAIL	COACTUPC.cbl	FIXED: CobolPreprocessorException: Could not find copy book 'CSUTLDWY' in directory of COBOL input file or copy books param object.
+FAIL	COACTVWC.cbl	FIXED: CobolPreprocessorException: Could not find copy book 'CSSTRPFY' in directory of COBOL input file or copy books param object.
+PASS	FIXED	262ms	units=1	COADM01C.cbl
+PASS	FIXED	701ms	units=1	COBIL00C.cbl
+PASS	FIXED	5ms	units=1	COBSWAIT.cbl
+FAIL	COCRDLIC.cbl	FIXED: CobolPreprocessorException: Could not find copy book 'CSSTRPFY' in directory of COBOL input file or copy books param object.
+FAIL	COCRDSLC.cbl	FIXED: CobolPreprocessorException: Could not find copy book 'CSSTRPFY' in directory of COBOL input file or copy books param object.
+FAIL	COCRDUPC.cbl	FIXED: CobolPreprocessorException: Could not find copy book 'CSSTRPFY' in directory of COBOL input file or copy books param object.
+PASS	FIXED	316ms	units=1	COMEN01C.cbl
+PASS	FIXED	4213ms	units=1	CORPT00C.cbl
+PASS	FIXED	160ms	units=1	COSGN00C.cbl
+PASS	FIXED	1171ms	units=1	COTRN00C.cbl
+PASS	FIXED	415ms	units=1	COTRN01C.cbl
+PASS	FIXED	690ms	units=1	COTRN02C.cbl
+PASS	FIXED	1057ms	units=1	COUSR00C.cbl
+PASS	FIXED	227ms	units=1	COUSR01C.cbl
+PASS	FIXED	465ms	units=1	COUSR02C.cbl
+PASS	FIXED	247ms	units=1	COUSR03C.cbl
+PASS	FIXED	33ms	units=1	CSUTLDTC.cbl
+SUMMARY	pass=26	fail=5	total=31
+KIND	5	FIXED: CobolPreprocessorException: Could not find copy book 'x' in directory of COBOL input file or copy books param object.

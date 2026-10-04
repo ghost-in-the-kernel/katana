@@ -1,0 +1,83 @@
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK10P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK10P.cbl:176: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK20P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CHELPX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK30P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CHELPX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK35P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CHELPX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK40P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CHELPX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK50P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CHELPX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK60P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CHELPX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK70P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CHELPX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK80P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CHELPX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK90P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CHELPX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK99P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CPSWDX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANKZZP.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CHELPX01.cpy:29: Error: 'EXEC' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH00P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CCASHX01.cpy:29: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH01P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CCASHX02.cpy:29: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH02P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH02P.cbl:90: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH03P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH03P.cbl:89: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/CLOSEFIL.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/CLOSEFIL.cbl:30: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/DFHUAINS.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/DFHUAINS.cbl:109: Error: syntax error
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/DFHZCSGM.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/DFHZSGM.cpy:90: Error: 'CSGMI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/OPENFIL.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/OPENFIL.cbl:30: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK00P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK00P.cbl:105: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK10P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANK10.cpy:120: Error: 'BANK10AI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK20P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANK20.cpy:216: Error: 'BANK20AI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK30P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANK30.cpy:426: Error: 'BANK30AI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK35P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANK35.cpy:354: Error: 'BANK35AI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK40P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANK40.cpy:336: Error: 'BANK40AI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK50P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANK50.cpy:324: Error: 'BANK50AI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK60P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANK60.cpy:318: Error: 'BANK60AI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK70P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANK70.cpy:138: Error: 'BANK70AI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK80P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANK80.cpy:180: Error: 'BANK80AI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK90P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANK90.cpy:192: Error: 'BANK90AI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK99P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK99P.cbl:73: Error: 'EIBCALEN' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANKZZP.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/MBANKZZ.cpy:234: Error: 'BANKZZAI' not the original definition
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCASH00P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCASH00P.cbl:268: Error: 'EIBCALEN' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCASHDRV.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCASHDRV.cbl:52: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCHAR00P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCHAR00P.cbl:58: Error: 'EIBCALEN' undefined
+PASS /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCUSTOMP.cbl
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SPSWD01P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SPSWD01P.cbl:79: Error: 'EIBTRNID' undefined
+PASS /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SSECUREP.cbl
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SSTMT01P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SSTMT01P.cbl:88: Error: 'Z' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/STRAC00P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/STRAC00P.cbl:74: Error: 'EIBTRNID' undefined
+PASS /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SVERSONP.cbl
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UBNKPLT1.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UBNKPLT1.cbl:64: Error: 'z' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UBNKPLT2.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UBNKPLT2.cbl:65: Error: 'z' undefined
+PASS /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UDATECNV.cbl
+PASS /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UTWOSCMP.cbl
+PASS /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKE15.cbl
+PASS /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKE35.cbl
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKEXT1.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKEXT1.cbl:118: Error: Size of 'WS-ENV-DATA' larger than size of 'WS-ENVIRON-DATA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKLOAD.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKLOAD.cbl:69: Error: syntax error
+PASS /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKPRT1.cbl
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK01P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK01P.cbl:45: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK02P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK02P.cbl:44: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK03P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK03P.cbl:48: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK04P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK04P.cbl:44: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK05P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK05P.cbl:49: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK06P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK06P.cbl:47: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK07P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK07P.cbl:47: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK08P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK08P.cbl:48: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK09P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK09P.cbl:44: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK10P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK10P.cbl:45: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK11P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK11P.cbl:49: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK51P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK51P.cbl:119: Error: 'CD51O-DATA' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK52P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK52P.cbl:114: Error: 'CD52O-DATA' undefined
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DHELP01P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DHELP01P.cbl:47: Error: PICTURE clause required for 'WS-COMMAREA'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK01P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK01P.cbl:78: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK02P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/copybook/CRETURN.cpy:27: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK03P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK03P.cbl:97: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK04P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK04P.cbl:86: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK05P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK05P.cbl:135: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK06P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK06P.cbl:107: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK07P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK07P.cbl:107: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK08P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK08P.cbl:81: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK09P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK09P.cbl:76: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK11P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK11P.cbl:101: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK51P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK51P.cbl:43: Error: syntax error
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK52P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK52P.cbl:43: Error: syntax error
+PASS /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANKIOP.cbl
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DCASH01P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DCASH01P.cbl:77: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DCASH02P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DCASH02P.cbl:92: Error: Unknown statement 'EXEC'
+FAIL /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DHELP01P.cbl :: /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DHELP01P.cbl:87: Error: Unknown statement 'EXEC'
+PASS /home/claude/cobol-research/corpus/BankDemo/sources/cobol/interoperability/java/HELLOJAV.cbl
+SUMMARY pass=10 fail=72

@@ -1,0 +1,460 @@
+FAIL /home/claude/cobol-research/tools/nist/src/CM101M.CBL :: /home/claude/cobol-research/tools/nist/src/CM101M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/CM102M.CBL :: /home/claude/cobol-research/tools/nist/src/CM102M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/CM103M.CBL :: /home/claude/cobol-research/tools/nist/src/CM103M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/CM104M.CBL :: /home/claude/cobol-research/tools/nist/src/CM104M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/CM105M.CBL :: /home/claude/cobol-research/tools/nist/src/CM105M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/CM201M.CBL :: /home/claude/cobol-research/tools/nist/src/CM201M.CBL:44: Error: 'COMMUNICATION' reserved word, but not supported yet
+FAIL /home/claude/cobol-research/tools/nist/src/CM202M.CBL :: /home/claude/cobol-research/tools/nist/src/CM202M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/CM303M.CBL :: /home/claude/cobol-research/tools/nist/src/CM303M.CBL:16: Error: 'COMMUNICATION' reserved word, but not supported yet
+FAIL /home/claude/cobol-research/tools/nist/src/CM401M.CBL :: /home/claude/cobol-research/tools/nist/src/CM401M.CBL:14: Error: 'COMMUNICATION' reserved word, but not supported yet
+FAIL /home/claude/cobol-research/tools/nist/src/DB101A.CBL :: /home/claude/cobol-research/tools/nist/src/DB101A.CBL:64: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/DB102A.CBL :: /home/claude/cobol-research/tools/nist/src/DB102A.CBL:58: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/DB103M.CBL :: /home/claude/cobol-research/tools/nist/src/DB103M.CBL:56: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/DB104A.CBL :: /home/claude/cobol-research/tools/nist/src/DB104A.CBL:78: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/DB105A.CBL :: /home/claude/cobol-research/tools/nist/src/DB105A.CBL:93: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/DB201A.CBL :: /home/claude/cobol-research/tools/nist/src/DB201A.CBL:64: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/DB202A.CBL :: /home/claude/cobol-research/tools/nist/src/DB202A.CBL:62: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/DB203A.CBL :: /home/claude/cobol-research/tools/nist/src/DB203A.CBL:72: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/DB204A.CBL :: /home/claude/cobol-research/tools/nist/src/DB204A.CBL:67: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/DB205A.CBL :: /home/claude/cobol-research/tools/nist/src/DB205A.CBL:38: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src/DB301M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/DB302M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/DB303M.CBL :: /home/claude/cobol-research/tools/nist/src/DB303M.CBL:33: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/DB304M.CBL :: /home/claude/cobol-research/tools/nist/src/DB304M.CBL:15: Error: 'COMMUNICATION' reserved word, but not supported yet
+PASS /home/claude/cobol-research/tools/nist/src/DB305M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/EXEC85.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC101A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC102A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC103A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC104A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC105A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC106A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC107A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC108A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC109A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC110A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC111A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IC112A.CBL :: /home/claude/cobol-research/tools/nist/src/IC112A.CBL:62: Error: Invalid indicator 'C' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/IC113A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IC114A.CBL :: /home/claude/cobol-research/tools/nist/src/IC114A.CBL:443: Error: Invalid indicator 'X' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IC115A.CBL :: /home/claude/cobol-research/tools/nist/src/IC115A.CBL:54: Error: Invalid indicator 'C' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/IC116M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC117M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC118M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC201A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC202A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC203A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC204A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC205A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC206A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC207A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC208A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC209A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC210A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC211A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC212A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC213A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC214A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC215A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC216A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC217A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC222A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC223A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC224A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC225A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC226A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC227A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC228A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC233A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC234A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IC235A.CBL :: 
+PASS /home/claude/cobol-research/tools/nist/src/IC237A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IC401M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF101A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF102A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF103A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF104A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF105A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF106A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF107A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF108A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF109A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF110A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF111A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF112A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF113A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF114A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF115A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF116A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF117A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF118A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IF119A.CBL :: /home/claude/cobol-research/tools/nist/src/IF119A.CBL:612: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/IF120A.CBL :: /home/claude/cobol-research/tools/nist/src/IF120A.CBL:503: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/IF121A.CBL :: /home/claude/cobol-research/tools/nist/src/IF121A.CBL:500: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/IF122A.CBL :: /home/claude/cobol-research/tools/nist/src/IF122A.CBL:522: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/IF123A.CBL :: /home/claude/cobol-research/tools/nist/src/IF123A.CBL:615: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src/IF124A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF125A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF126A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF127A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IF128A.CBL :: /home/claude/cobol-research/tools/nist/src/IF128A.CBL:549: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/IF129A.CBL :: /home/claude/cobol-research/tools/nist/src/IF129A.CBL:552: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src/IF130A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF131A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IF132A.CBL :: /home/claude/cobol-research/tools/nist/src/IF132A.CBL:498: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src/IF133A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF134A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF135A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF136A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IF137A.CBL :: /home/claude/cobol-research/tools/nist/src/IF137A.CBL:531: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/IF138A.CBL :: /home/claude/cobol-research/tools/nist/src/IF138A.CBL:498: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src/IF139A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF140A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IF141A.CBL :: /home/claude/cobol-research/tools/nist/src/IF141A.CBL:525: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src/IF142A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/IF401M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IF402M.CBL :: /home/claude/cobol-research/tools/nist/src/IF402M.CBL:59: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src/IF403M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IX101A.CBL :: /home/claude/cobol-research/tools/nist/src/IX101A.CBL:87: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX102A.CBL :: /home/claude/cobol-research/tools/nist/src/IX102A.CBL:99: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX103A.CBL :: /home/claude/cobol-research/tools/nist/src/IX103A.CBL:97: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX104A.CBL :: /home/claude/cobol-research/tools/nist/src/IX104A.CBL:102: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX105A.CBL :: /home/claude/cobol-research/tools/nist/src/IX105A.CBL:71: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX106A.CBL :: /home/claude/cobol-research/tools/nist/src/IX106A.CBL:100: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX107A.CBL :: /home/claude/cobol-research/tools/nist/src/IX107A.CBL:132: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX108A.CBL :: /home/claude/cobol-research/tools/nist/src/IX108A.CBL:111: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX109A.CBL :: /home/claude/cobol-research/tools/nist/src/IX109A.CBL:97: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX110A.CBL :: /home/claude/cobol-research/tools/nist/src/IX110A.CBL:83: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX111A.CBL :: /home/claude/cobol-research/tools/nist/src/IX111A.CBL:59: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX112A.CBL :: /home/claude/cobol-research/tools/nist/src/IX112A.CBL:85: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX113A.CBL :: /home/claude/cobol-research/tools/nist/src/IX113A.CBL:86: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX114A.CBL :: /home/claude/cobol-research/tools/nist/src/IX114A.CBL:82: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX115A.CBL :: /home/claude/cobol-research/tools/nist/src/IX115A.CBL:83: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX116A.CBL :: /home/claude/cobol-research/tools/nist/src/IX116A.CBL:83: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX117A.CBL :: /home/claude/cobol-research/tools/nist/src/IX117A.CBL:82: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX118A.CBL :: /home/claude/cobol-research/tools/nist/src/IX118A.CBL:82: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX119A.CBL :: /home/claude/cobol-research/tools/nist/src/IX119A.CBL:85: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX120A.CBL :: /home/claude/cobol-research/tools/nist/src/IX120A.CBL:84: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX121A.CBL :: /home/claude/cobol-research/tools/nist/src/IX121A.CBL:89: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX201A.CBL :: /home/claude/cobol-research/tools/nist/src/IX201A.CBL:88: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX202A.CBL :: /home/claude/cobol-research/tools/nist/src/IX202A.CBL:91: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX203A.CBL :: /home/claude/cobol-research/tools/nist/src/IX203A.CBL:91: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX204A.CBL :: /home/claude/cobol-research/tools/nist/src/IX204A.CBL:112: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX205A.CBL :: /home/claude/cobol-research/tools/nist/src/IX205A.CBL:119: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX206A.CBL :: /home/claude/cobol-research/tools/nist/src/IX206A.CBL:116: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX207A.CBL :: /home/claude/cobol-research/tools/nist/src/IX207A.CBL:134: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX208A.CBL :: /home/claude/cobol-research/tools/nist/src/IX208A.CBL:128: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX209A.CBL :: /home/claude/cobol-research/tools/nist/src/IX209A.CBL:224: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX210A.CBL :: /home/claude/cobol-research/tools/nist/src/IX210A.CBL:227: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX211A.CBL :: /home/claude/cobol-research/tools/nist/src/IX211A.CBL:171: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX212A.CBL :: /home/claude/cobol-research/tools/nist/src/IX212A.CBL:86: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX213A.CBL :: /home/claude/cobol-research/tools/nist/src/IX213A.CBL:85: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX214A.CBL :: /home/claude/cobol-research/tools/nist/src/IX214A.CBL:230: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX215A.CBL :: /home/claude/cobol-research/tools/nist/src/IX215A.CBL:184: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX216A.CBL :: /home/claude/cobol-research/tools/nist/src/IX216A.CBL:121: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX217A.CBL :: /home/claude/cobol-research/tools/nist/src/IX217A.CBL:86: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/IX218A.CBL :: /home/claude/cobol-research/tools/nist/src/IX218A.CBL:117: Error: Invalid indicator 'C' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/IX301M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/IX302M.CBL :: /home/claude/cobol-research/tools/nist/src/IX302M.CBL:19: Error: 'RKEY' undefined
+PASS /home/claude/cobol-research/tools/nist/src/IX401M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC101A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC102A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/NC103A.CBL :: /home/claude/cobol-research/tools/nist/src/NC103A.CBL:232: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/NC104A.CBL :: /home/claude/cobol-research/tools/nist/src/NC104A.CBL:42: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/NC105A.CBL :: /home/claude/cobol-research/tools/nist/src/NC105A.CBL:41: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src/NC106A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC107A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/NC108M.CBL :: /home/claude/cobol-research/tools/nist/src/NC108M.CBL:36: Error: Invalid indicator 'A' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/NC109M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC110M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC111A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC112A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC113M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC114M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC115A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC116A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC117A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC118A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC119A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC120A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC121M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC122A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC123A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC124A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC125A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC126A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC127A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC131A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC132A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC133A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC134A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC135A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC136A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC137A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC138A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC139A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC140A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC141A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC170A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC171A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC172A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC173A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/NC174A.CBL :: /home/claude/cobol-research/tools/nist/src/NC174A.CBL:32: Error: Invalid indicator 'A' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/NC175A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC176A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC177A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC201A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC202A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC203A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/NC204M.CBL :: /home/claude/cobol-research/tools/nist/src/NC204M.CBL:41: Error: Unknown system-name 'XXXXX057'
+PASS /home/claude/cobol-research/tools/nist/src/NC205A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC206A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC207A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC208A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC209A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC210A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/NC211A.CBL :: /home/claude/cobol-research/tools/nist/src/NC211A.CBL:34: Error: Invalid indicator 'A' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/NC214M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC215A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC216A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC217A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC218A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC219A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/NC220M.CBL :: /home/claude/cobol-research/tools/nist/src/NC220M.CBL:36: Error: Unknown system-name 'XXXXX056'
+PASS /home/claude/cobol-research/tools/nist/src/NC221A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC222A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC223A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC224A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC225A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC231A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC232A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC233A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC234A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC235A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC236A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC237A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC238A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC239A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC240A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC241A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC242A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC243A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC244A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC245A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC246A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC247A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC248A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC250A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC251A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC252A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/NC253A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/NC254A.CBL :: /home/claude/cobol-research/tools/nist/src/NC254A.CBL:30: Error: Invalid indicator 'A' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/NC302M.CBL :: /home/claude/cobol-research/tools/nist/src/NC302M.CBL:21: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/NC303M.CBL :: /home/claude/cobol-research/tools/nist/src/NC303M.CBL:20: Error: ALTER statement is obsolete and unsupported
+FAIL /home/claude/cobol-research/tools/nist/src/NC401M.CBL :: /home/claude/cobol-research/tools/nist/src/NC401M.CBL:17: Error: Unknown system-name 'XXXXX056'
+PASS /home/claude/cobol-research/tools/nist/src/OBIC1A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/OBIC2A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/OBIC3A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/OBNC1M.CBL :: /home/claude/cobol-research/tools/nist/src/OBNC1M.CBL:94: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/OBNC2M.CBL :: /home/claude/cobol-research/tools/nist/src/OBNC2M.CBL:594: Error: ALTER statement is obsolete and unsupported
+FAIL /home/claude/cobol-research/tools/nist/src/OBSQ1A.CBL :: /home/claude/cobol-research/tools/nist/src/OBSQ1A.CBL:98: Error: Invalid indicator 'C' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/OBSQ3A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/OBSQ4A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/OBSQ5A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/RL101A.CBL :: /home/claude/cobol-research/tools/nist/src/RL101A.CBL:68: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL102A.CBL :: /home/claude/cobol-research/tools/nist/src/RL102A.CBL:57: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL103A.CBL :: /home/claude/cobol-research/tools/nist/src/RL103A.CBL:58: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL104A.CBL :: /home/claude/cobol-research/tools/nist/src/RL104A.CBL:65: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL105A.CBL :: /home/claude/cobol-research/tools/nist/src/RL105A.CBL:69: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL106A.CBL :: /home/claude/cobol-research/tools/nist/src/RL106A.CBL:71: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL107A.CBL :: /home/claude/cobol-research/tools/nist/src/RL107A.CBL:73: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL108A.CBL :: /home/claude/cobol-research/tools/nist/src/RL108A.CBL:64: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL109A.CBL :: /home/claude/cobol-research/tools/nist/src/RL109A.CBL:73: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL110A.CBL :: /home/claude/cobol-research/tools/nist/src/RL110A.CBL:58: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL111A.CBL :: /home/claude/cobol-research/tools/nist/src/RL111A.CBL:67: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL112A.CBL :: /home/claude/cobol-research/tools/nist/src/RL112A.CBL:65: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL113A.CBL :: /home/claude/cobol-research/tools/nist/src/RL113A.CBL:65: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL114A.CBL :: /home/claude/cobol-research/tools/nist/src/RL114A.CBL:65: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL115A.CBL :: /home/claude/cobol-research/tools/nist/src/RL115A.CBL:65: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL116A.CBL :: /home/claude/cobol-research/tools/nist/src/RL116A.CBL:72: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL117A.CBL :: /home/claude/cobol-research/tools/nist/src/RL117A.CBL:62: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL118A.CBL :: /home/claude/cobol-research/tools/nist/src/RL118A.CBL:59: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL119A.CBL :: /home/claude/cobol-research/tools/nist/src/RL119A.CBL:59: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL201A.CBL :: /home/claude/cobol-research/tools/nist/src/RL201A.CBL:54: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL202A.CBL :: /home/claude/cobol-research/tools/nist/src/RL202A.CBL:57: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL203A.CBL :: /home/claude/cobol-research/tools/nist/src/RL203A.CBL:57: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL204A.CBL :: /home/claude/cobol-research/tools/nist/src/RL204A.CBL:69: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL205A.CBL :: /home/claude/cobol-research/tools/nist/src/RL205A.CBL:128: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL206A.CBL :: /home/claude/cobol-research/tools/nist/src/RL206A.CBL:54: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL207A.CBL :: /home/claude/cobol-research/tools/nist/src/RL207A.CBL:58: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL208A.CBL :: /home/claude/cobol-research/tools/nist/src/RL208A.CBL:57: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL209A.CBL :: /home/claude/cobol-research/tools/nist/src/RL209A.CBL:57: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL210A.CBL :: /home/claude/cobol-research/tools/nist/src/RL210A.CBL:54: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL211A.CBL :: /home/claude/cobol-research/tools/nist/src/RL211A.CBL:54: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL212A.CBL :: /home/claude/cobol-research/tools/nist/src/RL212A.CBL:54: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RL213A.CBL :: /home/claude/cobol-research/tools/nist/src/RL213A.CBL:58: Error: Invalid indicator 'C' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/RL301M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/RL302M.CBL :: /home/claude/cobol-research/tools/nist/src/RL302M.CBL:20: Error: 'RKEY' undefined
+PASS /home/claude/cobol-research/tools/nist/src/RL401M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/RW101A.CBL :: /home/claude/cobol-research/tools/nist/src/RW101A.CBL:89: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RW102A.CBL :: /home/claude/cobol-research/tools/nist/src/RW102A.CBL:81: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RW103A.CBL :: /home/claude/cobol-research/tools/nist/src/RW103A.CBL:94: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RW104A.CBL :: /home/claude/cobol-research/tools/nist/src/RW104A.CBL:91: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/RW301M.CBL :: /home/claude/cobol-research/tools/nist/src/RW301M.CBL:45: Error: RECORD description missing or invalid
+FAIL /home/claude/cobol-research/tools/nist/src/RW302M.CBL :: /home/claude/cobol-research/tools/nist/src/RW302M.CBL:49: Error: RECORD description missing or invalid
+FAIL /home/claude/cobol-research/tools/nist/src/SG101A.CBL :: /home/claude/cobol-research/tools/nist/src/SG101A.CBL:42: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/SG102A.CBL :: /home/claude/cobol-research/tools/nist/src/SG102A.CBL:41: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/SG103A.CBL :: /home/claude/cobol-research/tools/nist/src/SG103A.CBL:40: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/SG104A.CBL :: /home/claude/cobol-research/tools/nist/src/SG104A.CBL:60: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/SG105A.CBL :: /home/claude/cobol-research/tools/nist/src/SG105A.CBL:60: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/SG106A.CBL :: /home/claude/cobol-research/tools/nist/src/SG106A.CBL:60: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/SG201A.CBL :: /home/claude/cobol-research/tools/nist/src/SG201A.CBL:46: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/SG202A.CBL :: /home/claude/cobol-research/tools/nist/src/SG202A.CBL:44: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/SG203A.CBL :: /home/claude/cobol-research/tools/nist/src/SG203A.CBL:42: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/SG204A.CBL :: /home/claude/cobol-research/tools/nist/src/SG204A.CBL:70: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src/SG302M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/SG303M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/SG401M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/SM101A.CBL :: /home/claude/cobol-research/tools/nist/src/K1FDA.CPY:1: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SM102A.CBL :: /home/claude/cobol-research/tools/nist/src/SM102A.CBL:45: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SM103A.CBL :: /home/claude/cobol-research/tools/nist/src/SM103A.CBL:108: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SM104A.CBL :: /home/claude/cobol-research/tools/nist/src/SM104A.CBL:48: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SM105A.CBL :: /home/claude/cobol-research/tools/nist/src/SM105A.CBL:76: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SM106A.CBL :: /home/claude/cobol-research/tools/nist/src/K6SCA.CPY:167: Error: Invalid indicator 'S' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/SM107A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/SM201A.CBL :: /home/claude/cobol-research/tools/nist/src/K1FDA.CPY:1: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SM202A.CBL :: /home/claude/cobol-research/tools/nist/src/SM202A.CBL:48: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SM203A.CBL :: /home/claude/cobol-research/tools/nist/src/SM203A.CBL:33: Error: Invalid indicator 'A' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SM204A.CBL :: /home/claude/cobol-research/tools/nist/src/SM204A.CBL:48: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SM205A.CBL :: /home/claude/cobol-research/tools/nist/src/SM205A.CBL:81: Error: Invalid indicator 'C' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/SM206A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/SM207A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/SM208A.CBL
+PASS /home/claude/cobol-research/tools/nist/src/SM301M.CBL
+PASS /home/claude/cobol-research/tools/nist/src/SM401M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/SQ101M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ101M.CBL:74: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ102A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ102A.CBL:69: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ103A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ103A.CBL:77: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ104A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ104A.CBL:86: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ105A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ105A.CBL:69: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ106A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ106A.CBL:94: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ107A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ107A.CBL:78: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ108A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ108A.CBL:66: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ109M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ109M.CBL:70: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ110M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ110M.CBL:71: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ111A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ111A.CBL:71: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ112A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ112A.CBL:75: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ113A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ113A.CBL:75: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ114A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ114A.CBL:86: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ115A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ115A.CBL:68: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ116A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ116A.CBL:66: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ117A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ117A.CBL:66: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ121A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ121A.CBL:77: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ122A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ122A.CBL:54: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ123A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ123A.CBL:63: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ124A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ124A.CBL:71: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ125A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ125A.CBL:54: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ126A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ126A.CBL:83: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ127A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ127A.CBL:78: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ128A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ128A.CBL:55: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ129A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ129A.CBL:61: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ130A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ130A.CBL:60: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ131A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ131A.CBL:68: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ132A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ132A.CBL:53: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ133A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ133A.CBL:66: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ134A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ134A.CBL:72: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ135A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ135A.CBL:51: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ136A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ136A.CBL:57: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ137A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ137A.CBL:57: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ138A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ138A.CBL:57: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ139A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ139A.CBL:59: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ140A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ140A.CBL:59: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ141A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ141A.CBL:59: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ142A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ142A.CBL:59: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ143A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ143A.CBL:52: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ144A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ144A.CBL:60: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ146A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ146A.CBL:52: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ147A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ147A.CBL:53: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ148A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ148A.CBL:56: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ149A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ149A.CBL:53: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ150A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ150A.CBL:52: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ151A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ151A.CBL:53: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ152A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ152A.CBL:54: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ153A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ153A.CBL:56: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ154A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ154A.CBL:53: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ155A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ155A.CBL:52: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ156A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ156A.CBL:52: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ201M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ201M.CBL:63: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ202A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ202A.CBL:50: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ203A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ203A.CBL:69: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ204A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ204A.CBL:57: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ205A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ205A.CBL:59: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ206A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ206A.CBL:68: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ207M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ207M.CBL:65: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ208M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ208M.CBL:60: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ209M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ209M.CBL:57: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ210M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ210M.CBL:55: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ211A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ211A.CBL:55: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ212A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ212A.CBL:77: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ213A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ213A.CBL:64: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ214A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ214A.CBL:64: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ215A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ215A.CBL:54: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ216A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ216A.CBL:66: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ217A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ217A.CBL:66: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ218A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ218A.CBL:67: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ219A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ219A.CBL:69: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ220A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ220A.CBL:69: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ221A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ221A.CBL:67: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ222A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ222A.CBL:66: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ223A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ223A.CBL:66: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ224A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ224A.CBL:62: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ225A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ225A.CBL:61: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ226A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ226A.CBL:70: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ227A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ227A.CBL:67: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ228A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ228A.CBL:62: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ229A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ229A.CBL:53: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ230A.CBL :: /home/claude/cobol-research/tools/nist/src/SQ230A.CBL:52: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/SQ302M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ302M.CBL:29: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/SQ303M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ303M.CBL:42: Error: 'REVERSED' undefined
+FAIL /home/claude/cobol-research/tools/nist/src/SQ401M.CBL :: /home/claude/cobol-research/tools/nist/src/SQ401M.CBL:82: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src/ST101A.CBL :: /home/claude/cobol-research/tools/nist/src/ST101A.CBL:53: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST102A.CBL :: /home/claude/cobol-research/tools/nist/src/ST102A.CBL:50: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST103A.CBL :: /home/claude/cobol-research/tools/nist/src/ST103A.CBL:40: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST104A.CBL :: /home/claude/cobol-research/tools/nist/src/ST104A.CBL:39: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST105A.CBL :: /home/claude/cobol-research/tools/nist/src/ST105A.CBL:59: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST106A.CBL :: /home/claude/cobol-research/tools/nist/src/ST106A.CBL:72: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST107A.CBL :: /home/claude/cobol-research/tools/nist/src/ST107A.CBL:39: Error: Invalid indicator 'C' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/ST108A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/ST109A.CBL :: /home/claude/cobol-research/tools/nist/src/ST109A.CBL:52: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST110A.CBL :: /home/claude/cobol-research/tools/nist/src/ST110A.CBL:43: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST111A.CBL :: /home/claude/cobol-research/tools/nist/src/ST111A.CBL:52: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST112M.CBL :: /home/claude/cobol-research/tools/nist/src/ST112M.CBL:39: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST113M.CBL :: /home/claude/cobol-research/tools/nist/src/ST113M.CBL:42: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST114M.CBL :: /home/claude/cobol-research/tools/nist/src/ST114M.CBL:39: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST115A.CBL :: /home/claude/cobol-research/tools/nist/src/ST115A.CBL:83: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST116A.CBL :: /home/claude/cobol-research/tools/nist/src/ST116A.CBL:106: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST117A.CBL :: /home/claude/cobol-research/tools/nist/src/ST117A.CBL:101: Error: Invalid indicator 'C' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/ST118A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/ST119A.CBL :: /home/claude/cobol-research/tools/nist/src/ST119A.CBL:53: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST120A.CBL :: /home/claude/cobol-research/tools/nist/src/ST120A.CBL:50: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST121A.CBL :: /home/claude/cobol-research/tools/nist/src/ST121A.CBL:40: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST122A.CBL :: /home/claude/cobol-research/tools/nist/src/ST122A.CBL:61: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST123A.CBL :: /home/claude/cobol-research/tools/nist/src/ST123A.CBL:59: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST124A.CBL :: /home/claude/cobol-research/tools/nist/src/ST124A.CBL:65: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST125A.CBL :: /home/claude/cobol-research/tools/nist/src/ST125A.CBL:81: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST126A.CBL :: /home/claude/cobol-research/tools/nist/src/ST126A.CBL:52: Error: Invalid indicator 'C' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/ST127A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src/ST131A.CBL :: /home/claude/cobol-research/tools/nist/src/ST131A.CBL:67: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST132A.CBL :: /home/claude/cobol-research/tools/nist/src/ST132A.CBL:62: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST133A.CBL :: /home/claude/cobol-research/tools/nist/src/ST133A.CBL:83: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST134A.CBL :: /home/claude/cobol-research/tools/nist/src/ST134A.CBL:69: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST135A.CBL :: /home/claude/cobol-research/tools/nist/src/ST135A.CBL:67: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST136A.CBL :: /home/claude/cobol-research/tools/nist/src/ST136A.CBL:47: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST137A.CBL :: /home/claude/cobol-research/tools/nist/src/ST137A.CBL:118: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST139A.CBL :: /home/claude/cobol-research/tools/nist/src/ST139A.CBL:142: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST140A.CBL :: /home/claude/cobol-research/tools/nist/src/ST140A.CBL:155: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST144A.CBL :: /home/claude/cobol-research/tools/nist/src/ST144A.CBL:157: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST146A.CBL :: /home/claude/cobol-research/tools/nist/src/ST146A.CBL:64: Error: Invalid indicator 'C' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src/ST147A.CBL :: /home/claude/cobol-research/tools/nist/src/ST147A.CBL:165: Error: Invalid indicator 'C' at column 7
+PASS /home/claude/cobol-research/tools/nist/src/ST301M.CBL
+SUMMARY pass=186 fail=273

@@ -1,0 +1,10 @@
+Copyright (c) 2026 Paul Jensen ("Ghost"). All rights reserved.
+
+This repository is private and proprietary. No license is granted to use, copy, modify, distribute
+or run any part of it, commercially or otherwise, except by written agreement with the copyright
+holder. Module-level terms (the runtime's per-customer grant, the harness's source-available
+non-commercial terms) are set out in theGhost.md, decision R-002, and will be instantiated as
+license files per module before any copy leaves this repository.
+
+Third-party material under corpus/ and the prototypes under */prototypes/ carry their own licenses,
+listed in corpus/MANIFEST.md and in each prototypes/README.md.

@@ -1,0 +1,1567 @@
+Picked up JAVA_TOOL_OPTIONS: 
+/home/claude/cobol-research/tools/nist/src2/NC116A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC116A.CBL
+Writing XML to runs/koopa/nist2/NC116A.xml
+/home/claude/cobol-research/tools/nist/src2/IC205A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC205A.CBL
+Writing XML to runs/koopa/nist2/IC205A.xml
+/home/claude/cobol-research/tools/nist/src2/IX212A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX212A.CBL
+Writing XML to runs/koopa/nist2/IX212A.xml
+/home/claude/cobol-research/tools/nist/src2/K501A.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K501A.CPY
+Writing XML to runs/koopa/nist2/K501A.xml
+/home/claude/cobol-research/tools/nist/src2/IC106A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC106A.CBL
+Writing XML to runs/koopa/nist2/IC106A.xml
+/home/claude/cobol-research/tools/nist/src2/IX302M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX302M.CBL
+Writing XML to runs/koopa/nist2/IX302M.xml
+/home/claude/cobol-research/tools/nist/src2/IX214A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX214A.CBL
+Writing XML to runs/koopa/nist2/IX214A.xml
+/home/claude/cobol-research/tools/nist/src2/NC124A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC124A.CBL
+Writing XML to runs/koopa/nist2/NC124A.xml
+/home/claude/cobol-research/tools/nist/src2/IC222A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC222A.CBL
+Writing XML to runs/koopa/nist2/IC222A.xml
+/home/claude/cobol-research/tools/nist/src2/IX102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX102A.CBL
+Writing XML to runs/koopa/nist2/IX102A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ108A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ108A.CBL
+Writing XML to runs/koopa/nist2/SQ108A.xml
+/home/claude/cobol-research/tools/nist/src2/ST127A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST127A.CBL
+Writing XML to runs/koopa/nist2/ST127A.xml
+/home/claude/cobol-research/tools/nist/src2/ST119A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST119A.CBL
+Writing XML to runs/koopa/nist2/ST119A.xml
+/home/claude/cobol-research/tools/nist/src2/K3LGE.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K3LGE.CPY
+Writing XML to runs/koopa/nist2/K3LGE.xml
+/home/claude/cobol-research/tools/nist/src2/SQ229A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ229A.CBL
+Writing XML to runs/koopa/nist2/SQ229A.xml
+/home/claude/cobol-research/tools/nist/src2/ST116A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST116A.CBL
+Writing XML to runs/koopa/nist2/ST116A.xml
+/home/claude/cobol-research/tools/nist/src2/IF103A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF103A.CBL
+Writing XML to runs/koopa/nist2/IF103A.xml
+/home/claude/cobol-research/tools/nist/src2/ST126A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST126A.CBL
+Writing XML to runs/koopa/nist2/ST126A.xml
+/home/claude/cobol-research/tools/nist/src2/IX117A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX117A.CBL
+Writing XML to runs/koopa/nist2/IX117A.xml
+/home/claude/cobol-research/tools/nist/src2/DB205A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB205A.CBL
+Writing XML to runs/koopa/nist2/DB205A.xml
+/home/claude/cobol-research/tools/nist/src2/NC223A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC223A.CBL
+Writing XML to runs/koopa/nist2/NC223A.xml
+/home/claude/cobol-research/tools/nist/src2/IF110A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF110A.CBL
+Writing XML to runs/koopa/nist2/IF110A.xml
+/home/claude/cobol-research/tools/nist/src2/KP001.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KP001.CPY
+Writing XML to runs/koopa/nist2/KP001.xml
+/home/claude/cobol-research/tools/nist/src2/OBIC3A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/OBIC3A.CBL
+Writing XML to runs/koopa/nist2/OBIC3A.xml
+/home/claude/cobol-research/tools/nist/src2/K3OCA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K3OCA.CPY
+Writing XML to runs/koopa/nist2/K3OCA.xml
+/home/claude/cobol-research/tools/nist/src2/NC220M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC220M.CBL
+Writing XML to runs/koopa/nist2/NC220M.xml
+/home/claude/cobol-research/tools/nist/src2/DB302M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB302M.CBL
+Writing XML to runs/koopa/nist2/DB302M.xml
+/home/claude/cobol-research/tools/nist/src2/SQ130A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ130A.CBL
+Writing XML to runs/koopa/nist2/SQ130A.xml
+/home/claude/cobol-research/tools/nist/src2/NC236A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC236A.CBL
+Writing XML to runs/koopa/nist2/NC236A.xml
+/home/claude/cobol-research/tools/nist/src2/KP007.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KP007.CPY
+Writing XML to runs/koopa/nist2/KP007.xml
+/home/claude/cobol-research/tools/nist/src2/SQ214A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ214A.CBL
+Writing XML to runs/koopa/nist2/SQ214A.xml
+/home/claude/cobol-research/tools/nist/src2/IC206A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC206A.CBL
+Writing XML to runs/koopa/nist2/IC206A.xml
+/home/claude/cobol-research/tools/nist/src2/K3FCB.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K3FCB.CPY
+Writing XML to runs/koopa/nist2/K3FCB.xml
+/home/claude/cobol-research/tools/nist/src2/ST124A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST124A.CBL
+Writing XML to runs/koopa/nist2/ST124A.xml
+/home/claude/cobol-research/tools/nist/src2/SM204A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM204A.CBL
+Writing XML to runs/koopa/nist2/SM204A.xml
+/home/claude/cobol-research/tools/nist/src2/NC138A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC138A.CBL
+Writing XML to runs/koopa/nist2/NC138A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ134A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ134A.CBL
+Writing XML to runs/koopa/nist2/SQ134A.xml
+/home/claude/cobol-research/tools/nist/src2/NC215A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC215A.CBL
+Writing XML to runs/koopa/nist2/NC215A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ223A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ223A.CBL
+Writing XML to runs/koopa/nist2/SQ223A.xml
+/home/claude/cobol-research/tools/nist/src2/ST107A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST107A.CBL
+Writing XML to runs/koopa/nist2/ST107A.xml
+/home/claude/cobol-research/tools/nist/src2/IF108A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF108A.CBL
+Writing XML to runs/koopa/nist2/IF108A.xml
+/home/claude/cobol-research/tools/nist/src2/NC137A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC137A.CBL
+Writing XML to runs/koopa/nist2/NC137A.xml
+/home/claude/cobol-research/tools/nist/src2/ST147A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST147A.CBL
+Writing XML to runs/koopa/nist2/ST147A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ114A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ114A.CBL
+Writing XML to runs/koopa/nist2/SQ114A.xml
+/home/claude/cobol-research/tools/nist/src2/IC214A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC214A.CBL
+Writing XML to runs/koopa/nist2/IC214A.xml
+/home/claude/cobol-research/tools/nist/src2/IC104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC104A.CBL
+Writing XML to runs/koopa/nist2/IC104A.xml
+/home/claude/cobol-research/tools/nist/src2/K2SEA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K2SEA.CPY
+Writing XML to runs/koopa/nist2/K2SEA.xml
+/home/claude/cobol-research/tools/nist/src2/IC116M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC116M.CBL
+Writing XML to runs/koopa/nist2/IC116M.xml
+/home/claude/cobol-research/tools/nist/src2/IC111A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC111A.CBL
+Writing XML to runs/koopa/nist2/IC111A.xml
+/home/claude/cobol-research/tools/nist/src2/IX107A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX107A.CBL
+Writing XML to runs/koopa/nist2/IX107A.xml
+/home/claude/cobol-research/tools/nist/src2/NC233A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC233A.CBL
+Writing XML to runs/koopa/nist2/NC233A.xml
+/home/claude/cobol-research/tools/nist/src2/IF138A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF138A.CBL
+Writing XML to runs/koopa/nist2/IF138A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ154A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ154A.CBL
+Writing XML to runs/koopa/nist2/SQ154A.xml
+/home/claude/cobol-research/tools/nist/src2/IC117M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC117M.CBL
+Writing XML to runs/koopa/nist2/IC117M.xml
+/home/claude/cobol-research/tools/nist/src2/IC208A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC208A.CBL
+Writing XML to runs/koopa/nist2/IC208A.xml
+/home/claude/cobol-research/tools/nist/src2/IF139A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF139A.CBL
+Writing XML to runs/koopa/nist2/IF139A.xml
+/home/claude/cobol-research/tools/nist/src2/NC201A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC201A.CBL
+Writing XML to runs/koopa/nist2/NC201A.xml
+/home/claude/cobol-research/tools/nist/src2/IF118A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF118A.CBL
+Writing XML to runs/koopa/nist2/IF118A.xml
+/home/claude/cobol-research/tools/nist/src2/IC209A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC209A.CBL
+Writing XML to runs/koopa/nist2/IC209A.xml
+/home/claude/cobol-research/tools/nist/src2/IF141A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF141A.CBL
+Writing XML to runs/koopa/nist2/IF141A.xml
+/home/claude/cobol-research/tools/nist/src2/IF114A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF114A.CBL
+Writing XML to runs/koopa/nist2/IF114A.xml
+/home/claude/cobol-research/tools/nist/src2/RW102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RW102A.CBL
+Writing XML to runs/koopa/nist2/RW102A.xml
+/home/claude/cobol-research/tools/nist/src2/IF117A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF117A.CBL
+Writing XML to runs/koopa/nist2/IF117A.xml
+/home/claude/cobol-research/tools/nist/src2/RL211A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL211A.CBL
+Writing XML to runs/koopa/nist2/RL211A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ152A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ152A.CBL
+Writing XML to runs/koopa/nist2/SQ152A.xml
+/home/claude/cobol-research/tools/nist/src2/NC237A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC237A.CBL
+Writing XML to runs/koopa/nist2/NC237A.xml
+/home/claude/cobol-research/tools/nist/src2/SG105A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG105A.CBL
+Writing XML to runs/koopa/nist2/SG105A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ116A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ116A.CBL
+Writing XML to runs/koopa/nist2/SQ116A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ111A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ111A.CBL
+Writing XML to runs/koopa/nist2/SQ111A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ102A.CBL
+Writing XML to runs/koopa/nist2/SQ102A.xml
+/home/claude/cobol-research/tools/nist/src2/OBIC1A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/OBIC1A.CBL
+Writing XML to runs/koopa/nist2/OBIC1A.xml
+/home/claude/cobol-research/tools/nist/src2/KP010.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KP010.CPY
+Writing XML to runs/koopa/nist2/KP010.xml
+Error: [KP010.CPY:1:1|000100|KP010.CPY:1:6] Incomplete parse.
+Could not parse /home/claude/cobol-research/tools/nist/src2/KP010.CPY
+/home/claude/cobol-research/tools/nist/src2/IC233A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC233A.CBL
+Writing XML to runs/koopa/nist2/IC233A.xml
+/home/claude/cobol-research/tools/nist/src2/IF109A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF109A.CBL
+Writing XML to runs/koopa/nist2/IF109A.xml
+/home/claude/cobol-research/tools/nist/src2/ST112M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST112M.CBL
+Writing XML to runs/koopa/nist2/ST112M.xml
+/home/claude/cobol-research/tools/nist/src2/K1WKY.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1WKY.CPY
+Writing XML to runs/koopa/nist2/K1WKY.xml
+/home/claude/cobol-research/tools/nist/src2/IC224A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC224A.CBL
+Writing XML to runs/koopa/nist2/IC224A.xml
+/home/claude/cobol-research/tools/nist/src2/SG201A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG201A.CBL
+Writing XML to runs/koopa/nist2/SG201A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ230A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ230A.CBL
+Writing XML to runs/koopa/nist2/SQ230A.xml
+/home/claude/cobol-research/tools/nist/src2/IF112A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF112A.CBL
+Writing XML to runs/koopa/nist2/IF112A.xml
+/home/claude/cobol-research/tools/nist/src2/NC108M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC108M.CBL
+Writing XML to runs/koopa/nist2/NC108M.xml
+/home/claude/cobol-research/tools/nist/src2/IX118A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX118A.CBL
+Writing XML to runs/koopa/nist2/IX118A.xml
+/home/claude/cobol-research/tools/nist/src2/IX103A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX103A.CBL
+Writing XML to runs/koopa/nist2/IX103A.xml
+/home/claude/cobol-research/tools/nist/src2/IC204A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC204A.CBL
+Writing XML to runs/koopa/nist2/IC204A.xml
+/home/claude/cobol-research/tools/nist/src2/OBIC2A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/OBIC2A.CBL
+Writing XML to runs/koopa/nist2/OBIC2A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ148A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ148A.CBL
+Writing XML to runs/koopa/nist2/SQ148A.xml
+/home/claude/cobol-research/tools/nist/src2/ST146A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST146A.CBL
+Writing XML to runs/koopa/nist2/ST146A.xml
+/home/claude/cobol-research/tools/nist/src2/NC135A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC135A.CBL
+Writing XML to runs/koopa/nist2/NC135A.xml
+/home/claude/cobol-research/tools/nist/src2/NC102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC102A.CBL
+Writing XML to runs/koopa/nist2/NC102A.xml
+/home/claude/cobol-research/tools/nist/src2/K1SEA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1SEA.CPY
+Writing XML to runs/koopa/nist2/K1SEA.xml
+/home/claude/cobol-research/tools/nist/src2/IX202A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX202A.CBL
+Writing XML to runs/koopa/nist2/IX202A.xml
+/home/claude/cobol-research/tools/nist/src2/NC101A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC101A.CBL
+Writing XML to runs/koopa/nist2/NC101A.xml
+/home/claude/cobol-research/tools/nist/src2/IX121A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX121A.CBL
+Writing XML to runs/koopa/nist2/IX121A.xml
+/home/claude/cobol-research/tools/nist/src2/NC205A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC205A.CBL
+Writing XML to runs/koopa/nist2/NC205A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ121A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ121A.CBL
+Writing XML to runs/koopa/nist2/SQ121A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ401M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ401M.CBL
+Writing XML to runs/koopa/nist2/SQ401M.xml
+/home/claude/cobol-research/tools/nist/src2/IX401M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX401M.CBL
+Writing XML to runs/koopa/nist2/IX401M.xml
+/home/claude/cobol-research/tools/nist/src2/RW103A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RW103A.CBL
+Writing XML to runs/koopa/nist2/RW103A.xml
+/home/claude/cobol-research/tools/nist/src2/IC112A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC112A.CBL
+Writing XML to runs/koopa/nist2/IC112A.xml
+/home/claude/cobol-research/tools/nist/src2/SG401M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG401M.CBL
+Writing XML to runs/koopa/nist2/SG401M.xml
+/home/claude/cobol-research/tools/nist/src2/SM102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM102A.CBL
+Writing XML to runs/koopa/nist2/SM102A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ209M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ209M.CBL
+Writing XML to runs/koopa/nist2/SQ209M.xml
+/home/claude/cobol-research/tools/nist/src2/IF129A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF129A.CBL
+Writing XML to runs/koopa/nist2/IF129A.xml
+/home/claude/cobol-research/tools/nist/src2/NC126A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC126A.CBL
+Writing XML to runs/koopa/nist2/NC126A.xml
+/home/claude/cobol-research/tools/nist/src2/IX209A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX209A.CBL
+Writing XML to runs/koopa/nist2/IX209A.xml
+/home/claude/cobol-research/tools/nist/src2/RL205A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL205A.CBL
+Writing XML to runs/koopa/nist2/RL205A.xml
+/home/claude/cobol-research/tools/nist/src2/NC117A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC117A.CBL
+Writing XML to runs/koopa/nist2/NC117A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ204A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ204A.CBL
+Writing XML to runs/koopa/nist2/SQ204A.xml
+/home/claude/cobol-research/tools/nist/src2/DB203A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB203A.CBL
+Writing XML to runs/koopa/nist2/DB203A.xml
+/home/claude/cobol-research/tools/nist/src2/IC217A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC217A.CBL
+Writing XML to runs/koopa/nist2/IC217A.xml
+/home/claude/cobol-research/tools/nist/src2/NC127A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC127A.CBL
+Writing XML to runs/koopa/nist2/NC127A.xml
+/home/claude/cobol-research/tools/nist/src2/NC244A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC244A.CBL
+Writing XML to runs/koopa/nist2/NC244A.xml
+/home/claude/cobol-research/tools/nist/src2/K3SML.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K3SML.CPY
+Writing XML to runs/koopa/nist2/K3SML.xml
+Error: [K3SML.CPY:1:36|8|K3SML.CPY:1:36] Incomplete parse. Last successful match: dataDescriptionEntry_format1 < dataDescriptionEntry < copybookHoldingData < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K3SML.CPY
+/home/claude/cobol-research/tools/nist/src2/SQ125A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ125A.CBL
+Writing XML to runs/koopa/nist2/SQ125A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ224A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ224A.CBL
+Writing XML to runs/koopa/nist2/SQ224A.xml
+/home/claude/cobol-research/tools/nist/src2/ST101A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST101A.CBL
+Writing XML to runs/koopa/nist2/ST101A.xml
+/home/claude/cobol-research/tools/nist/src2/K5SDA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K5SDA.CPY
+Writing XML to runs/koopa/nist2/K5SDA.xml
+Error: [K5SDA.CPY:1:17|RECORD|K5SDA.CPY:1:22] Incomplete parse. Last successful match: dataDivision < programDefinition < sourceUnit < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K5SDA.CPY
+/home/claude/cobol-research/tools/nist/src2/NC209A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC209A.CBL
+Writing XML to runs/koopa/nist2/NC209A.xml
+/home/claude/cobol-research/tools/nist/src2/IF132A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF132A.CBL
+Writing XML to runs/koopa/nist2/IF132A.xml
+/home/claude/cobol-research/tools/nist/src2/IC228A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC228A.CBL
+Writing XML to runs/koopa/nist2/IC228A.xml
+/home/claude/cobol-research/tools/nist/src2/ST102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST102A.CBL
+Writing XML to runs/koopa/nist2/ST102A.xml
+/home/claude/cobol-research/tools/nist/src2/NC171A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC171A.CBL
+Writing XML to runs/koopa/nist2/NC171A.xml
+/home/claude/cobol-research/tools/nist/src2/IC401M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC401M.CBL
+Writing XML to runs/koopa/nist2/IC401M.xml
+/home/claude/cobol-research/tools/nist/src2/K1DAA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1DAA.CPY
+Writing XML to runs/koopa/nist2/K1DAA.xml
+/home/claude/cobol-research/tools/nist/src2/SQ202A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ202A.CBL
+Writing XML to runs/koopa/nist2/SQ202A.xml
+/home/claude/cobol-research/tools/nist/src2/IX105A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX105A.CBL
+Writing XML to runs/koopa/nist2/IX105A.xml
+/home/claude/cobol-research/tools/nist/src2/IF133A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF133A.CBL
+Writing XML to runs/koopa/nist2/IF133A.xml
+/home/claude/cobol-research/tools/nist/src2/RL112A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL112A.CBL
+Writing XML to runs/koopa/nist2/RL112A.xml
+/home/claude/cobol-research/tools/nist/src2/ST114M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST114M.CBL
+Writing XML to runs/koopa/nist2/ST114M.xml
+/home/claude/cobol-research/tools/nist/src2/NC216A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC216A.CBL
+Writing XML to runs/koopa/nist2/NC216A.xml
+/home/claude/cobol-research/tools/nist/src2/IF105A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF105A.CBL
+Writing XML to runs/koopa/nist2/IF105A.xml
+/home/claude/cobol-research/tools/nist/src2/NC111A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC111A.CBL
+Writing XML to runs/koopa/nist2/NC111A.xml
+/home/claude/cobol-research/tools/nist/src2/KSM31.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KSM31.CPY
+Writing XML to runs/koopa/nist2/KSM31.xml
+/home/claude/cobol-research/tools/nist/src2/NC177A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC177A.CBL
+Writing XML to runs/koopa/nist2/NC177A.xml
+/home/claude/cobol-research/tools/nist/src2/ST135A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST135A.CBL
+Writing XML to runs/koopa/nist2/ST135A.xml
+/home/claude/cobol-research/tools/nist/src2/IF102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF102A.CBL
+Writing XML to runs/koopa/nist2/IF102A.xml
+/home/claude/cobol-research/tools/nist/src2/NC139A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC139A.CBL
+Writing XML to runs/koopa/nist2/NC139A.xml
+/home/claude/cobol-research/tools/nist/src2/IF119A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF119A.CBL
+Writing XML to runs/koopa/nist2/IF119A.xml
+/home/claude/cobol-research/tools/nist/src2/DB305M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB305M.CBL
+Writing XML to runs/koopa/nist2/DB305M.xml
+/home/claude/cobol-research/tools/nist/src2/IX215A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX215A.CBL
+Writing XML to runs/koopa/nist2/IX215A.xml
+/home/claude/cobol-research/tools/nist/src2/NC132A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC132A.CBL
+Writing XML to runs/koopa/nist2/NC132A.xml
+/home/claude/cobol-research/tools/nist/src2/CM201M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/CM201M.CBL
+Writing XML to runs/koopa/nist2/CM201M.xml
+/home/claude/cobol-research/tools/nist/src2/NC122A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC122A.CBL
+Writing XML to runs/koopa/nist2/NC122A.xml
+/home/claude/cobol-research/tools/nist/src2/IX210A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX210A.CBL
+Writing XML to runs/koopa/nist2/IX210A.xml
+/home/claude/cobol-research/tools/nist/src2/IX119A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX119A.CBL
+Writing XML to runs/koopa/nist2/IX119A.xml
+/home/claude/cobol-research/tools/nist/src2/IX203A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX203A.CBL
+Writing XML to runs/koopa/nist2/IX203A.xml
+/home/claude/cobol-research/tools/nist/src2/NC245A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC245A.CBL
+Writing XML to runs/koopa/nist2/NC245A.xml
+/home/claude/cobol-research/tools/nist/src2/SM203A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM203A.CBL
+Writing XML to runs/koopa/nist2/SM203A.xml
+/home/claude/cobol-research/tools/nist/src2/SG103A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG103A.CBL
+Writing XML to runs/koopa/nist2/SG103A.xml
+/home/claude/cobol-research/tools/nist/src2/RL301M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL301M.CBL
+Writing XML to runs/koopa/nist2/RL301M.xml
+/home/claude/cobol-research/tools/nist/src2/IC211A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC211A.CBL
+Writing XML to runs/koopa/nist2/IC211A.xml
+/home/claude/cobol-research/tools/nist/src2/KP002.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KP002.CPY
+Writing XML to runs/koopa/nist2/KP002.xml
+/home/claude/cobol-research/tools/nist/src2/SQ143A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ143A.CBL
+Writing XML to runs/koopa/nist2/SQ143A.xml
+/home/claude/cobol-research/tools/nist/src2/K1P01.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1P01.CPY
+Writing XML to runs/koopa/nist2/K1P01.xml
+Error: [K1P01.CPY:1:21|1|K1P01.CPY:1:21] Incomplete parse. Last successful match: copyStatementBody < copyStatement < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K1P01.CPY
+/home/claude/cobol-research/tools/nist/src2/NC231A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC231A.CBL
+Writing XML to runs/koopa/nist2/NC231A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ303M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ303M.CBL
+Writing XML to runs/koopa/nist2/SQ303M.xml
+/home/claude/cobol-research/tools/nist/src2/IX113A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX113A.CBL
+Writing XML to runs/koopa/nist2/IX113A.xml
+/home/claude/cobol-research/tools/nist/src2/SM107A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM107A.CBL
+Writing XML to runs/koopa/nist2/SM107A.xml
+/home/claude/cobol-research/tools/nist/src2/ST110A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST110A.CBL
+Writing XML to runs/koopa/nist2/ST110A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ109M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ109M.CBL
+Writing XML to runs/koopa/nist2/SQ109M.xml
+/home/claude/cobol-research/tools/nist/src2/NC217A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC217A.CBL
+Writing XML to runs/koopa/nist2/NC217A.xml
+/home/claude/cobol-research/tools/nist/src2/OBNC2M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/OBNC2M.CBL
+Writing XML to runs/koopa/nist2/OBNC2M.xml
+/home/claude/cobol-research/tools/nist/src2/IC109A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC109A.CBL
+Writing XML to runs/koopa/nist2/IC109A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ155A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ155A.CBL
+Writing XML to runs/koopa/nist2/SQ155A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ138A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ138A.CBL
+Writing XML to runs/koopa/nist2/SQ138A.xml
+/home/claude/cobol-research/tools/nist/src2/CM101M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/CM101M.CBL
+Writing XML to runs/koopa/nist2/CM101M.xml
+/home/claude/cobol-research/tools/nist/src2/RL206A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL206A.CBL
+Writing XML to runs/koopa/nist2/RL206A.xml
+/home/claude/cobol-research/tools/nist/src2/RL111A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL111A.CBL
+Writing XML to runs/koopa/nist2/RL111A.xml
+/home/claude/cobol-research/tools/nist/src2/RL113A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL113A.CBL
+Writing XML to runs/koopa/nist2/RL113A.xml
+/home/claude/cobol-research/tools/nist/src2/CM104M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/CM104M.CBL
+Writing XML to runs/koopa/nist2/CM104M.xml
+/home/claude/cobol-research/tools/nist/src2/SQ302M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ302M.CBL
+Writing XML to runs/koopa/nist2/SQ302M.xml
+/home/claude/cobol-research/tools/nist/src2/NC401M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC401M.CBL
+Writing XML to runs/koopa/nist2/NC401M.xml
+/home/claude/cobol-research/tools/nist/src2/ST133A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST133A.CBL
+Writing XML to runs/koopa/nist2/ST133A.xml
+/home/claude/cobol-research/tools/nist/src2/NC172A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC172A.CBL
+Writing XML to runs/koopa/nist2/NC172A.xml
+/home/claude/cobol-research/tools/nist/src2/NC248A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC248A.CBL
+Writing XML to runs/koopa/nist2/NC248A.xml
+/home/claude/cobol-research/tools/nist/src2/ST140A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST140A.CBL
+Writing XML to runs/koopa/nist2/ST140A.xml
+/home/claude/cobol-research/tools/nist/src2/NC221A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC221A.CBL
+Writing XML to runs/koopa/nist2/NC221A.xml
+/home/claude/cobol-research/tools/nist/src2/IX101A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX101A.CBL
+Writing XML to runs/koopa/nist2/IX101A.xml
+/home/claude/cobol-research/tools/nist/src2/IC203A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC203A.CBL
+Writing XML to runs/koopa/nist2/IC203A.xml
+/home/claude/cobol-research/tools/nist/src2/IX110A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX110A.CBL
+Writing XML to runs/koopa/nist2/IX110A.xml
+/home/claude/cobol-research/tools/nist/src2/NC106A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC106A.CBL
+Writing XML to runs/koopa/nist2/NC106A.xml
+/home/claude/cobol-research/tools/nist/src2/KP003.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KP003.CPY
+Writing XML to runs/koopa/nist2/KP003.xml
+/home/claude/cobol-research/tools/nist/src2/SQ127A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ127A.CBL
+Writing XML to runs/koopa/nist2/SQ127A.xml
+/home/claude/cobol-research/tools/nist/src2/IF140A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF140A.CBL
+Writing XML to runs/koopa/nist2/IF140A.xml
+/home/claude/cobol-research/tools/nist/src2/ST109A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST109A.CBL
+Writing XML to runs/koopa/nist2/ST109A.xml
+/home/claude/cobol-research/tools/nist/src2/K1WKB.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1WKB.CPY
+Writing XML to runs/koopa/nist2/K1WKB.xml
+/home/claude/cobol-research/tools/nist/src2/IF401M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF401M.CBL
+Writing XML to runs/koopa/nist2/IF401M.xml
+/home/claude/cobol-research/tools/nist/src2/NC170A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC170A.CBL
+Writing XML to runs/koopa/nist2/NC170A.xml
+/home/claude/cobol-research/tools/nist/src2/RL108A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL108A.CBL
+Writing XML to runs/koopa/nist2/RL108A.xml
+/home/claude/cobol-research/tools/nist/src2/NC115A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC115A.CBL
+Writing XML to runs/koopa/nist2/NC115A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ217A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ217A.CBL
+Writing XML to runs/koopa/nist2/SQ217A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ146A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ146A.CBL
+Writing XML to runs/koopa/nist2/SQ146A.xml
+/home/claude/cobol-research/tools/nist/src2/SM205A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM205A.CBL
+Writing XML to runs/koopa/nist2/SM205A.xml
+/home/claude/cobol-research/tools/nist/src2/NC121M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC121M.CBL
+Writing XML to runs/koopa/nist2/NC121M.xml
+/home/claude/cobol-research/tools/nist/src2/RW101A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RW101A.CBL
+Writing XML to runs/koopa/nist2/RW101A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ115A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ115A.CBL
+Writing XML to runs/koopa/nist2/SQ115A.xml
+/home/claude/cobol-research/tools/nist/src2/DB102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB102A.CBL
+Writing XML to runs/koopa/nist2/DB102A.xml
+/home/claude/cobol-research/tools/nist/src2/RW302M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RW302M.CBL
+Writing XML to runs/koopa/nist2/RW302M.xml
+/home/claude/cobol-research/tools/nist/src2/IC107A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC107A.CBL
+Writing XML to runs/koopa/nist2/IC107A.xml
+/home/claude/cobol-research/tools/nist/src2/NC214M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC214M.CBL
+Writing XML to runs/koopa/nist2/NC214M.xml
+/home/claude/cobol-research/tools/nist/src2/NC118A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC118A.CBL
+Writing XML to runs/koopa/nist2/NC118A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ228A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ228A.CBL
+Writing XML to runs/koopa/nist2/SQ228A.xml
+/home/claude/cobol-research/tools/nist/src2/RL103A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL103A.CBL
+Writing XML to runs/koopa/nist2/RL103A.xml
+/home/claude/cobol-research/tools/nist/src2/RL109A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL109A.CBL
+Writing XML to runs/koopa/nist2/RL109A.xml
+/home/claude/cobol-research/tools/nist/src2/IF116A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF116A.CBL
+Writing XML to runs/koopa/nist2/IF116A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ203A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ203A.CBL
+Writing XML to runs/koopa/nist2/SQ203A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ208M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ208M.CBL
+Writing XML to runs/koopa/nist2/SQ208M.xml
+/home/claude/cobol-research/tools/nist/src2/SQ139A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ139A.CBL
+Writing XML to runs/koopa/nist2/SQ139A.xml
+/home/claude/cobol-research/tools/nist/src2/K1W01.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1W01.CPY
+Writing XML to runs/koopa/nist2/K1W01.xml
+Error: [K1W01.CPY:1:20|PICTURE|K1W01.CPY:1:26] Incomplete parse. Last successful match: copyStatementBody < copyStatement < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K1W01.CPY
+/home/claude/cobol-research/tools/nist/src2/NC224A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC224A.CBL
+Writing XML to runs/koopa/nist2/NC224A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ112A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ112A.CBL
+Writing XML to runs/koopa/nist2/SQ112A.xml
+/home/claude/cobol-research/tools/nist/src2/ST131A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST131A.CBL
+Writing XML to runs/koopa/nist2/ST131A.xml
+/home/claude/cobol-research/tools/nist/src2/RL119A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL119A.CBL
+Writing XML to runs/koopa/nist2/RL119A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ221A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ221A.CBL
+Writing XML to runs/koopa/nist2/SQ221A.xml
+/home/claude/cobol-research/tools/nist/src2/RL210A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL210A.CBL
+Writing XML to runs/koopa/nist2/RL210A.xml
+/home/claude/cobol-research/tools/nist/src2/IF142A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF142A.CBL
+Writing XML to runs/koopa/nist2/IF142A.xml
+/home/claude/cobol-research/tools/nist/src2/CM102M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/CM102M.CBL
+Writing XML to runs/koopa/nist2/CM102M.xml
+/home/claude/cobol-research/tools/nist/src2/ST122A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST122A.CBL
+Writing XML to runs/koopa/nist2/ST122A.xml
+/home/claude/cobol-research/tools/nist/src2/OBSQ1A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/OBSQ1A.CBL
+Writing XML to runs/koopa/nist2/OBSQ1A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ218A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ218A.CBL
+Writing XML to runs/koopa/nist2/SQ218A.xml
+/home/claude/cobol-research/tools/nist/src2/IX116A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX116A.CBL
+Writing XML to runs/koopa/nist2/IX116A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ110M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ110M.CBL
+Writing XML to runs/koopa/nist2/SQ110M.xml
+/home/claude/cobol-research/tools/nist/src2/IF115A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF115A.CBL
+Writing XML to runs/koopa/nist2/IF115A.xml
+/home/claude/cobol-research/tools/nist/src2/RL202A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL202A.CBL
+Writing XML to runs/koopa/nist2/RL202A.xml
+/home/claude/cobol-research/tools/nist/src2/NC174A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC174A.CBL
+Writing XML to runs/koopa/nist2/NC174A.xml
+/home/claude/cobol-research/tools/nist/src2/ST104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST104A.CBL
+Writing XML to runs/koopa/nist2/ST104A.xml
+/home/claude/cobol-research/tools/nist/src2/RL118A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL118A.CBL
+Writing XML to runs/koopa/nist2/RL118A.xml
+/home/claude/cobol-research/tools/nist/src2/DB105A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB105A.CBL
+Writing XML to runs/koopa/nist2/DB105A.xml
+/home/claude/cobol-research/tools/nist/src2/IF134A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF134A.CBL
+Writing XML to runs/koopa/nist2/IF134A.xml
+/home/claude/cobol-research/tools/nist/src2/IF101A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF101A.CBL
+Writing XML to runs/koopa/nist2/IF101A.xml
+/home/claude/cobol-research/tools/nist/src2/OBSQ3A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/OBSQ3A.CBL
+Writing XML to runs/koopa/nist2/OBSQ3A.xml
+/home/claude/cobol-research/tools/nist/src2/IX207A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX207A.CBL
+Writing XML to runs/koopa/nist2/IX207A.xml
+/home/claude/cobol-research/tools/nist/src2/NC251A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC251A.CBL
+Writing XML to runs/koopa/nist2/NC251A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ141A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ141A.CBL
+Writing XML to runs/koopa/nist2/SQ141A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ122A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ122A.CBL
+Writing XML to runs/koopa/nist2/SQ122A.xml
+/home/claude/cobol-research/tools/nist/src2/IX104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX104A.CBL
+Writing XML to runs/koopa/nist2/IX104A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ150A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ150A.CBL
+Writing XML to runs/koopa/nist2/SQ150A.xml
+/home/claude/cobol-research/tools/nist/src2/IF131A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF131A.CBL
+Writing XML to runs/koopa/nist2/IF131A.xml
+/home/claude/cobol-research/tools/nist/src2/NC302M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC302M.CBL
+Writing XML to runs/koopa/nist2/NC302M.xml
+/home/claude/cobol-research/tools/nist/src2/NC246A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC246A.CBL
+Writing XML to runs/koopa/nist2/NC246A.xml
+/home/claude/cobol-research/tools/nist/src2/IF113A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF113A.CBL
+Writing XML to runs/koopa/nist2/IF113A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ205A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ205A.CBL
+Writing XML to runs/koopa/nist2/SQ205A.xml
+/home/claude/cobol-research/tools/nist/src2/KSM41.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KSM41.CPY
+Writing XML to runs/koopa/nist2/KSM41.xml
+/home/claude/cobol-research/tools/nist/src2/NC123A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC123A.CBL
+Writing XML to runs/koopa/nist2/NC123A.xml
+/home/claude/cobol-research/tools/nist/src2/ST139A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST139A.CBL
+Writing XML to runs/koopa/nist2/ST139A.xml
+/home/claude/cobol-research/tools/nist/src2/IF136A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF136A.CBL
+Writing XML to runs/koopa/nist2/IF136A.xml
+/home/claude/cobol-research/tools/nist/src2/DB201A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB201A.CBL
+Writing XML to runs/koopa/nist2/DB201A.xml
+/home/claude/cobol-research/tools/nist/src2/NC247A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC247A.CBL
+Writing XML to runs/koopa/nist2/NC247A.xml
+/home/claude/cobol-research/tools/nist/src2/ST117A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST117A.CBL
+Writing XML to runs/koopa/nist2/ST117A.xml
+/home/claude/cobol-research/tools/nist/src2/KP004.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KP004.CPY
+Writing XML to runs/koopa/nist2/KP004.xml
+Error: [KP004.CPY:9:17|IS|KP004.CPY:9:18] Incomplete parse. Last successful match: section < copybookHoldingBehaviour < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/KP004.CPY
+/home/claude/cobol-research/tools/nist/src2/CM103M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/CM103M.CBL
+Writing XML to runs/koopa/nist2/CM103M.xml
+/home/claude/cobol-research/tools/nist/src2/NC240A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC240A.CBL
+Writing XML to runs/koopa/nist2/NC240A.xml
+/home/claude/cobol-research/tools/nist/src2/NC239A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC239A.CBL
+Writing XML to runs/koopa/nist2/NC239A.xml
+/home/claude/cobol-research/tools/nist/src2/IF128A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF128A.CBL
+Writing XML to runs/koopa/nist2/IF128A.xml
+/home/claude/cobol-research/tools/nist/src2/NC206A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC206A.CBL
+Writing XML to runs/koopa/nist2/NC206A.xml
+/home/claude/cobol-research/tools/nist/src2/K1WKC.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1WKC.CPY
+Writing XML to runs/koopa/nist2/K1WKC.xml
+/home/claude/cobol-research/tools/nist/src2/NC234A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC234A.CBL
+Writing XML to runs/koopa/nist2/NC234A.xml
+/home/claude/cobol-research/tools/nist/src2/IC113A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC113A.CBL
+Writing XML to runs/koopa/nist2/IC113A.xml
+/home/claude/cobol-research/tools/nist/src2/NC140A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC140A.CBL
+Writing XML to runs/koopa/nist2/NC140A.xml
+/home/claude/cobol-research/tools/nist/src2/IC237A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC237A.CBL
+Writing XML to runs/koopa/nist2/IC237A.xml
+/home/claude/cobol-research/tools/nist/src2/RL115A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL115A.CBL
+Writing XML to runs/koopa/nist2/RL115A.xml
+/home/claude/cobol-research/tools/nist/src2/ST137A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST137A.CBL
+Writing XML to runs/koopa/nist2/ST137A.xml
+/home/claude/cobol-research/tools/nist/src2/IX109A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX109A.CBL
+Writing XML to runs/koopa/nist2/IX109A.xml
+/home/claude/cobol-research/tools/nist/src2/K1WKZ.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1WKZ.CPY
+Writing XML to runs/koopa/nist2/K1WKZ.xml
+/home/claude/cobol-research/tools/nist/src2/ST134A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST134A.CBL
+Writing XML to runs/koopa/nist2/ST134A.xml
+/home/claude/cobol-research/tools/nist/src2/NC250A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC250A.CBL
+Writing XML to runs/koopa/nist2/NC250A.xml
+/home/claude/cobol-research/tools/nist/src2/IX217A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX217A.CBL
+Writing XML to runs/koopa/nist2/IX217A.xml
+/home/claude/cobol-research/tools/nist/src2/IF403M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF403M.CBL
+Writing XML to runs/koopa/nist2/IF403M.xml
+/home/claude/cobol-research/tools/nist/src2/NC133A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC133A.CBL
+Writing XML to runs/koopa/nist2/NC133A.xml
+/home/claude/cobol-research/tools/nist/src2/IC234A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC234A.CBL
+Writing XML to runs/koopa/nist2/IC234A.xml
+/home/claude/cobol-research/tools/nist/src2/IX205A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX205A.CBL
+Writing XML to runs/koopa/nist2/IX205A.xml
+/home/claude/cobol-research/tools/nist/src2/ALTLB.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/ALTLB.CPY
+Writing XML to runs/koopa/nist2/ALTLB.xml
+/home/claude/cobol-research/tools/nist/src2/SQ142A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ142A.CBL
+Writing XML to runs/koopa/nist2/SQ142A.xml
+/home/claude/cobol-research/tools/nist/src2/ST120A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST120A.CBL
+Writing XML to runs/koopa/nist2/ST120A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ215A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ215A.CBL
+Writing XML to runs/koopa/nist2/SQ215A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ151A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ151A.CBL
+Writing XML to runs/koopa/nist2/SQ151A.xml
+/home/claude/cobol-research/tools/nist/src2/IX120A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX120A.CBL
+Writing XML to runs/koopa/nist2/IX120A.xml
+/home/claude/cobol-research/tools/nist/src2/RL110A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL110A.CBL
+Writing XML to runs/koopa/nist2/RL110A.xml
+/home/claude/cobol-research/tools/nist/src2/IC215A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC215A.CBL
+Writing XML to runs/koopa/nist2/IC215A.xml
+/home/claude/cobol-research/tools/nist/src2/NC175A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC175A.CBL
+Writing XML to runs/koopa/nist2/NC175A.xml
+/home/claude/cobol-research/tools/nist/src2/IC108A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC108A.CBL
+Writing XML to runs/koopa/nist2/IC108A.xml
+/home/claude/cobol-research/tools/nist/src2/IF125A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF125A.CBL
+Writing XML to runs/koopa/nist2/IF125A.xml
+/home/claude/cobol-research/tools/nist/src2/EXEC85.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/EXEC85.CBL
+Writing XML to runs/koopa/nist2/EXEC85.xml
+/home/claude/cobol-research/tools/nist/src2/IC118M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC118M.CBL
+Writing XML to runs/koopa/nist2/IC118M.xml
+/home/claude/cobol-research/tools/nist/src2/IC216A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC216A.CBL
+Writing XML to runs/koopa/nist2/IC216A.xml
+/home/claude/cobol-research/tools/nist/src2/IC201A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC201A.CBL
+Writing XML to runs/koopa/nist2/IC201A.xml
+/home/claude/cobol-research/tools/nist/src2/ST123A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST123A.CBL
+Writing XML to runs/koopa/nist2/ST123A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ106A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ106A.CBL
+Writing XML to runs/koopa/nist2/SQ106A.xml
+/home/claude/cobol-research/tools/nist/src2/K3SCA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K3SCA.CPY
+Writing XML to runs/koopa/nist2/K3SCA.xml
+/home/claude/cobol-research/tools/nist/src2/SQ149A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ149A.CBL
+Writing XML to runs/koopa/nist2/SQ149A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ219A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ219A.CBL
+Writing XML to runs/koopa/nist2/SQ219A.xml
+/home/claude/cobol-research/tools/nist/src2/SG303M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG303M.CBL
+Writing XML to runs/koopa/nist2/SG303M.xml
+/home/claude/cobol-research/tools/nist/src2/OBSQ4A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/OBSQ4A.CBL
+Writing XML to runs/koopa/nist2/OBSQ4A.xml
+/home/claude/cobol-research/tools/nist/src2/ST106A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST106A.CBL
+Writing XML to runs/koopa/nist2/ST106A.xml
+/home/claude/cobol-research/tools/nist/src2/CM202M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/CM202M.CBL
+Writing XML to runs/koopa/nist2/CM202M.xml
+/home/claude/cobol-research/tools/nist/src2/IX208A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX208A.CBL
+Writing XML to runs/koopa/nist2/IX208A.xml
+/home/claude/cobol-research/tools/nist/src2/IX204A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX204A.CBL
+Writing XML to runs/koopa/nist2/IX204A.xml
+/home/claude/cobol-research/tools/nist/src2/NC105A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC105A.CBL
+Writing XML to runs/koopa/nist2/NC105A.xml
+/home/claude/cobol-research/tools/nist/src2/SM208A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM208A.CBL
+Writing XML to runs/koopa/nist2/SM208A.xml
+/home/claude/cobol-research/tools/nist/src2/RL101A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL101A.CBL
+Writing XML to runs/koopa/nist2/RL101A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ133A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ133A.CBL
+Writing XML to runs/koopa/nist2/SQ133A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ144A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ144A.CBL
+Writing XML to runs/koopa/nist2/SQ144A.xml
+/home/claude/cobol-research/tools/nist/src2/IF122A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF122A.CBL
+Writing XML to runs/koopa/nist2/IF122A.xml
+/home/claude/cobol-research/tools/nist/src2/IF126A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF126A.CBL
+Writing XML to runs/koopa/nist2/IF126A.xml
+/home/claude/cobol-research/tools/nist/src2/DB304M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB304M.CBL
+Writing XML to runs/koopa/nist2/DB304M.xml
+/home/claude/cobol-research/tools/nist/src2/SQ129A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ129A.CBL
+Writing XML to runs/koopa/nist2/SQ129A.xml
+/home/claude/cobol-research/tools/nist/src2/CM401M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/CM401M.CBL
+Writing XML to runs/koopa/nist2/CM401M.xml
+/home/claude/cobol-research/tools/nist/src2/NC242A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC242A.CBL
+Writing XML to runs/koopa/nist2/NC242A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ103A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ103A.CBL
+Writing XML to runs/koopa/nist2/SQ103A.xml
+/home/claude/cobol-research/tools/nist/src2/DB101A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB101A.CBL
+Writing XML to runs/koopa/nist2/DB101A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ131A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ131A.CBL
+Writing XML to runs/koopa/nist2/SQ131A.xml
+/home/claude/cobol-research/tools/nist/src2/IX213A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX213A.CBL
+Writing XML to runs/koopa/nist2/IX213A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ153A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ153A.CBL
+Writing XML to runs/koopa/nist2/SQ153A.xml
+/home/claude/cobol-research/tools/nist/src2/IX216A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX216A.CBL
+Writing XML to runs/koopa/nist2/IX216A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ123A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ123A.CBL
+Writing XML to runs/koopa/nist2/SQ123A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ105A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ105A.CBL
+Writing XML to runs/koopa/nist2/SQ105A.xml
+/home/claude/cobol-research/tools/nist/src2/ST108A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST108A.CBL
+Writing XML to runs/koopa/nist2/ST108A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ225A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ225A.CBL
+Writing XML to runs/koopa/nist2/SQ225A.xml
+/home/claude/cobol-research/tools/nist/src2/SG204A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG204A.CBL
+Writing XML to runs/koopa/nist2/SG204A.xml
+/home/claude/cobol-research/tools/nist/src2/IC103A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC103A.CBL
+Writing XML to runs/koopa/nist2/IC103A.xml
+/home/claude/cobol-research/tools/nist/src2/SM104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM104A.CBL
+Writing XML to runs/koopa/nist2/SM104A.xml
+/home/claude/cobol-research/tools/nist/src2/NC253A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC253A.CBL
+Writing XML to runs/koopa/nist2/NC253A.xml
+/home/claude/cobol-research/tools/nist/src2/RL105A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL105A.CBL
+Writing XML to runs/koopa/nist2/RL105A.xml
+/home/claude/cobol-research/tools/nist/src2/ST111A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST111A.CBL
+Writing XML to runs/koopa/nist2/ST111A.xml
+/home/claude/cobol-research/tools/nist/src2/IF106A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF106A.CBL
+Writing XML to runs/koopa/nist2/IF106A.xml
+/home/claude/cobol-research/tools/nist/src2/ST118A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST118A.CBL
+Writing XML to runs/koopa/nist2/ST118A.xml
+/home/claude/cobol-research/tools/nist/src2/RL208A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL208A.CBL
+Writing XML to runs/koopa/nist2/RL208A.xml
+/home/claude/cobol-research/tools/nist/src2/IF124A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF124A.CBL
+Writing XML to runs/koopa/nist2/IF124A.xml
+/home/claude/cobol-research/tools/nist/src2/IC207A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC207A.CBL
+Writing XML to runs/koopa/nist2/IC207A.xml
+/home/claude/cobol-research/tools/nist/src2/IC115A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC115A.CBL
+Writing XML to runs/koopa/nist2/IC115A.xml
+/home/claude/cobol-research/tools/nist/src2/IF402M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF402M.CBL
+Writing XML to runs/koopa/nist2/IF402M.xml
+/home/claude/cobol-research/tools/nist/src2/NC103A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC103A.CBL
+Writing XML to runs/koopa/nist2/NC103A.xml
+/home/claude/cobol-research/tools/nist/src2/SM206A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM206A.CBL
+Writing XML to runs/koopa/nist2/SM206A.xml
+/home/claude/cobol-research/tools/nist/src2/K3SNB.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K3SNB.CPY
+Writing XML to runs/koopa/nist2/K3SNB.xml
+Error: [K3SNB.CPY:3:12|ON|K3SNB.CPY:3:13] Incomplete parse. Last successful match: identifier_format6 < identifier < mnemonicName < specialNameStatement < copybookHoldingData < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K3SNB.CPY
+/home/claude/cobol-research/tools/nist/src2/NC241A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC241A.CBL
+Writing XML to runs/koopa/nist2/NC241A.xml
+/home/claude/cobol-research/tools/nist/src2/NC125A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC125A.CBL
+Writing XML to runs/koopa/nist2/NC125A.xml
+/home/claude/cobol-research/tools/nist/src2/K7SEA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K7SEA.CPY
+Writing XML to runs/koopa/nist2/K7SEA.xml
+/home/claude/cobol-research/tools/nist/src2/K1W03.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1W03.CPY
+Writing XML to runs/koopa/nist2/K1W03.xml
+Error: [K1W03.CPY:1:18|PIC|K1W03.CPY:1:20] Incomplete parse. Last successful match: specialNameStatement < copybookHoldingData < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K1W03.CPY
+/home/claude/cobol-research/tools/nist/src2/SG104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG104A.CBL
+Writing XML to runs/koopa/nist2/SG104A.xml
+/home/claude/cobol-research/tools/nist/src2/NC176A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC176A.CBL
+Writing XML to runs/koopa/nist2/NC176A.xml
+/home/claude/cobol-research/tools/nist/src2/NC141A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC141A.CBL
+Writing XML to runs/koopa/nist2/NC141A.xml
+/home/claude/cobol-research/tools/nist/src2/K2PRA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K2PRA.CPY
+Writing XML to runs/koopa/nist2/K2PRA.xml
+/home/claude/cobol-research/tools/nist/src2/SM401M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM401M.CBL
+Writing XML to runs/koopa/nist2/SM401M.xml
+/home/claude/cobol-research/tools/nist/src2/RL207A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL207A.CBL
+Writing XML to runs/koopa/nist2/RL207A.xml
+/home/claude/cobol-research/tools/nist/src2/IC114A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC114A.CBL
+Writing XML to runs/koopa/nist2/IC114A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ137A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ137A.CBL
+Writing XML to runs/koopa/nist2/SQ137A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ136A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ136A.CBL
+Writing XML to runs/koopa/nist2/SQ136A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ104A.CBL
+Writing XML to runs/koopa/nist2/SQ104A.xml
+/home/claude/cobol-research/tools/nist/src2/NC243A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC243A.CBL
+Writing XML to runs/koopa/nist2/NC243A.xml
+/home/claude/cobol-research/tools/nist/src2/SG302M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG302M.CBL
+Writing XML to runs/koopa/nist2/SG302M.xml
+/home/claude/cobol-research/tools/nist/src2/SQ201M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ201M.CBL
+Writing XML to runs/koopa/nist2/SQ201M.xml
+/home/claude/cobol-research/tools/nist/src2/IC102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC102A.CBL
+Writing XML to runs/koopa/nist2/IC102A.xml
+/home/claude/cobol-research/tools/nist/src2/ST144A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST144A.CBL
+Writing XML to runs/koopa/nist2/ST144A.xml
+/home/claude/cobol-research/tools/nist/src2/RL204A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL204A.CBL
+Writing XML to runs/koopa/nist2/RL204A.xml
+/home/claude/cobol-research/tools/nist/src2/ST105A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST105A.CBL
+Writing XML to runs/koopa/nist2/ST105A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ213A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ213A.CBL
+Writing XML to runs/koopa/nist2/SQ213A.xml
+/home/claude/cobol-research/tools/nist/src2/DB103M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB103M.CBL
+Writing XML to runs/koopa/nist2/DB103M.xml
+/home/claude/cobol-research/tools/nist/src2/K501B.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K501B.CPY
+Writing XML to runs/koopa/nist2/K501B.xml
+/home/claude/cobol-research/tools/nist/src2/SQ140A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ140A.CBL
+Writing XML to runs/koopa/nist2/SQ140A.xml
+/home/claude/cobol-research/tools/nist/src2/NC173A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC173A.CBL
+Writing XML to runs/koopa/nist2/NC173A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ147A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ147A.CBL
+Writing XML to runs/koopa/nist2/SQ147A.xml
+/home/claude/cobol-research/tools/nist/src2/KP006.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KP006.CPY
+Writing XML to runs/koopa/nist2/KP006.xml
+/home/claude/cobol-research/tools/nist/src2/NC238A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC238A.CBL
+Writing XML to runs/koopa/nist2/NC238A.xml
+/home/claude/cobol-research/tools/nist/src2/NC225A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC225A.CBL
+Writing XML to runs/koopa/nist2/NC225A.xml
+/home/claude/cobol-research/tools/nist/src2/NC235A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC235A.CBL
+Writing XML to runs/koopa/nist2/NC235A.xml
+/home/claude/cobol-research/tools/nist/src2/NC207A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC207A.CBL
+Writing XML to runs/koopa/nist2/NC207A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ222A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ222A.CBL
+Writing XML to runs/koopa/nist2/SQ222A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ220A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ220A.CBL
+Writing XML to runs/koopa/nist2/SQ220A.xml
+/home/claude/cobol-research/tools/nist/src2/RW301M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RW301M.CBL
+Writing XML to runs/koopa/nist2/RW301M.xml
+/home/claude/cobol-research/tools/nist/src2/NC131A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC131A.CBL
+Writing XML to runs/koopa/nist2/NC131A.xml
+/home/claude/cobol-research/tools/nist/src2/K1FDA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1FDA.CPY
+Writing XML to runs/koopa/nist2/K1FDA.xml
+Error: [K1FDA.CPY:1:18|RECORDS|K1FDA.CPY:1:24] Incomplete parse. Last successful match: specialNameStatement < copybookHoldingData < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K1FDA.CPY
+/home/claude/cobol-research/tools/nist/src2/CM303M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/CM303M.CBL
+Writing XML to runs/koopa/nist2/CM303M.xml
+/home/claude/cobol-research/tools/nist/src2/RL117A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL117A.CBL
+Writing XML to runs/koopa/nist2/RL117A.xml
+/home/claude/cobol-research/tools/nist/src2/NC110M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC110M.CBL
+Writing XML to runs/koopa/nist2/NC110M.xml
+/home/claude/cobol-research/tools/nist/src2/NC113M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC113M.CBL
+Writing XML to runs/koopa/nist2/NC113M.xml
+/home/claude/cobol-research/tools/nist/src2/NC204M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC204M.CBL
+Writing XML to runs/koopa/nist2/NC204M.xml
+/home/claude/cobol-research/tools/nist/src2/NC254A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC254A.CBL
+Writing XML to runs/koopa/nist2/NC254A.xml
+/home/claude/cobol-research/tools/nist/src2/K3SNA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K3SNA.CPY
+Writing XML to runs/koopa/nist2/K3SNA.xml
+Error: [K3SNA.CPY:1:34|.|K3SNA.CPY:1:34] Incomplete parse. Last successful match: decimalIsComma < specialNameStatement < copybookHoldingData < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K3SNA.CPY
+/home/claude/cobol-research/tools/nist/src2/K5SDB.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K5SDB.CPY
+Writing XML to runs/koopa/nist2/K5SDB.xml
+Error: [K5SDB.CPY:1:17|RECORD|K5SDB.CPY:1:22] Incomplete parse. Last successful match: dataDivision < programDefinition < sourceUnit < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K5SDB.CPY
+/home/claude/cobol-research/tools/nist/src2/IC202A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC202A.CBL
+Writing XML to runs/koopa/nist2/IC202A.xml
+/home/claude/cobol-research/tools/nist/src2/K3FCA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K3FCA.CPY
+Writing XML to runs/koopa/nist2/K3FCA.xml
+/home/claude/cobol-research/tools/nist/src2/K4NTA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K4NTA.CPY
+Writing XML to runs/koopa/nist2/K4NTA.xml
+/home/claude/cobol-research/tools/nist/src2/ST113M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST113M.CBL
+Writing XML to runs/koopa/nist2/ST113M.xml
+/home/claude/cobol-research/tools/nist/src2/NC303M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC303M.CBL
+Writing XML to runs/koopa/nist2/NC303M.xml
+/home/claude/cobol-research/tools/nist/src2/SG202A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG202A.CBL
+Writing XML to runs/koopa/nist2/SG202A.xml
+/home/claude/cobol-research/tools/nist/src2/NC104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC104A.CBL
+Writing XML to runs/koopa/nist2/NC104A.xml
+/home/claude/cobol-research/tools/nist/src2/RL114A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL114A.CBL
+Writing XML to runs/koopa/nist2/RL114A.xml
+/home/claude/cobol-research/tools/nist/src2/IX206A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX206A.CBL
+Writing XML to runs/koopa/nist2/IX206A.xml
+/home/claude/cobol-research/tools/nist/src2/NC211A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC211A.CBL
+Writing XML to runs/koopa/nist2/NC211A.xml
+/home/claude/cobol-research/tools/nist/src2/IX211A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX211A.CBL
+Writing XML to runs/koopa/nist2/IX211A.xml
+/home/claude/cobol-research/tools/nist/src2/ST136A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST136A.CBL
+Writing XML to runs/koopa/nist2/ST136A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ128A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ128A.CBL
+Writing XML to runs/koopa/nist2/SQ128A.xml
+/home/claude/cobol-research/tools/nist/src2/IC210A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC210A.CBL
+Writing XML to runs/koopa/nist2/IC210A.xml
+/home/claude/cobol-research/tools/nist/src2/SM301M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM301M.CBL
+Writing XML to runs/koopa/nist2/SM301M.xml
+/home/claude/cobol-research/tools/nist/src2/SM201A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM201A.CBL
+Writing XML to runs/koopa/nist2/SM201A.xml
+/home/claude/cobol-research/tools/nist/src2/DB301M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB301M.CBL
+Writing XML to runs/koopa/nist2/DB301M.xml
+/home/claude/cobol-research/tools/nist/src2/SQ101M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ101M.CBL
+Writing XML to runs/koopa/nist2/SQ101M.xml
+/home/claude/cobol-research/tools/nist/src2/CM105M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/CM105M.CBL
+Writing XML to runs/koopa/nist2/CM105M.xml
+/home/claude/cobol-research/tools/nist/src2/IF121A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF121A.CBL
+Writing XML to runs/koopa/nist2/IF121A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ132A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ132A.CBL
+Writing XML to runs/koopa/nist2/SQ132A.xml
+/home/claude/cobol-research/tools/nist/src2/SG102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG102A.CBL
+Writing XML to runs/koopa/nist2/SG102A.xml
+/home/claude/cobol-research/tools/nist/src2/IC223A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC223A.CBL
+Writing XML to runs/koopa/nist2/IC223A.xml
+/home/claude/cobol-research/tools/nist/src2/IX201A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX201A.CBL
+Writing XML to runs/koopa/nist2/IX201A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ207M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ207M.CBL
+Writing XML to runs/koopa/nist2/SQ207M.xml
+/home/claude/cobol-research/tools/nist/src2/K1WKA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1WKA.CPY
+Writing XML to runs/koopa/nist2/K1WKA.xml
+/home/claude/cobol-research/tools/nist/src2/IC227A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC227A.CBL
+Writing XML to runs/koopa/nist2/IC227A.xml
+/home/claude/cobol-research/tools/nist/src2/SM101A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM101A.CBL
+Writing XML to runs/koopa/nist2/SM101A.xml
+/home/claude/cobol-research/tools/nist/src2/DB104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB104A.CBL
+Writing XML to runs/koopa/nist2/DB104A.xml
+/home/claude/cobol-research/tools/nist/src2/IC110A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC110A.CBL
+Writing XML to runs/koopa/nist2/IC110A.xml
+/home/claude/cobol-research/tools/nist/src2/ST301M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST301M.CBL
+Writing XML to runs/koopa/nist2/ST301M.xml
+/home/claude/cobol-research/tools/nist/src2/K1PRA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1PRA.CPY
+Writing XML to runs/koopa/nist2/K1PRA.xml
+/home/claude/cobol-research/tools/nist/src2/IX112A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX112A.CBL
+Writing XML to runs/koopa/nist2/IX112A.xml
+/home/claude/cobol-research/tools/nist/src2/ALTL1.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/ALTL1.CPY
+Writing XML to runs/koopa/nist2/ALTL1.xml
+/home/claude/cobol-research/tools/nist/src2/RL106A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL106A.CBL
+Writing XML to runs/koopa/nist2/RL106A.xml
+/home/claude/cobol-research/tools/nist/src2/K1PRB.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1PRB.CPY
+Writing XML to runs/koopa/nist2/K1PRB.xml
+/home/claude/cobol-research/tools/nist/src2/NC219A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC219A.CBL
+Writing XML to runs/koopa/nist2/NC219A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ124A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ124A.CBL
+Writing XML to runs/koopa/nist2/SQ124A.xml
+/home/claude/cobol-research/tools/nist/src2/K101A.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K101A.CPY
+Writing XML to runs/koopa/nist2/K101A.xml
+Error: [K101A.CPY:2:23|1|K101A.CPY:2:23] Incomplete parse. Last successful match: section < copybookHoldingBehaviour < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K101A.CPY
+/home/claude/cobol-research/tools/nist/src2/IC213A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC213A.CBL
+Writing XML to runs/koopa/nist2/IC213A.xml
+/home/claude/cobol-research/tools/nist/src2/NC232A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC232A.CBL
+Writing XML to runs/koopa/nist2/NC232A.xml
+/home/claude/cobol-research/tools/nist/src2/KP009.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KP009.CPY
+Writing XML to runs/koopa/nist2/KP009.xml
+Error: [KP009.CPY:1:35|"G"|KP009.CPY:1:37] Incomplete parse. Last successful match: alphanumericLiteral < literalValue < literal < relationOperand < relationObject < abbreviatedNegation < abbreviatedConjunction < abbreviatedDisjunction < relationCondition < simpleCondition < negation < conjunction < disjunction < condition < ifStatement < statement < sentence < copybookHoldingBehaviour < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/KP009.CPY
+/home/claude/cobol-research/tools/nist/src2/IC235A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC235A.CBL
+Writing XML to runs/koopa/nist2/IC235A.xml
+/home/claude/cobol-research/tools/nist/src2/NC203A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC203A.CBL
+Writing XML to runs/koopa/nist2/NC203A.xml
+/home/claude/cobol-research/tools/nist/src2/NC252A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC252A.CBL
+Writing XML to runs/koopa/nist2/NC252A.xml
+/home/claude/cobol-research/tools/nist/src2/DB303M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB303M.CBL
+Writing XML to runs/koopa/nist2/DB303M.xml
+/home/claude/cobol-research/tools/nist/src2/IC101A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC101A.CBL
+Writing XML to runs/koopa/nist2/IC101A.xml
+/home/claude/cobol-research/tools/nist/src2/SM202A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM202A.CBL
+Writing XML to runs/koopa/nist2/SM202A.xml
+/home/claude/cobol-research/tools/nist/src2/K6SCA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K6SCA.CPY
+Writing XML to runs/koopa/nist2/K6SCA.xml
+/home/claude/cobol-research/tools/nist/src2/KP005.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KP005.CPY
+Writing XML to runs/koopa/nist2/KP005.xml
+/home/claude/cobol-research/tools/nist/src2/IX106A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX106A.CBL
+Writing XML to runs/koopa/nist2/IX106A.xml
+/home/claude/cobol-research/tools/nist/src2/NC222A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC222A.CBL
+Writing XML to runs/koopa/nist2/NC222A.xml
+/home/claude/cobol-research/tools/nist/src2/ST125A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST125A.CBL
+Writing XML to runs/koopa/nist2/ST125A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ156A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ156A.CBL
+Writing XML to runs/koopa/nist2/SQ156A.xml
+/home/claude/cobol-research/tools/nist/src2/RW104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RW104A.CBL
+Writing XML to runs/koopa/nist2/RW104A.xml
+/home/claude/cobol-research/tools/nist/src2/NC109M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC109M.CBL
+Writing XML to runs/koopa/nist2/NC109M.xml
+/home/claude/cobol-research/tools/nist/src2/IX115A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX115A.CBL
+Writing XML to runs/koopa/nist2/IX115A.xml
+/home/claude/cobol-research/tools/nist/src2/IF123A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF123A.CBL
+Writing XML to runs/koopa/nist2/IF123A.xml
+/home/claude/cobol-research/tools/nist/src2/K1PRC.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1PRC.CPY
+Writing XML to runs/koopa/nist2/K1PRC.xml
+Error: [K1PRC.CPY:1:44|1|K1PRC.CPY:1:44] Incomplete parse. Last successful match: unsigned_decimal < decimal < numeric < atom < base < factor < term < expression < bitwiseConjunction < bitwiseExclusiveDisjunction < bitwiseInclusiveDisjunction < arithmeticExpression < relationOperand < relationObject < abbreviatedNegation < abbreviatedConjunction < abbreviatedDisjunction < relationCondition < simpleCondition < negation < conjunction < disjunction < condition < ifStatement < statement < sentence < copybookHoldingBehaviour < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K1PRC.CPY
+/home/claude/cobol-research/tools/nist/src2/SM106A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM106A.CBL
+Writing XML to runs/koopa/nist2/SM106A.xml
+/home/claude/cobol-research/tools/nist/src2/IF107A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF107A.CBL
+Writing XML to runs/koopa/nist2/IF107A.xml
+/home/claude/cobol-research/tools/nist/src2/IF120A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF120A.CBL
+Writing XML to runs/koopa/nist2/IF120A.xml
+/home/claude/cobol-research/tools/nist/src2/RL201A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL201A.CBL
+Writing XML to runs/koopa/nist2/RL201A.xml
+/home/claude/cobol-research/tools/nist/src2/NC134A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC134A.CBL
+Writing XML to runs/koopa/nist2/NC134A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ126A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ126A.CBL
+Writing XML to runs/koopa/nist2/SQ126A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ113A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ113A.CBL
+Writing XML to runs/koopa/nist2/SQ113A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ117A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ117A.CBL
+Writing XML to runs/koopa/nist2/SQ117A.xml
+/home/claude/cobol-research/tools/nist/src2/RL102A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL102A.CBL
+Writing XML to runs/koopa/nist2/RL102A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ107A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ107A.CBL
+Writing XML to runs/koopa/nist2/SQ107A.xml
+/home/claude/cobol-research/tools/nist/src2/IF130A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF130A.CBL
+Writing XML to runs/koopa/nist2/IF130A.xml
+/home/claude/cobol-research/tools/nist/src2/RL209A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL209A.CBL
+Writing XML to runs/koopa/nist2/RL209A.xml
+/home/claude/cobol-research/tools/nist/src2/NC136A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC136A.CBL
+Writing XML to runs/koopa/nist2/NC136A.xml
+/home/claude/cobol-research/tools/nist/src2/ST132A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST132A.CBL
+Writing XML to runs/koopa/nist2/ST132A.xml
+/home/claude/cobol-research/tools/nist/src2/RL302M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL302M.CBL
+Writing XML to runs/koopa/nist2/RL302M.xml
+/home/claude/cobol-research/tools/nist/src2/NC107A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC107A.CBL
+Writing XML to runs/koopa/nist2/NC107A.xml
+/home/claude/cobol-research/tools/nist/src2/KP008.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KP008.CPY
+Writing XML to runs/koopa/nist2/KP008.xml
+/home/claude/cobol-research/tools/nist/src2/SQ135A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ135A.CBL
+Writing XML to runs/koopa/nist2/SQ135A.xml
+/home/claude/cobol-research/tools/nist/src2/IF127A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF127A.CBL
+Writing XML to runs/koopa/nist2/IF127A.xml
+/home/claude/cobol-research/tools/nist/src2/IF135A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF135A.CBL
+Writing XML to runs/koopa/nist2/IF135A.xml
+/home/claude/cobol-research/tools/nist/src2/ST115A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST115A.CBL
+Writing XML to runs/koopa/nist2/ST115A.xml
+/home/claude/cobol-research/tools/nist/src2/IF137A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF137A.CBL
+Writing XML to runs/koopa/nist2/IF137A.xml
+/home/claude/cobol-research/tools/nist/src2/IF111A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF111A.CBL
+Writing XML to runs/koopa/nist2/IF111A.xml
+/home/claude/cobol-research/tools/nist/src2/DB202A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB202A.CBL
+Writing XML to runs/koopa/nist2/DB202A.xml
+/home/claude/cobol-research/tools/nist/src2/SG203A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG203A.CBL
+Writing XML to runs/koopa/nist2/SG203A.xml
+/home/claude/cobol-research/tools/nist/src2/K3IOB.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K3IOB.CPY
+Writing XML to runs/koopa/nist2/K3IOB.xml
+Error: [K3IOB.CPY:1:17|RECORD|K3IOB.CPY:1:22] Incomplete parse. Last successful match: specialNameStatement < copybookHoldingData < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K3IOB.CPY
+/home/claude/cobol-research/tools/nist/src2/ST121A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST121A.CBL
+Writing XML to runs/koopa/nist2/ST121A.xml
+/home/claude/cobol-research/tools/nist/src2/OBNC1M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/OBNC1M.CBL
+Writing XML to runs/koopa/nist2/OBNC1M.xml
+/home/claude/cobol-research/tools/nist/src2/RL104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL104A.CBL
+Writing XML to runs/koopa/nist2/RL104A.xml
+/home/claude/cobol-research/tools/nist/src2/RL116A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL116A.CBL
+Writing XML to runs/koopa/nist2/RL116A.xml
+/home/claude/cobol-research/tools/nist/src2/K1W02.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1W02.CPY
+Writing XML to runs/koopa/nist2/K1W02.xml
+Error: [K1W02.CPY:1:21|PIC|K1W02.CPY:1:23] Incomplete parse. Last successful match: specialNameStatement < copybookHoldingData < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K1W02.CPY
+/home/claude/cobol-research/tools/nist/src2/OBSQ5A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/OBSQ5A.CBL
+Writing XML to runs/koopa/nist2/OBSQ5A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ216A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ216A.CBL
+Writing XML to runs/koopa/nist2/SQ216A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ210M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ210M.CBL
+Writing XML to runs/koopa/nist2/SQ210M.xml
+/home/claude/cobol-research/tools/nist/src2/SM105A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM105A.CBL
+Writing XML to runs/koopa/nist2/SM105A.xml
+/home/claude/cobol-research/tools/nist/src2/NC114M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC114M.CBL
+Writing XML to runs/koopa/nist2/NC114M.xml
+/home/claude/cobol-research/tools/nist/src2/IX114A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX114A.CBL
+Writing XML to runs/koopa/nist2/IX114A.xml
+/home/claude/cobol-research/tools/nist/src2/IX218A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX218A.CBL
+Writing XML to runs/koopa/nist2/IX218A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ211A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ211A.CBL
+Writing XML to runs/koopa/nist2/SQ211A.xml
+/home/claude/cobol-research/tools/nist/src2/IX108A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX108A.CBL
+Writing XML to runs/koopa/nist2/IX108A.xml
+/home/claude/cobol-research/tools/nist/src2/NC120A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC120A.CBL
+Writing XML to runs/koopa/nist2/NC120A.xml
+/home/claude/cobol-research/tools/nist/src2/ST103A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/ST103A.CBL
+Writing XML to runs/koopa/nist2/ST103A.xml
+/home/claude/cobol-research/tools/nist/src2/RL213A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL213A.CBL
+Writing XML to runs/koopa/nist2/RL213A.xml
+/home/claude/cobol-research/tools/nist/src2/NC119A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC119A.CBL
+Writing XML to runs/koopa/nist2/NC119A.xml
+/home/claude/cobol-research/tools/nist/src2/SG101A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG101A.CBL
+Writing XML to runs/koopa/nist2/SG101A.xml
+/home/claude/cobol-research/tools/nist/src2/NC112A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC112A.CBL
+Writing XML to runs/koopa/nist2/NC112A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ212A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ212A.CBL
+Writing XML to runs/koopa/nist2/SQ212A.xml
+/home/claude/cobol-research/tools/nist/src2/IX111A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX111A.CBL
+Writing XML to runs/koopa/nist2/IX111A.xml
+/home/claude/cobol-research/tools/nist/src2/K3IOA.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K3IOA.CPY
+Writing XML to runs/koopa/nist2/K3IOA.xml
+Error: [K3IOA.CPY:1:17|AREA|K3IOA.CPY:1:20] Incomplete parse. Last successful match: specialNameStatement < copybookHoldingData < copybook.
+Could not parse /home/claude/cobol-research/tools/nist/src2/K3IOA.CPY
+/home/claude/cobol-research/tools/nist/src2/SQ206A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ206A.CBL
+Writing XML to runs/koopa/nist2/SQ206A.xml
+/home/claude/cobol-research/tools/nist/src2/IF104A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IF104A.CBL
+Writing XML to runs/koopa/nist2/IF104A.xml
+/home/claude/cobol-research/tools/nist/src2/IC225A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC225A.CBL
+Writing XML to runs/koopa/nist2/IC225A.xml
+/home/claude/cobol-research/tools/nist/src2/IC226A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC226A.CBL
+Writing XML to runs/koopa/nist2/IC226A.xml
+/home/claude/cobol-research/tools/nist/src2/SM207A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM207A.CBL
+Writing XML to runs/koopa/nist2/SM207A.xml
+[main:ERROR] source.cobol.copy_include: Missing copybook ALTLB in "XXXXX047"
+[main:ERROR] source.cobol.copy_include: Missing copybook ALTLB in "XXXXX048"
+/home/claude/cobol-research/tools/nist/src2/SG106A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SG106A.CBL
+Writing XML to runs/koopa/nist2/SG106A.xml
+/home/claude/cobol-research/tools/nist/src2/RL212A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL212A.CBL
+Writing XML to runs/koopa/nist2/RL212A.xml
+/home/claude/cobol-research/tools/nist/src2/IC212A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC212A.CBL
+Writing XML to runs/koopa/nist2/IC212A.xml
+/home/claude/cobol-research/tools/nist/src2/KK208A.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/KK208A.CPY
+Writing XML to runs/koopa/nist2/KK208A.xml
+/home/claude/cobol-research/tools/nist/src2/RL203A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL203A.CBL
+Writing XML to runs/koopa/nist2/RL203A.xml
+/home/claude/cobol-research/tools/nist/src2/SM103A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SM103A.CBL
+Writing XML to runs/koopa/nist2/SM103A.xml
+/home/claude/cobol-research/tools/nist/src2/DB204A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/DB204A.CBL
+Writing XML to runs/koopa/nist2/DB204A.xml
+/home/claude/cobol-research/tools/nist/src2/IX301M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IX301M.CBL
+Writing XML to runs/koopa/nist2/IX301M.xml
+/home/claude/cobol-research/tools/nist/src2/SQ226A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ226A.CBL
+Writing XML to runs/koopa/nist2/SQ226A.xml
+/home/claude/cobol-research/tools/nist/src2/RL107A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL107A.CBL
+Writing XML to runs/koopa/nist2/RL107A.xml
+/home/claude/cobol-research/tools/nist/src2/NC208A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC208A.CBL
+Writing XML to runs/koopa/nist2/NC208A.xml
+/home/claude/cobol-research/tools/nist/src2/NC202A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC202A.CBL
+Writing XML to runs/koopa/nist2/NC202A.xml
+/home/claude/cobol-research/tools/nist/src2/K1W04.CPY
+Processing /home/claude/cobol-research/tools/nist/src2/K1W04.CPY
+Writing XML to runs/koopa/nist2/K1W04.xml
+/home/claude/cobol-research/tools/nist/src2/NC218A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC218A.CBL
+Writing XML to runs/koopa/nist2/NC218A.xml
+/home/claude/cobol-research/tools/nist/src2/NC210A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/NC210A.CBL
+Writing XML to runs/koopa/nist2/NC210A.xml
+/home/claude/cobol-research/tools/nist/src2/RL401M.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/RL401M.CBL
+Writing XML to runs/koopa/nist2/RL401M.xml
+/home/claude/cobol-research/tools/nist/src2/IC105A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/IC105A.CBL
+Writing XML to runs/koopa/nist2/IC105A.xml
+/home/claude/cobol-research/tools/nist/src2/SQ227A.CBL
+Processing /home/claude/cobol-research/tools/nist/src2/SQ227A.CBL
+Writing XML to runs/koopa/nist2/SQ227A.xml

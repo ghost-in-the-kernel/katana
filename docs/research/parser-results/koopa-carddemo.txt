@@ -1,0 +1,94 @@
+Picked up JAVA_TOOL_OPTIONS: 
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl
+Writing XML to runs/koopa/carddemo/COACTUPC.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR02C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR02C.cbl
+Writing XML to runs/koopa/carddemo/COUSR02C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CSUTLDTC.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CSUTLDTC.cbl
+Writing XML to runs/koopa/carddemo/CSUTLDTC.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR01C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR01C.cbl
+Writing XML to runs/koopa/carddemo/COUSR01C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl
+Writing XML to runs/koopa/carddemo/COSGN00C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COCRDSLC.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COCRDSLC.cbl
+Writing XML to runs/koopa/carddemo/COCRDSLC.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR00C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR00C.cbl
+Writing XML to runs/koopa/carddemo/COUSR00C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBACT02C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBACT02C.cbl
+Writing XML to runs/koopa/carddemo/CBACT02C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COBSWAIT.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COBSWAIT.cbl
+Writing XML to runs/koopa/carddemo/COBSWAIT.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COTRN00C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COTRN00C.cbl
+Writing XML to runs/koopa/carddemo/COTRN00C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBIMPORT.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBIMPORT.cbl
+Writing XML to runs/koopa/carddemo/CBIMPORT.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBACT03C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBACT03C.cbl
+Writing XML to runs/koopa/carddemo/CBACT03C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBTRN01C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBTRN01C.cbl
+Writing XML to runs/koopa/carddemo/CBTRN01C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COADM01C.cbl
+Writing XML to runs/koopa/carddemo/COADM01C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COTRN02C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COTRN02C.cbl
+Writing XML to runs/koopa/carddemo/COTRN02C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBACT04C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBACT04C.cbl
+Writing XML to runs/koopa/carddemo/CBACT04C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBTRN02C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBTRN02C.cbl
+Writing XML to runs/koopa/carddemo/CBTRN02C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03B.CBL
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03B.CBL
+Writing XML to runs/koopa/carddemo/CBSTM03B.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COTRN01C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COTRN01C.cbl
+Writing XML to runs/koopa/carddemo/COTRN01C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBEXPORT.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBEXPORT.cbl
+Writing XML to runs/koopa/carddemo/CBEXPORT.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBCUS01C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBCUS01C.cbl
+Writing XML to runs/koopa/carddemo/CBCUS01C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTVWC.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COACTVWC.cbl
+Writing XML to runs/koopa/carddemo/COACTVWC.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COCRDLIC.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COCRDLIC.cbl
+Writing XML to runs/koopa/carddemo/COCRDLIC.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CORPT00C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CORPT00C.cbl
+Writing XML to runs/koopa/carddemo/CORPT00C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBACT01C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBACT01C.cbl
+Writing XML to runs/koopa/carddemo/CBACT01C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COBIL00C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COBIL00C.cbl
+Writing XML to runs/koopa/carddemo/COBIL00C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBSTM03A.CBL
+Writing XML to runs/koopa/carddemo/CBSTM03A.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBTRN03C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/CBTRN03C.cbl
+Writing XML to runs/koopa/carddemo/CBTRN03C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COMEN01C.cbl
+Writing XML to runs/koopa/carddemo/COMEN01C.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COCRDUPC.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COCRDUPC.cbl
+Writing XML to runs/koopa/carddemo/COCRDUPC.xml
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl
+Processing /home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COUSR03C.cbl
+Writing XML to runs/koopa/carddemo/COUSR03C.xml

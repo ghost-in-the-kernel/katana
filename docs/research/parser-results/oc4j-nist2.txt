@@ -1,0 +1,460 @@
+FAIL /home/claude/cobol-research/tools/nist/src2/CM101M.CBL :: /home/claude/cobol-research/tools/nist/src2/CM101M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/CM102M.CBL :: /home/claude/cobol-research/tools/nist/src2/CM102M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/CM103M.CBL :: /home/claude/cobol-research/tools/nist/src2/CM103M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/CM104M.CBL :: /home/claude/cobol-research/tools/nist/src2/CM104M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/CM105M.CBL :: /home/claude/cobol-research/tools/nist/src2/CM105M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/CM201M.CBL :: /home/claude/cobol-research/tools/nist/src2/CM201M.CBL:44: Error: 'COMMUNICATION' reserved word, but not supported yet
+FAIL /home/claude/cobol-research/tools/nist/src2/CM202M.CBL :: /home/claude/cobol-research/tools/nist/src2/CM202M.CBL:36: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/CM303M.CBL :: /home/claude/cobol-research/tools/nist/src2/CM303M.CBL:16: Error: 'COMMUNICATION' reserved word, but not supported yet
+FAIL /home/claude/cobol-research/tools/nist/src2/CM401M.CBL :: /home/claude/cobol-research/tools/nist/src2/CM401M.CBL:14: Error: 'COMMUNICATION' reserved word, but not supported yet
+FAIL /home/claude/cobol-research/tools/nist/src2/DB101A.CBL :: /home/claude/cobol-research/tools/nist/src2/DB101A.CBL:64: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/DB102A.CBL :: /home/claude/cobol-research/tools/nist/src2/DB102A.CBL:58: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/DB103M.CBL :: /home/claude/cobol-research/tools/nist/src2/DB103M.CBL:56: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/DB104A.CBL :: /home/claude/cobol-research/tools/nist/src2/DB104A.CBL:74: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/DB105A.CBL :: /home/claude/cobol-research/tools/nist/src2/DB105A.CBL:93: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/DB201A.CBL :: /home/claude/cobol-research/tools/nist/src2/DB201A.CBL:64: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/DB202A.CBL :: /home/claude/cobol-research/tools/nist/src2/DB202A.CBL:58: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/DB203A.CBL :: /home/claude/cobol-research/tools/nist/src2/DB203A.CBL:50: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/DB204A.CBL :: /home/claude/cobol-research/tools/nist/src2/DB204A.CBL:63: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/DB205A.CBL :: /home/claude/cobol-research/tools/nist/src2/DB205A.CBL:38: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/DB301M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/DB302M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/DB303M.CBL :: /home/claude/cobol-research/tools/nist/src2/DB303M.CBL:33: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/DB304M.CBL :: /home/claude/cobol-research/tools/nist/src2/DB304M.CBL:15: Error: 'COMMUNICATION' reserved word, but not supported yet
+PASS /home/claude/cobol-research/tools/nist/src2/DB305M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/EXEC85.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC101A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC102A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC103A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC104A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC105A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC106A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC107A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC108A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC109A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC110A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC111A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IC112A.CBL :: /home/claude/cobol-research/tools/nist/src2/IC112A.CBL:67: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IC113A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC114A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IC115A.CBL :: /home/claude/cobol-research/tools/nist/src2/IC115A.CBL:59: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IC116M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC117M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC118M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC201A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC202A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC203A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC204A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC205A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC206A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC207A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC208A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC209A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC210A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC211A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC212A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC213A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC214A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC215A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC216A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC217A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC222A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC223A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC224A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC225A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC226A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC227A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC228A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC233A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC234A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IC235A.CBL :: 
+PASS /home/claude/cobol-research/tools/nist/src2/IC237A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IC401M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF101A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF102A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF103A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF104A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF105A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF106A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF107A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF108A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF109A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF110A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF111A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF112A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF113A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF114A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF115A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF116A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF117A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF118A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IF119A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF119A.CBL:612: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IF120A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF120A.CBL:503: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IF121A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF121A.CBL:500: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IF122A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF122A.CBL:522: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IF123A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF123A.CBL:615: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IF124A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF125A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF126A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF127A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IF128A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF128A.CBL:549: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IF129A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF129A.CBL:552: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IF130A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF131A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IF132A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF132A.CBL:498: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IF133A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF134A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF135A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF136A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IF137A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF137A.CBL:531: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IF138A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF138A.CBL:498: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IF139A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF140A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IF141A.CBL :: /home/claude/cobol-research/tools/nist/src2/IF141A.CBL:525: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IF142A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IF401M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IF402M.CBL :: /home/claude/cobol-research/tools/nist/src2/IF402M.CBL:59: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IF403M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX101A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX102A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX103A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IX104A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX104A.CBL:76: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IX105A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IX106A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX106A.CBL:68: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX107A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX107A.CBL:143: Error: Invalid indicator 'U' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src2/IX108A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX108A.CBL:78: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IX109A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IX110A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX110A.CBL:123: Error: Invalid picture string - 'P'
+PASS /home/claude/cobol-research/tools/nist/src2/IX111A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX112A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX113A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX114A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX115A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX116A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX117A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX118A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX119A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX120A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX121A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX201A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX202A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX203A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IX204A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX204A.CBL:86: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX205A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX205A.CBL:82: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX206A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX206A.CBL:79: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX207A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX207A.CBL:144: Error: Invalid indicator 'U' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src2/IX208A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX208A.CBL:138: Error: Invalid indicator 'U' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src2/IX209A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX209A.CBL:196: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX210A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX210A.CBL:199: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX211A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX211A.CBL:143: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX212A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX212A.CBL:51: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX213A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX213A.CBL:50: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX214A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX214A.CBL:202: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX215A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX215A.CBL:134: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/IX216A.CBL :: /home/claude/cobol-research/tools/nist/src2/IX216A.CBL:95: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/IX217A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX218A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/IX301M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/IX302M.CBL :: /home/claude/cobol-research/tools/nist/src2/IX302M.CBL:19: Error: 'RKEY' undefined
+PASS /home/claude/cobol-research/tools/nist/src2/IX401M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC101A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC102A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC103A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/NC104A.CBL :: /home/claude/cobol-research/tools/nist/src2/NC104A.CBL:42: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/NC105A.CBL :: /home/claude/cobol-research/tools/nist/src2/NC105A.CBL:41: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/NC106A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC107A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC108M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC109M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC110M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC111A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC112A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC113M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC114M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC115A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC116A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC117A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC118A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC119A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC120A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC121M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC122A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC123A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC124A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC125A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC126A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC127A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC131A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC132A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC133A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC134A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC135A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC136A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC137A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC138A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC139A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC140A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC141A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC170A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC171A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC172A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC173A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/NC174A.CBL :: /home/claude/cobol-research/tools/nist/src2/NC174A.CBL:565: Error: Invalid indicator 'B' at column 7
+PASS /home/claude/cobol-research/tools/nist/src2/NC175A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC176A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC177A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC201A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC202A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC203A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/NC204M.CBL :: /home/claude/cobol-research/tools/nist/src2/NC204M.CBL:41: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/NC205A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC206A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC207A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC208A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC209A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC210A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/NC211A.CBL :: /home/claude/cobol-research/tools/nist/src2/NC211A.CBL:315: Error: Invalid indicator 'B' at column 7
+PASS /home/claude/cobol-research/tools/nist/src2/NC214M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC215A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC216A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC217A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC218A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC219A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/NC220M.CBL :: /home/claude/cobol-research/tools/nist/src2/NC220M.CBL:36: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/NC221A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC222A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC223A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC224A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC225A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC231A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC232A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC233A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC234A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC235A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC236A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC237A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC238A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC239A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC240A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC241A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC242A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC243A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC244A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC245A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC246A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC247A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC248A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC250A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC251A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC252A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/NC253A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/NC254A.CBL :: /home/claude/cobol-research/tools/nist/src2/NC254A.CBL:563: Error: Invalid indicator 'B' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src2/NC302M.CBL :: /home/claude/cobol-research/tools/nist/src2/NC302M.CBL:21: Error: Integer value expected
+FAIL /home/claude/cobol-research/tools/nist/src2/NC303M.CBL :: /home/claude/cobol-research/tools/nist/src2/NC303M.CBL:20: Error: ALTER statement is obsolete and unsupported
+FAIL /home/claude/cobol-research/tools/nist/src2/NC401M.CBL :: /home/claude/cobol-research/tools/nist/src2/NC401M.CBL:17: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/OBIC1A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/OBIC2A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/OBIC3A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/OBNC1M.CBL :: /home/claude/cobol-research/tools/nist/src2/OBNC1M.CBL:94: Error: Integer value expected
+FAIL /home/claude/cobol-research/tools/nist/src2/OBNC2M.CBL :: /home/claude/cobol-research/tools/nist/src2/OBNC2M.CBL:594: Error: ALTER statement is obsolete and unsupported
+FAIL /home/claude/cobol-research/tools/nist/src2/OBSQ1A.CBL :: /home/claude/cobol-research/tools/nist/src2/OBSQ1A.CBL:103: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/OBSQ3A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/OBSQ4A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/OBSQ5A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/RL101A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL101A.CBL:73: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL102A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL102A.CBL:62: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL103A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL103A.CBL:63: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL104A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL104A.CBL:70: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL105A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL105A.CBL:74: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL106A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL106A.CBL:76: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL107A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL107A.CBL:78: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL108A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL108A.CBL:69: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL109A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL109A.CBL:78: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL110A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL110A.CBL:63: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL111A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL111A.CBL:72: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL112A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL112A.CBL:70: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL113A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL113A.CBL:70: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL114A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL114A.CBL:70: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL115A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL115A.CBL:70: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL116A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL116A.CBL:77: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL117A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL117A.CBL:67: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL118A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL118A.CBL:64: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL119A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL119A.CBL:64: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL201A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL201A.CBL:59: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL202A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL202A.CBL:62: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL203A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL203A.CBL:62: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL204A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL204A.CBL:74: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL205A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL205A.CBL:133: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL206A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL206A.CBL:59: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL207A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL207A.CBL:63: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL208A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL208A.CBL:62: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL209A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL209A.CBL:62: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL210A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL210A.CBL:59: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL211A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL211A.CBL:59: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL212A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL212A.CBL:59: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RL213A.CBL :: /home/claude/cobol-research/tools/nist/src2/RL213A.CBL:63: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/RL301M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/RL302M.CBL :: /home/claude/cobol-research/tools/nist/src2/RL302M.CBL:20: Error: 'RKEY' undefined
+PASS /home/claude/cobol-research/tools/nist/src2/RL401M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/RW101A.CBL :: /home/claude/cobol-research/tools/nist/src2/RW101A.CBL:84: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RW102A.CBL :: /home/claude/cobol-research/tools/nist/src2/RW102A.CBL:76: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RW103A.CBL :: /home/claude/cobol-research/tools/nist/src2/RW103A.CBL:89: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RW104A.CBL :: /home/claude/cobol-research/tools/nist/src2/RW104A.CBL:86: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RW301M.CBL :: /home/claude/cobol-research/tools/nist/src2/RW301M.CBL:33: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/RW302M.CBL :: /home/claude/cobol-research/tools/nist/src2/RW302M.CBL:37: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SG101A.CBL :: /home/claude/cobol-research/tools/nist/src2/SG101A.CBL:42: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SG102A.CBL :: /home/claude/cobol-research/tools/nist/src2/SG102A.CBL:41: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SG103A.CBL :: /home/claude/cobol-research/tools/nist/src2/SG103A.CBL:40: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SG104A.CBL :: /home/claude/cobol-research/tools/nist/src2/SG104A.CBL:60: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SG105A.CBL :: /home/claude/cobol-research/tools/nist/src2/SG105A.CBL:60: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SG106A.CBL :: /home/claude/cobol-research/tools/nist/src2/SG106A.CBL:60: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SG201A.CBL :: /home/claude/cobol-research/tools/nist/src2/SG201A.CBL:46: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SG202A.CBL :: /home/claude/cobol-research/tools/nist/src2/SG202A.CBL:44: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SG203A.CBL :: /home/claude/cobol-research/tools/nist/src2/SG203A.CBL:42: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SG204A.CBL :: /home/claude/cobol-research/tools/nist/src2/SG204A.CBL:70: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SG302M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SG303M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SG401M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SM101A.CBL :: /home/claude/cobol-research/tools/nist/src2/K1FDA.CPY:1: Error: Invalid indicator 'G' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src2/SM102A.CBL :: /home/claude/cobol-research/tools/nist/src2/SM102A.CBL:50: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SM103A.CBL :: /home/claude/cobol-research/tools/nist/src2/SM103A.CBL:113: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SM104A.CBL :: /home/claude/cobol-research/tools/nist/src2/SM104A.CBL:53: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SM105A.CBL :: /home/claude/cobol-research/tools/nist/src2/SM105A.CBL:81: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SM106A.CBL :: /home/claude/cobol-research/tools/nist/src2/K6SCA.CPY:167: Error: Invalid indicator 'S' at column 7
+PASS /home/claude/cobol-research/tools/nist/src2/SM107A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SM201A.CBL :: /home/claude/cobol-research/tools/nist/src2/K1FDA.CPY:1: Error: Invalid indicator 'G' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src2/SM202A.CBL :: /home/claude/cobol-research/tools/nist/src2/SM202A.CBL:53: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SM203A.CBL :: /home/claude/cobol-research/tools/nist/src2/SM203A.CBL:80: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SM204A.CBL :: /home/claude/cobol-research/tools/nist/src2/SM204A.CBL:53: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SM205A.CBL :: /home/claude/cobol-research/tools/nist/src2/SM205A.CBL:86: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SM206A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SM207A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SM208A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SM301M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SM401M.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ101M.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ101M.CBL:69: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ102A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ102A.CBL:57: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ103A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ103A.CBL:65: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ104A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ104A.CBL:58: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ105A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ105A.CBL:60: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ106A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ106A.CBL:394: Error: 'DELETE-CNT' undefined
+PASS /home/claude/cobol-research/tools/nist/src2/SQ107A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ108A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ109M.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ109M.CBL:413: Error: Invalid indicator 'H' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ110M.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ110M.CBL:416: Error: Invalid indicator 'E' at column 7
+PASS /home/claude/cobol-research/tools/nist/src2/SQ111A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ112A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ113A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ113A.CBL:63: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SQ114A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ115A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ116A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ117A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ121A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ122A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ123A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ123A.CBL:52: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ124A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ124A.CBL:58: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SQ125A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ126A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ127A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ128A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ129A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ129A.CBL:52: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ130A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ130A.CBL:51: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ131A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ131A.CBL:59: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SQ132A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ133A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ133A.CBL:54: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ134A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ134A.CBL:60: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SQ135A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ136A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ136A.CBL:48: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ137A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ137A.CBL:48: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ138A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ138A.CBL:48: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ139A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ139A.CBL:50: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ140A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ140A.CBL:50: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ141A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ141A.CBL:50: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ142A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ142A.CBL:50: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SQ143A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ144A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ144A.CBL:48: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SQ146A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ147A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ148A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ149A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ150A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ151A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ152A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ153A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ154A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ155A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ156A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ201M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ202A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ203A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ204A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ205A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ206A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ207M.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ207M.CBL:36: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SQ208M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ209M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ210M.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ211A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ212A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ213A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ214A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ215A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ216A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ217A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ218A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ219A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ219A.CBL:49: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SQ220A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ221A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ222A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ223A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ224A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ225A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ225A.CBL:52: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ226A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ226A.CBL:58: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ227A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ227A.CBL:54: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ228A.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ228A.CBL:49: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/SQ229A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/SQ230A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ302M.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ302M.CBL:29: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ303M.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ303M.CBL:42: Error: 'REVERSED' undefined
+FAIL /home/claude/cobol-research/tools/nist/src2/SQ401M.CBL :: /home/claude/cobol-research/tools/nist/src2/SQ401M.CBL:61: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST101A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST101A.CBL:58: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST102A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST102A.CBL:55: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST103A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST103A.CBL:45: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST104A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST104A.CBL:44: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST105A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST105A.CBL:64: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST106A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST106A.CBL:77: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST107A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST107A.CBL:44: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/ST108A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/ST109A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST109A.CBL:57: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST110A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST110A.CBL:48: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST111A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST111A.CBL:57: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST112M.CBL :: /home/claude/cobol-research/tools/nist/src2/ST112M.CBL:372: Error: Invalid indicator 'H' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src2/ST113M.CBL :: /home/claude/cobol-research/tools/nist/src2/ST113M.CBL:47: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST114M.CBL :: /home/claude/cobol-research/tools/nist/src2/ST114M.CBL:44: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST115A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST115A.CBL:88: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST116A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST116A.CBL:111: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST117A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST117A.CBL:106: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/ST118A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/ST119A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST119A.CBL:58: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST120A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST120A.CBL:55: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST121A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST121A.CBL:45: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST122A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST122A.CBL:66: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST123A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST123A.CBL:64: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST124A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST124A.CBL:70: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST125A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST125A.CBL:86: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST126A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST126A.CBL:57: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/ST127A.CBL
+PASS /home/claude/cobol-research/tools/nist/src2/ST131A.CBL
+FAIL /home/claude/cobol-research/tools/nist/src2/ST132A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST132A.CBL:493: Error: Invalid indicator 'H' at column 7
+FAIL /home/claude/cobol-research/tools/nist/src2/ST133A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST133A.CBL:88: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST134A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST134A.CBL:74: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST135A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST135A.CBL:72: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST136A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST136A.CBL:52: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST137A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST137A.CBL:123: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST139A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST139A.CBL:147: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST140A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST140A.CBL:160: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST144A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST144A.CBL:162: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST146A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST146A.CBL:69: Error: syntax error
+FAIL /home/claude/cobol-research/tools/nist/src2/ST147A.CBL :: /home/claude/cobol-research/tools/nist/src2/ST147A.CBL:170: Error: syntax error
+PASS /home/claude/cobol-research/tools/nist/src2/ST301M.CBL
+SUMMARY pass=263 fail=196

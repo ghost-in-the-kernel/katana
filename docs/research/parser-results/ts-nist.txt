@@ -1,0 +1,462 @@
+/home/claude/cobol-research/tools/tree-sitter-cobol/run_ts.py:7: DeprecationWarning: int argument support is deprecated
+  lang = Language(fn())
+FAIL CM101M.CBL errors=2 first@34:11 | 003400 FD  PRINT-FILE                                                   CM1014.2
+FAIL CM102M.CBL errors=2 first@34:11 | 003400 FD  PRINT-FILE                                                   CM1024.2
+FAIL CM103M.CBL errors=2 first@34:11 | 003400 FD  PRINT-FILE                                                   CM1034.2
+FAIL CM104M.CBL errors=2 first@34:11 | 003400 FD  PRINT-FILE                                                   CM1044.2
+FAIL CM105M.CBL errors=2 first@34:11 | 003400 FD  PRINT-FILE                                                   CM1054.2
+FAIL CM201M.CBL errors=1 first@44:71 | 004400 COMMUNICATION SECTION.                                           CM2014.2
+FAIL CM202M.CBL errors=2 first@34:11 | 003400 FD  PRINT-FILE                                                   CM2024.2
+FAIL CM303M.CBL errors=2 first@16:71 | 001600 COMMUNICATION SECTION.                                           CM3034.2
+FAIL CM401M.CBL errors=2 first@14:71 | 001400 COMMUNICATION SECTION.                                           CM4014.2
+FAIL DB101A.CBL errors=10 first@62:11 | 006200 FD  PRINT-FILE                                                   DB1014.2
+FAIL DB102A.CBL errors=10 first@56:11 | 005600 FD  PRINT-FILE                                                   DB1024.2
+FAIL DB103M.CBL errors=10 first@54:11 | 005400 FD  PRINT-FILE                                                   DB1034.2
+FAIL DB104A.CBL errors=11 first@72:11 | 007200 FD  PRINT-FILE                                                   DB1044.2
+FAIL DB105A.CBL errors=2 first@91:11 | 009100 FD  PRINT-FILE                                                   DB1054.2
+FAIL DB201A.CBL errors=1 first@1:6 | 000100 IDENTIFICATION DIVISION.                                         DB2014.2
+FAIL DB202A.CBL errors=10 first@56:11 | 005600 FD  PRINT-FILE                                                   DB2024.2
+FAIL DB203A.CBL errors=2 first@66:11 | 006600 FD  PRINT-FILE                                                   DB2034.2
+FAIL DB204A.CBL errors=25 first@61:11 | 006100 FD  PRINT-FILE                                                   DB2044.2
+FAIL DB205A.CBL errors=4 first@36:11 | 003600 FD  PRINT-FILE                                                   DB2054.2
+FAIL DB301M.CBL errors=1 first@33:32 | 003300     USE FOR DEBUGGING ON ALL PROCEDURES.                         DB3014.2
+PASS DB302M.CBL
+FAIL DB303M.CBL errors=1 first@33:32 | 003300     USE FOR DEBUGGING ON ALL REFERENCES OF FREC.                 DB3034.2
+FAIL DB304M.CBL errors=1 first@15:71 | 001500 COMMUNICATION SECTION.                                           DB3044.2
+FAIL DB305M.CBL errors=1 first@33:32 | 003300     USE FOR DEBUGGING ON ALL PROCEDURES.                         DB3054.2
+PASS EXEC85.CBL
+PASS IC101A.CBL
+PASS IC102A.CBL
+PASS IC103A.CBL
+PASS IC104A.CBL
+PASS IC105A.CBL
+PASS IC106A.CBL
+PASS IC107A.CBL
+PASS IC108A.CBL
+PASS IC109A.CBL
+PASS IC110A.CBL
+PASS IC111A.CBL
+FAIL IC112A.CBL errors=8 first@59:7 | 005900 FD  SQ-FS3                                                       IC1124.2
+PASS IC113A.CBL
+FAIL IC114A.CBL errors=17 first@446:6 | 044600X    MOVE 3 TO CALL-FLAG.                                         IC1144.2
+FAIL IC115A.CBL errors=1 first@51:7 | 005100 FD  SQ-FS3                                                       IC1154.2
+PASS IC116M.CBL
+PASS IC117M.CBL
+PASS IC118M.CBL
+PASS IC201A.CBL
+PASS IC202A.CBL
+PASS IC203A.CBL
+PASS IC204A.CBL
+PASS IC205A.CBL
+PASS IC206A.CBL
+PASS IC207A.CBL
+PASS IC208A.CBL
+PASS IC209A.CBL
+PASS IC210A.CBL
+PASS IC211A.CBL
+PASS IC212A.CBL
+PASS IC213A.CBL
+PASS IC214A.CBL
+PASS IC215A.CBL
+PASS IC216A.CBL
+PASS IC217A.CBL
+PASS IC222A.CBL
+PASS IC223A.CBL
+PASS IC224A.CBL
+PASS IC225A.CBL
+PASS IC226A.CBL
+PASS IC227A.CBL
+PASS IC228A.CBL
+PASS IC233A.CBL
+PASS IC234A.CBL
+PASS IC235A.CBL
+PASS IC237A.CBL
+PASS IC401M.CBL
+PASS IF101A.CBL
+PASS IF102A.CBL
+PASS IF103A.CBL
+PASS IF104A.CBL
+PASS IF105A.CBL
+PASS IF106A.CBL
+PASS IF107A.CBL
+PASS IF108A.CBL
+PASS IF109A.CBL
+PASS IF110A.CBL
+PASS IF111A.CBL
+PASS IF112A.CBL
+PASS IF113A.CBL
+PASS IF114A.CBL
+PASS IF115A.CBL
+PASS IF116A.CBL
+PASS IF117A.CBL
+PASS IF118A.CBL
+PASS IF119A.CBL
+PASS IF120A.CBL
+PASS IF121A.CBL
+PASS IF122A.CBL
+PASS IF123A.CBL
+PASS IF124A.CBL
+PASS IF125A.CBL
+PASS IF126A.CBL
+PASS IF127A.CBL
+PASS IF128A.CBL
+PASS IF129A.CBL
+PASS IF130A.CBL
+PASS IF131A.CBL
+PASS IF132A.CBL
+PASS IF133A.CBL
+PASS IF134A.CBL
+PASS IF135A.CBL
+PASS IF136A.CBL
+PASS IF137A.CBL
+PASS IF138A.CBL
+PASS IF139A.CBL
+PASS IF140A.CBL
+PASS IF141A.CBL
+PASS IF142A.CBL
+PASS IF401M.CBL
+PASS IF402M.CBL
+PASS IF403M.CBL
+FAIL IX101A.CBL errors=2 first@87:11 | 008700 FD  IX-FS1                                                       IX1014.2
+FAIL IX102A.CBL errors=2 first@99:11 | 009900 FD  IX-FS1                                                       IX1024.2
+FAIL IX103A.CBL errors=2 first@97:11 | 009700 FD  IX-FS1                                                       IX1034.2
+FAIL IX104A.CBL errors=2 first@102:11 | 010200 FD  IX-FS2                                                       IX1044.2
+FAIL IX105A.CBL errors=5 first@71:11 | 007100 FD  IX-FR1                                                       IX1054.2
+FAIL IX106A.CBL errors=6 first@100:11 | 010000 FD  RL-FR1                                                       IX1064.2
+FAIL IX107A.CBL errors=3 first@132:12 | 013200 FD   IX-FS1                                                      IX1074.2
+FAIL IX108A.CBL errors=4 first@111:11 | 011100 FD  IX-FS1                                                       IX1084.2
+FAIL IX109A.CBL errors=1 first@97:11 | 009700 FD  IX-FS3                                                       IX1094.2
+FAIL IX110A.CBL errors=1 first@83:11 | 008300 FD  IX-FS3                                                       IX1104.2
+FAIL IX111A.CBL errors=2 first@59:11 | 005900 FD  IX-NOP                                                       IX1114.2
+FAIL IX112A.CBL errors=1 first@85:11 | 008500 FD  IX-VS2                                                       IX1124.2
+FAIL IX113A.CBL errors=1 first@86:11 | 008600 FD  IX-FS3                                                       IX1134.2
+FAIL IX114A.CBL errors=1 first@82:11 | 008200 FD  IX-FS3                                                       IX1144.2
+FAIL IX115A.CBL errors=1 first@83:11 | 008300 FD  IX-FS3                                                       IX1154.2
+FAIL IX116A.CBL errors=1 first@83:11 | 008300 FD  IX-FS3                                                       IX1164.2
+FAIL IX117A.CBL errors=1 first@82:11 | 008200 FD  IX-FS3                                                       IX1174.2
+FAIL IX118A.CBL errors=1 first@82:11 | 008200 FD  IX-FS3                                                       IX1184.2
+FAIL IX119A.CBL errors=1 first@85:11 | 008500 FD  IX-FS3                                                       IX1194.2
+FAIL IX120A.CBL errors=1 first@84:11 | 008400 FD  IX-FS3                                                       IX1204.2
+FAIL IX121A.CBL errors=1 first@89:11 | 008900 FD  IX-VS2                                                       IX1214.2
+FAIL IX201A.CBL errors=2 first@88:11 | 008800 FD  IX-FS1                                                       IX2014.2
+FAIL IX202A.CBL errors=2 first@91:11 | 009100 FD  IX-FD1                                                       IX2024.2
+FAIL IX203A.CBL errors=2 first@91:11 | 009100 FD  IX-FD1                                                       IX2034.2
+FAIL IX204A.CBL errors=2 first@112:11 | 011200 FD  IX-FD2                                                       IX2044.2
+FAIL IX205A.CBL errors=2 first@119:11 | 011900 FD  IX-FD1                                                       IX2054.2
+FAIL IX206A.CBL errors=3 first@116:11 | 011600 FD  IX-FD1                                                       IX2064.2
+FAIL IX207A.CBL errors=3 first@134:11 | 013400 FD  IX-FS1                                                       IX2074.2
+FAIL IX208A.CBL errors=3 first@128:11 | 012800 FD  IX-FD1                                                       IX2084.2
+FAIL IX209A.CBL errors=2 first@224:11 | 022400 FD  IX-FS1                                                       IX2094.2
+FAIL IX210A.CBL errors=2 first@227:11 | 022700 FD  IX-FS1                                                       IX2104.2
+FAIL IX211A.CBL errors=2 first@171:11 | 017100 FD  IX-FD1                                                       IX2114.2
+FAIL IX212A.CBL errors=2 first@86:11 | 008600 FD  IX-FS1                                                       IX2124.2
+FAIL IX213A.CBL errors=2 first@85:11 | 008500 FD  IX-FS1                                                       IX2134.2
+FAIL IX214A.CBL errors=2 first@230:11 | 023000 FD  IX-FS1                                                       IX2144.2
+FAIL IX215A.CBL errors=6 first@184:11 | 018400 FD  IX-FD1                                                       IX2154.2
+FAIL IX216A.CBL errors=2 first@121:11 | 012100 FD  IX-FS2                                                       IX2164.2
+FAIL IX217A.CBL errors=4 first@86:11 | 008600 FD  IX-FS1                                                       IX2174.2
+FAIL IX218A.CBL errors=4 first@117:11 | 011700 FD  IX-FS1                                                       IX2184.2
+PASS IX301M.CBL
+PASS IX302M.CBL
+PASS IX401M.CBL
+PASS NC101A.CBL
+PASS NC102A.CBL
+FAIL NC103A.CBL errors=1 first@231:7 | 023100 01  NON-COBOL-CHARACTERS  PICTURE X(8) VALUE                     NC1034.2
+FAIL NC104A.CBL errors=1 first@40:11 | 004000 FD  PRINT-FILE                                                   NC1044.2
+FAIL NC105A.CBL errors=1 first@39:11 | 003900 FD  PRINT-FILE                                                   NC1054.2
+PASS NC106A.CBL
+FAIL NC107A.CBL errors=6 first@755:71 | 075500     """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""NC1074.2
+FAIL NC108M.CBL errors=3 first@696:6 | 069600A    MOVE ZERO TO ONE                                             NC1084.2
+PASS NC109M.CBL
+PASS NC110M.CBL
+PASS NC111A.CBL
+PASS NC112A.CBL
+PASS NC113M.CBL
+PASS NC114M.CBL
+PASS NC115A.CBL
+PASS NC116A.CBL
+PASS NC117A.CBL
+PASS NC118A.CBL
+PASS NC119A.CBL
+PASS NC120A.CBL
+PASS NC121M.CBL
+PASS NC122A.CBL
+PASS NC123A.CBL
+PASS NC124A.CBL
+PASS NC125A.CBL
+PASS NC126A.CBL
+PASS NC127A.CBL
+PASS NC131A.CBL
+PASS NC132A.CBL
+PASS NC133A.CBL
+PASS NC134A.CBL
+PASS NC135A.CBL
+PASS NC136A.CBL
+PASS NC137A.CBL
+PASS NC138A.CBL
+PASS NC139A.CBL
+PASS NC140A.CBL
+PASS NC141A.CBL
+PASS NC170A.CBL
+PASS NC171A.CBL
+PASS NC172A.CBL
+PASS NC173A.CBL
+FAIL NC174A.CBL errors=5 first@33:6 | 003300ASPECIAL-NAMES.                                                   NC1744.2
+PASS NC175A.CBL
+PASS NC176A.CBL
+PASS NC177A.CBL
+PASS NC201A.CBL
+PASS NC202A.CBL
+PASS NC203A.CBL
+PASS NC204M.CBL
+FAIL NC205A.CBL errors=2 first@44:7 | 004400 77  WS-TEST-12-DATA                                              NC2054.2
+PASS NC206A.CBL
+PASS NC207A.CBL
+PASS NC208A.CBL
+PASS NC209A.CBL
+PASS NC210A.CBL
+FAIL NC211A.CBL errors=3 first@35:6 | 003500ASPECIAL-NAMES.                                                   NC2114.2
+PASS NC214M.CBL
+FAIL NC215A.CBL errors=1 first@50:6 | 005000-    ""9K(L)M>N<O PQRSTUVWXYZ".                                   NC2154.2
+FAIL NC216A.CBL errors=1 first@1849:11 | 184900     MOVE "THERE SHOUD BE 55 SPACES BETWEEN ""B"" AND ""C""."     NC2164.2
+PASS NC217A.CBL
+PASS NC218A.CBL
+PASS NC219A.CBL
+PASS NC220M.CBL
+PASS NC221A.CBL
+PASS NC222A.CBL
+PASS NC223A.CBL
+PASS NC224A.CBL
+PASS NC225A.CBL
+PASS NC231A.CBL
+PASS NC232A.CBL
+PASS NC233A.CBL
+PASS NC234A.CBL
+PASS NC235A.CBL
+PASS NC236A.CBL
+FAIL NC237A.CBL errors=1 first@594:22 | 059400     SEARCH ALL ENTRY-310                                      ENDNC2374.2
+PASS NC238A.CBL
+PASS NC239A.CBL
+PASS NC240A.CBL
+PASS NC241A.CBL
+PASS NC242A.CBL
+PASS NC243A.CBL
+PASS NC244A.CBL
+PASS NC245A.CBL
+PASS NC246A.CBL
+FAIL NC247A.CBL errors=1 first@1:6 | 000100 IDENTIFICATION DIVISION.                                         NC2474.2
+PASS NC248A.CBL
+PASS NC250A.CBL
+PASS NC251A.CBL
+PASS NC252A.CBL
+PASS NC253A.CBL
+FAIL NC254A.CBL errors=5 first@31:6 | 003100ASPECIAL-NAMES.                                                   NC2544.2
+FAIL NC302M.CBL errors=1 first@19:11 | 001900     XXXXX083                                                     NC3024.2
+PASS NC303M.CBL
+FAIL NC401M.CBL errors=2 first@38:11 | 003800     03 GUBBINS PIC X(1                                           NC4014.2
+PASS OBIC1A.CBL
+PASS OBIC2A.CBL
+PASS OBIC3A.CBL
+FAIL OBNC1M.CBL errors=1 first@92:11 | 009200     XXXXX083                                                     OBNC14.2
+FAIL OBNC2M.CBL errors=1 first@29:7 | 002900 ENVIRONMENT DIVISION.                                            OBNC24.2
+FAIL OBSQ1A.CBL errors=1 first@98:7 | 009800 FD  SQ-FS1                                                       OBSQ14.2
+PASS OBSQ3A.CBL
+PASS OBSQ4A.CBL
+PASS OBSQ5A.CBL
+FAIL RL101A.CBL errors=1 first@67:7 | 006700 FD  RL-FS2                                                       RL1014.2
+FAIL RL102A.CBL errors=1 first@56:7 | 005600 FD  RL-FR1                                                       RL1024.2
+FAIL RL103A.CBL errors=1 first@57:7 | 005700 FD  RL-FS1                                                       RL1034.2
+FAIL RL104A.CBL errors=1 first@65:7 | 006500 FD  RL-FS2                                                       RL1044.2
+FAIL RL105A.CBL errors=1 first@69:7 | 006900 FD  RL-FR1                                                       RL1054.2
+FAIL RL106A.CBL errors=1 first@71:7 | 007100 FD  RL-FR4                                                       RL1064.2
+FAIL RL107A.CBL errors=1 first@72:7 | 007200 FD  RL-FR7                                                       RL1074.2
+FAIL RL108A.CBL errors=1 first@63:7 | 006300 FD  RL-FS1                                                       RL1084.2
+FAIL RL109A.CBL errors=1 first@72:7 | 007200 FD  RL-FR1                                                       RL1094.2
+FAIL RL110A.CBL errors=1 first@57:7 | 005700 FD  RL-FS1                                                       RL1104.2
+FAIL RL111A.CBL errors=1 first@67:7 | 006700 FD  RL-FS2                                                       RL1114.2
+FAIL RL112A.CBL errors=1 first@65:7 | 006500 FD  RL-FD2                                                       RL1124.2
+FAIL RL113A.CBL errors=1 first@65:7 | 006500 FD  RL-FD2                                                       RL1134.2
+FAIL RL114A.CBL errors=1 first@65:7 | 006500 FD  RL-FD2                                                       RL1144.2
+FAIL RL115A.CBL errors=1 first@65:7 | 006500 FD  RL-FD2                                                       RL1154.2
+FAIL RL116A.CBL errors=1 first@72:7 | 007200 FD  RL-FD2                                                       RL1164.2
+FAIL RL117A.CBL errors=1 first@62:7 | 006200 FD  RL-FD2                                                       RL1174.2
+FAIL RL118A.CBL errors=1 first@59:7 | 005900 FD  RL-FD2                                                       RL1184.2
+FAIL RL119A.CBL errors=1 first@59:7 | 005900 FD  RL-FD3                                                       RL1194.2
+FAIL RL201A.CBL errors=1 first@53:7 | 005300 FD  RL-FS1                                                       RL2014.2
+FAIL RL202A.CBL errors=1 first@56:7 | 005600 FD  RL-FD1                                                       RL2024.2
+FAIL RL203A.CBL errors=1 first@56:7 | 005600 FD  RL-FD1                                                       RL2034.2
+FAIL RL204A.CBL errors=1 first@69:7 | 006900 FD  RL-FD2                                                       RL2044.2
+FAIL RL205A.CBL errors=1 first@127:7 | 012700 FD  RL-FD1                                                       RL2054.2
+FAIL RL206A.CBL errors=1 first@53:7 | 005300 FD  RL-FS1                                                       RL2064.2
+FAIL RL207A.CBL errors=1 first@57:7 | 005700 FD  RL-FD1                                                       RL2074.2
+FAIL RL208A.CBL errors=1 first@56:7 | 005600 FD  RL-FD1                                                       RL2084.2
+FAIL RL209A.CBL errors=1 first@56:7 | 005600 FD  RL-FS1                                                       RL2094.2
+FAIL RL210A.CBL errors=1 first@53:7 | 005300 FD  RL-VS1                                                       RL2104.2
+FAIL RL211A.CBL errors=1 first@53:7 | 005300 FD  RL-VS1                                                       RL2114.2
+FAIL RL212A.CBL errors=1 first@53:7 | 005300 FD  RL-FS1                                                       RL2124.2
+FAIL RL213A.CBL errors=1 first@57:7 | 005700 FD  RL-FS1                                                       RL2134.2
+PASS RL301M.CBL
+PASS RL302M.CBL
+PASS RL401M.CBL
+FAIL RW101A.CBL errors=3 first@82:11 | 008200 FD  PRINT-FILE                                                   RW1014.2
+FAIL RW102A.CBL errors=3 first@74:11 | 007400 FD  PRINT-FILE                                                   RW1024.2
+FAIL RW103A.CBL errors=3 first@87:11 | 008700 FD  PRINT-FILE                                                   RW1034.2
+FAIL RW104A.CBL errors=3 first@84:11 | 008400 FD  PRINT-FILE                                                   RW1044.2
+FAIL RW301M.CBL errors=2 first@41:7 | 004100 FD TFIL2                                                         RW3014.2
+FAIL RW302M.CBL errors=2 first@46:7 | 004600 FD TFIL2                                                         RW3024.2
+FAIL SG101A.CBL errors=1 first@40:11 | 004000 FD  PRINT-FILE                                                   SG1014.2
+FAIL SG102A.CBL errors=1 first@39:11 | 003900 FD  PRINT-FILE                                                   SG1024.2
+FAIL SG103A.CBL errors=1 first@38:11 | 003800 FD  PRINT-FILE                                                   SG1034.2
+FAIL SG104A.CBL errors=1 first@58:11 | 005800 FD  PRINT-FILE                                                   SG1044.2
+FAIL SG105A.CBL errors=1 first@58:11 | 005800 FD  PRINT-FILE                                                   SG1054.2
+FAIL SG106A.CBL errors=1 first@58:11 | 005800 FD  PRINT-FILE                                                   SG1064.2
+FAIL SG201A.CBL errors=1 first@44:11 | 004400 FD  PRINT-FILE                                                   SG2014.2
+FAIL SG202A.CBL errors=1 first@42:11 | 004200 FD  PRINT-FILE                                                   SG2024.2
+FAIL SG203A.CBL errors=1 first@40:11 | 004000 FD  PRINT-FILE                                                   SG2034.2
+FAIL SG204A.CBL errors=1 first@68:11 | 006800 FD  PRINT-FILE                                                   SG2044.2
+PASS SG302M.CBL
+PASS SG303M.CBL
+PASS SG401M.CBL
+FAIL SM101A.CBL errors=1 first@58:7 | 005800 FD  TEST-FILE                                         COPY K1FDA.SM1014.2
+FAIL SM102A.CBL errors=1 first@44:7 | 004400 FD  TEST-FILE                                                    SM1024.2
+FAIL SM103A.CBL errors=2 first@107:7 | 010700 FD  TEST-FILE                                                    SM1034.2
+FAIL SM104A.CBL errors=1 first@47:7 | 004700 FD  TEST-FILE                                                    SM1044.2
+FAIL SM105A.CBL errors=1 first@58:7 | 005800 SD  SORTFILE-1E                                       COPY K5SDA.SM1054.2
+PASS SM106A.CBL
+FAIL SM107A.CBL errors=1 first@1:6 | 000100 IDENTIFICATION DIVISION.                                         SM1074.2
+FAIL SM201A.CBL errors=1 first@59:7 | 005900 FD  TEST-FILE                                         COPY K1FDA SM2014.2
+FAIL SM202A.CBL errors=4 first@47:7 | 004700 FD  TEST-FILE                                                    SM2024.2
+FAIL SM203A.CBL errors=4 first@33:11 | 003300     XXXXX083.                                                    SM2034.2
+FAIL SM204A.CBL errors=1 first@47:7 | 004700 FD  TEST-FILE                                                    SM2044.2
+FAIL SM205A.CBL errors=1 first@59:7 | 005900 SD  SORTFILE-2E                                       COPY K5SDB SM2054.2
+FAIL SM206A.CBL errors=1 first@338:11 | 033800     COPY                                                    KP001SM2064.2
+PASS SM207A.CBL
+FAIL SM208A.CBL errors=3 first@3:71 | 000300 REPLACE OFF.                                                     SM2084.2
+PASS SM301M.CBL
+FAIL SM401M.CBL errors=2 first@24:32 | 002400     COPY KSM41 REPLACING "PIG" BY "HORSE".                       SM4014.2
+FAIL SQ101M.CBL errors=3 first@65:11 | 006500     SELECT RAW-DATA   ASSIGN TO                                  SQ1014.2
+FAIL SQ102A.CBL errors=4 first@53:11 | 005300     SELECT RAW-DATA   ASSIGN TO                                  SQ1024.2
+FAIL SQ103A.CBL errors=4 first@61:11 | 006100     SELECT RAW-DATA   ASSIGN TO                                  SQ1034.2
+FAIL SQ104A.CBL errors=5 first@54:11 | 005400     SELECT RAW-DATA   ASSIGN TO                                  SQ1044.2
+FAIL SQ105A.CBL errors=4 first@56:11 | 005600     SELECT RAW-DATA   ASSIGN TO                                  SQ1054.2
+FAIL SQ106A.CBL errors=4 first@94:11 | 009400 FD  PRINT-FILE                                                   SQ1064.2
+FAIL SQ107A.CBL errors=3 first@78:11 | 007800 FD  PRINT-FILE                                                   SQ1074.2
+FAIL SQ108A.CBL errors=3 first@66:11 | 006600 FD  PRINT-FILE                                                   SQ1084.2
+FAIL SQ109M.CBL errors=5 first@70:11 | 007000 FD  PRINT-FILE                                                   SQ1094.2
+FAIL SQ110M.CBL errors=6 first@71:11 | 007100 FD  PRINT-FILE                                                   SQ1104.2
+FAIL SQ111A.CBL errors=3 first@71:11 | 007100 FD  PRINT-FILE                                                   SQ1114.2
+FAIL SQ112A.CBL errors=3 first@75:11 | 007500 FD  PRINT-FILE                                                   SQ1124.2
+FAIL SQ113A.CBL errors=4 first@59:11 | 005900     SELECT RAW-DATA   ASSIGN TO                                  SQ1134.2
+FAIL SQ114A.CBL errors=7 first@86:11 | 008600 FD  PRINT-FILE                                                   SQ1144.2
+FAIL SQ115A.CBL errors=3 first@68:11 | 006800 FD  PRINT-FILE                                                   SQ1154.2
+FAIL SQ116A.CBL errors=3 first@66:11 | 006600 FD  PRINT-FILE                                                   SQ1164.2
+FAIL SQ117A.CBL errors=3 first@66:11 | 006600 FD  PRINT-FILE                                                   SQ1174.2
+FAIL SQ121A.CBL errors=3 first@77:11 | 007700 FD  PRINT-FILE                                                   SQ1214.2
+FAIL SQ122A.CBL errors=3 first@54:11 | 005400 FD  PRINT-FILE                                                   SQ1224.2
+FAIL SQ123A.CBL errors=4 first@48:11 | 004800     SELECT RAW-DATA   ASSIGN TO                                  SQ1234.2
+FAIL SQ124A.CBL errors=4 first@54:11 | 005400     SELECT RAW-DATA   ASSIGN TO                                  SQ1244.2
+FAIL SQ125A.CBL errors=3 first@54:11 | 005400 FD  PRINT-FILE                                                   SQ1254.2
+FAIL SQ126A.CBL errors=3 first@83:11 | 008300 FD  PRINT-FILE                                                   SQ1264.2
+FAIL SQ127A.CBL errors=4 first@78:11 | 007800 FD  PRINT-FILE                                                   SQ1274.2
+FAIL SQ128A.CBL errors=4 first@55:11 | 005500 FD  PRINT-FILE                                                   SQ1284.2
+FAIL SQ129A.CBL errors=4 first@48:11 | 004800     SELECT RAW-DATA   ASSIGN TO                                  SQ1294.2
+FAIL SQ130A.CBL errors=4 first@47:11 | 004700     SELECT RAW-DATA   ASSIGN TO                                  SQ1304.2
+FAIL SQ131A.CBL errors=4 first@55:11 | 005500     SELECT RAW-DATA   ASSIGN TO                                  SQ1314.2
+FAIL SQ132A.CBL errors=3 first@53:11 | 005300 FD  PRINT-FILE                                                   SQ1324.2
+FAIL SQ133A.CBL errors=4 first@50:11 | 005000     SELECT RAW-DATA   ASSIGN TO                                  SQ1334.2
+FAIL SQ134A.CBL errors=4 first@56:11 | 005600     SELECT RAW-DATA   ASSIGN TO                                  SQ1344.2
+FAIL SQ135A.CBL errors=3 first@51:11 | 005100 FD  PRINT-FILE                                                   SQ1354.2
+FAIL SQ136A.CBL errors=4 first@44:11 | 004400     SELECT RAW-DATA   ASSIGN TO                                  SQ1364.2
+FAIL SQ137A.CBL errors=4 first@44:11 | 004400     SELECT RAW-DATA   ASSIGN TO                                  SQ1374.2
+FAIL SQ138A.CBL errors=4 first@44:11 | 004400     SELECT RAW-DATA   ASSIGN TO                                  SQ1384.2
+FAIL SQ139A.CBL errors=4 first@46:11 | 004600     SELECT RAW-DATA   ASSIGN TO                                  SQ1394.2
+FAIL SQ140A.CBL errors=4 first@46:11 | 004600     SELECT RAW-DATA   ASSIGN TO                                  SQ1404.2
+FAIL SQ141A.CBL errors=4 first@46:11 | 004600     SELECT RAW-DATA   ASSIGN TO                                  SQ1414.2
+FAIL SQ142A.CBL errors=4 first@46:11 | 004600     SELECT RAW-DATA   ASSIGN TO                                  SQ1424.2
+FAIL SQ143A.CBL errors=3 first@52:11 | 005200 FD  PRINT-FILE                                                   SQ1434.2
+FAIL SQ144A.CBL errors=4 first@44:11 | 004400     SELECT RAW-DATA   ASSIGN TO                                  SQ1444.2
+FAIL SQ146A.CBL errors=3 first@52:11 | 005200 FD  PRINT-FILE                                                   SQ1464.2
+FAIL SQ147A.CBL errors=3 first@53:11 | 005300 FD  PRINT-FILE                                                   SQ1474.2
+FAIL SQ148A.CBL errors=3 first@56:11 | 005600 FD  PRINT-FILE                                                   SQ1484.2
+FAIL SQ149A.CBL errors=3 first@53:11 | 005300 FD  PRINT-FILE                                                   SQ1494.2
+FAIL SQ150A.CBL errors=3 first@52:11 | 005200 FD  PRINT-FILE                                                   SQ1504.2
+FAIL SQ151A.CBL errors=3 first@53:11 | 005300 FD  PRINT-FILE                                                   SQ1514.2
+FAIL SQ152A.CBL errors=3 first@54:11 | 005400 FD  PRINT-FILE                                                   SQ1524.2
+FAIL SQ153A.CBL errors=3 first@56:11 | 005600 FD  PRINT-FILE                                                   SQ1534.2
+FAIL SQ154A.CBL errors=3 first@53:11 | 005300 FD  PRINT-FILE                                                   SQ1544.2
+FAIL SQ155A.CBL errors=3 first@52:11 | 005200 FD  PRINT-FILE                                                   SQ1554.2
+FAIL SQ156A.CBL errors=3 first@52:11 | 005200 FD  PRINT-FILE                                                   SQ1564.2
+FAIL SQ201M.CBL errors=2 first@63:11 | 006300 FD  PRINT-FILE                                                   SQ2014.2
+FAIL SQ202A.CBL errors=3 first@50:11 | 005000 FD  PRINT-FILE                                                   SQ2024.2
+FAIL SQ203A.CBL errors=6 first@69:11 | 006900 FD  PRINT-FILE                                                   SQ2034.2
+FAIL SQ204A.CBL errors=4 first@57:11 | 005700 FD  PRINT-FILE                                                   SQ2044.2
+FAIL SQ205A.CBL errors=4 first@59:11 | 005900 FD  PRINT-FILE                                                   SQ2054.2
+FAIL SQ206A.CBL errors=6 first@68:11 | 006800 FD  PRINT-FILE                                                   SQ2064.2
+FAIL SQ207M.CBL errors=2 first@65:11 | 006500 FD  PRINT-FILE                                                   SQ2074.2
+FAIL SQ208M.CBL errors=2 first@60:11 | 006000 FD  PRINT-FILE                                                   SQ2084.2
+FAIL SQ209M.CBL errors=2 first@57:11 | 005700 FD  PRINT-FILE                                                   SQ2094.2
+FAIL SQ210M.CBL errors=2 first@55:11 | 005500 FD  PRINT-FILE                                                   SQ2104.2
+FAIL SQ211A.CBL errors=3 first@55:11 | 005500 FD  PRINT-FILE                                                   SQ2114.2
+FAIL SQ212A.CBL errors=3 first@77:11 | 007700 FD  PRINT-FILE                                                   SQ2124.2
+FAIL SQ213A.CBL errors=4 first@64:11 | 006400 FD  PRINT-FILE                                                   SQ2134.2
+FAIL SQ214A.CBL errors=3 first@64:11 | 006400 FD  PRINT-FILE                                                   SQ2144.2
+FAIL SQ215A.CBL errors=3 first@54:11 | 005400 FD  PRINT-FILE                                                   SQ2154.2
+FAIL SQ216A.CBL errors=3 first@66:11 | 006600 FD  PRINT-FILE                                                   SQ2164.2
+FAIL SQ217A.CBL errors=3 first@66:11 | 006600 FD  PRINT-FILE                                                   SQ2174.2
+FAIL SQ218A.CBL errors=3 first@67:11 | 006700 FD  PRINT-FILE                                                   SQ2184.2
+FAIL SQ219A.CBL errors=4 first@46:11 | 004600     SELECT SQ-VS6 ASSIGN                                         SQ2194.2
+FAIL SQ220A.CBL errors=3 first@69:11 | 006900 FD  PRINT-FILE                                                   SQ2204.2
+FAIL SQ221A.CBL errors=3 first@67:11 | 006700 FD  PRINT-FILE                                                   SQ2214.2
+FAIL SQ222A.CBL errors=3 first@66:11 | 006600 FD  PRINT-FILE                                                   SQ2224.2
+FAIL SQ223A.CBL errors=3 first@66:11 | 006600 FD  PRINT-FILE                                                   SQ2234.2
+FAIL SQ224A.CBL errors=3 first@62:11 | 006200 FD  PRINT-FILE                                                   SQ2244.2
+FAIL SQ225A.CBL errors=4 first@48:11 | 004800     SELECT RAW-DATA   ASSIGN TO                                  SQ2254.2
+FAIL SQ226A.CBL errors=4 first@54:11 | 005400     SELECT RAW-DATA   ASSIGN TO                                  SQ2264.2
+FAIL SQ227A.CBL errors=4 first@50:11 | 005000     SELECT RAW-DATA   ASSIGN TO                                  SQ2274.2
+FAIL SQ228A.CBL errors=4 first@45:11 | 004500     SELECT RAW-DATA   ASSIGN TO                                  SQ2284.2
+FAIL SQ229A.CBL errors=3 first@53:11 | 005300 FD  PRINT-FILE                                                   SQ2294.2
+FAIL SQ230A.CBL errors=3 first@52:11 | 005200 FD  PRINT-FILE                                                   SQ2304.2
+PASS SQ302M.CBL
+PASS SQ303M.CBL
+FAIL SQ401M.CBL errors=1 first@81:11 | 008100     03 VKEY                                                      SQ4014.2
+FAIL ST101A.CBL errors=1 first@51:7 | 005100 FD  SORTOUT-1A                                                   ST1014.2
+FAIL ST102A.CBL errors=1 first@48:7 | 004800 FD  SORTIN-1B                                                    ST1024.2
+FAIL ST103A.CBL errors=1 first@38:7 | 003800 FD  SORTIN-1C                                                    ST1034.2
+FAIL ST104A.CBL errors=1 first@38:7 | 003800 FD  SORTOUT-1D                                                   ST1044.2
+FAIL ST105A.CBL errors=1 first@58:7 | 005800 FD  SORTIN-1E                                                    ST1054.2
+FAIL ST106A.CBL errors=1 first@71:7 | 007100 FD  SORTOUT-1F                                                   ST1064.2
+FAIL ST107A.CBL errors=1 first@38:7 | 003800 FD  SORTIN-1G                                                    ST1074.2
+PASS ST108A.CBL
+FAIL ST109A.CBL errors=1 first@51:7 | 005100 FD  SORTOUT-1I                                                   ST1094.2
+FAIL ST110A.CBL errors=1 first@42:7 | 004200 FD  SORTIN-1J                                                    ST1104.2
+FAIL ST111A.CBL errors=1 first@51:7 | 005100 FD  SORTIN-1K                                                    ST1114.2
+FAIL ST112M.CBL errors=1 first@38:7 | 003800 FD  SORTOUT-1L                                                   ST1124.2
+FAIL ST113M.CBL errors=1 first@42:7 | 004200 FD  SORTIN-1M                                                    ST1134.2
+FAIL ST114M.CBL errors=1 first@38:7 | 003800 FD  SORTIN-1N                                                    ST1144.2
+FAIL ST115A.CBL errors=5 first@82:7 | 008200 FD  SQ-FS1                                                       ST1154.2
+FAIL ST116A.CBL errors=1 first@105:7 | 010500 FD  SQ-FS1                                                       ST1164.2
+FAIL ST117A.CBL errors=5 first@100:7 | 010000 FD  SQ-FS2                                                       ST1174.2
+PASS ST118A.CBL
+FAIL ST119A.CBL errors=1 first@51:7 | 005100 FD  SORTOUT-1A                                                   ST1194.2
+FAIL ST120A.CBL errors=1 first@48:7 | 004800 FD  SORTIN-1B                                                    ST1204.2
+FAIL ST121A.CBL errors=1 first@38:7 | 003800 FD  SORTIN-1C                                                    ST1214.2
+FAIL ST122A.CBL errors=1 first@60:7 | 006000 FD  SORTOUT-1I                                                   ST1224.2
+FAIL ST123A.CBL errors=1 first@58:7 | 005800 FD  SORTIN-1J                                                    ST1234.2
+FAIL ST124A.CBL errors=1 first@64:7 | 006400 FD  SORTIN-1K                                                    ST1244.2
+FAIL ST125A.CBL errors=1 first@80:7 | 008000 FD  SORTOUT-1F                                                   ST1254.2
+FAIL ST126A.CBL errors=1 first@51:7 | 005100 FD  SORTIN-1G                                                    ST1264.2
+PASS ST127A.CBL
+FAIL ST131A.CBL errors=8 first@67:11 | 006700 FD  FILE1                                                        ST1314.2
+FAIL ST132A.CBL errors=3 first@60:7 | 006000 FD  FILE4                                                        ST1324.2
+FAIL ST133A.CBL errors=1 first@82:7 | 008200 FD  SORTIN-2C                                                    ST1334.2
+FAIL ST134A.CBL errors=1 first@68:7 | 006800 FD  SORTIN-2D                                                    ST1344.2
+FAIL ST135A.CBL errors=1 first@66:7 | 006600 FD  SORTIN-2E                                                    ST1354.2
+FAIL ST136A.CBL errors=1 first@46:7 | 004600 FD  SORTOUT-2F                                                   ST1364.2
+FAIL ST137A.CBL errors=30 first@117:7 | 011700 FD  SQ-FS1                                                       ST1374.2
+FAIL ST139A.CBL errors=40 first@141:7 | 014100 FD  SQ-FS1                                                       ST1394.2
+FAIL ST140A.CBL errors=47 first@154:7 | 015400 FD  SQ-FS1                                                       ST1404.2
+FAIL ST144A.CBL errors=50 first@156:7 | 015600 FD  SQ-FS1                                                       ST1444.2
+FAIL ST146A.CBL errors=26 first@64:7 | 006400 FD  SQ-FS1                                                       ST1464.2
+FAIL ST147A.CBL errors=90 first@164:7 | 016400 FD  SQ-FS1                                                       ST1474.2
+PASS ST301M.CBL
+SUMMARY pass=195 fail=264 total=459

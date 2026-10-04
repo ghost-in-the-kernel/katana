@@ -1,0 +1,195 @@
+FAIL CM101M.CBL CM101M.CBL:36: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL CM102M.CBL CM102M.CBL:36: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL CM103M.CBL CM103M.CBL:36: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL CM104M.CBL CM104M.CBL:36: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL CM105M.CBL CM105M.CBL:36: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL CM202M.CBL CM202M.CBL:36: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL CM401M.CBL CM401M.CBL:17: error: 'CQ' is not defined
+FAIL DB101A.CBL DB101A.CBL:64: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL DB102A.CBL DB102A.CBL:58: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL DB103M.CBL DB103M.CBL:56: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL DB104A.CBL DB104A.CBL:74: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL DB105A.CBL DB105A.CBL:93: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL DB201A.CBL DB201A.CBL:64: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL DB202A.CBL DB202A.CBL:58: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL DB203A.CBL DB203A.CBL:50: error: PROCEDURE DIVISION header missing
+FAIL DB204A.CBL DB204A.CBL:63: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL DB205A.CBL DB205A.CBL:38: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL IC112A.CBL IC112A.CBL:67: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL IC115A.CBL IC115A.CBL:59: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL IF119A.CBL IF119A.CBL:612: error: syntax error, unexpected ALL
+FAIL IF120A.CBL IF120A.CBL:503: error: syntax error, unexpected ALL
+FAIL IF121A.CBL IF121A.CBL:500: error: syntax error, unexpected ALL
+FAIL IF122A.CBL IF122A.CBL:522: error: syntax error, unexpected ALL
+FAIL IF123A.CBL IF123A.CBL:615: error: syntax error, unexpected ALL
+FAIL IF128A.CBL IF128A.CBL:549: error: syntax error, unexpected ALL
+FAIL IF129A.CBL IF129A.CBL:552: error: syntax error, unexpected ALL
+FAIL IF132A.CBL IF132A.CBL:498: error: syntax error, unexpected ALL
+FAIL IF137A.CBL IF137A.CBL:531: error: syntax error, unexpected ALL
+FAIL IF138A.CBL IF138A.CBL:498: error: syntax error, unexpected ALL
+FAIL IF141A.CBL IF141A.CBL:525: error: syntax error, unexpected ALL
+FAIL IF402M.CBL IF402M.CBL:59: error: syntax error, unexpected ALL
+FAIL IX101A.CBL IX101A.CBL:62: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL IX102A.CBL IX102A.CBL:74: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL IX103A.CBL IX103A.CBL:71: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL IX104A.CBL IX104A.CBL:76: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX106A.CBL IX106A.CBL:68: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX107A.CBL IX107A.CBL:144: error: invalid indicator 'U' at column 7
+FAIL IX108A.CBL IX108A.CBL:78: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX201A.CBL IX201A.CBL:63: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL IX202A.CBL IX202A.CBL:66: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL IX203A.CBL IX203A.CBL:66: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL IX204A.CBL IX204A.CBL:86: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX205A.CBL IX205A.CBL:82: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX206A.CBL IX206A.CBL:79: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX207A.CBL IX207A.CBL:145: error: invalid indicator 'U' at column 7
+FAIL IX208A.CBL IX208A.CBL:139: error: invalid indicator 'U' at column 7
+FAIL IX209A.CBL IX209A.CBL:196: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX210A.CBL IX210A.CBL:199: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX211A.CBL IX211A.CBL:143: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX212A.CBL IX212A.CBL:51: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX213A.CBL IX213A.CBL:50: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX214A.CBL IX214A.CBL:202: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX215A.CBL IX215A.CBL:134: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX216A.CBL IX216A.CBL:95: error: syntax error, unexpected Literal, expecting SEQUENTIAL
+FAIL IX217A.CBL IX217A.CBL:66: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL IX218A.CBL IX218A.CBL:80: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL IX302M.CBL IX302M.CBL:15: error: missing file description for FILE TFIL
+FAIL NC104A.CBL NC104A.CBL:42: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL NC105A.CBL NC105A.CBL:41: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL NC174A.CBL NC174A.CBL:566: error: invalid indicator 'B' at column 7
+FAIL NC204M.CBL NC204M.CBL:41: error: PROCEDURE DIVISION header missing
+FAIL NC211A.CBL NC211A.CBL:316: error: invalid indicator 'B' at column 7
+FAIL NC220M.CBL NC220M.CBL:36: error: PROCEDURE DIVISION header missing
+FAIL NC254A.CBL NC254A.CBL:564: error: invalid indicator 'B' at column 7
+FAIL NC302M.CBL NC302M.CBL:21: error: unsigned integer value expected
+FAIL NC401M.CBL NC401M.CBL:17: error: PROCEDURE DIVISION header missing
+FAIL OBNC1M.CBL OBNC1M.CBL:94: error: unsigned integer value expected
+FAIL OBSQ1A.CBL OBSQ1A.CBL:103: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL101A.CBL RL101A.CBL:73: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL102A.CBL RL102A.CBL:62: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL103A.CBL RL103A.CBL:63: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL104A.CBL RL104A.CBL:70: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL105A.CBL RL105A.CBL:74: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL106A.CBL RL106A.CBL:76: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL107A.CBL RL107A.CBL:78: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL108A.CBL RL108A.CBL:69: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL109A.CBL RL109A.CBL:78: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL110A.CBL RL110A.CBL:63: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL111A.CBL RL111A.CBL:72: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL112A.CBL RL112A.CBL:70: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL113A.CBL RL113A.CBL:70: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL114A.CBL RL114A.CBL:70: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL115A.CBL RL115A.CBL:70: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL116A.CBL RL116A.CBL:77: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL117A.CBL RL117A.CBL:67: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL118A.CBL RL118A.CBL:64: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL119A.CBL RL119A.CBL:64: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL201A.CBL RL201A.CBL:59: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL202A.CBL RL202A.CBL:62: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL203A.CBL RL203A.CBL:62: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL204A.CBL RL204A.CBL:74: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL205A.CBL RL205A.CBL:133: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL206A.CBL RL206A.CBL:59: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL207A.CBL RL207A.CBL:63: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL208A.CBL RL208A.CBL:62: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL209A.CBL RL209A.CBL:62: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL210A.CBL RL210A.CBL:59: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL211A.CBL RL211A.CBL:59: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL212A.CBL RL212A.CBL:59: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL213A.CBL RL213A.CBL:63: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL RL302M.CBL RL302M.CBL:16: error: missing file description for FILE TFIL
+FAIL RW101A.CBL RW101A.CBL:84: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL RW102A.CBL RW102A.CBL:76: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL RW103A.CBL RW103A.CBL:89: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL RW104A.CBL RW104A.CBL:86: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL RW301M.CBL RW301M.CBL:33: error: syntax error, unexpected Literal, expecting FILE-ID or ID or Identifier
+FAIL RW302M.CBL RW302M.CBL:37: error: syntax error, unexpected Literal, expecting FILE-ID or ID or Identifier
+FAIL SG101A.CBL SG101A.CBL:42: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL SG102A.CBL SG102A.CBL:41: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL SG103A.CBL SG103A.CBL:40: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL SG104A.CBL SG104A.CBL:60: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL SG105A.CBL SG105A.CBL:60: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL SG106A.CBL SG106A.CBL:60: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL SG201A.CBL SG201A.CBL:46: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL SG202A.CBL SG202A.CBL:44: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL SG203A.CBL SG203A.CBL:42: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL SG204A.CBL SG204A.CBL:70: error: syntax error, unexpected Literal, expecting OMITTED or STANDARD
+FAIL SM101A.CBL K1FDA.CPY:6: error: invalid indicator 'G' at column 7
+FAIL SM102A.CBL SM102A.CBL:50: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL SM103A.CBL SM103A.CBL:113: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL SM104A.CBL SM104A.CBL:53: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL SM105A.CBL SM105A.CBL:81: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL SM106A.CBL K6SCA.CPY:168: error: invalid indicator 'S' at column 7
+FAIL SM201A.CBL K1FDA.CPY:6: error: invalid indicator 'G' at column 7
+FAIL SM202A.CBL SM202A.CBL:53: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL SM203A.CBL SM203A.CBL:80: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL SM204A.CBL SM204A.CBL:53: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL SM205A.CBL SM205A.CBL:86: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL SQ101M.CBL SQ101M.CBL:69: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ102A.CBL SQ102A.CBL:57: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ103A.CBL SQ103A.CBL:65: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ104A.CBL SQ104A.CBL:58: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ105A.CBL SQ105A.CBL:60: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ106A.CBL SQ106A.CBL:394: error: 'DELETE-CNT' is not defined
+FAIL SQ109M.CBL SQ109M.CBL:414: error: invalid indicator 'H' at column 7
+FAIL SQ110M.CBL SQ110M.CBL:417: error: invalid indicator 'E' at column 7
+FAIL SQ113A.CBL SQ113A.CBL:63: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ123A.CBL SQ123A.CBL:52: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ124A.CBL SQ124A.CBL:58: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ129A.CBL SQ129A.CBL:52: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ130A.CBL SQ130A.CBL:51: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ131A.CBL SQ131A.CBL:59: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ133A.CBL SQ133A.CBL:54: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ134A.CBL SQ134A.CBL:60: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ136A.CBL SQ136A.CBL:48: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ137A.CBL SQ137A.CBL:48: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ138A.CBL SQ138A.CBL:48: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ139A.CBL SQ139A.CBL:50: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ140A.CBL SQ140A.CBL:50: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ141A.CBL SQ141A.CBL:50: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ142A.CBL SQ142A.CBL:50: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ144A.CBL SQ144A.CBL:48: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ207M.CBL SQ207M.CBL:36: error: PROCEDURE DIVISION header missing
+FAIL SQ219A.CBL SQ219A.CBL:49: error: syntax error, unexpected Literal, expecting BINARY-SEQUENTIAL or LINE-SEQUENTIAL or STANDARD-1 or Identifier
+FAIL SQ225A.CBL SQ225A.CBL:52: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ226A.CBL SQ226A.CBL:58: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ227A.CBL SQ227A.CBL:54: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ228A.CBL SQ228A.CBL:49: error: syntax error, unexpected Identifier, expecting SEQUENTIAL
+FAIL SQ302M.CBL SQ302M.CBL:15: error: missing file description for FILE TFIL
+FAIL SQ401M.CBL SQ401M.CBL:61: error: syntax error, unexpected Literal, expecting FILE-ID or ID or Identifier
+FAIL ST101A.CBL ST101A.CBL:58: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST102A.CBL ST102A.CBL:55: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST103A.CBL ST103A.CBL:45: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST104A.CBL ST104A.CBL:44: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST105A.CBL ST105A.CBL:64: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST106A.CBL ST106A.CBL:77: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST107A.CBL ST107A.CBL:44: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST109A.CBL ST109A.CBL:57: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST110A.CBL ST110A.CBL:48: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST111A.CBL ST111A.CBL:57: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST112M.CBL ST112M.CBL:373: error: invalid indicator 'H' at column 7
+FAIL ST113M.CBL ST113M.CBL:47: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST114M.CBL ST114M.CBL:44: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST115A.CBL ST115A.CBL:88: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST116A.CBL ST116A.CBL:111: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST117A.CBL ST117A.CBL:106: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST119A.CBL ST119A.CBL:58: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST120A.CBL ST120A.CBL:55: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST121A.CBL ST121A.CBL:45: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST122A.CBL ST122A.CBL:66: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST123A.CBL ST123A.CBL:64: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST124A.CBL ST124A.CBL:70: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST125A.CBL ST125A.CBL:86: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST126A.CBL ST126A.CBL:57: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST132A.CBL ST132A.CBL:494: error: invalid indicator 'H' at column 7
+FAIL ST133A.CBL ST133A.CBL:88: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST134A.CBL ST134A.CBL:74: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST135A.CBL ST135A.CBL:72: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST136A.CBL ST136A.CBL:52: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST137A.CBL ST137A.CBL:123: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST139A.CBL ST139A.CBL:147: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST140A.CBL ST140A.CBL:160: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST144A.CBL ST144A.CBL:162: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST146A.CBL ST146A.CBL:69: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL
+FAIL ST147A.CBL ST147A.CBL:170: error: syntax error, unexpected Literal, expecting EXTERNAL or GLOBAL

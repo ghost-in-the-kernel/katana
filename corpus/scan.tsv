@@ -1,0 +1,25 @@
+repo	cob_files	cob_lines	copybooks	jcl	data_files	program_ids	exec_cics	exec_sql	sort	redefines	odo	comp3	goto	alter	perform_thru	largest_file	license
+BankDemo	82	20670	105	39	7	207	204	122	0	50	18	12	392	0	136	659:BankDemo/sources/cobol/core/ZBNKPRT1.cbl	see:LICENSE.txt
+CICS-Cobol	51	2320	1	0	0	51	0	0	0	4	0	9	2	0	1	89:CICS-Cobol/CBL0901v02AccesoSecuencialFiles.cbl	GNU GENERAL PUBLIC LICENSE
+COBOL-Examples	24	3522	0	0	1	24	0	34	0	7	0	1	0	0	3	737:COBOL-Examples/sql/generated_sql_ex.cbl	MIT License
+Cobol-Code	142	29827	20	13	60	142	0	213	2	10	0	113	4	0	7	1243:Cobol-Code/GnuCOBOL/Tutorials/ECBAP/cbl/tablena.cbl	none
+Cobol-Projects	164	29066	16	24	56	151	25	0	5	9	0	117	8	0	10	1243:Cobol-Projects/OpenCobol/ECBAP/cbl/tablena.cbl	none
+Cobol-mainframe	2	93	0	0	1	2	0	0	0	0	0	0	0	0	0	67:Cobol-mainframe/Employeebatch.cbl	none
+Cobol	28	1798	0	0	3	29	0	0	0	0	0	0	0	0	5	395:Cobol/OpenCobol/SQLite/Hello_SQLITE.cbl	GNU GENERAL PUBLIC LICENSE
+Rocket-Unit-Testing-Framework-Samples	46	5207	48	17	14	46	13	47	3	24	1	11	55	0	50	499:Rocket-Unit-Testing-Framework-Samples/mfupp_bankdemo/BBANK30P.cbl	see:LICENSE
+TypeCobol	1346	990727	277	0	974	1779	9	188	43	6257	64	64979	13077	44	1383	213838:TypeCobol/TypeCobol.Test/ThirdParty/CNAF/Batch/CGMX02.COB	see:LICENSE.md
+aws-mainframe-modernization-carddemo	44	30175	62	61	23	44	240	32	0	106	21	32	186	4	70	4236:aws-mainframe-modernization-carddemo/app/cbl/COACTUPC.cbl	Apache License
+cobol-check	68	3172	10	0	5	30	4	7	0	5	0	15	0	0	6	469:cobol-check/TESTPRG.CBL	Apache License
+cobol-is-fun	2	228	0	6	0	2	0	0	1	0	1	0	0	0	0	138:cobol-is-fun/json-parse/json-parse.cbl	Apache License
+cobol-programming-course	30	3618	0	43	1	30	0	31	0	1	0	60	3	0	5	204:cobol-programming-course/COBOL	Creative Commons
+cobol-unit-test	24	6232	3	0	6	24	7	1	0	22	0	0	0	0	1	4426:cobol-unit-test/src/main/cobol/ZUTZCPC.CBL	GNU GENERAL PUBLIC LICENSE
+eval-nist-cobol85	810	619328	0	0	42	889	0	0	42	8062	28	0	39322	386	4522	3115:eval-nist-cobol85/reference/NC/NC105A.CBL	Apache License
+gnucobol-contrib	581	250079	218	0	85	700	0	277	74	317	6	223	1922	0	1987	9963:gnucobol-contrib/tools/cobjapi/SWING/src_cobol/cobjapi.cob	none
+gnucobol-examples	5	453	0	0	2	7	0	0	0	0	0	0	0	0	0	157:gnucobol-examples/logging/microservice/src/microservice.cbl	GNU GENERAL PUBLIC LICENSE
+gnucobol	4	1142	6	0	17	4	0	0	0	3	0	1	0	0	1	455:gnucobol/tests/testsuite.src/numeric-dump.cob	GNU GENERAL PUBLIC LICENSE
+nist-cobol85-test-suite	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		none
+nistcobol85	486	357511	51	0	3	600	0	0	29	4597	17	0	21983	193	2546	3117:nistcobol85/src/NC105A.CBL	none
+opensource-cobol	2	481	1	0	13	2	0	0	0	0	0	0	0	0	0	367:opensource-cobol/tests/data-rep.src/numeric-dump.cob	GNU GENERAL PUBLIC LICENSE
+opensourcecobol4j	422	320239	1	0	19	486	0	63	23	4046	17	0	20297	193	2295	3117:opensourcecobol4j/tests/cobol85/NC/NC105A.CBL	GNU GENERAL PUBLIC LICENSE
+proleap-cobol-parser	759	349204	70	0	4	825	16	57	29	4481	17	1	21416	193	2489	3119:proleap-cobol-parser/src/test/resources/gov/nist/NC105A.CBL	MIT License
+zopeneditor-sample	5	1887	12	10	7	5	0	0	0	0	0	37	0	0	0	575:zopeneditor-sample/multiroot/sam/SAM1.cbl	Apache License

@@ -1,0 +1,37 @@
+Picked up JAVA_TOOL_OPTIONS: 
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+PASS	FIXED	819ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/ADDAMT.cobol
+PASS	FIXED	172ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0001.cobol
+PASS	FIXED	79ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0002.cobol
+PASS	FIXED	186ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0004.cobol
+PASS	FIXED	75ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0005.cobol
+PASS	FIXED	66ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0006.cobol
+FAIL	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol	FIXED: CobolParserException: syntax error in line 149:11 mismatched input 'END-IF' expecting {<EOF>, ABORT, ACCEPT, ADD, ALTER, AS, ASCII, ASSOCIATED_DATA, ASSOCIATED_DATA_LENGTH, ATTRIBUTE, AUTO, AUTO_SKIP, BACKGROUND_COLOR, BACKGROUND_COLOUR, BEEP, BELL, BINARY, BIT, BLINK, BLOB, BOUNDS, CALL, CANCEL, CAPABLE, CCSVERSION, CHA
+PASS	FIXED	99ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0008.cobol
+PASS	FIXED	59ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0009.cobol
+PASS	FIXED	52ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0010.cobol
+PASS	FIXED	69ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0011.cobol
+PASS	FIXED	56ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0012.cobol
+PASS	FIXED	14ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0013.cobol
+PASS	FIXED	7ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0014.cobol
+PASS	FIXED	55ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0033.cobol
+PASS	FIXED	43ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL006A.cobol
+PASS	FIXED	42ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBLC1.cobol
+PASS	FIXED	27ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/COBOL.cobol
+PASS	FIXED	2ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/HELLO.cobol
+PASS	FIXED	12ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/PAYROL00.cobol
+PASS	FIXED	9ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/PAYROL0X.cobol
+PASS	FIXED	56ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHBIN.cobol
+PASS	FIXED	22ms	units=1	COBOL Programming Course #2 - Learning COBOL/Labs/cbl/SRCHSER.cobol
+PASS	FIXED	75ms	units=1	COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106.cbl
+PASS	FIXED	99ms	units=1	COBOL Programming Course #3 - Advanced Topics/Challenges/Debugging/cbl/CBL0106C.cbl
+FAIL	COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB21.cbl	FIXED: CobolParserException: syntax error in line 133:44 extraneous input '(' expecting {ACCEPT, ADD, ALTER, CALL, CANCEL, CLOSE, COMPUTE, CONTINUE, DELETE, DISABLE, DISPLAY, DIVIDE, ENABLE, ENTRY, EVALUATE, EXHIBIT, EXIT, GENERATE, GOBACK, GO, IF, INITIALIZE, INITIATE, INSPECT, MERGE, MOVE, MULTIPLY, NEXT, OPEN, PERFORM, PURGE
+FAIL	COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB22.cbl	FIXED: CobolParserException: syntax error in line 190:44 extraneous input '(' expecting {ACCEPT, ADD, ALTER, CALL, CANCEL, CLOSE, COMPUTE, CONTINUE, DELETE, DISABLE, DISPLAY, DIVIDE, ENABLE, ENTRY, EVALUATE, EXHIBIT, EXIT, GENERATE, GOBACK, GO, IF, INITIALIZE, INITIATE, INSPECT, MERGE, MOVE, MULTIPLY, NEXT, OPEN, PERFORM, PURGE
+FAIL	COBOL Programming Course #3 - Advanced Topics/Labs/cbl/CBLDB23.cbl	FIXED: CobolParserException: syntax error in line 177:44 extraneous input '(' expecting {ACCEPT, ADD, ALTER, CALL, CANCEL, CLOSE, COMPUTE, CONTINUE, DELETE, DISABLE, DISPLAY, DIVIDE, ENABLE, ENTRY, EVALUATE, EXHIBIT, EXIT, GENERATE, GOBACK, GO, IF, INITIALIZE, INITIATE, INSPECT, MERGE, MOVE, MULTIPLY, NEXT, OPEN, PERFORM, PURGE
+PASS	FIXED	16ms	units=1	COBOL Programming Course #4 - Testing/Labs/cbl/DEPTPAY.CBL
+PASS	FIXED	27ms	units=1	COBOL Programming Course #4 - Testing/Labs/cbl/EMPPAY.CBL
+SUMMARY	pass=26	fail=4	total=30
+KIND	3	FIXED: CobolParserException: syntax error in  extraneous input 'x' expecting {ACCEPT, ADD, ALTER, CALL, CANCEL, CLOSE, COMPUTE, CONTINUE, DELETE, DISABLE, DISPL
+KIND	1	FIXED: CobolParserException: syntax error in  mismatched input 'x' expecting {<EOF>, ABORT, ACCEPT, ADD, ALTER, AS, ASCII, ASSOCIATED_DATA, ASSOCIATED_DATA_LENG

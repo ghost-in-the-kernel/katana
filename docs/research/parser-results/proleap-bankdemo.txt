@@ -1,0 +1,89 @@
+Picked up JAVA_TOOL_OPTIONS: 
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+PASS	FIXED	1530ms	units=1	sources/cobol/core/BBANK10P.cbl
+PASS	FIXED	938ms	units=1	sources/cobol/core/BBANK20P.cbl
+PASS	FIXED	786ms	units=1	sources/cobol/core/BBANK30P.cbl
+PASS	FIXED	1823ms	units=1	sources/cobol/core/BBANK35P.cbl
+PASS	FIXED	882ms	units=1	sources/cobol/core/BBANK40P.cbl
+PASS	FIXED	576ms	units=1	sources/cobol/core/BBANK50P.cbl
+PASS	FIXED	691ms	units=1	sources/cobol/core/BBANK60P.cbl
+PASS	FIXED	400ms	units=1	sources/cobol/core/BBANK70P.cbl
+PASS	FIXED	488ms	units=1	sources/cobol/core/BBANK80P.cbl
+PASS	FIXED	294ms	units=1	sources/cobol/core/BBANK90P.cbl
+PASS	FIXED	142ms	units=1	sources/cobol/core/BBANK99P.cbl
+PASS	FIXED	790ms	units=1	sources/cobol/core/BBANKZZP.cbl
+PASS	FIXED	53ms	units=1	sources/cobol/core/BCASH00P.cbl
+PASS	FIXED	57ms	units=1	sources/cobol/core/BCASH01P.cbl
+PASS	FIXED	162ms	units=1	sources/cobol/core/BCASH02P.cbl
+PASS	FIXED	159ms	units=1	sources/cobol/core/BCASH03P.cbl
+PASS	FIXED	6ms	units=1	sources/cobol/core/CLOSEFIL.cbl
+PASS	FIXED	219ms	units=1	sources/cobol/core/DFHUAINS.cbl
+FAIL	sources/cobol/core/DFHZCSGM.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+PASS	FIXED	4ms	units=1	sources/cobol/core/OPENFIL.cbl
+FAIL	sources/cobol/core/SBANK00P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK10P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK20P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK30P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK35P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK40P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK50P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK60P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK70P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK80P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK90P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANK99P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+FAIL	sources/cobol/core/SBANKZZP.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+PASS	FIXED	212ms	units=1	sources/cobol/core/SCASH00P.cbl
+PASS	FIXED	56ms	units=1	sources/cobol/core/SCASHDRV.cbl
+PASS	FIXED	7ms	units=1	sources/cobol/core/SCHAR00P.cbl
+PASS	FIXED	6ms	units=1	sources/cobol/core/SCUSTOMP.cbl
+PASS	FIXED	646ms	units=1	sources/cobol/core/SPSWD01P.cbl
+PASS	FIXED	5ms	units=1	sources/cobol/core/SSECUREP.cbl
+PASS	FIXED	25ms	units=1	sources/cobol/core/SSTMT01P.cbl
+FAIL	sources/cobol/core/STRAC00P.cbl	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+PASS	FIXED	4ms	units=1	sources/cobol/core/SVERSONP.cbl
+PASS	FIXED	5ms	units=1	sources/cobol/core/UBNKPLT1.cbl
+PASS	FIXED	6ms	units=1	sources/cobol/core/UBNKPLT2.cbl
+PASS	FIXED	164ms	units=1	sources/cobol/core/UDATECNV.cbl
+PASS	FIXED	11ms	units=1	sources/cobol/core/UTWOSCMP.cbl
+PASS	FIXED	30ms	units=1	sources/cobol/core/ZBNKE15.cbl
+PASS	FIXED	82ms	units=1	sources/cobol/core/ZBNKE35.cbl
+PASS	FIXED	650ms	units=1	sources/cobol/core/ZBNKEXT1.cbl
+FAIL	sources/cobol/core/ZBNKLOAD.cbl	FIXED: CobolParserException: syntax error in line 69:28 missing RECORD at 'KEY'
+PASS	FIXED	687ms	units=1	sources/cobol/core/ZBNKPRT1.cbl
+PASS	FIXED	27ms	units=1	sources/cobol/data/sql/DBANK01P.cbl
+PASS	FIXED	41ms	units=1	sources/cobol/data/sql/DBANK02P.cbl
+PASS	FIXED	44ms	units=1	sources/cobol/data/sql/DBANK03P.cbl
+PASS	FIXED	27ms	units=1	sources/cobol/data/sql/DBANK04P.cbl
+PASS	FIXED	81ms	units=1	sources/cobol/data/sql/DBANK05P.cbl
+PASS	FIXED	16ms	units=1	sources/cobol/data/sql/DBANK06P.cbl
+PASS	FIXED	29ms	units=1	sources/cobol/data/sql/DBANK07P.cbl
+PASS	FIXED	19ms	units=1	sources/cobol/data/sql/DBANK08P.cbl
+PASS	FIXED	50ms	units=1	sources/cobol/data/sql/DBANK09P.cbl
+PASS	FIXED	54ms	units=1	sources/cobol/data/sql/DBANK10P.cbl
+PASS	FIXED	294ms	units=1	sources/cobol/data/sql/DBANK11P.cbl
+PASS	FIXED	65ms	units=1	sources/cobol/data/sql/DBANK51P.cbl
+PASS	FIXED	27ms	units=1	sources/cobol/data/sql/DBANK52P.cbl
+PASS	FIXED	42ms	units=1	sources/cobol/data/sql/DHELP01P.cbl
+PASS	FIXED	51ms	units=1	sources/cobol/data/vsam/DBANK01P.cbl
+PASS	FIXED	122ms	units=1	sources/cobol/data/vsam/DBANK02P.cbl
+PASS	FIXED	149ms	units=1	sources/cobol/data/vsam/DBANK03P.cbl
+PASS	FIXED	117ms	units=1	sources/cobol/data/vsam/DBANK04P.cbl
+PASS	FIXED	220ms	units=1	sources/cobol/data/vsam/DBANK05P.cbl
+PASS	FIXED	85ms	units=1	sources/cobol/data/vsam/DBANK06P.cbl
+PASS	FIXED	65ms	units=1	sources/cobol/data/vsam/DBANK07P.cbl
+PASS	FIXED	31ms	units=1	sources/cobol/data/vsam/DBANK08P.cbl
+PASS	FIXED	35ms	units=1	sources/cobol/data/vsam/DBANK09P.cbl
+PASS	FIXED	99ms	units=1	sources/cobol/data/vsam/DBANK11P.cbl
+FAIL	sources/cobol/data/vsam/DBANK51P.cbl	FIXED: CobolParserException: syntax error in line 43:28 missing RECORD at 'KEY'
+FAIL	sources/cobol/data/vsam/DBANK52P.cbl	FIXED: CobolParserException: syntax error in line 43:28 missing RECORD at 'KEY'
+PASS	FIXED	3ms	units=1	sources/cobol/data/vsam/DBANKIOP.cbl
+PASS	FIXED	21ms	units=1	sources/cobol/data/vsam/DCASH01P.cbl
+PASS	FIXED	67ms	units=1	sources/cobol/data/vsam/DCASH02P.cbl
+PASS	FIXED	115ms	units=1	sources/cobol/data/vsam/DHELP01P.cbl
+PASS	FIXED	1ms	units=1	sources/cobol/interoperability/java/HELLOJAV.cbl
+SUMMARY	pass=64	fail=18	total=82
+KIND	15	FIXED: CobolPreprocessorException: Could not find copy book DFHAID in directory of COBOL input file or copy books param object.
+KIND	3	FIXED: CobolParserException: syntax error in  missing RECORD at 'x'

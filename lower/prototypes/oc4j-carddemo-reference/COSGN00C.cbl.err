@@ -1,0 +1,122 @@
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:67: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl: In paragraph 'MAIN-PARA':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:80: Error: 'EIBCALEN' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:85: Error: 'EIBAID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:98: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:98: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:99: Error: 'TRANSID' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:99: Error: 'TRANSID' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:99: Error: Redefinition of 'WS-TRANID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:37: Error: 'WS-TRANID' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:100: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:100: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:101: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl: In paragraph 'PROCESS-ENTER-KEY':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:110: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:110: Error: 'RECEIVE' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:110: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:110: Error: Unknown statement 'RECEIVE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:111: Error: Unknown statement 'MAP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:112: Error: Unknown statement 'MAPSET'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:113: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:113: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:43: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:114: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:114: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:44: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl: In paragraph 'SEND-SIGNON-SCREEN':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:151: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:151: Error: 'SEND' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:151: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:151: Error: 'SEND' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:152: Error: 'MAP' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:153: Error: 'MAPSET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:154: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:154: Error: Redefinition of 'COSGN0AO'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COSGN00.CPY:85: Error: 'COSGN0AO' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl: In paragraph 'SEND-PLAIN-TEXT':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:164: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:164: Error: 'SEND' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:164: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:164: Error: 'TEXT' reserved word, but not supported yet
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:164: Error: Unknown statement 'SEND'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:164: Error: Unknown statement 'TEXT'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:165: Error: Redefinition of 'WS-MESSAGE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:38: Error: 'WS-MESSAGE' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:166: Error: Redefinition of 'WS-MESSAGE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:38: Error: 'WS-MESSAGE' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:168: Error: Unknown statement 'FREEKB'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl: In paragraph 'END-EXEC':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:171: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:171: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:172: Error: 'END-EXEC' ambiguous; need qualification
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:102: Error: 'END-EXEC' in 'MAIN SECTION' defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:115: Error: 'END-EXEC' in 'MAIN SECTION' defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:157: Error: 'END-EXEC' in 'MAIN SECTION' defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:169: Error: 'END-EXEC' in 'MAIN SECTION' defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:172: Error: 'END-EXEC' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl: In paragraph 'POPULATE-HEADER-INFO':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:198: Error: 'EXEC' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:198: Error: 'CICS' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:198: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:199: Error: Unknown statement 'APPLID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:199: Error: Redefinition of 'APPLIDO'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COSGN00.CPY:128: Error: 'APPLIDO' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:199: Error: Redefinition of 'COSGN0AO'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COSGN00.CPY:85: Error: 'COSGN0AO' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:200: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:102: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:202: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:202: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:203: Error: Unknown statement 'SYSID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:203: Error: Redefinition of 'SYSIDO'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COSGN00.CPY:134: Error: 'SYSIDO' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:203: Error: Redefinition of 'COSGN0AO'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy-bms/COSGN00.CPY:85: Error: 'COSGN0AO' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl: In paragraph 'READ-USER-SEC-FILE':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:211: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:211: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:212: Error: 'DATASET' undefined
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:212: Error: 'DATASET' is not a file name
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:212: Error: Redefinition of 'WS-USRSEC-FILE'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:39: Error: 'WS-USRSEC-FILE' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:213: Error: Redefinition of 'SEC-USER-DATA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSUSR01Y.cpy:17: Error: 'SEC-USER-DATA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:214: Error: Redefinition of 'SEC-USER-DATA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/CSUSR01Y.cpy:17: Error: 'SEC-USER-DATA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:215: Error: Unknown statement 'RIDFLD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:215: Error: Redefinition of 'WS-USER-ID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:45: Error: 'WS-USER-ID' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:216: Error: Unknown statement 'KEYLENGTH'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:216: Error: Redefinition of 'WS-USER-ID'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:45: Error: 'WS-USER-ID' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:217: Error: Unknown statement 'RESP'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:217: Error: Redefinition of 'WS-RESP-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:43: Error: 'WS-RESP-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:218: Error: Unknown statement 'RESP2'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:218: Error: Redefinition of 'WS-REAS-CD'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:44: Error: 'WS-REAS-CD' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl: In paragraph 'END-EXEC':
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:231: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:231: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:231: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:231: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:231: Error: Unknown statement 'XCTL'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:233: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:233: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:234: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:102: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:236: Error: Unknown statement 'EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:236: Error: Unknown statement 'CICS'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:236: Error: Unknown statement 'XCTL'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:238: Error: Unknown statement 'COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:238: Error: Redefinition of 'CARDDEMO-COMMAREA'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cpy/COCOM01Y.cpy:19: Error: 'CARDDEMO-COMMAREA' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:239: Error: Redefinition of 'END-EXEC'
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:102: Error: 'END-EXEC' previously defined here
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:246: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:252: Error: syntax error
+/home/claude/cobol-research/corpus/aws-mainframe-modernization-carddemo/app/cbl/COSGN00C.cbl:257: Error: syntax error

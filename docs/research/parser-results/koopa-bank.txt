@@ -1,0 +1,593 @@
+Picked up JAVA_TOOL_OPTIONS: 
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK06P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK06P.cbl
+Writing XML to runs/koopa/bank/DBANK06P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK04P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK04P.cbl
+Writing XML to runs/koopa/bank/DBANK04P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK02P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK02P.cbl
+Writing XML to runs/koopa/bank/DBANK02P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DHELP01P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DHELP01P.cbl
+Writing XML to runs/koopa/bank/DHELP01P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK05P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK05P.cbl
+Writing XML to runs/koopa/bank/DBANK05P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK51P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK51P.cbl
+Writing XML to runs/koopa/bank/DBANK51P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK11P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK11P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK11P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK11P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK08P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK08P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK08P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK08P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK10P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK10P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK10P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK10P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK52P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK52P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK52P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK52P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK03P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK03P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK03P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK03P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK06P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK06P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK06P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK06P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK07P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK07P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK07P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK07P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK51P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK51P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK51P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK51P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DHELP01P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DHELP01P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DHELP01P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DHELP01P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK04P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK04P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK04P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK04P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK01P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK01P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK01P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK01P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK05P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK05P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK05P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK05P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK09P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK09P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK09P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK09P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK02P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK02P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK02P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/.settings/DBANK02P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK03P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK03P.cbl
+Writing XML to runs/koopa/bank/DBANK03P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK11P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK11P.cbl
+Writing XML to runs/koopa/bank/DBANK11P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK07P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK07P.cbl
+Writing XML to runs/koopa/bank/DBANK07P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK10P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK10P.cbl
+Writing XML to runs/koopa/bank/DBANK10P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK08P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK08P.cbl
+Writing XML to runs/koopa/bank/DBANK08P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK09P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK09P.cbl
+Writing XML to runs/koopa/bank/DBANK09P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK52P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK52P.cbl
+Writing XML to runs/koopa/bank/DBANK52P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK01P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/sql/DBANK01P.cbl
+Writing XML to runs/koopa/bank/DBANK01P.xml
+Picked up JAVA_TOOL_OPTIONS: 
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK06P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK06P.cbl
+Writing XML to runs/koopa/bank/DBANK06P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK04P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK04P.cbl
+Writing XML to runs/koopa/bank/DBANK04P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK02P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK02P.cbl
+Writing XML to runs/koopa/bank/DBANK02P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DHELP01P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DHELP01P.cbl
+Writing XML to runs/koopa/bank/DHELP01P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK05P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK05P.cbl
+Writing XML to runs/koopa/bank/DBANK05P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK51P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK51P.cbl
+Writing XML to runs/koopa/bank/DBANK51P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DCASH01P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DCASH01P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DCASH01P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DCASH01P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK11P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK11P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK11P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK11P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK08P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK08P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK08P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK08P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK03P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK03P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK03P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK03P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DCASH02P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DCASH02P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DCASH02P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DCASH02P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK06P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK06P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK06P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK06P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK07P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK07P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK07P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK07P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DHELP01P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DHELP01P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DHELP01P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DHELP01P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK04P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK04P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK04P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK04P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK01P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK01P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK01P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK01P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK05P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK05P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK05P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK05P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK09P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK09P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK09P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK09P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK02P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK02P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DBANK02P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/.settings/DBANK02P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK03P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK03P.cbl
+Writing XML to runs/koopa/bank/DBANK03P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK11P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK11P.cbl
+Writing XML to runs/koopa/bank/DBANK11P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANKIOP.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANKIOP.cbl
+Writing XML to runs/koopa/bank/DBANKIOP.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK07P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK07P.cbl
+Writing XML to runs/koopa/bank/DBANK07P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK08P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK08P.cbl
+Writing XML to runs/koopa/bank/DBANK08P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK09P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK09P.cbl
+Writing XML to runs/koopa/bank/DBANK09P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK52P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK52P.cbl
+Writing XML to runs/koopa/bank/DBANK52P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK01P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DBANK01P.cbl
+Writing XML to runs/koopa/bank/DBANK01P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DCASH01P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DCASH01P.cbl
+Writing XML to runs/koopa/bank/DCASH01P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DCASH02P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/data/vsam/DCASH02P.cbl
+Writing XML to runs/koopa/bank/DCASH02P.xml
+Picked up JAVA_TOOL_OPTIONS: 
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/interoperability/java/HELLOJAV.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/interoperability/java/HELLOJAV.cbl
+Writing XML to runs/koopa/bank/HELLOJAV.xml
+Picked up JAVA_TOOL_OPTIONS: 
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SSTMT01P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SSTMT01P.cbl
+Writing XML to runs/koopa/bank/SSTMT01P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK60P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK60P.cbl
+Writing XML to runs/koopa/bank/SBANK60P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/DFHZCSGM.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/DFHZCSGM.cbl
+Writing XML to runs/koopa/bank/DFHZCSGM.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKEXT1.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKEXT1.cbl
+Writing XML to runs/koopa/bank/ZBNKEXT1.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK10P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK10P.cbl
+Writing XML to runs/koopa/bank/BBANK10P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK40P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK40P.cbl
+Writing XML to runs/koopa/bank/BBANK40P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SPSWD01P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SPSWD01P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SPSWD01P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SPSWD01P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/STRAC00P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/STRAC00P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/STRAC00P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/STRAC00P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/UBNKPLT1.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/UBNKPLT1.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/UBNKPLT1.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/UBNKPLT1.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK90P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK90P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK90P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK90P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK99P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK99P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK99P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK99P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK20P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK20P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK20P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK20P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH00P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH00P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BCASH00P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH00P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/UBNKPLT2.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/UBNKPLT2.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/UBNKPLT2.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/UBNKPLT2.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH03P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH03P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BCASH03P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH03P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK20P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK20P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK20P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK20P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SCHAR00P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SCHAR00P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SCHAR00P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SCHAR00P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK40P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK40P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK40P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK40P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANKZZP.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANKZZP.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANKZZP.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANKZZP.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK10P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK10P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK10P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK10P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK60P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK60P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK60P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK60P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK70P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK70P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK70P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK70P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK30P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK30P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK30P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK30P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SSTMT01P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SSTMT01P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SSTMT01P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SSTMT01P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH01P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH01P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BCASH01P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH01P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/CLOSEFIL.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/CLOSEFIL.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/CLOSEFIL.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/CLOSEFIL.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SCASH00P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SCASH00P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SCASH00P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SCASH00P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK30P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK30P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK30P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK30P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK90P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK90P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK90P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK90P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK35P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK35P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK35P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK35P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK40P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK40P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK40P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK40P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK50P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK50P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK50P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK50P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK35P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK35P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK35P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK35P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK50P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK50P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK50P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK50P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SCASHDRV.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SCASHDRV.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SCASHDRV.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SCASHDRV.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK70P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK70P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK70P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK70P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/DFHUAINS.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/DFHUAINS.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DFHUAINS.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/DFHUAINS.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/DFHZCSGM.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/DFHZCSGM.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/DFHZCSGM.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/DFHZCSGM.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK99P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK99P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK99P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK99P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK80P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK80P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK80P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK80P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH02P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH02P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BCASH02P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BCASH02P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/OPENFIL.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/OPENFIL.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/OPENFIL.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/OPENFIL.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANKZZP.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANKZZP.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANKZZP.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANKZZP.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK80P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK80P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK80P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK80P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK00P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK00P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK00P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK00P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK10P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK10P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/SBANK10P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/SBANK10P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK60P.cbl.mfdirset
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK60P.cbl.mfdirset
+Writing XML to runs/koopa/bank/.settings/BBANK60P.cbl.xml
+Error: null Failed to parse. Last successful match: programPrototype < sourceUnit < compilationGroup.
+Could not parse /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/.settings/BBANK60P.cbl.mfdirset
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANKZZP.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANKZZP.cbl
+Writing XML to runs/koopa/bank/SBANKZZP.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK35P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK35P.cbl
+Writing XML to runs/koopa/bank/BBANK35P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK50P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK50P.cbl
+Writing XML to runs/koopa/bank/SBANK50P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANKZZP.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANKZZP.cbl
+Writing XML to runs/koopa/bank/BBANKZZP.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SSECUREP.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SSECUREP.cbl
+Writing XML to runs/koopa/bank/SSECUREP.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCASH00P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCASH00P.cbl
+Writing XML to runs/koopa/bank/SCASH00P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK30P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK30P.cbl
+Writing XML to runs/koopa/bank/BBANK30P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK99P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK99P.cbl
+Writing XML to runs/koopa/bank/BBANK99P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UDATECNV.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UDATECNV.cbl
+Writing XML to runs/koopa/bank/UDATECNV.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH03P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH03P.cbl
+Writing XML to runs/koopa/bank/BCASH03P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK80P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK80P.cbl
+Writing XML to runs/koopa/bank/SBANK80P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKPRT1.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKPRT1.cbl
+Writing XML to runs/koopa/bank/ZBNKPRT1.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SPSWD01P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SPSWD01P.cbl
+Writing XML to runs/koopa/bank/SPSWD01P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK00P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK00P.cbl
+Writing XML to runs/koopa/bank/SBANK00P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/OPENFIL.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/OPENFIL.cbl
+Writing XML to runs/koopa/bank/OPENFIL.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCUSTOMP.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCUSTOMP.cbl
+Writing XML to runs/koopa/bank/SCUSTOMP.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK90P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK90P.cbl
+Writing XML to runs/koopa/bank/BBANK90P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH01P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH01P.cbl
+Writing XML to runs/koopa/bank/BCASH01P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/CLOSEFIL.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/CLOSEFIL.cbl
+Writing XML to runs/koopa/bank/CLOSEFIL.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK20P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK20P.cbl
+Writing XML to runs/koopa/bank/BBANK20P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK50P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK50P.cbl
+Writing XML to runs/koopa/bank/BBANK50P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK10P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK10P.cbl
+Writing XML to runs/koopa/bank/SBANK10P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK40P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK40P.cbl
+Writing XML to runs/koopa/bank/SBANK40P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK70P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK70P.cbl
+Writing XML to runs/koopa/bank/SBANK70P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKE35.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKE35.cbl
+Writing XML to runs/koopa/bank/ZBNKE35.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UTWOSCMP.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UTWOSCMP.cbl
+Writing XML to runs/koopa/bank/UTWOSCMP.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK35P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK35P.cbl
+Writing XML to runs/koopa/bank/SBANK35P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKE15.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKE15.cbl
+Writing XML to runs/koopa/bank/ZBNKE15.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/STRAC00P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/STRAC00P.cbl
+Writing XML to runs/koopa/bank/STRAC00P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UBNKPLT2.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UBNKPLT2.cbl
+Writing XML to runs/koopa/bank/UBNKPLT2.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/DFHUAINS.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/DFHUAINS.cbl
+Writing XML to runs/koopa/bank/DFHUAINS.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK30P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK30P.cbl
+Writing XML to runs/koopa/bank/SBANK30P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UBNKPLT1.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/UBNKPLT1.cbl
+Writing XML to runs/koopa/bank/UBNKPLT1.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCASHDRV.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCASHDRV.cbl
+Writing XML to runs/koopa/bank/SCASHDRV.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKLOAD.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/ZBNKLOAD.cbl
+Writing XML to runs/koopa/bank/ZBNKLOAD.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK70P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK70P.cbl
+Writing XML to runs/koopa/bank/BBANK70P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK20P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK20P.cbl
+Writing XML to runs/koopa/bank/SBANK20P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SVERSONP.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SVERSONP.cbl
+Writing XML to runs/koopa/bank/SVERSONP.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH02P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH02P.cbl
+Writing XML to runs/koopa/bank/BCASH02P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK60P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK60P.cbl
+Writing XML to runs/koopa/bank/BBANK60P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK80P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BBANK80P.cbl
+Writing XML to runs/koopa/bank/BBANK80P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK90P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK90P.cbl
+Writing XML to runs/koopa/bank/SBANK90P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK99P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SBANK99P.cbl
+Writing XML to runs/koopa/bank/SBANK99P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCHAR00P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/SCHAR00P.cbl
+Writing XML to runs/koopa/bank/SCHAR00P.xml
+/home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH00P.cbl
+Processing /home/claude/cobol-research/corpus/BankDemo/sources/cobol/core/BCASH00P.cbl
+Writing XML to runs/koopa/bank/BCASH00P.xml

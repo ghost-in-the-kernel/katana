@@ -1,0 +1,88 @@
+Picked up JAVA_TOOL_OPTIONS: 
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+PASS	FIXED	1618ms	units=1	sources/cobol/core/BBANK10P.cbl
+PASS	FIXED	1212ms	units=1	sources/cobol/core/BBANK20P.cbl
+PASS	FIXED	855ms	units=1	sources/cobol/core/BBANK30P.cbl
+PASS	FIXED	1716ms	units=1	sources/cobol/core/BBANK35P.cbl
+PASS	FIXED	920ms	units=1	sources/cobol/core/BBANK40P.cbl
+PASS	FIXED	663ms	units=1	sources/cobol/core/BBANK50P.cbl
+PASS	FIXED	713ms	units=1	sources/cobol/core/BBANK60P.cbl
+PASS	FIXED	467ms	units=1	sources/cobol/core/BBANK70P.cbl
+PASS	FIXED	664ms	units=1	sources/cobol/core/BBANK80P.cbl
+PASS	FIXED	401ms	units=1	sources/cobol/core/BBANK90P.cbl
+PASS	FIXED	178ms	units=1	sources/cobol/core/BBANK99P.cbl
+PASS	FIXED	921ms	units=1	sources/cobol/core/BBANKZZP.cbl
+PASS	FIXED	75ms	units=1	sources/cobol/core/BCASH00P.cbl
+PASS	FIXED	75ms	units=1	sources/cobol/core/BCASH01P.cbl
+PASS	FIXED	151ms	units=1	sources/cobol/core/BCASH02P.cbl
+PASS	FIXED	168ms	units=1	sources/cobol/core/BCASH03P.cbl
+PASS	FIXED	8ms	units=1	sources/cobol/core/CLOSEFIL.cbl
+PASS	FIXED	337ms	units=1	sources/cobol/core/DFHUAINS.cbl
+PASS	FIXED	143ms	units=1	sources/cobol/core/DFHZCSGM.cbl
+PASS	FIXED	13ms	units=1	sources/cobol/core/OPENFIL.cbl
+PASS	FIXED	577ms	units=1	sources/cobol/core/SBANK00P.cbl
+PASS	FIXED	1028ms	units=1	sources/cobol/core/SBANK10P.cbl
+PASS	FIXED	1766ms	units=1	sources/cobol/core/SBANK20P.cbl
+PASS	FIXED	2524ms	units=1	sources/cobol/core/SBANK30P.cbl
+PASS	FIXED	2217ms	units=1	sources/cobol/core/SBANK35P.cbl
+PASS	FIXED	1800ms	units=1	sources/cobol/core/SBANK40P.cbl
+PASS	FIXED	2142ms	units=1	sources/cobol/core/SBANK50P.cbl
+PASS	FIXED	1611ms	units=1	sources/cobol/core/SBANK60P.cbl
+PASS	FIXED	1009ms	units=1	sources/cobol/core/SBANK70P.cbl
+PASS	FIXED	1252ms	units=1	sources/cobol/core/SBANK80P.cbl
+PASS	FIXED	1154ms	units=1	sources/cobol/core/SBANK90P.cbl
+PASS	FIXED	326ms	units=1	sources/cobol/core/SBANK99P.cbl
+PASS	FIXED	1758ms	units=1	sources/cobol/core/SBANKZZP.cbl
+PASS	FIXED	191ms	units=1	sources/cobol/core/SCASH00P.cbl
+PASS	FIXED	55ms	units=1	sources/cobol/core/SCASHDRV.cbl
+PASS	FIXED	9ms	units=1	sources/cobol/core/SCHAR00P.cbl
+PASS	FIXED	6ms	units=1	sources/cobol/core/SCUSTOMP.cbl
+PASS	FIXED	645ms	units=1	sources/cobol/core/SPSWD01P.cbl
+PASS	FIXED	4ms	units=1	sources/cobol/core/SSECUREP.cbl
+PASS	FIXED	26ms	units=1	sources/cobol/core/SSTMT01P.cbl
+PASS	FIXED	18ms	units=1	sources/cobol/core/STRAC00P.cbl
+PASS	FIXED	3ms	units=1	sources/cobol/core/SVERSONP.cbl
+PASS	FIXED	6ms	units=1	sources/cobol/core/UBNKPLT1.cbl
+PASS	FIXED	5ms	units=1	sources/cobol/core/UBNKPLT2.cbl
+PASS	FIXED	167ms	units=1	sources/cobol/core/UDATECNV.cbl
+PASS	FIXED	11ms	units=1	sources/cobol/core/UTWOSCMP.cbl
+PASS	FIXED	31ms	units=1	sources/cobol/core/ZBNKE15.cbl
+PASS	FIXED	76ms	units=1	sources/cobol/core/ZBNKE35.cbl
+PASS	FIXED	571ms	units=1	sources/cobol/core/ZBNKEXT1.cbl
+FAIL	sources/cobol/core/ZBNKLOAD.cbl	FIXED: CobolParserException: syntax error in line 69:28 missing RECORD at 'KEY'
+PASS	FIXED	611ms	units=1	sources/cobol/core/ZBNKPRT1.cbl
+PASS	FIXED	21ms	units=1	sources/cobol/data/sql/DBANK01P.cbl
+PASS	FIXED	44ms	units=1	sources/cobol/data/sql/DBANK02P.cbl
+PASS	FIXED	45ms	units=1	sources/cobol/data/sql/DBANK03P.cbl
+PASS	FIXED	30ms	units=1	sources/cobol/data/sql/DBANK04P.cbl
+PASS	FIXED	49ms	units=1	sources/cobol/data/sql/DBANK05P.cbl
+PASS	FIXED	15ms	units=1	sources/cobol/data/sql/DBANK06P.cbl
+PASS	FIXED	23ms	units=1	sources/cobol/data/sql/DBANK07P.cbl
+PASS	FIXED	11ms	units=1	sources/cobol/data/sql/DBANK08P.cbl
+PASS	FIXED	21ms	units=1	sources/cobol/data/sql/DBANK09P.cbl
+PASS	FIXED	30ms	units=1	sources/cobol/data/sql/DBANK10P.cbl
+PASS	FIXED	190ms	units=1	sources/cobol/data/sql/DBANK11P.cbl
+PASS	FIXED	54ms	units=1	sources/cobol/data/sql/DBANK51P.cbl
+PASS	FIXED	24ms	units=1	sources/cobol/data/sql/DBANK52P.cbl
+PASS	FIXED	31ms	units=1	sources/cobol/data/sql/DHELP01P.cbl
+PASS	FIXED	25ms	units=1	sources/cobol/data/vsam/DBANK01P.cbl
+PASS	FIXED	65ms	units=1	sources/cobol/data/vsam/DBANK02P.cbl
+PASS	FIXED	100ms	units=1	sources/cobol/data/vsam/DBANK03P.cbl
+PASS	FIXED	71ms	units=1	sources/cobol/data/vsam/DBANK04P.cbl
+PASS	FIXED	151ms	units=1	sources/cobol/data/vsam/DBANK05P.cbl
+PASS	FIXED	49ms	units=1	sources/cobol/data/vsam/DBANK06P.cbl
+PASS	FIXED	60ms	units=1	sources/cobol/data/vsam/DBANK07P.cbl
+PASS	FIXED	36ms	units=1	sources/cobol/data/vsam/DBANK08P.cbl
+PASS	FIXED	33ms	units=1	sources/cobol/data/vsam/DBANK09P.cbl
+PASS	FIXED	78ms	units=1	sources/cobol/data/vsam/DBANK11P.cbl
+FAIL	sources/cobol/data/vsam/DBANK51P.cbl	FIXED: CobolParserException: syntax error in line 43:28 missing RECORD at 'KEY'
+FAIL	sources/cobol/data/vsam/DBANK52P.cbl	FIXED: CobolParserException: syntax error in line 43:28 missing RECORD at 'KEY'
+PASS	FIXED	4ms	units=1	sources/cobol/data/vsam/DBANKIOP.cbl
+PASS	FIXED	30ms	units=1	sources/cobol/data/vsam/DCASH01P.cbl
+PASS	FIXED	62ms	units=1	sources/cobol/data/vsam/DCASH02P.cbl
+PASS	FIXED	118ms	units=1	sources/cobol/data/vsam/DHELP01P.cbl
+PASS	FIXED	1ms	units=1	sources/cobol/interoperability/java/HELLOJAV.cbl
+SUMMARY	pass=79	fail=3	total=82
+KIND	3	FIXED: CobolParserException: syntax error in  missing RECORD at 'x'
