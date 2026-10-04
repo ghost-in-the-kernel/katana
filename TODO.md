@@ -21,9 +21,9 @@ Built in steps, each its own commit (any agent may take the next open one; the s
   refuses it unless its SHA-256 is `744a0498...3274`.
 - ~~1.1b The population reader~~ done: `oracle/nist/Population.java`; `newcob.val` reads to 512
   members (459 programs, 51 copy members, 2 data files), subprograms named by their own header field.
-- **1.1c EXEC85, run.** The control cards for the cobc lane, written from the User Guide's
-  Appendices C, D and E; EXEC85 compiled from `newcob.val` and run; its output split per module.
-  Check: the 459 programs, 51 copy members and 2 data files come out, X-cards substituted.
+- ~~1.1c EXEC85, run~~ done: `oracle/nist/exec85.cards` (the X-cards, each from Appendix D, text in
+  column 9) and `Exec85.java`; under cobc it extracts 459 programs, 51 copy members and 2 data files
+  with no undefined X-card in live code outside CM (`gradle integration`, 2.5 s).
 - **1.1d The report reader.** A program's printed report to pass, fail, deleted and inspect, from
   the footer every NIST program prints. Check: unit tests on real report text.
 - **1.1e The module runs.** Each module's programs compiled and run under `cobc -std=cobol85` in

@@ -58,13 +58,32 @@ tasks.register('kernelMap', JavaExec) {
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
+    // The fast loop: no cobc and no corpus. What needs them is tagged `integration`.
+    useJUnitPlatform {
+        excludeTags 'integration'
+    }
     // The doc tests read the repository; they run from its root wherever Gradle is started.
     systemProperty 'katana.root', rootDir.absolutePath
     // The tests read the whole repository, not just their classes: never skip them as up to date.
     outputs.upToDateWhen { false }
     testLogging {
         events = ['failed', 'skipped']
+        exceptionFormat = 'full'
+    }
+}
+
+tasks.register('integration', Test) {
+    description = 'The tests that need cobc and the fetched corpus (run in the image): NIST, later CardDemo.'
+    group = 'verification'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform {
+        includeTags 'integration'
+    }
+    systemProperty 'katana.root', rootDir.absolutePath
+    outputs.upToDateWhen { false }
+    testLogging {
+        events = ['passed', 'failed', 'skipped']
         exceptionFormat = 'full'
     }
 }

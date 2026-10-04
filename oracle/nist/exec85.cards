@@ -1,0 +1,105 @@
+# EXEC85's control cards for the cobc lane, written from the CCVS85 User Guide 4.2 (3.4, Appendix D;
+# R-044). Each card is read as written: an X-card's text starts in column 9. A line starting with
+# '#' is a note for the reader and never reaches EXEC85; no *OPT card, so every switch keeps its default.
+
+# every program, so a module is chosen by Katana and not by EXEC85 (3.4.1)
+*EXTRACT-ALL
+# the print file shows each substitution, which is how an undefined card is found
+*LIST X-CARDS
+*LIST COMPACT
+# tape files and multi-reel or multi-file tapes: plain files to cobc (X-01 to X-13)
+X-001   TAPE1.
+X-002   TAPE2.
+X-003   TAPE3.
+X-004   TAPE4.
+X-005   TAPE5.
+X-006   MULTR1.
+X-007   MULTR2.
+X-008   MULTF1.
+X-009   MULTF2.
+X-010   MULTF3.
+X-011   MULTF4.
+X-012   MULTF5.
+X-013   MULTF6.
+# sequential mass storage, and the optional files that must not exist at run time (X-17, X-18)
+X-014   MASS1.
+X-015   MASS2.
+X-016   MASS3.
+X-017   MULTR3.
+X-018   MASS4.
+# multi-unit files, used with CLOSE UNIT (X-19, X-20)
+X-019   MULTU1.
+X-020   MULTU2.
+# relative files (X-21 to X-23, X-61, X-62, X-66)
+X-021   REL1.
+X-022   REL2.
+X-023   REL3.
+# indexed files (X-24 to X-26)
+X-024   INDEX1.
+X-025   INDEX2.
+X-026   INDEX3.
+# sort files (X-27 to X-29)
+X-027   SORT1.
+X-028   SORT2.
+X-029   SORT3.
+# communications literals; only DB205A uses them outside the CM module, which is not run (X-30 to X-33)
+X-030   "QUEUE1".
+X-031   "PASSWORD1".
+X-032   "TERMINAL1".
+X-033   "PASSWORD2".
+# the copy libraries ALTLB and ALTL1 are placed in (3.6: X-47 and X-48)
+X-047   ALTLIB1.
+X-048   ALTLIB2.
+# report writer files (X-49, X-50)
+X-049   RPT1.
+X-050   RPT2.
+# switches: X-51 must be ON at run time, X-52 OFF
+X-051   SWITCH-1.
+X-052   SWITCH-2.
+# Appendix D's own example
+X-053   RERUN ON SQ-FRR EVERY 10 RECORDS OF RR-FS1.
+# punch, printer, the DISPLAY and ACCEPT devices, the input device (X-54 to X-58)
+X-054   PUNCH.
+X-055   PRINTOUT.
+X-056   SYSOUT.
+X-057   SYSIN.
+X-058   CARDS.
+# the alphabet-name
+X-059   NATIVE.
+X-060   MASS5.
+X-061   REL4.
+X-062   REL6.
+# 50 COBOL characters ascending in ASCII, the quote left out and the currency sign twice (X-63, X-64)
+X-063   " $$()*+,-./0123456789;<=>ABCDEFGHIJKLMNOPQRSTUVWXYZ".
+X-064   "ZYXWVUTSRQPONMLKJIHGFEDCBA>=<;9876543210/.-,+*)($$ ".
+# records sorted in ST115A to ST117A: 9000 for an official validation
+X-065   9000.
+X-066   REL5.
+# MEMORY SIZE in words and in characters (X-67, X-68)
+X-067   32000.
+X-068   32000.
+# an implementor-name for RECORD DELIMITER, never STANDARD-1
+X-070   RECDELIM.
+# the top-of-page name for WRITE ADVANCING
+X-073   C01.
+# the VALUE OF phrases for labels (X-74 to X-77)
+X-074   FILE-ID.
+X-075   "VALFILE1".
+X-076   "VALFILE2".
+X-077   "VALFILE3".
+# eight characters outside the COBOL character set
+X-081   "@&%~!?{}".
+# SOURCE-COMPUTER and OBJECT-COMPUTER
+X-082   GNUCOBOL.
+X-083   GNUCOBOL.
+# the data description for VALUE OF's data-name (X-86)
+X-086   PIC X(8) VALUE "VALFILE1".
+# ordinal numbers of 'A' and '0' in ASCII, counting from 1 (X-90, X-91)
+X-090   66.
+X-091   49.
+# a file that will not exist at run time
+X-092   NOFILE.
+# then no temporary program fixes (3.4.4)
+*END-MONITOR
+*BEGIN-UPDATE
+*END-UPDATE

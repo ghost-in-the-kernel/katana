@@ -34,7 +34,8 @@ Everything runs in the pinned image (`Dockerfile`): `docker build -t katana .` o
 `gradle build --offline` builds; `gradle test --offline` is the fast loop (doc and unit tests, under
 20 s). `gradle metrics` prints `docs/AGENT.md`'s numbers and the warnings
 (`--args=--time` also times the fast loop); `gradle kernelMap` adds new functions to the kernel map.
-To be written: `gradle integration` (phase 1: cobc lane, NIST, CardDemo). `corpus/fetch.sh` fetches the corpus. The study's prototypes under `*/prototypes/` each
+`gradle integration` runs what needs `cobc` and the corpus (`corpus/fetch.sh` first): NIST so
+far, CardDemo later. `corpus/fetch.sh` fetches the corpus. The study's prototypes under `*/prototypes/` each
 say how they ran.
 
 ## Before calling work done
