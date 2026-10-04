@@ -449,3 +449,15 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   (5) R-010 after 1.5's measurement, as planned.
 - **Touched:** R-016, ROADMAP 1.4, HANDOFF.
 
+### J-040 Fable pushed a red main a second time
+- **Who:** Fable (fault and fix). **Class:** failure-caught.
+- **Intent:** recording R-016 (J-039).
+- **Found:** the entry was appended after R-049 and left in the reserved paragraph; `GhostTest`
+  refused both. The commit script ran the tests but did not gate the commit on their exit code, so the
+  failure was printed and the push went ahead anyway (cee02b3). Main red for about three minutes.
+- **Caught by:** the test's own output, read after the push. **Resolved:** cb46066. The script now
+  commits only when the fast loop exits 0.
+- **Note:** J-007 was "did not run the tests"; this is "ran them and did not look". Both are the same
+  failure: a check that does not stop the action is not a check. The same lesson R-040 and the Gradle
+  bug (J-006) already carried.
+
