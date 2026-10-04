@@ -20,8 +20,17 @@ final class KernelMapTest {
                 .accepts("a function closed by a later row", () -> KernelMap.check(held + "| sir | `sir/A.java:A.f` |  | 2026-10-05 | removed: abc1234 |\n", Map.of()))
                 .rejects("a successor the map does not hold", () -> KernelMap.check(held + "| sir | `sir/A.java:A.f` |  | 2026-10-05 | superseded-by: `sir/A.java:A.g` |\n", Map.of()))
                 .accepts("the map the generator just wrote", () -> KernelMap.check(held, one))
+                .accepts("a decision cited under a Javadoc", () -> KernelMap.write(HEADER, CITED, "2026-10-04").contains("| R-007 |") ? List.of() : List.of("no R-007"))
                 .accepts("a second write, which adds nothing", () -> held.equals(KernelMap.write(held, one, "2026-10-06")) ? List.of() : List.of("changed"));
     }
+
+    private static final Map<String, String> CITED = Map.of("sir/B.java", """
+            class B {
+                /** What it is for. */
+                // Decision: R-007
+                int g() { return 2; }
+            }
+            """);
 
     private static final String HEADER = """
             | Module | Function | Stands on | First seen | Superseded |

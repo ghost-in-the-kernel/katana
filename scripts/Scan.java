@@ -114,19 +114,23 @@ final class Scan {
                     end - start + 1, paths(tree), documented, decision, calls(tree), body);
         }
 
-        /** The comment lines directly above a line: a block ending there, or a run of `//` lines. */
+        /** The comment lines directly above a line: blocks ending there and runs of `//` lines, in any order. */
         private List<String> commentAbove(int line) {
             List<String> comment = new ArrayList<>();
             int at = line - 2;
-            if (at >= 0 && lines[at].trim().endsWith("*/")) {
-                while (at >= 0) {
-                    comment.add(0, lines[at]);
-                    if (lines[at].trim().startsWith("/*")) break;
-                    at--;
+            while (at >= 0) {
+                String trimmed = lines[at].trim();
+                if (trimmed.startsWith("//")) {
+                    comment.add(0, lines[at--]);
+                } else if (trimmed.endsWith("*/")) {
+                    while (at >= 0) {
+                        comment.add(0, lines[at]);
+                        if (lines[at--].trim().startsWith("/*")) break;
+                    }
+                } else {
+                    break;
                 }
-                at--;
             }
-            while (at >= 0 && lines[at].trim().startsWith("//")) comment.add(0, lines[at--]);
             return comment;
         }
     }
