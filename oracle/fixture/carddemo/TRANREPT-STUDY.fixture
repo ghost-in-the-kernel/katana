@@ -10,7 +10,7 @@
 # STEP05R.PRC001 once expanded.
 job TRANREPT
 source carddemo:app/jcl/TRANREPT.jcl
-profile ibm sha256:52d692671d1cfaa5a0c2ad904b95afebee05e5c20773de44ffa7fcaa5edb2c88
+profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
 clock 2024-03-01 12:00:00.00 +00:00
 tz UTC
 stub CEE3ABD

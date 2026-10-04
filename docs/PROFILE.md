@@ -68,14 +68,18 @@ truncated (`binary-truncate`), segment numbers ignored (`section-segments`), and
 ## The hash
 
 `sha256:` and the hex SHA-256 of the canonical text: `compiler`, `version`, `dialect`, then each
-`flag` sorted by name, one `field value` line each, ending in a newline. Comments, blank lines,
+`flag` sorted by name, then the `ibm.*` fields in the fields table's order, one `field value` line
+each, ending in a newline. Comments, blank lines,
 spacing and the order fields were written in do not change it (PROFILE-01).
 
 ## Invariants
 
 - **PROFILE-01 The hash is over the canonical text alone.** Two files that say the same profile
   have the same hash.
-- **PROFILE-02 A profile states every field.** A missing, repeated or unknown field is refused, never
-  defaulted: a default is a compile option nobody chose.
+- **PROFILE-02 A profile states every field.** A missing, repeated or unknown field, or an `ibm.*`
+  value outside its set, is refused, never defaulted: a default is a compile option nobody chose.
 - **PROFILE-03 The mapping is mechanical.** A profile's cobc arguments are its dialect and its flags
   and nothing else.
+- **PROFILE-04 The lane truncates binary items as `ibm.trunc` says.** A stated `binary-truncate`
+  flag agrees with it (`yes` for STD and OPT, `no` for BIN), and a profile on the `ibm` dialect,
+  which does not truncate by itself (`oracle/nist/IBM-CHANGES.md`), states the flag.

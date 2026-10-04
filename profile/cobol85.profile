@@ -3,3 +3,11 @@
 compiler GnuCOBOL
 version 3.1.2
 dialect cobol85
+# NIST's programs were never compiled on z/OS; every profile states every field (PROFILE-02), so
+# these are IBM's documented defaults (R-049): what a lowering of NIST would assume.
+ibm.trunc STD
+ibm.numproc NOPFD
+ibm.arith COMPAT
+ibm.codepage 1140
+ibm.invdata NO
+ibm.version 6.4

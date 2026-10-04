@@ -192,3 +192,6 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/lane/Utilities.java:Utilities.sysin` | called by `oracle/lane/Steps.java:Steps.idcams` | 2026-10-04 |  |
 | oracle | `oracle/lane/Utilities.java:Utilities.iebgener` | called by `oracle/lane/Steps.java:Steps.execute` | 2026-10-04 |  |
 | oracle | `oracle/lane/Idcams.java:Idcams.cluster` | called by `oracle/lane/Idcams.java:Idcams.define` | 2026-10-04 |  |
+| profile | `profile/Profile.java:Profile.ibmValues` | no caller | 2026-10-04 |  |
+| profile | `profile/Profile.java:Profile.truncation` | called by `profile/Profile.java:Profile.read` | 2026-10-04 |  |
+| profile | `profile/Profile.java:Profile.findings` | no caller | 2026-10-04 |  |

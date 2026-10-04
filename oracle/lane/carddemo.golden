@@ -1,6 +1,6 @@
 # oracle/fixture/carddemo/POSTTRAN.fixture
-job POSTTRAN sha256:b01be71f72ccaf67603613c573cfdb5b7def65b50799c81429fb944f2cfe0025
-profile ibm sha256:52d692671d1cfaa5a0c2ad904b95afebee05e5c20773de44ffa7fcaa5edb2c88
+job POSTTRAN sha256:f2497241c1ff6da79852b6029a2c49f397c2b7facec7aa5b218b7a73c51b7140
+profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
 stdout STEP15 lines=48 sha256:a33ef3a78b0c2f22621b8e25550d1aa85240cbd5a2d04398e5e0f42396d85a3d
 step STEP15 CBTRN02C rc=4
 dataset AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS records=50 sha256:5dfe79a147bc8c6b0a1e6e5c2b3a3df05367241da1c32622b8187eccba68195d
@@ -12,8 +12,8 @@ dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS records=257 sha256:aed617444207a7ebd2
 program CBTRN02C sha256:708f3cadc555acab63f11e2f3238f5372ac7180e6b01197bf960d96bf0d2e83f
 
 # oracle/fixture/carddemo/TRANREPT.fixture
-job TRANREPT sha256:527c41c89fdfb490108dca1e7d65a6ac109039aa833496dc08f41f0abee07c54
-profile ibm sha256:52d692671d1cfaa5a0c2ad904b95afebee05e5c20773de44ffa7fcaa5edb2c88
+job TRANREPT sha256:73793ff29c26a039bcb037139506051bc1e1c55f77b14db1aaf3033c3cc2496f
+profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
 step STEP05R.PRC001 IDCAMS rc=12
 finding step STEP05R.PRC001: IDCAMS: card 1 opens a comment in column 1, which IDCAMS does not read (columns 2 to 72), so its text is not a comment
 step STEP05R SORT not run: the job stopped before it
@@ -27,8 +27,8 @@ dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS records=257 sha256:aed617444207a7ebd2
 dataset AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS records=7 sha256:00e01dfa3a2144cc485dd57c91afe44eb69fbd8b6455e7f27329535820dac8ec
 
 # oracle/fixture/carddemo/TRANREPT-STUDY.fixture
-job TRANREPT sha256:f41ea321c702df0c0a15f5170df537bba7a480eecfdb0f6ef59d30d9bd2fcba3
-profile ibm sha256:52d692671d1cfaa5a0c2ad904b95afebee05e5c20773de44ffa7fcaa5edb2c88
+job TRANREPT sha256:545a42fc51ca2114e2036dd33f5faefab3a7b8dc7f9f8fc749a47b110632a29a
+profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
 idcams STEP05R.PRC001 REPRO INFILE(FILEIN) cc=0
 step STEP05R.PRC001 IDCAMS rc=0
 step STEP05R SORT not run: SORT is phase 1.5 (R-048)
@@ -42,8 +42,8 @@ dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS records=257 sha256:aed617444207a7ebd2
 dataset AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS records=7 sha256:00e01dfa3a2144cc485dd57c91afe44eb69fbd8b6455e7f27329535820dac8ec
 
 # oracle/fixture/carddemo/INTCALC.fixture
-job INTCALC sha256:c4864d9de3f1cda26f000a38e445d9f9bd669d918e26d42587782ca06923ed57
-profile ibm sha256:52d692671d1cfaa5a0c2ad904b95afebee05e5c20773de44ffa7fcaa5edb2c88
+job INTCALC sha256:62b3d5377cceffa802ffe9fcc5a72830a50b06a18b9a8440bcaf698e90cd0056
+profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
 stdout STEP15 lines=152 sha256:01a87d35333ba5d74f7aaebde9985e8078ba69a8c0fd361798cbc8a17eb0935e
 step STEP15 CBACT04C rc=0
 dataset AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS records=50 sha256:2710d7ee0723979f5ef60857fbb3997e321795414c5fe9b2592e8ad428a9e925
@@ -54,8 +54,8 @@ dataset AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS records=50 sha256:edaaf7202b8ddd35053
 program CBACT04C sha256:5084bb8b0c9a0f0199f737487ae1863f12e43cabbdc459a62b6b67bedc683cc4
 
 # oracle/fixture/carddemo/CREASTMT.fixture
-job CREASTMT sha256:01fcf6576e0c40cd88807ae49cbb55b3e77f78ee8c822dd22cf7c36d9d21e8eb
-profile ibm sha256:52d692671d1cfaa5a0c2ad904b95afebee05e5c20773de44ffa7fcaa5edb2c88
+job CREASTMT sha256:ac227e13bae71d6753521307c0beb131c4f2c7468af35ec44088eb7ed1475ff0
+profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
 idcams DELDEF01 DELETE AWS.M2.CARDDEMO.TRXFL.SEQ cc=8
 idcams DELDEF01 DELETE AWS.M2.CARDDEMO.TRXFL.VSAM.KSDS cc=8
 idcams DELDEF01 DEFINE CLUSTER cc=0

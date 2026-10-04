@@ -461,3 +461,28 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   failure: a check that does not stop the action is not a check. The same lesson R-040 and the Gradle
   bug (J-006) already carried.
 
+
+### J-041 R-049's fields built; the IBM profile now truncates binary items
+- **Who:** Opus, from Fable's R-049 and J-039. **Class:** decision.
+- **Intent:** Implement R-049 in `profile/`: the six `ibm.*` fields, stated by every profile.
+- **Found:** `ibm.trunc STD` truncates binary items to their PICTURE; `-std=ibm` alone does not (1.2,
+  `binary-truncation`), so `ibm.profile` carries `binary-truncate=yes`, as J-039 says.
+- **Resolved:** the fields read, checked against their value sets and hashed after the flags;
+  NUMPROC(MIG) raises a finding; PROFILE-04 refuses a `binary-truncate` flag that disagrees with
+  `ibm.trunc`, and an `ibm`-dialect profile that does not state it. The IBM profile's hash changed,
+  so the five CardDemo fixtures name the new one; run under the flag, every CardDemo outcome is the
+  same and only the golden's hash lines changed. `cobol85.profile` states IBM's defaults too
+  (PROFILE-02), though NIST was never compiled on z/OS; its comment says so.
+- **Touched:** `profile/`, `docs/PROFILE.md` (the hash's field order, PROFILE-02, PROFILE-04), the
+  five fixtures, `oracle/lane/carddemo.golden`.
+
+### J-042 Opus committed on a main that had moved, and saw it before pushing
+- **Who:** Opus (fault and fix). **Class:** failure-caught.
+- **Intent:** Commit J-041's work per R-040: fetch `main`, rebase if it moved, test, push.
+- **Found:** the fetch printed 3 (Fable's R-016, its fix and J-040), and the same command line went
+  on to commit; the fresh-clone check then tested a commit without them. The commit duplicated R-016
+  and the journal numbers Fable had used.
+- **Resolved:** the commit was kept aside, `main` taken as Fable left it, and only this work
+  re-applied (Fable's R-016, J-039, J-040, roadmap and HANDOFF text kept). **Caught by:** reading the
+  count after the commit, before the push. **Cost:** one rebuilt commit. The same lesson as J-021 and
+  J-040: a check whose answer does not stop the next step is not a check; the fetch now runs alone.
