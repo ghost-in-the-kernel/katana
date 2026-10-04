@@ -192,6 +192,21 @@ the question is closed).
 - **See also:** R-008 (a tithe commit lands the same way)
 - **subject:** process
 
+### R-041: Gradle comes from the pinned image; no wrapper
+- **Decision:** The build runs with the Gradle inside the image the `Dockerfile` pins by digest
+  (8.14.3), invoked as `gradle`, not through a committed wrapper (`./gradlew`). `build.gradle` refuses
+  any other Gradle version, so a build outside the image fails loudly instead of drifting.
+- **Why:** The wrapper downloads its distribution from `services.gradle.org`, which redirects every
+  download to `downloads.gradle.org`; the proxy the project works behind refuses that host (phase
+  0.3, 2026-10-04, as the study found). The official `gradle:8.14.3-jdk21-noble` image carries the
+  same Gradle with JDK 21 on Ubuntu 24.04 in one digest, so one pin replaces two. Where
+  docs/ROADMAP.md says `./gradlew`, read `gradle` in the image.
+- **Held by:** `build.gradle` (the version check); `Dockerfile` (the digest); CI.
+- **Source:** Opus, during phase 0.3; decided by Ghost, 2026-10-04.
+- **Status:** in force
+- **See also:** R-001, R-038
+- **subject:** toolchain
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-009 fixture
