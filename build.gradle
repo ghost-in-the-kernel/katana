@@ -29,6 +29,8 @@ tasks.named('test') {
     useJUnitPlatform()
     // The doc tests read the repository; they run from its root wherever Gradle is started.
     systemProperty 'katana.root', rootDir.absolutePath
+    // The tests read the whole repository, not just their classes: never skip them as up to date.
+    outputs.upToDateWhen { false }
     testLogging {
         events = ['failed', 'skipped']
         exceptionFormat = 'full'
