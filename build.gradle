@@ -87,5 +87,6 @@ tasks.register('integration', Test) {
     testLogging {
         events = ['passed', 'failed', 'skipped']
         exceptionFormat = 'full'
+        showStandardStreams = true
     }
 }

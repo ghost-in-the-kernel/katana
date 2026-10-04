@@ -52,9 +52,30 @@ class ModuleRunIntegrationTest {
         }
         String got = HEADER + String.join("\n", lines) + "\n";
         Files.writeString(work.resolve("programs.golden"), got);
+        String summary = summary(Reconciliation.golden(got));
+        Files.writeString(work.resolve("summary.txt"), summary);
+        System.out.print(summary);
         Path golden = ROOT.resolve("oracle/nist/programs.golden");
         if (Boolean.getBoolean("katana.record")) Files.writeString(golden, got);
         assertEquals(Files.readString(golden), got);
+    }
+
+    /**
+     * The run's summary, as Katana counts (R-047): each module's row (programs run, executed, compile
+     * errors, timeouts, then tests passed, failed, deleted, needing inspection, in all) and the total.
+     * The published total is reached from it only through RECONCILIATION.md.
+     */
+    static String summary(List<Reconciliation.Run> runs) {
+        StringBuilder out = new StringBuilder("NIST under cobc (Katana's golden, R-047)\nModule Programs Executed Error Timeout Pass Fail Deleted Inspect Total\n");
+        int[] total = new int[9];
+        for (String row : Reconciliation.rows(runs).values()) {
+            out.append(row).append('\n');
+            String[] f = row.split(" ");
+            for (int i = 0; i < 9; i++) total[i] += Integer.parseInt(f[i + 1]);
+        }
+        out.append("Total");
+        for (int n : total) out.append(' ').append(n);
+        return out.append('\n').toString();
     }
 
     /** A golden line for one run of one program. */
