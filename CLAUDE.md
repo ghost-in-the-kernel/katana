@@ -39,6 +39,7 @@ The fast loop and the doc tests always; the integration target when `rt/`, `lowe
 pass changed. A refactor changes no golden (docs/ROADMAP.md P-02). A construct
 the lowering cannot make exact is a finding, never silent output (P-03). A function that holds a
 decision cites it on the line above, `// Decision: R-021`. Every eighth commit is a tithe (R-008).
+A finished step is merged to `main` at once, after fetching it and re-running the tests (R-040).
 
 ## Two rules
 

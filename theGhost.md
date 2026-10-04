@@ -177,6 +177,21 @@ the question is closed).
 - **See also:** R-008 (the tithe adds backticks as slips are caught)
 - **subject:** glossary
 
+### R-040: Each finished step lands on main
+- **Decision:** Work happens on a branch; each roadmap step (or each commit an item is split into)
+  is merged to `main` as soon as it is done and its tests pass, not held until the phase ends. Before
+  merging, fetch `main`; if it moved, rebase onto it and run the tests again. `main` is never left
+  with a half-done step: whatever is on it passes the fast loop and the doc tests.
+- **Why:** Ghost, 2026-10-04: merging often lets a second agent be started on `main` to take one part
+  of the work while the first goes on, and a branch that waits for a phase's end is a fork the second
+  agent cannot stand on. Phase 0.2 sat on a branch while the plan was corrected on `main`
+  twice, and needed two rebases.
+- **Held by:** `CLAUDE.md` ("Before calling work done"); review.
+- **Source:** Ghost, 2026-10-04; drafted by Opus at Ghost's request.
+- **Status:** in force
+- **See also:** R-008 (a tithe commit lands the same way)
+- **subject:** process
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-009 fixture
