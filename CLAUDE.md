@@ -17,6 +17,7 @@ are built (docs/ROADMAP.md says when); a row with no files yet points at the pla
 | Phase 0: founding the repository | `docs/ROADMAP.md` §6 phase 0, `docs/HANDOFF.md` | `docs/ROADMAP.md` §3.3, §4 | `test/DocTests.java` (`gradle test`) |
 | A module of Katana: add one, or change what it may import | `docs/modules.json` (its `adding` line) | `docs/ROADMAP.md` §3.3 | `test/ModulesTest.java` |
 | A decision, a plan, what to work on | `theGhost.md`, `TODO.md`, `docs/HANDOFF.md` | `theGhost.md` | `test/GhostTest.java` |
+| What happened while the work was done (a contradiction found, a failure caught, a decision taken): write it down | `docs/JOURNAL.md` (one entry, its fields) | R-046 | |
 | A word | `docs/GLOSSARY.md` | | `test/GlossaryTest.java` |
 | Why the rules are what they are (not read first; read when a rule seems arbitrary) | `docs/GHOST-IN-THE-KERNEL.md` | | |
 | The oracle: fixtures, lanes, the gate, the comparator | `oracle/` (phase 1); until then `oracle/prototypes/` | `docs/research/oracle.md` | NIST summary diff empty; CardDemo hashes |

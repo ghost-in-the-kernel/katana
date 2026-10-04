@@ -298,6 +298,26 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-002, R-015, R-044
 - **subject:** license
 
+### R-046: The journal: every event recorded with fixed fields, by whoever was there
+- **Decision:** `docs/JOURNAL.md` records every event in the work (a contradiction found, an
+  ambiguity decided, a failure caught or missed, a change of direction, a measurement) as one entry
+  with fixed fields: who, class, intent, found, options, resolved, touched, caught by, cost. It is
+  not the commit log, not the status list and not the design; it is what happened while the work was
+  done. Whoever was there writes the entry, an agent its own, in the same commit as the event where
+  possible. Suite Builder keeps the same journal with the same fields (its G-162), so the two
+  histories can be counted and compared.
+- **Why:** Ghost, 2026-10-04: the methodology is being observed and formalized into standards, and a
+  researcher needs to count events, not read prose spread across `theGhost.md`, `DONE.md` and commit
+  messages. The journal's first thirteen entries are the day's own contradictions and their
+  resolutions, each already cited in a decision; a record that exists only as decisions loses the
+  failures that produced no decision (J-006, J-007, J-011).
+- **Held by:** `docs/JOURNAL.md`; a `JournalTest` (phase 1 tithe) that holds the ids sequential and
+  every entry to the field set.
+- **Source:** Ghost, 2026-10-04 (the brief to the Suite Builder session); recorded by Fable.
+- **Status:** in force
+- **See also:** R-008 (tithe), R-042 (who writes what)
+- **subject:** process
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-009 fixture
