@@ -67,3 +67,47 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/nist/Exec85.java:Exec85.switches` | no caller | 2026-10-04 |  |
 | oracle | `oracle/nist/DialectChanges.java:DialectChanges.causes` | called by `oracle/nist/DialectChanges.java:DialectChanges.check` and 1 more | 2026-10-04 |  |
 | oracle | `oracle/nist/DialectChanges.java:DialectChanges.measured` | called by `oracle/nist/DialectChanges.java:DialectChanges.causes` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Content.java:Content.Content` | no caller | 2026-10-04 |  |
+| oracle | `oracle/fixture/Content.java:Content.records` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.start` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/Content.java:Content.sha256` | called by `oracle/fixture/Fixture.java:Fixture.hash` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Content.java:Content.lines` | called by `oracle/fixture/Content.java:Content.records` and 15 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/Content.java:Content.padded` | called by `oracle/fixture/Content.java:Content.lines` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Content.java:Content.fixed` | called by `oracle/fixture/Content.java:Content.records` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.Step.name` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.refusals` and 9 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.Dd.name` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.refusals` and 9 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.Dd.attributes` | called by `oracle/fixture/Fixture.java:Fixture.canonical` and 7 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.read` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.place` | called by `oracle/fixture/Fixture.java:Fixture.read` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.card` | called by `oracle/fixture/Fixture.java:Fixture.read` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.canonical` | called by `oracle/fixture/Fixture.java:Fixture.read` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.quoted` | called by `oracle/fixture/Fixture.java:Fixture.canonical` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.first` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.environment` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.hash` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Fixture.java:Fixture.sha256` | called by `oracle/fixture/Content.java:Content.sha256` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.FixtureCheck` | no caller | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.refusals` | no caller | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` | no caller | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.environment` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.refusals` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.clock` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.environment` | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.form` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.refusals` | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.start` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.refusals` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.path` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.start` | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.records` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.start` and 1 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.keysFit` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.start` | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.Catalog.walk` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.refusals` | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.Catalog.step` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.Catalog.walk` | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.Catalog.generation` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.Catalog.step` | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.Catalog.use` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.Catalog.step` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Schema.java:Schema.Schema` | no caller | 2026-10-04 |  |
+| oracle | `oracle/fixture/Schema.java:Schema.specs` | no caller | 2026-10-04 |  |
+| oracle | `oracle/fixture/Schema.java:Schema.values` | called by `oracle/fixture/Fixture.java:Fixture.Step.name` and 8 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/Schema.java:Schema.ordered` | called by `oracle/fixture/Schema.java:Schema.specs` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Schema.java:Schema.line` | called by `oracle/fixture/Fixture.java:Fixture.read` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/Schema.java:Schema.attribute` | called by `oracle/fixture/Schema.java:Schema.line` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Schema.java:Schema.tokens` | called by `oracle/fixture/Schema.java:Schema.line` | 2026-10-04 |  |
+| oracle | `oracle/fixture/Schema.java:Schema.flush` | called by `oracle/fixture/Schema.java:Schema.tokens` | 2026-10-04 |  |
+| profile | `profile/Profile.java:Profile.Profile` | no caller | 2026-10-04 |  |
+| profile | `profile/Profile.java:Profile.read` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 2 more | 2026-10-04 |  |
+| profile | `profile/Profile.java:Profile.canonical` | called by `oracle/fixture/Fixture.java:Fixture.read` and 1 more | 2026-10-04 |  |
+| profile | `profile/Profile.java:Profile.hash` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` | 2026-10-04 |  |
+| profile | `profile/Profile.java:Profile.cobcArguments` | no caller | 2026-10-04 |  |

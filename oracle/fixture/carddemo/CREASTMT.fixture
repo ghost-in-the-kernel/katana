@@ -1,0 +1,71 @@
+# CardDemo's CREASTMT (carddemo:app/jcl/CREASTMT.JCL): define a work KSDS, sort the transactions by
+# card number into it (SORT, then IDCAMS REPRO), delete last run's statements, and write the text
+# and HTML statements with CBSTM03A, which calls CBSTM03B for its file access. The transaction KSDS
+# starts as POSTTRAN leaves it. CBSTM03A's CUSTREC copybook needs the tab policy (phase 1.4).
+#
+# The JCL's STMTFILE DD in STEP040 has stray text after its SPACE operand ("00,RECFM=FB),
+# ATA.VSAM.KSDS"); after a comma and a blank JCL reads the rest of the line as a comment, so it
+# changes nothing and is not carried here.
+job CREASTMT
+source carddemo:app/jcl/CREASTMT.JCL
+profile ibm sha256:52d692671d1cfaa5a0c2ad904b95afebee05e5c20773de44ffa7fcaa5edb2c88
+clock 2024-03-01 12:00:00.00 +00:00
+tz UTC
+module CBSTM03B
+stub CEE3ABD
+
+dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS org=KSDS lrecl=350 keys=16,0 from=job:POSTTRAN sha256=aed617444207a7ebd2684e589c8569f766fb5d1d8323a25a658f8c4c03020b48
+dataset AWS.M2.CARDDEMO.TRXFL.VSAM.KSDS org=KSDS lrecl=350 keys=32,0 defined-by=DELDEF01
+dataset AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS org=KSDS lrecl=50 keys=16,0 from=carddemo:app/data/ASCII/cardxref.txt framing=lines sha256=d49145cf821e7aae049706569b8bf90f6fb52e0fcc53e8099e39beb55e5c7056
+dataset AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS org=KSDS lrecl=300 keys=11,0 from=carddemo:app/data/ASCII/acctdata.txt framing=lines sha256=00a9fd689c9e572a60101afa688ab210f2f012f70040d219617d6134bb708649
+dataset AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS org=KSDS lrecl=500 keys=9,0 from=carddemo:app/data/ASCII/custdata.txt framing=lines sha256=173e9d1a43884190ce674613a5bedff90b95f863edec857a31671764c3c27d10
+
+step DELDEF01 pgm=IDCAMS
+dd SYSPRINT sysout
+dd SYSIN inline
+|   DELETE    AWS.M2.CARDDEMO.TRXFL.SEQ
+|   DELETE    AWS.M2.CARDDEMO.TRXFL.VSAM.KSDS                     -
+|             CLUSTER
+|   SET       MAXCC = 0
+|   DEFINE    CLUSTER  (NAME(AWS.M2.CARDDEMO.TRXFL.VSAM.KSDS)     -
+|                       KEYS(32 0)                                -
+|                       VOLUMES(TSU023)                           -
+|                       RECORDSIZE(350 350)                       -
+|                       SHAREOPTIONS(2 3)                         -
+|                       ERASE                                     -
+|                       INDEXED                                   -
+|                       CYL(1 5))                                 -
+|             DATA      (NAME(AWS.M2.CARDDEMO.TRXFL.DATA)         -
+|                       CISZ(4096))                               -
+|             INDEX     (NAME(AWS.M2.CARDDEMO.TRXFL.INDEX))
+
+step STEP010 pgm=SORT
+dd SORTIN dsn=AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS disp=SHR recfm=F lrecl=350 copybook=CVTRA05Y encoding=ascii
+dd SYSPRINT sysout
+dd SYSOUT sysout
+# The card number moved to the front: the statement programs' layout, keyed on card and transaction.
+dd SORTOUT dsn=AWS.M2.CARDDEMO.TRXFL.SEQ disp=NEW,CATLG,DELETE recfm=FB lrecl=350 copybook=COSTM01 encoding=ascii
+dd SYSIN inline
+|   SORT FIELDS=(263,16,CH,A,1,16,CH,A)
+|   OUTREC FIELDS=(1:263,16,17:1,262,279:279,50)
+
+step STEP020 pgm=IDCAMS cond=0,NE
+dd SYSPRINT sysout
+dd INFILE dsn=AWS.M2.CARDDEMO.TRXFL.SEQ disp=SHR recfm=FB lrecl=350 copybook=COSTM01 encoding=ascii
+dd OUTFILE dsn=AWS.M2.CARDDEMO.TRXFL.VSAM.KSDS disp=SHR recfm=F lrecl=350 copybook=COSTM01 encoding=ascii
+dd SYSIN inline
+|   REPRO INFILE(INFILE) OUTFILE(OUTFILE)
+
+step STEP030 pgm=IEFBR14 cond=0,NE
+dd HTMLFILE dsn=AWS.M2.CARDDEMO.STATEMNT.HTML disp=MOD,DELETE,DELETE recfm=FB lrecl=80 copybook=- encoding=ascii
+dd STMTFILE dsn=AWS.M2.CARDDEMO.STATEMNT.PS disp=MOD,DELETE,DELETE recfm=FB lrecl=80 copybook=- encoding=ascii
+
+step STEP040 pgm=CBSTM03A cond=0,NE
+dd SYSPRINT sysout
+dd SYSOUT sysout
+dd TRNXFILE dsn=AWS.M2.CARDDEMO.TRXFL.VSAM.KSDS disp=SHR recfm=F lrecl=350 copybook=COSTM01 encoding=ascii
+dd XREFFILE dsn=AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS disp=SHR recfm=F lrecl=50 copybook=CVACT03Y encoding=ascii
+dd ACCTFILE dsn=AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS disp=SHR recfm=F lrecl=300 copybook=CVACT01Y encoding=ascii
+dd CUSTFILE dsn=AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS disp=SHR recfm=F lrecl=500 copybook=CVCUS01Y encoding=ascii
+dd STMTFILE dsn=AWS.M2.CARDDEMO.STATEMNT.PS disp=NEW,CATLG,DELETE recfm=FB lrecl=80 copybook=- encoding=ascii
+dd HTMLFILE dsn=AWS.M2.CARDDEMO.STATEMNT.HTML disp=NEW,CATLG,DELETE recfm=FB lrecl=100 copybook=- encoding=ascii

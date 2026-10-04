@@ -2,12 +2,20 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0, 1.1 and 1.2 are done.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.3 are done.
 
-Phases 1.1 and 1.2 are done. Next: phase 1.3, the job fixture model.
+Phases 1.1 to 1.3 are done. Next: phase 1.4, the cobc lane; R-009 below should be settled first.
 
 ## Waiting on Ghost
 
+- R-009, the fixture schema (docs/FIXTURE.md, built in 1.3; the roadmap records R-009 in phase 1).
+  Three choices in it are Ghost's, and 1.4 builds on them: (1) a clock pinned to seconds alone is
+  refused by the schema (FIXTURE-03, from 1.3's "with hundredths and zone"), so 1.6's check, a
+  seconds-only run that the gate must fail, has to set its clock outside a fixture (J-030); (2)
+  TRANREPT's fixture is the JCL as written, dates 2022-01-01 to 2022-07-06, which select none of
+  POSTTRAN's transactions; the frozen hashes 1.4 must reproduce came from 2024-03-01 to 2024-03-01
+  (J-031), so 1.4 needs either a fixture with the study's dates or new frozen hashes; (3) the
+  profile carries no IBM option fields until the manuals are read (J-029).
 - Counsel on R-002's license texts and R-015 (EPL-2.0 grammars), before any copy leaves the repo.
 - Counsel on JUnit 5 (EPL-2.0, vendored for tests only, unmodified, never shipped): a lighter
   question than R-015's che4z grammars, which would be modified and shipped inside the compiler. The

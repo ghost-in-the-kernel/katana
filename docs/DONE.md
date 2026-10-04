@@ -101,3 +101,18 @@ measured alone on the cobol85 run and must add up to the run's: `arithmetic-osvs
 seven programs), `binary-truncation` (8, three), `section-segments` (31, four). Seven programs use a
 word the IBM dialect reserves (CHAR, NOTHING) and no longer compile; one follows a chain that does.
 CI runs each dialect in its own step, each under 3 minutes.
+
+### 1.3 The job fixture model
+
+`docs/FIXTURE.md` is the schema; `oracle/fixture/` reads and checks a fixture against it, and
+`FixtureDocTest` holds the two to each other. A fixture is a text file of lines (job, profile by
+hash, clock, TZ, modules, stubs, the datasets that exist at the start and their records by SHA-256,
+steps with PGM, PARM and COND, DDs with dataset, disposition, record format, copybook and encoding,
+inline cards, gold), addressed by the SHA-256 of its canonical text. The four CardDemo jobs are in
+`oracle/fixture/carddemo/` with no refusal; a fixture with no clock, or with seconds only, or with
+no zone, is refused (`FixtureTest`), as is a breach of each other invariant (FIXTURE-01 to 08). The 18 sources they cite
+hash to what they say (`FixtureSourcesIntegrationTest`, in CI's nist job); CardDemo is now fetched
+at a pinned commit. The fixture carries a profile hash, so `profile/` was built as far as a fixture
+needs it (`docs/PROFILE.md`): compiler, version, dialect and flags, mapped to cobc arguments and
+hashed; the IBM option fields wait for the manuals. Three choices wait on Ghost as R-009
+(docs/HANDOFF.md).

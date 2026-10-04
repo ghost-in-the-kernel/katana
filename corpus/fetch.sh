@@ -16,7 +16,8 @@ p() {
   [ -d "$2" ] || { git init -q "$2" && git -C "$2" fetch -q --depth 1 "$1" "$3" && git -C "$2" checkout -q FETCH_HEAD; }
   [ "$(git -C "$2" rev-parse HEAD)" = "$3" ] || { echo "$2 is not at $3" >&2; exit 1; }
 }
-c https://github.com/aws-samples/aws-mainframe-modernization-carddemo carddemo
+# CardDemo: pinned, since the fixtures in oracle/fixture/carddemo/ hold its data by hash (phase 1.3).
+p https://github.com/aws-samples/aws-mainframe-modernization-carddemo carddemo 59cc6c2fd7ebd7ef7925cad552a01a4b8b6e4d5e
 c https://github.com/AnyEvalOrg/eval-nist-cobol85 eval-nist-cobol85
 # GnuCOBOL's source is never fetched whole (R-045: its code stays off every screen while Katana's
 # equivalent is written). Phase 3 fetches only tests/testsuite.src, the autotests, by sparse checkout:

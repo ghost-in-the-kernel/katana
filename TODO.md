@@ -8,11 +8,6 @@ the first open item has a check.
 
 ## Phase 1: the oracle and the corpus
 
-### 1.3 The job fixture model
-
-Check: the four CardDemo jobs (POSTTRAN, TRANREPT, INTCALC, CREASTMT) are expressible; a fixture
-with an unpinned clock is refused.
-
 ### 1.4 The cobc lane
 
 Check: POSTTRAN and TRANREPT reproduce the frozen hashes from F-02 (`aed61744…` TRANFILE unload;

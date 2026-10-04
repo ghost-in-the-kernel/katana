@@ -98,6 +98,7 @@ public final class DialectChanges {
         return byKey;
     }
 
+    /** Whether a run reads the same under both dialects: its outcome and every count in its footer. */
     private static boolean same(Reconciliation.Run a, Reconciliation.Run b) {
         return b != null && a.outcome().equals(b.outcome()) && a.total() == b.total() && a.pass() == b.pass()
                 && a.fail() == b.fail() && a.deleted() == b.deleted() && a.inspect() == b.inspect();

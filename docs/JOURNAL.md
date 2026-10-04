@@ -317,3 +317,66 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   "Functions over 20 paths is 1, worse than the 0.0 recorded".
 - **Resolved:** split into `check`, `causes` and `measured`; no limit raised.
 - **Caught by:** `MetricsTest`, on the first run. **Cost:** one fast loop.
+
+### J-029 The profile is built in 1.3, as far as a fixture needs
+- **Who:** Opus. **Class:** ambiguity.
+- **Intent:** Phase 1.3, the fixture's "profile hash".
+- **Found:** the roadmap's 1.3 builds the fixture model only; `docs/PROFILE.md` says `profile/` is
+  filled "in phase 1.3, where a fixture first carries the hash". A hash needs a profile to hash.
+- **Options:** a placeholder hash until a later step builds `profile/`; the whole profile now; the
+  profile as far as can be stated from what was measured.
+- **Resolved:** the last: compiler, version, dialect and GnuCOBOL flags, their cobc arguments and the
+  hash (PROFILE-01 to 03). TRUNC, ARITH, NUMPROC, code page and collating sequence are not fields
+  yet: their IBM meaning is in the manuals the study could not reach, and a field added later is a
+  new profile with a new hash. No new module or import: `profile` was in `modules.json`, and
+  `oracle` may import it.
+- **Touched:** `profile/`, `docs/PROFILE.md`, `CLAUDE.md`.
+
+### J-030 Phase 1.3 refuses the clock phase 1.6 needs
+- **Who:** Opus; for Ghost to settle as R-009. **Class:** contradiction.
+- **Intent:** Phase 1.3's check, "a fixture with an unpinned clock is refused".
+- **Found:** 1.3 defines the environment as `COB_CURRENT_DATE` "with hundredths and zone"; 1.6's
+  check runs the gate "with the clock pinned to seconds only" and expects it to fail at TRANFILE
+  column 326. If the schema refuses a seconds-only clock, 1.6 cannot express its run as a fixture;
+  if it accepts one, the schema lets F-02's leak through to the gate.
+- **Options:** refuse seconds alone (the gate's test sets its clock outside a fixture); accept it and
+  leave it to the gate.
+- **Resolved:** refused (FIXTURE-03), since 1.3's own words ask for hundredths and zone and a
+  refusal before the run is cheaper than a gate failure after two; written in `HANDOFF.md` as one of
+  R-009's choices for Ghost.
+- **Touched:** `docs/FIXTURE.md`, `oracle/fixture/FixtureCheck.java`, `HANDOFF.md`.
+
+### J-031 The study's TRANREPT run did not use the JCL's dates
+- **Who:** Opus. **Class:** contradiction.
+- **Intent:** Phase 1.3, expressing TRANREPT.
+- **Found:** TRANREPT's SORT keeps transactions processed from 2022-01-01 to 2022-07-06. POSTTRAN
+  under the pinned clock dates all 257 of its transactions 2024-03-01, so that range keeps none. The
+  study's frozen sort output holds all 257 (every TRAN-PROC-DT 2024-03-01) and its report says
+  "Reporting from 2024-03-01 to 2024-03-01": its SORT emulation and DATEPARM used that date. The
+  hashes 1.4 must reproduce (`a7d14a96…`, `19b7f04f…`) are of that run, not the JCL's. DATEPARM
+  itself is not in CardDemo.
+- **Options:** write the fixture as the JCL says; write it as the study ran it.
+- **Resolved:** as the JCL says, with DATEPARM stating the JCL's range and a comment saying both;
+  which run 1.4 reproduces is Ghost's (HANDOFF, R-009).
+- **Touched:** `oracle/fixture/carddemo/TRANREPT.fixture`, `DATEPARM`, `HANDOFF.md`.
+
+### J-032 Four things the study said about CardDemo, checked
+- **Who:** Opus. **Class:** measurement.
+- **Intent:** Phase 1.3, the CardDemo fixtures.
+- **Found:** (1) `cardxref.txt` is fifty 36-byte lines, not one short line among 50-byte records;
+  padded to 50 its records are the study's `cardxref.seq` exactly, as are the eight other data
+  files under the fixture's framing. (2) CREASTMT's STMTFILE DD has stray text after its SPACE
+  operand; after a comma and a blank JCL reads it as a comment, so it changes nothing. (3) INTCALC's
+  XREFFIL1 is the alternate index's path, named by IBM's convention after XREFFILE; CBACT04C never
+  assigns it. (4) CardDemo was fetched at whatever its head was; the fixtures hash its data, so it
+  is now pinned (`59cc6c2f`).
+- **Touched:** `corpus/fetch.sh`, `corpus/MANIFEST.md`, the four fixtures.
+
+### J-033 The first test run caught two of mine
+- **Who:** Opus. **Class:** failure-caught.
+- **Intent:** Phase 1.3, the fixture tests.
+- **Found:** `java.time` parsed `2024-02-30` as February 29 under its default resolver, so an
+  impossible clock was accepted; and a KSDS defined by a step was refused for having keys, which
+  are its structure, not its records. Also, JUnit's parameterized-test jar is not vendored.
+- **Resolved:** the strict resolver; keys moved out of the content attributes; a loop for the four
+  jobs. **Caught by:** `FixtureTest`, on its first run. **Cost:** one run.

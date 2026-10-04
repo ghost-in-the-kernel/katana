@@ -22,6 +22,8 @@ ODO = `OCCURS ... DEPENDING`, C3 = COMP-3/COMPUTATIONAL-3, GOTO = `GO TO`, ALTER
 ### aws-mainframe-modernization-carddemo
 - URL: https://github.com/aws-samples/aws-mainframe-modernization-carddemo
 - License: Apache-2.0 (LICENSE + NOTICE). Redistributable.
+- Fetched by `fetch.sh` at commit `59cc6c2f` (2025-10-16): the fixtures in `oracle/fixture/carddemo/`
+  hold its data by hash (phase 1.3).
 - Dialect: IBM Enterprise COBOL for z/OS (CICS, BMS, VSAM KSDS/AIX, DB2, IMS, MQ options).
 - Counts: 44 COBOL programs (30,175 lines), 62 copybooks (`app/cpy`, `app/cpy-bms`), 61 JCL
   (`app/jcl`, `app/proc`, `samples/jcl`), 21 BMS maps, 8 DDL, 12 EBCDIC datasets + 9 ASCII data files.
