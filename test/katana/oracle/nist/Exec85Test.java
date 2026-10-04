@@ -26,7 +26,7 @@ class Exec85Test {
 
     @Test
     void exec85NamesItsOwnFiveFiles() {
-        List<Population.Member> population = List.of(new Population.Member("COBOL", "EXEC85", "EXEC85", List.of(
+        List<Population.Member> population = List.of(new Population.Member("COBOL", "EXEC85", "EXEC85", "", List.of(
                 "002600     ASSIGN TO", "002700     XXXXX001.", "003000     XXXXX002", "003400     XXXXX003.",
                 "003700     XXXXX055.", "004000     XXXXX058.")));
         assertEquals(List.of("002600     ASSIGN TO", "002700     \"population.dat\".", "003000     \"source.dat\"",
@@ -44,7 +44,7 @@ class Exec85Test {
 
     @Test
     void anUndefinedCardCountsOnlyInLiveCode() {
-        List<Population.Member> extracted = List.of(new Population.Member("COBOL", "SQ219A", "SQ219A", List.of(
+        List<Population.Member> extracted = List.of(new Population.Member("COBOL", "SQ219A", "SQ219A", "", List.of(
                 "004200     **** X-CARD UNDEFINED ****.",
                 "004300*C   **** X-CARD UNDEFINED ****")));
         assertEquals(List.of("SQ219A 004200"), Exec85.undefined(extracted));

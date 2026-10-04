@@ -1,0 +1,15 @@
+# The NIST run's expected rows, per module: the study's run under GnuCOBOL 3.1.2 (oracle/prototypes/nist/summary.log),
+# matching GnuCOBOL's published summary; R-044. A row is: module, programs run, executed, compile errors, crashes,
+# then tests passed, failed, deleted, needing inspection, and in all.
+NC 95 95 0 0 4393 0 4 1 4398
+SM 17 17 0 0 291 0 2 1 294
+IC 25 25 0 0 246 0 4 0 250
+SQ 85 85 0 0 518 0 0 89 607
+RL 35 35 0 0 1827 0 5 0 1832
+IX 42 42 0 0 507 0 1 0 508
+ST 40 40 0 0 288 0 0 0 288
+SG 13 13 0 0 310 0 0 0 310
+OB 7 7 0 0 39 0 0 0 39
+IF 45 45 0 0 733 0 0 0 733
+RW 6 6 0 0 40 0 0 0 40
+DB 16 16 0 0 418 0 4 27 449

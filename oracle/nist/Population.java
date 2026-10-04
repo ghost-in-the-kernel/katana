@@ -12,8 +12,12 @@ import java.util.List;
  * EXEC85's output holds the same members with both cards indented six places into comments (3.5.3).
  */
 public final class Population {
-    /** One member: its kind, its name, the main program it belongs to (its own name if it is one), its lines. */
-    public record Member(String kind, String name, String owner, List<String> lines) {}
+    /**
+     * One member: its kind, its name, the main program it belongs to (its own name if it is one), its
+     * role under that program ("" for a main, SUBPRG for a program run after it, SUBRTN for one it
+     * CALLs), and its lines.
+     */
+    public record Member(String kind, String name, String owner, String role, List<String> lines) {}
 
     private static final String HEADER = "*HEADER,";
     private static final String END = "*END-OF,";
@@ -35,7 +39,7 @@ public final class Population {
             } else if (card.startsWith(END)) {
                 String name = card.substring(END.length()).trim();
                 if (header == null || !header[header.length - 1].equals(name)) throw new IllegalArgumentException("*END-OF," + name + " closes no open member");
-                members.add(new Member(header[0], name, header[1], List.copyOf(body)));
+                members.add(new Member(header[0], name, header[1], header.length == 4 ? header[2] : "", List.copyOf(body)));
                 header = null;
             } else if (header != null) {
                 body.add(line);

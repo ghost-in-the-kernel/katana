@@ -30,9 +30,18 @@ public final class Cobc {
         this.limit = limit;
     }
 
-    /** Compiles a source in a folder into an executable named after it, under COBOL 85 (`-std=cobol85`). */
+    /** Compiles a source in a folder into an executable (`-x`) named after it, under COBOL 85. */
     public Result compile(Path dir, String source, List<String> flags) {
-        List<String> command = new ArrayList<>(List.of("cobc", "-std=cobol85", "-x"));
+        return cobc(dir, source, "-x", flags);
+    }
+
+    /** Compiles a source in a folder into a module another program CALLs (`-m`), under COBOL 85. */
+    public Result compileModule(Path dir, String source, List<String> flags) {
+        return cobc(dir, source, "-m", flags);
+    }
+
+    private Result cobc(Path dir, String source, String kind, List<String> flags) {
+        List<String> command = new ArrayList<>(List.of("cobc", "-std=cobol85", kind));
         command.addAll(flags);
         command.add(source);
         return run(dir, command, Map.of());

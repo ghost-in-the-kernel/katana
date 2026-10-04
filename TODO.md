@@ -30,6 +30,12 @@ Built in steps, each its own commit (any agent may take the next open one; the s
 - **1.1e The module runs.** Each module's programs compiled and run under `cobc -std=cobol85` in
   NIST's order (Appendix B's dependencies, IC's subprograms, SM's copy libraries, DB twice, the
   data files), compile errors and crashes counted. Check: each module's row equals the golden.
+  In progress (branch, not main): `oracle/nist/ModuleRun.java` runs every module in 68 s; IC, RL, SG
+  and RW equal the golden. The rest differ by (A) the runner's environment (DB's debugging switches,
+  card input, some X-cards: Katana's to fix) and (B to E) conventions of GnuCOBOL's harness seen only
+  in its outputs: the 1989 `ALL` subscript in 12 IF programs that no `cobc -std` accepts, tests
+  "requiring inspection" counted as passes, programs with no tests counted as one pass, DB103M's two
+  runs counted together. Waiting on Ghost: whether the golden follows those conventions (HANDOFF).
 - **1.1f The summary and CI.** `gradle integration` prints the summary and compares it with the
   golden; a CI job fetches the corpus, then runs it with the network off. Check: the item's own.
 

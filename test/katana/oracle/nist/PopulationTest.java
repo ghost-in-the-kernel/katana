@@ -29,11 +29,12 @@ class PopulationTest {
     void readsEachMemberWithItsKindQualifiersAndLines() {
         List<Population.Member> members = Population.read(POPULATION);
         assertEquals(5, members.size());
-        assertEquals(new Population.Member("COBOL", "NC101A", "NC101A",
+        assertEquals(new Population.Member("COBOL", "NC101A", "NC101A", "",
                 List.of("000100 IDENTIFICATION DIVISION.                                         NC1014.2")), members.get(0));
         assertEquals("CLBRY", members.get(1).kind());
         assertEquals("IC102A", members.get(2).name());
         assertEquals("IC101A", members.get(2).owner());
+        assertEquals("SUBPRG", members.get(2).role());
         assertEquals(2, members.get(2).lines().size());
         assertEquals("ST140A", members.get(3).name());
         assertEquals("DATA*", members.get(4).kind());
