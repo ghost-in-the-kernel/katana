@@ -258,6 +258,22 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-007, R-042
 - **subject:** architecture
 
+### R-044: NIST in CI is Katana's own harness, written from NIST's public-domain material
+- **Decision:** Phase 1.1 builds the NIST run in Java in `oracle/` (option B): extraction of the
+  programs from `newcob.val`, the per-module runs under `cobc`, the reading of each program's report
+  and the summary are Katana's code, written from NIST's public-domain material only (`newcob.val`,
+  its EXEC85 program, the CCVS85 documentation) and from observed outputs (the study's run, the
+  published totals `Total 426 426 0 0 9610 0 20 118 9748`). GnuCOBOL's NIST harness (`expand.pl`,
+  `report.pl`, `summary.pl`, its Makefile templates) is neither copied nor read while writing it.
+- **Why:** The oracle ships as source-available (R-002), so it cannot depend on GPL scripts; running
+  GnuCOBOL's harness from a fetched tree (option A) would have met 1.1's check sooner and then had to
+  be replaced. Writing it without reading the GPL scripts keeps the result clean of them.
+- **Held by:** `oracle/` (no GPL text, no GPL logic); 1.1's check in CI.
+- **Source:** Opus proposed during 1.1; decided by Ghost, 2026-10-04.
+- **Status:** in force
+- **See also:** R-002, R-003
+- **subject:** oracle-lane
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-009 fixture
