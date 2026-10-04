@@ -440,9 +440,18 @@ R-008 the tithe cadence and metrics.
 The first deliverable and the first thing sellable. Nothing in `sir/` or `lower/` begins until 1.6
 passes.
 
-1.1 **Reproduce NIST in CI.** `oracle/nist`: EXEC85 extraction from `newcob.val`, per-module config,
-    `expand`/`report`/`summary`; run under `-std=cobol85` to `Total 426 426 0 0 9610 0 20 118 9748`.
-    *Check:* the summary diff against GnuCOBOL's shipped summary is empty, in CI, under 3 minutes.
+1.1 **Run NIST in CI, by NIST's own semantics (R-044, R-047).** `oracle/nist`: Katana's own harness,
+    written from the NIST CCVS85 User Guide: EXEC85 from the pinned `newcob.val`, the population
+    read, control cards per module, mains with their SUBPRG members, SUBRTN members as called modules,
+    copy members placed, the two data members as card input, DB103M's two runs counted separately.
+    The golden is what each program's footer reports under Katana's profile; a program `cobc` cannot
+    compile is a compile finding, "requires inspection" is inspection, no tests is no tests. The study's
+    published total (`Total 426 426 0 0 9610 0 20 118 9748`, GnuCOBOL's harness, F-01) is a
+    cross-check, not a target.
+    *Check:* `oracle/nist/RECONCILIATION.md` lists every program whose outcome differs from the
+    study's recorded per-program outcome with a reason from a fixed list (compile finding: dialect;
+    inspection not counted as pass; zero tests not counted as one; two runs not summed; environment);
+    a difference with no line fails the test; the run completes in CI under 3 minutes.
 1.2 **Run NIST under `-std=ibm`** and record every change (F-01's open question). Each difference is
     either a GnuCOBOL IBM-dialect behaviour the profile must model or a test the suite marks
     dialect-dependent.

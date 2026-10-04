@@ -138,3 +138,23 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   session was told the same through this file's creation. Behaviour before and after this point is
   under different conditions and should be compared with that in mind.
 - **Touched:** this journal (R-046); Suite Builder G-162.
+
+### J-014 What the NIST golden means
+- **Who:** Opus raised, with both options and a lean; Ghost decided with Fable. **Class:** ambiguity →
+  decision.
+- **Intent:** Phase 1.1e, the module runs; all twelve modules running under cobc in 68 s.
+- **Found:** four modules matched the study's golden exactly (IC, RL, SG, RW); the rest differed in
+  counts; four conventions of GnuCOBOL's harness were visible only in the study's outputs and stated
+  nowhere (IF's `ALL` subscript credited as passing; inspection as pass; zero tests as one pass; DB103M
+  summed). Also: SM207A shows X-48's library must hold ALTL1's text under the name ALTLB (the two
+  alternate libraries had been the wrong way round).
+- **Options:** copy the conventions and reproduce the published total exactly; follow NIST's own
+  semantics and reconcile every difference.
+- **Resolved:** NIST's semantics (R-047); the 1.1 check becomes "every difference explained".
+  Opus's branch (cc99173) could not merge under R-040 until this was decided; the environment fixes
+  (DB switches, card-input programs, IX216A–218A, SQ) continue regardless.
+- **Touched:** R-047, ROADMAP 1.1, `RECONCILIATION.md` (to be written).
+- **Note:** the implementing agent stopped at a decision that was not its own, kept the work off main,
+  and kept working on the part that was independent of the decision. That is R-043's behaviour
+  generalized, and the pattern the journal exists to count.
+

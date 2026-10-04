@@ -318,6 +318,29 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-008 (tithe), R-042 (who writes what)
 - **subject:** process
 
+### R-047: Katana's NIST golden means what NIST says, not what GnuCOBOL's harness counted
+- **Decision:** The NIST golden records, per program, what the program's own footer reports under
+  Katana's pinned profile. A program `cobc` cannot compile is a compile finding (P-03), not a pass; a
+  test NIST marks "REQUIRE INSPECTION" is counted as inspection; a program reporting no tests is
+  counted as none; DB103M's two runs are two results. The study's published total under GnuCOBOL's
+  harness (F-01) is a cross-check: `oracle/nist/RECONCILIATION.md` names every program whose outcome
+  differs and the reason, from a fixed list, and an unexplained difference fails the test. The 1.1
+  check changes from "summary diff empty" to "every difference explained".
+- **Why:** Opus, 1.1e: four of GnuCOBOL's harness conventions are visible only in the study's outputs
+  and stated nowhere (twelve IF programs using the 1989 amendment's `FUNCTION MAX(IND(ALL))`, which no
+  `cobc -std` accepts, credited with every test passed; inspection counted as pass; zero tests counted
+  as one pass; DB103M summed). Reproducing them would reverse-engineer a GPL harness through its
+  outputs (R-045) and bake undocumented choices into the oracle's foundation. From phase 3 the Java
+  lane is compared against the cobc lane per program, so the golden's meaning must be the one written
+  down, and NIST's is. "Every difference explained" is the stronger check: an empty diff can hide a
+  wrong convention; a reconciliation line cannot.
+- **Held by:** `oracle/nist/RECONCILIATION.md` and its test; docs/ROADMAP.md 1.1.
+- **Source:** Opus raised it with both options and a lean, 2026-10-04; decided by Ghost with Reviewer
+  G, for the option Opus leaned to.
+- **Status:** in force
+- **See also:** R-044, R-045, P-03
+- **subject:** oracle-lane
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-009 fixture
