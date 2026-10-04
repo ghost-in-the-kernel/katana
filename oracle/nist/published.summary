@@ -1,5 +1,6 @@
-# The NIST run's expected rows, per module: the study's run under GnuCOBOL 3.1.2 (oracle/prototypes/nist/summary.log),
-# matching GnuCOBOL's published summary; R-044. A row is: module, programs run, executed, compile errors, crashes,
+# The published NIST rows, per module: the study's run under GnuCOBOL 3.1.2 and its harness (F-01;
+# oracle/prototypes/nist/summary.log, matching GnuCOBOL's published summary). Not Katana's golden (R-047):
+# the cross-check RECONCILIATION.md is held to. A row is: module, programs run, executed, compile errors, crashes,
 # then tests passed, failed, deleted, needing inspection, and in all.
 NC 95 95 0 0 4393 0 4 1 4398
 SM 17 17 0 0 291 0 2 1 294

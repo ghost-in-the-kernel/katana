@@ -253,3 +253,28 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   card lines), SM206A (a debug line in COPY text), OBNC1M (STOP literal with no operator), the IF
   `ALL` subscript, DB205A (communications): cobc's own behaviour, for the reconciliation (R-047).
 - **Touched:** `oracle/nist/run-notes`, `RunNotes.java`, `ModuleRun.java`, `Cobc.java` (input).
+
+### J-024 The reconciliation is a computation, not a list
+- **Who:** Opus. **Class:** decision.
+- **Intent:** Phase 1.1e, R-047's "every difference explained".
+- **Found:** listing each differing program with a reason can still leave a difference unaccounted
+  for; the published summary gives per-program numbers only for main programs, so subprogram
+  differences show only in module totals.
+- **Options:** a reviewed list; reasons as rules applied to the golden, checked against the published
+  rows.
+- **Resolved:** eight reasons, four of them rules (`inspection-as-pass`, `deleted-as-pass`,
+  `none-as-one`, `runs-summed`) and four that state the published outcome (`cobc-rejects`,
+  `cobc-behaviour`, `source-altered`, `not-supported`); `ReconciliationTest` applies the 45 lines and
+  must rebuild all twelve published rows exactly. Removing one line fails it, naming the module.
+- **Touched:** `oracle/nist/Reconciliation.java`, `RECONCILIATION.md`, `programs.golden`,
+  `published.summary`.
+
+### J-025 The published run counted a test NIST's source does not run
+- **Who:** Opus. **Class:** measurement.
+- **Intent:** Phase 1.1e, reconciling NC217A.
+- **Found:** NIST comments out STR-TEST-GF-4's STRING statement and deletes the test ("ANSC
+  INTERPRETATION"); under the same cobc the published run counts 82 tests passed to the source's 81
+  run and 1 deleted. The published harness ran altered source.
+- **Resolved:** a reason of its own, `source-altered`, rather than folding it into cobc's behaviour.
+  The tests NIST deletes and the published run counts as passes (NC174A, SM208A, SQ106A) may be the
+  same alteration seen without a change of total. **Touched:** `RECONCILIATION.md`.

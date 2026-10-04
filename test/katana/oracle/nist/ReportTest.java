@@ -32,6 +32,11 @@ class ReportTest {
     }
 
     @Test
+    void aManualProgramsFooterIsInspectionAndDeletions() throws Exception {
+        assertEquals(Optional.of(new Report.Counts(15, 0, 0, 0, 15)), Report.read(report("NC113M")));
+    }
+
+    @Test
     void someFailed() throws Exception {
         // No program failed a test in the study's run; this footer is NC101A's with two failures written in.
         String failed = report("NC101A").replace("093 OF 093", "091 OF 093").replace("NO  TEST(S) FAILED", "002 TEST(S) FAILED");

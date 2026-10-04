@@ -27,13 +27,9 @@ Built in steps, each its own commit (any agent may take the next open one; the s
 - ~~1.1d The report reader~~ done: `oracle/nist/Report.java` reads the four footer lines every NIST
   routine prints (counts in three-character fields, "NO " for zero); real runs of NC101A, NC105A and
   SQ201M under cobc give the study's counts for them (93/93; 132/129, 3 deleted; 23/12, 11 inspect).
-- **1.1e The module runs.** Each module's programs compiled and run under `cobc -std=cobol85` in
-  NIST's order (Appendix B's dependencies, IC's subprograms, SM's copy libraries, DB twice, the
-  data files), compile errors and crashes counted. Check: each module's row equals the golden.
-  In progress (branch, not main): `oracle/nist/ModuleRun.java` runs every module; Katana's own
-  environment is fixed (DB's debugging switch and absent files from `oracle/nist/run-notes`, card
-  input on standard input, X-91): no test fails but in NC204M, SM206A and OBNC1M, cobc's own
-  behaviour. Next: the per-program golden under R-047, and `oracle/nist/RECONCILIATION.md` with its test.
+- ~~1.1e The module runs~~ done: `oracle/nist/ModuleRun.java` runs every module under cobc (426 runs,
+  about 70 s); `programs.golden` records each run (R-047); `RECONCILIATION.md` explains every difference
+  from the published summary in 45 lines and `ReconciliationTest` rebuilds all twelve published rows.
 - **1.1f The summary and CI.** `gradle integration` prints the summary and compares it with the
   golden; a CI job fetches the corpus, then runs it with the network off. Check: the item's own.
 

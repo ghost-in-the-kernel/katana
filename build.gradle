@@ -81,6 +81,8 @@ tasks.register('integration', Test) {
         includeTags 'integration'
     }
     systemProperty 'katana.root', rootDir.absolutePath
+    // `-Dkatana.record=true` rewrites the integration goldens from the run (their diff is the review).
+    systemProperty 'katana.record', System.getProperty('katana.record', 'false')
     outputs.upToDateWhen { false }
     testLogging {
         events = ['passed', 'failed', 'skipped']

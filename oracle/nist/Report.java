@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
  * "nnn OF mmm  TESTS WERE EXECUTED SUCCESSFULLY", then "nnn TEST(S) FAILED", "... DELETED" and
  * "... REQUIRE INSPECTION", each count a three-character field that reads "NO " for zero. The counts
  * are taken from those lines, never from the per-test lines, whose headings repeat the same words.
+ * NIST's manual programs end with a second form, two lines only: "nn TESTS REQUIRE VISUAL
+ * INSPECTION" and "nn TESTS DELETED" (NC113M); every test there is inspection or deleted.
  */
 public final class Report {
     /** A routine's own count of its tests: how many in all, and how many passed, failed, were deleted or need a person. */
@@ -20,6 +22,8 @@ public final class Report {
     private static final Pattern FAILED = footer("TEST\\(S\\) FAILED");
     private static final Pattern DELETED = footer("TEST\\(S\\) DELETED");
     private static final Pattern INSPECT = footer("TEST\\(S\\) REQUIRE INSPECTION");
+    private static final Pattern VISUAL = footer("TESTS REQUIRE VISUAL INSPECTION");
+    private static final Pattern VISUAL_DELETED = footer("TESTS DELETED");
 
     private Report() {}
 
@@ -34,13 +38,22 @@ public final class Report {
         MatchResult failed = last(FAILED, text);
         MatchResult deleted = last(DELETED, text);
         MatchResult inspect = last(INSPECT, text);
-        if (executed == null || failed == null || deleted == null || inspect == null) return Optional.empty();
+        if (executed == null || failed == null || deleted == null || inspect == null) return visual(text);
         return Optional.of(new Counts(count(executed.group(2)), count(executed.group(1)), count(failed.group(1)),
                 count(deleted.group(1)), count(inspect.group(1))));
     }
 
     private static Pattern footer(String words) {
-        return Pattern.compile("(?m)^\\s*(\\d{1,3}|NO )\\s+" + words);
+        return Pattern.compile("(?m)^\\s*(\\d{1,3}|NO)\\s+" + words);
+    }
+
+    /** The manual programs' footer: every test either needs a person or was deleted. */
+    private static Optional<Counts> visual(String text) {
+        MatchResult inspect = last(VISUAL, text);
+        MatchResult deleted = last(VISUAL_DELETED, text);
+        if (inspect == null || deleted == null) return Optional.empty();
+        int i = count(inspect.group(1)), d = count(deleted.group(1));
+        return Optional.of(new Counts(i + d, 0, 0, d, i));
     }
 
     /** The last match of a pattern in a text, or null when there is none. */

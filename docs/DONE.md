@@ -69,3 +69,12 @@ say otherwise, naming their main program first and themselves last
 (`*HEADER,COBOL,IC101A,SUBPRG,IC102A`), and two headers carry sequence text past column 72. Found
 by reading the real file rather than trusting the description; the reader's count (512: 459
 programs, 51 copy members, 2 data files) now says which is true.
+
+### 1.1e The module runs (a step of 1.1, which is still open)
+
+`oracle/nist/ModuleRun.java` runs all twelve modules under cobc as NIST's guide says (mains in order
+with their SUBPRG chains, SUBRTN modules, copy libraries, data on standard input, DB103M twice), with
+the per-program conditions in `run-notes`. Katana's own environment took failed tests from 329 to 5.
+`programs.golden` (426 runs) is what each footer reports (R-047); `RECONCILIATION.md` explains every
+program that differs from the published summary with one of eight reasons, four of them rules the
+test applies, and `ReconciliationTest` rebuilds every published row exactly.
