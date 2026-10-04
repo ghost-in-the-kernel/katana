@@ -48,3 +48,13 @@ Found on the way: `gradle test` skipped the doc tests after a doc-only change, b
 declared inputs were its classes and not the documents they read, so a broken document passed
 locally (CI, from a fresh clone, was never fooled). Found by deleting a module file in a scratch clone
 and watching the build stay green; fixed in its own commit, the test task now always runs.
+
+### 0.7 Tithe pass 0
+
+Three fresh-agent trials ("add a module"). The first two read "add" as permission, reached
+`docs/modules.json` 4th and 5th and changed files; between and after them: the `adding` line in
+`docs/modules.json`, the routing row naming it, `settings.gradle` saying modules are not Gradle
+subprojects, the module count kept only in `modules.json`, stale test names fixed, and R-043 (a new
+module is proposed, not added). The third, phrased as a proposal and asked by a contributor, passed:
+`CLAUDE.md` then `docs/modules.json`, nothing changed, §3.3 named as Ghost's. Metrics recorded in
+`docs/AGENT.md` at tithe pass 0. Phase 0 is done.

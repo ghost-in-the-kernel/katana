@@ -6,20 +6,6 @@ section 6, by the same number; its check is the roadmap's, copied here. A done i
 docs/DONE.md with its number kept. `test/TodoTest.java` holds this file: headings in numeric order, and
 the first open item has a check.
 
-## Phase 0: founding
-
-### 0.7 Tithe pass 0
-
-Run twice (2026-10-04). Both agents opened `CLAUDE.md` first, then `settings.gradle` and `build.gradle`,
-reaching `docs/modules.json` 4th and 5th and reading 18 and 20 files; neither stopped. Fixed between
-runs: the `adding` line in `docs/modules.json` (the second agent followed it exactly), the module
-count out of the glossary, stale test names; after the second, `settings.gradle` says modules are not
-Gradle subprojects. Open, for Ghost: whether a task that asks for a module is Ghost's word for it
-("then stop"), and the "thirteen" left in ROADMAP 3.3 and R-042's Decision text.
-
-Check: the fresh-agent trial on the empty project ("add a module") opens `CLAUDE.md`, then
-`docs/modules.json`, then stops.
-
 ## Phase 1: the oracle and the corpus
 
 ### 1.1 Reproduce NIST in CI

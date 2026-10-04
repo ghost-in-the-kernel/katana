@@ -2,17 +2,18 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Done so far: 0.1, 0.2,
-0.3, 0.4 (fetch script and manifest), 0.5, 0.6.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 is done.
 
-Remaining, each its own commit:
-
-1. **0.7, tithe pass 0:** the fresh-agent trial ("add a module") on the empty project.
-
-Then phase 1.1: reproduce `Total 426 426 0 0 9610 0 20 118 9748` in CI from `oracle/prototypes/nist/`.
+Next: phase 1.1, reproduce `Total 426 426 0 0 9610 0 20 118 9748` in CI. Waiting on Ghost first (below):
+how it is built, since the study's harness is GnuCOBOL's GPL scripts.
 
 ## Waiting on Ghost
 
+- 1.1's shape: (A) CI fetches GnuCOBOL 3.1.2's source and runs its own NIST harness, Katana's code a
+  driver only; or (B) extraction, report and summary written in Java in `oracle/nist` from NIST's
+  public-domain material, with the shipped totals as the target (clean-room, so not from the GPL
+  scripts). Separately: `expand.pl`, `report.pl`, `summary.pl` (GPL) sit in `oracle/prototypes/nist/`
+  against R-002, with GnuCOBOL's expected-result files beside them.
 - Counsel on R-002's license texts and R-015 (EPL-2.0 grammars), before any copy leaves the repo.
 - Whether JUnit 5 (EPL-2.0, vendored in `third_party/junit/` for tests only, never shipped) needs
   counsel under R-015 as the che4z grammars do.
