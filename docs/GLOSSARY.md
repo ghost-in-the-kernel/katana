@@ -6,7 +6,8 @@ term before using a new word for a concept; add an alias the first time a synony
 
 | Term | Means | Not |
 | --- | --- | --- |
-| **program** | one COBOL compilation unit | module, source, unit |
+| **program** | one COBOL compilation unit | source, unit |
+| **module** | one of Katana's own thirteen source units (`docs/modules.json`); "NIST module" (NC, SQ, ...) is NIST's own word for its test groups and is not policed | package (that is Java's), component, layer |
 | **job** | a JCL job of steps | batch, run (a run is an execution) |
 | **step** | one program execution within a job, with its DDs | task |
 | **profile** | the dialect profile: compiler, version, TRUNC, ARITH, NUMPROC, code page, collating sequence, and the GnuCOBOL flag mapping; content-addressed | options, flags, settings, dialect (alone) |

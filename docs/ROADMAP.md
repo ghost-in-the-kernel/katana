@@ -208,9 +208,10 @@ targets, uninitialized reads). Said first, in the build's output, before any Jav
 
 ### 3.3 Module layout
 
-One module per concern; each has an entry in `docs/modules.json` stating purpose, inputs, outputs,
-what it may import, what it must not, and its entry points, and a test holds the imports to it
-(Suite Builder's `modules.test.ts`). Layering, top to bottom; a layer imports only downward.
+One module per concern, thirteen in all; each has an entry in `docs/modules.json` stating purpose,
+inputs, outputs, what it may import, what it must not, and its entry points, and a test holds the
+imports to it (Suite Builder's `modules.test.ts`). The import lists in `modules.json` are the law;
+the order below is prose, not a layering rule (`passes/` imports `ledger/`, which is listed after it).
 
 ```
 katana/
@@ -404,8 +405,11 @@ working with agents, and are the team's own (F-11: no published comparable exist
     `customers/`, `*.ksds`.
 0.2 **The documents of 4.1, empty but shaped, and their tests.** `theGhost.md` with R-001 (the
     language, 3.4) and R-002 (license); `GLOSSARY.md` seeded from section 9; `CLAUDE.md` with the
-    first routing rows; `modules.json` with the twelve modules of 3.3 and their import rules;
-    `AGENT.md` with the metrics table at phase-0 values.
+    first routing rows; `modules.json` with the thirteen modules of 3.3 and their import rules;
+    `AGENT.md` with the metrics table at phase-0 values. The doc tests are plain Java 21 single-file
+    programs (`java test/GhostTest.java`, exit code is the verdict) run by one script, with no build
+    system and no dependency; 0.3 moves them under Gradle and JUnit with their bodies unchanged
+    (R-038).
     *Check:* every doc test passes on the empty project; `ghost.test` fails on a deliberately
     conflicting pair, then passes when one is superseded.
 0.3 **The container.** Dockerfile pinning GnuCOBOL 3.1.2 from apt by digest (R-003), JDK 21, Gradle,

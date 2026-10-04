@@ -146,6 +146,17 @@ the question is closed).
 - **See also:** R-002
 - **subject:** disclosure
 
+### R-038: Doc tests are plain Java 21 until Gradle arrives
+- **Decision:** The phase-0 document tests (`ghost`, `glossary`, `docs`, `modules`, `todo`) are
+  single-file Java 21 programs under `test/`, run with `java test/<Name>.java` by one script; the exit
+  code is the verdict. Phase 0.3 moves them under Gradle and JUnit with their bodies unchanged.
+- **Why:** They are needed before the build system exists (phase 0.2 precedes 0.3), and a dependency
+  taken for a test is a dependency the offline build must vendor.
+- **Held by:** `test/run.sh`; after 0.3, the Gradle `test` task.
+- **Source:** Opus, during phase 0.2, confirmed by Ghost, 2026-10-04.
+- **Status:** in force
+- **subject:** toolchain
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-009 fixture
