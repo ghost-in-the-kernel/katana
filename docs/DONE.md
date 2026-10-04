@@ -44,3 +44,7 @@ reading source with the JDK's own parser (no dependency). `gradle metrics` print
 ROADMAP 5 and the warnings of 4.2; `gradle kernelMap` appends a row per new function in a module to
 `docs/KERNEL-MAP.md` (empty: no module has source yet). `test/MetricsTest.java` ratchets the recorded
 values; `test/KernelMapTest.java` fails on a function the map lacks or one gone with no closing row.
+Found on the way: `gradle test` skipped the doc tests after a doc-only change, because the task's
+declared inputs were its classes and not the documents they read, so a broken document passed
+locally (CI, from a fresh clone, was never fooled). Found by deleting a module file in a scratch clone
+and watching the build stay green; fixed in its own commit, the test task now always runs.

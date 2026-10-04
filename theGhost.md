@@ -29,6 +29,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Held by:** `build.gradle` (offline build in CI), `docs/AGENT.md` ("clean clone builds offline").
 - **Source:** Ghost, 2026-10-04, on Reviewer G's recommendation (docs/ROADMAP.md 3.4).
 - **Status:** in force
+- **See also:** R-038 (the doc tests before Gradle), R-041 (Gradle from the image)
 - **subject:** toolchain
 
 ### R-002: Licensing is protective
@@ -79,6 +80,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Held by:** `modules.json` (no module may import a model client); `test/source-rules`.
 - **Source:** Ghost, 2026-10-03 (the original idea: "a compiler that does the work of LLMs").
 - **Status:** in force
+- **See also:** R-007 (the Intent IR, the only place a model could ever propose anything)
 - **subject:** determinism
 
 ### R-005: Batch only, for v1
@@ -92,6 +94,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   what is not covered).
 - **Source:** Ghost, 2026-10-04.
 - **Status:** in force
+- **See also:** R-003 (the batch oracle that makes batch provable), R-006 (the other scope cut)
 - **subject:** scope
 
 ### R-006: One target language; no C++
@@ -102,6 +105,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Held by:** `modules.json` (`lower/` has one emitter).
 - **Source:** Ghost, 2026-10-04.
 - **Status:** refused (C++); in force (one target)
+- **See also:** R-005 (scope), R-007 (the Semantic IR a second target would have to wait for)
 - **subject:** targets
 
 ### R-007: Three IRs and a ledger, kept apart
@@ -119,6 +123,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   modules with their import rules); `docs/SEMANTIC-IR.md`, `docs/PROOF.md`.
 - **Source:** Ghost and Reviewer G, 2026-10-04 (the morning's architecture discussion).
 - **Status:** in force
+- **See also:** R-004 (why the Intent IR is kept apart), R-008 (the kernel map, the ledger pointed at the tool)
 - **subject:** architecture
 
 ### R-008: The navigation tithe
@@ -132,6 +137,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Held by:** `docs/AGENT.md` and `test/metrics.test`; the kernel map (`docs/KERNEL-MAP.md`).
 - **Source:** Ghost, 2026-10-04.
 - **Status:** in force
+- **See also:** R-040 (a tithe lands like any step), R-042 (when a metric arms)
 - **subject:** process
 
 ### R-037: Patent protection is intended; nothing public before a provisional is filed
@@ -164,6 +170,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Held by:** `test/run.sh`; after 0.3, the Gradle `test` task.
 - **Source:** Opus, during phase 0.2; wording corrected by Opus; confirmed by Ghost, 2026-10-04.
 - **Status:** in force
+- **See also:** R-001, R-041 (where the tests went after 0.3)
 - **subject:** toolchain
 
 ### R-039: Glossary aliases are enforced only when marked
