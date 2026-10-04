@@ -17,11 +17,10 @@ as a golden: `Total 426 426 0 0 9610 0 20 118 9748`, and each module's row.
 Built in steps, each its own commit (any agent may take the next open one; the source is NIST's
 `newcob.val`, its EXEC85, and the CCVS85 User Guide 4.2, never GnuCOBOL's harness):
 
-- **1.1a The source, pinned.** `corpus/fetch.sh` fetches `newcob.val` at a pinned commit; the
-  oracle refuses a copy whose SHA-256 is not `744a04982095a3abea29a9df5faf63d226083edecc7b5bf34bc412eae0d53274`.
-- **1.1b The population reader.** `oracle/` reads a population-format file into its members
-  (`*HEADER,COBOL|CLBRY|DATA*,name[,SUBRTN,name]` to `*END-OF`), and EXEC85's indented output too.
-  Check: unit tests on a small population; all 512 members of `newcob.val` read.
+- ~~1.1a The source, pinned~~ done: `corpus/fetch.sh` fetches `newcob.val` at a pinned commit and
+  refuses it unless its SHA-256 is `744a0498...3274`.
+- ~~1.1b The population reader~~ done: `oracle/nist/Population.java`; `newcob.val` reads to 512
+  members (459 programs, 51 copy members, 2 data files), subprograms named by their own header field.
 - **1.1c EXEC85, run.** The control cards for the cobc lane, written from the User Guide's
   Appendices C, D and E; EXEC85 compiled from `newcob.val` and run; its output split per module.
   Check: the 459 programs, 51 copy members and 2 data files come out, X-cards substituted.

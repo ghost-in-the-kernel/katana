@@ -14,12 +14,22 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
+// Katana's modules are the folders docs/modules.json names (the list lives only there); the study's
+// prototypes inside them are not part of the build.
+def modules = new groovy.json.JsonSlurper().parse(file('docs/modules.json')).modules.keySet()
+
 sourceSets {
+    main {
+        java {
+            srcDirs = modules.collect { it }
+            exclude '**/prototypes/**'
+        }
+    }
     // The project's own tooling (phase 0.6): the kernel map and the metrics. Never shipped.
     scripts {
         java.srcDirs = ['scripts']
     }
-    // Until the modules have source, the tests are the doc tests and the scripts' tests (R-038).
+    // The doc tests and the scripts' tests (default package), and each module's tests (its package).
     test {
         java.srcDirs = ['test']
         compileClasspath += scripts.output

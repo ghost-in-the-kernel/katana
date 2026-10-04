@@ -8,3 +8,6 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 
 | Module | Function | Stands on | First seen | Superseded |
 | --- | --- | --- | --- | --- |
+| oracle | `oracle/nist/Population.java:Population.Population` | no caller | 2026-10-04 |  |
+| oracle | `oracle/nist/Population.java:Population.read` | no caller | 2026-10-04 |  |
+| oracle | `oracle/nist/Population.java:Population.card` | called by `oracle/nist/Population.java:Population.read` | 2026-10-04 |  |
