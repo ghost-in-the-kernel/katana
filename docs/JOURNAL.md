@@ -761,3 +761,12 @@ taken; closed by a later `decision` entry naming it).
   only at a line ending `}`, so `END-EXEC.` ran on; then a stale compile); the counts above are
   from the corrected driver.
 - **Resolved:** HANDOFF "For Ghost": 2.2 stopped; the numbers for R-014. **Touched:** TODO, HANDOFF.
+
+### J-065 Phase 2.3: every character of the parsed text knows its origin
+- **Who:** Opus. **Class:** build. **Intent:** 2.3's source map.
+- **Found:** origins per character, not per line, because continuations join lines and REPLACE
+  changes lengths. The corpus run caught one gap the unit tests had not: a blank line inside an EXEC
+  SQL block (a BankDemo program) gave its tag line's break no file, since the break took its origin
+  from the empty line before it; each break now takes its source line's end.
+- **Resolved:** the round trip in the corpus test; the lowered half is 3.3's (HANDOFF "For Fable").
+- **Touched:** `front/Mapped.java`, `Lines`, `Preprocessor`, `Copybooks`, `Parse`, the front tests.

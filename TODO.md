@@ -17,10 +17,6 @@ Check: every `EXEC CICS` and `EXEC SQL` in the corpus parses to a command tree o
 Stopped (R-053, no reversible default): the graft needs che4z's EPL-2.0 grammars in the tree, which
 R-015 admits only after counsel. Measured outside the tree (J-064); waiting on Ghost (HANDOFF).
 
-### 2.3 The source map
-
-Check: a round trip from any lowered statement back to the COBOL text is exact.
-
 ### 2.4 `sir/types`
 
 Check: none in the roadmap; written here before the item starts.

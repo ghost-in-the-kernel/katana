@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Phase 2.1's check: CardDemo, the OMP course and every NIST program cobc accepts under COBOL 85 parse
  * to a tree with no error nodes, and BankDemo when it is fetched (privately: its count only, no names).
+ * Phase 2.3's: a program is clean only if its source map round-trips (RoundTrip) as well.
  * front/corpus.golden holds each count and each failure's first error; a count may only rise
  * (`-Dkatana.record=true` rewrites the golden and refuses a fall).
  */
@@ -78,7 +79,7 @@ class FrontCorpusIntegrationTest {
 
     /** `corpus NAME clean/total` and, when names may be shown, one line per program not clean. */
     private static Map<String, String> corpus(String name, Path root, Map<String, Path> programs, Copybooks books, boolean named) throws Exception {
-        Map<String, List<String>> results = parseAll(programs, (path, text) -> Parse.text(text, books));
+        Map<String, List<String>> results = parseAll(programs, (path, text) -> Parse.text(text, path.toString(), books));
         return report(name, results, named);
     }
 
@@ -94,7 +95,11 @@ class FrontCorpusIntegrationTest {
             for (var p : programs.entrySet()) {
                 futures.put(p.getKey(), pool.submit(() -> {
                     byte[] bytes = Tabs.expand(Files.readAllBytes(p.getValue()), 8);
-                    return parser.parse(p.getValue(), new String(bytes, StandardCharsets.ISO_8859_1)).errors();
+                    Parse.Result result = parser.parse(p.getValue(), new String(bytes, StandardCharsets.ISO_8859_1));
+                    List<String> errors = new ArrayList<>(result.errors());
+                    List<String> map = new RoundTrip(FrontCorpusIntegrationTest::tabs).check(result);
+                    if (!map.isEmpty()) errors.add("the source map does not round-trip: " + map.get(0));
+                    return errors;
                 }));
             }
             for (var f : futures.entrySet()) results.put(f.getKey(), f.getValue().get());
@@ -143,7 +148,7 @@ class FrontCorpusIntegrationTest {
             }
         }
         Copybooks books = new Copybooks(List.of(copy), name -> 8);
-        return report("nist", parseAll(programs, (path, text) -> Parse.text(text, books)), true);
+        return report("nist", parseAll(programs, (path, text) -> Parse.text(text, path.toString(), books)), true);
     }
 
     private static Map<String, Path> programs(Path root) throws Exception {

@@ -51,15 +51,18 @@ public final class Copybooks {
         }
     }
 
-    /** The copybook's text, tabs expanded, or null when no folder has it; the library may be null. */
-    public String read(String name, String library) {
+    /** A copybook's file and its text, tabs expanded. */
+    public record Book(String file, String text) {}
+
+    /** The copybook, or null when no folder has it; the library may be null. */
+    public Book read(String name, String library) {
         String key = unquote(name);
         Path file = library == null ? null : files.get(unquote(library) + "/" + key);
         if (file == null) file = files.get(key);
         if (file == null) return null;
         try {
             byte[] bytes = Files.readAllBytes(file);
-            return new String(Tabs.expand(bytes, tabWidth.applyAsInt(file.getFileName().toString())), StandardCharsets.ISO_8859_1);
+            return new Book(file.toString(), new String(Tabs.expand(bytes, tabWidth.applyAsInt(file.getFileName().toString())), StandardCharsets.ISO_8859_1));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

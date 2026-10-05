@@ -11,6 +11,10 @@
   syntax error (an END-IF after the IF's period; the course has the student fix IGYPS2113-E), and cobc
   refuses it too. A clean tree for it would be a parser bug. **Default taken:** the golden holds 29/30
   and names CBL0007's error at its END-IF; the check's 30 should read 29 plus that one.
+- **2.3's check names lowered statements, which come in 3.3** (from step 2.3, J-065). **Default
+  taken:** the round trip is held now from the parsed text back to the COBOL text, character for
+  character, over the whole corpus; 3.3's provenance comment cites an origin, and its check extends
+  the same round trip to lowered statements.
 - **"An IBM dialect switch mirroring `ibm-strict.conf`"** (2.1's text) would mean reading GnuCOBOL's
   configuration, which R-045 keeps off screen. **Default taken:** no switch in 2.1; the grammar accepts
   the union, and the dialect is the profile's (R-049) when `sir/` needs it.

@@ -210,3 +210,12 @@ without RECORD, keyword arguments to intrinsics, RERUN ... RECORDS OF file, a li
 column 72 and resumed by a quote, a COPY's library on its own line, and a subscript after a space
 under SLL; NOT=, LENGTH OF in reference modification, PROGRAM-ID without a period and a tab in the
 indicator area already parsed (`ParseTest`). DFHAID and DFHBMSCA are in `front/ibm/`. J-063.
+
+### 2.3 The source map
+
+`front/Mapped.java`: the text the grammar reads carries, for each character, its file, line and
+column (tabs expanded, R-016) and whether it is the source's own (SOURCE), put there by REPLACE or
+REPLACING at the place it replaced (REPLACED), or written by the front end (ADDED). `Parse.Result`
+gives any token's or node's origin. The check, until lowering exists: every clean program of the
+corpus round-trips (`RoundTrip`: each SOURCE character is its file's at its place; every token has a
+file), held by `front/corpus.golden`'s counts; the lowered statements' half is 3.3's (HANDOFF). J-065.

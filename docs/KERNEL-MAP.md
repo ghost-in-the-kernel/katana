@@ -431,3 +431,24 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | front | `front/Tabs.java:Tabs.Tabs` | no caller | 2026-10-05 |  |
 | front | `front/Tabs.java:Tabs.expand` | called by `front/Copybooks.java:Copybooks.read` and 5 more | 2026-10-05 |  |
 | front | `front/Tabs.java:Tabs.has` | called by `oracle/lane/Programs.java:Programs.read` and 2 more | 2026-10-05 |  |
+| front | `front/Lines.java:Lines.normalize#2` | called by `front/Lines.java:Lines.normalize` and 2 more | 2026-10-05 |  |
+| front | `front/Lines.java:Lines.strip` | called by `front/Lines.java:Lines.normalize#2` and 4 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.source` | called by `front/Lines.java:Lines.normalize#2` and 4 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.add` | called by `front/Errors.java:Errors.listen` and 92 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.added` | called by `front/Lines.java:Lines.normalize#2` and 4 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.append` | called by `front/Lines.java:Lines.normalize#2` and 28 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.append#2` | called by `front/Lines.java:Lines.normalize#2` and 27 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.slice` | called by `front/Lines.java:Lines.normalize#2` and 2 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.truncate` | called by `front/Lines.java:Lines.join` and 1 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.length` | called by `front/Lines.java:Lines.normalize#2` and 45 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.charAt` | called by `front/Lines.java:Lines.normalize#2` and 11 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.origin` | called by `front/Mapped.java:Mapped.added` and 3 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.toString` | called by `front/Copybooks.java:Copybooks.Copybooks` and 40 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.replaceAll` | called by `front/Copybooks.java:Copybooks.unquote` and 10 more | 2026-10-05 |  |
+| front | `front/Mapped.java:Mapped.grow` | called by `front/Mapped.java:Mapped.add` | 2026-10-05 |  |
+| front | `front/Parse.java:Parse.Result.origin` | called by `front/Mapped.java:Mapped.added` and 2 more | 2026-10-05 |  |
+| front | `front/Parse.java:Parse.Result.origin#2` | called by `front/Mapped.java:Mapped.added` and 2 more | 2026-10-05 |  |
+| front | `front/Parse.java:Parse.text#2` | called by `front/Parse.java:Parse.file` and 13 more | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.Result.text` | called by `front/Parse.java:Parse.file` and 14 more | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.run#2` | called by `front/Parse.java:Parse.text#2` and 18 more | 2026-10-05 |  |
+| front | `front/Lines.java:Lines.Line.of` | moved or retired in phase 2.3 (lines read as Mapped text) | 2026-10-05 | superseded-by: `front/Lines.java:Lines.normalize#2` |

@@ -87,8 +87,10 @@ class ParseTest {
 
     @Test
     void execBlocksBecomeTaggedLines() {
-        String text = program("EXEC CICS RETURN", "END-EXEC.", "EXEC SQL SELECT A INTO :X FROM T END-EXEC.", "STOP RUN.");
+        String text = program("EXEC CICS RETURN", "END-EXEC.", "EXEC SQL SELECT A INTO :X FROM T END-EXEC.", "EXEC SQL", "", "COMMIT END-EXEC.", "STOP RUN.");
         assertEquals(List.of(), parse(text, NONE).errors());
+        Mapped mapped = Preprocessor.run(text, "P.cbl", NONE).mapped();
+        for (int i = 0; i < mapped.length(); i++) assertEquals("P.cbl", mapped.origin(i).file(), "character " + i);
         assertTrue(Preprocessor.run(text, NONE).text().contains("*>EXECCICS END-EXEC }."));
     }
 
@@ -120,5 +122,21 @@ class ParseTest {
         assertEquals(List.of(), parse(alternate, NONE).errors(), "ALTERNATE KEY without RECORD");
         String tab = program("STOP RUN.").replace("           STOP RUN.", "\tSTOP RUN.");
         assertEquals(List.of(), parse(new String(Tabs.expand(tab.getBytes(), 8)), NONE).errors(), "a tab in the indicator area");
+    }
+
+    @Test
+    void everyCharacterKnowsWhereItCameFrom(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("REC.cpy"), "       01  :P:-A PIC X.\n");
+        Path program = dir.resolve("P.cbl");
+        Files.writeString(program, program("MOVE 'ABC' TO Q-A.", "STOP RUN.").replace("       01  N PIC 9(4).\n", "           COPY REC REPLACING ==:P:== BY ==Q==.\n"));
+        Parse.Result r = Parse.file(program, new Copybooks(List.of(dir), name -> 8), 8);
+        assertEquals(List.of(), r.errors());
+        assertEquals(List.of(), new RoundTrip(name -> 8).check(r));
+        String text = r.text().toString();
+        int q = text.indexOf("Q-A PIC");
+        assertEquals(new Mapped.Origin(dir.resolve("REC.cpy").toString(), 1, 12, Mapped.Kind.REPLACED), r.text().origin(q));
+        assertEquals(new Mapped.Origin(dir.resolve("REC.cpy").toString(), 1, 15, Mapped.Kind.SOURCE), r.text().origin(q + 1));
+        int move = text.indexOf("MOVE");
+        assertEquals(new Mapped.Origin(program.toString(), 9, 12, Mapped.Kind.SOURCE), r.text().origin(move));
     }
 }

@@ -25,38 +25,50 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * found, a COPY nested too deep, a syntax error) is an error, never a silent gap.
  */
 public final class Preprocessor extends CobolPreprocessorBaseListener {
-    /** The text, and what went wrong. */
-    public record Result(String text, List<String> errors) {}
+    /** The text, each character with its origin, and what went wrong. */
+    public record Result(Mapped mapped, List<String> errors) {
+        public String text() {
+            return mapped.toString();
+        }
+    }
 
     private static final int DEPTH = 20;
-    private final Deque<StringBuilder> contexts = new ArrayDeque<>();
+    private final Deque<Mapped> contexts = new ArrayDeque<>();
+    private final Mapped input;
     private final CommonTokenStream tokens;
     private final Copybooks copybooks;
     private final List<String> errors;
     private final int depth;
 
-    private Preprocessor(CommonTokenStream tokens, Copybooks copybooks, List<String> errors, int depth) {
+    private Preprocessor(Mapped input, CommonTokenStream tokens, Copybooks copybooks, List<String> errors, int depth) {
+        this.input = input;
         this.tokens = tokens;
         this.copybooks = copybooks;
         this.errors = errors;
         this.depth = depth;
-        contexts.push(new StringBuilder());
+        contexts.push(new Mapped());
     }
 
     /** Preprocesses a source's text (tabs expanded, not yet normalized). */
     public static Result run(String source, Copybooks copybooks) {
-        List<String> errors = new ArrayList<>();
-        return new Result(text(source, copybooks, errors, 0, "the program"), errors);
+        return run(source, "", copybooks);
     }
 
-    private static String text(String source, Copybooks copybooks, List<String> errors, int depth, String where) {
-        CobolPreprocessorLexer lexer = new CobolPreprocessorLexer(CharStreams.fromString(Lines.normalize(source)));
+    /** Preprocesses a file's text (tabs expanded, not yet normalized), its origins in that file. */
+    public static Result run(String source, String file, Copybooks copybooks) {
+        List<String> errors = new ArrayList<>();
+        return new Result(text(source, file, copybooks, errors, 0, "the program"), errors);
+    }
+
+    private static Mapped text(String source, String file, Copybooks copybooks, List<String> errors, int depth, String where) {
+        Mapped input = Lines.normalize(source, file);
+        CobolPreprocessorLexer lexer = new CobolPreprocessorLexer(CharStreams.fromString(input.toString()));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CobolPreprocessorParser parser = new CobolPreprocessorParser(tokens);
         Errors.listen(lexer, parser, errors, "preprocessing " + where);
-        Preprocessor listener = new Preprocessor(tokens, copybooks, errors, depth);
+        Preprocessor listener = new Preprocessor(input, tokens, copybooks, errors, depth);
         ParseTreeWalker.DEFAULT.walk(listener, parser.startRule());
-        return listener.contexts.peek().toString();
+        return listener.contexts.peek();
     }
 
     /** A statement the preprocessor rewrites or drops gets its own text, so its words never reach the output. */
@@ -68,7 +80,7 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
                 || ctx instanceof CobolPreprocessorParser.ExecSqlStatementContext || ctx instanceof CobolPreprocessorParser.ExecSqlImsStatementContext
                 || ctx instanceof CobolPreprocessorParser.ReplaceAreaContext || ctx instanceof CobolPreprocessorParser.ReplaceByStatementContext
                 || ctx instanceof CobolPreprocessorParser.ReplaceOffStatementContext) {
-            contexts.push(new StringBuilder());
+            contexts.push(new Mapped());
         }
     }
 
@@ -109,7 +121,7 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
         String name = ctx.copySource().getChildCount() > 0 ? ctx.copySource().getChild(0).getText() : "";
         String library = ctx.copySource().copyLibrary() != null ? ctx.copySource().copyLibrary().getText()
                 : ctx.directoryPhrase().isEmpty() ? null : ctx.directoryPhrase(0).getChild(ctx.directoryPhrase(0).getChildCount() - 1).getText();
-        String copybook = copybooks.read(name, library);
+        Copybooks.Book copybook = copybooks.read(name, library);
         if (copybook == null) {
             errors.add("copybook " + name + " not found (line " + ctx.getStart().getLine() + ")");
             return;
@@ -118,9 +130,9 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
             errors.add("copybook " + name + " nested " + DEPTH + " deep (line " + ctx.getStart().getLine() + ")");
             return;
         }
-        String text = text(copybook, copybooks, errors, depth + 1, "copybook " + name);
+        Mapped text = text(copybook.text(), copybook.file(), copybooks, errors, depth + 1, "copybook " + name);
         for (CobolPreprocessorParser.ReplacingPhraseContext replacing : ctx.replacingPhrase()) text = replace(text, replacing.replaceClause());
-        contexts.peek().append(text).append('\n');
+        contexts.peek().append(text).added("\n", text, text.length() - 1);
     }
 
     @Override
@@ -141,30 +153,48 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
     /** An EXEC block as tagged lines, each one the main grammar reads as a single token. */
     private void exec(ParserRuleContext ctx, String tag) {
         contexts.pop();
-        List<String> lines = new ArrayList<>();
-        for (String line : tokens.getText(ctx.getStart(), ctx.getStop()).split("\r?\n")) {
-            lines.add(Lines.INDENT + tag + " " + line.trim().replaceAll("(?i)(end-exec)", "$1 }"));
+        Mapped block = input.slice(ctx.getStart().getStartIndex(), ctx.getStop().getStopIndex() + 1), out = contexts.peek();
+        String text = block.toString();
+        int at = 0;
+        while (at <= text.length()) {
+            int end = text.indexOf('\n', at);
+            if (end < 0) end = text.length();
+            int from = at, to = end;
+            while (from < to && Character.isWhitespace(text.charAt(from))) from++;
+            while (to > from && Character.isWhitespace(text.charAt(to - 1))) to--;
+            if (at > 0) out.added("\n", block, at - 1);
+            out.added(Lines.INDENT + tag + " ", block, from);
+            Matcher endExec = END_EXEC.matcher(text).region(from, to);
+            int copied = from;
+            while (endExec.find()) {
+                out.append(block, copied, endExec.end()).added(" }", block, endExec.end() - 1);
+                copied = endExec.end();
+            }
+            out.append(block, copied, to);
+            at = end + 1;
         }
-        contexts.peek().append(String.join("\n", lines));
     }
+
+    private static final Pattern END_EXEC = Pattern.compile("(?i)end-exec");
 
     /** The text a REPLACE governs, replaced, written to the enclosing text. */
     @Override
     public void exitReplaceArea(CobolPreprocessorParser.ReplaceAreaContext ctx) {
-        String text = replace(contexts.pop().toString(), ctx.replaceByStatement().replaceClause());
+        Mapped text = replace(contexts.pop(), ctx.replaceByStatement().replaceClause());
         contexts.peek().append(text);
     }
 
     @Override
     public void visitTerminal(TerminalNode node) {
-        StringBuilder out = contexts.peek();
+        Mapped out = contexts.peek();
         List<Token> hidden = tokens.getHiddenTokensToLeft(node.getSymbol().getTokenIndex());
-        if (hidden != null) hidden.forEach(t -> out.append(t.getText()));
-        if (node.getSymbol().getType() != Token.EOF) out.append(node.getText());
+        if (hidden != null) hidden.forEach(t -> out.append(input, t.getStartIndex(), t.getStopIndex() + 1));
+        Token token = node.getSymbol();
+        if (token.getType() != Token.EOF) out.append(input, token.getStartIndex(), token.getStopIndex() + 1);
     }
 
     /** Each clause applied, the longest replaceable first; a replaceable that starts or ends a word matches whole words only. */
-    private String replace(String text, List<CobolPreprocessorParser.ReplaceClauseContext> clauses) {
+    private Mapped replace(Mapped text, List<CobolPreprocessorParser.ReplaceClauseContext> clauses) {
         List<String[]> pairs = new ArrayList<>();
         for (var clause : clauses) pairs.add(new String[] {operand(clause.replaceable()), operand(clause.replacement())});
         pairs.sort(Comparator.comparingInt((String[] p) -> p[0].length()).reversed());
@@ -175,7 +205,7 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
             String regex = String.join("\\s+", parts);
             if (Character.isLetterOrDigit(pair[0].charAt(0))) regex = "(?<![\\w-])" + regex;
             if (Character.isLetterOrDigit(pair[0].charAt(pair[0].length() - 1))) regex = regex + "(?![\\w-])";
-            text = Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(text).replaceAll(Matcher.quoteReplacement(pair[1]));
+            text = text.replaceAll(Pattern.compile(regex, Pattern.CASE_INSENSITIVE), pair[1]);
         }
         return text;
     }
