@@ -11,13 +11,13 @@ value COPYREC 7 0
 file COPYREC IN-FILE assign "INFILE" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1] 20..20
 file COPYREC OUT-FILE assign "OUTFILE" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [5] 20..20
 paragraph COPYREC 0 "" ""
-statement COPYREC 0.0 OPEN open-input=file:IN-FILE open-output=file:OUT-FILE
-statement COPYREC 0.1 PERFORM perform-until=(= #6 'Y')
-statement COPYREC 0.1.perform-inline-statement.0 READ read-statement=file:IN-FILE
-statement COPYREC 0.1.perform-inline-statement.0.at-end-phrase.0 MOVE move-to-sending-area='Y' move-to-statement=#6
-statement COPYREC 0.1.perform-inline-statement.0.not-at-end-phrase.0 WRITE record-name=#5 write-from-phrase=#1
-statement COPYREC 0.1.perform-inline-statement.0.not-at-end-phrase.1 ADD add-from=1 add-to=#7
+statement COPYREC 0.0 OPEN open-input-statement=keyword:INPUT open-input=file:IN-FILE open-output-statement=keyword:OUTPUT open-output=file:OUT-FILE
+statement COPYREC 0.1 PERFORM | perform-inline-statement=(perform-until keyword:UNTIL (= #6 'Y'))
+statement COPYREC 0.1.perform-inline-statement.0 READ read-statement=file:IN-FILE | at-end-phrase | not-at-end-phrase
+statement COPYREC 0.1.perform-inline-statement.0.at-end-phrase.0 MOVE move-to-sending-area='Y' move-to-statement=keyword:TO move-to-statement=#6
+statement COPYREC 0.1.perform-inline-statement.0.not-at-end-phrase.0 WRITE record-name=#5 write-from-phrase=keyword:FROM write-from-phrase=#1
+statement COPYREC 0.1.perform-inline-statement.0.not-at-end-phrase.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#7
 statement COPYREC 0.2 CLOSE close-file=file:IN-FILE close-file=file:OUT-FILE
 statement COPYREC 0.3 DISPLAY display-operand='COPIED ' display-operand=#7 display-operand=' RECORDS'
-statement COPYREC 0.4 STOP
+statement COPYREC 0.4 STOP stop-statement=keyword:RUN
 using COPYREC [] 0

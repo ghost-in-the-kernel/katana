@@ -384,207 +384,207 @@ edge SG202A GO_TO 52 53 53
 edge SG202A GO_TO 53 55 55
 edge SG202A GO_TO 57 28 28
 statement SG202A 1.0 GO TO go-to-statement-simple=@30..30
-statement SG202A 2.0 OPEN open-output=file:PRINT-FILE
-statement SG202A 2.1 MOVE move-to-sending-area=#121 move-to-statement=#81
-statement SG202A 2.2 MOVE move-to-sending-area=#121 move-to-statement=#90
-statement SG202A 2.3 MOVE move-to-sending-area=SPACE move-to-statement=#16
-statement SG202A 2.4 PERFORM perform-procedure-statement=@10..10 perform-procedure-statement=@11..11
+statement SG202A 2.0 OPEN open-output-statement=keyword:OUTPUT open-output=file:PRINT-FILE
+statement SG202A 2.1 MOVE move-to-sending-area=#121 move-to-statement=keyword:TO move-to-statement=#81
+statement SG202A 2.2 MOVE move-to-sending-area=#121 move-to-statement=keyword:TO move-to-statement=#90
+statement SG202A 2.3 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#16
+statement SG202A 2.4 PERFORM perform-procedure-statement=@10..10 perform-procedure-statement=keyword:THRU perform-procedure-statement=@11..11
 statement SG202A 2.5 GO TO go-to-statement-simple=@26..26
-statement SG202A 3.0 PERFORM perform-procedure-statement=@12..12 perform-procedure-statement=@16..16
+statement SG202A 3.0 PERFORM perform-procedure-statement=@12..12 perform-procedure-statement=keyword:THRU perform-procedure-statement=@16..16
 statement SG202A 3.1 CLOSE close-file=file:PRINT-FILE
-statement SG202A 4.0 STOP
-statement SG202A 5.0 MOVE move-to-sending-area="INSPT" move-to-statement=#20
-statement SG202A 5.1 ADD add-from=1 add-to=#68
-statement SG202A 6.0 MOVE move-to-sending-area="PASS " move-to-statement=#20
-statement SG202A 6.1 ADD add-from=1 add-to=#69
-statement SG202A 7.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#20
-statement SG202A 7.1 ADD add-from=1 add-to=#67
-statement SG202A 8.0 MOVE move-to-sending-area="*****" move-to-statement=#20
-statement SG202A 8.1 ADD add-from=1 add-to=#66
-statement SG202A 8.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=#28
-statement SG202A 9.0 IF if-statement=(NOT EQUAL TO #65 ZERO)
-statement SG202A 9.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#24
-statement SG202A 9.0.if-then.1 MOVE move-to-sending-area=#65 move-to-statement=#25
-statement SG202A 9.1 MOVE move-to-sending-area=#16 move-to-statement=#1
+statement SG202A 4.0 STOP stop-statement=keyword:RUN
+statement SG202A 5.0 MOVE move-to-sending-area="INSPT" move-to-statement=keyword:TO move-to-statement=#20
+statement SG202A 5.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#68
+statement SG202A 6.0 MOVE move-to-sending-area="PASS " move-to-statement=keyword:TO move-to-statement=#20
+statement SG202A 6.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#69
+statement SG202A 7.0 MOVE move-to-sending-area="FAIL*" move-to-statement=keyword:TO move-to-statement=#20
+statement SG202A 7.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#67
+statement SG202A 8.0 MOVE move-to-sending-area="*****" move-to-statement=keyword:TO move-to-statement=#20
+statement SG202A 8.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#66
+statement SG202A 8.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=keyword:TO move-to-statement=#28
+statement SG202A 9.0 IF if-statement=(<> #65 ZERO) | if-then
+statement SG202A 9.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=keyword:TO move-to-statement=#24
+statement SG202A 9.0.if-then.1 MOVE move-to-sending-area=#65 move-to-statement=keyword:TO move-to-statement=#25
+statement SG202A 9.1 MOVE move-to-sending-area=#16 move-to-statement=keyword:TO move-to-statement=#1
 statement SG202A 9.2 PERFORM perform-procedure-statement=@17..17
-statement SG202A 9.3 IF if-statement=(EQUAL TO #20 "FAIL*")
+statement SG202A 9.3 IF if-statement=(= #20 "FAIL*") | if-then | if-else
 statement SG202A 9.3.if-then.0 PERFORM perform-procedure-statement=@17..17
-statement SG202A 9.3.if-then.1 PERFORM perform-procedure-statement=@20..20 perform-procedure-statement=@22..22
-statement SG202A 9.3.if-else.0 PERFORM perform-procedure-statement=@23..23 perform-procedure-statement=@25..25
-statement SG202A 9.4 MOVE move-to-sending-area=SPACE move-to-statement=#20
-statement SG202A 9.5 MOVE move-to-sending-area=SPACE move-to-statement=#32
-statement SG202A 9.6 MOVE move-to-sending-area=SPACE move-to-statement=#45
-statement SG202A 9.7 IF if-statement=(EQUAL TO #65 ZERO)
-statement SG202A 9.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#22
-statement SG202A 9.8 MOVE move-to-sending-area=SPACE move-to-statement=#28
-statement SG202A 10.0 MOVE move-to-sending-area=#74 move-to-statement=#2
-statement SG202A 10.1 PERFORM perform-procedure-statement=@17..17 perform-times=2
-statement SG202A 10.2 MOVE move-to-sending-area=#78 move-to-statement=#2
-statement SG202A 10.3 PERFORM perform-procedure-statement=@17..17 perform-times=5
-statement SG202A 10.4 MOVE move-to-sending-area=#83 move-to-statement=#2
-statement SG202A 10.5 PERFORM perform-procedure-statement=@17..17 perform-times=3
-statement SG202A 11.0 MOVE move-to-sending-area=#55 move-to-statement=#2
+statement SG202A 9.3.if-then.1 PERFORM perform-procedure-statement=@20..20 perform-procedure-statement=keyword:THRU perform-procedure-statement=@22..22
+statement SG202A 9.3.if-else.0 PERFORM perform-procedure-statement=@23..23 perform-procedure-statement=keyword:THRU perform-procedure-statement=@25..25
+statement SG202A 9.4 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#20
+statement SG202A 9.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#32
+statement SG202A 9.6 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#45
+statement SG202A 9.7 IF if-statement=(= #65 ZERO) | if-then
+statement SG202A 9.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#22
+statement SG202A 9.8 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#28
+statement SG202A 10.0 MOVE move-to-sending-area=#74 move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 10.1 PERFORM perform-procedure-statement=@17..17 perform-times=2 perform-times=keyword:TIMES
+statement SG202A 10.2 MOVE move-to-sending-area=#78 move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 10.3 PERFORM perform-procedure-statement=@17..17 perform-times=5 perform-times=keyword:TIMES
+statement SG202A 10.4 MOVE move-to-sending-area=#83 move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 10.5 PERFORM perform-procedure-statement=@17..17 perform-times=3 perform-times=keyword:TIMES
+statement SG202A 11.0 MOVE move-to-sending-area=#55 move-to-statement=keyword:TO move-to-statement=#2
 statement SG202A 11.1 PERFORM perform-procedure-statement=@17..17
-statement SG202A 11.2 MOVE move-to-sending-area=#58 move-to-statement=#2
-statement SG202A 11.3 PERFORM perform-procedure-statement=@17..17 perform-times=2
-statement SG202A 11.4 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement SG202A 11.2 MOVE move-to-sending-area=#58 move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 11.3 PERFORM perform-procedure-statement=@17..17 perform-times=2 perform-times=keyword:TIMES
+statement SG202A 11.4 MOVE move-to-sending-area=#117 move-to-statement=keyword:TO move-to-statement=#2
 statement SG202A 11.5 PERFORM perform-procedure-statement=@17..17
-statement SG202A 12.0 MOVE move-to-sending-area=#117 move-to-statement=#2
-statement SG202A 12.1 PERFORM perform-procedure-statement=@17..17 perform-times=5
-statement SG202A 13.0 MOVE move-to-sending-area=#87 move-to-statement=#2
-statement SG202A 13.1 PERFORM perform-procedure-statement=@17..17 perform-times=2
-statement SG202A 14.0 ADD add-from=#67 add-to=#71
-statement SG202A 14.1 ADD add-from=#68 add-to=#71
-statement SG202A 14.2 ADD add-from=#66 add-to=#71
-statement SG202A 14.3 ADD add-from=#69 add-to=#71
-statement SG202A 14.4 MOVE move-to-sending-area=#69 move-to-statement=#106
-statement SG202A 14.5 MOVE move-to-sending-area=#71 move-to-statement=#108
-statement SG202A 14.6 MOVE move-to-sending-area=#105 move-to-statement=#95
-statement SG202A 14.7 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SG202A 12.0 MOVE move-to-sending-area=#117 move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 12.1 PERFORM perform-procedure-statement=@17..17 perform-times=5 perform-times=keyword:TIMES
+statement SG202A 13.0 MOVE move-to-sending-area=#87 move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 13.1 PERFORM perform-procedure-statement=@17..17 perform-times=2 perform-times=keyword:TIMES
+statement SG202A 14.0 ADD add-from=#67 add-to-statement=keyword:TO add-to=#71
+statement SG202A 14.1 ADD add-from=#68 add-to-statement=keyword:TO add-to=#71
+statement SG202A 14.2 ADD add-from=#66 add-to-statement=keyword:TO add-to=#71
+statement SG202A 14.3 ADD add-from=#69 add-to-statement=keyword:TO add-to=#71
+statement SG202A 14.4 MOVE move-to-sending-area=#69 move-to-statement=keyword:TO move-to-statement=#106
+statement SG202A 14.5 MOVE move-to-sending-area=#71 move-to-statement=keyword:TO move-to-statement=#108
+statement SG202A 14.6 MOVE move-to-sending-area=#105 move-to-statement=keyword:TO move-to-statement=#95
+statement SG202A 14.7 MOVE move-to-sending-area=#92 move-to-statement=keyword:TO move-to-statement=#2
 statement SG202A 14.8 PERFORM perform-procedure-statement=@17..17
-statement SG202A 15.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#98
-statement SG202A 15.1 IF if-statement=(IS EQUAL TO #67 ZERO)
-statement SG202A 15.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
-statement SG202A 15.1.if-else.0 MOVE move-to-sending-area=#67 move-to-statement=#96
-statement SG202A 15.2 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SG202A 15.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=keyword:TO move-to-statement=#98
+statement SG202A 15.1 IF if-statement=(= #67 ZERO) | if-then | if-else
+statement SG202A 15.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#96
+statement SG202A 15.1.if-else.0 MOVE move-to-sending-area=#67 move-to-statement=keyword:TO move-to-statement=#96
+statement SG202A 15.2 MOVE move-to-sending-area=#92 move-to-statement=keyword:TO move-to-statement=#2
 statement SG202A 15.3 PERFORM perform-procedure-statement=@17..17
-statement SG202A 16.0 IF if-statement=(IS EQUAL TO #66 ZERO)
-statement SG202A 16.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
-statement SG202A 16.0.if-else.0 MOVE move-to-sending-area=#66 move-to-statement=#96
-statement SG202A 16.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#98
-statement SG202A 16.2 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SG202A 16.0 IF if-statement=(= #66 ZERO) | if-then | if-else
+statement SG202A 16.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#96
+statement SG202A 16.0.if-else.0 MOVE move-to-sending-area=#66 move-to-statement=keyword:TO move-to-statement=#96
+statement SG202A 16.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=keyword:TO move-to-statement=#98
+statement SG202A 16.2 MOVE move-to-sending-area=#92 move-to-statement=keyword:TO move-to-statement=#2
 statement SG202A 16.3 PERFORM perform-procedure-statement=@17..17
-statement SG202A 16.4 IF if-statement=(EQUAL TO #68 ZERO)
-statement SG202A 16.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
-statement SG202A 16.4.if-else.0 MOVE move-to-sending-area=#68 move-to-statement=#96
-statement SG202A 16.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#98
-statement SG202A 16.6 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SG202A 16.4 IF if-statement=(= #68 ZERO) | if-then | if-else
+statement SG202A 16.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#96
+statement SG202A 16.4.if-else.0 MOVE move-to-sending-area=#68 move-to-statement=keyword:TO move-to-statement=#96
+statement SG202A 16.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=keyword:TO move-to-statement=#98
+statement SG202A 16.6 MOVE move-to-sending-area=#92 move-to-statement=keyword:TO move-to-statement=#2
 statement SG202A 16.7 PERFORM perform-procedure-statement=@17..17
-statement SG202A 16.8 MOVE move-to-sending-area=#99 move-to-statement=#2
+statement SG202A 16.8 MOVE move-to-sending-area=#99 move-to-statement=keyword:TO move-to-statement=#2
 statement SG202A 16.9 PERFORM perform-procedure-statement=@17..17
-statement SG202A 17.0 ADD add-from=1 add-to=#73
-statement SG202A 17.1 IF if-statement=(GREATER #73 50)
-statement SG202A 17.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#72
-statement SG202A 17.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
-statement SG202A 17.1.if-then.2 WRITE record-name=#2
-statement SG202A 17.1.if-then.3 MOVE move-to-sending-area=#55 move-to-statement=#2
+statement SG202A 17.0 ADD add-from=1 add-to-statement=keyword:TO add-to=#73
+statement SG202A 17.1 IF if-statement=(> #73 50) | if-then
+statement SG202A 17.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=keyword:TO move-to-statement=#72
+statement SG202A 17.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 17.1.if-then.2 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-page=keyword:PAGE
+statement SG202A 17.1.if-then.3 MOVE move-to-sending-area=#55 move-to-statement=keyword:TO move-to-statement=#2
 statement SG202A 17.1.if-then.4 PERFORM perform-procedure-statement=@18..18
-statement SG202A 17.1.if-then.5 MOVE move-to-sending-area=#58 move-to-statement=#2
-statement SG202A 17.1.if-then.6 PERFORM perform-procedure-statement=@18..18 perform-times=2
-statement SG202A 17.1.if-then.7 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement SG202A 17.1.if-then.5 MOVE move-to-sending-area=#58 move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 17.1.if-then.6 PERFORM perform-procedure-statement=@18..18 perform-times=2 perform-times=keyword:TIMES
+statement SG202A 17.1.if-then.7 MOVE move-to-sending-area=#117 move-to-statement=keyword:TO move-to-statement=#2
 statement SG202A 17.1.if-then.8 PERFORM perform-procedure-statement=@18..18
-statement SG202A 17.1.if-then.9 MOVE move-to-sending-area=#72 move-to-statement=#2
-statement SG202A 17.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=#73
+statement SG202A 17.1.if-then.9 MOVE move-to-sending-area=#72 move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 17.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=keyword:TO move-to-statement=#73
 statement SG202A 17.2 PERFORM perform-procedure-statement=@18..18
-statement SG202A 18.0 WRITE record-name=#2 write-advancing-lines=1
-statement SG202A 18.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement SG202A 18.0 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINES
+statement SG202A 18.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
 statement SG202A 19.0 PERFORM perform-procedure-statement=@18..18
-statement SG202A 20.0 IF if-statement=(NOT EQUAL TO #32 SPACE)
+statement SG202A 20.0 IF if-statement=(<> #32 SPACE) | if-then
 statement SG202A 20.0.if-then.0 GO TO go-to-statement-simple=@21..21
-statement SG202A 20.1 IF if-statement=(NOT EQUAL TO #45 SPACE)
+statement SG202A 20.1 IF if-statement=(<> #45 SPACE) | if-then
 statement SG202A 20.1.if-then.0 GO TO go-to-statement-simple=@21..21
-statement SG202A 20.2 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#112
-statement SG202A 20.3 MOVE move-to-sending-area=#110 move-to-statement=#2
-statement SG202A 20.4 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement SG202A 20.2 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=keyword:TO move-to-statement=#112
+statement SG202A 20.3 MOVE move-to-sending-area=#110 move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 20.4 PERFORM perform-procedure-statement=@17..17 perform-times=2 perform-times=keyword:TIMES
 statement SG202A 20.5 GO TO go-to-statement-simple=@22..22
-statement SG202A 21.0 MOVE move-to-sending-area=#29 move-to-statement=#1
+statement SG202A 21.0 MOVE move-to-sending-area=#29 move-to-statement=keyword:TO move-to-statement=#1
 statement SG202A 21.1 PERFORM perform-procedure-statement=@17..17
-statement SG202A 21.2 MOVE move-to-sending-area=#42 move-to-statement=#1
-statement SG202A 21.3 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement SG202A 21.2 MOVE move-to-sending-area=#42 move-to-statement=keyword:TO move-to-statement=#1
+statement SG202A 21.3 PERFORM perform-procedure-statement=@17..17 perform-times=2 perform-times=keyword:TIMES
 statement SG202A 22.0 EXIT
-statement SG202A 23.0 IF if-statement=(NOT EQUAL TO #33 SPACE)
+statement SG202A 23.0 IF if-statement=(<> #33 SPACE) | if-then
 statement SG202A 23.0.if-then.0 GO TO go-to-statement-simple=@24..24
-statement SG202A 23.1 IF if-statement=(EQUAL TO #46 SPACE)
+statement SG202A 23.1 IF if-statement=(= #46 SPACE) | if-then
 statement SG202A 23.1.if-then.0 GO TO go-to-statement-simple=@25..25
-statement SG202A 24.0 MOVE move-to-sending-area=#46 move-to-statement=#116
-statement SG202A 24.1 MOVE move-to-sending-area=#33 move-to-statement=#114
-statement SG202A 24.2 MOVE move-to-sending-area=#110 move-to-statement=#2
-statement SG202A 24.3 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement SG202A 24.0 MOVE move-to-sending-area=#46 move-to-statement=keyword:TO move-to-statement=#116
+statement SG202A 24.1 MOVE move-to-sending-area=#33 move-to-statement=keyword:TO move-to-statement=#114
+statement SG202A 24.2 MOVE move-to-sending-area=#110 move-to-statement=keyword:TO move-to-statement=#2
+statement SG202A 24.3 PERFORM perform-procedure-statement=@17..17 perform-times=2 perform-times=keyword:TIMES
 statement SG202A 25.0 EXIT
 statement SG202A 26.0 EXIT
-statement SG202A 28.0 MOVE move-to-sending-area="B" move-to-statement=#9
-statement SG202A 29.0 MOVE move-to-sending-area="X" move-to-statement=#11
+statement SG202A 28.0 MOVE move-to-sending-area="B" move-to-statement=keyword:TO move-to-statement=#9
+statement SG202A 29.0 MOVE move-to-sending-area="X" move-to-statement=keyword:TO move-to-statement=#11
 statement SG202A 29.1 GO TO go-to-statement-simple=@58..58
 statement SG202A 30.0 PERFORM perform-procedure-statement=@2..26
-statement SG202A 31.0 MOVE move-to-sending-area=SPACE move-to-statement=#46
+statement SG202A 31.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#46
 statement SG202A 31.1 PERFORM perform-procedure-statement=@48..51
-statement SG202A 31.2 PERFORM perform-procedure-statement=@48..48 perform-procedure-statement=@51..51
+statement SG202A 31.2 PERFORM perform-procedure-statement=@48..48 perform-procedure-statement=keyword:THRU perform-procedure-statement=@51..51
 statement SG202A 31.3 PERFORM perform-procedure-statement=@48..51
-statement SG202A 31.4 IF if-statement=(EQUAL TO #3 "23")
+statement SG202A 31.4 IF if-statement=(= #3 "23") | if-then | if-else
 statement SG202A 31.4.if-then.0 PERFORM perform-procedure-statement=@6..6
-statement SG202A 31.4.if-else.0 MOVE move-to-sending-area=#3 move-to-statement=#33
-statement SG202A 31.4.if-else.1 MOVE move-to-sending-area="23" move-to-statement=#46
+statement SG202A 31.4.if-else.0 MOVE move-to-sending-area=#3 move-to-statement=keyword:TO move-to-statement=#33
+statement SG202A 31.4.if-else.1 MOVE move-to-sending-area="23" move-to-statement=keyword:TO move-to-statement=#46
 statement SG202A 31.4.if-else.2 PERFORM perform-procedure-statement=@7..7
 statement SG202A 31.5 GO TO go-to-statement-simple=@33..33
 statement SG202A 32.0 PERFORM perform-procedure-statement=@8..8
-statement SG202A 33.0 MOVE move-to-sending-area="TEST-1" move-to-statement=#22
-statement SG202A 33.1 MOVE move-to-sending-area="LAST USED STATE" move-to-statement=#18
+statement SG202A 33.0 MOVE move-to-sending-area="TEST-1" move-to-statement=keyword:TO move-to-statement=#22
+statement SG202A 33.1 MOVE move-to-sending-area="LAST USED STATE" move-to-statement=keyword:TO move-to-statement=#18
 statement SG202A 33.2 PERFORM perform-procedure-statement=@9..9
-statement SG202A 34.0 MOVE move-to-sending-area=SPACE move-to-statement=#46
-statement SG202A 34.1 ALTER alter-proceed-to=@52..52 alter-proceed-to=@54..54
+statement SG202A 34.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#46
+statement SG202A 34.1 ALTER alter-proceed-to=@52..52 alter-proceed-to=keyword:TO alter-proceed-to=keyword:PROCEED alter-proceed-to=keyword:TO alter-proceed-to=@54..54
 statement SG202A 34.2 PERFORM perform-procedure-statement=@52..55
-statement SG202A 34.3 IF if-statement=(EQUAL TO #6 "B")
+statement SG202A 34.3 IF if-statement=(= #6 "B") | if-then | if-else
 statement SG202A 34.3.if-then.0 PERFORM perform-procedure-statement=@6..6
-statement SG202A 34.3.if-else.0 MOVE move-to-sending-area=#6 move-to-statement=#33
-statement SG202A 34.3.if-else.1 MOVE move-to-sending-area="B" move-to-statement=#46
+statement SG202A 34.3.if-else.0 MOVE move-to-sending-area=#6 move-to-statement=keyword:TO move-to-statement=#33
+statement SG202A 34.3.if-else.1 MOVE move-to-sending-area="B" move-to-statement=keyword:TO move-to-statement=#46
 statement SG202A 34.3.if-else.2 PERFORM perform-procedure-statement=@7..7
 statement SG202A 34.4 GO TO go-to-statement-simple=@36..36
 statement SG202A 35.0 PERFORM perform-procedure-statement=@8..8
-statement SG202A 36.0 MOVE move-to-sending-area="TEST-2" move-to-statement=#22
-statement SG202A 36.1 MOVE move-to-sending-area="ALTER NOT CALLD" move-to-statement=#18
+statement SG202A 36.0 MOVE move-to-sending-area="TEST-2" move-to-statement=keyword:TO move-to-statement=#22
+statement SG202A 36.1 MOVE move-to-sending-area="ALTER NOT CALLD" move-to-statement=keyword:TO move-to-statement=#18
 statement SG202A 36.2 PERFORM perform-procedure-statement=@9..9
-statement SG202A 37.0 MOVE move-to-sending-area=SPACE move-to-statement=#46
-statement SG202A 37.1 PERFORM perform-procedure-statement=@56..56 perform-procedure-statement=@28..28
-statement SG202A 37.2 IF if-statement=(IS EQUAL TO #7 "AB")
+statement SG202A 37.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#46
+statement SG202A 37.1 PERFORM perform-procedure-statement=@56..56 perform-procedure-statement=keyword:THRU perform-procedure-statement=@28..28
+statement SG202A 37.2 IF if-statement=(= #7 "AB") | if-then | if-else
 statement SG202A 37.2.if-then.0 PERFORM perform-procedure-statement=@6..6
-statement SG202A 37.2.if-else.0 MOVE move-to-sending-area=#7 move-to-statement=#33
-statement SG202A 37.2.if-else.1 MOVE move-to-sending-area="AB" move-to-statement=#46
+statement SG202A 37.2.if-else.0 MOVE move-to-sending-area=#7 move-to-statement=keyword:TO move-to-statement=#33
+statement SG202A 37.2.if-else.1 MOVE move-to-sending-area="AB" move-to-statement=keyword:TO move-to-statement=#46
 statement SG202A 37.2.if-else.2 PERFORM perform-procedure-statement=@7..7
 statement SG202A 37.3 GO TO go-to-statement-simple=@39..39
 statement SG202A 38.0 PERFORM perform-procedure-statement=@8..8
-statement SG202A 39.0 MOVE move-to-sending-area="TEST-3" move-to-statement=#22
-statement SG202A 39.1 MOVE move-to-sending-area="PERFORM OVER/FIX" move-to-statement=#18
+statement SG202A 39.0 MOVE move-to-sending-area="TEST-3" move-to-statement=keyword:TO move-to-statement=#22
+statement SG202A 39.1 MOVE move-to-sending-area="PERFORM OVER/FIX" move-to-statement=keyword:TO move-to-statement=#18
 statement SG202A 39.2 PERFORM perform-procedure-statement=@9..9
-statement SG202A 40.0 MOVE move-to-sending-area=SPACE move-to-statement=#46
-statement SG202A 40.1 PERFORM perform-procedure-statement=@29..29 perform-procedure-statement=@59..59
-statement SG202A 40.2 IF if-statement=(EQUAL TO #10 "XY")
+statement SG202A 40.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#46
+statement SG202A 40.1 PERFORM perform-procedure-statement=@29..29 perform-procedure-statement=keyword:THRU perform-procedure-statement=@59..59
+statement SG202A 40.2 IF if-statement=(= #10 "XY") | if-then | if-else
 statement SG202A 40.2.if-then.0 PERFORM perform-procedure-statement=@6..6
-statement SG202A 40.2.if-else.0 MOVE move-to-sending-area=#10 move-to-statement=#33
-statement SG202A 40.2.if-else.1 MOVE move-to-sending-area="XY" move-to-statement=#46
+statement SG202A 40.2.if-else.0 MOVE move-to-sending-area=#10 move-to-statement=keyword:TO move-to-statement=#33
+statement SG202A 40.2.if-else.1 MOVE move-to-sending-area="XY" move-to-statement=keyword:TO move-to-statement=#46
 statement SG202A 40.2.if-else.2 PERFORM perform-procedure-statement=@7..7
 statement SG202A 40.3 GO TO go-to-statement-simple=@42..42
 statement SG202A 41.0 PERFORM perform-procedure-statement=@8..8
-statement SG202A 42.0 MOVE move-to-sending-area="TEST-4" move-to-statement=#22
-statement SG202A 42.1 MOVE move-to-sending-area="PERFORM FIX/OVER" move-to-statement=#18
+statement SG202A 42.0 MOVE move-to-sending-area="TEST-4" move-to-statement=keyword:TO move-to-statement=#22
+statement SG202A 42.1 MOVE move-to-sending-area="PERFORM FIX/OVER" move-to-statement=keyword:TO move-to-statement=#18
 statement SG202A 42.2 PERFORM perform-procedure-statement=@9..9
-statement SG202A 43.0 MOVE move-to-sending-area=SPACE move-to-statement=#46
-statement SG202A 43.1 MOVE move-to-sending-area="A" move-to-statement=#14
-statement SG202A 44.0 MOVE move-to-sending-area="B" move-to-statement=#15
-statement SG202A 44.1 IF if-statement=(EQUAL TO #13 "AB")
+statement SG202A 43.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#46
+statement SG202A 43.1 MOVE move-to-sending-area="A" move-to-statement=keyword:TO move-to-statement=#14
+statement SG202A 44.0 MOVE move-to-sending-area="B" move-to-statement=keyword:TO move-to-statement=#15
+statement SG202A 44.1 IF if-statement=(= #13 "AB") | if-then | if-else
 statement SG202A 44.1.if-then.0 PERFORM perform-procedure-statement=@6..6
-statement SG202A 44.1.if-else.0 MOVE move-to-sending-area=#13 move-to-statement=#33
-statement SG202A 44.1.if-else.1 MOVE move-to-sending-area="AB" move-to-statement=#46
+statement SG202A 44.1.if-else.0 MOVE move-to-sending-area=#13 move-to-statement=keyword:TO move-to-statement=#33
+statement SG202A 44.1.if-else.1 MOVE move-to-sending-area="AB" move-to-statement=keyword:TO move-to-statement=#46
 statement SG202A 44.1.if-else.2 PERFORM perform-procedure-statement=@7..7
 statement SG202A 44.2 GO TO go-to-statement-simple=@46..46
 statement SG202A 45.0 PERFORM perform-procedure-statement=@8..8
-statement SG202A 46.0 MOVE move-to-sending-area="TEST-5" move-to-statement=#22
-statement SG202A 46.1 MOVE move-to-sending-area="FALL THRU IMPLIED" move-to-statement=#18
+statement SG202A 46.0 MOVE move-to-sending-area="TEST-5" move-to-statement=keyword:TO move-to-statement=#22
+statement SG202A 46.1 MOVE move-to-sending-area="FALL THRU IMPLIED" move-to-statement=keyword:TO move-to-statement=#18
 statement SG202A 46.2 PERFORM perform-procedure-statement=@9..9
 statement SG202A 47.0 GO TO go-to-statement-simple=@3..3
 statement SG202A 48.0 GO TO go-to-statement-simple=@49..49
-statement SG202A 49.0 ALTER alter-proceed-to=@48..48 alter-proceed-to=@50..50
-statement SG202A 49.1 ADD add-from=1 add-to=#4
+statement SG202A 49.0 ALTER alter-proceed-to=@48..48 alter-proceed-to=keyword:TO alter-proceed-to=keyword:PROCEED alter-proceed-to=keyword:TO alter-proceed-to=@50..50
+statement SG202A 49.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#4
 statement SG202A 49.2 GO TO go-to-statement-simple=@51..51
-statement SG202A 50.0 ALTER alter-proceed-to=@48..48 alter-proceed-to=@49..49
-statement SG202A 50.1 ADD add-from=3 add-to=#5
+statement SG202A 50.0 ALTER alter-proceed-to=@48..48 alter-proceed-to=keyword:TO alter-proceed-to=keyword:PROCEED alter-proceed-to=keyword:TO alter-proceed-to=@49..49
+statement SG202A 50.1 ADD add-from=3 add-to-statement=keyword:TO add-to=#5
 statement SG202A 51.0 EXIT
 statement SG202A 52.0 GO TO go-to-statement-simple=@53..53
-statement SG202A 53.0 MOVE move-to-sending-area="A" move-to-statement=#6
+statement SG202A 53.0 MOVE move-to-sending-area="A" move-to-statement=keyword:TO move-to-statement=#6
 statement SG202A 53.1 GO TO go-to-statement-simple=@55..55
-statement SG202A 54.0 MOVE move-to-sending-area="B" move-to-statement=#6
+statement SG202A 54.0 MOVE move-to-sending-area="B" move-to-statement=keyword:TO move-to-statement=#6
 statement SG202A 55.0 EXIT
-statement SG202A 56.0 MOVE move-to-sending-area="A" move-to-statement=#8
+statement SG202A 56.0 MOVE move-to-sending-area="A" move-to-statement=keyword:TO move-to-statement=#8
 statement SG202A 57.0 GO TO go-to-statement-simple=@28..28
-statement SG202A 58.0 MOVE move-to-sending-area="Y" move-to-statement=#12
+statement SG202A 58.0 MOVE move-to-sending-area="Y" move-to-statement=keyword:TO move-to-statement=#12
 statement SG202A 59.0 EXIT
 using SG202A [] 0

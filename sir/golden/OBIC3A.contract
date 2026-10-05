@@ -316,147 +316,147 @@ edge OBIC3A PERFORM 30 5 5
 edge OBIC3A PERFORM 30 6 6
 edge OBIC3A PERFORM 30 8 8
 statement OBIC3A 1.0 GO TO go-to-statement-simple=@25..25
-statement OBIC3A 2.0 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=@15..15
+statement OBIC3A 2.0 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=keyword:THRU perform-procedure-statement=@15..15
 statement OBIC3A 2.1 CLOSE close-file=file:PRINT-FILE
-statement OBIC3A 3.0 STOP
-statement OBIC3A 4.0 MOVE move-to-sending-area="INSPT" move-to-statement=#7
-statement OBIC3A 4.1 ADD add-from=1 add-to=#55
-statement OBIC3A 5.0 MOVE move-to-sending-area="PASS " move-to-statement=#7
-statement OBIC3A 5.1 ADD add-from=1 add-to=#56
-statement OBIC3A 6.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#7
-statement OBIC3A 6.1 ADD add-from=1 add-to=#54
-statement OBIC3A 7.0 MOVE move-to-sending-area="*****" move-to-statement=#7
-statement OBIC3A 7.1 ADD add-from=1 add-to=#53
-statement OBIC3A 7.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=#14
-statement OBIC3A 8.0 IF if-statement=(NOT EQUAL TO #52 ZERO)
-statement OBIC3A 8.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#11
-statement OBIC3A 8.0.if-then.1 MOVE move-to-sending-area=#52 move-to-statement=#12
-statement OBIC3A 8.1 MOVE move-to-sending-area=#3 move-to-statement=#1
+statement OBIC3A 3.0 STOP stop-statement=keyword:RUN
+statement OBIC3A 4.0 MOVE move-to-sending-area="INSPT" move-to-statement=keyword:TO move-to-statement=#7
+statement OBIC3A 4.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#55
+statement OBIC3A 5.0 MOVE move-to-sending-area="PASS " move-to-statement=keyword:TO move-to-statement=#7
+statement OBIC3A 5.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#56
+statement OBIC3A 6.0 MOVE move-to-sending-area="FAIL*" move-to-statement=keyword:TO move-to-statement=#7
+statement OBIC3A 6.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#54
+statement OBIC3A 7.0 MOVE move-to-sending-area="*****" move-to-statement=keyword:TO move-to-statement=#7
+statement OBIC3A 7.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#53
+statement OBIC3A 7.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=keyword:TO move-to-statement=#14
+statement OBIC3A 8.0 IF if-statement=(<> #52 ZERO) | if-then
+statement OBIC3A 8.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=keyword:TO move-to-statement=#11
+statement OBIC3A 8.0.if-then.1 MOVE move-to-sending-area=#52 move-to-statement=keyword:TO move-to-statement=#12
+statement OBIC3A 8.1 MOVE move-to-sending-area=#3 move-to-statement=keyword:TO move-to-statement=#1
 statement OBIC3A 8.2 PERFORM perform-procedure-statement=@16..16
-statement OBIC3A 8.3 IF if-statement=(EQUAL TO #7 "FAIL*")
+statement OBIC3A 8.3 IF if-statement=(= #7 "FAIL*") | if-then | if-else
 statement OBIC3A 8.3.if-then.0 PERFORM perform-procedure-statement=@16..16
-statement OBIC3A 8.3.if-then.1 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=@21..21
-statement OBIC3A 8.3.if-else.0 PERFORM perform-procedure-statement=@22..22 perform-procedure-statement=@24..24
-statement OBIC3A 8.4 MOVE move-to-sending-area=SPACE move-to-statement=#7
-statement OBIC3A 8.5 MOVE move-to-sending-area=SPACE move-to-statement=#18
-statement OBIC3A 8.6 MOVE move-to-sending-area=SPACE move-to-statement=#31
-statement OBIC3A 8.7 IF if-statement=(EQUAL TO #52 ZERO)
-statement OBIC3A 8.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#9
-statement OBIC3A 8.8 MOVE move-to-sending-area=SPACE move-to-statement=#14
-statement OBIC3A 9.0 MOVE move-to-sending-area=#62 move-to-statement=#2
-statement OBIC3A 9.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement OBIC3A 9.2 MOVE move-to-sending-area=#66 move-to-statement=#2
-statement OBIC3A 9.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement OBIC3A 9.4 MOVE move-to-sending-area=#72 move-to-statement=#2
-statement OBIC3A 9.5 PERFORM perform-procedure-statement=@16..16 perform-times=3
-statement OBIC3A 9.6 MOVE move-to-sending-area=#79 move-to-statement=#2
-statement OBIC3A 9.7 PERFORM perform-procedure-statement=@16..16 perform-times=3
-statement OBIC3A 10.0 MOVE move-to-sending-area=#42 move-to-statement=#2
+statement OBIC3A 8.3.if-then.1 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=keyword:THRU perform-procedure-statement=@21..21
+statement OBIC3A 8.3.if-else.0 PERFORM perform-procedure-statement=@22..22 perform-procedure-statement=keyword:THRU perform-procedure-statement=@24..24
+statement OBIC3A 8.4 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#7
+statement OBIC3A 8.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#18
+statement OBIC3A 8.6 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#31
+statement OBIC3A 8.7 IF if-statement=(= #52 ZERO) | if-then
+statement OBIC3A 8.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#9
+statement OBIC3A 8.8 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#14
+statement OBIC3A 9.0 MOVE move-to-sending-area=#62 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 9.1 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement OBIC3A 9.2 MOVE move-to-sending-area=#66 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 9.3 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement OBIC3A 9.4 MOVE move-to-sending-area=#72 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 9.5 PERFORM perform-procedure-statement=@16..16 perform-times=3 perform-times=keyword:TIMES
+statement OBIC3A 9.6 MOVE move-to-sending-area=#79 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 9.7 PERFORM perform-procedure-statement=@16..16 perform-times=3 perform-times=keyword:TIMES
+statement OBIC3A 10.0 MOVE move-to-sending-area=#42 move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 10.1 PERFORM perform-procedure-statement=@16..16
-statement OBIC3A 10.2 MOVE move-to-sending-area=#45 move-to-statement=#2
-statement OBIC3A 10.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement OBIC3A 10.4 MOVE move-to-sending-area=#114 move-to-statement=#2
+statement OBIC3A 10.2 MOVE move-to-sending-area=#45 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 10.3 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement OBIC3A 10.4 MOVE move-to-sending-area=#114 move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 10.5 PERFORM perform-procedure-statement=@16..16
-statement OBIC3A 11.0 MOVE move-to-sending-area=#114 move-to-statement=#2
-statement OBIC3A 11.1 PERFORM perform-procedure-statement=@16..16 perform-times=5
-statement OBIC3A 12.0 MOVE move-to-sending-area=#83 move-to-statement=#2
-statement OBIC3A 12.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement OBIC3A 13.0 ADD add-from=#54 add-to=#58
-statement OBIC3A 13.1 ADD add-from=#55 add-to=#58
-statement OBIC3A 13.2 ADD add-from=#53 add-to=#58
-statement OBIC3A 13.3 ADD add-from=#56 add-to=#58
-statement OBIC3A 13.4 MOVE move-to-sending-area=#56 move-to-statement=#102
-statement OBIC3A 13.5 MOVE move-to-sending-area=#58 move-to-statement=#104
-statement OBIC3A 13.6 MOVE move-to-sending-area=#101 move-to-statement=#91
-statement OBIC3A 13.7 MOVE move-to-sending-area=#88 move-to-statement=#2
+statement OBIC3A 11.0 MOVE move-to-sending-area=#114 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 11.1 PERFORM perform-procedure-statement=@16..16 perform-times=5 perform-times=keyword:TIMES
+statement OBIC3A 12.0 MOVE move-to-sending-area=#83 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 12.1 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement OBIC3A 13.0 ADD add-from=#54 add-to-statement=keyword:TO add-to=#58
+statement OBIC3A 13.1 ADD add-from=#55 add-to-statement=keyword:TO add-to=#58
+statement OBIC3A 13.2 ADD add-from=#53 add-to-statement=keyword:TO add-to=#58
+statement OBIC3A 13.3 ADD add-from=#56 add-to-statement=keyword:TO add-to=#58
+statement OBIC3A 13.4 MOVE move-to-sending-area=#56 move-to-statement=keyword:TO move-to-statement=#102
+statement OBIC3A 13.5 MOVE move-to-sending-area=#58 move-to-statement=keyword:TO move-to-statement=#104
+statement OBIC3A 13.6 MOVE move-to-sending-area=#101 move-to-statement=keyword:TO move-to-statement=#91
+statement OBIC3A 13.7 MOVE move-to-sending-area=#88 move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 13.8 PERFORM perform-procedure-statement=@16..16
-statement OBIC3A 14.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#94
-statement OBIC3A 14.1 IF if-statement=(IS EQUAL TO #54 ZERO)
-statement OBIC3A 14.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#92
-statement OBIC3A 14.1.if-else.0 MOVE move-to-sending-area=#54 move-to-statement=#92
-statement OBIC3A 14.2 MOVE move-to-sending-area=#88 move-to-statement=#2
+statement OBIC3A 14.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=keyword:TO move-to-statement=#94
+statement OBIC3A 14.1 IF if-statement=(= #54 ZERO) | if-then | if-else
+statement OBIC3A 14.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#92
+statement OBIC3A 14.1.if-else.0 MOVE move-to-sending-area=#54 move-to-statement=keyword:TO move-to-statement=#92
+statement OBIC3A 14.2 MOVE move-to-sending-area=#88 move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 14.3 PERFORM perform-procedure-statement=@16..16
-statement OBIC3A 15.0 IF if-statement=(IS EQUAL TO #53 ZERO)
-statement OBIC3A 15.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#92
-statement OBIC3A 15.0.if-else.0 MOVE move-to-sending-area=#53 move-to-statement=#92
-statement OBIC3A 15.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#94
-statement OBIC3A 15.2 MOVE move-to-sending-area=#88 move-to-statement=#2
+statement OBIC3A 15.0 IF if-statement=(= #53 ZERO) | if-then | if-else
+statement OBIC3A 15.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#92
+statement OBIC3A 15.0.if-else.0 MOVE move-to-sending-area=#53 move-to-statement=keyword:TO move-to-statement=#92
+statement OBIC3A 15.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=keyword:TO move-to-statement=#94
+statement OBIC3A 15.2 MOVE move-to-sending-area=#88 move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 15.3 PERFORM perform-procedure-statement=@16..16
-statement OBIC3A 15.4 IF if-statement=(EQUAL TO #55 ZERO)
-statement OBIC3A 15.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#92
-statement OBIC3A 15.4.if-else.0 MOVE move-to-sending-area=#55 move-to-statement=#92
-statement OBIC3A 15.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#94
-statement OBIC3A 15.6 MOVE move-to-sending-area=#88 move-to-statement=#2
+statement OBIC3A 15.4 IF if-statement=(= #55 ZERO) | if-then | if-else
+statement OBIC3A 15.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#92
+statement OBIC3A 15.4.if-else.0 MOVE move-to-sending-area=#55 move-to-statement=keyword:TO move-to-statement=#92
+statement OBIC3A 15.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=keyword:TO move-to-statement=#94
+statement OBIC3A 15.6 MOVE move-to-sending-area=#88 move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 15.7 PERFORM perform-procedure-statement=@16..16
-statement OBIC3A 15.8 MOVE move-to-sending-area=#95 move-to-statement=#2
+statement OBIC3A 15.8 MOVE move-to-sending-area=#95 move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 15.9 PERFORM perform-procedure-statement=@16..16
-statement OBIC3A 16.0 ADD add-from=1 add-to=#60
-statement OBIC3A 16.1 IF if-statement=(GREATER #60 50)
-statement OBIC3A 16.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#59
-statement OBIC3A 16.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
-statement OBIC3A 16.1.if-then.2 WRITE record-name=#2
-statement OBIC3A 16.1.if-then.3 MOVE move-to-sending-area=#42 move-to-statement=#2
+statement OBIC3A 16.0 ADD add-from=1 add-to-statement=keyword:TO add-to=#60
+statement OBIC3A 16.1 IF if-statement=(> #60 50) | if-then
+statement OBIC3A 16.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=keyword:TO move-to-statement=#59
+statement OBIC3A 16.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 16.1.if-then.2 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-page=keyword:PAGE
+statement OBIC3A 16.1.if-then.3 MOVE move-to-sending-area=#42 move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 16.1.if-then.4 PERFORM perform-procedure-statement=@17..17
-statement OBIC3A 16.1.if-then.5 MOVE move-to-sending-area=#45 move-to-statement=#2
-statement OBIC3A 16.1.if-then.6 PERFORM perform-procedure-statement=@17..17 perform-times=2
-statement OBIC3A 16.1.if-then.7 MOVE move-to-sending-area=#114 move-to-statement=#2
+statement OBIC3A 16.1.if-then.5 MOVE move-to-sending-area=#45 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 16.1.if-then.6 PERFORM perform-procedure-statement=@17..17 perform-times=2 perform-times=keyword:TIMES
+statement OBIC3A 16.1.if-then.7 MOVE move-to-sending-area=#114 move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 16.1.if-then.8 PERFORM perform-procedure-statement=@17..17
-statement OBIC3A 16.1.if-then.9 MOVE move-to-sending-area=#59 move-to-statement=#2
-statement OBIC3A 16.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=#60
+statement OBIC3A 16.1.if-then.9 MOVE move-to-sending-area=#59 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 16.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=keyword:TO move-to-statement=#60
 statement OBIC3A 16.2 PERFORM perform-procedure-statement=@17..17
-statement OBIC3A 17.0 WRITE record-name=#2 write-advancing-lines=1
-statement OBIC3A 17.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement OBIC3A 17.0 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINES
+statement OBIC3A 17.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 18.0 PERFORM perform-procedure-statement=@17..17
-statement OBIC3A 19.0 IF if-statement=(NOT EQUAL TO #18 SPACE)
+statement OBIC3A 19.0 IF if-statement=(<> #18 SPACE) | if-then
 statement OBIC3A 19.0.if-then.0 GO TO go-to-statement-simple=@20..20
-statement OBIC3A 19.1 IF if-statement=(NOT EQUAL TO #31 SPACE)
+statement OBIC3A 19.1 IF if-statement=(<> #31 SPACE) | if-then
 statement OBIC3A 19.1.if-then.0 GO TO go-to-statement-simple=@20..20
-statement OBIC3A 19.2 MOVE move-to-sending-area=#61 move-to-statement=#113
-statement OBIC3A 19.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#108
-statement OBIC3A 19.4 MOVE move-to-sending-area=#106 move-to-statement=#2
-statement OBIC3A 19.5 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement OBIC3A 19.6 MOVE move-to-sending-area=SPACE move-to-statement=#113
+statement OBIC3A 19.2 MOVE move-to-sending-area=#61 move-to-statement=keyword:TO move-to-statement=#113
+statement OBIC3A 19.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=keyword:TO move-to-statement=#108
+statement OBIC3A 19.4 MOVE move-to-sending-area=#106 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 19.5 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement OBIC3A 19.6 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#113
 statement OBIC3A 19.7 GO TO go-to-statement-simple=@21..21
-statement OBIC3A 20.0 MOVE move-to-sending-area=#15 move-to-statement=#1
+statement OBIC3A 20.0 MOVE move-to-sending-area=#15 move-to-statement=keyword:TO move-to-statement=#1
 statement OBIC3A 20.1 PERFORM perform-procedure-statement=@16..16
-statement OBIC3A 20.2 MOVE move-to-sending-area=#61 move-to-statement=#41
-statement OBIC3A 20.3 MOVE move-to-sending-area=#28 move-to-statement=#1
-statement OBIC3A 20.4 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement OBIC3A 20.5 MOVE move-to-sending-area=SPACE move-to-statement=#41
+statement OBIC3A 20.2 MOVE move-to-sending-area=#61 move-to-statement=keyword:TO move-to-statement=#41
+statement OBIC3A 20.3 MOVE move-to-sending-area=#28 move-to-statement=keyword:TO move-to-statement=#1
+statement OBIC3A 20.4 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement OBIC3A 20.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#41
 statement OBIC3A 21.0 EXIT
-statement OBIC3A 22.0 IF if-statement=(NOT EQUAL TO #19 SPACE)
+statement OBIC3A 22.0 IF if-statement=(<> #19 SPACE) | if-then
 statement OBIC3A 22.0.if-then.0 GO TO go-to-statement-simple=@23..23
-statement OBIC3A 22.1 IF if-statement=(EQUAL TO #32 SPACE)
+statement OBIC3A 22.1 IF if-statement=(= #32 SPACE) | if-then
 statement OBIC3A 22.1.if-then.0 GO TO go-to-statement-simple=@24..24
-statement OBIC3A 23.0 MOVE move-to-sending-area=#32 move-to-statement=#112
-statement OBIC3A 23.1 MOVE move-to-sending-area=#19 move-to-statement=#110
-statement OBIC3A 23.2 MOVE move-to-sending-area=#61 move-to-statement=#113
-statement OBIC3A 23.3 MOVE move-to-sending-area=#106 move-to-statement=#2
-statement OBIC3A 23.4 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement OBIC3A 23.5 MOVE move-to-sending-area=SPACE move-to-statement=#113
+statement OBIC3A 23.0 MOVE move-to-sending-area=#32 move-to-statement=keyword:TO move-to-statement=#112
+statement OBIC3A 23.1 MOVE move-to-sending-area=#19 move-to-statement=keyword:TO move-to-statement=#110
+statement OBIC3A 23.2 MOVE move-to-sending-area=#61 move-to-statement=keyword:TO move-to-statement=#113
+statement OBIC3A 23.3 MOVE move-to-sending-area=#106 move-to-statement=keyword:TO move-to-statement=#2
+statement OBIC3A 23.4 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement OBIC3A 23.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#113
 statement OBIC3A 24.0 EXIT
 statement OBIC3A 25.0 EXIT
-statement OBIC3A 26.0 GO TO go-to-depending-on-statement=@27..27 go-to-depending-on-statement=@30..30 go-to-depending-on-statement=@29..29 go-to-depending-on-statement=#126
-statement OBIC3A 26.1 MOVE move-to-sending-area="ERROR IN PRINT-FLAG" move-to-statement=#2
+statement OBIC3A 26.0 GO TO go-to-depending-on-statement=@27..27 go-to-depending-on-statement=@30..30 go-to-depending-on-statement=@29..29 go-to-depending-on-statement=keyword:DEPENDING go-to-depending-on-statement=keyword:ON go-to-depending-on-statement=#126
+statement OBIC3A 26.1 MOVE move-to-sending-area="ERROR IN PRINT-FLAG" move-to-statement=keyword:TO move-to-statement=#2
 statement OBIC3A 26.2 PERFORM perform-procedure-statement=@16..16
 statement OBIC3A 26.3 GO TO go-to-statement-simple=@31..31
-statement OBIC3A 27.0 MOVE move-to-sending-area=0 move-to-statement=#121
-statement OBIC3A 28.0 OPEN open-output=file:PRINT-FILE
-statement OBIC3A 28.1 MOVE move-to-sending-area=#118 move-to-statement=#74
-statement OBIC3A 28.2 MOVE move-to-sending-area=#118 move-to-statement=#86
-statement OBIC3A 28.3 MOVE move-to-sending-area=SPACE move-to-statement=#3
-statement OBIC3A 28.4 PERFORM perform-procedure-statement=@9..9 perform-procedure-statement=@10..10
+statement OBIC3A 27.0 MOVE move-to-sending-area=0 move-to-statement=keyword:TO move-to-statement=#121
+statement OBIC3A 28.0 OPEN open-output-statement=keyword:OUTPUT open-output=file:PRINT-FILE
+statement OBIC3A 28.1 MOVE move-to-sending-area=#118 move-to-statement=keyword:TO move-to-statement=#74
+statement OBIC3A 28.2 MOVE move-to-sending-area=#118 move-to-statement=keyword:TO move-to-statement=#86
+statement OBIC3A 28.3 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#3
+statement OBIC3A 28.4 PERFORM perform-procedure-statement=@9..9 perform-procedure-statement=keyword:THRU perform-procedure-statement=@10..10
 statement OBIC3A 28.5 GO TO go-to-statement-simple=@31..31
 statement OBIC3A 29.0 PERFORM perform-procedure-statement=@2..2
 statement OBIC3A 29.1 GO TO go-to-statement-simple=@31..31
-statement OBIC3A 30.0 IF if-statement=(EQUAL TO #120 "PASS ")
+statement OBIC3A 30.0 IF if-statement=(= #120 "PASS ") | if-then | if-else
 statement OBIC3A 30.0.if-then.0 PERFORM perform-procedure-statement=@5..5
 statement OBIC3A 30.0.if-else.0 PERFORM perform-procedure-statement=@6..6
-statement OBIC3A 30.0.if-else.1 MOVE move-to-sending-area=#123 move-to-statement=#19
-statement OBIC3A 30.0.if-else.2 MOVE move-to-sending-area=#124 move-to-statement=#32
-statement OBIC3A 30.1 MOVE move-to-sending-area=#121 move-to-statement=#52
-statement OBIC3A 30.2 MOVE move-to-sending-area=#122 move-to-statement=#5
-statement OBIC3A 30.3 MOVE move-to-sending-area=#125 move-to-statement=#9
+statement OBIC3A 30.0.if-else.1 MOVE move-to-sending-area=#123 move-to-statement=keyword:TO move-to-statement=#19
+statement OBIC3A 30.0.if-else.2 MOVE move-to-sending-area=#124 move-to-statement=keyword:TO move-to-statement=#32
+statement OBIC3A 30.1 MOVE move-to-sending-area=#121 move-to-statement=keyword:TO move-to-statement=#52
+statement OBIC3A 30.2 MOVE move-to-sending-area=#122 move-to-statement=keyword:TO move-to-statement=#5
+statement OBIC3A 30.3 MOVE move-to-sending-area=#125 move-to-statement=keyword:TO move-to-statement=#9
 statement OBIC3A 30.4 PERFORM perform-procedure-statement=@8..8
-statement OBIC3A 31.0 EXIT
+statement OBIC3A 31.0 EXIT exit-statement=keyword:PROGRAM
 using OBIC3A [119, 126] 0

@@ -609,3 +609,22 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/build/Origins.java:Origins.Origins` | no caller | 2026-10-05 |  |
 | sir | `sir/build/Origins.java:Origins.at` | called by `sir/build/Build.java:Build.program#2` and 12 more | 2026-10-05 |  |
 | sir | `sir/types/Origin.java:Origin.toString` | called by `findings/Finding.java:Finding.report` and 50 more | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.programs` | called by `oracle/lane/CobcLane.java:CobcLane.prepare` | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.Expressions` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.arithmetic` | called by `sir/build/Expressions.java:Expressions.basis` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.multDivs` | called by `sir/build/Expressions.java:Expressions.arithmetic` | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.powers` | called by `sir/build/Expressions.java:Expressions.multDivs` | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.basis` | called by `sir/build/Expressions.java:Expressions.powers` | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.condition` | called by `sir/build/Build.java:Build.program#2` and 7 more | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.combinable` | called by `sir/build/Expressions.java:Expressions.condition` | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.simple` | called by `sir/build/Expressions.java:Expressions.combinable` | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.relation` | called by `sir/build/Expressions.java:Expressions.simple` | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.abbreviation` | called by `sir/build/Expressions.java:Expressions.condition` | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.classCondition` | called by `sir/build/Expressions.java:Expressions.simple` | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.operator` | called by `sir/build/Expressions.java:Expressions.relation` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Expressions.java:Expressions.binary` | called by `sir/build/Expressions.java:Expressions.arithmetic` and 5 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.branch` | called by `sir/build/Paragraphs.java:Paragraphs.walk` | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.group` | called by `oracle/compare/Layout.java:Layout.items` and 15 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.holdsStatements` | called by `sir/build/Paragraphs.java:Paragraphs.walk` | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.noise` | called by `sir/build/Paragraphs.java:Paragraphs.walk` and 2 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.subscript` | called by `sir/build/Values.java:Values.table` and 1 more | 2026-10-05 |  |

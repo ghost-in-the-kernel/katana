@@ -28,7 +28,9 @@ class IrGoldenTest {
     static List<String> contract(Path program, Path copybooks) {
         Parse.Result parse = Parse.file(program, new Copybooks(List.of(copybooks), n -> 8), 8);
         if (!parse.clean()) throw new IllegalStateException(program + ": " + parse.errors().get(0));
-        return Contract.lines(Build.program(parse, HASH).program());
+        List<String> lines = new ArrayList<>();
+        for (Build.Result r : Build.programs(parse, HASH)) lines.addAll(Contract.lines(r.program()));
+        return lines;
     }
 
     @Test
@@ -36,6 +38,7 @@ class IrGoldenTest {
         List<String> differ = new ArrayList<>();
         Path trivial = ROOT.resolve("oracle/fixture/trivial");
         check("COPYREC", contract(trivial.resolve("cbl/COPYREC.cbl"), trivial.resolve("cpy")), differ);
+        check("PROBE", contract(GOLDEN.resolve("PROBE.cbl"), GOLDEN), differ);
         for (String p : NIST) check(p, contract(GOLDEN.resolve(p + ".cbl"), GOLDEN), differ);
         assertEquals(List.of(), differ);
     }

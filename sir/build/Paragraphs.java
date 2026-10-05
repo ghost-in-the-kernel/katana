@@ -79,30 +79,89 @@ final class Paragraphs {
     private Statement statement(CobolParser.StatementContext s) {
         ParserRuleContext verb = (ParserRuleContext) s.getChild(0);
         List<Statement.Operand> operands = new ArrayList<>();
-        Map<String, List<Statement>> branches = new LinkedHashMap<>();
-        walk(verb, verb, operands, branches);
-        List<Statement.Branch> built = new ArrayList<>();
-        branches.forEach((label, list) -> built.add(new Statement.Branch(label, null, list)));
+        List<Statement.Branch> branches = new ArrayList<>();
+        List<String> verbWords = new ArrayList<>(List.of(verbName(verb).split(" ")));
+        walk(verb, verbWords, operands, branches);
         Origin origin = Origins.at(parse, s);
         edges(verb, origin);
         if (verb instanceof CobolParser.CallStatementContext c) calls.add(call(c, origin));
-        return new Statement(verbName(verb), operands, built, origin);
+        return new Statement(verbName(verb), operands, branches, origin);
     }
 
-    /** A statement's subtree: values to operands, nested statements to branches, other rules walked into. */
-    private void walk(ParserRuleContext node, ParserRuleContext verb, List<Statement.Operand> operands, Map<String, List<Statement>> branches) {
+    /**
+     * A statement's subtree, no token left behind (tithe pass 2, A1): a value to an operand, a keyword to
+     * a `Name("keyword", X)` operand (but noise, and the verb's own words), a rule holding statements to a
+     * branch of its own, any other rule walked into; each operand's role the rule that holds it.
+     */
+    private void walk(ParserRuleContext node, List<String> verbWords, List<Statement.Operand> operands, List<Statement.Branch> branches) {
         for (ParseTree child : node.children == null ? List.<ParseTree>of() : node.children) {
-            if (child instanceof TerminalNode) continue;
-            if (child instanceof CobolParser.StatementContext nested) {
-                branches.computeIfAbsent(role(node), k -> new ArrayList<>()).add(statement(nested));
-            } else if (child instanceof CobolParser.ProcedureNameContext p) {
+            if (child instanceof TerminalNode t) {
+                String word = Values.upper(t.getText());
+                if (!verbWords.isEmpty() && verbWords.get(0).equals(word)) verbWords.remove(0);
+                else if (!noise(t)) operands.add(new Statement.Operand(role(node), new Value.Name("keyword", word)));
+                continue;
+            }
+            verbWords.clear();
+            if (child instanceof CobolParser.ProcedureNameContext p) {
                 operands.add(new Statement.Operand(role(node), target(p)));
             } else if (Values.isValue(child)) {
                 operands.add(new Statement.Operand(role(node), values.of(child)));
+            } else if (holdsStatements((ParserRuleContext) child)) {
+                branches.add(branch((ParserRuleContext) child));
             } else {
-                walk((ParserRuleContext) child, verb, operands, branches);
+                walk((ParserRuleContext) child, verbWords, operands, branches);
             }
         }
+    }
+
+    /** A rule holding statements as a branch: its label the rule, its condition what else it holds (its own words, but those its label says, such as AT END in `at-end-phrase`). */
+    private Statement.Branch branch(ParserRuleContext rule) {
+        List<Statement> statements = new ArrayList<>();
+        List<Value> parts = new ArrayList<>();
+        List<String> label = List.of(role(rule).toUpperCase(java.util.Locale.ROOT).split("-"));
+        for (ParseTree child : rule.children == null ? List.<ParseTree>of() : rule.children) {
+            if (child instanceof CobolParser.StatementContext nested) statements.add(statement(nested));
+            else if (child instanceof ParserRuleContext r) parts.add(group(r));
+            else if (child instanceof TerminalNode t && !noise(t) && !label.contains(Values.upper(t.getText()))) parts.add(new Value.Name("keyword", Values.upper(t.getText())));
+        }
+        Value condition = parts.isEmpty() ? null : parts.size() == 1 ? parts.get(0) : new Value.Expression(role(rule), parts);
+        return new Statement.Branch(role(rule), condition, statements);
+    }
+
+    /** A rule inside a condition, whole: a value as itself, else its keywords, values and rules in order under its name. */
+    private Value group(ParserRuleContext rule) {
+        if (rule instanceof CobolParser.ProcedureNameContext p) return target(p);
+        if (Values.isValue(rule)) return values.of(rule);
+        List<Value> items = new ArrayList<>();
+        for (ParseTree child : rule.children == null ? List.<ParseTree>of() : rule.children) {
+            if (child instanceof TerminalNode t) {
+                if (!noise(t)) items.add(new Value.Name("keyword", Values.upper(t.getText())));
+            } else {
+                items.add(group((ParserRuleContext) child));
+            }
+        }
+        return items.size() == 1 && !(items.get(0) instanceof Value.Name) ? items.get(0) : new Value.Expression(role(rule), items);
+    }
+
+    /** Whether the grammar lets the rule hold statements: its generated context has a `statement()` list. */
+    private static boolean holdsStatements(ParserRuleContext rule) {
+        return HOLDERS.computeIfAbsent(rule.getClass(), c -> {
+            try {
+                c.getMethod("statement");
+                return true;
+            } catch (NoSuchMethodException e) {
+                return false;
+            }
+        });
+    }
+
+    private static final Map<Class<?>, Boolean> HOLDERS = new java.util.concurrent.ConcurrentHashMap<>();
+
+    /** Words that carry nothing: IS, ARE, THEN, an END-x, punctuation. */
+    static boolean noise(TerminalNode t) {
+        String w = Values.upper(t.getText());
+        return w.equals("IS") || w.equals("ARE") || w.equals("THEN") || w.startsWith("END-") || w.equals(".") || w.equals(",") || w.equals("(") || w.equals(")")
+                || w.equals(":") || w.equals("<EOF>");
     }
 
     /** PERFORM a [THRU b], GO TO a ... and ALTER a TO b, as edges from the paragraph they are in. */
@@ -159,8 +218,11 @@ final class Paragraphs {
                 Call.Mode mode = phrase instanceof CobolParser.CallByContentPhraseContext ? Call.Mode.CONTENT
                         : phrase instanceof CobolParser.CallByValuePhraseContext ? Call.Mode.VALUE : Call.Mode.REFERENCE;
                 List<Statement.Operand> found = new ArrayList<>();
-                walk(phrase, phrase, found, new LinkedHashMap<>());
-                for (var o : found) using.add(new Call.Argument(mode, o.value()));
+                walk(phrase, new ArrayList<>(), found, new ArrayList<>());
+                for (var o : found) {
+                    if (o.value() instanceof Value.Name n && n.kind().equals("keyword") && List.of("BY", "REFERENCE", "CONTENT", "VALUE").contains(n.text())) continue;
+                    using.add(new Call.Argument(mode, o.value()));
+                }
             }
         }
         Value returning = c.callGivingPhrase() == null ? null : values.of(c.callGivingPhrase().identifier());

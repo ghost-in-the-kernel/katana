@@ -938,3 +938,18 @@ taken; closed by a later `decision` entry naming it).
   rejected). Both can be enforced (a zero-test suite is red; a registry of checks with mutations a
   meta-test applies); the judgment of independence cannot, and is a principle, not a decision.
 - **Resolved:** the draft in HANDOFF "For Fable"; Ghost takes it to Fable. **Touched:** HANDOFF.
+
+### J-079 Tithe pass 2, A1: no token left behind, and what reading the tree found
+- **Who:** Opus. **Class:** build. **Intent:** R-017's test, and the IR it requires.
+- **Found:** the walk now keeps every word (a keyword operand; the verb's own words and IS, ARE, THEN,
+  END-x and punctuation aside), gives each rule holding statements its own branch with its other
+  content as the condition, and writes arithmetic and conditions as operator trees (`Expressions`).
+  The test reads the tree and pairs its statements with the IR's by textual order. The first corpus
+  run left 695 tokens; reading them found five IR gaps (NEXT SENTENCE, unary plus, relative
+  subscripts `I + 1`, reference modification on a function, a file named as a qualifier) and one
+  missing program: a source with two top-level programs (NIST IC237A) built only its first, so
+  `Build.programs` builds each. Three were the checker's (a copybook copied three times gives three
+  statements of one origin; `+1` is one token; a qualifier naming a paragraph or file). It ends at 0 on
+  CardDemo, NIST and OMP, and a mutation that drops keywords turns it red (kept as a test).
+- **Resolved:** A1; R-017's Held by names the tests. **Touched:** `sir/build/`, the sir tests,
+  `sir/golden/` (PROBE added; every contract's statements re-recorded), `sir/ir.golden`, theGhost.md.

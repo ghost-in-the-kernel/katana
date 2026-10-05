@@ -336,182 +336,182 @@ edge RW102A PERFORM 40 6 6
 edge RW102A PERFORM 41 8 8
 edge RW102A PERFORM 44 8 8
 edge RW102A GO_TO 46 2 2
-statement RW102A 1.0 OPEN open-output=file:PRINT-FILE
-statement RW102A 1.1 MOVE move-to-sending-area=#111 move-to-statement=#71
-statement RW102A 1.2 MOVE move-to-sending-area=#111 move-to-statement=#80
-statement RW102A 1.3 MOVE move-to-sending-area=SPACE move-to-statement=#6
-statement RW102A 1.4 PERFORM perform-procedure-statement=@9..9 perform-procedure-statement=@10..10
+statement RW102A 1.0 OPEN open-output-statement=keyword:OUTPUT open-output=file:PRINT-FILE
+statement RW102A 1.1 MOVE move-to-sending-area=#111 move-to-statement=keyword:TO move-to-statement=#71
+statement RW102A 1.2 MOVE move-to-sending-area=#111 move-to-statement=keyword:TO move-to-statement=#80
+statement RW102A 1.3 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#6
+statement RW102A 1.4 PERFORM perform-procedure-statement=@9..9 perform-procedure-statement=keyword:THRU perform-procedure-statement=@10..10
 statement RW102A 1.5 GO TO go-to-statement-simple=@25..25
-statement RW102A 2.0 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=@15..15
+statement RW102A 2.0 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=keyword:THRU perform-procedure-statement=@15..15
 statement RW102A 2.1 CLOSE close-file=file:PRINT-FILE
-statement RW102A 3.0 STOP
-statement RW102A 4.0 MOVE move-to-sending-area="INSPT" move-to-statement=#10
-statement RW102A 4.1 ADD add-from=1 add-to=#58
-statement RW102A 5.0 MOVE move-to-sending-area="PASS " move-to-statement=#10
-statement RW102A 5.1 ADD add-from=1 add-to=#59
-statement RW102A 6.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#10
-statement RW102A 6.1 ADD add-from=1 add-to=#57
-statement RW102A 7.0 MOVE move-to-sending-area="*****" move-to-statement=#10
-statement RW102A 7.1 ADD add-from=1 add-to=#56
-statement RW102A 7.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=#18
-statement RW102A 8.0 IF if-statement=(NOT EQUAL TO #55 ZERO)
-statement RW102A 8.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#14
-statement RW102A 8.0.if-then.1 MOVE move-to-sending-area=#55 move-to-statement=#15
-statement RW102A 8.1 MOVE move-to-sending-area=#6 move-to-statement=#1
+statement RW102A 3.0 STOP stop-statement=keyword:RUN
+statement RW102A 4.0 MOVE move-to-sending-area="INSPT" move-to-statement=keyword:TO move-to-statement=#10
+statement RW102A 4.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#58
+statement RW102A 5.0 MOVE move-to-sending-area="PASS " move-to-statement=keyword:TO move-to-statement=#10
+statement RW102A 5.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#59
+statement RW102A 6.0 MOVE move-to-sending-area="FAIL*" move-to-statement=keyword:TO move-to-statement=#10
+statement RW102A 6.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#57
+statement RW102A 7.0 MOVE move-to-sending-area="*****" move-to-statement=keyword:TO move-to-statement=#10
+statement RW102A 7.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#56
+statement RW102A 7.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=keyword:TO move-to-statement=#18
+statement RW102A 8.0 IF if-statement=(<> #55 ZERO) | if-then
+statement RW102A 8.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=keyword:TO move-to-statement=#14
+statement RW102A 8.0.if-then.1 MOVE move-to-sending-area=#55 move-to-statement=keyword:TO move-to-statement=#15
+statement RW102A 8.1 MOVE move-to-sending-area=#6 move-to-statement=keyword:TO move-to-statement=#1
 statement RW102A 8.2 PERFORM perform-procedure-statement=@16..16
-statement RW102A 8.3 IF if-statement=(EQUAL TO #10 "FAIL*")
+statement RW102A 8.3 IF if-statement=(= #10 "FAIL*") | if-then | if-else
 statement RW102A 8.3.if-then.0 PERFORM perform-procedure-statement=@16..16
-statement RW102A 8.3.if-then.1 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=@21..21
-statement RW102A 8.3.if-else.0 PERFORM perform-procedure-statement=@22..22 perform-procedure-statement=@24..24
-statement RW102A 8.4 MOVE move-to-sending-area=SPACE move-to-statement=#10
-statement RW102A 8.5 MOVE move-to-sending-area=SPACE move-to-statement=#22
-statement RW102A 8.6 MOVE move-to-sending-area=SPACE move-to-statement=#35
-statement RW102A 8.7 IF if-statement=(EQUAL TO #55 ZERO)
-statement RW102A 8.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#12
-statement RW102A 8.8 MOVE move-to-sending-area=SPACE move-to-statement=#18
-statement RW102A 9.0 MOVE move-to-sending-area=#64 move-to-statement=#2
-statement RW102A 9.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement RW102A 9.2 MOVE move-to-sending-area=#68 move-to-statement=#2
-statement RW102A 9.3 PERFORM perform-procedure-statement=@16..16 perform-times=5
-statement RW102A 9.4 MOVE move-to-sending-area=#73 move-to-statement=#2
-statement RW102A 9.5 PERFORM perform-procedure-statement=@16..16 perform-times=3
-statement RW102A 10.0 MOVE move-to-sending-area=#45 move-to-statement=#2
+statement RW102A 8.3.if-then.1 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=keyword:THRU perform-procedure-statement=@21..21
+statement RW102A 8.3.if-else.0 PERFORM perform-procedure-statement=@22..22 perform-procedure-statement=keyword:THRU perform-procedure-statement=@24..24
+statement RW102A 8.4 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#10
+statement RW102A 8.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#22
+statement RW102A 8.6 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#35
+statement RW102A 8.7 IF if-statement=(= #55 ZERO) | if-then
+statement RW102A 8.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#12
+statement RW102A 8.8 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#18
+statement RW102A 9.0 MOVE move-to-sending-area=#64 move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 9.1 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement RW102A 9.2 MOVE move-to-sending-area=#68 move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 9.3 PERFORM perform-procedure-statement=@16..16 perform-times=5 perform-times=keyword:TIMES
+statement RW102A 9.4 MOVE move-to-sending-area=#73 move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 9.5 PERFORM perform-procedure-statement=@16..16 perform-times=3 perform-times=keyword:TIMES
+statement RW102A 10.0 MOVE move-to-sending-area=#45 move-to-statement=keyword:TO move-to-statement=#2
 statement RW102A 10.1 PERFORM perform-procedure-statement=@16..16
-statement RW102A 10.2 MOVE move-to-sending-area=#48 move-to-statement=#2
-statement RW102A 10.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement RW102A 10.4 MOVE move-to-sending-area=#107 move-to-statement=#2
+statement RW102A 10.2 MOVE move-to-sending-area=#48 move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 10.3 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement RW102A 10.4 MOVE move-to-sending-area=#107 move-to-statement=keyword:TO move-to-statement=#2
 statement RW102A 10.5 PERFORM perform-procedure-statement=@16..16
-statement RW102A 11.0 MOVE move-to-sending-area=#107 move-to-statement=#2
-statement RW102A 11.1 PERFORM perform-procedure-statement=@16..16 perform-times=5
-statement RW102A 12.0 MOVE move-to-sending-area=#77 move-to-statement=#2
-statement RW102A 12.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement RW102A 13.0 ADD add-from=#57 add-to=#61
-statement RW102A 13.1 ADD add-from=#58 add-to=#61
-statement RW102A 13.2 ADD add-from=#56 add-to=#61
-statement RW102A 13.3 ADD add-from=#59 add-to=#61
-statement RW102A 13.4 MOVE move-to-sending-area=#59 move-to-statement=#96
-statement RW102A 13.5 MOVE move-to-sending-area=#61 move-to-statement=#98
-statement RW102A 13.6 MOVE move-to-sending-area=#95 move-to-statement=#85
-statement RW102A 13.7 MOVE move-to-sending-area=#82 move-to-statement=#2
+statement RW102A 11.0 MOVE move-to-sending-area=#107 move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 11.1 PERFORM perform-procedure-statement=@16..16 perform-times=5 perform-times=keyword:TIMES
+statement RW102A 12.0 MOVE move-to-sending-area=#77 move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 12.1 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement RW102A 13.0 ADD add-from=#57 add-to-statement=keyword:TO add-to=#61
+statement RW102A 13.1 ADD add-from=#58 add-to-statement=keyword:TO add-to=#61
+statement RW102A 13.2 ADD add-from=#56 add-to-statement=keyword:TO add-to=#61
+statement RW102A 13.3 ADD add-from=#59 add-to-statement=keyword:TO add-to=#61
+statement RW102A 13.4 MOVE move-to-sending-area=#59 move-to-statement=keyword:TO move-to-statement=#96
+statement RW102A 13.5 MOVE move-to-sending-area=#61 move-to-statement=keyword:TO move-to-statement=#98
+statement RW102A 13.6 MOVE move-to-sending-area=#95 move-to-statement=keyword:TO move-to-statement=#85
+statement RW102A 13.7 MOVE move-to-sending-area=#82 move-to-statement=keyword:TO move-to-statement=#2
 statement RW102A 13.8 PERFORM perform-procedure-statement=@16..16
-statement RW102A 14.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#88
-statement RW102A 14.1 IF if-statement=(IS EQUAL TO #57 ZERO)
-statement RW102A 14.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#86
-statement RW102A 14.1.if-else.0 MOVE move-to-sending-area=#57 move-to-statement=#86
-statement RW102A 14.2 MOVE move-to-sending-area=#82 move-to-statement=#2
+statement RW102A 14.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=keyword:TO move-to-statement=#88
+statement RW102A 14.1 IF if-statement=(= #57 ZERO) | if-then | if-else
+statement RW102A 14.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#86
+statement RW102A 14.1.if-else.0 MOVE move-to-sending-area=#57 move-to-statement=keyword:TO move-to-statement=#86
+statement RW102A 14.2 MOVE move-to-sending-area=#82 move-to-statement=keyword:TO move-to-statement=#2
 statement RW102A 14.3 PERFORM perform-procedure-statement=@16..16
-statement RW102A 15.0 IF if-statement=(IS EQUAL TO #56 ZERO)
-statement RW102A 15.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#86
-statement RW102A 15.0.if-else.0 MOVE move-to-sending-area=#56 move-to-statement=#86
-statement RW102A 15.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#88
-statement RW102A 15.2 MOVE move-to-sending-area=#82 move-to-statement=#2
+statement RW102A 15.0 IF if-statement=(= #56 ZERO) | if-then | if-else
+statement RW102A 15.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#86
+statement RW102A 15.0.if-else.0 MOVE move-to-sending-area=#56 move-to-statement=keyword:TO move-to-statement=#86
+statement RW102A 15.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=keyword:TO move-to-statement=#88
+statement RW102A 15.2 MOVE move-to-sending-area=#82 move-to-statement=keyword:TO move-to-statement=#2
 statement RW102A 15.3 PERFORM perform-procedure-statement=@16..16
-statement RW102A 15.4 IF if-statement=(EQUAL TO #58 ZERO)
-statement RW102A 15.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#86
-statement RW102A 15.4.if-else.0 MOVE move-to-sending-area=#58 move-to-statement=#86
-statement RW102A 15.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#88
-statement RW102A 15.6 MOVE move-to-sending-area=#82 move-to-statement=#2
+statement RW102A 15.4 IF if-statement=(= #58 ZERO) | if-then | if-else
+statement RW102A 15.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#86
+statement RW102A 15.4.if-else.0 MOVE move-to-sending-area=#58 move-to-statement=keyword:TO move-to-statement=#86
+statement RW102A 15.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=keyword:TO move-to-statement=#88
+statement RW102A 15.6 MOVE move-to-sending-area=#82 move-to-statement=keyword:TO move-to-statement=#2
 statement RW102A 15.7 PERFORM perform-procedure-statement=@16..16
-statement RW102A 15.8 MOVE move-to-sending-area=#89 move-to-statement=#2
+statement RW102A 15.8 MOVE move-to-sending-area=#89 move-to-statement=keyword:TO move-to-statement=#2
 statement RW102A 15.9 PERFORM perform-procedure-statement=@16..16
-statement RW102A 16.0 ADD add-from=1 add-to=#63
-statement RW102A 16.1 IF if-statement=(GREATER #63 50)
-statement RW102A 16.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#62
-statement RW102A 16.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
-statement RW102A 16.1.if-then.2 WRITE record-name=#2
-statement RW102A 16.1.if-then.3 MOVE move-to-sending-area=#45 move-to-statement=#2
+statement RW102A 16.0 ADD add-from=1 add-to-statement=keyword:TO add-to=#63
+statement RW102A 16.1 IF if-statement=(> #63 50) | if-then
+statement RW102A 16.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=keyword:TO move-to-statement=#62
+statement RW102A 16.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 16.1.if-then.2 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-page=keyword:PAGE
+statement RW102A 16.1.if-then.3 MOVE move-to-sending-area=#45 move-to-statement=keyword:TO move-to-statement=#2
 statement RW102A 16.1.if-then.4 PERFORM perform-procedure-statement=@17..17
-statement RW102A 16.1.if-then.5 MOVE move-to-sending-area=#48 move-to-statement=#2
-statement RW102A 16.1.if-then.6 PERFORM perform-procedure-statement=@17..17 perform-times=2
-statement RW102A 16.1.if-then.7 MOVE move-to-sending-area=#107 move-to-statement=#2
+statement RW102A 16.1.if-then.5 MOVE move-to-sending-area=#48 move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 16.1.if-then.6 PERFORM perform-procedure-statement=@17..17 perform-times=2 perform-times=keyword:TIMES
+statement RW102A 16.1.if-then.7 MOVE move-to-sending-area=#107 move-to-statement=keyword:TO move-to-statement=#2
 statement RW102A 16.1.if-then.8 PERFORM perform-procedure-statement=@17..17
-statement RW102A 16.1.if-then.9 MOVE move-to-sending-area=#62 move-to-statement=#2
-statement RW102A 16.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=#63
+statement RW102A 16.1.if-then.9 MOVE move-to-sending-area=#62 move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 16.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=keyword:TO move-to-statement=#63
 statement RW102A 16.2 PERFORM perform-procedure-statement=@17..17
-statement RW102A 17.0 WRITE record-name=#2 write-advancing-lines=1
-statement RW102A 17.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement RW102A 17.0 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINES
+statement RW102A 17.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
 statement RW102A 18.0 PERFORM perform-procedure-statement=@17..17
-statement RW102A 19.0 IF if-statement=(NOT EQUAL TO #22 SPACE)
+statement RW102A 19.0 IF if-statement=(<> #22 SPACE) | if-then
 statement RW102A 19.0.if-then.0 GO TO go-to-statement-simple=@20..20
-statement RW102A 19.1 IF if-statement=(NOT EQUAL TO #35 SPACE)
+statement RW102A 19.1 IF if-statement=(<> #35 SPACE) | if-then
 statement RW102A 19.1.if-then.0 GO TO go-to-statement-simple=@20..20
-statement RW102A 19.2 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#102
-statement RW102A 19.3 MOVE move-to-sending-area=#100 move-to-statement=#2
-statement RW102A 19.4 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement RW102A 19.2 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=keyword:TO move-to-statement=#102
+statement RW102A 19.3 MOVE move-to-sending-area=#100 move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 19.4 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
 statement RW102A 19.5 GO TO go-to-statement-simple=@21..21
-statement RW102A 20.0 MOVE move-to-sending-area=#19 move-to-statement=#1
+statement RW102A 20.0 MOVE move-to-sending-area=#19 move-to-statement=keyword:TO move-to-statement=#1
 statement RW102A 20.1 PERFORM perform-procedure-statement=@16..16
-statement RW102A 20.2 MOVE move-to-sending-area=#32 move-to-statement=#1
-statement RW102A 20.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement RW102A 20.2 MOVE move-to-sending-area=#32 move-to-statement=keyword:TO move-to-statement=#1
+statement RW102A 20.3 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
 statement RW102A 21.0 EXIT
-statement RW102A 22.0 IF if-statement=(NOT EQUAL TO #23 SPACE)
+statement RW102A 22.0 IF if-statement=(<> #23 SPACE) | if-then
 statement RW102A 22.0.if-then.0 GO TO go-to-statement-simple=@23..23
-statement RW102A 22.1 IF if-statement=(EQUAL TO #36 SPACE)
+statement RW102A 22.1 IF if-statement=(= #36 SPACE) | if-then
 statement RW102A 22.1.if-then.0 GO TO go-to-statement-simple=@24..24
-statement RW102A 23.0 MOVE move-to-sending-area=#36 move-to-statement=#106
-statement RW102A 23.1 MOVE move-to-sending-area=#23 move-to-statement=#104
-statement RW102A 23.2 MOVE move-to-sending-area=#100 move-to-statement=#2
-statement RW102A 23.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement RW102A 23.0 MOVE move-to-sending-area=#36 move-to-statement=keyword:TO move-to-statement=#106
+statement RW102A 23.1 MOVE move-to-sending-area=#23 move-to-statement=keyword:TO move-to-statement=#104
+statement RW102A 23.2 MOVE move-to-sending-area=#100 move-to-statement=keyword:TO move-to-statement=#2
+statement RW102A 23.3 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
 statement RW102A 24.0 EXIT
 statement RW102A 25.0 EXIT
-statement RW102A 26.0 OPEN open-output=file:RW-FS2
+statement RW102A 26.0 OPEN open-output-statement=keyword:OUTPUT open-output=file:RW-FS2
 statement RW102A 27.0 INITIATE report-name=unresolved:RW-FS2-REPORT-1
-statement RW102A 28.0 IF if-statement=(EQUAL TO register:LINE-COUNTER ZERO)
+statement RW102A 28.0 IF if-statement=(= register:LINE-COUNTER ZERO) | if-then
 statement RW102A 28.0.if-then.0 PERFORM perform-procedure-statement=@5..5
 statement RW102A 28.0.if-then.1 GO TO go-to-statement-simple=@30..30
 statement RW102A 29.0 PERFORM perform-procedure-statement=@6..6
-statement RW102A 29.1 MOVE move-to-sending-area=ZERO move-to-statement=#42
-statement RW102A 29.2 MOVE move-to-sending-area=register:LINE-COUNTER move-to-statement=#29
-statement RW102A 29.3 MOVE move-to-sending-area="LINE-COUNTER AFTER INITIATE" move-to-statement=#18
-statement RW102A 30.0 MOVE move-to-sending-area="INIT-TEST-03" move-to-statement=#12
-statement RW102A 30.1 MOVE move-to-sending-area=1 move-to-statement=#55
-statement RW102A 30.2 MOVE move-to-sending-area="INITIATE REPORT" move-to-statement=#8
+statement RW102A 29.1 MOVE move-to-sending-area=ZERO move-to-statement=keyword:TO move-to-statement=#42
+statement RW102A 29.2 MOVE move-to-sending-area=register:LINE-COUNTER move-to-statement=keyword:TO move-to-statement=#29
+statement RW102A 29.3 MOVE move-to-sending-area="LINE-COUNTER AFTER INITIATE" move-to-statement=keyword:TO move-to-statement=#18
+statement RW102A 30.0 MOVE move-to-sending-area="INIT-TEST-03" move-to-statement=keyword:TO move-to-statement=#12
+statement RW102A 30.1 MOVE move-to-sending-area=1 move-to-statement=keyword:TO move-to-statement=#55
+statement RW102A 30.2 MOVE move-to-sending-area="INITIATE REPORT" move-to-statement=keyword:TO move-to-statement=#8
 statement RW102A 30.3 PERFORM perform-procedure-statement=@8..8
-statement RW102A 31.0 IF if-statement=(EQUAL TO register:PAGE-COUNTER 1)
+statement RW102A 31.0 IF if-statement=(= register:PAGE-COUNTER 1) | if-then
 statement RW102A 31.0.if-then.0 PERFORM perform-procedure-statement=@5..5
 statement RW102A 31.0.if-then.1 GO TO go-to-statement-simple=@33..33
 statement RW102A 32.0 PERFORM perform-procedure-statement=@6..6
-statement RW102A 32.1 MOVE move-to-sending-area=1 move-to-statement=#42
-statement RW102A 32.2 MOVE move-to-sending-area=register:PAGE-COUNTER move-to-statement=#29
-statement RW102A 32.3 MOVE move-to-sending-area="PAGE-COUNTER AFTER INITIATE" move-to-statement=#18
-statement RW102A 33.0 MOVE move-to-sending-area=2 move-to-statement=#55
+statement RW102A 32.1 MOVE move-to-sending-area=1 move-to-statement=keyword:TO move-to-statement=#42
+statement RW102A 32.2 MOVE move-to-sending-area=register:PAGE-COUNTER move-to-statement=keyword:TO move-to-statement=#29
+statement RW102A 32.3 MOVE move-to-sending-area="PAGE-COUNTER AFTER INITIATE" move-to-statement=keyword:TO move-to-statement=#18
+statement RW102A 33.0 MOVE move-to-sending-area=2 move-to-statement=keyword:TO move-to-statement=#55
 statement RW102A 33.1 PERFORM perform-procedure-statement=@8..8
-statement RW102A 34.0 PERFORM perform-procedure-statement=@38..38 perform-times=20
-statement RW102A 35.0 IF if-statement=(EQUAL TO #3 ZERO)
+statement RW102A 34.0 PERFORM perform-procedure-statement=@38..38 perform-times=20 perform-times=keyword:TIMES
+statement RW102A 35.0 IF if-statement=(= #3 ZERO) | if-then
 statement RW102A 35.0.if-then.0 PERFORM perform-procedure-statement=@5..5
 statement RW102A 35.0.if-then.1 GO TO go-to-statement-simple=@37..37
 statement RW102A 36.0 PERFORM perform-procedure-statement=@6..6
-statement RW102A 36.1 MOVE move-to-sending-area=#3 move-to-statement=#29
-statement RW102A 36.2 MOVE move-to-sending-area=ZERO move-to-statement=#42
-statement RW102A 36.3 MOVE move-to-sending-area="NUMBER OF LINE-COUNTER ERRORS" move-to-statement=#18
-statement RW102A 37.0 MOVE move-to-sending-area="GENER-TEST-7" move-to-statement=#12
-statement RW102A 37.1 MOVE move-to-sending-area="GENERATE 20 LINES" move-to-statement=#8
-statement RW102A 37.2 MOVE move-to-sending-area=1 move-to-statement=#55
+statement RW102A 36.1 MOVE move-to-sending-area=#3 move-to-statement=keyword:TO move-to-statement=#29
+statement RW102A 36.2 MOVE move-to-sending-area=ZERO move-to-statement=keyword:TO move-to-statement=#42
+statement RW102A 36.3 MOVE move-to-sending-area="NUMBER OF LINE-COUNTER ERRORS" move-to-statement=keyword:TO move-to-statement=#18
+statement RW102A 37.0 MOVE move-to-sending-area="GENER-TEST-7" move-to-statement=keyword:TO move-to-statement=#12
+statement RW102A 37.1 MOVE move-to-sending-area="GENERATE 20 LINES" move-to-statement=keyword:TO move-to-statement=#8
+statement RW102A 37.2 MOVE move-to-sending-area=1 move-to-statement=keyword:TO move-to-statement=#55
 statement RW102A 37.3 PERFORM perform-procedure-statement=@8..8
 statement RW102A 37.4 GO TO go-to-statement-simple=@39..39
-statement RW102A 38.0 ADD add-from=1 add-to=#5
+statement RW102A 38.0 ADD add-from=1 add-to-statement=keyword:TO add-to=#5
 statement RW102A 38.1 GENERATE report-name=unresolved:RW-FS2-GROUP
-statement RW102A 38.2 IF if-statement=(NOT EQUAL TO register:LINE-COUNTER #5)
-statement RW102A 38.2.if-then.0 ADD add-from=1 add-to=#3
-statement RW102A 38.3 IF if-statement=(NOT EQUAL TO register:PAGE-COUNTER 1)
-statement RW102A 38.3.if-then.0 ADD add-from=1 add-to=#4
-statement RW102A 39.0 IF if-statement=(EQUAL TO #4 ZERO)
+statement RW102A 38.2 IF if-statement=(<> register:LINE-COUNTER #5) | if-then
+statement RW102A 38.2.if-then.0 ADD add-from=1 add-to-statement=keyword:TO add-to=#3
+statement RW102A 38.3 IF if-statement=(<> register:PAGE-COUNTER 1) | if-then
+statement RW102A 38.3.if-then.0 ADD add-from=1 add-to-statement=keyword:TO add-to=#4
+statement RW102A 39.0 IF if-statement=(= #4 ZERO) | if-then
 statement RW102A 39.0.if-then.0 PERFORM perform-procedure-statement=@5..5
 statement RW102A 39.0.if-then.1 GO TO go-to-statement-simple=@41..41
 statement RW102A 40.0 PERFORM perform-procedure-statement=@6..6
-statement RW102A 40.1 MOVE move-to-sending-area=#4 move-to-statement=#29
-statement RW102A 40.2 MOVE move-to-sending-area=ZERO move-to-statement=#42
-statement RW102A 40.3 MOVE move-to-sending-area="NUMBER OF PAGE-COUNTER ERRORS" move-to-statement=#18
-statement RW102A 41.0 MOVE move-to-sending-area=2 move-to-statement=#55
+statement RW102A 40.1 MOVE move-to-sending-area=#4 move-to-statement=keyword:TO move-to-statement=#29
+statement RW102A 40.2 MOVE move-to-sending-area=ZERO move-to-statement=keyword:TO move-to-statement=#42
+statement RW102A 40.3 MOVE move-to-sending-area="NUMBER OF PAGE-COUNTER ERRORS" move-to-statement=keyword:TO move-to-statement=#18
+statement RW102A 41.0 MOVE move-to-sending-area=2 move-to-statement=keyword:TO move-to-statement=#55
 statement RW102A 41.1 PERFORM perform-procedure-statement=@8..8
 statement RW102A 42.0 TERMINATE report-name=unresolved:RW-FS2-REPORT-1
 statement RW102A 43.0 CLOSE close-file=file:RW-FS2
-statement RW102A 44.0 MOVE move-to-sending-area=ZERO move-to-statement=#55
-statement RW102A 44.1 MOVE move-to-sending-area="TERMINATE REPORT" move-to-statement=#8
-statement RW102A 44.2 MOVE move-to-sending-area="TERM-TEST-02" move-to-statement=#12
-statement RW102A 44.3 MOVE move-to-sending-area="1 PAGE REPORT" move-to-statement=#23
-statement RW102A 44.4 MOVE move-to-sending-area="20 LINES PER PAGE" move-to-statement=#36
-statement RW102A 44.5 MOVE move-to-sending-area="CHECK RWCS OUTPUT REPORT" move-to-statement=#18
+statement RW102A 44.0 MOVE move-to-sending-area=ZERO move-to-statement=keyword:TO move-to-statement=#55
+statement RW102A 44.1 MOVE move-to-sending-area="TERMINATE REPORT" move-to-statement=keyword:TO move-to-statement=#8
+statement RW102A 44.2 MOVE move-to-sending-area="TERM-TEST-02" move-to-statement=keyword:TO move-to-statement=#12
+statement RW102A 44.3 MOVE move-to-sending-area="1 PAGE REPORT" move-to-statement=keyword:TO move-to-statement=#23
+statement RW102A 44.4 MOVE move-to-sending-area="20 LINES PER PAGE" move-to-statement=keyword:TO move-to-statement=#36
+statement RW102A 44.5 MOVE move-to-sending-area="CHECK RWCS OUTPUT REPORT" move-to-statement=keyword:TO move-to-statement=#18
 statement RW102A 44.6 PERFORM perform-procedure-statement=@8..8
 statement RW102A 45.0 EXIT
 statement RW102A 46.0 GO TO go-to-statement-simple=@2..2

@@ -26,6 +26,7 @@ final class Values {
     final Set<String> mnemonics = new HashSet<>(), files = new HashSet<>(), outerFiles = new HashSet<>();
     final List<Names> outer = new ArrayList<>();
     boolean cics;
+    private final Expressions expressions = new Expressions(this);
 
     Values(Parse.Result parse, Names names, List<String> findings) {
         this.parse = parse;
@@ -55,6 +56,8 @@ final class Values {
             case CobolParser.IndexNameContext x -> named(x.getText(), List.of(), x);
             case CobolParser.MnemonicNameContext m -> new Value.Name("mnemonic", upper(m.getText()));
             case CobolParser.AssignmentNameContext a -> new Value.Name("assignment", upper(a.getText()));
+            case CobolParser.ArithmeticExpressionContext a -> expressions.arithmetic(a);
+            case CobolParser.ConditionContext c -> expressions.condition(c);
             case ParserRuleContext r -> expression(r);
             default -> new Value.Name("word", node.getText());
         };
@@ -71,7 +74,12 @@ final class Values {
         if (i.functionCall() != null) {
             List<Value> arguments = new ArrayList<>();
             for (var a : i.functionCall().argument()) arguments.add(argument(a));
-            return new Value.Expression("FUNCTION " + upper(i.functionCall().functionName().getText()), arguments);
+            Value call = new Value.Expression("FUNCTION " + upper(i.functionCall().functionName().getText()), arguments);
+            var refmod = i.functionCall().referenceModifier();
+            if (refmod == null) return call;
+            List<Value> slice = new ArrayList<>(List.of(call, of(refmod.characterPosition().arithmeticExpression())));
+            if (refmod.length() != null) slice.add(of(refmod.length().arithmeticExpression()));
+            return new Value.Expression("slice", slice);
         }
         CobolParser.SpecialRegisterContext s = i.specialRegister();
         if (s.identifier() != null) return new Value.Expression(upper(s.getChild(0).getText()) + " OF", List.of(identifier(s.identifier())));
@@ -88,13 +96,23 @@ final class Values {
         String head = upper(t.qualifiedDataName().getChild(0).getChild(0).getText());
         if (cics && (head.equals("DFHRESP") || head.equals("DFHVALUE"))) return new Value.Name("cics", upper(t.getText()));
         List<Value> subscripts = new ArrayList<>();
-        for (var s : t.subscript()) subscripts.add(s.ALL() != null ? new Value.Name("keyword", "ALL") : of(s.getChild(0)));
+        for (var s : t.subscript()) subscripts.add(subscript(s));
         Value start = null, length = null;
         if (t.referenceModifier() != null) {
             start = of(t.referenceModifier().characterPosition().arithmeticExpression());
             if (t.referenceModifier().length() != null) length = of(t.referenceModifier().length().arithmeticExpression());
         }
         return field(t.qualifiedDataName(), subscripts, start, length);
+    }
+
+    /** A subscript: ALL, a value, or a name with a relative offset (`I + 1`, `I - 1`) as that sum. */
+    private Value subscript(CobolParser.SubscriptContext s) {
+        if (s.ALL() != null) return new Value.Name("keyword", "ALL");
+        if (s.arithmeticExpression() != null || s.getChildCount() == 1) return of(s.arithmeticExpression() != null ? s.arithmeticExpression() : s.getChild(0));
+        Value name = of(s.getChild(0));
+        String offset = s.integerLiteral().getText();
+        boolean minus = offset.startsWith("-") || DataMap.text(s).replace(s.getChild(0).getText(), "").trim().startsWith("-");
+        return new Value.Expression(minus ? "-" : "+", List.of(name, new Value.Literal(offset.replaceFirst("^[-+]", ""), true)));
     }
 
     /** A data name with its qualifiers, to a Field, to a ConditionName when it names an 88, else a Name and a finding. */

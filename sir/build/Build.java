@@ -27,6 +27,20 @@ public final class Build {
     /** A program's IR, with the programs nested in it, and everything that could not be built in any of them. */
     public record Result(Program program, List<String> findings) {}
 
+    /**
+     * Every top-level program of a source, in order, each with those nested in it (a source may hold
+     * several, separately compiled: NIST IC237A and IC237A-1), under a profile (SIR-01).
+     */
+    public static List<Result> programs(Parse.Result parse, String profileHash) {
+        List<CobolParser.ProgramUnitContext> top = parse.tree() instanceof CobolParser.StartRuleContext start ? start.compilationUnit().programUnit() : List.of();
+        List<Result> results = new ArrayList<>();
+        for (var unit : top) {
+            List<String> findings = new ArrayList<>();
+            results.add(new Result(program(parse, unit, profileHash, findings, List.of(), Set.of()), findings));
+        }
+        return results;
+    }
+
     /** The first program of a parse, under a profile (its hash goes in the header, SIR-01). */
     public static Result program(Parse.Result parse, String profileHash) {
         List<CobolParser.ProgramUnitContext> top = parse.tree() instanceof CobolParser.StartRuleContext start ? start.compilationUnit().programUnit() : List.of();

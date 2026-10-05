@@ -305,149 +305,149 @@ edge SQ210M PERFORM 27 18 18
 edge SQ210M PERFORM 27 29 29
 edge SQ210M GO_TO 28 30 30
 edge SQ210M GO_TO 30 2 2
-statement SQ210M 1.0 OPEN open-output=file:PRINT-FILE
-statement SQ210M 1.1 MOVE move-to-sending-area=#121 move-to-statement=#81
-statement SQ210M 1.2 MOVE move-to-sending-area=#121 move-to-statement=#90
-statement SQ210M 1.3 MOVE move-to-sending-area=SPACE move-to-statement=#16
-statement SQ210M 1.4 PERFORM perform-procedure-statement=@9..9 perform-procedure-statement=@10..10
+statement SQ210M 1.0 OPEN open-output-statement=keyword:OUTPUT open-output=file:PRINT-FILE
+statement SQ210M 1.1 MOVE move-to-sending-area=#121 move-to-statement=keyword:TO move-to-statement=#81
+statement SQ210M 1.2 MOVE move-to-sending-area=#121 move-to-statement=keyword:TO move-to-statement=#90
+statement SQ210M 1.3 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#16
+statement SQ210M 1.4 PERFORM perform-procedure-statement=@9..9 perform-procedure-statement=keyword:THRU perform-procedure-statement=@10..10
 statement SQ210M 1.5 GO TO go-to-statement-simple=@25..25
-statement SQ210M 2.0 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=@15..15
+statement SQ210M 2.0 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=keyword:THRU perform-procedure-statement=@15..15
 statement SQ210M 2.1 CLOSE close-file=file:PRINT-FILE
-statement SQ210M 3.0 STOP
-statement SQ210M 4.0 MOVE move-to-sending-area="INSPT" move-to-statement=#20
-statement SQ210M 4.1 ADD add-from=1 add-to=#68
-statement SQ210M 5.0 MOVE move-to-sending-area="PASS " move-to-statement=#20
-statement SQ210M 5.1 ADD add-from=1 add-to=#69
-statement SQ210M 6.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#20
-statement SQ210M 6.1 ADD add-from=1 add-to=#67
-statement SQ210M 7.0 MOVE move-to-sending-area="*****" move-to-statement=#20
-statement SQ210M 7.1 ADD add-from=1 add-to=#66
-statement SQ210M 7.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=#28
-statement SQ210M 8.0 IF if-statement=(NOT EQUAL TO #65 ZERO)
-statement SQ210M 8.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#24
-statement SQ210M 8.0.if-then.1 MOVE move-to-sending-area=#65 move-to-statement=#25
-statement SQ210M 8.1 MOVE move-to-sending-area=#16 move-to-statement=#1
+statement SQ210M 3.0 STOP stop-statement=keyword:RUN
+statement SQ210M 4.0 MOVE move-to-sending-area="INSPT" move-to-statement=keyword:TO move-to-statement=#20
+statement SQ210M 4.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#68
+statement SQ210M 5.0 MOVE move-to-sending-area="PASS " move-to-statement=keyword:TO move-to-statement=#20
+statement SQ210M 5.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#69
+statement SQ210M 6.0 MOVE move-to-sending-area="FAIL*" move-to-statement=keyword:TO move-to-statement=#20
+statement SQ210M 6.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#67
+statement SQ210M 7.0 MOVE move-to-sending-area="*****" move-to-statement=keyword:TO move-to-statement=#20
+statement SQ210M 7.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#66
+statement SQ210M 7.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=keyword:TO move-to-statement=#28
+statement SQ210M 8.0 IF if-statement=(<> #65 ZERO) | if-then
+statement SQ210M 8.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=keyword:TO move-to-statement=#24
+statement SQ210M 8.0.if-then.1 MOVE move-to-sending-area=#65 move-to-statement=keyword:TO move-to-statement=#25
+statement SQ210M 8.1 MOVE move-to-sending-area=#16 move-to-statement=keyword:TO move-to-statement=#1
 statement SQ210M 8.2 PERFORM perform-procedure-statement=@16..16
-statement SQ210M 8.3 IF if-statement=(EQUAL TO #20 "FAIL*")
+statement SQ210M 8.3 IF if-statement=(= #20 "FAIL*") | if-then | if-else
 statement SQ210M 8.3.if-then.0 PERFORM perform-procedure-statement=@16..16
-statement SQ210M 8.3.if-then.1 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=@21..21
-statement SQ210M 8.3.if-else.0 PERFORM perform-procedure-statement=@22..22 perform-procedure-statement=@24..24
-statement SQ210M 8.4 MOVE move-to-sending-area=SPACE move-to-statement=#20
-statement SQ210M 8.5 MOVE move-to-sending-area=SPACE move-to-statement=#32
-statement SQ210M 8.6 MOVE move-to-sending-area=SPACE move-to-statement=#45
-statement SQ210M 8.7 IF if-statement=(EQUAL TO #65 ZERO)
-statement SQ210M 8.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#22
-statement SQ210M 8.8 MOVE move-to-sending-area=SPACE move-to-statement=#28
-statement SQ210M 9.0 MOVE move-to-sending-area=#74 move-to-statement=#2
-statement SQ210M 9.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement SQ210M 9.2 MOVE move-to-sending-area=#78 move-to-statement=#2
-statement SQ210M 9.3 PERFORM perform-procedure-statement=@16..16 perform-times=5
-statement SQ210M 9.4 MOVE move-to-sending-area=#83 move-to-statement=#2
-statement SQ210M 9.5 PERFORM perform-procedure-statement=@16..16 perform-times=3
-statement SQ210M 10.0 MOVE move-to-sending-area=#55 move-to-statement=#2
+statement SQ210M 8.3.if-then.1 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=keyword:THRU perform-procedure-statement=@21..21
+statement SQ210M 8.3.if-else.0 PERFORM perform-procedure-statement=@22..22 perform-procedure-statement=keyword:THRU perform-procedure-statement=@24..24
+statement SQ210M 8.4 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#20
+statement SQ210M 8.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#32
+statement SQ210M 8.6 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#45
+statement SQ210M 8.7 IF if-statement=(= #65 ZERO) | if-then
+statement SQ210M 8.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#22
+statement SQ210M 8.8 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#28
+statement SQ210M 9.0 MOVE move-to-sending-area=#74 move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 9.1 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement SQ210M 9.2 MOVE move-to-sending-area=#78 move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 9.3 PERFORM perform-procedure-statement=@16..16 perform-times=5 perform-times=keyword:TIMES
+statement SQ210M 9.4 MOVE move-to-sending-area=#83 move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 9.5 PERFORM perform-procedure-statement=@16..16 perform-times=3 perform-times=keyword:TIMES
+statement SQ210M 10.0 MOVE move-to-sending-area=#55 move-to-statement=keyword:TO move-to-statement=#2
 statement SQ210M 10.1 PERFORM perform-procedure-statement=@16..16
-statement SQ210M 10.2 MOVE move-to-sending-area=#58 move-to-statement=#2
-statement SQ210M 10.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement SQ210M 10.4 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement SQ210M 10.2 MOVE move-to-sending-area=#58 move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 10.3 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement SQ210M 10.4 MOVE move-to-sending-area=#117 move-to-statement=keyword:TO move-to-statement=#2
 statement SQ210M 10.5 PERFORM perform-procedure-statement=@16..16
-statement SQ210M 11.0 MOVE move-to-sending-area=#117 move-to-statement=#2
-statement SQ210M 11.1 PERFORM perform-procedure-statement=@16..16 perform-times=5
-statement SQ210M 12.0 MOVE move-to-sending-area=#87 move-to-statement=#2
-statement SQ210M 12.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
-statement SQ210M 13.0 ADD add-from=#67 add-to=#71
-statement SQ210M 13.1 ADD add-from=#68 add-to=#71
-statement SQ210M 13.2 ADD add-from=#66 add-to=#71
-statement SQ210M 13.3 ADD add-from=#69 add-to=#71
-statement SQ210M 13.4 MOVE move-to-sending-area=#69 move-to-statement=#106
-statement SQ210M 13.5 MOVE move-to-sending-area=#71 move-to-statement=#108
-statement SQ210M 13.6 MOVE move-to-sending-area=#105 move-to-statement=#95
-statement SQ210M 13.7 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SQ210M 11.0 MOVE move-to-sending-area=#117 move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 11.1 PERFORM perform-procedure-statement=@16..16 perform-times=5 perform-times=keyword:TIMES
+statement SQ210M 12.0 MOVE move-to-sending-area=#87 move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 12.1 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
+statement SQ210M 13.0 ADD add-from=#67 add-to-statement=keyword:TO add-to=#71
+statement SQ210M 13.1 ADD add-from=#68 add-to-statement=keyword:TO add-to=#71
+statement SQ210M 13.2 ADD add-from=#66 add-to-statement=keyword:TO add-to=#71
+statement SQ210M 13.3 ADD add-from=#69 add-to-statement=keyword:TO add-to=#71
+statement SQ210M 13.4 MOVE move-to-sending-area=#69 move-to-statement=keyword:TO move-to-statement=#106
+statement SQ210M 13.5 MOVE move-to-sending-area=#71 move-to-statement=keyword:TO move-to-statement=#108
+statement SQ210M 13.6 MOVE move-to-sending-area=#105 move-to-statement=keyword:TO move-to-statement=#95
+statement SQ210M 13.7 MOVE move-to-sending-area=#92 move-to-statement=keyword:TO move-to-statement=#2
 statement SQ210M 13.8 PERFORM perform-procedure-statement=@16..16
-statement SQ210M 14.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#98
-statement SQ210M 14.1 IF if-statement=(IS EQUAL TO #67 ZERO)
-statement SQ210M 14.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
-statement SQ210M 14.1.if-else.0 MOVE move-to-sending-area=#67 move-to-statement=#96
-statement SQ210M 14.2 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SQ210M 14.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=keyword:TO move-to-statement=#98
+statement SQ210M 14.1 IF if-statement=(= #67 ZERO) | if-then | if-else
+statement SQ210M 14.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#96
+statement SQ210M 14.1.if-else.0 MOVE move-to-sending-area=#67 move-to-statement=keyword:TO move-to-statement=#96
+statement SQ210M 14.2 MOVE move-to-sending-area=#92 move-to-statement=keyword:TO move-to-statement=#2
 statement SQ210M 14.3 PERFORM perform-procedure-statement=@16..16
-statement SQ210M 15.0 IF if-statement=(IS EQUAL TO #66 ZERO)
-statement SQ210M 15.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
-statement SQ210M 15.0.if-else.0 MOVE move-to-sending-area=#66 move-to-statement=#96
-statement SQ210M 15.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#98
-statement SQ210M 15.2 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SQ210M 15.0 IF if-statement=(= #66 ZERO) | if-then | if-else
+statement SQ210M 15.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#96
+statement SQ210M 15.0.if-else.0 MOVE move-to-sending-area=#66 move-to-statement=keyword:TO move-to-statement=#96
+statement SQ210M 15.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=keyword:TO move-to-statement=#98
+statement SQ210M 15.2 MOVE move-to-sending-area=#92 move-to-statement=keyword:TO move-to-statement=#2
 statement SQ210M 15.3 PERFORM perform-procedure-statement=@16..16
-statement SQ210M 15.4 IF if-statement=(EQUAL TO #68 ZERO)
-statement SQ210M 15.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
-statement SQ210M 15.4.if-else.0 MOVE move-to-sending-area=#68 move-to-statement=#96
-statement SQ210M 15.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#98
-statement SQ210M 15.6 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SQ210M 15.4 IF if-statement=(= #68 ZERO) | if-then | if-else
+statement SQ210M 15.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#96
+statement SQ210M 15.4.if-else.0 MOVE move-to-sending-area=#68 move-to-statement=keyword:TO move-to-statement=#96
+statement SQ210M 15.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=keyword:TO move-to-statement=#98
+statement SQ210M 15.6 MOVE move-to-sending-area=#92 move-to-statement=keyword:TO move-to-statement=#2
 statement SQ210M 15.7 PERFORM perform-procedure-statement=@16..16
-statement SQ210M 15.8 MOVE move-to-sending-area=#99 move-to-statement=#2
+statement SQ210M 15.8 MOVE move-to-sending-area=#99 move-to-statement=keyword:TO move-to-statement=#2
 statement SQ210M 15.9 PERFORM perform-procedure-statement=@16..16
-statement SQ210M 16.0 ADD add-from=1 add-to=#73
-statement SQ210M 16.1 IF if-statement=(GREATER #73 50)
-statement SQ210M 16.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#72
-statement SQ210M 16.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
-statement SQ210M 16.1.if-then.2 WRITE record-name=#2
-statement SQ210M 16.1.if-then.3 MOVE move-to-sending-area=#55 move-to-statement=#2
+statement SQ210M 16.0 ADD add-from=1 add-to-statement=keyword:TO add-to=#73
+statement SQ210M 16.1 IF if-statement=(> #73 50) | if-then
+statement SQ210M 16.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=keyword:TO move-to-statement=#72
+statement SQ210M 16.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 16.1.if-then.2 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-page=keyword:PAGE
+statement SQ210M 16.1.if-then.3 MOVE move-to-sending-area=#55 move-to-statement=keyword:TO move-to-statement=#2
 statement SQ210M 16.1.if-then.4 PERFORM perform-procedure-statement=@17..17
-statement SQ210M 16.1.if-then.5 MOVE move-to-sending-area=#58 move-to-statement=#2
-statement SQ210M 16.1.if-then.6 PERFORM perform-procedure-statement=@17..17 perform-times=2
-statement SQ210M 16.1.if-then.7 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement SQ210M 16.1.if-then.5 MOVE move-to-sending-area=#58 move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 16.1.if-then.6 PERFORM perform-procedure-statement=@17..17 perform-times=2 perform-times=keyword:TIMES
+statement SQ210M 16.1.if-then.7 MOVE move-to-sending-area=#117 move-to-statement=keyword:TO move-to-statement=#2
 statement SQ210M 16.1.if-then.8 PERFORM perform-procedure-statement=@17..17
-statement SQ210M 16.1.if-then.9 MOVE move-to-sending-area=#72 move-to-statement=#2
-statement SQ210M 16.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=#73
+statement SQ210M 16.1.if-then.9 MOVE move-to-sending-area=#72 move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 16.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=keyword:TO move-to-statement=#73
 statement SQ210M 16.2 PERFORM perform-procedure-statement=@17..17
-statement SQ210M 17.0 WRITE record-name=#2 write-advancing-lines=1
-statement SQ210M 17.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement SQ210M 17.0 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINES
+statement SQ210M 17.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
 statement SQ210M 18.0 PERFORM perform-procedure-statement=@17..17
-statement SQ210M 19.0 IF if-statement=(NOT EQUAL TO #32 SPACE)
+statement SQ210M 19.0 IF if-statement=(<> #32 SPACE) | if-then
 statement SQ210M 19.0.if-then.0 GO TO go-to-statement-simple=@20..20
-statement SQ210M 19.1 IF if-statement=(NOT EQUAL TO #45 SPACE)
+statement SQ210M 19.1 IF if-statement=(<> #45 SPACE) | if-then
 statement SQ210M 19.1.if-then.0 GO TO go-to-statement-simple=@20..20
-statement SQ210M 19.2 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#112
-statement SQ210M 19.3 MOVE move-to-sending-area=#110 move-to-statement=#2
-statement SQ210M 19.4 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement SQ210M 19.2 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=keyword:TO move-to-statement=#112
+statement SQ210M 19.3 MOVE move-to-sending-area=#110 move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 19.4 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
 statement SQ210M 19.5 GO TO go-to-statement-simple=@21..21
-statement SQ210M 20.0 MOVE move-to-sending-area=#29 move-to-statement=#1
+statement SQ210M 20.0 MOVE move-to-sending-area=#29 move-to-statement=keyword:TO move-to-statement=#1
 statement SQ210M 20.1 PERFORM perform-procedure-statement=@16..16
-statement SQ210M 20.2 MOVE move-to-sending-area=#42 move-to-statement=#1
-statement SQ210M 20.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement SQ210M 20.2 MOVE move-to-sending-area=#42 move-to-statement=keyword:TO move-to-statement=#1
+statement SQ210M 20.3 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
 statement SQ210M 21.0 EXIT
-statement SQ210M 22.0 IF if-statement=(NOT EQUAL TO #33 SPACE)
+statement SQ210M 22.0 IF if-statement=(<> #33 SPACE) | if-then
 statement SQ210M 22.0.if-then.0 GO TO go-to-statement-simple=@23..23
-statement SQ210M 22.1 IF if-statement=(EQUAL TO #46 SPACE)
+statement SQ210M 22.1 IF if-statement=(= #46 SPACE) | if-then
 statement SQ210M 22.1.if-then.0 GO TO go-to-statement-simple=@24..24
-statement SQ210M 23.0 MOVE move-to-sending-area=#46 move-to-statement=#116
-statement SQ210M 23.1 MOVE move-to-sending-area=#33 move-to-statement=#114
-statement SQ210M 23.2 MOVE move-to-sending-area=#110 move-to-statement=#2
-statement SQ210M 23.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement SQ210M 23.0 MOVE move-to-sending-area=#46 move-to-statement=keyword:TO move-to-statement=#116
+statement SQ210M 23.1 MOVE move-to-sending-area=#33 move-to-statement=keyword:TO move-to-statement=#114
+statement SQ210M 23.2 MOVE move-to-sending-area=#110 move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 23.3 PERFORM perform-procedure-statement=@16..16 perform-times=2 perform-times=keyword:TIMES
 statement SQ210M 24.0 EXIT
 statement SQ210M 25.0 EXIT
-statement SQ210M 26.0 MOVE move-to-sending-area=#11 move-to-statement=#1
-statement SQ210M 26.1 WRITE record-name=#1 write-advancing-lines=5
-statement SQ210M 26.2 MOVE move-to-sending-area=#12 move-to-statement=#1
-statement SQ210M 26.3 WRITE record-name=#1 write-advancing-lines=1
-statement SQ210M 27.0 MOVE move-to-sending-area="LINAGE INT / D-N MIX" move-to-statement=#18
-statement SQ210M 27.1 MOVE move-to-sending-area="WRITE-TEST-GF-01" move-to-statement=#22
+statement SQ210M 26.0 MOVE move-to-sending-area=#11 move-to-statement=keyword:TO move-to-statement=#1
+statement SQ210M 26.1 WRITE record-name=#1 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=5 write-advancing-lines=keyword:LINES
+statement SQ210M 26.2 MOVE move-to-sending-area=#12 move-to-statement=keyword:TO move-to-statement=#1
+statement SQ210M 26.3 WRITE record-name=#1 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINE
+statement SQ210M 27.0 MOVE move-to-sending-area="LINAGE INT / D-N MIX" move-to-statement=keyword:TO move-to-statement=#18
+statement SQ210M 27.1 MOVE move-to-sending-area="WRITE-TEST-GF-01" move-to-statement=keyword:TO move-to-statement=#22
 statement SQ210M 27.2 PERFORM perform-procedure-statement=@8..8
-statement SQ210M 27.3 MOVE move-to-sending-area=#13 move-to-statement=#1
-statement SQ210M 27.4 WRITE record-name=#1 write-advancing-lines=5
-statement SQ210M 27.5 MOVE move-to-sending-area=#14 move-to-statement=#1
-statement SQ210M 27.6 WRITE record-name=#1 write-advancing-lines=1
-statement SQ210M 27.7 MOVE move-to-sending-area=SPACE move-to-statement=#2
-statement SQ210M 27.8 PERFORM perform-procedure-statement=@18..18 perform-until=(EQUAL register:LINAGE-COUNTER 66)
-statement SQ210M 27.9 MOVE move-to-sending-area=20 move-to-statement=#3
-statement SQ210M 27.10 MOVE move-to-sending-area=#15 move-to-statement=#1
-statement SQ210M 27.11 WRITE record-name=#1 write-advancing-lines=1
-statement SQ210M 27.12 MOVE move-to-sending-area=30 move-to-statement=#3
-statement SQ210M 27.13 MOVE move-to-sending-area=1 move-to-statement=#7
-statement SQ210M 27.14 PERFORM perform-procedure-statement=@29..29 perform-times=80
-statement SQ210M 28.0 MOVE move-to-sending-area="END OF SQ210M VALIDATION TESTS" move-to-statement=#1
-statement SQ210M 28.1 WRITE record-name=#1 write-advancing-lines=1
+statement SQ210M 27.3 MOVE move-to-sending-area=#13 move-to-statement=keyword:TO move-to-statement=#1
+statement SQ210M 27.4 WRITE record-name=#1 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=5 write-advancing-lines=keyword:LINES
+statement SQ210M 27.5 MOVE move-to-sending-area=#14 move-to-statement=keyword:TO move-to-statement=#1
+statement SQ210M 27.6 WRITE record-name=#1 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINE
+statement SQ210M 27.7 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
+statement SQ210M 27.8 PERFORM perform-procedure-statement=@18..18 perform-until=keyword:UNTIL perform-until=(= register:LINAGE-COUNTER 66)
+statement SQ210M 27.9 MOVE move-to-sending-area=20 move-to-statement=keyword:TO move-to-statement=#3
+statement SQ210M 27.10 MOVE move-to-sending-area=#15 move-to-statement=keyword:TO move-to-statement=#1
+statement SQ210M 27.11 WRITE record-name=#1 write-advancing-phrase=keyword:BEFORE write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINE
+statement SQ210M 27.12 MOVE move-to-sending-area=30 move-to-statement=keyword:TO move-to-statement=#3
+statement SQ210M 27.13 MOVE move-to-sending-area=1 move-to-statement=keyword:TO move-to-statement=#7
+statement SQ210M 27.14 PERFORM perform-procedure-statement=@29..29 perform-times=80 perform-times=keyword:TIMES
+statement SQ210M 28.0 MOVE move-to-sending-area="END OF SQ210M VALIDATION TESTS" move-to-statement=keyword:TO move-to-statement=#1
+statement SQ210M 28.1 WRITE record-name=#1 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINE
 statement SQ210M 28.2 GO TO go-to-statement-simple=@30..30
-statement SQ210M 29.0 MOVE move-to-sending-area=register:LINAGE-COUNTER move-to-statement=#9
-statement SQ210M 29.1 MOVE move-to-sending-area=#4 move-to-statement=#1
-statement SQ210M 29.2 WRITE record-name=#1 write-advancing-lines=1
-statement SQ210M 29.3 ADD add-from=1 add-to=#7
+statement SQ210M 29.0 MOVE move-to-sending-area=register:LINAGE-COUNTER move-to-statement=keyword:TO move-to-statement=#9
+statement SQ210M 29.1 MOVE move-to-sending-area=#4 move-to-statement=keyword:TO move-to-statement=#1
+statement SQ210M 29.2 WRITE record-name=#1 write-advancing-phrase=keyword:BEFORE write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINE
+statement SQ210M 29.3 ADD add-from=1 add-to-statement=keyword:TO add-to=#7
 statement SQ210M 30.0 GO TO go-to-statement-simple=@2..2
 using SQ210M [] 0

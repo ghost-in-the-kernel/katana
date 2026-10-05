@@ -113,7 +113,8 @@ public final class Contract {
     }
 
     private static void statement(String at, Statement s, List<String> lines) {
-        lines.add(at + " " + s.verb() + s.operands().stream().map(o -> " " + o.role() + "=" + value(o.value())).collect(Collectors.joining()));
+        lines.add(at + " " + s.verb() + s.operands().stream().map(o -> " " + o.role() + "=" + value(o.value())).collect(Collectors.joining())
+                + s.branches().stream().map(b -> " | " + b.label() + (b.condition() == null ? "" : "=" + value(b.condition()))).collect(Collectors.joining()));
         for (Statement.Branch b : s.branches()) {
             for (int m = 0; m < b.statements().size(); m++) statement(at + "." + b.label() + "." + m, b.statements().get(m), lines);
         }

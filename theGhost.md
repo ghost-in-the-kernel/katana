@@ -311,8 +311,10 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   `verified` (12,881 of 12,893 NIST fields placed as `cobc` places them, the rest explained). C-3 the
   no-token test is sufficient for completeness: `hypothesis`; phase 3.3's lowering of NIST without
   consulting the tree is the trial.
-- **Held by:** the no-token-left-behind test (tithe pass 2, A1); `sir/roles.golden`; per-program
-  contract goldens; `ModulesTest` (`lower/` imports `sir` only).
+- **Held by:** the no-token-left-behind test (`test/katana/sir/NoTokenLeftTest.java` on COPYREC, the
+  probe `sir/golden/PROBE.cbl` and the NIST goldens, with its own failing case; `IrIntegrationTest`'s
+  `tokens-left` on the corpus, all 0); `sir/roles.golden`; per-program contract goldens
+  (`sir/golden/`, `IrGoldenTest`); `ModulesTest` (`lower/` imports `sir` only).
 - **Source:** the phase-2 boundary review, 2026-10-05; decided by Fable at the boundary, for Ghost.
 - **Status:** in force
 - **See also:** R-007, R-018, R-024, P-11

@@ -350,189 +350,189 @@ edge IX111A GO_TO 32 33 33
 edge IX111A GO_TO 32 34 34
 edge IX111A PERFORM 33 26 26
 edge IX111A GO_TO 40 17 17
-statement IX111A 0.0 IF if-statement=(= #11 "35")
+statement IX111A 0.0 IF if-statement=(= #11 "35") | if-then | if-else
 statement IX111A 0.0.if-then.0 PERFORM perform-procedure-statement=@1..1
 statement IX111A 0.0.if-then.1 GO TO go-to-statement-simple=@13..13
-statement IX111A 0.0.if-else.0 MOVE move-to-sending-area="35" move-to-statement=#41
-statement IX111A 0.0.if-else.1 MOVE move-to-sending-area=#11 move-to-statement=#28
-statement IX111A 0.0.if-else.2 MOVE move-to-sending-area="STATUS FOR OPEN INPUT OF FILE THAT IS NOT      PRESENT INCORRECT" move-to-statement=#23
-statement IX111A 0.0.if-else.3 MOVE move-to-sending-area="IX-2, FILE STATUS" move-to-statement=#70
+statement IX111A 0.0.if-else.0 MOVE move-to-sending-area="35" move-to-statement=keyword:TO move-to-statement=#41
+statement IX111A 0.0.if-else.1 MOVE move-to-sending-area=#11 move-to-statement=keyword:TO move-to-statement=#28
+statement IX111A 0.0.if-else.2 MOVE move-to-sending-area="STATUS FOR OPEN INPUT OF FILE THAT IS NOT      PRESENT INCORRECT" move-to-statement=keyword:TO move-to-statement=#23
+statement IX111A 0.0.if-else.3 MOVE move-to-sending-area="IX-2, FILE STATUS" move-to-statement=keyword:TO move-to-statement=#70
 statement IX111A 0.0.if-else.4 PERFORM perform-procedure-statement=@2..2
 statement IX111A 0.0.if-else.5 GO TO go-to-statement-simple=@13..13
-statement IX111A 1.0 MOVE move-to-sending-area="PASS " move-to-statement=#16
-statement IX111A 1.1 ADD add-from=1 add-to=#65
+statement IX111A 1.0 MOVE move-to-sending-area="PASS " move-to-statement=keyword:TO move-to-statement=#16
+statement IX111A 1.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#65
 statement IX111A 1.2 PERFORM perform-procedure-statement=@3..3
-statement IX111A 2.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#16
-statement IX111A 2.1 ADD add-from=1 add-to=#63
+statement IX111A 2.0 MOVE move-to-sending-area="FAIL*" move-to-statement=keyword:TO move-to-statement=#16
+statement IX111A 2.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#63
 statement IX111A 2.2 PERFORM perform-procedure-statement=@3..3
-statement IX111A 3.0 IF if-statement=(NOT EQUAL TO #61 ZERO)
-statement IX111A 3.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#20
-statement IX111A 3.0.if-then.1 MOVE move-to-sending-area=#61 move-to-statement=#21
-statement IX111A 3.1 MOVE move-to-sending-area=#12 move-to-statement=#1
+statement IX111A 3.0 IF if-statement=(<> #61 ZERO) | if-then
+statement IX111A 3.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=keyword:TO move-to-statement=#20
+statement IX111A 3.0.if-then.1 MOVE move-to-sending-area=#61 move-to-statement=keyword:TO move-to-statement=#21
+statement IX111A 3.1 MOVE move-to-sending-area=#12 move-to-statement=keyword:TO move-to-statement=#1
 statement IX111A 3.2 PERFORM perform-procedure-statement=@4..4
-statement IX111A 3.3 IF if-statement=(EQUAL TO #16 "FAIL*")
+statement IX111A 3.3 IF if-statement=(= #16 "FAIL*") | if-then | if-else
 statement IX111A 3.3.if-then.0 PERFORM perform-procedure-statement=@4..4
-statement IX111A 3.3.if-then.1 PERFORM perform-procedure-statement=@7..7 perform-procedure-statement=@9..9
-statement IX111A 3.3.if-else.0 PERFORM perform-procedure-statement=@10..10 perform-procedure-statement=@12..12
-statement IX111A 3.4 MOVE move-to-sending-area=SPACE move-to-statement=#16
-statement IX111A 3.5 MOVE move-to-sending-area=SPACE move-to-statement=#27
-statement IX111A 3.6 MOVE move-to-sending-area=SPACE move-to-statement=#40
-statement IX111A 3.7 IF if-statement=(EQUAL TO #61 ZERO)
-statement IX111A 3.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#18
-statement IX111A 3.8 MOVE move-to-sending-area=SPACE move-to-statement=#23
-statement IX111A 4.0 ADD add-from=1 add-to=#69
+statement IX111A 3.3.if-then.1 PERFORM perform-procedure-statement=@7..7 perform-procedure-statement=keyword:THRU perform-procedure-statement=@9..9
+statement IX111A 3.3.if-else.0 PERFORM perform-procedure-statement=@10..10 perform-procedure-statement=keyword:THRU perform-procedure-statement=@12..12
+statement IX111A 3.4 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#16
+statement IX111A 3.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#27
+statement IX111A 3.6 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#40
+statement IX111A 3.7 IF if-statement=(= #61 ZERO) | if-then
+statement IX111A 3.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#18
+statement IX111A 3.8 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#23
+statement IX111A 4.0 ADD add-from=1 add-to-statement=keyword:TO add-to=#69
 statement IX111A 4.1 PERFORM perform-procedure-statement=@5..5
-statement IX111A 5.0 WRITE record-name=#2 write-advancing-lines=1
-statement IX111A 5.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IX111A 5.0 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINES
+statement IX111A 5.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 6.0 PERFORM perform-procedure-statement=@5..5
-statement IX111A 7.0 IF if-statement=(NOT EQUAL TO #27 SPACE)
+statement IX111A 7.0 IF if-statement=(<> #27 SPACE) | if-then
 statement IX111A 7.0.if-then.0 GO TO go-to-statement-simple=@8..8
-statement IX111A 7.1 IF if-statement=(NOT EQUAL TO #40 SPACE)
+statement IX111A 7.1 IF if-statement=(<> #40 SPACE) | if-then
 statement IX111A 7.1.if-then.0 GO TO go-to-statement-simple=@8..8
-statement IX111A 7.2 MOVE move-to-sending-area=#70 move-to-statement=#122
-statement IX111A 7.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#117
-statement IX111A 7.4 MOVE move-to-sending-area=#115 move-to-statement=#2
-statement IX111A 7.5 PERFORM perform-procedure-statement=@4..4 perform-times=2
-statement IX111A 7.6 MOVE move-to-sending-area=SPACE move-to-statement=#122
+statement IX111A 7.2 MOVE move-to-sending-area=#70 move-to-statement=keyword:TO move-to-statement=#122
+statement IX111A 7.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=keyword:TO move-to-statement=#117
+statement IX111A 7.4 MOVE move-to-sending-area=#115 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 7.5 PERFORM perform-procedure-statement=@4..4 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 7.6 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#122
 statement IX111A 7.7 GO TO go-to-statement-simple=@9..9
-statement IX111A 8.0 MOVE move-to-sending-area=#24 move-to-statement=#1
+statement IX111A 8.0 MOVE move-to-sending-area=#24 move-to-statement=keyword:TO move-to-statement=#1
 statement IX111A 8.1 PERFORM perform-procedure-statement=@4..4
-statement IX111A 8.2 MOVE move-to-sending-area=#70 move-to-statement=#50
-statement IX111A 8.3 MOVE move-to-sending-area=#37 move-to-statement=#1
-statement IX111A 8.4 PERFORM perform-procedure-statement=@4..4 perform-times=2
-statement IX111A 8.5 MOVE move-to-sending-area=SPACE move-to-statement=#50
+statement IX111A 8.2 MOVE move-to-sending-area=#70 move-to-statement=keyword:TO move-to-statement=#50
+statement IX111A 8.3 MOVE move-to-sending-area=#37 move-to-statement=keyword:TO move-to-statement=#1
+statement IX111A 8.4 PERFORM perform-procedure-statement=@4..4 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 8.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#50
 statement IX111A 9.0 EXIT
-statement IX111A 10.0 IF if-statement=(NOT EQUAL TO #28 SPACE)
+statement IX111A 10.0 IF if-statement=(<> #28 SPACE) | if-then
 statement IX111A 10.0.if-then.0 GO TO go-to-statement-simple=@11..11
-statement IX111A 10.1 IF if-statement=(EQUAL TO #41 SPACE)
+statement IX111A 10.1 IF if-statement=(= #41 SPACE) | if-then
 statement IX111A 10.1.if-then.0 GO TO go-to-statement-simple=@12..12
-statement IX111A 11.0 MOVE move-to-sending-area=#41 move-to-statement=#121
-statement IX111A 11.1 MOVE move-to-sending-area=#28 move-to-statement=#119
-statement IX111A 11.2 MOVE move-to-sending-area=#70 move-to-statement=#122
-statement IX111A 11.3 MOVE move-to-sending-area=#115 move-to-statement=#2
-statement IX111A 11.4 PERFORM perform-procedure-statement=@4..4 perform-times=2
-statement IX111A 11.5 MOVE move-to-sending-area=SPACE move-to-statement=#122
+statement IX111A 11.0 MOVE move-to-sending-area=#41 move-to-statement=keyword:TO move-to-statement=#121
+statement IX111A 11.1 MOVE move-to-sending-area=#28 move-to-statement=keyword:TO move-to-statement=#119
+statement IX111A 11.2 MOVE move-to-sending-area=#70 move-to-statement=keyword:TO move-to-statement=#122
+statement IX111A 11.3 MOVE move-to-sending-area=#115 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 11.4 PERFORM perform-procedure-statement=@4..4 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 11.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#122
 statement IX111A 12.0 EXIT
-statement IX111A 13.0 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IX111A 13.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 13.1 PERFORM perform-procedure-statement=@4..4
-statement IX111A 13.2 MOVE move-to-sending-area="ABNORMAL TERMINATION AT THIS POINT IS ACCEPTABLE" move-to-statement=#2
-statement IX111A 13.3 PERFORM perform-procedure-statement=@4..4 perform-times=3
+statement IX111A 13.2 MOVE move-to-sending-area="ABNORMAL TERMINATION AT THIS POINT IS ACCEPTABLE" move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 13.3 PERFORM perform-procedure-statement=@4..4 perform-times=3 perform-times=keyword:TIMES
 statement IX111A 14.0 EXIT
-statement IX111A 15.0 OPEN open-output=file:PRINT-FILE
-statement IX111A 15.1 MOVE move-to-sending-area=#127 move-to-statement=#83
-statement IX111A 15.2 MOVE move-to-sending-area=#127 move-to-statement=#95
-statement IX111A 15.3 MOVE move-to-sending-area=SPACE move-to-statement=#12
-statement IX111A 15.4 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=@20..20
-statement IX111A 15.5 MOVE move-to-sending-area=ZERO move-to-statement=#60
+statement IX111A 15.0 OPEN open-output-statement=keyword:OUTPUT open-output=file:PRINT-FILE
+statement IX111A 15.1 MOVE move-to-sending-area=#127 move-to-statement=keyword:TO move-to-statement=#83
+statement IX111A 15.2 MOVE move-to-sending-area=#127 move-to-statement=keyword:TO move-to-statement=#95
+statement IX111A 15.3 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#12
+statement IX111A 15.4 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=keyword:THRU perform-procedure-statement=@20..20
+statement IX111A 15.5 MOVE move-to-sending-area=ZERO move-to-statement=keyword:TO move-to-statement=#60
 statement IX111A 16.0 GO TO go-to-statement-simple=@35..35
-statement IX111A 17.0 PERFORM perform-procedure-statement=@21..21 perform-procedure-statement=@25..25
+statement IX111A 17.0 PERFORM perform-procedure-statement=@21..21 perform-procedure-statement=keyword:THRU perform-procedure-statement=@25..25
 statement IX111A 17.1 CLOSE close-file=file:PRINT-FILE
-statement IX111A 18.0 STOP
-statement IX111A 19.0 MOVE move-to-sending-area=#71 move-to-statement=#2
-statement IX111A 19.1 PERFORM perform-procedure-statement=@26..26 perform-times=2
-statement IX111A 19.2 MOVE move-to-sending-area=#75 move-to-statement=#2
-statement IX111A 19.3 PERFORM perform-procedure-statement=@26..26 perform-times=2
-statement IX111A 19.4 MOVE move-to-sending-area=#81 move-to-statement=#2
-statement IX111A 19.5 PERFORM perform-procedure-statement=@26..26 perform-times=3
-statement IX111A 19.6 MOVE move-to-sending-area=#88 move-to-statement=#2
-statement IX111A 19.7 PERFORM perform-procedure-statement=@26..26 perform-times=3
-statement IX111A 20.0 MOVE move-to-sending-area=#51 move-to-statement=#2
+statement IX111A 18.0 STOP stop-statement=keyword:RUN
+statement IX111A 19.0 MOVE move-to-sending-area=#71 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 19.1 PERFORM perform-procedure-statement=@26..26 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 19.2 MOVE move-to-sending-area=#75 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 19.3 PERFORM perform-procedure-statement=@26..26 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 19.4 MOVE move-to-sending-area=#81 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 19.5 PERFORM perform-procedure-statement=@26..26 perform-times=3 perform-times=keyword:TIMES
+statement IX111A 19.6 MOVE move-to-sending-area=#88 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 19.7 PERFORM perform-procedure-statement=@26..26 perform-times=3 perform-times=keyword:TIMES
+statement IX111A 20.0 MOVE move-to-sending-area=#51 move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 20.1 PERFORM perform-procedure-statement=@26..26
-statement IX111A 20.2 MOVE move-to-sending-area=#54 move-to-statement=#2
-statement IX111A 20.3 PERFORM perform-procedure-statement=@26..26 perform-times=2
-statement IX111A 20.4 MOVE move-to-sending-area=#123 move-to-statement=#2
+statement IX111A 20.2 MOVE move-to-sending-area=#54 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 20.3 PERFORM perform-procedure-statement=@26..26 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 20.4 MOVE move-to-sending-area=#123 move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 20.5 PERFORM perform-procedure-statement=@26..26
-statement IX111A 21.0 MOVE move-to-sending-area=#123 move-to-statement=#2
-statement IX111A 21.1 PERFORM perform-procedure-statement=@26..26 perform-times=5
-statement IX111A 22.0 MOVE move-to-sending-area=#92 move-to-statement=#2
-statement IX111A 22.1 PERFORM perform-procedure-statement=@26..26 perform-times=2
-statement IX111A 23.0 ADD add-from=#63 add-to=#67
-statement IX111A 23.1 ADD add-from=#64 add-to=#67
-statement IX111A 23.2 ADD add-from=#62 add-to=#67
-statement IX111A 23.3 ADD add-from=#65 add-to=#67
-statement IX111A 23.4 MOVE move-to-sending-area=#65 move-to-statement=#111
-statement IX111A 23.5 MOVE move-to-sending-area=#67 move-to-statement=#113
-statement IX111A 23.6 MOVE move-to-sending-area=#110 move-to-statement=#100
-statement IX111A 23.7 MOVE move-to-sending-area=#97 move-to-statement=#2
+statement IX111A 21.0 MOVE move-to-sending-area=#123 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 21.1 PERFORM perform-procedure-statement=@26..26 perform-times=5 perform-times=keyword:TIMES
+statement IX111A 22.0 MOVE move-to-sending-area=#92 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 22.1 PERFORM perform-procedure-statement=@26..26 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 23.0 ADD add-from=#63 add-to-statement=keyword:TO add-to=#67
+statement IX111A 23.1 ADD add-from=#64 add-to-statement=keyword:TO add-to=#67
+statement IX111A 23.2 ADD add-from=#62 add-to-statement=keyword:TO add-to=#67
+statement IX111A 23.3 ADD add-from=#65 add-to-statement=keyword:TO add-to=#67
+statement IX111A 23.4 MOVE move-to-sending-area=#65 move-to-statement=keyword:TO move-to-statement=#111
+statement IX111A 23.5 MOVE move-to-sending-area=#67 move-to-statement=keyword:TO move-to-statement=#113
+statement IX111A 23.6 MOVE move-to-sending-area=#110 move-to-statement=keyword:TO move-to-statement=#100
+statement IX111A 23.7 MOVE move-to-sending-area=#97 move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 23.8 PERFORM perform-procedure-statement=@26..26
-statement IX111A 24.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#103
-statement IX111A 24.1 IF if-statement=(IS EQUAL TO #63 ZERO)
-statement IX111A 24.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#101
-statement IX111A 24.1.if-else.0 MOVE move-to-sending-area=#63 move-to-statement=#101
-statement IX111A 24.2 MOVE move-to-sending-area=#97 move-to-statement=#2
+statement IX111A 24.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=keyword:TO move-to-statement=#103
+statement IX111A 24.1 IF if-statement=(= #63 ZERO) | if-then | if-else
+statement IX111A 24.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#101
+statement IX111A 24.1.if-else.0 MOVE move-to-sending-area=#63 move-to-statement=keyword:TO move-to-statement=#101
+statement IX111A 24.2 MOVE move-to-sending-area=#97 move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 24.3 PERFORM perform-procedure-statement=@26..26
-statement IX111A 25.0 IF if-statement=(IS EQUAL TO #62 ZERO)
-statement IX111A 25.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#101
-statement IX111A 25.0.if-else.0 MOVE move-to-sending-area=#62 move-to-statement=#101
-statement IX111A 25.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#103
-statement IX111A 25.2 MOVE move-to-sending-area=#97 move-to-statement=#2
+statement IX111A 25.0 IF if-statement=(= #62 ZERO) | if-then | if-else
+statement IX111A 25.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#101
+statement IX111A 25.0.if-else.0 MOVE move-to-sending-area=#62 move-to-statement=keyword:TO move-to-statement=#101
+statement IX111A 25.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=keyword:TO move-to-statement=#103
+statement IX111A 25.2 MOVE move-to-sending-area=#97 move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 25.3 PERFORM perform-procedure-statement=@26..26
-statement IX111A 25.4 IF if-statement=(EQUAL TO #64 ZERO)
-statement IX111A 25.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#101
-statement IX111A 25.4.if-else.0 MOVE move-to-sending-area=#64 move-to-statement=#101
-statement IX111A 25.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#103
-statement IX111A 25.6 MOVE move-to-sending-area=#97 move-to-statement=#2
+statement IX111A 25.4 IF if-statement=(= #64 ZERO) | if-then | if-else
+statement IX111A 25.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=keyword:TO move-to-statement=#101
+statement IX111A 25.4.if-else.0 MOVE move-to-sending-area=#64 move-to-statement=keyword:TO move-to-statement=#101
+statement IX111A 25.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=keyword:TO move-to-statement=#103
+statement IX111A 25.6 MOVE move-to-sending-area=#97 move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 25.7 PERFORM perform-procedure-statement=@26..26
-statement IX111A 25.8 MOVE move-to-sending-area=#104 move-to-statement=#2
+statement IX111A 25.8 MOVE move-to-sending-area=#104 move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 25.9 PERFORM perform-procedure-statement=@26..26
-statement IX111A 26.0 ADD add-from=1 add-to=#69
-statement IX111A 26.1 IF if-statement=(GREATER #69 42)
-statement IX111A 26.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#68
-statement IX111A 26.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
-statement IX111A 26.1.if-then.2 WRITE record-name=#2
-statement IX111A 26.1.if-then.3 MOVE move-to-sending-area=#71 move-to-statement=#2
-statement IX111A 26.1.if-then.4 PERFORM perform-procedure-statement=@27..27 perform-times=2
-statement IX111A 26.1.if-then.5 MOVE move-to-sending-area=#75 move-to-statement=#2
-statement IX111A 26.1.if-then.6 PERFORM perform-procedure-statement=@27..27 perform-times=2
-statement IX111A 26.1.if-then.7 MOVE move-to-sending-area=#81 move-to-statement=#2
-statement IX111A 26.1.if-then.8 PERFORM perform-procedure-statement=@27..27 perform-times=3
-statement IX111A 26.1.if-then.9 MOVE move-to-sending-area=#88 move-to-statement=#2
-statement IX111A 26.1.if-then.10 PERFORM perform-procedure-statement=@27..27 perform-times=3
-statement IX111A 26.1.if-then.11 MOVE move-to-sending-area=#51 move-to-statement=#2
+statement IX111A 26.0 ADD add-from=1 add-to-statement=keyword:TO add-to=#69
+statement IX111A 26.1 IF if-statement=(> #69 42) | if-then
+statement IX111A 26.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=keyword:TO move-to-statement=#68
+statement IX111A 26.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 26.1.if-then.2 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-page=keyword:PAGE
+statement IX111A 26.1.if-then.3 MOVE move-to-sending-area=#71 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 26.1.if-then.4 PERFORM perform-procedure-statement=@27..27 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 26.1.if-then.5 MOVE move-to-sending-area=#75 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 26.1.if-then.6 PERFORM perform-procedure-statement=@27..27 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 26.1.if-then.7 MOVE move-to-sending-area=#81 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 26.1.if-then.8 PERFORM perform-procedure-statement=@27..27 perform-times=3 perform-times=keyword:TIMES
+statement IX111A 26.1.if-then.9 MOVE move-to-sending-area=#88 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 26.1.if-then.10 PERFORM perform-procedure-statement=@27..27 perform-times=3 perform-times=keyword:TIMES
+statement IX111A 26.1.if-then.11 MOVE move-to-sending-area=#51 move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 26.1.if-then.12 PERFORM perform-procedure-statement=@27..27
-statement IX111A 26.1.if-then.13 MOVE move-to-sending-area=#54 move-to-statement=#2
+statement IX111A 26.1.if-then.13 MOVE move-to-sending-area=#54 move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 26.1.if-then.14 PERFORM perform-procedure-statement=@27..27
-statement IX111A 26.1.if-then.15 MOVE move-to-sending-area=#123 move-to-statement=#2
+statement IX111A 26.1.if-then.15 MOVE move-to-sending-area=#123 move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 26.1.if-then.16 PERFORM perform-procedure-statement=@27..27
-statement IX111A 26.1.if-then.17 MOVE move-to-sending-area=#68 move-to-statement=#2
-statement IX111A 26.1.if-then.18 MOVE move-to-sending-area=ZERO move-to-statement=#69
+statement IX111A 26.1.if-then.17 MOVE move-to-sending-area=#68 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 26.1.if-then.18 MOVE move-to-sending-area=ZERO move-to-statement=keyword:TO move-to-statement=#69
 statement IX111A 26.2 PERFORM perform-procedure-statement=@27..27
-statement IX111A 27.0 WRITE record-name=#2 write-advancing-lines=1
-statement IX111A 27.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IX111A 27.0 WRITE record-name=#2 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINES
+statement IX111A 27.1 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#2
 statement IX111A 28.0 PERFORM perform-procedure-statement=@27..27
-statement IX111A 29.0 IF if-statement=(NOT EQUAL TO #27 SPACE)
+statement IX111A 29.0 IF if-statement=(<> #27 SPACE) | if-then
 statement IX111A 29.0.if-then.0 GO TO go-to-statement-simple=@30..30
-statement IX111A 29.1 IF if-statement=(NOT EQUAL TO #40 SPACE)
+statement IX111A 29.1 IF if-statement=(<> #40 SPACE) | if-then
 statement IX111A 29.1.if-then.0 GO TO go-to-statement-simple=@30..30
-statement IX111A 29.2 MOVE move-to-sending-area=#70 move-to-statement=#122
-statement IX111A 29.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#117
-statement IX111A 29.4 MOVE move-to-sending-area=#115 move-to-statement=#2
-statement IX111A 29.5 PERFORM perform-procedure-statement=@26..26 perform-times=2
-statement IX111A 29.6 MOVE move-to-sending-area=SPACE move-to-statement=#122
+statement IX111A 29.2 MOVE move-to-sending-area=#70 move-to-statement=keyword:TO move-to-statement=#122
+statement IX111A 29.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=keyword:TO move-to-statement=#117
+statement IX111A 29.4 MOVE move-to-sending-area=#115 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 29.5 PERFORM perform-procedure-statement=@26..26 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 29.6 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#122
 statement IX111A 29.7 GO TO go-to-statement-simple=@31..31
-statement IX111A 30.0 MOVE move-to-sending-area=#24 move-to-statement=#1
+statement IX111A 30.0 MOVE move-to-sending-area=#24 move-to-statement=keyword:TO move-to-statement=#1
 statement IX111A 30.1 PERFORM perform-procedure-statement=@26..26
-statement IX111A 30.2 MOVE move-to-sending-area=#70 move-to-statement=#50
-statement IX111A 30.3 MOVE move-to-sending-area=#37 move-to-statement=#1
-statement IX111A 30.4 PERFORM perform-procedure-statement=@26..26 perform-times=2
-statement IX111A 30.5 MOVE move-to-sending-area=SPACE move-to-statement=#50
+statement IX111A 30.2 MOVE move-to-sending-area=#70 move-to-statement=keyword:TO move-to-statement=#50
+statement IX111A 30.3 MOVE move-to-sending-area=#37 move-to-statement=keyword:TO move-to-statement=#1
+statement IX111A 30.4 PERFORM perform-procedure-statement=@26..26 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 30.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#50
 statement IX111A 31.0 EXIT
-statement IX111A 32.0 IF if-statement=(NOT EQUAL TO #28 SPACE)
+statement IX111A 32.0 IF if-statement=(<> #28 SPACE) | if-then
 statement IX111A 32.0.if-then.0 GO TO go-to-statement-simple=@33..33
-statement IX111A 32.1 IF if-statement=(EQUAL TO #41 SPACE)
+statement IX111A 32.1 IF if-statement=(= #41 SPACE) | if-then
 statement IX111A 32.1.if-then.0 GO TO go-to-statement-simple=@34..34
-statement IX111A 33.0 MOVE move-to-sending-area=#41 move-to-statement=#121
-statement IX111A 33.1 MOVE move-to-sending-area=#28 move-to-statement=#119
-statement IX111A 33.2 MOVE move-to-sending-area=#70 move-to-statement=#122
-statement IX111A 33.3 MOVE move-to-sending-area=#115 move-to-statement=#2
-statement IX111A 33.4 PERFORM perform-procedure-statement=@26..26 perform-times=2
-statement IX111A 33.5 MOVE move-to-sending-area=SPACE move-to-statement=#122
+statement IX111A 33.0 MOVE move-to-sending-area=#41 move-to-statement=keyword:TO move-to-statement=#121
+statement IX111A 33.1 MOVE move-to-sending-area=#28 move-to-statement=keyword:TO move-to-statement=#119
+statement IX111A 33.2 MOVE move-to-sending-area=#70 move-to-statement=keyword:TO move-to-statement=#122
+statement IX111A 33.3 MOVE move-to-sending-area=#115 move-to-statement=keyword:TO move-to-statement=#2
+statement IX111A 33.4 PERFORM perform-procedure-statement=@26..26 perform-times=2 perform-times=keyword:TIMES
+statement IX111A 33.5 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#122
 statement IX111A 34.0 EXIT
 statement IX111A 35.0 EXIT
-statement IX111A 37.0 MOVE move-to-sending-area=SPACE move-to-statement=#11
-statement IX111A 37.1 MOVE move-to-sending-area="OPEN INPUT   35 EXP." move-to-statement=#14
-statement IX111A 37.2 MOVE move-to-sending-area="OPN-TEST-GF-01-0" move-to-statement=#18
-statement IX111A 38.0 OPEN open-input=file:IX-NOP
+statement IX111A 37.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#11
+statement IX111A 37.1 MOVE move-to-sending-area="OPEN INPUT   35 EXP." move-to-statement=keyword:TO move-to-statement=#14
+statement IX111A 37.2 MOVE move-to-sending-area="OPN-TEST-GF-01-0" move-to-statement=keyword:TO move-to-statement=#18
+statement IX111A 38.0 OPEN open-input-statement=keyword:INPUT open-input=file:IX-NOP
 statement IX111A 39.0 EXIT
 statement IX111A 40.0 GO TO go-to-statement-simple=@17..17
 using IX111A [] 0

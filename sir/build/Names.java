@@ -40,9 +40,11 @@ final class Names {
         return 0;
     }
 
+    /** Each qualifier, outward, an ancestor of the item, or the file whose record it is in (the grammar cannot tell `IN file` from `IN data`). */
     private boolean qualified(Item item, List<String> qualifiers) {
         int parent = item.parent();
         for (String q : qualifiers) {
+            if (fileRecords.containsKey(q) && fileRecords.get(q).contains(item.record())) continue;
             while (parent != 0 && !items.get(parent - 1).name().equals(q)) parent = items.get(parent - 1).parent();
             if (parent == 0) return false;
             parent = items.get(parent - 1).parent();
