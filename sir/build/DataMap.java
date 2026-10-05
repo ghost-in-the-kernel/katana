@@ -46,6 +46,7 @@ final class DataMap {
     char currency = '$';
     boolean decimalComma;
     final List<Node> nodes = new ArrayList<>();
+    private Node lastEntry;
     final List<String> findings;
 
     DataMap(Parse.Result parse, List<String> findings) {
@@ -58,11 +59,12 @@ final class DataMap {
         List<Node> open = new ArrayList<>();
         for (CobolParser.DataDescriptionEntryContext entry : entries) {
             if (entry.dataDescriptionEntryFormat1() != null) format1(section, entry.dataDescriptionEntryFormat1(), open);
-            else if (entry.dataDescriptionEntryFormat3() != null && !nodes.isEmpty()) condition(entry.dataDescriptionEntryFormat3());
+            else if (entry.dataDescriptionEntryFormat3() != null && lastEntry != null) condition(entry.dataDescriptionEntryFormat3());
             else if (entry.dataDescriptionEntryFormat2() != null) renames(section, entry.dataDescriptionEntryFormat2(), open);
         }
     }
 
+    /** A level 01-49 or 77 entry: its place under the open groups, its clauses, its INDEXED BY items. */
     private void format1(Item.Section section, CobolParser.DataDescriptionEntryFormat1Context e, List<Node> open) {
         Node n = new Node();
         n.level = e.LEVEL_NUMBER_77() != null ? 77 : Integer.parseInt(e.INTEGERLITERAL().getText());
@@ -76,6 +78,7 @@ final class DataMap {
         clauses(n, e, parent);
         add(n, parent);
         open.add(n);
+        lastEntry = n;
         for (String index : n.indexNames) index(section, index, e);
     }
 
@@ -127,6 +130,7 @@ final class DataMap {
         n.signSeparate = s.SEPARATE() != null;
     }
 
+    /** OCCURS n, n TO m, DEPENDING ON, ASCENDING/DESCENDING KEY and INDEXED BY, as names resolved later. */
     private void occurs(Node n, CobolParser.DataOccursClauseContext o) {
         int first = o.integerLiteral() != null ? Integer.parseInt(o.integerLiteral().getText()) : 1;
         if (o.dataOccursTo() != null) {
@@ -136,15 +140,15 @@ final class DataMap {
             n.occursMin = first;
             n.occursMax = first;
         }
-        if (o.dataOccursDepending() != null) n.dependingName = o.dataOccursDepending().qualifiedDataName().getText().toUpperCase(Locale.ROOT);
-        for (var sort : o.dataOccursSort()) for (var key : sort.qualifiedDataName()) n.keyNames.add(new String[] {key.getText().toUpperCase(Locale.ROOT), sort.ASCENDING() != null ? "A" : "D"});
+        if (o.dataOccursDepending() != null) n.dependingName = first(o.dataOccursDepending().qualifiedDataName());
+        for (var sort : o.dataOccursSort()) for (var key : sort.qualifiedDataName()) n.keyNames.add(new String[] {first(key), sort.ASCENDING() != null ? "A" : "D"});
         for (var indexed : o.dataOccursIndexed()) for (var name : indexed.indexName()) n.indexNames.add(name.getText().toUpperCase(Locale.ROOT));
     }
 
     private void condition(CobolParser.DataDescriptionEntryFormat3Context c) {
         List<String> values = new ArrayList<>();
         for (var interval : c.dataValueClause().dataValueInterval()) values.add(text(interval));
-        nodes.get(nodes.size() - 1).conditions.add(new Item.Condition(c.conditionName().getText().toUpperCase(Locale.ROOT), values, parse.origin(c)));
+        lastEntry.conditions.add(new Item.Condition(c.conditionName().getText().toUpperCase(Locale.ROOT), values, parse.origin(c)));
     }
 
     /** A 66: the record's bytes from its first item through its last, as an item of the record. */
@@ -155,8 +159,8 @@ final class DataMap {
         n.name = r.dataName().getText().toUpperCase(Locale.ROOT);
         n.section = section;
         n.ctx = r;
-        n.redefinesName = r.dataRenamesClause().qualifiedDataName(0).getText().toUpperCase(Locale.ROOT);
-        n.dependingName = r.dataRenamesClause().qualifiedDataName().size() > 1 ? r.dataRenamesClause().qualifiedDataName(1).getText().toUpperCase(Locale.ROOT) : n.redefinesName;
+        n.redefinesName = first(r.dataRenamesClause().qualifiedDataName(0));
+        n.dependingName = r.dataRenamesClause().qualifiedDataName().size() > 1 ? first(r.dataRenamesClause().qualifiedDataName(1)) : n.redefinesName;
         Node record = nodes.get(open.get(0).record - 1);
         n.id = nodes.size() + 1;
         n.parent = record.id;
@@ -164,6 +168,7 @@ final class DataMap {
         nodes.add(n);
     }
 
+    /** A USAGE clause's words to the usage; DISPLAY when none of these. */
     static Usage usage(String clause) {
         String u = clause.toUpperCase(Locale.ROOT).replaceFirst("^USAGE(IS)?", "");
         return switch (u) {
@@ -203,11 +208,10 @@ final class DataMap {
         return 0;
     }
 
-    /** The first item of a name, qualifiers (`A OF B`) dropped. */
-    int named(String qualified) {
-        String name = qualified.split("(?i)(OF|IN)(?=[A-Z])")[0];
+    /** The first item of a name (its qualifiers were dropped where it was read). */
+    int named(String name) {
         for (Node m : nodes) if (m.name.equals(name)) return m.id;
-        findings.add(qualified + " names no item");
+        findings.add(name + " names no item");
         return 0;
     }
 
@@ -246,8 +250,20 @@ final class DataMap {
         return n.length * Math.max(1, n.occursMax);
     }
 
+    /** A qualified name's first word: an ODO object, a key, or what a 66 renames inside its own record. */
+    private static String first(CobolParser.QualifiedDataNameContext q) {
+        return q.getChild(0).getChild(0).getText().toUpperCase(Locale.ROOT);
+    }
+
+    /** The item of a name in a record, or 0 and a finding. */
+    private int inRecord(String name, int record) {
+        for (Node m : nodes) if (m.record == record && m.level != 66 && m.name.equals(name)) return m.id;
+        findings.add("RENAMES " + name + " names no item of its record");
+        return 0;
+    }
+
     private void renamed(Node n) {
-        int from = named(n.redefinesName), thru = named(n.dependingName);
+        int from = inRecord(n.redefinesName, n.record), thru = inRecord(n.dependingName, n.record);
         n.redefinesName = null;
         n.dependingName = null;
         if (from == 0 || thru == 0) return;

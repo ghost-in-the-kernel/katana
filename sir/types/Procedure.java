@@ -5,8 +5,8 @@ import katana.front.Mapped;
 
 /**
  * The paragraph graph: the PROCEDURE DIVISION's USING items and RETURNING item (0 for none), its
- * sections and paragraphs in textual order (statements before the first paragraph are paragraph 0,
- * named ""), and the edges PERFORM, GO TO and ALTER make between paragraphs.
+ * sections and paragraphs in textual order (statements under no paragraph name, at the start of the
+ * body or of a section, are a paragraph named ""), and the edges PERFORM, GO TO and ALTER make.
  */
 public record Procedure(List<Integer> using, int returning, List<Section> sections, List<Paragraph> paragraphs, List<Edge> edges) {
     /** A section; a declarative one says what it is USE'd for. */

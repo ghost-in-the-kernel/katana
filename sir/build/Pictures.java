@@ -35,6 +35,7 @@ record Pictures(String expanded, Category category, int digits, int scale, boole
 
     /** Which kinds of symbol a picture holds, and the character positions they take. */
     private record Symbols(int positions, boolean x, boolean a, boolean n, boolean nine, boolean edited) {
+        /** One pass over the expanded picture: which symbols, how many positions; an unknown symbol is refused. */
         static Symbols scan(String p, String picture) {
             int positions = 0;
             boolean x = false, a = false, n = false, nine = false, edited = false;
@@ -59,6 +60,7 @@ record Pictures(String expanded, Category category, int digits, int scale, boole
             return new Symbols(positions, x, a, n, nine, edited);
         }
 
+        /** The category the symbols make: national, edited, alphanumeric, alphabetic or numeric. */
         Category category() {
             return n ? Category.NATIONAL
                     : edited && (x || a) ? Category.ALPHANUMERIC_EDITED

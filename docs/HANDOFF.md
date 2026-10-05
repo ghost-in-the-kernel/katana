@@ -19,6 +19,11 @@
   `$$,$$$.$$`: cobc lays it out with scale 0, ours 2, IBM's rule (the floating `$` after the point holds
   digits), and cobc itself gives `+++++.++` scale 2. **Default taken:** ours, listed in
   `sir/datamap.golden`; a trial (MOVE 12.34 to it, DISPLAY) would show which the cobc lane prints.
+- **CICS names stay names in the IR** (from step 2.5, J-068). An EIB field, `DFHRESP(x)` and
+  `DFHVALUE(x)` in a program with EXEC CICS are `Value.Name("cics", ...)`, not items: the translator's
+  DFHEIBLK is not synthesized, so every online CardDemo program's `DEPENDING ON EIBCALEN` is a finding.
+  DFHAID gained DFHPF13-24 and DFHPA1-3 from IBM's layout as recalled. **Default taken:** names, as
+  R-005 keeps v1 batch; DFHEIBLK and the recalled AID values are read from IBM before CICS is lowered.
 - **"An IBM dialect switch mirroring `ibm-strict.conf`"** (2.1's text) would mean reading GnuCOBOL's
   configuration, which R-045 keeps off screen. **Default taken:** no switch in 2.1; the grammar accepts
   the union, and the dialect is the profile's (R-049) when `sir/` needs it.

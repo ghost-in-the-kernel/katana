@@ -228,3 +228,13 @@ sections, paragraphs in textual order, PERFORM, GO TO and ALTER edges), statemen
 `Value`s with roles and branches, `FileDescriptor`s and `Call`s, each element with its origin (2.3).
 `docs/SEMANTIC-IR.md` names them and SIR-01 to SIR-07; `SirDocTest` holds the two together;
 `SirTypesTest` builds COPYREC's IR by hand and has each invariant refuse one violation. J-066.
+
+### 2.5 `sir/build` and `sir/check`
+
+Tree to IR for every program unit: the data map (2.5a: CardDemo 215/215 and NIST 12,881/12,893 of
+cobc's fields, the rest named in `sir/datamap.golden`), the paragraph graph with PERFORM, GO TO and
+ALTER edges, statements as the grammar shapes them, files, CALLs, the header; names resolved through
+qualifiers, files, GLOBAL items of containing programs, SPECIAL-NAMES mnemonics and switches. `sir/json`
+writes and reads it; `sir/check` finds a long REDEFINES, a target that names nothing, an ODO object
+after its table, a file without FILE STATUS. Held by `sir/ir.golden`: CardDemo 31, NIST 437 and OMP 29
+programs all built and round-tripped (BankDemo privately). J-067, J-068.

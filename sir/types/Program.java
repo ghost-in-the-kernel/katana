@@ -102,6 +102,8 @@ public record Program(Header header, List<Item> items, List<FileDescriptor> file
             }
             case Value.Expression e -> e.operands().forEach(o -> value(o, item));
             case Value.File f -> { }
+            case Value.Target t -> { }
+            case Value.Name n -> { }
             case Value.Literal l -> { }
             case Value.Figurative f -> { }
         }

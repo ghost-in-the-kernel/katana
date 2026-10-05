@@ -521,3 +521,64 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/build/Pictures.java:Pictures.expand` | called by `front/Copybooks.java:Copybooks.read` and 6 more | 2026-10-05 |  |
 | sir | `sir/build/Pictures.java:Pictures.Symbols.scan` | called by `sir/build/Pictures.java:Pictures.read#2` | 2026-10-05 |  |
 | sir | `sir/build/Pictures.java:Pictures.Symbols.category` | called by `sir/build/DataMap.java:DataMap.attributes` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.program` | called by `oracle/lane/Generated.java:Generated.loader` and 8 more | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.program#2` | called by `oracle/lane/Generated.java:Generated.loader` and 8 more | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.using` | called by `sir/build/Build.java:Build.program#2` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.returning` | called by `sir/build/Build.java:Build.program#2` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.all#2` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.data#3` | called by `sir/build/Build.java:Build.program#2` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.first` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.environment` and 10 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.inRecord` | called by `sir/build/DataMap.java:DataMap.renamed` | 2026-10-05 |  |
+| sir | `sir/build/Files.java:Files.Files` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Files.java:Files.build` | called by `oracle/lane/Datasets.java:Datasets.generated` and 5 more | 2026-10-05 |  |
+| sir | `sir/build/Files.java:Files.entries` | called by `sir/build/Files.java:Files.build` | 2026-10-05 |  |
+| sir | `sir/build/Files.java:Files.organization` | called by `sir/build/Files.java:Files.build` | 2026-10-05 |  |
+| sir | `sir/build/Files.java:Files.access` | called by `sir/build/Files.java:Files.build` | 2026-10-05 |  |
+| sir | `sir/build/Names.java:Names.Names` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Names.java:Names.item` | called by `oracle/compare/Layout.java:Layout.items` and 9 more | 2026-10-05 |  |
+| sir | `sir/build/Names.java:Names.condition` | called by `sir/build/Build.java:Build.program#2` and 4 more | 2026-10-05 |  |
+| sir | `sir/build/Names.java:Names.qualified` | called by `sir/build/Names.java:Names.item` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Names.java:Names.inFile` | called by `sir/build/Names.java:Names.item` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.Paragraphs` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.build` | called by `oracle/lane/Datasets.java:Datasets.generated` and 5 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.section` | called by `sir/build/Build.java:Build.data#3` and 2 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.paragraphs` | called by `sir/build/Paragraphs.java:Paragraphs.build` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.statement` | called by `sir/build/Paragraphs.java:Paragraphs.build` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.walk` | called by `front/Preprocessor.java:Preprocessor.text` and 4 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.edges` | called by `sir/build/Paragraphs.java:Paragraphs.statement` | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.target` | called by `sir/build/Paragraphs.java:Paragraphs.walk` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.range` | called by `sir/build/Paragraphs.java:Paragraphs.edges` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.call` | called by `sir/build/Paragraphs.java:Paragraphs.statement` | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.verbName` | called by `sir/build/Paragraphs.java:Paragraphs.statement` | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.role` | called by `oracle/nist/ModuleRun.java:ModuleRun.isSubroutine` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.Values` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.isValue` | called by `sir/build/Paragraphs.java:Paragraphs.walk` | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.of` | called by `oracle/compare/Layout.java:Layout.raw` and 60 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.file` | called by `front/Mapped.java:Mapped.added` and 7 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.identifier` | called by `sir/build/Paragraphs.java:Paragraphs.call` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.argument` | called by `sir/build/Values.java:Values.identifier` | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.table` | called by `sir/build/Values.java:Values.of` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.field` | called by `oracle/compare/Compare.java:Compare.compare` and 7 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.named` | called by `sir/build/DataMap.java:DataMap.resolve` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.conditionName` | called by `sir/build/DataMap.java:DataMap.condition` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.literal` | called by `sir/build/Build.java:Build.data#3` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.figurative` | called by `sir/build/Values.java:Values.of` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.expression` | called by `sir/build/Values.java:Values.of` | 2026-10-05 |  |
+| sir | `sir/build/Values.java:Values.upper` | called by `sir/build/Build.java:Build.program#2` and 17 more | 2026-10-05 |  |
+| sir | `sir/check/Check.java:Check.Check` | no caller | 2026-10-05 |  |
+| sir | `sir/check/Check.java:Check.findings` | called by `oracle/proof/ProofReport.java:ProofReport.compared` and 1 more | 2026-10-05 |  |
+| sir | `sir/check/Check.java:Check.check` | called by `sir/check/Check.java:Check.findings` | 2026-10-05 |  |
+| sir | `sir/check/Check.java:Check.targets` | called by `sir/check/Check.java:Check.check` | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.IrJson` | no caller | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.write` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 16 more | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.write#2` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 16 more | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.record` | called by `oracle/compare/Compare.java:Compare.compare` and 3 more | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.string` | called by `sir/json/IrJson.java:IrJson.write#2` and 1 more | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.read` | called by `front/Preprocessor.java:Preprocessor.exitCopyStatement` and 12 more | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.convert` | called by `sir/json/IrJson.java:IrJson.read` | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.enumValue` | called by `sir/json/IrJson.java:IrJson.convert` | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.Parser.Parser` | no caller | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.Parser.value` | called by `oracle/compare/Compare.java:Compare.record` and 15 more | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.Parser.object` | called by `sir/json/IrJson.java:IrJson.Parser.value` | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.Parser.array` | called by `sir/json/IrJson.java:IrJson.Parser.value` | 2026-10-05 |  |
+| sir | `sir/json/IrJson.java:IrJson.Parser.text` | called by `front/Parse.java:Parse.file` and 23 more | 2026-10-05 |  |

@@ -28,7 +28,7 @@ class SirTypesTest {
     }
 
     private static Attributes text(int length) {
-        return new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.ALPHANUMERIC, 0, 0, false, false, false, "X(" + length + ")");
+        return new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.ALPHANUMERIC, 0, 0, false, false, false, "X".repeat(length));
     }
 
     private static Attributes number(int digits, int scale, String picture) {
@@ -47,11 +47,11 @@ class SirTypesTest {
         List<Item> items = new ArrayList<>();
         items.add(item(1, "COPY-REC", 1, 0, 1, Item.Section.FILE, 0, 20, GROUP, null, at(cpy, 2, 8)));
         items.add(item(2, "ITEM", 5, 1, 1, Item.Section.FILE, 0, 10, text(10), null, at(cpy, 3, 12)));
-        items.add(item(3, "AMOUNT", 5, 1, 1, Item.Section.FILE, 10, 7, number(7, 2, "9(5)V99"), null, at(cpy, 4, 12)));
+        items.add(item(3, "AMOUNT", 5, 1, 1, Item.Section.FILE, 10, 7, number(7, 2, "99999V99"), null, at(cpy, 4, 12)));
         items.add(item(4, "FILLER", 5, 1, 1, Item.Section.FILE, 17, 3, text(3), null, at(cpy, 5, 12)));
         items.add(item(5, "OUT-REC", 1, 0, 5, Item.Section.FILE, 0, 20, text(20), null, at(cbl, 17, 8)));
         items.add(item(6, "EOF", 1, 0, 6, Item.Section.WORKING_STORAGE, 0, 1, text(1), "'N'", at(cbl, 19, 8)));
-        items.add(item(7, "COPIED", 1, 0, 7, Item.Section.WORKING_STORAGE, 0, 5, number(5, 0, "9(5)"), "0", at(cbl, 20, 8)));
+        items.add(item(7, "COPIED", 1, 0, 7, Item.Section.WORKING_STORAGE, 0, 5, number(5, 0, "99999"), "0", at(cbl, 20, 8)));
         return items;
     }
 

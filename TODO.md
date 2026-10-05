@@ -17,15 +17,6 @@ Check: every `EXEC CICS` and `EXEC SQL` in the corpus parses to a command tree o
 Stopped (R-053, no reversible default): the graft needs che4z's EPL-2.0 grammars in the tree, which
 R-015 admits only after counsel. Measured outside the tree (J-064); waiting on Ghost (HANDOFF).
 
-### 2.5 `sir/build`
-
-Check: the data map matches `cobc -C`'s `b_N` sizes, offsets and attribute tuples on every program
-it accepts (F-06's oracle for the data map, used as a test); the IR serializes to JSON and
-round-trips.
-
-2.5a, the data map, is built and held (J-067); the paragraph graph, statements, files, CALLs, the
-JSON round trip and `sir/check` remain.
-
 ### 2.6 `sir/contract`
 
 Check: none in the roadmap; written here before the item starts.

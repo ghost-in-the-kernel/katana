@@ -1,0 +1,6 @@
+# Phase 2.5 (docs/ROADMAP.md): each corpus's programs built to the Semantic IR under the ibm profile, as
+# `corpus NAME programs P built B round-trip R build-findings F check-findings C`, then each program
+# that did not build or round-trip. Written by `gradle integration -Dkatana.record=true`.
+corpus carddemo programs 31 built 31 round-trip 31 build-findings 17 check-findings 5
+corpus nist programs 437 built 437 round-trip 437 build-findings 49 check-findings 675
+corpus omp programs 29 built 29 round-trip 29 build-findings 36 check-findings 39

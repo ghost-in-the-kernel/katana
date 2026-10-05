@@ -33,8 +33,9 @@ or ALTER) from one paragraph to another, through the end of a PERFORM range.
 
 `Statement`: a verb, its operands, each an `Operand` with its role, and its phrases, each a `Branch`
 with its condition and statements. What it operates on is a `Value`: a `Field` (subscripted and
-reference-modified as written), a `File`, a `Literal`, a `Figurative` constant, a `ConditionName`,
-or an `Expression` of these.
+reference-modified as written), a `File`, a `Target` paragraph, a `Name` that is not data, a
+`Literal`, a `Figurative` constant, a `ConditionName`, or an `Expression` of these. A statement's
+roles and an expression's operators are the grammar's (front/grammar), not chosen here.
 
 ## Files
 
@@ -61,7 +62,8 @@ an invariant is refused with `Invalid`, whose message starts with the invariant'
   written, "" for none.
 - **SIR-05 Every reference resolves.** Each item an item, a file, a key, an ODO object, the procedure
   or a statement names is in the data map, and each file a statement names is one of the program's.
-- **SIR-06 The paragraph graph is closed.** Paragraphs are numbered 0, 1, ... in textual order, the
-  statements before the first paragraph being paragraph 0, named ""; every edge joins two of them.
+- **SIR-06 The paragraph graph is closed.** Paragraphs are numbered 0, 1, ... in textual order;
+  statements under no paragraph name (at the start of the body or of a section) are a paragraph named
+  ""; every edge joins two of them.
 - **SIR-07 Everything has an origin.** Each item, condition, paragraph, section, statement, file, CALL,
   edge and the header carry the place in the COBOL they came from (2.3's source map).

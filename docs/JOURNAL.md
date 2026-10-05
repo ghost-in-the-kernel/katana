@@ -793,3 +793,14 @@ taken; closed by a later `decision` entry naming it).
   name), which compiled here and was never committed; the line is `/build/` now.
 - **Touched:** `sir/build/`, `oracle/nist/Cobc.java` (`translate`), the sir tests, `NistSources`
   (shared by the front and sir corpus tests), CI's lane step.
+
+### J-068 Phase 2.5b: every program of the corpus builds to the IR and round-trips
+- **Who:** Opus. **Class:** build. **Intent:** the rest of 2.5.
+- **Found:** first build: CardDemo 31/31, NIST 434/437; refusals were real gaps (a nested program
+  opening its parent's GLOBAL file; RENAMES names qualified and split wrongly), and the "names no
+  item" findings were mostly mine: 88s after an INDEXED BY table went to the index item; a qualified
+  name split at the `IN` inside `VSTRING`; switch status names and DFHRESP's argument read as data.
+  First round trip: 11/31 and 406/437, because `Value.Name` has a `kind` and the codec's
+  discriminator was `kind` too; it is `is` now, and a unit test holds every Value kind.
+- **Resolved:** `sir/ir.golden`; the CICS-names default in HANDOFF. **Touched:** `sir/`, the sir
+  tests, `front/ibm/DFHAID.cpy`, CLAUDE.md, TODO, DONE.

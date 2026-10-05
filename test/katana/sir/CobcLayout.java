@@ -87,6 +87,7 @@ final class CobcLayout {
         return null;
     }
 
+    /** The cob_field_attr type cobc gives a category and usage, as observed in its output. */
     private static String type(Attributes a) {
         return switch (a.category()) {
             case GROUP -> "0x01";
