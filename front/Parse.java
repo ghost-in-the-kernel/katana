@@ -1,0 +1,70 @@
+package katana.front;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import katana.front.grammar.CobolLexer;
+import katana.front.grammar.CobolParser;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.atn.PredictionMode;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
+
+/**
+ * A COBOL program to a parse tree (docs/ROADMAP.md 2.1): its tabs expanded, preprocessed (COPY,
+ * REPLACE, EXEC), then parsed by the forked grammar. The tree is good only when nothing went wrong:
+ * no preprocessing error, no syntax error, no error node in the tree.
+ */
+public final class Parse {
+    /** The tree, and every error on the way to it. */
+    public record Result(ParserRuleContext tree, List<String> errors) {
+        public boolean clean() {
+            return errors.isEmpty();
+        }
+    }
+
+    private Parse() {}
+
+    /** A program file, its tabs expanded at the width its copybooks are given. */
+    public static Result file(Path program, Copybooks copybooks, int tabWidth) {
+        try {
+            byte[] bytes = Tabs.expand(Files.readAllBytes(program), tabWidth);
+            return text(new String(bytes, StandardCharsets.ISO_8859_1), copybooks);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /** A program's text (tabs expanded): SLL prediction first, full LL only when SLL fails. */
+    public static Result text(String source, Copybooks copybooks) {
+        Preprocessor.Result pre = Preprocessor.run(source, copybooks);
+        List<String> errors = new ArrayList<>(pre.errors());
+        List<String> sll = new ArrayList<>();
+        ParserRuleContext tree = parse(pre.text(), PredictionMode.SLL, sll);
+        if (!sll.isEmpty()) tree = parse(pre.text(), PredictionMode.LL, errors);
+        int nodes = errorNodes(tree);
+        if (nodes > 0 && errors.size() == pre.errors().size()) errors.add(nodes + " error nodes in the tree");
+        return new Result(tree, errors);
+    }
+
+    private static ParserRuleContext parse(String text, PredictionMode mode, List<String> errors) {
+        CobolLexer lexer = new CobolLexer(CharStreams.fromString(text));
+        CobolParser parser = new CobolParser(new CommonTokenStream(lexer));
+        parser.getInterpreter().setPredictionMode(mode);
+        Errors.listen(lexer, parser, errors, "parsing");
+        return parser.startRule();
+    }
+
+    private static int errorNodes(ParseTree tree) {
+        if (tree instanceof ErrorNode) return 1;
+        int n = 0;
+        for (int i = 0; i < tree.getChildCount(); i++) n += errorNodes(tree.getChild(i));
+        return n;
+    }
+}

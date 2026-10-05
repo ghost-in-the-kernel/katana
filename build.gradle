@@ -18,10 +18,14 @@ tasks.withType(JavaCompile).configureEach {
 // prototypes inside them are not part of the build.
 def modules = new groovy.json.JsonSlurper().parse(file('docs/modules.json')).modules.keySet()
 
+// front/'s parser, generated from the forked ProLeap grammars (front/grammar/, MIT) by the vendored
+// ANTLR tool into build/, never committed (phase 2.1).
+def grammarOut = layout.buildDirectory.dir('generated/grammar')
+
 sourceSets {
     main {
         java {
-            srcDirs = modules.collect { it }
+            srcDirs = modules.collect { it } + [grammarOut]
             exclude '**/prototypes/**'
         }
     }
@@ -37,11 +41,28 @@ sourceSets {
     }
 }
 
+configurations {
+    antlrTool
+}
+
 dependencies {
+    antlrTool files('third_party/antlr/antlr4-4.13.2-complete.jar')
+    implementation files('third_party/antlr/antlr4-runtime-4.13.2.jar')
     scriptsImplementation files('third_party/gson/gson-2.11.0.jar')
     testImplementation files('third_party/gson/gson-2.11.0.jar')
     testImplementation fileTree(dir: 'third_party/junit', include: '*.jar')
 }
+
+def generateGrammar = tasks.register('generateGrammar', JavaExec) {
+    description = 'Generates front/\'s lexers and parsers from front/grammar/*.g4.'
+    classpath = configurations.antlrTool
+    mainClass = 'org.antlr.v4.Tool'
+    inputs.dir('front/grammar')
+    outputs.dir(grammarOut)
+    args = ['-o', grammarOut.get().dir('katana/front/grammar').asFile.path, '-Xexact-output-dir', '-package', 'katana.front.grammar',
+            '-no-visitor', '-listener', file('front/grammar/CobolPreprocessor.g4').path, file('front/grammar/Cobol.g4').path]
+}
+tasks.named('compileJava') { dependsOn generateGrammar }
 
 tasks.register('metrics', JavaExec) {
     description = 'Prints the metrics of docs/AGENT.md and the warnings of docs/ROADMAP.md 4.2.'

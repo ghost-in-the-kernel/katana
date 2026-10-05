@@ -1,0 +1,8 @@
+# Phase 2.1 (docs/ROADMAP.md): each corpus parsed by front/ (the forked ProLeap grammars), as
+# `corpus NAME clean/programs`, then each program that is not clean with its first error. A count may
+# only rise. Written by `gradle integration -Dkatana.record=true`; BankDemo's line is kept by hand.
+corpus carddemo 31/31
+corpus omp 29/30
+fail omp COBOL Programming Course #2 - Learning COBOL/Labs/cbl/CBL0007.cobol: parsing 149:11: mismatched input 'END-IF'
+corpus nist 437/437
+corpus bankdemo 82/82

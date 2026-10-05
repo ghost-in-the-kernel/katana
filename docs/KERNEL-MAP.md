@@ -390,3 +390,44 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/compare/Compare.java:Compare.signVariant` | called by `oracle/compare/Compare.java:Compare.record` | 2026-10-05 |  |
 | oracle | `oracle/compare/Compare.java:Compare.negative` | called by `oracle/compare/Compare.java:Compare.signVariant` | 2026-10-05 |  |
 | oracle | `oracle/lane/CobcLane.java:CobcLane.variable` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` | 2026-10-05 |  |
+| front | `front/Copybooks.java:Copybooks.Copybooks` | no caller | 2026-10-05 |  |
+| front | `front/Copybooks.java:Copybooks.index` | called by `front/Copybooks.java:Copybooks.Copybooks` and 1 more | 2026-10-05 |  |
+| front | `front/Copybooks.java:Copybooks.read` | called by `front/Preprocessor.java:Preprocessor.exitCopyStatement` and 10 more | 2026-10-05 |  |
+| front | `front/Copybooks.java:Copybooks.unquote` | called by `front/Copybooks.java:Copybooks.read` | 2026-10-05 |  |
+| front | `front/Errors.java:Errors.Errors` | no caller | 2026-10-05 |  |
+| front | `front/Errors.java:Errors.listen` | called by `front/Parse.java:Parse.parse` and 1 more | 2026-10-05 |  |
+| front | `front/Errors.java:Errors..syntaxError` | no caller | 2026-10-05 |  |
+| front | `front/Lines.java:Lines.Lines` | no caller | 2026-10-05 |  |
+| front | `front/Lines.java:Lines.Line.of` | called by `front/Lines.java:Lines.normalize` and 44 more | 2026-10-05 |  |
+| front | `front/Lines.java:Lines.normalize` | called by `front/Preprocessor.java:Preprocessor.text` and 1 more | 2026-10-05 |  |
+| front | `front/Lines.java:Lines.join` | called by `front/Lines.java:Lines.normalize` and 18 more | 2026-10-05 |  |
+| front | `front/Lines.java:Lines.open` | called by `front/Lines.java:Lines.join` and 1 more | 2026-10-05 |  |
+| front | `front/Lines.java:Lines.trailing` | no caller | 2026-10-05 |  |
+| front | `front/Parse.java:Parse.Result.clean` | no caller | 2026-10-05 |  |
+| front | `front/Parse.java:Parse.Parse` | no caller | 2026-10-05 |  |
+| front | `front/Parse.java:Parse.file` | called by `oracle/lane/Datasets.java:Datasets.generated` and 1 more | 2026-10-05 |  |
+| front | `front/Parse.java:Parse.text` | called by `front/Parse.java:Parse.file` and 12 more | 2026-10-05 |  |
+| front | `front/Parse.java:Parse.parse` | called by `front/Parse.java:Parse.text` and 3 more | 2026-10-05 |  |
+| front | `front/Parse.java:Parse.errorNodes` | called by `front/Parse.java:Parse.text` | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.Preprocessor` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.run` | called by `front/Parse.java:Parse.text` and 17 more | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.text` | called by `front/Parse.java:Parse.file` and 13 more | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.enterEveryRule` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitCompilerOptions` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitEjectStatement` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitSkipStatement` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitTitleStatement` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitReplaceByStatement` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitReplaceOffStatement` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitCopyStatement` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitExecCicsStatement` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitExecSqlStatement` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitExecSqlImsStatement` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exec` | called by `front/Preprocessor.java:Preprocessor.exitExecCicsStatement` and 2 more | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.exitReplaceArea` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.visitTerminal` | no caller | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.replace` | called by `front/Preprocessor.java:Preprocessor.exitCopyStatement` and 14 more | 2026-10-05 |  |
+| front | `front/Preprocessor.java:Preprocessor.operand` | called by `front/Preprocessor.java:Preprocessor.replace` and 1 more | 2026-10-05 |  |
+| front | `front/Tabs.java:Tabs.Tabs` | no caller | 2026-10-05 |  |
+| front | `front/Tabs.java:Tabs.expand` | called by `front/Copybooks.java:Copybooks.read` and 5 more | 2026-10-05 |  |
+| front | `front/Tabs.java:Tabs.has` | called by `oracle/lane/Programs.java:Programs.read` and 2 more | 2026-10-05 |  |

@@ -197,3 +197,16 @@ Every metric re-measured in `docs/AGENT.md`; the fast loop and the docs ratio we
 (R-054). The fresh-agent trial (`SUM FIELDS=NONE`, propose only) went `CLAUDE.md`, then the DFSORT
 row's three files, and changed nothing; its one gap, P-11 only in a javadoc, is in the row (J-057).
 The boundary count: 6 held, 3 reversed, 0 stopped, 2 trials (J-058). Phase 1 is done.
+
+### 2.1 Fork ProLeap's two grammars
+
+`front/`: reference format (`Lines`), COPY with REPLACING and libraries, REPLACE and EXEC blocks
+(`Preprocessor`, `Copybooks`), and the parse (`Parse`), over ProLeap's grammars forked into
+`front/grammar/` (MIT notice kept) and generated at build time by the vendored ANTLR tool. Held by
+`front/corpus.golden`: CardDemo 31/31, NIST 437/437 (every program of a module the NIST run compiles
+that cobc accepts), BankDemo 82/82 (privately, its count only), OMP 29/30: CBL0007's deliberate error
+is the one left, and the check's 30 is a question for Fable (HANDOFF). The gaps closed: ALTERNATE KEY
+without RECORD, keyword arguments to intrinsics, RERUN ... RECORDS OF file, a literal closed in
+column 72 and resumed by a quote, a COPY's library on its own line, and a subscript after a space
+under SLL; NOT=, LENGTH OF in reference modification, PROGRAM-ID without a period and a tab in the
+indicator area already parsed (`ParseTest`). DFHAID and DFHBMSCA are in `front/ibm/`. J-063.

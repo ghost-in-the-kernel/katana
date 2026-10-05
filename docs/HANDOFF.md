@@ -7,11 +7,24 @@
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
-(none open; phase 1's six answered 2026-10-04, J-058)
+- **OMP is 29/30, not 30/30** (from step 2.1, J-063). CBL0007 is the course's lab with a deliberate
+  syntax error (an END-IF after the IF's period; the course has the student fix IGYPS2113-E), and cobc
+  refuses it too. A clean tree for it would be a parser bug. **Default taken:** the golden holds 29/30
+  and names CBL0007's error at its END-IF; the check's 30 should read 29 plus that one.
+- **"An IBM dialect switch mirroring `ibm-strict.conf`"** (2.1's text) would mean reading GnuCOBOL's
+  configuration, which R-045 keeps off screen. **Default taken:** no switch in 2.1; the grammar accepts
+  the union, and the dialect is the profile's (R-049) when `sir/` needs it.
+- **EIB and SQLCA are not synthesized in 2.1** (2.1's text lists them with DFHAID and DFHBMSCA). No
+  program COPYs them: CICS's translator inserts DFHEIBLK and SQLCA comes by EXEC SQL INCLUDE, which the
+  parser reads as a tagged line. Writing IBM's layouts from memory is risky. **Default taken:** they
+  come when `sir/` reads a field of them (2.4), from IBM's published layouts.
 
 ## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
 
-(none open; phase 1's three answered 2026-10-04, J-058)
+- **The ANTLR tool is vendored** (from step 2.1): `third_party/antlr/antlr4-4.13.2-complete.jar`,
+  BSD-3 (it bundles ANTLR 3's runtime, StringTemplate 4 and abego TreeLayout, all BSD), checked against
+  Maven Central's SHA-1. It runs at build time to generate the parser into build/ and never ships.
+  docs/ROADMAP.md names the runtime only. **Default taken:** vendored, listed in `third_party/MANIFEST.md`.
 
 ## Trials (R-052: a question settled by running something; the implementing agent runs it)
 

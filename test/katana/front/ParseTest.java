@@ -1,0 +1,124 @@
+package katana.front;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+/** The front end on small programs: reference format, COPY and REPLACE, and the gaps 2.1 closes. */
+class ParseTest {
+    /** A program in reference format: each line of the body indented to area B (column 12) unless it starts with `A:`. */
+    private static String program(String... body) {
+        StringBuilder text = new StringBuilder("""
+                       IDENTIFICATION DIVISION.
+                       PROGRAM-ID. P.
+                       DATA DIVISION.
+                       WORKING-STORAGE SECTION.
+                       01  X PIC X(10).
+                       01  Y PIC X(10).
+                       01  N PIC 9(4).
+                       PROCEDURE DIVISION.
+                """);
+        for (String line : body) text.append(line.startsWith("A:") ? "       " + line.substring(2) : "           " + line).append('\n');
+        return text.toString();
+    }
+
+    private static Parse.Result parse(String text, Copybooks books) {
+        return Parse.text(text, books);
+    }
+
+    private static final Copybooks NONE = new Copybooks(List.of(), name -> 8);
+
+    @Test
+    void aSmallProgramIsClean() {
+        Parse.Result r = parse(program("MOVE 'A' TO X.", "STOP RUN."), NONE);
+        assertEquals(List.of(), r.errors());
+    }
+
+    @Test
+    void aSyntaxErrorIsAnError() {
+        assertFalse(parse(program("MOVE 'A' TO.", "STOP RUN."), NONE).clean());
+        assertFalse(parse(program("IF X = Y DISPLAY X.", "END-IF.", "STOP RUN."), NONE).clean());
+    }
+
+    @Test
+    void commentsContinuationsAndSequenceNumbersAreReferenceFormat() {
+        String text = program("STOP RUN.").replace("       PROCEDURE DIVISION.\n", """
+                000100 PROCEDURE DIVISION.
+                      *
+                      * a comment
+                           MOVE 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRS
+                      -         'TUVWXYZ' TO X.
+                           DISPLAY X                                                    IGNORED
+                """);
+        assertEquals(List.of(), parse(text, NONE).errors());
+        String normalized = Lines.normalize(text);
+        assertTrue(normalized.contains("ABCDEFGHIJKLMNOPQRSTUVWXYZ' TO X."), normalized);
+        assertFalse(normalized.contains("IGNORED"));
+        assertEquals(text.split("\n").length, normalized.split("\n").length);
+    }
+
+    @Test
+    void copyFindsItsBookQuotedOrNotInItsLibraryAndReplaces(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("REC.cpy"), "       01  :P:-A PIC X.\n");
+        Files.createDirectories(dir.resolve("LIB2"));
+        Files.writeString(dir.resolve("LIB2/REC.CPY"), "       01  LIBREC PIC X.\n");
+        Copybooks books = new Copybooks(List.of(dir), name -> 8);
+        String text = program("MOVE Q-A TO X.", "STOP RUN.").replace("       01  N PIC 9(4).\n",
+                "           COPY REC REPLACING ==:P:== BY ==Q==.\n           COPY 'REC' REPLACING ==:P:== BY ==R==.\n           COPY REC OF LIB2.\n");
+        Parse.Result r = parse(text, books);
+        assertEquals(List.of(), r.errors());
+        String pre = Preprocessor.run(text, books).text();
+        assertTrue(pre.contains("01  Q-A PIC X.") && pre.contains("01  R-A PIC X.") && pre.contains("01  LIBREC PIC X."), pre);
+        assertEquals(List.of("copybook NOPE not found (line 7)"), Preprocessor.run(program("STOP RUN.").replace("       01  N PIC 9(4).\n", "           COPY NOPE.\n"), books).errors());
+    }
+
+    @Test
+    void replaceGovernsTheTextAfterIt() {
+        String text = program("REPLACE ==WHO== BY ==X==.", "MOVE 'A' TO WHO.", "REPLACE OFF.", "STOP RUN.");
+        assertEquals(List.of(), parse(text, NONE).errors());
+        assertTrue(Preprocessor.run(text, NONE).text().contains("MOVE 'A' TO X."));
+    }
+
+    @Test
+    void execBlocksBecomeTaggedLines() {
+        String text = program("EXEC CICS RETURN", "END-EXEC.", "EXEC SQL SELECT A INTO :X FROM T END-EXEC.", "STOP RUN.");
+        assertEquals(List.of(), parse(text, NONE).errors());
+        assertTrue(Preprocessor.run(text, NONE).text().contains("*>EXECCICS END-EXEC }."));
+    }
+
+    @Test
+    void commentEntriesAreNotCode() {
+        String text = program("STOP RUN.").replace("       PROGRAM-ID. P.\n", "       PROGRAM-ID. P.\n       AUTHOR. SOMEONE, WHO WROTE IT.\n           AND THIS LINE TOO.\n");
+        assertEquals(List.of(), parse(text, NONE).errors());
+    }
+
+    @Test
+    void theGapsClosed() {
+        assertEquals(List.of(), parse(program("DISPLAY FUNCTION TRIM(X, TRAILING) FUNCTION TRIM(Y LEADING).", "STOP RUN."), NONE).errors(), "keyword arguments");
+        assertEquals(List.of(), parse(program("IF X NOT= Y DISPLAY X END-IF.", "STOP RUN."), NONE).errors(), "NOT= as one token");
+        assertEquals(List.of(), parse(program("MOVE X(1:LENGTH OF Y) TO Y.", "STOP RUN."), NONE).errors(), "LENGTH OF in a reference modification");
+        assertEquals(List.of(), parse(program("STOP RUN.").replace("PROGRAM-ID. P.", "PROGRAM-ID. P"), NONE).errors(), "PROGRAM-ID without a period");
+        String alternate = program("STOP RUN.").replace("       DATA DIVISION.\n", """
+                       ENVIRONMENT DIVISION.
+                       INPUT-OUTPUT SECTION.
+                       FILE-CONTROL.
+                           SELECT F ASSIGN TO D ORGANIZATION IS INDEXED
+                               RECORD KEY IS K ALTERNATE KEY IS A WITH DUPLICATES.
+                       DATA DIVISION.
+                       FILE SECTION.
+                       FD  F.
+                       01  R.
+                           05  K PIC X.
+                           05  A PIC X.
+                """);
+        assertEquals(List.of(), parse(alternate, NONE).errors(), "ALTERNATE KEY without RECORD");
+        String tab = program("STOP RUN.").replace("           STOP RUN.", "\tSTOP RUN.");
+        assertEquals(List.of(), parse(new String(Tabs.expand(tab.getBytes(), 8)), NONE).errors(), "a tab in the indicator area");
+    }
+}

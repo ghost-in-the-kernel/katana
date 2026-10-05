@@ -40,6 +40,6 @@ jobs:
       - name: Run NIST under cobc -std=ibm, network off
         timeout-minutes: 3
         run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail -Dkatana.std=ibm --tests 'katana.oracle.nist.*' --tests 'katana.oracle.fixture.*'
-      - name: Run CardDemo through the cobc lane and the gate, and the comparator on OMP, network off
-        timeout-minutes: 3
-        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail --tests 'katana.oracle.lane.*' --tests 'katana.oracle.compare.*'
+      - name: Run CardDemo through the cobc lane and the gate, the comparator on OMP, and the parser over the corpus, network off
+        timeout-minutes: 5
+        run: docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle integration --offline --warning-mode fail --tests 'katana.oracle.lane.*' --tests 'katana.oracle.compare.*' --tests 'katana.front.*'

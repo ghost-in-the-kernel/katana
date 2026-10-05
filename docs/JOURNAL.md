@@ -737,3 +737,17 @@ taken; closed by a later `decision` entry naming it).
   leaves out the 4-byte prefix (IBM writes `00 09 00 00`). The lane ignored `recfm`, so a V DD would
   have run as fixed; it now stops both lanes with a finding until a fixture needs V (LANE-02).
 - **Touched:** `CobcLane`, `TrivialLanesIntegrationTest`, `docs/LANES.md`, HANDOFF.
+
+### J-063 Phase 2.1: the forked grammars parse the corpus; one roadmap count was wrong
+- **Who:** Opus. **Class:** build. **Intent:** 2.1's check.
+- **Found:** first run: CardDemo 31/31; BankDemo 79/82 and OMP 26/30, the study's numbers; NIST hung
+  on NC210A and NC246A (22 nested IFs): SLL took `identifier`'s first alternative, a bare data name,
+  and left `X (I)` unparsed, and the full-LL retry ran 20 s and more a program. With `tableCall` the
+  only data-name alternative, SLL parses both cleanly (0.5 s, 4.6 s) and no corpus needs LL. OMP's
+  CBL0007 is a lab whose syntax error is the lesson, and cobc refuses it, so "30/30" cannot hold. The
+  first corpus run ran out of heap keeping 560 trees; the test keeps errors only (61 s in all).
+  Gradle's `--rerun-tasks` now regenerates and compiles the parser, so the metric's warm loop went
+  from 9 s to 16 s and cold to 30 s; an edit outside `front/grammar/` does not pay it.
+- **Resolved:** the counts in `front/corpus.golden`; three questions under HANDOFF's "For Fable" and
+  the vendored ANTLR tool under "For Ghost", each with its default.
+- **Touched:** `front/`, `third_party/`, `build.gradle`, `oracle/lane/Tabs.java`, CI's lane step.

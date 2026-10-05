@@ -8,6 +8,7 @@ jar reaches a customer: only what `rt/` links against ever could, and `rt/` link
 | Jar | License | Used by | Ships | SHA-256 |
 | --- | --- | --- | --- | --- |
 | `antlr/antlr4-runtime-4.13.2.jar` | BSD-3-Clause (`antlr/LICENSE.txt`) | front/ (phase 2) | no | `dd3e8a13a2d669bf84fb8d834de35ce4875f27157698d206241ec8488aadcaf7` |
+| `antlr/antlr4-4.13.2-complete.jar` | BSD-3-Clause (`antlr/LICENSE.txt`; it bundles ANTLR 3's runtime, StringTemplate 4 and abego TreeLayout, all BSD) | the build: generates front/'s parser from `front/grammar/` | no | `eae2dfa119a64327444672aff63e9ec35a20180dc5b8090b7a6ab85125df4d76` |
 | `gson/gson-2.11.0.jar` | Apache-2.0 (`gson/LICENSE`) | the JSON the tool reads and writes | no | `57928d6e5a6edeb2abd3770a8f95ba44dce45f3b23b7a9dc2b309c581552a78b` |
 | `junit/junit-jupiter-api-5.11.4.jar` | EPL-2.0 (`junit/LICENSE-junit.md`, `junit/NOTICE-junit.md`) | tests only | no | `ab83ef9e51ac4597d59d26b4b58812129550e2f579a404c8af7d09f5ce5b4293` |
 | `junit/junit-jupiter-engine-5.11.4.jar` | EPL-2.0 (`junit/LICENSE-junit.md`, `junit/NOTICE-junit.md`) | tests only | no | `cdf8ac59f3fad774ca738ad03890950eeb91833ef0e8908753177edd26f1581c` |

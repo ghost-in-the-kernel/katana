@@ -10,11 +10,6 @@ the first open item has a check.
 
 ## Phase 2: the front end and the Semantic IR
 
-### 2.1 Fork ProLeap's two grammars
-
-Check: 31/31 CardDemo, 82/82 BankDemo (privately), 30/30 OMP, and every NIST program `cobc` accepts,
-parse to a tree with no error nodes; a test holds those counts and may only rise.
-
 ### 2.2 Drive che4z's CICS and DB2 grammars
 
 Check: every `EXEC CICS` and `EXEC SQL` in the corpus parses to a command tree or is a finding.
