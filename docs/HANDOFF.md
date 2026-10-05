@@ -17,7 +17,7 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
 (R-056's first trial worded into its Claims 2026-10-05: C-3 refuted as stated and restated as
 "independence is declared, not detected"; the path rule is a prompt, not a refusal; C-2 stands)
 
-- **The intermediate-results trial (J-096), against the defaults you set.** Run under cobc `-std=ibm`,
+- **The intermediate-results trial (J-097), against the defaults you set.** Run under cobc `-std=ibm`,
   operands as data items. Truncation: held (1.98, not 2.01). ROUNDED's place in dmax: refuted (1.8,
   not 2.0), so `ArithProfile.dmax` adds no place, with an `// Unsure` that IBM's own "might be
   carried" (p. 794) is unsettled on IBM. The Language Reference (p. 296) verifies the final store.

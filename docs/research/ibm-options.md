@@ -206,7 +206,7 @@ places (the cap, and which operand of a division is which) and is gone.
   to the attributes of its comparand." "Abbreviated IF statements are handled as though the statements
   were not abbreviated."
 
-What the text leaves open, and the trial against cobc `-std=ibm` that settled it (J-096): an
+What the text leaves open, and the trial against cobc `-std=ibm` that settled it (J-097): an
 intermediate's dropped decimal places are truncated (`A / B * B`, 2 and 3, into 9V99 is 1.98; rounding
 would give 2.01), and ROUNDED's extra place does not enter dmax (into 9V9 ROUNDED it is 1.8; an extra
 place would give 2.0). The second is cobc's behaviour; IBM's "might be carried for accuracy if

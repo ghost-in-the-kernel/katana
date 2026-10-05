@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
- * The intermediate-results trial (phase 3.1, J-096), cobc -std=ibm its oracle: `A / B * B` with A 2 and
+ * The intermediate-results trial (phase 3.1, J-097), cobc -std=ibm its oracle: `A / B * B` with A 2 and
  * B 3 into 9V99, into 9V9 ROUNDED and into 9V9, and `N / B * H` (1 / 3 * 300) into 999V99. The
  * expected values were written before the run: under ArithProfile's tables with truncated
  * intermediates and no ROUNDED place in dmax, 1.98, 1.8, 1.8 and 99.00. Data items, not literals: cobc
