@@ -47,6 +47,7 @@ final class RoundTrip {
         return wrong;
     }
 
+    /** Every token of the tree has a file, up to the first few that do not. */
     private void tokens(ParseTree node, Parse.Result result, List<String> wrong) {
         if (wrong.size() >= 3) return;
         if (node instanceof TerminalNode t) {

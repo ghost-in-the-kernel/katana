@@ -23,6 +23,7 @@ final class Json {
         return value;
     }
 
+    /** The next JSON value: an object, an array, a string, a number, true, false or null. */
     private Object value() {
         space();
         if (at >= text.length()) throw error("unexpected end");
@@ -38,6 +39,7 @@ final class Json {
         };
     }
 
+    /** An object, its keys in order. */
     private Map<String, Object> object() {
         Map<String, Object> map = new LinkedHashMap<>();
         at++;
@@ -68,6 +70,7 @@ final class Json {
         return list;
     }
 
+    /** A quoted string, its escapes undone. */
     private String string() {
         expect('"');
         StringBuilder out = new StringBuilder();

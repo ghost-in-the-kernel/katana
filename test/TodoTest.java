@@ -38,6 +38,7 @@ final class TodoTest {
                 .accepts("a sound list", () -> check(SOUND, "### 0.1 Repo\n"));
     }
 
+    /** What TODO.md gets wrong: items out of order, an item with no Check line, a first open item whose check is not written, or one also in DONE.md. */
     static List<String> check(String todo, String done) {
         List<String> failures = new ArrayList<>();
         List<Item> items = items(todo, failures);

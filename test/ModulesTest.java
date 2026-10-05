@@ -52,6 +52,7 @@ final class ModulesTest {
         return failures;
     }
 
+    /** One module's entry: every field, a known importsFrom, import lists naming other modules that exist, none both allowed and refused. */
     private static void entry(String name, Map<String, Object> m, Set<String> known, List<String> failures) {
         for (String field : FIELDS) if (!m.containsKey(field)) failures.add(name + " has no " + field);
         if (!List.of("roadmap", "pipeline").contains(m.get("importsFrom"))) failures.add(name + ": importsFrom is roadmap or pipeline");
@@ -66,6 +67,7 @@ final class ModulesTest {
         }
     }
 
+    /** No module reaches itself through mayImport. */
     private static void cycles(Map<String, Map<String, Object>> modules, List<String> failures) {
         for (String start : modules.keySet()) {
             List<String> stack = new ArrayList<>(List.of(start));
@@ -89,6 +91,7 @@ final class ModulesTest {
         expect(names(modules.get("front"), "mayImport").isEmpty(), "MOD-06: front/ imports no module of ours", failures);
     }
 
+    /** A source's imports of other modules, each one its module may make. */
     private static void imports(String path, String text, Map<String, Map<String, Object>> modules, List<String> failures) {
         String module = path.split("/")[0];
         if (!modules.containsKey(module)) {

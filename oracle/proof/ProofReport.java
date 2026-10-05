@@ -52,6 +52,7 @@ public final class ProofReport {
         return expected.text().lines().filter(l -> l.startsWith("profile ")).findFirst().map(l -> l.substring(8)).orElse("(not stated)");
     }
 
+    /** The report's Compared section: a row a dataset with its masks and result, then every finding. */
     private static void compared(List<Compared> compared, List<String> out) {
         out.add("## Compared");
         out.add("");

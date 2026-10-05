@@ -78,6 +78,7 @@ public final class Cobc {
         return run(dir, command, env, new byte[0]);
     }
 
+    /** A command in a folder with these variables and this input, stopped at the time limit; its exit and its output together. */
     private Result run(Path dir, List<String> command, Map<String, String> env, byte[] input) {
         try {
             ProcessBuilder builder = new ProcessBuilder(command).directory(dir.toFile()).redirectErrorStream(true);

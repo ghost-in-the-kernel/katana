@@ -22,6 +22,7 @@ public final class RunNotes {
         this.notes = notes;
     }
 
+    /** The run notes file: one note a line, `#` to the end a comment. */
     public static RunNotes read(String text) {
         Map<String, Note> notes = new HashMap<>();
         for (String line : text.lines().toList()) {

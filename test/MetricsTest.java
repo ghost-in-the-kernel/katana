@@ -19,6 +19,7 @@ final class MetricsTest {
         run().exit();
     }
 
+    /** The measured table against docs/AGENT.md, and the cases that show the rule refuses and accepts what it should. */
     static Check run() {
         Map<String, String> now;
         try {

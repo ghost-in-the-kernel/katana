@@ -115,6 +115,7 @@ final class Steps {
         return new Outcome("IDCAMS rc=" + result.rc(), result.rc(), false, result.finding());
     }
 
+    /** A program step run: refused when it reads a concatenation; its stdout hashed, its stderr's first line kept, its abend or return code. */
     private Outcome program(Fixture.Step step, String pgm, Bound bound) {
         for (var input : bound.inputs().entrySet()) {
             if (input.getValue().size() > 1) return new Outcome(pgm + " not run", 0, false, "dd " + input.getKey() + " is concatenated; a program reading one is not in the lane yet");

@@ -50,6 +50,7 @@ final class GhostTest {
                 .rejects("a gap the reserved list does not name", () -> check(GAP));
     }
 
+    /** What theGhost.md gets wrong: a number twice or out of order, a field or status, a gap not reserved, a supersession or a conflict. */
     static List<String> check(String text) {
         List<String> failures = new ArrayList<>();
         Map<Integer, Decision> byId = new LinkedHashMap<>();
@@ -67,6 +68,7 @@ final class GhostTest {
         return failures;
     }
 
+    /** The decisions, each its heading and its field lines. */
     private static List<Decision> parse(String text) {
         List<Decision> decisions = new ArrayList<>();
         Matcher heading = HEADING.matcher(text);
@@ -115,6 +117,7 @@ final class GhostTest {
         }
     }
 
+    /** A decision superseded names its successor, and the successor exists and says so. */
     private static void supersession(Decision d, Map<Integer, Decision> byId, List<String> failures) {
         for (String status : d.statuses()) {
             Matcher by = ID.matcher(status);

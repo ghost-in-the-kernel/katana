@@ -38,6 +38,7 @@ class ModuleRunIntegrationTest {
         for (String dialect : System.getProperty("katana.std", "cobol85,ibm").split(",")) everyRunIsTheGolden(dialect);
     }
 
+    /** One dialect: EXEC85 extracts, every module runs in parallel, each run's line against the golden. */
     private void everyRunIsTheGolden(String dialect) throws Exception {
         Path work = ROOT.resolve("build/nist/" + dialect);
         Files.createDirectories(work);

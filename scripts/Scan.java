@@ -39,6 +39,7 @@ final class Scan {
     record Function(String key, String name, int line, int lines, int paths, boolean documented,
                     String decision, Set<String> calls, String body) {}
 
+    /** Every function of a Java source, by javac's own parse, with its lines, paths and whether a comment says what it is for. */
     static List<Function> functions(String path, String text) {
         JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
         var source = new SimpleJavaFileObject(URI.create("string:///" + path), SimpleJavaFileObject.Kind.SOURCE) {
@@ -92,6 +93,7 @@ final class Scan {
             return super.visitMethod(tree, null);
         }
 
+        /** One method as a Function: its qualified key (numbered when overloaded), its size, its paths, its comment. */
         private Function function(MethodTree tree) {
             String name = tree.getName().contentEquals("<init>") ? classes.getLast() : tree.getName().toString();
             String qualified = String.join(".", classes) + "." + name;

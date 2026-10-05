@@ -31,6 +31,7 @@ final class Compiler {
     /** Under a profile, with copybook folders whose every file is part of each compile's cache key. */
     private final List<String> extra;
 
+    /** Under a profile, with copybook folders whose every file's hash is part of each compile's cache key. */
     Compiler(Profile profile, List<Path> copybooks, Path cache, Duration limit, List<String> extra) {
         this.extra = extra;
         this.profile = profile;

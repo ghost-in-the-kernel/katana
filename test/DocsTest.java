@@ -36,6 +36,7 @@ final class DocsTest {
                 .accepts("a module whose phase is open", () -> check("`sir/`", Set.of("2.4"), Map.of("sir", 2), p -> false));
     }
 
+    /** What a document gets wrong: a code path it names that does not exist, unless a planned step or module says it will. */
     static List<String> check(String doc, Set<String> openSteps, Map<String, Integer> modulePhases, Predicate<String> exists) {
         List<String> failures = new ArrayList<>();
         for (String unit : units(doc)) {
@@ -78,6 +79,7 @@ final class DocsTest {
         return looksLikePath ? first : null;
     }
 
+    /** Whether a line names a phase or step still open, so a path in it may not exist yet. */
     private static boolean planned(String line, Set<String> openSteps) {
         Matcher phases = PHASES.matcher(line);
         while (phases.find()) {
