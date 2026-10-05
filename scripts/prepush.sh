@@ -3,6 +3,8 @@
 # in the pinned image with the network off, choosing the suites the change touches (R-008 tithe 2a).
 #   scripts/prepush.sh          the suites the commits since origin/main (or $BASE) touch, and why
 #   scripts/prepush.sh --all    every suite (the phase-boundary tithe always runs this)
+# A change to sir/, lower/ or rt/ runs the quick NIST (NC and IF, about 140 programs; tithe pass 2,
+# C2); a change to oracle/nist/ or the profile runs all of it, which then covers the quick one.
 # The corpus is copied from this checkout's verified clones (hard links), not fetched; fetch.sh then
 # checks each pinned one is at its commit. One container runs `gradle build` and every chosen suite.
 set -e
@@ -25,7 +27,8 @@ else
       oracle/*|test/katana/oracle/*) add lane "$f" ;;
       profile/*|test/katana/profile/*) add nist "$f"; add fixture "$f"; add lane "$f" ;;
       front/*|test/katana/front/*) add front "$f"; add sir "$f" ;;
-      sir/*|test/katana/sir/*) add sir "$f" ;;
+      sir/*|test/katana/sir/*) add sir "$f"; add quick "$f" ;;
+      lower/*|rt/*|test/katana/lower/*|test/katana/rt/*) add quick "$f" ;;
       test/*.java|scripts/*) ;;
       *) for s in nist fixture lane front sir; do add $s "$f (the build or the corpus)"; done ;;
     esac
@@ -39,8 +42,11 @@ for s in $suites; do
     lane) tests="$tests --tests katana.oracle.lane.* --tests katana.oracle.compare.*" ;;
     front) tests="$tests --tests katana.front.*" ;;
     sir) tests="$tests --tests katana.sir.*" ;;
+    quick) tests="$tests --tests katana.oracle.nist.ModuleRunIntegrationTest" ;;
   esac
 done
+PROPS=""
+case " $suites " in *" nist "*) ;; *" quick "*) PROPS="-Dkatana.nist.modules=NC,IF" ;; esac
 echo "suites:${suites:- none (the fast loop and the doc tests only)}$why"
 WORK=$(mktemp -d /tmp/claude-0/prepush.XXXXXX)
 start=$(date +%s)
@@ -50,7 +56,7 @@ sh "$WORK/katana/corpus/fetch.sh" nist-cobol85-test-suite carddemo omp-cobol-cou
 cd "$WORK/katana"
 TASKS="build"; [ -n "$tests" ] && TASKS="build integration $tests"
 status=0
-docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle $TASKS --offline --warning-mode fail >"$WORK/gate.log" 2>&1 || status=$?
+docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle $TASKS $PROPS --offline --warning-mode fail >"$WORK/gate.log" 2>&1 || status=$?
 end=$(date +%s)
 echo "pre-push check: $( [ $status -eq 0 ] && echo passed || echo FAILED ) in $((end - start)) s on $(git rev-parse --short HEAD) (log: $WORK/gate.log)"
 [ $status -eq 0 ] && rm -rf "$WORK"

@@ -1105,3 +1105,14 @@ taken; closed by a later `decision` entry naming it).
   existing rows the map has had, said in its header); the superseded and removed ledger, which is
   the map's job, is untouched. 90 KB to 59 KB.
 - **Resolved:** C1. **Touched:** `scripts/KernelMap.java`, `docs/KERNEL-MAP.md`.
+
+### J-090 Tithe pass 2, C2: a quick NIST for the pre-push check
+- **Who:** Opus. **Class:** build. **Intent:** a change to the IR, the lowering or the runtime meets
+  NIST before it is pushed, inside the check's budget once javac and a run are added in phase 3.
+- **Found:** `-Dkatana.nist.modules=NC,IF` runs those modules only and holds them to their lines of
+  both goldens (a record from a subset is refused, so a quick run cannot shrink a golden). NC and IF
+  are 140 programs, 9,815 tests under the two dialects, in 56 s. `prepush.sh` runs it for a change to
+  `sir/`, `lower/` or `rt/`, and drops it when the whole of NIST runs (a change to `oracle/nist/` or
+  the profile); `--all` at a boundary runs everything. The suite is held by ChecksTest like the others
+  (it must select a test).
+- **Resolved:** C2. **Touched:** `ModuleRunIntegrationTest`, `build.gradle`, `scripts/prepush.sh`.

@@ -18,14 +18,17 @@ import org.junit.jupiter.api.Test;
 /**
  * Every NIST module run under cobc, each run held to its golden (R-047): under `-std=cobol85`
  * oracle/nist/programs.golden (1.1), under `-std=ibm` oracle/nist/programs-ibm.golden (1.2).
- * `-Dkatana.std=ibm` runs one dialect only (CI runs each in its own step); `-Dkatana.record=true`
- * rewrites the goldens from the run, for review in their diff. EXEC85 itself is tooling and is always
- * compiled under COBOL 85.
+ * `-Dkatana.std=ibm` runs one dialect only (CI runs each in its own step); `-Dkatana.nist.modules=NC,IF`
+ * runs those modules only, held to their lines of the goldens (the pre-push check's quick NIST, tithe
+ * pass 2, C2); `-Dkatana.record=true` rewrites the goldens from a full run, for review in their diff.
+ * EXEC85 itself is tooling and is always compiled under COBOL 85.
  */
 @Tag("integration")
 class ModuleRunIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
-    private static final List<String> MODULES = List.of("NC", "SM", "IC", "SQ", "RL", "IX", "ST", "SG", "OB", "IF", "RW", "DB");
+    private static final List<String> ALL = List.of("NC", "SM", "IC", "SQ", "RL", "IX", "ST", "SG", "OB", "IF", "RW", "DB");
+    private static final String ONLY = System.getProperty("katana.nist.modules", "");
+    private static final List<String> MODULES = ONLY.isBlank() ? ALL : List.of(ONLY.split(","));
     private static final String HEADER = """
             # Katana's NIST golden (R-047): each run of each program, as its own footer reports it under Katana's
             # profile (cobc 3.1.2, -std=cobol85, oracle/nist/exec85.cards and run-notes). A line is: module, program,
@@ -68,8 +71,16 @@ class ModuleRunIntegrationTest {
         Files.writeString(work.resolve("summary.txt"), summary);
         System.out.print(summary);
         Path golden = ROOT.resolve(dialect.equals("cobol85") ? "oracle/nist/programs.golden" : "oracle/nist/programs-" + dialect + ".golden");
+        if (Boolean.getBoolean("katana.record") && !MODULES.equals(ALL)) throw new IllegalStateException("record from a full run, not from -Dkatana.nist.modules=" + ONLY);
         if (Boolean.getBoolean("katana.record")) Files.writeString(golden, got);
-        assertEquals(Files.exists(golden) ? Files.readString(golden) : "(no golden for -std=" + dialect + ")", got);
+        assertEquals(Files.exists(golden) ? only(Files.readString(golden)) : "(no golden for -std=" + dialect + ")", got);
+    }
+
+    /** A golden's header and the lines of the modules this run runs (all of them, unless -Dkatana.nist.modules says). */
+    private static String only(String golden) {
+        StringBuilder out = new StringBuilder();
+        for (String line : golden.split("\n", -1)) if (line.startsWith("#") || line.isEmpty() || MODULES.contains(line.split(" ")[0])) out.append(line).append('\n');
+        return out.substring(0, out.length() - 1);
     }
 
     /**

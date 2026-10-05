@@ -113,6 +113,8 @@ tasks.register('integration', Test) {
     systemProperty 'katana.record', System.getProperty('katana.record', 'false')
     // `-Dkatana.std=ibm` runs one dialect of the NIST run only; by default both.
     systemProperty 'katana.std', System.getProperty('katana.std', 'cobol85,ibm')
+    // `-Dkatana.nist.modules=NC,IF` runs those NIST modules only (the pre-push check's quick NIST).
+    systemProperty 'katana.nist.modules', System.getProperty('katana.nist.modules', '')
     // Each test class in a JVM of its own, up to four at once: the suites write to folders of their own
     // under build/ (the pre-push check, tithe pass 2a).
     maxParallelForks = Math.min(4, Runtime.runtime.availableProcessors())
