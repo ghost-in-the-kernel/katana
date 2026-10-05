@@ -689,3 +689,17 @@ taken; closed by a later `decision` entry naming it).
 - **Resolved:** the DFSORT row names P-11's rule; the two metric questions listed for Ghost with their
   defaults; SUM's IBM text waits until a fixture needs SUM.
 - **Touched:** `docs/AGENT.md`, `CLAUDE.md`, `DONE.md`, `HANDOFF.md`.
+
+### J-058 The phase-1 boundary: nine deferred questions answered
+- **Who:** Opus listed (J-050 to J-057); Fable answered six; Ghost three. **Class:** decision.
+- **Found:** of nine defaults taken under R-053, **six held** (CBSTM03A outside the cobc lane; the
+  comparator as built with the sign-variant rule added; the Layout and Paragraphs readers until 2.5;
+  LANES.md as written) and **three were reversed** (the gate now holds SYSOUT DDs and normalized
+  stderr; the fast loop is measured warm; the docs ratio arms at 0.45). PROOF.md gained two lines.
+  Two questions became trials (RECFM=V format; stderr determinism) rather than decisions.
+- **Resolved:** R-011, R-012, R-013, R-027, R-054; R-042 amended by R-054.
+- **Touched:** `docs/PROOF.md`, `docs/HANDOFF.md` (Trials section), `docs/AGENT.md` (Opus), the two
+  report goldens (Opus re-records).
+- **Note:** the first R-053 count: 6 held, 3 reversed, 0 stopped. Ghost, on the fast loop: "isn't
+  warm more realistic?" — yes; what is paid is what is measured.
+

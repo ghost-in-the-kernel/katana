@@ -9,66 +9,25 @@ the tithe records how many held. Then phase 2.1.
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
-- **CBSTM03A reads z/OS control blocks** (from step 1.5, J-050). CREASTMT's last step runs CardDemo's
-  CBSTM03A, which sets a pointer to the PSA at address 0, follows it to the TCB and the TIOT, and
-  DISPLAYs the job, the step and every DD name before writing a statement; under GnuCOBOL on Linux
-  address 0 is unmapped and it ends on SIGSEGV. No cobc run can give it a PSA. Options: (1) CBSTM03A
-  is outside the cobc lane, a finding, and its oracle waits for the java lane, whose runtime can stand
-  in for the PSA, TCB and TIOT from the fixture's job and DDs (a z/OS storage facade beside the LE stub
-  facade); (2) the same facade in the cobc lane, through a shared-memory shim mapped at address 0
-  (needs `vm.mmap_min_addr` 0: root, not portable); (3) a fixture-declared source overlay replacing
-  lines 266 to 290, which changes the program under test (Opus leans against: the two lanes would
-  prove different programs). Lean: (1). **Default taken:** the lane reports CBSTM03A's abend as the
-  outcome (`abend SIGSEGV`), the golden holds it, and 1.5's "CREASTMT end to end" waits on this.
-- **R-012's text, the double-run gate** (from step 1.6, J-052; the roadmap reserves it for phase 1).
-  Drafted as built: "The cobc lane runs a fixture's job twice, each in its own folder, and nothing is
-  compared against the original until the two runs are identical on every dataset's logical unload,
-  every program step's stdout and every step's outcome; a difference is reported by dataset, the DDs
-  that reach it, records and columns. A clock that is not pinned to hundredths and zone is refused
-  before the run (R-009); the gate is what catches what a fixture cannot state." Open: whether the gate
-  also holds stderr (libcob's messages can carry paths) and SYSOUT DDs. **Default taken:** the gate
-  as built (`oracle/lane/Gate.java`), stderr and SYSOUT DDs not held.
-- **R-011's text, what the comparator normalizes and refuses** (from step 1.7, J-053). Drafted as built:
-  "The comparator normalizes text encoding (each side decoded by its declared encoding), the sign-zone
-  scheme of zoned numbers, and framing (RDW, line terminators), always under the copybook, and masks
-  only what is declared, listing each mask applied. It never normalizes packed or binary bytes, record
-  counts, record order (collation), rounding or truncation. A difference is grouped by field." Open:
-  whether a zoned field that decodes to the same value from different sign nibbles (C against F) is the
-  same (built: yes, a sign-zone scheme) or a difference. **Default taken:** as built
-  (`oracle/compare/Compare.java`).
-- **Who reads copybooks for the comparator before phase 2** (from step 1.7). Built: a small reader in
-  `oracle/compare/Layout.java`, refusing OCCURS DEPENDING ON, SIGN SEPARATE, floating point and
-  pointers, to be replaced by the Semantic IR's data map when phase 2 has it. **Default taken:** that
-  reader, marked `// Unsure: R-053 default`.
-- **The DD contract** (from step 1.8, J-054): `docs/LANES.md`, LANE-01 to 05, as both lanes keep it now.
-  Open: whether a RECFM=V dataset reaches a program with IBM's RDW (built: fixed records only, and the
-  cobc lane's GnuCOBOL default for V is not IBM's RDW, `docs/research/oracle.md`), and how the java
-  lane reaches an indexed dataset (phase 3). **Default taken:** the contract as written.
-- **Who reads paragraph names before phase 2** (from step 1.9). Built: `oracle/lane/Paragraphs.java`
-  reads names in area A after PROCEDURE DIVISION, to be replaced by the front end's paragraph graph.
-  **Default taken:** that reader, marked `// Unsure: R-053 default`.
+(phase 1's six answered 2026-10-04: R-011, R-012, R-013, R-027; the Layout and Paragraphs readers
+hold as defaults until `sir/` replaces them in 2.5, with a test that the replacement agrees with each
+on every CardDemo copybook and program before the reader is deleted; LANES.md as written, and RECFM=V
+by trial: see "Trials" below)
 
 ## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
 
-- **`docs/PROOF.md`'s wording, and R-013** (from step 1.9, J-056): what a proof is, covers and never
-  covers, the text every proof report quotes and a buyer reads. Drafted from R-013's sentence in the
-  roadmap (environment configuration, data outside the fixtures, concurrency, I/O performance after a
-  storage change, governance), with one line added: paragraphs the fixtures never entered. R-013
-  itself is not recorded. **Default taken:** the draft as written; reversing it is a text change and a
-  re-record of the two report goldens.
-- **The fast-loop metric is measured cold** (from step 1.10, J-057). `gradle metrics --args=--time`
-  times a nested `gradle test` that starts its own daemon: 20 s, against a target under 20 (R-008). The
-  same loop is 18 s timed alone and 7 s with the daemon warm, which is what an agent pays after an edit;
-  the tests themselves take under 4 s. Options: measure warm (the agent's cost); keep cold and trim
-  compile and the metrics test; raise the target. **Default taken:** recorded both, the metric left as
-  measured, nothing changed.
-- **Docs lines per source line arms in phase 2 at 0.45** (from step 1.10). R-042 arms it "when the
-  first module carries real code (phase 2)"; `oracle/` has carried real code since 1.1, and the ratio
-  is 0.45 against 0.35, so arming it at 2.1 fails the fast loop at once. Options: arm it at 2.1 and cut
-  documents to fit; arm it with pass 1's 0.45 as the recorded value to ratchet from; leave it unarmed.
-  **Default taken:** unarmed, as R-042 reads, until Ghost says.
+(phase 1's three answered 2026-10-04: R-013 with two added lines; R-054 warm fast loop and the docs
+ratio armed at 0.45)
 
-(the items below predate R-053)
+## Trials (R-052: a question settled by running something; the implementing agent runs it)
+
+- **RECFM=V reaches a program with IBM's RDW** (from LANES.md's open point). Trial: write a V
+  dataset through `cobc` under each `COB_VARSEQ_FORMAT` (0..3) and hexdump; the format whose prefix
+  is a 2-byte big-endian length (including the 4-byte prefix) and two zero bytes is IBM's RDW; LANE-02
+  then gains the V rule and both lanes use that format. If none matches, the cobc lane wraps records
+  itself and LANE-02 says so.
+- **stderr is deterministic after path normalization** (R-012 C-2). Trial: the four CardDemo fixtures
+  through the gate with stderr held; any difference is named and masked by declaration.
 
 ## Waiting on Ghost
 

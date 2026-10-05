@@ -178,6 +178,70 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-026, R-048, R-051
 - **subject:** sort
 
+### R-011: What the comparator normalizes, and what it refuses to
+- **Decision:** The comparator normalizes text encoding (each side decoded by its declared
+  encoding), the sign-zone scheme of zoned numbers, and framing (RDW, line terminators), always under
+  the copybook, and masks only what the fixture declares, listing each mask applied. It never
+  normalizes packed or binary bytes, record counts, record order (collation), rounding or
+  truncation. A difference is grouped by field. Two zoned values that decode equal from different
+  sign nibbles within one scheme (C against F on a signed field; C or D on an unsigned one) are
+  **not a difference under NUMPROC(NOPFD)** and are counted as a `sign-variant` note per field, so
+  they stay visible; under a profile with `ibm.numproc=PFD` they **are a difference**, because a
+  PFD-compiled consumer distinguishes them (the NUMERIC test respects the PICTURE, R-049).
+- **Why:** The study's encoding rule (`docs/research/oracle.md`), as built in 1.7, with the open
+  question answered by the profile: whether a sign nibble matters is a property of the consumer's
+  compile options, which the profile carries.
+- **Claims:** C-1 the encoding rule separates representation from semantics: `verified` (the
+  study's probes: `iconv` corrupts COMP-3; GnuCOBOL and IBM overpunch differ). C-2 PFD distinguishes
+  C from F on a NUMERIC test: `verified` (APAR PM02897, `docs/research/ibm-options.md`).
+- **Held by:** `oracle/compare/Compare.java`; `CompareTest`; the `sign-variant` count in the report.
+- **Source:** built by Opus in 1.7 (J-053); decided by Fable at the phase-1 boundary, 2026-10-04.
+- **Status:** in force
+- **See also:** R-049, R-013
+- **subject:** oracle-compare
+
+### R-012: The double-run gate
+- **Decision:** The cobc lane runs a fixture's job twice, each in its own folder, and nothing is
+  compared against the original until the two runs are identical on every dataset's logical unload,
+  **every SYSOUT DD**, every program step's stdout, **every step's stderr with the run folder's path
+  replaced by a token**, and every step's outcome; a difference is reported by dataset, the DDs that
+  reach it, records and columns. A clock not pinned to hundredths and zone is refused before the run
+  (R-009); the gate is what catches what a fixture cannot state.
+- **Why:** As built in 1.6, with the two open points reversed: a SYSOUT DD is a dataset the job
+  writes (LANE-01 keeps a file for it), so it is held like one; stderr is where libcob says what went
+  wrong, and a message that differs between two identical runs is exactly a nondeterminism the gate
+  exists to catch, once the one difference the lane itself causes (the folder path) is removed. If
+  stderr proves noisy in practice, the noise is named and masked by declaration (R-011), never
+  dropped wholesale.
+- **Claims:** C-1 two runs of a pinned fixture are identical: `verified` (CardDemo, F-02, 1.6).
+  C-2 stderr is deterministic after path normalization: `hypothesis`; trial: the four CardDemo
+  fixtures through the gate with stderr held; a difference is a finding to name.
+- **Held by:** `oracle/lane/Gate.java`; `GateTest` (the seconds-only clock fails it).
+- **Source:** built by Opus in 1.6 (J-052); decided by Fable at the phase-1 boundary, 2026-10-04,
+  reversing the default on SYSOUT and stderr.
+- **Status:** in force
+- **See also:** R-009, R-011
+- **subject:** oracle-gate
+
+### R-013: What a proof covers, and what it never covers
+- **Decision:** `docs/PROOF.md` as drafted in 1.9, with two lines added to "What it never covers":
+  **the compiler's own semantics beyond GnuCOBOL's reading of them** (until a customer's mainframe
+  gold reconciles the lanes on the same fixture, a proof says "equivalent under profile X as GnuCOBOL
+  reads it", risk R-A); and **intent**: a proof says what the program does on the fixture's data,
+  never what it was meant to do. Every proof report quotes the section verbatim (PROOF-01).
+- **Why:** A buyer and an auditor read the same limits the code is held to (the TSB, NYT and Phoenix
+  lessons, `docs/research/literature_and_failures.md`); the two additions are the two ways a proof is
+  most likely to be over-read. "Intent" belongs here because the Intent IR (R-007) is where meaning is
+  inferred and confirmed, and a proof must not be mistaken for it.
+- **Claims:** C-1 these limits are the ones documented failures fell outside: `verified` (the
+  literature note). C-2 GnuCOBOL's `-std=ibm` differs from IBM in measurable places: `verified`
+  (`oracle/nist/IBM-CHANGES.md`, 1.2).
+- **Held by:** `docs/PROOF.md`; `ProofReportTest` (PROOF-01); the two report goldens, re-recorded.
+- **Source:** drafted by Opus (J-056); the additions by Fable; decided by Ghost, 2026-10-04.
+- **Status:** in force
+- **See also:** R-A (roadmap), R-007, R-049
+- **subject:** proof
+
 ### R-016: The indicator column is read permissively; a tab is expanded to the next 8-column stop, as a finding
 - **Decision:** Column 7 accepts any indicator character GnuCOBOL or Enterprise COBOL accepts. A tab
   anywhere in a source or copy line is expanded to spaces to the next tab stop at columns 9, 17, 25 ...
@@ -218,6 +282,29 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Status:** in force
 - **See also:** R-010, R-013
 - **subject:** sort
+
+### R-027: The facades: LE and assembler stubs, and a z/OS storage facade in the java lane only
+- **Decision:** Programs call things the lanes must stand in for. LE routines (`CEE3ABD`) and
+  assembler callees are stubs with recorded behaviour, in both lanes, declared by the fixture. A
+  program that reads z/OS control blocks through storage (CardDemo's CBSTM03A: PSA at address 0 →
+  TCB → TIOT, to DISPLAY the job, step and DD names) is **outside the cobc lane**: the lane reports
+  its abend (`abend SIGSEGV`) as the step's outcome, the golden holds it, and a finding says why. Its
+  oracle is the **java lane**, whose runtime (`rt/`, phase 3) answers those storage reads from the
+  fixture's job and DDs through a z/OS storage facade beside the LE facade. No source overlay: the
+  two lanes must prove the same program.
+- **Why:** No `cobc` run can map address 0 without root and a non-portable kernel setting; an
+  overlay changes the program under test. A runtime that already knows the job and the DDs can answer
+  the question the program is asking. Programs that read control blocks are a real shape in the wild
+  and worth a facade, not a workaround.
+- **Claims:** C-1 CBSTM03A's reads are PSA→TCB→TIOT only: `verified` (its lines 266–290, J-050).
+  C-2 `rt/` can answer them from the fixture: `hypothesis`; phase 3's CREASTMT end-to-end is the
+  trial.
+- **Held by:** the fixture's `stubs`; `oracle/lane` (abend as outcome); `rt/` (phase 3).
+- **Source:** Opus's three options and lean (J-050); decided by Fable at the phase-1 boundary,
+  2026-10-04, for the lean.
+- **Status:** in force
+- **See also:** R-005, R-048, P-03
+- **subject:** facades
 
 ### R-037: Patent protection is intended; nothing public before a provisional is filed
 - **Decision:** Ghost intends to seek patent protection. Candidate claims: per-pass translation
@@ -561,14 +648,33 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-008, R-040, R-043, R-052
 - **subject:** process
 
+### R-054: The fast loop is measured warm; a metric also arms at the first boundary after real code
+- **Decision:** (a) The fast-loop metric is the warm run: `gradle test --offline` with the daemon
+  already running, which is what an agent waits after an edit; target under 20 s, measured 7 s. The
+  cold run (daemon start included, 20 s) is reported beside it with its own target under 30 s,
+  unarmed. (b) R-042 amended: a metric arms the first time it is within its target, **or** at the
+  first phase boundary after the first module carries real code, at the value measured there, from
+  which it may only improve. "Docs lines per source line" arms now at 0.45 (target 0.35).
+- **Why:** Ghost, 2026-10-04: warm is what is paid, so warm is what is measured. On the docs ratio,
+  the metric's job is pressure toward the target, and a metric that stays unarmed until it is met
+  exerts none; arming at the measured value makes every document added pay for itself in code or in
+  trimming.
+- **Claims:** C-1 the tests themselves run under 4 s and the rest is Gradle: `verified` (J-057).
+  C-2 the docs ratio falls as phase 2 lands code: `hypothesis`; the phase-2 boundary measures it.
+- **Held by:** `docs/AGENT.md`; `MetricsTest` (warm ratcheted; cold reported; docs ratio armed at
+  0.45).
+- **Source:** Opus measured and listed the options (J-057); decided by Ghost, 2026-10-04.
+- **Status:** in force
+- **See also:** R-008, R-042
+- **subject:** process
+
 ---
 
-Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-011 what the comparator normalizes and refuses; R-012 the double-run gate; R-013 what a proof covers and never covers; R-014 CICS/DB2 grammar graft; R-015
+Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-015
 EPL-2.0 grammars (counsel); R-017 the IR is complete; R-018
 the attribute tuple; R-019 byte-image representation; R-020 Decimal with explicit scale; R-021 the
 dispatcher; R-022 TRUNC(OPT) as STD with a finding; R-023 float as IEEE with a finding; R-024 one
-emitter; R-025 indexed-file comparison on logical unload; R-027 stub facade
-contract; R-028 coverage in every proof; R-029 refuted intent never acted on; R-030 ledger
+emitter; R-025 indexed-file comparison on logical unload; R-028 coverage in every proof; R-029 refuted intent never acted on; R-030 ledger
 append-only; R-031 models propose intent only, later, never v1; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual
 dispatcher is acceptable output; R-035 the refactoring-distance report; R-036 the Hercules lane's

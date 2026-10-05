@@ -2,8 +2,8 @@
 
 What a proof covers and what it never covers. Every proof report quotes the section "What it never
 covers" verbatim (`test/katana/oracle/proof/ProofReportTest.java`), so a buyer reads the same limits
-the code is held to. Written in phase 1.9 from R-013's sentence in docs/ROADMAP.md; its wording is
-Ghost's to settle (docs/HANDOFF.md, "For Ghost").
+the code is held to. Written in phase 1.9 from R-013's sentence in docs/ROADMAP.md; wording settled by Ghost at the
+phase-1 boundary (R-013).
 
 Invariants are numbered PROOF-01 onward, in this document only, and a number is never reused.
 
@@ -29,6 +29,10 @@ the clock the fixture pins, on the paragraphs the fixture's data entered. Nothin
 - Concurrency: jobs and transactions that run at the same time, their locking and their ordering.
 - I/O performance, before or after a change of storage: how long a job takes is not compared.
 - Governance: who may run the job, change it, or read what it writes.
+- The compiler's own semantics beyond GnuCOBOL's reading of them: until a customer's mainframe output
+  reconciles the lanes on the same fixture, a proof says "equivalent under profile X as GnuCOBOL reads
+  it", and says so (R-013).
+- Intent: a proof says what the program does on the fixture's data, never what it was meant to do.
 
 ## Invariants
 
