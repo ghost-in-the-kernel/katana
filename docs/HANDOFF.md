@@ -117,6 +117,11 @@ holds it.*
 (phase 2's two answered 2026-10-05: the ANTLR tool jar accepted under R-001; che4z parked for good,
 R-015)
 
+- **rt/LICENSE's text (R-002; tithe pass 2, B4).** `rt/` now compiles alone against the JDK, and
+  `ModulesTest` refuses it code without an `rt/LICENSE` beside it: the per-customer license R-002
+  describes. The text is counsel's and yours. *Default:* none is written; phase 3's first `rt/` file
+  waits on it (the test is red until it is there), so nothing ships unlicensed.
+
 ## For Opus
 
 (tithe pass 2a done, J-071 to J-073; next: TODO.md from its first item, 2.6)

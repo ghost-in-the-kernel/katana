@@ -25,9 +25,14 @@ def grammarOut = layout.buildDirectory.dir('generated/grammar')
 sourceSets {
     main {
         java {
-            srcDirs = modules.collect { it } + [grammarOut]
+            srcDirs = modules.findAll { it != 'rt' }.collect { it } + [grammarOut]
             exclude '**/prototypes/**'
         }
+    }
+    // rt/ ships inside each customer's suite and imports nothing (MOD-02, R-002): its own source set,
+    // compiled against the JDK alone, so an import of ours or of a library fails to compile.
+    rt {
+        java.srcDirs = ['rt']
     }
     // The project's own tooling (phase 0.6): the kernel map and the metrics. Never shipped.
     scripts {
@@ -36,8 +41,8 @@ sourceSets {
     // The doc tests and the scripts' tests (default package), and each module's tests (its package).
     test {
         java.srcDirs = ['test']
-        compileClasspath += scripts.output
-        runtimeClasspath += scripts.output
+        compileClasspath += scripts.output + rt.output
+        runtimeClasspath += scripts.output + rt.output
     }
 }
 

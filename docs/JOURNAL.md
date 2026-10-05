@@ -1018,3 +1018,13 @@ taken; closed by a later `decision` entry naming it).
   key check), `sir/build/` (DataMap, Tuples, Pictures, Files, Build), `Contract` (an `editing` kind;
   mask and flags on item lines; `relative` on file lines), `docs/SEMANTIC-IR.md`, the goldens, the
   data map oracle.
+
+### J-084 Tithe pass 2, B4: rt/ and lower/ held before their first file
+- **Who:** Opus. **Class:** build. **Intent:** phase 3's two new modules start inside their rules.
+- **Found:** both were already entries of `modules.json`; what was missing was the holding. MOD-02
+  said rt/ imports no library, but the source check looked only at imports of ours, and rt/ compiled
+  in the main source set with ANTLR on its classpath. rt/ is now its own source set, compiled against
+  the JDK alone (a probe file importing ANTLR failed to compile, then was removed), and `ModulesTest`
+  refuses any rt/ import outside `java.`, rt/ code without `rt/LICENSE` (R-002; its text asked of
+  Ghost, HANDOFF), and lower/ importing anything but sir/; each a rejects case on the empty modules.
+- **Resolved:** B4. **Touched:** `build.gradle`, `test/ModulesTest.java`, HANDOFF "For Ghost".

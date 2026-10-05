@@ -38,6 +38,11 @@ final class ModulesTest {
                 .rejects("a model client", () -> check(json, Map.of("sir/Build.java", "package katana.sir;\nimport com.anthropic.Client;\n")))
                 .rejects("source outside any module", () -> check(json, Map.of("misc/X.java", "package katana.misc;\n")))
                 .rejects("rt/ allowed an import", () -> check(json.replaceFirst("(\"rt\": \\{[^}]*\"mayImport\": \\[)", "$1\"sir\""), Map.of()))
+                .rejects("rt/ importing sir/", () -> check(json, Map.of("rt/Field.java", "package katana.rt;\nimport katana.sir.types.Item;\n", "rt/LICENSE", "")))
+                .rejects("rt/ importing a library", () -> check(json, Map.of("rt/Field.java", "package katana.rt;\nimport org.antlr.v4.runtime.Token;\n", "rt/LICENSE", "")))
+                .rejects("rt/ without its own LICENSE", () -> check(json, Map.of("rt/Field.java", "package katana.rt;\nimport java.math.BigDecimal;\n")))
+                .rejects("lower/ importing front/", () -> check(json, Map.of("lower/Emit.java", "package katana.lower;\nimport katana.front.Parse;\n")))
+                .accepts("rt/ on the JDK alone, licensed", () -> check(json, Map.of("rt/Field.java", "package katana.rt;\nimport java.math.BigDecimal;\n", "rt/LICENSE", "")))
                 .accepts("an allowed import", () -> check(json, Map.of("sir/Build.java", "package katana.sir;\nimport katana.front.Tree;\nimport java.util.List;\n")));
     }
 
@@ -48,7 +53,9 @@ final class ModulesTest {
         for (var entry : modules.entrySet()) entry(entry.getKey(), entry.getValue(), modules.keySet(), failures);
         cycles(modules, failures);
         rules(modules, failures);
-        for (var file : source.entrySet()) imports(file.getKey(), file.getValue(), modules, failures);
+        for (var file : source.entrySet()) if (file.getKey().endsWith(".java")) imports(file.getKey(), file.getValue(), modules, failures);
+        boolean rt = source.keySet().stream().anyMatch(f -> f.startsWith("rt/") && f.endsWith(".java"));
+        if (rt && !source.containsKey("rt/LICENSE")) failures.add("rt/ has code but no rt/LICENSE: it ships, under its own license (R-002)");
         return failures;
     }
 
@@ -104,6 +111,7 @@ final class ModulesTest {
         while (imp.find()) {
             String name = imp.group(1);
             for (String client : MODEL_CLIENTS) if (name.startsWith(client)) failures.add(path + " imports a model client, " + name + " (MOD-01, R-004)");
+            if (module.equals("rt") && !name.startsWith("java.")) failures.add(path + " imports " + name + ": rt/ ships and imports the JDK alone (MOD-02)");
             if (!name.startsWith("katana.")) continue;
             String target = name.split("\\.")[1];
             if (!target.equals(module) && !names(modules.get(module), "mayImport").contains(target)) {
@@ -112,11 +120,11 @@ final class ModulesTest {
         }
     }
 
-    /** Every .java outside the prototypes, the tests and the vendored code, by path from the root. */
+    /** Every .java outside the prototypes, the tests and the vendored code, and rt/LICENSE, by path from the root. */
     private static Map<String, String> source() {
         Map<String, String> files = new TreeMap<>();
         try (Stream<Path> walk = Files.walk(Check.ROOT)) {
-            for (Path p : walk.filter(p -> p.toString().endsWith(".java")).toList()) {
+            for (Path p : walk.filter(p -> p.toString().endsWith(".java") || p.toString().endsWith("/rt/LICENSE")).toList()) {
                 String rel = Check.ROOT.relativize(p).toString().replace('\\', '/');
                 if (NOT_SOURCE.contains(rel.split("/")[0]) || rel.contains("/prototypes/") || rel.startsWith(".")) continue;
                 files.put(rel, Files.readString(p));
