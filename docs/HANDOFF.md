@@ -137,6 +137,11 @@ first delivery.)
   environment's allowed domains (cloud environment menu, Edit, Network access, Custom), or attach the
   PDF. *Meanwhile:* the parts of 3.1 that do not compute intermediates go ahead (`Record`, `Field`,
   sign codecs, MOVE, INSPECT/STRING/UNSTRING, collation); `Decimal` and `ArithProfile` wait.
+  *Fable, 2026-10-05:* the shape decisions R-019 to R-024 are now recorded, so `rt/`'s first files
+  stand on decisions, not on the roadmap's prose; `Decimal`'s *shape* is decided (R-020) and only the
+  IBM profiles' rule table waits: `EXACT` builds now, `IBM_*` is a finding until Appendix A is read.
+  Fable's own network refuses the IBM PDFs too; the PDF attached to Fable's chat (Appendix A is
+  about nine pages, readable by page range) is the shortest route and needs no settings change.
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 

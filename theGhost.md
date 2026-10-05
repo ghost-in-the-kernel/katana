@@ -320,6 +320,124 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-007, R-018, R-024, P-11
 - **subject:** semantic-ir
 
+### R-019: The literal Java is a byte-image machine; no COBOL item is ever a Java scalar in it
+- **Decision:** In the literal lowering, every 01-level is a `Record` (a `byte[]` of its size), every
+  data item a `Field` (a view: record, offset, length, and the IR's `Attributes` tuple, R-018),
+  REDEFINES two views over the same bytes, a group MOVE a byte copy, an elementary MOVE a conversion
+  through the attribute. Bytes are kept in the program's declared encoding (EBCDIC when the data is);
+  conversion happens only at DISPLAY and at the lane's declared boundaries. Nothing in the literal is
+  a Java `int`, `String` or `BigDecimal` field.
+- **Why:** The semantic catalogue (`docs/research/semantic_traps.md`): REDEFINES, group moves, sign
+  nibbles, ODO, collation and HIGH-VALUES are byte facts, and every attempt to type them away is where
+  translators go wrong (Terekhov and Verhoef's "alien code"). GnuCOBOL's libcob and opensourcecobol4j's
+  libcobj are this design and pass NIST (F-06). Passes may promote a Field to a scalar later, under
+  proof (R-032).
+- **Claims:** C-1 the byte-image design is sufficient for NIST: `verified` (opensourcecobol4j, 8,804
+  of 8,918). C-2 a Field can be built from the IR's attribute tuple with no re-parsing: `verified`
+  (tithe pass 2 A4: edit masks and flags as data, 750 masks matching cobc).
+- **Held by:** `rt/Record`, `rt/Field`; `ModulesTest` (`rt/` imports nothing); the autotests through
+  the java lane.
+- **Source:** docs/ROADMAP.md phase 3 and §3.1; decided by Fable, 2026-10-05, so `rt/` could start.
+- **Status:** in force
+- **See also:** R-017, R-018, R-020, R-024
+- **subject:** runtime
+
+### R-020: Decimal is BigInteger plus scale, driven by an ArithProfile; MathContext is forbidden
+- **Decision:** `rt/Decimal` is an unscaled `BigInteger` and an `int` scale; arithmetic is evaluated
+  operation by operation under an `ArithProfile` that decides the intermediate's digits and scale
+  (`IBM_COMPAT` 18/30, `IBM_EXTEND` 31/31, `EXACT` unbounded) and a `store()` that applies ROUNDED
+  mode, high-order truncation by PICTURE or by binary width per `TruncMode`, SIZE ERROR
+  keep-on-overflow, and division by zero as a status, never an exception. `java.math.MathContext`
+  (significant-digit precision) is never used: COBOL's limits are integer digits plus decimal digits.
+  **The IBM profiles' intermediate rules (Appendix A) are a hypothesis until read (R-049):** until
+  then `EXACT` is the only profile that builds, and a program compiled under `IBM_*` is a finding
+  ("arithmetic under hypothesis H-A") rather than a result. The profile is pluggable so that reading
+  Appendix A changes one table, not the runtime.
+- **Why:** The catalogue's trap 4: `1/3*300` into `999V99` is 99.00 on IBM and 99.99 exact; a
+  `MathContext` rounds by significant digits and matches neither. The shape is settled by the
+  catalogue; only the IBM table waits on IBM's text, which this environment cannot reach (J-094).
+- **Claims:** C-1 BigInteger+scale with explicit store rules reproduces libcob's observable behaviour
+  on the autotests: `hypothesis`; the 378 runnable autotests through the java lane are the trial.
+  C-2 the IBM dmax rules as recalled (`docs/research/ibm-options.md` §4): `hypothesis` until Appendix
+  A is read.
+- **Held by:** `rt/Decimal`, `rt/ArithProfile`; a test that `MathContext` is not imported anywhere in
+  `rt/`; the finding on `IBM_*` until R-049 closes.
+- **Source:** the catalogue; decided by Fable, 2026-10-05.
+- **Status:** in force
+- **See also:** R-019, R-022, R-049
+- **subject:** runtime
+
+### R-021: Control flow in the literal is a dispatcher with a PERFORM continuation table
+- **Decision:** A program's procedure division lowers to `for (;;) switch (pc)`, one case per
+  paragraph, textual fall-through as the next case, GO TO as a `pc` assignment, PERFORM as a push of
+  the continuation (the pc after the range's end) and a jump, the range's end checked against the
+  continuation stack on every paragraph exit (IBM's `perform-osvs` return: reaching any active range's
+  exit returns), ALTER as a table update with a finding, EXIT PARAGRAPH/SECTION, STOP RUN and GOBACK
+  as the lane's return, declaratives as their own cases. No paragraph is a Java method in the
+  literal; structuring is a pass (R-032 to R-034).
+- **Why:** Ceccato et al. (CSMR 2008): the Böhm–Jacopini dispatcher removed 79% of 531k GOTOs in 22 s
+  on 8 MLOC with the program still readable, where full structuring produced unmaintainable nesting.
+  A dispatcher is exact by construction for every PERFORM/GO TO shape NIST has (NC and IC pass through
+  it in libcob's equivalent), and the proof of a later structuring pass is a diff against it.
+- **Claims:** C-1 the dispatcher reproduces IBM PERFORM return semantics: `hypothesis`; the NIST NC
+  and IC modules through the java lane are the trial. C-2 recursive and overlapping PERFORM are
+  findings, not lowered: `verified` (NE-02, NE-03 in `sir/check`).
+- **Held by:** `rt/Dispatcher`; the NC/IC goldens; the findings.
+- **Source:** the catalogue and the literature note; decided by Fable, 2026-10-05.
+- **Status:** in force
+- **See also:** R-019, R-033, R-034
+- **subject:** runtime
+
+### R-022: TRUNC(OPT) is lowered as TRUNC(STD), with a finding
+- **Decision:** A program whose profile says `ibm.trunc=OPT` is lowered with STD semantics (truncate
+  binary items to their PICTURE digits on store), and the build reports a finding on every binary
+  item that could exceed its PICTURE: under OPT the original's result "is dependent on the particular
+  code sequence generated" (IBM, `docs/research/ibm-options.md` §1), so no lowering can be proven
+  against it, and STD is the only defensible golden.
+- **Why:** IBM's own text says OPT results are unpredictable out of range; a proof under OPT would be
+  a proof of nothing. The finding tells the customer which items to look at.
+- **Claims:** C-1 IBM's OPT wording: `verified` (§1, verbatim). C-2 STD is what most OPT programs
+  mean in practice: `hypothesis`; a customer's mainframe gold on an OPT program is the trial.
+- **Held by:** `lower/` and `rt/store()`; the finding; `docs/PROFILE.md`.
+- **Source:** the catalogue; decided by Fable, 2026-10-05.
+- **Status:** in force
+- **See also:** R-020, R-049, P-03
+- **subject:** runtime
+
+### R-023: COMP-1 and COMP-2 are lowered as IEEE binary float, with a finding
+- **Decision:** Floating-point items lower to Java `float`/`double` (IEEE 754) and every statement
+  that reads or writes one carries a finding: on z/OS the original is hexadecimal floating point, and
+  bit-for-bit equivalence is not claimed. Mixed fixed/float expressions follow the profile's rule
+  (hypothesis until Appendix A).
+- **Why:** HFP emulation is a project of its own for a usage that CardDemo and the realistic corpus do
+  not contain (F-04 feature counts); the honest output is a declared approximation (P-03).
+- **Claims:** C-1 the realistic corpus has no COMP-1/COMP-2: `verified` (the scan). C-2 IEEE is close
+  enough for every NIST float test: `hypothesis`; NIST's float cases through the java lane are the
+  trial, and a failing one is listed in the reconciliation.
+- **Held by:** `rt/Field` (float kinds); the finding NE-06.
+- **Source:** the catalogue; decided by Fable, 2026-10-05.
+- **Status:** in force
+- **See also:** R-020, P-03
+- **subject:** runtime
+
+### R-024: One emitter writes every line of Java; passes never write Java directly
+- **Decision:** `lower/Emit` is the only code in Katana that produces Java source text. It writes one
+  provenance comment per statement (`// <file>:<line> <paragraph> <verb>`, from the IR's `Origin`),
+  the manifest with the profile hash, and the class skeleton. `passes/` transform the IR-and-Java
+  structure and call the same emitter, so a pass cannot drop a provenance comment or a manifest line.
+  The lowered-Java golden format is byte-identical files under `lower/golden/` (P-02).
+- **Why:** Provenance is the product (R-007); a second place that writes Java is a place that loses it.
+  Suite Builder's one-emitter rule for its Java kit (G-108) is the precedent.
+- **Claims:** C-1 every lowered statement carries its Origin: `verified` by construction once A2
+  landed (Origin is an IR type). C-2 passes can be expressed as transformations the emitter then
+  prints: `hypothesis`; phase 6's first pass is the trial.
+- **Held by:** `ModulesTest` (`passes/` imports `lower/`'s emitter and no other Java-writing code);
+  a test that no file outside `lower/Emit` writes a `.java`; `lower/golden/`.
+- **Source:** docs/ROADMAP.md 3.3; decided by Fable, 2026-10-05.
+- **Status:** in force
+- **See also:** R-007, R-017, R-019
+- **subject:** lowering
+
 ### R-026: Katana's sort is stable; an unordered tie in the original is a finding
 - **Decision:** `oracle/sort` is stable (records with equal keys keep input order, DFSORT's
   `EQUALS`). When a SORT step's cards do not specify `EQUALS` and the input holds records with equal
@@ -798,9 +916,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
-the attribute tuple; R-019 byte-image representation; R-020 Decimal with explicit scale; R-021 the
-dispatcher; R-022 TRUNC(OPT) as STD with a finding; R-023 float as IEEE with a finding; R-024 one
-emitter; R-025 indexed-file comparison on logical unload; R-028 coverage in every proof; R-029 refuted intent never acted on; R-030 ledger
+the attribute tuple; R-025 indexed-file comparison on logical unload; R-028 coverage in every proof; R-029 refuted intent never acted on; R-030 ledger
 append-only; R-031 models propose intent only, later, never v1; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual
 dispatcher is acceptable output; R-035 the refactoring-distance report; R-036 the Hercules lane's
