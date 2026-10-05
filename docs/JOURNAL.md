@@ -872,3 +872,12 @@ taken; closed by a later `decision` entry naming it).
   every suite, the one metric past its target. `gradle metrics` now counts commits since the last
   tithe and says when one is due, so R-008's cadence is no longer held by habit (J-070).
 - **Touched:** `docs/AGENT.md` (pass 1's numbers kept beside), `scripts/Metrics.java`, HANDOFF.
+
+### J-074 Phase 2.6: the contract, a table of thirteen fact kinds
+- **Who:** Opus. **Class:** build. **Intent:** 2.6, its check written first.
+- **Found:** written as rows from the first line (T-13): adding a kind is one `new Kind(...)` line and
+  one row of the document's table, which `ContractTest` holds equal. Statements are numbered by their
+  place (`0.1.perform-inline-statement.0`), so a lowered statement can name the fact it honors; values
+  are written in one token each (`#7`, `file:IN-FILE`, `(= #6 'Y')`). The fast loop's test task now
+  passes `katana.record`, so a fast-loop golden can be rewritten like an integration one.
+- **Touched:** `sir/contract/`, `docs/SEMANTIC-IR.md`, the sir tests, `build.gradle`, CLAUDE.md.

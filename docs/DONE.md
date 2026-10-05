@@ -238,3 +238,12 @@ qualifiers, files, GLOBAL items of containing programs, SPECIAL-NAMES mnemonics 
 writes and reads it; `sir/check` finds a long REDEFINES, a target that names nothing, an ODO object
 after its table, a file without FILE STATUS. Held by `sir/ir.golden`: CardDemo 31, NIST 437 and OMP 29
 programs all built and round-tripped (BankDemo privately). J-067, J-068.
+
+### 2.6 `sir/contract`
+
+`sir/contract/Contract.java`: a program's contract as one line per fact, each line its kind, its
+program and the fact, written by the kind's row in `KINDS` (thirteen rows: profile, item, redefines,
+occurs, value, condition, file, paragraph, falls, edge, statement, call, using); `diff` compares two
+contracts fact for fact. `docs/SEMANTIC-IR.md` tables the kinds (`ContractTest` holds both); COPYREC's
+contract is `sir/contract/COPYREC.contract`; the corpus's contracts (CardDemo 23,802 facts, NIST
+415,863, OMP 2,915) are the same lines from the IR read back from JSON (`sir/ir.golden`). J-074.

@@ -582,3 +582,16 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/json/IrJson.java:IrJson.Parser.object` | called by `sir/json/IrJson.java:IrJson.Parser.value` | 2026-10-05 |  |
 | sir | `sir/json/IrJson.java:IrJson.Parser.array` | called by `sir/json/IrJson.java:IrJson.Parser.value` | 2026-10-05 |  |
 | sir | `sir/json/IrJson.java:IrJson.Parser.text` | called by `front/Parse.java:Parse.file` and 23 more | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.Contract` | no caller | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.lines` | called by `oracle/fixture/Content.java:Content.records` and 20 more | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.diff` | no caller | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.each` | no caller | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.item` | called by `oracle/compare/Layout.java:Layout.items` and 12 more | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.occurs` | called by `oracle/compare/Layout.java:Layout.place` and 4 more | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.file` | called by `front/Mapped.java:Mapped.added` and 7 more | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.falls` | no caller | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.statements` | called by `oracle/sort/SortCards.java:SortCards.read` and 6 more | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.statement` | called by `sir/build/Paragraphs.java:Paragraphs.build` and 4 more | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.call` | called by `sir/build/Paragraphs.java:Paragraphs.statement` | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.value` | called by `oracle/compare/Compare.java:Compare.record` and 17 more | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.quoted` | called by `oracle/fixture/Fixture.java:Fixture.canonical` and 2 more | 2026-10-05 |  |

@@ -15,6 +15,7 @@ import katana.front.Parse;
 import katana.oracle.nist.NistSources;
 import katana.sir.build.Build;
 import katana.sir.check.Check;
+import katana.sir.contract.Contract;
 import katana.sir.json.IrJson;
 import katana.sir.types.Program;
 import org.junit.jupiter.api.Tag;
@@ -23,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Phase 2.5's check, its other half: every program of the corpus that parses builds to an IR that
  * holds its invariants (SIR-01 to SIR-07, checked as it is built), and serializes to JSON and back to
- * an equal IR. sir/ir.golden holds, per corpus, the programs built and round-tripped, and how many
+ * an equal IR with the same contract (2.6). sir/ir.golden holds, per corpus, the programs built and round-tripped, and how many
  * findings building and sir/check made; BankDemo, when fetched, is counted privately and not held.
  */
 @Tag("integration")
@@ -33,7 +34,7 @@ class IrIntegrationTest {
     private static final String HASH = "sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc";
     private static final String HEADER = """
             # Phase 2.5 (docs/ROADMAP.md): each corpus's programs built to the Semantic IR under the ibm profile, as
-            # `corpus NAME programs P built B round-trip R build-findings F check-findings C`, then each program
+            # `corpus NAME programs P built B round-trip R build-findings F check-findings C contract-facts N`, then each program
             # that did not build or round-trip. Written by `gradle integration -Dkatana.record=true`.
             """;
 
@@ -57,7 +58,7 @@ class IrIntegrationTest {
 
     /** One corpus: each program that parses built, checked, and round-tripped; the counts, and what failed. */
     private static String corpus(String name, Map<String, Path> programs, Copybooks books) throws Exception {
-        int parsed = 0, built = 0, roundTrip = 0, buildFindings = 0, checkFindings = 0;
+        int parsed = 0, built = 0, roundTrip = 0, buildFindings = 0, checkFindings = 0, facts = 0;
         List<String> failures = new ArrayList<>();
         for (var entry : programs.entrySet()) {
             Parse.Result parse = Parse.file(entry.getValue(), books, 8);
@@ -70,14 +71,16 @@ class IrIntegrationTest {
                 checkFindings += Check.findings(result.program()).size();
                 String json = IrJson.write(result.program());
                 Program back = IrJson.read(json, Program.class);
-                if (back.equals(result.program()) && json.equals(IrJson.write(back))) roundTrip++;
-                else failures.add(entry.getKey() + ": the JSON does not round-trip");
+                List<String> contract = Contract.lines(result.program());
+                facts += contract.size();
+                if (back.equals(result.program()) && json.equals(IrJson.write(back)) && contract.equals(Contract.lines(back))) roundTrip++;
+                else failures.add(entry.getKey() + ": the JSON or the contract does not round-trip");
             } catch (RuntimeException e) {
                 failures.add(entry.getKey() + ": " + e.getMessage());
             }
         }
         StringBuilder out = new StringBuilder("corpus " + name + " programs " + parsed + " built " + built + " round-trip " + roundTrip
-                + " build-findings " + buildFindings + " check-findings " + checkFindings + "\n");
+                + " build-findings " + buildFindings + " check-findings " + checkFindings + " contract-facts " + facts + "\n");
         failures.forEach(f -> out.append(f).append('\n'));
         return out.toString();
     }

@@ -1,0 +1,63 @@
+package katana.sir;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import katana.front.Copybooks;
+import katana.front.Parse;
+import katana.sir.build.Build;
+import katana.sir.contract.Contract;
+import katana.sir.json.IrJson;
+import katana.sir.types.Program;
+import org.junit.jupiter.api.Test;
+
+/** 2.6's check on COPYREC and the document: the kinds table, the golden, the fact-for-fact diff, the same lines from the same IR. */
+class ContractTest {
+    private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
+    private static final Path GOLDEN = ROOT.resolve("sir/contract/COPYREC.contract");
+
+    private static Program copyrec() {
+        Path trivial = ROOT.resolve("oracle/fixture/trivial");
+        Parse.Result parse = Parse.file(trivial.resolve("cbl/COPYREC.cbl"), new Copybooks(List.of(trivial.resolve("cpy")), n -> 8), 8);
+        return Build.program(parse, "sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc").program();
+    }
+
+    @Test
+    void theDocumentNamesEveryKindAndNoOther() throws Exception {
+        String doc = Files.readString(ROOT.resolve("docs/SEMANTIC-IR.md"));
+        List<String> documented = new ArrayList<>();
+        Matcher m = Pattern.compile("(?m)^\\| `([a-z]+)` \\|").matcher(doc);
+        while (m.find()) documented.add(m.group(1));
+        assertEquals(Contract.KINDS.stream().map(Contract.Kind::name).toList(), documented);
+    }
+
+    /** `-Dkatana.record=true` on the fast loop rewrites the golden (its diff is the review). */
+    @Test
+    void copyrecsContractIsTheGolden() throws Exception {
+        String lines = String.join("\n", Contract.lines(copyrec())) + "\n";
+        if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, lines);
+        assertEquals(Files.readString(GOLDEN), lines);
+    }
+
+    @Test
+    void twoContractsCompareFactForFact() {
+        List<String> expected = Contract.lines(copyrec());
+        List<String> actual = new ArrayList<>(expected);
+        String dropped = actual.remove(3);
+        actual.add("item COPYREC 99 NOTHING");
+        assertEquals(List.of("missing: " + dropped, "extra: item COPYREC 99 NOTHING"), Contract.diff(expected, actual));
+        assertEquals(List.of(), Contract.diff(expected, expected));
+    }
+
+    @Test
+    void theSameIrGivesTheSameLines() {
+        Program p = copyrec();
+        assertEquals(Contract.lines(p), Contract.lines(IrJson.read(IrJson.write(p), Program.class)));
+        assertEquals(Contract.lines(p), Contract.lines(copyrec()));
+    }
+}

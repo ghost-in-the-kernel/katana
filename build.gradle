@@ -85,6 +85,8 @@ tasks.named('test') {
     }
     // The doc tests read the repository; they run from its root wherever Gradle is started.
     systemProperty 'katana.root', rootDir.absolutePath
+    // `-Dkatana.record=true` rewrites the fast loop's goldens too (sir/contract/COPYREC.contract).
+    systemProperty 'katana.record', System.getProperty('katana.record', 'false')
     // The tests read the whole repository, not just their classes: never skip them as up to date.
     outputs.upToDateWhen { false }
     testLogging {

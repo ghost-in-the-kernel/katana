@@ -48,6 +48,28 @@ FILE STATUS item, its records, and its smallest and largest record.
 RETURNING field. A program's own interface is its `Procedure`'s USING and RETURNING. An IR that breaks
 an invariant is refused with `Invalid`, whose message starts with the invariant's number.
 
+## The contract
+
+What a back end must honor, as lines (`sir/contract`, docs/ROADMAP.md 2.6): each line is a fact's
+kind, its program, and the fact, written from the IR by the kind's row in a table; a new kind of fact
+is a row. A back end's output read back as lines is compared with the IR's fact for fact. The kinds:
+
+| Kind | Covers |
+| --- | --- |
+| `profile` | the profile the program means what it means under |
+| `item` | each item's place and attribute tuple |
+| `redefines` | each item that redefines another |
+| `occurs` | each table's bounds, ODO object, keys and indexes |
+| `value` | each item's VALUE as written |
+| `condition` | each 88 and its values |
+| `file` | each file's organization, access, keys, status and records |
+| `paragraph` | each paragraph's place in textual order and its section |
+| `falls` | control that falls from a paragraph into the next |
+| `edge` | each PERFORM, GO TO and ALTER between paragraphs |
+| `statement` | each statement's verb, operands with their roles, and branches |
+| `call` | each CALL's target, arguments with their modes, and RETURNING |
+| `using` | the program's own USING and RETURNING items |
+
 ## Invariants
 
 - **SIR-01 The header names the profile by its hash.** `sha256:` and 64 hex digits; a program means
