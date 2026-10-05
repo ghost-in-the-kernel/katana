@@ -35,8 +35,11 @@ final class Programs implements ProgramRunner {
 
     private final java.util.function.ToIntFunction<String> width;
 
-    Programs(Path sources, Compiler compiler, Path work, Duration limit, java.util.function.ToIntFunction<String> width) {
+    private final boolean trace;
+
+    Programs(Path sources, Compiler compiler, Path work, Duration limit, java.util.function.ToIntFunction<String> width, boolean trace) {
         this.width = width;
+        this.trace = trace;
         this.sources = sources;
         this.compiler = compiler;
         this.work = work;
@@ -94,6 +97,15 @@ final class Programs implements ProgramRunner {
         }
         Map<String, String> all = new HashMap<>(env);
         all.put("COB_LIBRARY_PATH", bin.toString());
+        if (trace) {
+            all.put("COB_SET_TRACE", "Y");
+            all.put("COB_TRACE_FILE", work.resolve("trace").resolve(step + ".trace").toString());
+            try {
+                Files.createDirectories(work.resolve("trace"));
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }
         int exit = Exec.run(List.of(executable), work, all, stdin, work.resolve("sysout/" + step + ".stdout"), work.resolve("sysout/" + step + ".stderr"), limit);
         if (exit == -1) return new Ended(exit, null, name + " ran past the time limit");
         Matcher abend = ABEND.matcher(text(work.resolve("sysout/" + step + ".stderr")));

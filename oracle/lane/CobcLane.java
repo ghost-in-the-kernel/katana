@@ -29,11 +29,22 @@ import katana.profile.Profile;
 public final class CobcLane {
     /** Where a run finds what it needs: the repository, the `from=` roots by prefix, program sources, copybooks, its folders, other jobs' datasets, and a clock set outside the fixture (null for the fixture's own, R-009). */
     public record Setup(Path root, Map<String, Path> sources, Path programs, List<Path> copybooks, Path work, Path cache,
-                        Duration limit, JobSource jobs, String clock, Map<String, List<String>> java) {
-        /** The cobc lane's setup: no Java programs. */
+                        Duration limit, JobSource jobs, String clock, Map<String, List<String>> java, boolean trace) {
+        /** The cobc lane's setup: no Java programs, no trace. */
         public Setup(Path root, Map<String, Path> sources, Path programs, List<Path> copybooks, Path work, Path cache,
                      Duration limit, JobSource jobs, String clock) {
-            this(root, sources, programs, copybooks, work, cache, limit, jobs, clock, null);
+            this(root, sources, programs, copybooks, work, cache, limit, jobs, clock, null, false);
+        }
+
+        /** The java lane's setup: these Java programs by PGM, no trace. */
+        public Setup(Path root, Map<String, Path> sources, Path programs, List<Path> copybooks, Path work, Path cache,
+                     Duration limit, JobSource jobs, String clock, Map<String, List<String>> java) {
+            this(root, sources, programs, copybooks, work, cache, limit, jobs, clock, java, false);
+        }
+
+        /** This setup in another folder with the programs compiled with `-ftrace` and traced, for coverage (1.9). */
+        public Setup traced(Path work) {
+            return new Setup(root, sources, programs, copybooks, work, cache, limit, jobs, clock, java, true);
         }
     }
 
@@ -100,9 +111,9 @@ public final class CobcLane {
         Files.createDirectories(setup.work().resolve("sysout"));
         Files.createDirectories(setup.work().resolve("inline"));
         List<Path> shadows = Tabs.shadow(setup.copybooks(), setup.work().resolve("shadow"), widths, tabbedCopybooks);
-        Compiler compiler = new Compiler(profile, shadows, setup.cache(), setup.limit());
+        Compiler compiler = new Compiler(profile, shadows, setup.cache(), setup.limit(), setup.trace() ? List.of("-ftrace") : List.of());
         datasets = new Datasets(setup.work(), compiler, setup.limit());
-        programs = new Programs(setup.programs(), compiler, setup.work(), setup.limit(), widths);
+        programs = new Programs(setup.programs(), compiler, setup.work(), setup.limit(), widths, setup.trace());
     }
 
     /** What the java lane's stub does not run yet (docs/LANES.md): indexed datasets, stubs and called modules, which wait for rt/ (phase 3). */
@@ -131,6 +142,23 @@ public final class CobcLane {
         return null;
     }
 
+    /** Each program's paragraphs against the ones its trace entered, every step's trace read (1.9). */
+    private void coverage() throws IOException {
+        StringBuilder traces = new StringBuilder();
+        Path dir = setup.work().resolve("trace");
+        if (Files.exists(dir)) {
+            try (Stream<Path> files = Files.list(dir)) {
+                for (Path f : files.sorted().toList()) traces.append(Files.readString(f, java.nio.charset.StandardCharsets.ISO_8859_1)).append('\n');
+            }
+        }
+        for (String name : new java.util.TreeSet<>(programs.sourceHashes().keySet())) {
+            List<String> all = Paragraphs.of(Programs.text(programs.source(name)));
+            java.util.Set<String> entered = Paragraphs.entered(traces.toString(), name);
+            List<String> not = all.stream().filter(p -> !entered.contains(p)).toList();
+            report.coverage(name, all.size() - not.size(), all.size(), not);
+        }
+    }
+
     /** Every dataset's records at the end, unloaded to work/unload and hashed; then the programs by their sources. */
     private void end() throws IOException {
         Path unload = Files.createDirectories(setup.work().resolve("unload"));
@@ -144,5 +172,6 @@ public final class CobcLane {
         tabbed.forEach(f -> report.note("tab in " + f + ", expanded at " + widths.applyAsInt(f) + " columns (R-016; a hypothesis until the Enterprise COBOL rule is read)"));
         programs.sourceHashes().entrySet().stream().sorted(Map.Entry.comparingByKey())
                 .forEach(e -> report.line("program " + e.getKey() + " " + e.getValue()));
+        if (setup.trace()) coverage();
     }
 }

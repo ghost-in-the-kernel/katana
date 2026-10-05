@@ -29,7 +29,10 @@ final class Compiler {
     private final String copybooksHash;
 
     /** Under a profile, with copybook folders whose every file is part of each compile's cache key. */
-    Compiler(Profile profile, List<Path> copybooks, Path cache, Duration limit) {
+    private final List<String> extra;
+
+    Compiler(Profile profile, List<Path> copybooks, Path cache, Duration limit, List<String> extra) {
+        this.extra = extra;
         this.profile = profile;
         this.copybooks = copybooks;
         this.cache = cache;
@@ -51,6 +54,7 @@ final class Compiler {
     Built build(String name, byte[] source, boolean module, Path bin) {
         List<String> arguments = new ArrayList<>(profile.cobcArguments());
         arguments.add(module ? "-m" : "-x");
+        arguments.addAll(extra);
         copybooks.forEach(c -> arguments.add("-I" + c));
         String key = hash(source, String.join(" ", arguments) + " " + copybooksHash);
         String file = module ? name + ".so" : name;

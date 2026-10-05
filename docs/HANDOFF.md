@@ -2,9 +2,9 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.8 are done
-(1.5 with one part of its check deferred, below). Next: phase 1.9, the proof report v0; the phase runs
-to its end under R-053.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.9 are done
+(1.5 with one part of its check deferred, below). Next: phase 1.10, tithe pass 1, the end of phase 1;
+then the boundary (R-053): the lists below answered, defaults reversed or kept.
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
@@ -43,10 +43,20 @@ to its end under R-053.
   Open: whether a RECFM=V dataset reaches a program with IBM's RDW (built: fixed records only, and the
   cobc lane's GnuCOBOL default for V is not IBM's RDW, `docs/research/oracle.md`), and how the java
   lane reaches an indexed dataset (phase 3). **Default taken:** the contract as written.
+- **Who reads paragraph names before phase 2** (from step 1.9). Built: `oracle/lane/Paragraphs.java`
+  reads names in area A after PROCEDURE DIVISION, to be replaced by the front end's paragraph graph.
+  **Default taken:** that reader, marked `// Unsure: R-053 default`.
 
 ## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
 
-(none yet; the items below predate R-053)
+- **`docs/PROOF.md`'s wording, and R-013** (from step 1.9, J-056): what a proof is, covers and never
+  covers, the text every proof report quotes and a buyer reads. Drafted from R-013's sentence in the
+  roadmap (environment configuration, data outside the fixtures, concurrency, I/O performance after a
+  storage change, governance), with one line added: paragraphs the fixtures never entered. R-013
+  itself is not recorded. **Default taken:** the draft as written; reversing it is a text change and a
+  re-record of the two report goldens.
+
+(the items below predate R-053)
 
 ## Waiting on Ghost
 

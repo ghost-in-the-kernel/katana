@@ -366,3 +366,18 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/lane/CobcLane.java:CobcLane.javaLimits` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` | 2026-10-05 |  |
 | oracle | `oracle/lane/JavaPrograms.java:JavaPrograms.JavaPrograms` | no caller | 2026-10-05 |  |
 | oracle | `oracle/lane/JavaPrograms.java:JavaPrograms.run` | called by `oracle/lane/CobcLane.java:CobcLane.run` and 15 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.raw` | no caller | 2026-10-05 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.Setup.Setup#2` | no caller | 2026-10-05 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.Setup.traced` | no caller | 2026-10-05 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.coverage` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 2 more | 2026-10-05 |  |
+| oracle | `oracle/lane/Paragraphs.java:Paragraphs.Paragraphs` | no caller | 2026-10-05 |  |
+| oracle | `oracle/lane/Paragraphs.java:Paragraphs.of` | called by `oracle/compare/Layout.java:Layout.raw` and 42 more | 2026-10-05 |  |
+| oracle | `oracle/lane/Paragraphs.java:Paragraphs.entered` | called by `oracle/lane/CobcLane.java:CobcLane.coverage` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/lane/Report.java:Report.coverage` | called by `oracle/lane/CobcLane.java:CobcLane.coverage` and 3 more | 2026-10-05 |  |
+| oracle | `oracle/lane/Report.java:Report.coverage#2` | called by `oracle/lane/CobcLane.java:CobcLane.coverage` and 3 more | 2026-10-05 |  |
+| oracle | `oracle/proof/ProofReport.java:ProofReport.ProofReport` | no caller | 2026-10-05 |  |
+| oracle | `oracle/proof/ProofReport.java:ProofReport.write` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 14 more | 2026-10-05 |  |
+| oracle | `oracle/proof/ProofReport.java:ProofReport.profileLine` | called by `oracle/proof/ProofReport.java:ProofReport.write` | 2026-10-05 |  |
+| oracle | `oracle/proof/ProofReport.java:ProofReport.compared` | called by `oracle/proof/ProofReport.java:ProofReport.write` | 2026-10-05 |  |
+| oracle | `oracle/proof/ProofReport.java:ProofReport.coverage` | called by `oracle/lane/CobcLane.java:CobcLane.coverage` and 2 more | 2026-10-05 |  |
+| oracle | `oracle/proof/ProofReport.java:ProofReport.neverCovers` | called by `oracle/proof/ProofReport.java:ProofReport.write` | 2026-10-05 |  |

@@ -660,3 +660,17 @@ taken; closed by a later `decision` entry naming it).
 - **Resolved:** the test asserts what is invariant: one difference, on TRANFILE, within columns 325 and
   326, over up to three pairs of runs (a chance of about one in a million that all three agree).
 - **Caught by:** the gate run before a push, on a fresh clone. **Cost:** one gate run.
+
+### J-056 The first proof reports
+- **Who:** Opus. **Class:** measurement.
+- **Intent:** Phase 1.9's check, written before the step (TODO.md): v0 reports for the trivial fixture
+  and POSTTRAN, with the gate, the datasets compared, coverage from a cobc trace and PROOF.md quoted.
+- **Found:** GnuCOBOL's `-ftrace` with COB_SET_TRACE writes one line per paragraph or section entered to
+  COB_TRACE_FILE and leaves stdout alone; a traced run of each fixture is identical to the untraced one.
+  POSTTRAN against the study's frozen TRANFILE and rejects: the same; CBTRN02C entered 24 of its 26
+  paragraphs, not its abend and I/O-status paragraphs, which the fixture's data never reaches.
+  COPYREC has no named paragraphs, and the report says so rather than "0 of 0 entered".
+- **Resolved:** PROOF.md drafted from R-013's sentence as the reversible default and listed for Ghost
+  (class (d): a buyer reads it); the paragraph reader listed for Fable. Both reports held as goldens.
+- **Touched:** `oracle/proof/`, `oracle/lane/Paragraphs.java`, the lane's traced run, `docs/PROOF.md`,
+  `HANDOFF.md`.

@@ -26,7 +26,7 @@ class TrivialLanesIntegrationTest {
 
     private static CobcLane.Setup setup(String folder, Map<String, List<String>> java) {
         return new CobcLane.Setup(ROOT, Map.of("repo", ROOT), TRIVIAL.resolve("cbl"), List.of(TRIVIAL.resolve("cpy")),
-                ROOT.resolve("build/" + folder), ROOT.resolve("build/lane-cache"), Duration.ofSeconds(60), (j, d) -> null, null, java);
+                ROOT.resolve("build/" + folder), ROOT.resolve("build/lane-cache"), Duration.ofSeconds(60), (j, d) -> null, null, java, false);
     }
 
     private static final Map<String, List<String>> JAVA = Map.of("COPYREC",

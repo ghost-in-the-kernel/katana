@@ -17,6 +17,10 @@ public final class Report {
     private final Map<String, Integer> lrecls = new LinkedHashMap<>();
     private final List<String> findings = new ArrayList<>();
     private final List<String> notes = new ArrayList<>();
+    private final Map<String, Coverage> coverage = new LinkedHashMap<>();
+
+    /** A program's paragraphs (and sections): how many, how many a trace entered, and the ones it did not. */
+    public record Coverage(int entered, int total, List<String> notEntered) {}
 
     void line(String line) {
         lines.add(line);
@@ -56,6 +60,16 @@ public final class Report {
     /** Each dataset's records at the end, by name, as `sha256:...`. */
     public Map<String, String> datasets() {
         return datasets;
+    }
+
+    void coverage(String program, int entered, int total, List<String> not) {
+        coverage.put(program, new Coverage(entered, total, not));
+        lines.add("coverage " + program + " entered " + entered + " of " + total + (not.isEmpty() ? "" : "; not entered: " + String.join(", ", not)));
+    }
+
+    /** Each program's coverage by name, when the run was traced. */
+    public Map<String, Coverage> coverage() {
+        return coverage;
     }
 
     /** Each dataset's record length, by name. */

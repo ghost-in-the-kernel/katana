@@ -178,3 +178,15 @@ argument, SYSIN as stdin, stdout, the exit code, an abend on stderr. Its stub ru
 only and refuses the rest with a finding. The check: `oracle/fixture/trivial/COPY.fixture` through the
 cobc lane (Katana's `COPYREC.cbl`, twice, through the gate) and the java lane (a hand-written Java
 copy) compares with an empty diff, and the two stdouts are the same.
+
+### 1.9 The proof report, v0
+
+`oracle/proof/ProofReport.java` writes what was compared: the fixture and the profile by hash, the
+gate's result (and nothing compared when it failed, PROOF-03), each dataset with its masks and the
+comparator's findings, each program's paragraphs entered and not entered from a traced run (`-ftrace`,
+which the report's test holds identical to the untraced run), and `docs/PROOF.md`'s "What it never
+covers" quoted verbatim (PROOF-01). `docs/PROOF.md` is written from R-013's sentence in the roadmap,
+its wording Ghost's (HANDOFF). Two reports are held as goldens: `oracle/proof/COPY.report.md` (the
+trivial fixture, the cobc lane against the java lane) and `oracle/proof/POSTTRAN.report.md` (the cobc
+lane against the study's frozen TRANFILE and rejects: the same; CBTRN02C 24 of 26 paragraphs entered,
+the two not entered its abend and I/O-status paragraphs).

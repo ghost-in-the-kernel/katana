@@ -37,6 +37,11 @@ public final class Layout {
         this.length = length;
     }
 
+    /** A record with no copybook (`copybook=-`): one text field of its whole length, compared as text. */
+    public static Layout raw(int lrecl) {
+        return new Layout(List.of(new Field("(record)", 0, lrecl, Kind.TEXT, false, 0)), lrecl);
+    }
+
     public List<Field> fields() {
         return fields;
     }

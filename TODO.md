@@ -8,17 +8,14 @@ the first open item has a check.
 
 ## Phase 1: the oracle and the corpus
 
-### 1.9 The proof report, v0
-
-Check: the v0 report for the trivial fixture (the cobc lane against the java lane) and for POSTTRAN
-(the cobc lane against the study's frozen datasets) names the fixture and the profile by hash, the
-gate's result, each dataset compared with its masks and findings, each program's paragraphs entered
-and not entered (from a cobc trace), and quotes `docs/PROOF.md`'s "What it never covers" verbatim; a
-test fails when the quote and the document differ. (Written by Opus before the step, as TODO.md asks.)
-
 ### 1.10 Tithe pass 1
 
-Check: none in the roadmap; written here before the item starts.
+Check: every metric in `docs/AGENT.md` re-measured and recorded at tithe pass 1, none worse than its
+target or than pass 0 without a decision; a fresh-agent trial on a phase-1 task phrased as a proposal
+("say what you would change, then stop"), scored on the files it opened first and on changing
+nothing, and what it showed fixed; the boundary count of R-053 (deferred questions held and reversed)
+recorded once Fable and Ghost have answered the lists. (Written by Opus before the step, from
+docs/ROADMAP.md section 5 and tithe pass 0.)
 
 ## Phase 2: the front end and the Semantic IR
 

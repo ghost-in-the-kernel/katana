@@ -1,15 +1,39 @@
 # What a proof is
 
-What a proof covers and what it never covers. Every shipped proof report quotes this document
-verbatim (`test/report.test`), so a buyer reads the same limits the code is held to. Filled in
-phase 1.9 with R-013 (docs/ROADMAP.md); until then, headings only.
+What a proof covers and what it never covers. Every proof report quotes the section "What it never
+covers" verbatim (`test/katana/oracle/proof/ProofReportTest.java`), so a buyer reads the same limits
+the code is held to. Written in phase 1.9 from R-013's sentence in docs/ROADMAP.md; its wording is
+Ghost's to settle (docs/HANDOFF.md, "For Ghost").
 
 Invariants are numbered PROOF-01 onward, in this document only, and a number is never reused.
 
 ## What a proof is
 
+A proof is a report that one lane's run of a fixture and another's (or a lane's and recorded gold)
+wrote the same datasets, field by field under their copybooks, after the original lane ran the job
+twice and the two runs were identical. It names the fixture and the profile by hash, the gate's
+result, every dataset compared, every mask applied and every finding, and which of the program's
+paragraphs the fixture entered.
+
 ## What it covers
+
+The datasets the fixture's job writes, from the datasets the fixture states, under the profile and
+the clock the fixture pins, on the paragraphs the fixture's data entered. Nothing else.
 
 ## What it never covers
 
+- Environment configuration: the job's real JCL, catalog, security, region sizes and site options
+  beyond what the fixture states.
+- Data outside the fixtures: a record of a shape, a value or a volume no fixture held.
+- Paragraphs the fixtures never entered: they are listed in the report, and proven by nothing.
+- Concurrency: jobs and transactions that run at the same time, their locking and their ordering.
+- I/O performance, before or after a change of storage: how long a job takes is not compared.
+- Governance: who may run the job, change it, or read what it writes.
+
 ## Invariants
+
+- **PROOF-01 Every proof report quotes "What it never covers" verbatim.** A test fails when the
+  quote and this section differ.
+- **PROOF-02 A proof is valid for one fixture and one profile.** Both are named by hash (P-12).
+- **PROOF-03 Nothing is compared before the gate passes.** A report whose gate failed says so and
+  compares nothing.
