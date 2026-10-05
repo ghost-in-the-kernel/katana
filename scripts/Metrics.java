@@ -141,6 +141,20 @@ final class Metrics {
         return Math.round((System.nanoTime() - started) / 1e9) + (status == 0 ? "" : " (failed)");
     }
 
+    /** Commits since the last whose subject starts "Tithe", a warning past eight (J-070: the one rule held by habit). */
+    static String cadence() {
+        try {
+            Process git = new ProcessBuilder("git", "log", "--format=%s", "-n", "200").directory(Repo.ROOT.toFile()).redirectErrorStream(true).start();
+            List<String> subjects = new String(git.getInputStream().readAllBytes()).lines().toList();
+            if (git.waitFor() != 0) return "not counted (no git history here)";
+            int since = 0;
+            while (since < subjects.size() && !subjects.get(since).startsWith("Tithe")) since++;
+            return since + " commits since the last tithe" + (since > 8 ? ": one is due" : "");
+        } catch (Exception e) {
+            return "not counted (" + e.getMessage() + ")";
+        }
+    }
+
     /** ROADMAP 4.2's warnings: they never fail; they say where to look. */
     static List<String> warnings() {
         List<String> lines = new ArrayList<>();
@@ -150,6 +164,8 @@ final class Metrics {
         lines.add("\nOver 15 lines or 6 paths, with no comment saying what it is for:");
         functions.stream().filter(f -> !f.documented() && (f.lines() > 15 || f.paths() > 6))
                 .forEach(f -> lines.add("  " + f.key() + " (line " + f.line() + "): " + f.lines() + " lines, " + f.paths() + " paths"));
+        lines.add("\nTithe cadence (R-008: every eighth commit):");
+        lines.add("  " + cadence());
         lines.add("\n`// Unsure:` lines (doubts written down; never failed):");
         Repo.files(".java").forEach((path, text) -> {
             String[] source = text.split("\n");

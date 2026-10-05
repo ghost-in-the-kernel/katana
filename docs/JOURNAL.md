@@ -863,3 +863,12 @@ taken; closed by a later `decision` entry naming it).
   Ghost's question mid-turn I ended the turn instead of going on. The rule: a question answered is not
   a stopping point; a step stops only when nothing reversible can be done.
 - **Touched:** `CLAUDE.md` (one row), `oracle/nist/IBM-CHANGES.md`, `docs/HANDOFF.md`.
+
+### J-073 Tithe pass 2a recorded: every metric within its target
+- **Who:** Opus. **Class:** measurement. **Intent:** HANDOFF's tithe 2a, item 6.
+- **Found:** context 795 words (872 at pass 1), fast loop 11 s warm and 20 s cold, largest file 344
+  lines, routing 4, nothing over 20 paths, no duplicate, every decision linked, docs per source 0.33
+  (0.45 armed: now within its 0.35), nothing stale or skipped; the pre-push check 3.4 minutes for
+  every suite, the one metric past its target. `gradle metrics` now counts commits since the last
+  tithe and says when one is due, so R-008's cadence is no longer held by habit (J-070).
+- **Touched:** `docs/AGENT.md` (pass 1's numbers kept beside), `scripts/Metrics.java`, HANDOFF.

@@ -3,7 +3,7 @@
 ## What to work on next
 
 `TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phases 0 and 1 are done
-(1.5 with one part of its check deferred, below); the boundary's reversals are built. Next: 2.1.
+(1.5 with one part of its check deferred, below). Phase 2: 2.1 and 2.3-2.5 done, 2.2 deferred to 7.2 (R-015).
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
@@ -15,31 +15,9 @@ six defaults hold, three roadmap wordings corrected)
 (phase 2's two answered 2026-10-05: the ANTLR tool jar accepted under R-001; che4z parked for good,
 R-015)
 
-## For Opus: tithe pass 2a, due now (R-008: 14 commits since the last tithe, none of them one)
+## For Opus
 
-In this order, each its own commit, goldens unchanged; measure before and after and record both in
-`docs/AGENT.md` and the journal:
-
-1. **The pre-push check, from 8–10 minutes toward 3.** It is the largest cost in the environment and
-   not yet a metric; make it one ("pre-push check, minutes", target < 3, armed at the measured value).
-   Three levers, each measured alone: (a) the corpus is content-pinned (SHA-256, fixed commits), so a
-   fresh clone need not refetch it: keep a verified corpus cache beside the clone and let `fetch.sh`
-   verify instead of fetch; (b) a Docker layer cache for the image; (c) **run what the change touches**
-   (Suite Builder's `check` rule): a `gradle check` task that maps touched paths to suites (`front/` →
-   the front corpus suite; `sir/` → the IR suites; `oracle/` → the lane suites; a doc → the doc tests
-   only) and prints why it chose each; `--all` runs everything, and the phase-boundary tithe always
-   runs `--all`. The commit message records which suites ran and why.
-2. **`CLAUDE.md` back under 800 words.** Two rows are stale beside their replacements ("The front end:
-   grammar, preprocessor, source map" and "The Semantic IR" duplicate the two newer rows); remove
-   them. Any row over five files is split by task, not padded.
-3. **The thirteen uncommented functions** the metrics list: a one-line purpose comment each, or a
-   split where the comment would say "and then".
-4. **Fresh-agent trial 2**, under R-043's wording: "Propose where a RECFM=V dataset's RDW handling
-   would go: say which files you would change and what you would write, then stop." Pass: `CLAUDE.md`
-   first, `docs/LANES.md` within three reads, no edits, LANE-02 named.
-5. **The journal's `trial` entries** so far (stderr determinism; RECFM=V; NC124A; DFHAID) each have a
-   result or a "not yet run" line; none is left ambiguous.
-6. Re-measure, record the pass in `docs/AGENT.md` with pass 1's numbers kept beside it, journal it.
+(tithe pass 2a done, J-071 to J-073; next: TODO.md from its first item, 2.6)
 
 ## Trials (R-052: a question settled by running something; the implementing agent runs it)
 
