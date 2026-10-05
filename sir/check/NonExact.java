@@ -3,10 +3,10 @@ package katana.sir.check;
 import java.util.ArrayList;
 import java.util.List;
 import katana.findings.Finding;
-import katana.front.Mapped;
 import katana.profile.Profile;
 import katana.sir.types.Attributes;
 import katana.sir.types.Item;
+import katana.sir.types.Origin;
 import katana.sir.types.Procedure;
 import katana.sir.types.Program;
 import katana.sir.types.Statement;
@@ -87,7 +87,7 @@ public final class NonExact {
         return g.name().isEmpty() ? "(paragraph " + index + (g.section().isEmpty() ? "" : " of " + g.section()) + ")" : g.name();
     }
 
-    private static String where(Mapped.Origin o) {
+    private static String where(Origin o) {
         return o.file() + ":" + o.line() + ":" + o.column();
     }
 }

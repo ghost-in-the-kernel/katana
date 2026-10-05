@@ -1,7 +1,6 @@
 package katana.sir.types;
 
 import java.util.List;
-import katana.front.Mapped;
 
 /**
  * A statement as an operation over fields: its verb, its operands each with the role it plays (MOVE's
@@ -10,7 +9,7 @@ import katana.front.Mapped;
  * its origin. A PERFORM, GO TO or ALTER names its targets as paragraph indexes in its operands' roles
  * and as edges of the paragraph graph.
  */
-public record Statement(String verb, List<Operand> operands, List<Branch> branches, Mapped.Origin origin) {
+public record Statement(String verb, List<Operand> operands, List<Branch> branches, Origin origin) {
     /** An operand and its role. */
     public record Operand(String role, Value value) {}
 

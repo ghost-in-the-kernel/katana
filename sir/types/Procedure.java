@@ -1,7 +1,6 @@
 package katana.sir.types;
 
 import java.util.List;
-import katana.front.Mapped;
 
 /**
  * The paragraph graph: the PROCEDURE DIVISION's USING items and RETURNING item (0 for none), its
@@ -10,14 +9,14 @@ import katana.front.Mapped;
  */
 public record Procedure(List<Integer> using, int returning, List<Section> sections, List<Paragraph> paragraphs, List<Edge> edges) {
     /** A section; a declarative one says what it is USE'd for. */
-    public record Section(String name, boolean declarative, String use, Mapped.Origin origin) {
+    public record Section(String name, boolean declarative, String use, Origin origin) {
         public Section {
             Invalid.origin(origin, "section " + name);
         }
     }
 
     /** A paragraph: its index in textual order, its name, its section ("" for none), its statements. */
-    public record Paragraph(int index, String name, String section, List<Statement> statements, Mapped.Origin origin) {
+    public record Paragraph(int index, String name, String section, List<Statement> statements, Origin origin) {
         public Paragraph {
             statements = List.copyOf(statements);
             Invalid.origin(origin, "paragraph " + name);
@@ -28,7 +27,7 @@ public record Procedure(List<Integer> using, int returning, List<Section> sectio
     public enum Kind { PERFORM, GO_TO, ALTER }
 
     /** An edge from a paragraph to another, through `thru` for a PERFORM range (the same paragraph when none). */
-    public record Edge(Kind kind, int from, int to, int thru, Mapped.Origin origin) {
+    public record Edge(Kind kind, int from, int to, int thru, Origin origin) {
         public Edge {
             Invalid.origin(origin, kind + " edge");
         }

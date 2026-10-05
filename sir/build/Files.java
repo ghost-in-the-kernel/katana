@@ -25,7 +25,7 @@ final class Files {
             FileDescriptor.Access access = FileDescriptor.Access.SEQUENTIAL;
             int key = 0, status = 0;
             List<FileDescriptor.AlternateKey> alternates = new ArrayList<>();
-            String where = parse.origin(e).toString();
+            String where = Origins.at(parse, e).toString();
             for (CobolParser.FileControlClauseContext c : e.fileControlClause()) {
                 if (c.assignClause() != null) assign = Values.upper(DataMap.text(c.assignClause()).replaceFirst("(?i)^ASSIGN\\s+(TO\\s+)?", "")).replaceAll("[\"']", "");
                 if (c.organizationClause() != null) organization = organization(c.organizationClause());
@@ -39,7 +39,7 @@ final class Files {
             }
             List<Integer> mine = records.getOrDefault(name, List.of());
             int min = mine.stream().mapToInt(lengths::get).min().orElse(0), max = mine.stream().mapToInt(lengths::get).max().orElse(0);
-            files.add(new FileDescriptor(name, assign, organization, access, key, alternates, status, mine, min, max, parse.origin(e)));
+            files.add(new FileDescriptor(name, assign, organization, access, key, alternates, status, mine, min, max, Origins.at(parse, e)));
         }
         return files;
     }

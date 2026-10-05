@@ -1,7 +1,6 @@
 package katana.sir.types;
 
 import java.util.List;
-import katana.front.Mapped;
 
 /**
  * A file: its name, what it is ASSIGNed to, its organization and access, its RECORD KEY item and
@@ -9,7 +8,7 @@ import katana.front.Mapped;
  * 01s under its FD), the smallest and largest record in bytes, and its origin.
  */
 public record FileDescriptor(String name, String assign, Organization organization, Access access, int recordKey, List<AlternateKey> alternateKeys,
-        int status, List<Integer> records, int minRecord, int maxRecord, Mapped.Origin origin) {
+        int status, List<Integer> records, int minRecord, int maxRecord, Origin origin) {
     public enum Organization { SEQUENTIAL, LINE_SEQUENTIAL, INDEXED, RELATIVE }
 
     public enum Access { SEQUENTIAL, RANDOM, DYNAMIC }

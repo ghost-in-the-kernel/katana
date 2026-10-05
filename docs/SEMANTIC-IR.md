@@ -93,4 +93,6 @@ shape: `lower/golden/<PROG>.java`, the generated Java byte for byte, a refactor 
   statements under no paragraph name (at the start of the body or of a section) are a paragraph named
   ""; every edge joins two of them.
 - **SIR-07 Everything has an origin.** Each item, condition, paragraph, section, statement, file, CALL,
-  edge and the header carry the place in the COBOL they came from (2.3's source map).
+  edge and the header carry the place in the COBOL they came from (2.3's source map), as the IR's own
+  `Origin` (file, line, column, and its `Kind`: source, replaced or added), so a reader of the IR needs
+  nothing of the front end.

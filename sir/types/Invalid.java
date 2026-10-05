@@ -1,6 +1,5 @@
 package katana.sir.types;
 
-import katana.front.Mapped;
 
 /** An IR that breaks an invariant; its message starts with the invariant's number. */
 public final class Invalid extends IllegalArgumentException {
@@ -9,7 +8,7 @@ public final class Invalid extends IllegalArgumentException {
     }
 
     /** SIR-07: everything in the IR says where in the COBOL it came from. */
-    static void origin(Mapped.Origin origin, String what) {
+    static void origin(Origin origin, String what) {
         if (origin == null) throw new Invalid("SIR-07", what + " has no origin");
     }
 }

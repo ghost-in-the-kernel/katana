@@ -1,7 +1,6 @@
 package katana.sir.types;
 
 import java.util.List;
-import katana.front.Mapped;
 
 /**
  * One data item of the data map: its number (1, 2, ... in textual order), name ("FILLER" for none),
@@ -11,7 +10,7 @@ import katana.front.Mapped;
  * condition names (88s), and its origin.
  */
 public record Item(int id, String name, int level, int parent, int record, Section section, int offset, int length, Attributes attributes,
-        int redefines, Occurs occurs, int syncSlack, String value, List<Condition> conditions, Mapped.Origin origin) {
+        int redefines, Occurs occurs, int syncSlack, String value, List<Condition> conditions, Origin origin) {
     /** Where an item is declared. */
     public enum Section { FILE, WORKING_STORAGE, LOCAL_STORAGE, LINKAGE }
 
@@ -28,7 +27,7 @@ public record Item(int id, String name, int level, int parent, int record, Secti
     public record Key(int item, boolean ascending) {}
 
     /** An 88: its name and its values as written, a range as `low THRU high`. */
-    public record Condition(String name, List<String> values, Mapped.Origin origin) {
+    public record Condition(String name, List<String> values, Origin origin) {
         public Condition {
             values = List.copyOf(values);
             Invalid.origin(origin, "condition " + name);

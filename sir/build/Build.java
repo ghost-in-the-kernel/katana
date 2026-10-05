@@ -57,7 +57,7 @@ public final class Build {
         values.cics = first(unit.procedureDivision(), CobolParser.ExecCicsStatementContext.class) != null;
         Paragraphs paragraphs = new Paragraphs(parse, values, findings);
         Procedure procedure = unit.procedureDivision() == null
-                ? new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(0, "", "", List.of(), parse.origin(unit))), List.of())
+                ? new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(0, "", "", List.of(), Origins.at(parse, unit))), List.of())
                 : paragraphs.build(unit.procedureDivision(), using(unit.procedureDivision(), names), returning(unit.procedureDivision(), names));
         List<Program> nested = new ArrayList<>();
         List<Names> inside = new ArrayList<>(outer);
@@ -66,7 +66,7 @@ public final class Build {
         files.forEach(f -> insideFiles.add(f.name()));
         for (var inner : unit.programUnit()) nested.add(program(parse, inner, profileHash, findings, inside, insideFiles));
         var id = unit.identificationDivision().programIdParagraph();
-        Header header = new Header(Values.upper(id.programName().getText()).replaceAll("[\"']", ""), parse.origin(unit).file(), profileHash, parse.origin(id));
+        Header header = new Header(Values.upper(id.programName().getText()).replaceAll("[\"']", ""), Origins.at(parse, unit).file(), profileHash, Origins.at(parse, id));
         return new Program(header, data.items(), files, procedure, paragraphs.calls, nested);
     }
 
@@ -139,9 +139,9 @@ public final class Build {
                 } else if (s.linkageSection() != null) {
                     map.section(Item.Section.LINKAGE, s.linkageSection().dataDescriptionEntry());
                 } else if (s.reportSection() != null) {
-                    findings.add("REPORT SECTION at " + parse.origin(s) + ": Report Writer is not in Enterprise COBOL; its groups are not in the data map");
+                    findings.add("REPORT SECTION at " + Origins.at(parse, s) + ": Report Writer is not in Enterprise COBOL; its groups are not in the data map");
                 } else if (s.communicationSection() != null) {
-                    findings.add("COMMUNICATION SECTION at " + parse.origin(s) + ": not in Enterprise COBOL; its descriptions are not in the data map");
+                    findings.add("COMMUNICATION SECTION at " + Origins.at(parse, s) + ": not in Enterprise COBOL; its descriptions are not in the data map");
                 }
             }
         }

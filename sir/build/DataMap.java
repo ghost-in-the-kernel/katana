@@ -148,7 +148,7 @@ final class DataMap {
     private void condition(CobolParser.DataDescriptionEntryFormat3Context c) {
         List<String> values = new ArrayList<>();
         for (var interval : c.dataValueClause().dataValueInterval()) values.add(text(interval));
-        lastEntry.conditions.add(new Item.Condition(c.conditionName().getText().toUpperCase(Locale.ROOT), values, parse.origin(c)));
+        lastEntry.conditions.add(new Item.Condition(c.conditionName().getText().toUpperCase(Locale.ROOT), values, Origins.at(parse, c)));
     }
 
     /** A 66: the record's bytes from its first item through its last, as an item of the record. */
@@ -204,7 +204,7 @@ final class DataMap {
             Node m = nodes.get(i);
             if (m.parent == n.parent && m.name.equals(name) && (n.parent != 0 || m.level == n.level)) return m.id;
         }
-        findings.add("REDEFINES " + name + " at " + parse.origin(n.ctx) + " names no preceding item of its level");
+        findings.add("REDEFINES " + name + " at " + Origins.at(parse, n.ctx) + " names no preceding item of its level");
         return 0;
     }
 
@@ -298,7 +298,7 @@ final class DataMap {
         for (Node n : nodes) {
             Item.Occurs occurs = n.occursMax == 0 ? null : new Item.Occurs(n.occursMin, n.occursMax, n.dependingOn, keys(n), indexes(n));
             items.add(new Item(n.id, n.name, n.level, n.parent, n.record, n.section, n.offset, n.length, attributes(n), n.redefines, occurs, n.syncSlack, n.value,
-                    n.conditions, parse.origin(n.ctx)));
+                    n.conditions, Origins.at(parse, n.ctx)));
         }
         return items;
     }

@@ -105,7 +105,7 @@ final class Values {
         List<String> qualifiers = new ArrayList<>();
         String file = f.inFile() == null ? null : upper(f.inFile().fileName().getText());
         for (var in : f.qualifiedInData()) qualifiers.add(upper(in.inData() != null ? in.inData().dataName().getText() : in.inTable().tableCall().qualifiedDataName().getText()));
-        int item = names.item(name, qualifiers, file, parse.origin(q).toString());
+        int item = names.item(name, qualifiers, file, Origins.at(parse, q).toString());
         if (item != 0) return new Value.Field(item, subscripts, start, length);
         int owner = names.condition(name, qualifiers, file);
         if (owner != 0) return new Value.ConditionName(owner, name, subscripts);
@@ -120,12 +120,12 @@ final class Values {
      */
     private Value named(String text, List<String> qualifiers, ParserRuleContext where) {
         String name = upper(text);
-        int item = names.item(name, qualifiers, null, parse.origin(where).toString());
+        int item = names.item(name, qualifiers, null, Origins.at(parse, where).toString());
         if (item != 0) return new Value.Field(item, List.of(), null, null);
         if (mnemonics.contains(name)) return new Value.Name("mnemonic", name);
         for (Names o : outer) if (o.item(name, qualifiers, null, "") != 0) return new Value.Name("global", name);
         if (cics && (name.startsWith("EIB") || name.equals("DFHRESP") || name.equals("DFHVALUE"))) return new Value.Name("cics", name);
-        findings.add(upper(text) + " at " + parse.origin(where) + " names no item");
+        findings.add(upper(text) + " at " + Origins.at(parse, where) + " names no item");
         return new Value.Name("unresolved", upper(text));
     }
 
@@ -139,11 +139,11 @@ final class Values {
         List<Value> subscripts = new ArrayList<>();
         for (var s : c.conditionNameSubscriptReference()) for (var sub : s.subscript()) subscripts.add(of(sub.getChild(0)));
         if (owner != 0) return new Value.ConditionName(owner, name, subscripts);
-        int item = names.item(name, qualifiers, file, parse.origin(c).toString());
+        int item = names.item(name, qualifiers, file, Origins.at(parse, c).toString());
         if (item != 0) return new Value.Field(item, subscripts, null, null);
         if (!c.inMnemonic().isEmpty() || mnemonics.contains(name)) return new Value.Name("switch", name);
         for (Names o : outer) if (o.condition(name, qualifiers, file) != 0) return new Value.Name("global", name);
-        findings.add(name + " at " + parse.origin(c) + " names no condition");
+        findings.add(name + " at " + Origins.at(parse, c) + " names no condition");
         return new Value.Name("unresolved", name);
     }
 

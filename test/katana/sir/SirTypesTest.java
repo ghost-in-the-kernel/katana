@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
-import katana.front.Mapped;
+import katana.sir.types.Origin;
 import katana.sir.types.Attributes;
 import katana.sir.types.FileDescriptor;
 import katana.sir.types.Header;
@@ -23,8 +23,8 @@ import org.junit.jupiter.api.Test;
 class SirTypesTest {
     private static final String HASH = "sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc";
 
-    private static Mapped.Origin at(String file, int line, int column) {
-        return new Mapped.Origin(file, line, column, Mapped.Kind.SOURCE);
+    private static Origin at(String file, int line, int column) {
+        return new Origin(file, line, column, Origin.Kind.SOURCE);
     }
 
     private static Attributes text(int length) {
@@ -37,7 +37,7 @@ class SirTypesTest {
 
     private static final Attributes GROUP = new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.GROUP, 0, 0, false, false, false, "");
 
-    private static Item item(int id, String name, int level, int parent, int record, Item.Section section, int offset, int length, Attributes a, String value, Mapped.Origin origin) {
+    private static Item item(int id, String name, int level, int parent, int record, Item.Section section, int offset, int length, Attributes a, String value, Origin origin) {
         return new Item(id, name, level, parent, record, section, offset, length, a, 0, null, 0, value, List.of(), origin);
     }
 

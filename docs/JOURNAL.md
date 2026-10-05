@@ -921,3 +921,10 @@ taken; closed by a later `decision` entry naming it).
   contract lines with COPYREC's. Only SM106A copies (K6SCA). The goldens live in `sir/golden/` and run in
   the fast loop, no corpus needed.
 - **Touched:** `sir/golden/`, `IrGoldenTest`, `ContractTest`, `docs/SEMANTIC-IR.md`.
+
+### J-077 Tithe pass 2, A2: the IR's own Origin
+- **Who:** Opus. **Class:** build. **Intent:** `lower/` may import `sir` only.
+- **Found:** nine `sir/types` files and `sir/check` used the front end's `Mapped.Origin`. `sir/types/Origin`
+  (file, line, column, kind) replaces it, and `sir/build/Origins` is the one conversion. `sir/types` no
+  longer names `katana.front`; no golden changed.
+- **Touched:** `sir/types/`, `sir/build/`, `sir/check/NonExact.java`, `SirTypesTest`, SEMANTIC-IR.md.

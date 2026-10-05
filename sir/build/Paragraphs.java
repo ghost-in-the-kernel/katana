@@ -5,9 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import katana.front.Mapped;
 import katana.front.Parse;
 import katana.front.grammar.CobolParser;
+import katana.sir.types.Origin;
 import katana.sir.types.Call;
 import katana.sir.types.Procedure;
 import katana.sir.types.Statement;
@@ -56,14 +56,14 @@ final class Paragraphs {
             Raw r = raw.get(i);
             List<Statement> statements = new ArrayList<>();
             for (var sentence : r.sentences()) for (var st : sentence.statement()) statements.add(statement(st));
-            built.add(new Procedure.Paragraph(i, r.name(), r.section(), statements, parse.origin(r.at())));
+            built.add(new Procedure.Paragraph(i, r.name(), r.section(), statements, Origins.at(parse, r.at())));
         }
         return new Procedure(using, returning, sections, built, edges);
     }
 
     private void section(CobolParser.ProcedureSectionHeaderContext header, CobolParser.ParagraphsContext body, boolean declarative, String use) {
         String name = Values.upper(header.sectionName().getText());
-        sections.add(new Procedure.Section(name, declarative, use, parse.origin(header)));
+        sections.add(new Procedure.Section(name, declarative, use, Origins.at(parse, header)));
         int first = raw.size();
         paragraphs(name, body, header);
         sectionRanges.put(name, new int[] {first, raw.size() - 1});
@@ -83,7 +83,7 @@ final class Paragraphs {
         walk(verb, verb, operands, branches);
         List<Statement.Branch> built = new ArrayList<>();
         branches.forEach((label, list) -> built.add(new Statement.Branch(label, null, list)));
-        Mapped.Origin origin = parse.origin(s);
+        Origin origin = Origins.at(parse, s);
         edges(verb, origin);
         if (verb instanceof CobolParser.CallStatementContext c) calls.add(call(c, origin));
         return new Statement(verbName(verb), operands, built, origin);
@@ -106,7 +106,7 @@ final class Paragraphs {
     }
 
     /** PERFORM a [THRU b], GO TO a ... and ALTER a TO b, as edges from the paragraph they are in. */
-    private void edges(ParserRuleContext verb, Mapped.Origin origin) {
+    private void edges(ParserRuleContext verb, Origin origin) {
         if (verb instanceof CobolParser.PerformStatementContext p && p.performProcedureStatement() != null) {
             var names = p.performProcedureStatement().procedureName();
             int[] from = range(names.get(0)), thru = range(names.get(names.size() - 1));
@@ -128,7 +128,7 @@ final class Paragraphs {
     private Value target(CobolParser.ProcedureNameContext p) {
         int[] r = range(p);
         if (r != null) return new Value.Target(r[0], r[1]);
-        findings.add("procedure " + Values.upper(p.getText()) + " at " + parse.origin(p) + " names no paragraph or section");
+        findings.add("procedure " + Values.upper(p.getText()) + " at " + Origins.at(parse, p) + " names no paragraph or section");
         return new Value.Name("unresolved procedure", Values.upper(p.getText()));
     }
 
@@ -150,7 +150,7 @@ final class Paragraphs {
     }
 
     /** A CALL's target, its USING arguments each with its mode, and its RETURNING field. */
-    private Call call(CobolParser.CallStatementContext c, Mapped.Origin origin) {
+    private Call call(CobolParser.CallStatementContext c, Origin origin) {
         Value target = values.of(c.identifier() != null ? c.identifier() : c.literal());
         List<Call.Argument> using = new ArrayList<>();
         if (c.callUsingPhrase() != null) {

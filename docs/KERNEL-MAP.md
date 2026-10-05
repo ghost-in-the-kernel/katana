@@ -606,3 +606,6 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/check/NonExact.java:NonExact.range` | called by `sir/build/Paragraphs.java:Paragraphs.edges` and 2 more | 2026-10-05 |  |
 | sir | `sir/check/NonExact.java:NonExact.name` | called by `oracle/compare/Layout.java:Layout.place` and 40 more | 2026-10-05 |  |
 | sir | `sir/check/NonExact.java:NonExact.where` | called by `findings/Finding.java:Finding.report` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Origins.java:Origins.Origins` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Origins.java:Origins.at` | called by `sir/build/Build.java:Build.program#2` and 12 more | 2026-10-05 |  |
+| sir | `sir/types/Origin.java:Origin.toString` | called by `findings/Finding.java:Finding.report` and 50 more | 2026-10-05 |  |
