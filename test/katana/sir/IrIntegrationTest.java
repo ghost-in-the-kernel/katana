@@ -14,7 +14,9 @@ import katana.front.Copybooks;
 import katana.front.Parse;
 import katana.oracle.nist.NistSources;
 import katana.sir.build.Build;
+import katana.profile.Profile;
 import katana.sir.check.Check;
+import katana.sir.check.NonExact;
 import katana.sir.contract.Contract;
 import katana.sir.json.IrJson;
 import katana.sir.types.Program;
@@ -35,7 +37,8 @@ class IrIntegrationTest {
     private static final String HEADER = """
             # Phase 2.5 (docs/ROADMAP.md): each corpus's programs built to the Semantic IR under the ibm profile, as
             # `corpus NAME programs P built B round-trip R build-findings F check-findings C contract-facts N`, then each program
-            # that did not build or round-trip. Written by `gradle integration -Dkatana.record=true`.
+            # that did not build or round-trip; then `non-exact NAME` with each F-08 kind found and how often (2.7).
+            # Written by `gradle integration -Dkatana.record=true`.
             """;
 
     @Test
@@ -59,6 +62,8 @@ class IrIntegrationTest {
     /** One corpus: each program that parses built, checked, and round-tripped; the counts, and what failed. */
     private static String corpus(String name, Map<String, Path> programs, Copybooks books) throws Exception {
         int parsed = 0, built = 0, roundTrip = 0, buildFindings = 0, checkFindings = 0, facts = 0;
+        Map<String, Integer> nonExact = new TreeMap<>();
+        Profile ibm = Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile")));
         List<String> failures = new ArrayList<>();
         for (var entry : programs.entrySet()) {
             Parse.Result parse = Parse.file(entry.getValue(), books, 8);
@@ -69,6 +74,7 @@ class IrIntegrationTest {
                 built++;
                 buildFindings += result.findings().size();
                 checkFindings += Check.findings(result.program()).size();
+                NonExact.findings(result.program(), ibm).forEach(f -> nonExact.merge(f.kind().code, 1, Integer::sum));
                 String json = IrJson.write(result.program());
                 Program back = IrJson.read(json, Program.class);
                 List<String> contract = Contract.lines(result.program());
@@ -81,6 +87,7 @@ class IrIntegrationTest {
         }
         StringBuilder out = new StringBuilder("corpus " + name + " programs " + parsed + " built " + built + " round-trip " + roundTrip
                 + " build-findings " + buildFindings + " check-findings " + checkFindings + " contract-facts " + facts + "\n");
+        out.append("non-exact ").append(name).append(nonExact.isEmpty() ? " none" : nonExact.entrySet().stream().map(e -> " " + e.getKey() + " " + e.getValue()).collect(Collectors.joining())).append('\n');
         failures.forEach(f -> out.append(f).append('\n'));
         return out.toString();
     }

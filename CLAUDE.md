@@ -14,9 +14,9 @@ at the plan.
 
 | Task | Start here | Contract | Tests |
 | --- | --- | --- | --- |
-| A module of Katana: add one, or change what it may import | `docs/modules.json` (its `adding` line) | `docs/ROADMAP.md` §3.3 | `test/ModulesTest.java` |
+| A module: add one, or change its imports | `docs/modules.json` (its `adding` line) | `docs/ROADMAP.md` §3.3 | `test/ModulesTest.java` |
 | A decision, a plan, what to work on | `theGhost.md`, `TODO.md`, `docs/HANDOFF.md` | `theGhost.md` | `test/GhostTest.java` |
-| Writing down what happened (a contradiction, a failure caught, a decision) | `docs/JOURNAL.md` (one entry, its fields) | R-046 | |
+| Writing down what happened | `docs/JOURNAL.md` (one entry, its fields) | R-046 | |
 | A word | `docs/GLOSSARY.md` | | `test/GlossaryTest.java` |
 | Why a rule is what it is (when it seems arbitrary) | `docs/GHOST-IN-THE-KERNEL.md` | | |
 | A job fixture: what a lane runs; the CardDemo jobs | `oracle/fixture/Schema.java`, `oracle/fixture/FixtureCheck.java`, `oracle/fixture/carddemo/` | `docs/FIXTURE.md` | `test/katana/oracle/fixture/FixtureTest.java`, `test/katana/oracle/fixture/FixtureDocTest.java` |
@@ -27,6 +27,7 @@ at the plan.
 | The front end: COBOL to a parse tree, COPY and REPLACE, the source map | `front/Parse.java`, `front/Lines.java`, `front/Preprocessor.java`, `front/Mapped.java`; front/grammar (ProLeap's, forked, MIT) | docs/ROADMAP.md 2.1, 2.3 | `test/katana/front/ParseTest.java`, `test/katana/front/FrontCorpusIntegrationTest.java` (`front/corpus.golden`) |
 | The Semantic IR: what a program does, as data, and its contract | `sir/types/Program.java`, `sir/types/Item.java`, `sir/types/Statement.java`, `sir/contract/Contract.java` | `docs/SEMANTIC-IR.md` (SIR-01 onward), R-007 | `test/katana/sir/SirDocTest.java`, `test/katana/sir/SirTypesTest.java` |
 | Tree to IR (`sir/build`), its findings (`sir/check`), JSON (`sir/json`) | `sir/build/Build.java`, `sir/build/DataMap.java`, `sir/build/Paragraphs.java`, `sir/build/Values.java` | `cobc -C`'s layout (`sir/datamap.golden`); SIR-01 onward | `test/katana/sir/BuildTest.java`, `test/katana/sir/DataMapIntegrationTest.java`, `test/katana/sir/IrIntegrationTest.java` (`sir/ir.golden`) |
+| Findings: what cannot be made exact, said first | `findings/Finding.java`, `sir/check/NonExact.java` | `docs/FINDINGS.md` | `test/katana/sir/NonExactTest.java` |
 | The proof report, v0 | `oracle/proof/ProofReport.java`, `docs/PROOF.md`, `oracle/proof/POSTTRAN.report.md`, `oracle/lane/Paragraphs.java` | `docs/PROOF.md` (PROOF-01 to 03), R-013 | `test/katana/oracle/proof/ProofReportTest.java`, `test/katana/oracle/lane/ProofIntegrationTest.java` |
 | The dialect profile | `profile/Profile.java`, `profile/ibm.profile` | `docs/PROFILE.md` | `test/katana/profile/ProfileTest.java` |
 | The literal lowering and the runtime | `lower/`, `rt/` (phase 3) | `docs/research/semantic_traps.md` until `docs/SEMANTIC-IR.md` covers it | the 359 autotests; NIST through the java lane |

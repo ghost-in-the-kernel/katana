@@ -881,3 +881,13 @@ taken; closed by a later `decision` entry naming it).
   are written in one token each (`#7`, `file:IN-FILE`, `(= #6 'Y')`). The fast loop's test task now
   passes `katana.record`, so a fast-loop golden can be rewritten like an integration one.
 - **Touched:** `sir/contract/`, `docs/SEMANTIC-IR.md`, the sir tests, `build.gradle`, CLAUDE.md.
+
+### J-075 Phase 2.7: F-08's findings from the IR, and how often the corpus has them
+- **Who:** Opus. **Class:** build. **Intent:** 2.7's check.
+- **Found:** the `findings` module may import nothing, so it holds the kinds and the report and
+  `sir/check` finds them; `NonExact` refuses a profile other than the one the IR was built under. Over
+  the corpus: CardDemo 2 unguarded divisions and 2 ODO tables; NIST 1 overlapping range, 1 recursive
+  PERFORM, 233 unguarded divisions, 13 ODO tables; OMP 2 divisions. Division without ON SIZE ERROR is
+  the common one: phase 3's lowering must say what it does with each. F-08's last class,
+  uninitialized reads, needs data flow and is listed in FINDINGS.md as not yet found.
+- **Touched:** `findings/`, `sir/check/NonExact.java`, `docs/FINDINGS.md`, tests, CLAUDE.md.

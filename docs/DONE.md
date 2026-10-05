@@ -247,3 +247,12 @@ occurs, value, condition, file, paragraph, falls, edge, statement, call, using);
 contracts fact for fact. `docs/SEMANTIC-IR.md` tables the kinds (`ContractTest` holds both); COPYREC's
 contract is `sir/contract/COPYREC.contract`; the corpus's contracts (CardDemo 23,802 facts, NIST
 415,863, OMP 2,915) are the same lines from the IR read back from JSON (`sir/ir.golden`). J-074.
+
+### 2.7 Findings, first set
+
+`findings/Finding.java` (the kinds NE-01 to NE-06 and the report, by kind then place) and
+`sir/check/NonExact.java`, which finds F-08's classes in the IR under the profile it was built with:
+TRUNC(OPT) over binary items, overlapping and recursive PERFORM ranges, division without ON SIZE
+ERROR, ODO tables, COMP-1 and COMP-2. `NonExactTest` holds the check (TRUNC(OPT) and an overlapping
+range each a finding, a nested range not); `docs/FINDINGS.md` tables the kinds (`FindingsDocTest`);
+`sir/ir.golden` counts them over the corpus. Uninitialized reads wait for phase 5's data flow. J-075.

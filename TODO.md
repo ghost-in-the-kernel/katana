@@ -17,11 +17,6 @@ Check: every `EXEC CICS` and `EXEC SQL` in the corpus parses to a command tree o
 Stopped (R-053, no reversible default): the graft needs che4z's EPL-2.0 grammars in the tree, which
 R-015 admits only after counsel. Measured outside the tree (J-064); waiting on Ghost (HANDOFF).
 
-### 2.7 Findings, first set
-
-Check: a program using TRUNC(OPT) or an overlapping PERFORM range produces the finding before any
-lowering.
-
 ### 2.8 Tithe pass 2
 
 Check: none in the roadmap; written here before the item starts.

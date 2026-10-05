@@ -595,3 +595,14 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/contract/Contract.java:Contract.call` | called by `sir/build/Paragraphs.java:Paragraphs.statement` | 2026-10-05 |  |
 | sir | `sir/contract/Contract.java:Contract.value` | called by `oracle/compare/Compare.java:Compare.record` and 17 more | 2026-10-05 |  |
 | sir | `sir/contract/Contract.java:Contract.quoted` | called by `oracle/fixture/Fixture.java:Fixture.canonical` and 2 more | 2026-10-05 |  |
+| findings | `findings/Finding.java:Finding.Kind.Kind` | no caller | 2026-10-05 |  |
+| findings | `findings/Finding.java:Finding.report` | no caller | 2026-10-05 |  |
+| sir | `sir/check/NonExact.java:NonExact.NonExact` | no caller | 2026-10-05 |  |
+| sir | `sir/check/NonExact.java:NonExact.findings` | called by `oracle/proof/ProofReport.java:ProofReport.compared` and 1 more | 2026-10-05 |  |
+| sir | `sir/check/NonExact.java:NonExact.check` | called by `sir/check/Check.java:Check.findings` and 2 more | 2026-10-05 |  |
+| sir | `sir/check/NonExact.java:NonExact.ranges` | called by `oracle/lane/Gate.java:Gate.dataset` and 1 more | 2026-10-05 |  |
+| sir | `sir/check/NonExact.java:NonExact.division` | called by `sir/check/NonExact.java:NonExact.check` | 2026-10-05 |  |
+| sir | `sir/check/NonExact.java:NonExact.divides` | called by `sir/check/NonExact.java:NonExact.division` | 2026-10-05 |  |
+| sir | `sir/check/NonExact.java:NonExact.range` | called by `sir/build/Paragraphs.java:Paragraphs.edges` and 2 more | 2026-10-05 |  |
+| sir | `sir/check/NonExact.java:NonExact.name` | called by `oracle/compare/Layout.java:Layout.place` and 40 more | 2026-10-05 |  |
+| sir | `sir/check/NonExact.java:NonExact.where` | called by `findings/Finding.java:Finding.report` and 3 more | 2026-10-05 |  |
