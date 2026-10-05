@@ -752,6 +752,38 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-005, R-014, R-015, R-045, R-049, R-053
 - **subject:** process
 
+### R-056: A check names its oracle, carries the mutation that turns it red, and its verdict stops an action
+- **Decision:** Every golden, integration and rule check in Katana declares three things, held by a
+  meta-test: (a) **its oracle**: what the expected side is and where it comes from (`cobc -C`'s
+  layout, NIST's reports, the grammar's tokens, a spec, a golden written by another process), and the
+  meta-test refuses an oracle whose path lies inside the module under test; (b) **its killer
+  mutation**: one change to the thing under test that must turn the check red (drop a contract line,
+  shift an offset, remove a token, run zero tests), and the meta-test applies each mutation and fails
+  if the check stays green; (c) **its consequence**: the action the verdict gates (the commit, the
+  push, the merge), so a red verdict is never advisory. A test task that selected a suite and ran
+  zero tests is red. Unit tests with literal expected values satisfy (a) and (b) by construction and
+  declare only (c) through the task that runs them.
+- **Why:** Four failures in two days with one shape. J-006: `gradle test` marked the doc tests up to
+  date and zero runs counted as a pass (could not fail). J-073: the IR round trip compared the IR
+  with itself and the contract count discarded its lines; every keyword alternative was lost while
+  every check was green (could not fail). The CI with no minutes (R-050) was red on every commit and
+  told no one anything (could not pass). J-040: the tests ran, the failure printed, and the push went
+  ahead because the script did not gate on the exit code (the verdict stopped nothing). A check is
+  worth what it can refute, and only when refuting stops something.
+- **Claims:** C-1 the three cases that could not fail share the self-comparison or zero-run shape:
+  `verified` (J-006, J-073, the IR golden's counts). C-2 one declared mutation per check is enough
+  to catch the self-comparison shape: `hypothesis`; the meta-test's first run over the existing checks
+  (tithe pass 2, A7) is the trial, and a check it cannot kill is a finding. C-3 the oracle-path rule
+  catches most non-independence: `hypothesis`; an oracle reimplementing the same logic elsewhere
+  is the case it cannot catch, and stays judgment (`docs/GHOST-IN-THE-KERNEL.md`).
+- **Held by:** the meta-test (tithe pass 2, A7); the test task's zero-run rule; `scripts/prepush.sh`
+  and every commit script gating on the exit code (R-040).
+- **Source:** Opus's analysis and draft at Ghost's request (2026-10-05, J-078); the fourth case
+  added by Fable; decided by Ghost, recorded by Fable.
+- **Status:** in force
+- **See also:** R-017, R-040, R-050, R-052, P-11
+- **subject:** checks
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018

@@ -7,22 +7,8 @@
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
-- **A proposed decision for Fable to word and record** (Ghost said yes, 2026-10-05; drafted by Opus,
-  J-078): *a check is worth what it can refute.*
-  - **Decision (draft):** Every check compares the thing under test with a side that thing did not
-    produce (its oracle: another compiler, a golden written by a different process, the grammar's
-    tokens, NIST's reports, a spec), and carries at least one known-bad case it is shown to reject.
-    A suite selected to run that executes no test is red.
-  - **Why:** three checks this project trusted could not fail on what they guarded: a Gradle task
-    always green because no test matched (J-006), the CI always red for want of minutes (R-050), and
-    the IR's round trip, which compared the IR with itself (tithe pass 2's evaluation). Each time the
-    fix was a test that read the other side.
-  - **Held by (proposed, a tithe item):** (1) the test task fails when a selected suite runs zero
-    tests; (2) a registry of checks, each naming its oracle and a mutation (drop one contract line,
-    shift one data-map offset, remove one token from a statement) that a meta-test applies and
-    requires to turn the check red; `MetricsTest`'s `rejects(...)` is the pattern already in the tree.
-  - **What code cannot hold:** whether an oracle is truly independent of the code under test. That is
-    the principle, for `docs/GHOST-IN-THE-KERNEL.md`; the decision holds the half a test can.
+(the "check is worth what it can refute" proposal of J-078 is recorded as R-056, with the
+consequence clause added: a verdict must stop an action; the meta-test is tithe item A7)
 
 (2.8's tithe evaluation and plan: written 2026-10-05, below under "For Opus: tithe pass 2")
 
@@ -78,6 +64,13 @@ A5. **Per-program IR goldens.** `sir/ir.golden` is counts; `Contract.lines` are 
     (`IrIntegrationTest.java:81`). Commit the contract lines for COPYREC and one NIST program per
     module as text goldens in the fast loop, so A1–A4 land as reviewable diffs; define the lowered-Java
     golden format beside them (`lower/golden/<prog>.java`, byte-identical, P-02). ~3 h.
+A7. **The check meta-test (R-056).** A registry where each golden, integration and rule check
+    declares its oracle (a path or tool outside the module under test), one killer mutation, and the
+    task it gates; the meta-test applies each mutation and fails if the check stays green, refuses an
+    oracle inside the module, and makes a suite that ran zero tests red. First run over the existing
+    checks: a check the meta-test cannot kill is a finding, listed. ~8 h. *Check:* the IR round trip
+    and the contract count each have a mutation that kills them (A1's token test is the oracle); the
+    zero-run case from J-006 is red.
 A6. **Pin the role vocabulary.** Roles and verbs are grammar rule names; the lowering's switch must
     be exhaustive. `sir/roles.golden` generated from the walker, held by a test; phase 3's `lower/`
     test checks its table covers it. ~3 h.
