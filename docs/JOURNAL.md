@@ -1094,3 +1094,14 @@ taken; closed by a later `decision` entry naming it).
   `self` declaration, one outside the module's folder (HANDOFF "For Fable").
 - **Resolved:** A7. **Touched:** `docs/checks.json`, `test/ChecksTest.java`, `test/DocTests.java`,
   `build.gradle`, `CobcLayoutTest`, R-056's Held by, HANDOFF.
+
+### J-089 Tithe pass 2, C1: the kernel map's body was stale by construction
+- **Who:** Opus. **Class:** build. **Intent:** a ledger whose columns are true.
+- **Found:** 640 of the map's rows said only "called by X" (or "no caller"): written once at a
+  function's first sight and never changed, since a row is never changed, and found by a name-only
+  scan that made `Placement.resolve` "called by FixtureCheck.profiles and 29 more". No function in
+  a module cites a `// Decision:` yet, so the plan's other column would be empty too. The script now
+  writes the cited decision or nothing; the open rows were rewritten once to match (the one change to
+  existing rows the map has had, said in its header); the superseded and removed ledger, which is
+  the map's job, is untouched. 90 KB to 59 KB.
+- **Resolved:** C1. **Touched:** `scripts/KernelMap.java`, `docs/KERNEL-MAP.md`.

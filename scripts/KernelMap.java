@@ -79,17 +79,18 @@ final class KernelMap {
         for (Scan.Function f : functions) {
             if (open.contains(f.key())) continue;
             String module = f.key().split("/")[0];
-            out.append("| ").append(module).append(" | `").append(f.key()).append("` | ").append(standsOn(f, functions))
+            out.append("| ").append(module).append(" | `").append(f.key()).append("` | ").append(standsOn(f))
                     .append(" | ").append(today).append(" |  |\n");
         }
         return out.toString();
     }
 
-    /** The decision a function cites, or the first function that calls it, or that nothing does. */
-    static String standsOn(Scan.Function f, List<Scan.Function> all) {
-        if (f.decision() != null) return f.decision();
-        List<String> callers = all.stream().filter(g -> g != f && g.calls().contains(f.name())).map(Scan.Function::key).toList();
-        if (callers.isEmpty()) return "no caller";
-        return "called by `" + callers.get(0) + "`" + (callers.size() > 1 ? " and " + (callers.size() - 1) + " more" : "");
+    /**
+     * The decision a function cites (`// Decision: R-xxx` on the line above it), or nothing. A caller is
+     * not recorded: a row is never changed, so a caller written once went stale, and the name-only scan
+     * named callers that were not (tithe pass 2, C1).
+     */
+    static String standsOn(Scan.Function f) {
+        return f.decision() != null ? f.decision() : "";
     }
 }
