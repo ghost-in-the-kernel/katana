@@ -1,17 +1,23 @@
 package katana.oracle.compare;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
+import katana.front.Copybooks;
+import katana.front.Parse;
+import katana.sir.build.Build;
+import katana.sir.types.Attributes;
+import katana.sir.types.Item;
 
 /**
- * A record's layout read from copybook text (docs/ROADMAP.md 1.7): each elementary field's path,
- * offset, length, kind (text, zoned, packed, binary) and digits after the point, with OCCURS repeated
- * and a REDEFINES alternative left out (the first definition is the one compared). A clause outside
- * this (OCCURS DEPENDING ON, SIGN SEPARATE, floating point, pointers) is refused, never guessed.
+ * A record's layout from copybook text (docs/ROADMAP.md 1.7), through sir/'s data map since tithe
+ * pass 2, B1: each elementary field's path, offset, length, kind (text, zoned, packed, binary) and
+ * digits after the point, with OCCURS repeated and a REDEFINES alternative left out (the first
+ * definition is the one compared), the record's length its extent. A copybook of more than one record,
+ * or a clause outside this (OCCURS DEPENDING ON, a separate or leading sign, P scaling, floating
+ * point, pointers, national), is refused, never guessed.
  */
-// Unsure: R-053 default: the comparator reads copybooks itself until phase 2's front end and Semantic IR give the data map (HANDOFF "For Fable").
 public final class Layout {
     /** How a field holds its value. */
     public enum Kind { TEXT, ZONED, PACKED, BINARY }
@@ -26,9 +32,6 @@ public final class Layout {
         }
     }
 
-    private record Item(int level, String name, String picture, String usage, int occurs, boolean redefines, String text) {}
-
-    private static final Pattern ITEM = Pattern.compile("^(\\d{1,2})\\s+([A-Z0-9-]+)(.*)$");
     private final List<Field> fields;
     private final int length;
 
@@ -50,105 +53,62 @@ public final class Layout {
         return length;
     }
 
-    /** Reads fixed-form copybook text (columns 8 to 72; `*` and `/` in column 7 are comments; 88 levels skipped). */
+    /**
+     * A copybook's one record from the data map sir/ builds (tithe pass 2, B1): the copybook as the
+     * WORKING-STORAGE of a program of its own, its items flattened to elementary fields.
+     */
     public static Layout read(String copybook) {
-        List<Item> items = items(copybook);
+        String program = "       IDENTIFICATION DIVISION.\n       PROGRAM-ID. LAYOUT.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n" + copybook + "\n";
+        Parse.Result parse = Parse.text(program, "copybook", new Copybooks(List.of(), n -> 8));
+        if (!parse.clean()) throw new Unsupported("the copybook does not parse: " + parse.errors().get(0));
+        Build.Data data = Build.data(parse);
+        if (!data.findings().isEmpty()) throw new Unsupported(data.findings().get(0));
+        List<Item> records = data.items().stream().filter(i -> i.parent() == 0).toList();
+        if (records.size() != 1) throw new Unsupported(records.size() + " records at level 01 or 77, not one");
+        Map<Integer, List<Item>> children = new HashMap<>();
+        data.items().forEach(i -> children.computeIfAbsent(i.parent(), k -> new ArrayList<>()).add(i));
         List<Field> fields = new ArrayList<>();
-        int[] at = {0};
-        int end = place(items, 0, "", 0, fields, at);
-        if (end != items.size()) throw new Unsupported("more than one record at level 01 or a level out of order near " + items.get(end).text());
-        return new Layout(fields, at[0]);
+        Item record = records.get(0);
+        flatten(record, record.name(), 0, children, fields);
+        return new Layout(fields, record.length());
     }
 
-    /** The statements: the text of columns 8 to 72 joined, split on periods, each an item. */
-    private static List<Item> items(String copybook) {
-        StringBuilder text = new StringBuilder();
-        for (String line : copybook.split("\r?\n")) {
-            if (line.length() < 7 || line.charAt(6) == '*' || line.charAt(6) == '/') continue;
-            text.append(' ').append(line, 7, Math.min(line.length(), 72));
+    /** An item at an offset under a path: a REDEFINES left out, each occurrence of a table, a group's children, an elementary item a field. */
+    private static void flatten(Item item, String path, int at, Map<Integer, List<Item>> children, List<Field> fields) {
+        if (item.redefines() != 0) return;
+        if (item.level() == 66 || item.level() == 77) throw new Unsupported("level " + item.level() + ": " + item.name());
+        int times = 1;
+        if (item.occurs() != null) {
+            if (item.occurs().dependingOn() != 0) throw new Unsupported("OCCURS DEPENDING ON: " + item.name());
+            times = item.occurs().max();
         }
-        List<Item> items = new ArrayList<>();
-        for (String sentence : text.toString().split("\\.(\\s|$)")) {
-            String s = sentence.trim().replaceAll("\\s+", " ");
-            if (s.isEmpty()) continue;
-            Matcher m = ITEM.matcher(s);
-            if (!m.matches()) throw new Unsupported("not a data description: " + s);
-            int level = Integer.parseInt(m.group(1));
-            if (level == 88) continue;
-            if (level == 66 || level == 77) throw new Unsupported("level " + level + ": " + s);
-            items.add(item(level, m.group(2), m.group(3).trim(), s));
+        for (int n = 1; n <= times; n++) {
+            String name = path + (times > 1 ? "(" + n + ")" : "");
+            int base = at + (n - 1) * item.length();
+            List<Item> under = children.getOrDefault(item.id(), List.of());
+            if (under.isEmpty()) fields.add(field(item, name, base));
+            for (Item child : under) flatten(child, name + "." + child.name(), base + child.offset() - item.offset(), children, fields);
         }
-        return items;
     }
 
-    /** One data description's clauses: its PICTURE, its USAGE, OCCURS and REDEFINES; the ones not decoded refused. */
-    private static Item item(int level, String name, String clauses, String text) {
-        Matcher pic = Pattern.compile("\\bPIC(?:TURE)?\\s+(?:IS\\s+)?(\\S+)").matcher(clauses);
-        Matcher occurs = Pattern.compile("\\bOCCURS\\s+(\\d+)(\\s+TIMES)?").matcher(clauses);
-        if (clauses.matches(".*\\bDEPENDING\\b.*")) throw new Unsupported("OCCURS DEPENDING ON: " + text);
-        if (clauses.matches(".*\\bSIGN\\b.*\\bSEPARATE\\b.*")) throw new Unsupported("SIGN SEPARATE: " + text);
-        if (clauses.matches(".*\\b(COMP-1|COMP-2|POINTER|INDEX|NATIONAL)\\b.*")) throw new Unsupported("a usage the comparator does not decode: " + text);
-        String usage = clauses.matches(".*\\b(COMP-3|PACKED-DECIMAL|COMPUTATIONAL-3)\\b.*") ? "PACKED"
-                : clauses.matches(".*\\b(COMP|COMP-4|COMP-5|BINARY|COMPUTATIONAL|COMPUTATIONAL-4|COMPUTATIONAL-5)\\b.*") ? "BINARY" : "DISPLAY";
-        return new Item(level, name, pic.find() ? pic.group(1) : null, usage, occurs.find() ? Integer.parseInt(occurs.group(1)) : 1,
-                clauses.matches(".*\\bREDEFINES\\b.*"), text);
-    }
-
-    /** Places the items from i under a group at this level and path; returns the index after them, offsets advanced in at. */
-    private static int place(List<Item> items, int i, String path, int parentLevel, List<Field> fields, int[] at) {
-        while (i < items.size() && items.get(i).level() > parentLevel) {
-            Item item = items.get(i);
-            int end = i + 1;
-            while (end < items.size() && items.get(end).level() > item.level()) end++;
-            List<Item> children = items.subList(i + 1, end);
-            if (item.redefines()) {
-                i = end;
-                continue;
-            }
-            for (int n = 1; n <= item.occurs(); n++) {
-                String name = (path.isEmpty() ? "" : path + ".") + item.name() + (item.occurs() > 1 ? "(" + n + ")" : "");
-                if (item.picture() == null) place(children, 0, name, item.level(), fields, at);
-                else fields.add(elementary(item, name, at));
-            }
-            i = end;
+    /** An elementary item as a field the comparator decodes; a representation it does not decode is refused. */
+    private static Field field(Item item, String path, int at) {
+        Attributes a = item.attributes();
+        switch (a.usage()) {
+            case FLOAT_SHORT, FLOAT_LONG, INDEX, POINTER, PROCEDURE_POINTER, FUNCTION_POINTER, NATIONAL -> throw new Unsupported("a usage the comparator does not decode: " + item.name() + " " + a.usage());
+            default -> { }
         }
-        return i;
-    }
-
-    /** One elementary field from its PICTURE and USAGE, at at[0]. */
-    private static Field elementary(Item item, String path, int[] at) {
-        String pic = expand(item.picture());
-        boolean numeric = pic.matches("S?9*V?9*") && pic.contains("9");
-        boolean signed = pic.startsWith("S");
-        int digits = pic.replaceAll("[^9]", "").length();
-        int scale = pic.contains("V") ? pic.substring(pic.indexOf('V')).replaceAll("[^9]", "").length() : 0;
-        Kind kind;
-        int length;
-        if (!numeric) {
-            if (!item.usage().equals("DISPLAY")) throw new Unsupported("a non-numeric PICTURE with a computational usage: " + item.text());
-            kind = Kind.TEXT;
-            length = pic.replace("V", "").length();
-        } else if (item.usage().equals("PACKED")) {
-            kind = Kind.PACKED;
-            length = digits / 2 + 1;
-        } else if (item.usage().equals("BINARY")) {
-            kind = Kind.BINARY;
-            length = digits <= 4 ? 2 : digits <= 9 ? 4 : 8;
-        } else {
-            kind = Kind.ZONED;
-            length = digits;
+        if (a.signSeparate() || a.leading()) throw new Unsupported("a sign the comparator does not decode (SEPARATE or LEADING): " + item.name());
+        if (a.category() != Attributes.Category.NUMERIC) {
+            if (a.usage() != Attributes.Usage.DISPLAY) throw new Unsupported("a non-numeric PICTURE with a computational usage: " + item.name());
+            return new Field(path, at, item.length(), Kind.TEXT, false, 0);
         }
-        Field field = new Field(path, at[0], length, kind, signed, scale);
-        at[0] += length;
-        return field;
-    }
-
-    /** A PICTURE with its repeats written out: `S9(7)V99` is `S9999999V99`. */
-    static String expand(String picture) {
-        Matcher m = Pattern.compile("(.)\\((\\d+)\\)").matcher(picture);
-        StringBuilder out = new StringBuilder();
-        while (m.find()) m.appendReplacement(out, m.group(1).repeat(Integer.parseInt(m.group(2))));
-        m.appendTail(out);
-        return out.toString();
+        if (a.scale() < 0) throw new Unsupported("a P scaling the comparator does not decode: " + item.name());
+        Kind kind = switch (a.usage()) {
+            case PACKED -> Kind.PACKED;
+            case BINARY, NATIVE_BINARY -> Kind.BINARY;
+            default -> Kind.ZONED;
+        };
+        return new Field(path, at, item.length(), kind, a.signed(), a.scale());
     }
 }

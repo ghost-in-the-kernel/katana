@@ -2,11 +2,13 @@ package katana.oracle.lane;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-/** A program's paragraph names from its source, and the ones a cobc trace entered (docs/ROADMAP.md 1.9). */
+/** A program's paragraph names from its paragraph graph, and the ones a cobc trace entered (docs/ROADMAP.md 1.9). */
 class ParagraphsTest {
     private static final String SOURCE = String.join("\n",
             "       IDENTIFICATION DIVISION.",
@@ -23,8 +25,10 @@ class ParagraphsTest {
             "           EXIT.");
 
     @Test
-    void theNamesInAreaAAfterTheProcedureDivision() {
-        assertEquals(List.of("MAIN", "MAIN-PARA", "A-PARA", "B-PARA"), Paragraphs.of(SOURCE));
+    void theSectionsAndParagraphsInTextualOrder() throws Exception {
+        Path source = Files.createTempDirectory("paragraphs").resolve("T.cbl");
+        Files.writeString(source, SOURCE + "\n");
+        assertEquals(List.of("MAIN", "MAIN-PARA", "A-PARA", "B-PARA"), Paragraphs.of(source, List.of(), f -> 8));
     }
 
     @Test

@@ -164,7 +164,7 @@ public final class CobcLane {
             }
         }
         for (String name : new java.util.TreeSet<>(programs.sourceHashes().keySet())) {
-            List<String> all = Paragraphs.of(Programs.text(programs.source(name)));
+            List<String> all = Paragraphs.of(programs.source(name), setup.copybooks(), widths);
             java.util.Set<String> entered = Paragraphs.entered(traces.toString(), name);
             List<String> not = all.stream().filter(p -> !entered.contains(p)).toList();
             report.coverage(name, all.size() - not.size(), all.size(), not);

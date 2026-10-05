@@ -13,9 +13,6 @@ import java.util.Arrays;
  * value of their kind decode to a description of what is wrong, never to zero.
  */
 final class Decode {
-    private static final String POSITIVE = "{ABCDEFGHI";
-    private static final String NEGATIVE = "}JKLMNOPQR";
-
     private Decode() {}
 
     static Charset charset(String encoding) {
@@ -67,24 +64,10 @@ final class Decode {
         return (sign == 0xd || sign == 0xb ? value.negate() : value).toPlainString();
     }
 
-    /** ASCII zoned: digits, the last byte a digit or an overpunch letter. */
+    /** ASCII zoned: digits, the last byte a digit or an overpunch letter (`Overpunch`). */
     private static String zonedAscii(byte[] b, int scale) {
-        StringBuilder digits = new StringBuilder();
-        boolean negative = false;
-        for (int i = 0; i < b.length; i++) {
-            char c = (char) (b[i] & 0xff);
-            boolean last = i == b.length - 1;
-            if (c >= '0' && c <= '9') digits.append(c);
-            else if (last && POSITIVE.indexOf(c) >= 0) digits.append(POSITIVE.indexOf(c));
-            else if (last && NEGATIVE.indexOf(c) >= 0) {
-                digits.append(NEGATIVE.indexOf(c));
-                negative = true;
-            } else {
-                return "invalid zoned decimal " + hex(b);
-            }
-        }
-        BigDecimal value = new BigDecimal(new BigInteger(digits.toString()), scale);
-        return (negative ? value.negate() : value).toPlainString();
+        BigInteger value = Overpunch.value(b);
+        return value == null ? "invalid zoned decimal " + hex(b) : new BigDecimal(value, scale).toPlainString();
     }
 
     static String hex(byte[] b) {

@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 class CompareTest {
     private static final String COPYBOOK = String.join("\n",
             "       01  REC.",
-            "           05  ID         PIC X(4).",
+            "           05  KEY-ID     PIC X(4).",
             "           05  AMT        PIC S9(5)V99 COMP-3.",
             "           05  QTY        PIC 9(3).",
             "      * a comment",
@@ -42,7 +42,7 @@ class CompareTest {
     @Test
     void theLayoutPlacesEveryElementaryField() {
         assertEquals(15, LAYOUT.length());
-        assertEquals(List.of("REC.ID", "REC.AMT", "REC.QTY", "REC.TAGS(1).TAG", "REC.TAGS(2).TAG"), LAYOUT.fields().stream().map(Layout.Field::path).toList());
+        assertEquals(List.of("REC.KEY-ID", "REC.AMT", "REC.QTY", "REC.TAGS(1).TAG", "REC.TAGS(2).TAG"), LAYOUT.fields().stream().map(Layout.Field::path).toList());
         assertEquals(new Layout.Field("REC.AMT", 4, 4, Layout.Kind.PACKED, true, 2), LAYOUT.fields().get(1));
         assertThrows(Layout.Unsupported.class, () -> Layout.read("       01 R.\n           05 N PIC 9 OCCURS 3 DEPENDING ON X."));
     }

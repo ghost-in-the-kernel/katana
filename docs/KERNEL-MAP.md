@@ -679,3 +679,13 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/build/DataMap.java:DataMap.attributes` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Tuples.java:Tuples.attributes` |
 | sir | `sir/build/Build.java:Build.currency` | called by `sir/build/Build.java:Build.program#2` and 1 more | 2026-10-05 |  |
 | sir | `sir/build/Pictures.java:Pictures.mask` | called by `sir/build/Tuples.java:Tuples.attributes` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.flatten` | called by `oracle/compare/Layout.java:Layout.read` | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.field` | called by `oracle/compare/Compare.java:Compare.compare` and 8 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Overpunch.java:Overpunch.Overpunch` | no caller | 2026-10-05 |  |
+| oracle | `oracle/compare/Overpunch.java:Overpunch.value` | called by `oracle/compare/Compare.java:Compare.record` and 22 more | 2026-10-05 |  |
+| oracle | `oracle/lane/Paragraphs.java:Paragraphs.names` | called by `oracle/lane/Gate.java:Gate.sysouts` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.items` | the comparator's own copybook reader, retired in tithe pass 2, B1 | 2026-10-05 | superseded-by: `oracle/compare/Layout.java:Layout.flatten` |
+| oracle | `oracle/compare/Layout.java:Layout.item` | the comparator's own copybook reader, retired in tithe pass 2, B1 | 2026-10-05 | superseded-by: `oracle/compare/Layout.java:Layout.flatten` |
+| oracle | `oracle/compare/Layout.java:Layout.place` | the comparator's own copybook reader, retired in tithe pass 2, B1 | 2026-10-05 | superseded-by: `oracle/compare/Layout.java:Layout.flatten` |
+| oracle | `oracle/compare/Layout.java:Layout.elementary` | the comparator's own copybook reader, retired in tithe pass 2, B1 | 2026-10-05 | superseded-by: `oracle/compare/Layout.java:Layout.flatten` |
+| oracle | `oracle/compare/Layout.java:Layout.expand` | a second PICTURE expander, retired in tithe pass 2, B1 | 2026-10-05 | superseded-by: `sir/build/Pictures.java:Pictures.expand` |

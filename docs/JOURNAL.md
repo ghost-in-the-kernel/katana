@@ -1028,3 +1028,20 @@ taken; closed by a later `decision` entry naming it).
   refuses any rt/ import outside `java.`, rt/ code without `rt/LICENSE` (R-002; its text asked of
   Ghost, HANDOFF), and lower/ importing anything but sir/; each a rejects case on the empty modules.
 - **Resolved:** B4. **Touched:** `build.gradle`, `test/ModulesTest.java`, HANDOFF "For Ghost".
+
+### J-085 Tithe pass 2, B1: the oracle's two temporary readers retired, after an agreement trial
+- **Who:** Opus. **Class:** build. **Intent:** one reader of COBOL, the front end and sir/; one
+  PICTURE expander; one zoned decoder.
+- **Found:** before deleting, each old reader ran against its replacement. `Layout` on all 31
+  copybooks of the fixtures, CardDemo and OMP: 21 agree, 3 refused by both, and every one of the 7
+  differences is the old reader's fault. Two lengths ignored a REDEFINES table longer than what it
+  redefines (the data map's extent is cobc's, held by datamap.golden). Two copybooks it could not split
+  on a quoted period. Three copybooks of several 01s it silently joined into one record, though its own
+  comment said it refused them (its one-record check could not fire). The paragraph names on 39
+  programs: 34 agree; the 5 others gain the paragraphs a procedure copybook COPYs in, which a trace
+  enters and the area-A regex never saw. A test copybook had `05 ID`, a reserved word only the old
+  reader accepted; renamed. `Layout` now flattens sir/'s data map (refusing what its four kinds cannot
+  decode); `Paragraphs.of` reads the paragraph graph; `Overpunch` is the one ASCII zoned decoder, the
+  comparator's and the sort's. Both `// Unsure: R-053 default` lines are gone with their readers.
+- **Resolved:** B1. **Touched:** `oracle/compare/` (Layout, Decode, Overpunch), `oracle/sort/Zoned`,
+  `oracle/lane/` (Paragraphs, CobcLane), their tests, the kernel map's closing rows.
