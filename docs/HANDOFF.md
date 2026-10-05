@@ -21,6 +21,13 @@
 
 ## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
 
+- **2.2 is stopped on R-015** (from step 2.2, J-064). Its graft puts che4z's CICS and DB2 grammars
+  (EPL-2.0, modified, shipped in the compiler) in `front/`, which R-015 admits only after counsel; no
+  reversible default keeps that rule. The measurement 2.2 asks for, run from a clone outside the tree
+  with che4z's semantic checks stubbed: CardDemo 220/220 EXEC CICS and 32/32 EXEC SQL, BankDemo
+  351/351 and 120/120, the OMP labs' SQL 23/31, the 8 left being the course's `Z#####T` placeholder.
+  That is the evidence for R-014's graft. **Stopped:** 2.2 waits on counsel; 2.3 onward continue (none
+  needs CICS or SQL parsed: R-005 is batch first).
 - **The ANTLR tool is vendored** (from step 2.1): `third_party/antlr/antlr4-4.13.2-complete.jar`,
   BSD-3 (it bundles ANTLR 3's runtime, StringTemplate 4 and abego TreeLayout, all BSD), checked against
   Maven Central's SHA-1. It runs at build time to generate the parser into build/ and never ships.
