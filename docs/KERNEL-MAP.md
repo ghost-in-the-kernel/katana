@@ -694,3 +694,19 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/nist/Cobc.java:Cobc.run#3` | called by `front/Parse.java:Parse.text#2` and 19 more | 2026-10-05 |  |
 | oracle | `oracle/nist/Runner.java:Runner.Result.ok` | called by `oracle/nist/Exec85.java:Exec85.run` and 2 more | 2026-10-05 |  |
 | oracle | `oracle/nist/Cobc.java:Cobc.Result.ok` | moved to the runner seam in tithe pass 2, B2 | 2026-10-05 | superseded-by: `oracle/nist/Runner.java:Runner.Result.ok` |
+| oracle | `oracle/autotest/Autotests.java:Autotests.Malformed.Malformed` | no caller | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.Autotests` | no caller | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.read` | called by `front/Preprocessor.java:Preprocessor.exitCopyStatement` and 12 more | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.cases` | called by `oracle/autotest/Autotests.java:Autotests.read` | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.macro` | called by `oracle/autotest/Autotests.java:Autotests.cases` | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.Builder.Builder` | no caller | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.arguments` | called by `oracle/autotest/Autotests.java:Autotests.cases` | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.quoted` | called by `oracle/autotest/Autotests.java:Autotests.cases` and 4 more | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.quadrigraphs` | called by `oracle/autotest/Autotests.java:Autotests.arguments` | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.arg` | called by `oracle/autotest/Autotests.java:Autotests.macro` | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.name` | called by `oracle/autotest/Autotests.java:Autotests.cases` and 49 more | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.word` | called by `oracle/autotest/Autotests.java:Autotests.cases` and 8 more | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.wordChar` | called by `oracle/autotest/Autotests.java:Autotests.cases` and 2 more | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.skipLine` | called by `oracle/autotest/Autotests.java:Autotests.cases` | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.line` | called by `front/Mapped.java:Mapped.added` and 19 more | 2026-10-05 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.write` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 17 more | 2026-10-05 |  |

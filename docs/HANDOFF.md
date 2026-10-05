@@ -117,6 +117,15 @@ holds it.*
 (phase 2's two answered 2026-10-05: the ANTLR tool jar accepted under R-001; che4z parked for good,
 R-015)
 
+- **The GnuCOBOL autotests against R-045 (tithe pass 2, B3).** Fable's B3 asked to fetch the
+  autotests now and extract them into `oracle/fixture/autotest/*.fixture`. R-045 says `fetch.sh`
+  fetches them "only in phase 3" and that GnuCOBOL's expected-result files are "never in this
+  repository"; the extracted cases are its programs and expected stdout, so committing them in
+  `oracle/fixture/` would be what R-045 forbids, whatever the file is called. *Default taken
+  (reversible):* the extractor is written and tested on a sample written here from the Autotest format;
+  `fetch.sh` fetches the autotests only when named, and phase 3's first step runs it; the cases are
+  written under `corpus/gnucobol-autotests/cases/`, gitignored. To reverse: amend R-045 to allow the
+  extracted cases in the tree (counsel's question as much as yours, since they are GPL test input).
 - **rt/LICENSE's text (R-002; tithe pass 2, B4).** `rt/` now compiles alone against the JDK, and
   `ModulesTest` refuses it code without an `rt/LICENSE` beside it: the per-customer license R-002
   describes. The text is counsel's and yours. *Default:* none is written; phase 3's first `rt/` file

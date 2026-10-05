@@ -32,6 +32,10 @@ implementing agent stops here and asks; Fable writes the tithe plan for the proj
 
 Check: the 359 GnuCOBOL autotests, run as unit tests of `rt/` through hand-lowered programs first,
 then through the lowering; each tests one rule, which is why they come first.
+Its first step (from tithe pass 2, B3): `corpus/fetch.sh gnucobol-autotests`, then
+`oracle/autotest/Autotests` over every `.at` file into `corpus/gnucobol-autotests/cases/`, the count of
+cases and of those with an expected stdout held by a test, and each runnable case run once under cobc
+to settle the reader's one open hypothesis (whether `[[x]]` in an expected stdout means `[x]`).
 
 ### 3.2 `rt/Dispatcher`
 

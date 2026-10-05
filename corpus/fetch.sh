@@ -20,9 +20,16 @@ p() {
 p https://github.com/aws-samples/aws-mainframe-modernization-carddemo carddemo 59cc6c2fd7ebd7ef7925cad552a01a4b8b6e4d5e
 c https://github.com/AnyEvalOrg/eval-nist-cobol85 eval-nist-cobol85
 # GnuCOBOL's source is never fetched whole (R-045: its code stays off every screen while Katana's
-# equivalent is written). Phase 3 fetches only tests/testsuite.src, the autotests, by sparse checkout:
-#   git clone --depth 1 --filter=blob:none --sparse https://github.com/OCamlPro/gnucobol gnucobol-autotests
-#   git -C gnucobol-autotests sparse-checkout set tests/testsuite.src
+# equivalent is written). Phase 3 fetches only tests/testsuite.src, the autotests, by sparse checkout,
+# and only when named (`corpus/fetch.sh gnucobol-autotests`), never by a bare fetch: R-045 dates it to
+# phase 3. oracle/autotest/Autotests.java reads them into corpus/gnucobol-autotests/cases/ (tithe
+# pass 2, B3); nothing read from them enters the repository.
+case " $ONLY " in *" gnucobol-autotests "*)
+  [ -d gnucobol-autotests ] || {
+    git clone -q --depth 1 --filter=blob:none --sparse https://github.com/OCamlPro/gnucobol gnucobol-autotests
+    git -C gnucobol-autotests sparse-checkout set tests/testsuite.src
+  } ;;
+esac
 c https://github.com/uwol/proleap-cobol-parser proleap-cobol-parser
 # NIST CCVS85's population file, the source of the NIST run (R-044): pinned, and checked by hash.
 p https://github.com/Zaneham/nist-cobol85-test-suite nist-cobol85-test-suite 0428c3cfd51ad4f34703b5b3f7529cdfab613f55

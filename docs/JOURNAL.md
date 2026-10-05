@@ -1059,3 +1059,21 @@ taken; closed by a later `decision` entry naming it).
   program the java lane runs, now has the contract's shape, so the trivial lanes' check holds it.
 - **Resolved:** B2. **Touched:** `docs/LANES.md`, `oracle/nist/` (Runner, Cobc, ModuleRun, Exec85),
   `CopyRecords`, the literal oracle's import.
+
+### J-087 Tithe pass 2, B3: the autotest reader written, the fetch left to phase 3 as R-045 says
+- **Who:** Opus. **Class:** decision. **Intent:** phase 3.1's check has its reader before its first
+  step.
+- **Found:** the plan's B3 (fetch now; extract into `oracle/fixture/autotest/*.fixture`) meets R-045
+  twice: the autotests are fetched "only in phase 3", and GnuCOBOL's expected results are "never in
+  this repository", which extracted cases committed under `oracle/` would be. Classed (d) under
+  R-053, Ghost's, with a reversible default: `oracle/autotest/Autotests` reads the Autotest format
+  (cases, keywords, `AT_DATA` files, each `AT_CHECK`'s command, status, stdout and stderr; m4 quoting
+  one level, quadrigraphs) and writes each case to a folder under `corpus/`; its test is a sample
+  written here from the Autoconf manual's description, so no GnuCOBOL file was fetched or opened.
+  `fetch.sh` fetches the autotests only when named. One hypothesis stays open, marked `// Unsure`:
+  whether an expected stdout written `[[x]]` means `[x]`; phase 3's first run under cobc settles it.
+- **Options:** (1) as planned, fetching and committing now: against R-045's letter. (2) the reader
+  now, the fetch and the count in phase 3's first step (taken). (3) nothing until phase 3: the seam
+  would not exist when 3.1 starts.
+- **Resolved:** B3 as far as R-045 allows; HANDOFF "For Ghost"; TODO 3.1 names the first step.
+- **Touched:** `oracle/autotest/`, its test, `corpus/fetch.sh`, TODO.md, HANDOFF.
