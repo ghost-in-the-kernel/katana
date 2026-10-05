@@ -137,6 +137,7 @@ final class TokenCoverage {
             case Value.Literal l -> words.add(l.text().toUpperCase(Locale.ROOT));
             case Value.Figurative f -> {
                 words.add(f.name());
+                for (String w : f.name().split(" ")) words.add(w);
                 if (f.all() != null) words.add(f.all().text().toUpperCase(Locale.ROOT));
             }
             case Value.Expression e -> {

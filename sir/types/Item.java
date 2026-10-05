@@ -6,11 +6,11 @@ import java.util.List;
  * One data item of the data map: its number (1, 2, ... in textual order), name ("FILLER" for none),
  * level, parent (0 for a record), the record it belongs to, the section it is in, its offset in that
  * record and its length in bytes, its attribute tuple, the item it REDEFINES (0 for none), its OCCURS
- * (null for none), the slack bytes SYNC put before it, its VALUE as written (null for none), its
+ * (null for none), the slack bytes SYNC put before it, its VALUE (null for none; several, as for a table, a `VALUES` expression of them), its
  * condition names (88s), and its origin.
  */
 public record Item(int id, String name, int level, int parent, int record, Section section, int offset, int length, Attributes attributes,
-        int redefines, Occurs occurs, int syncSlack, String value, List<Condition> conditions, Origin origin) {
+        int redefines, Occurs occurs, int syncSlack, Value value, List<Condition> conditions, Origin origin) {
     /** Where an item is declared. */
     public enum Section { FILE, WORKING_STORAGE, LOCAL_STORAGE, LINKAGE }
 
@@ -26,8 +26,8 @@ public record Item(int id, String name, int level, int parent, int record, Secti
     /** An ASCENDING or DESCENDING KEY of a table. */
     public record Key(int item, boolean ascending) {}
 
-    /** An 88: its name and its values as written, a range as `low THRU high`. */
-    public record Condition(String name, List<String> values, Origin origin) {
+    /** An 88: its name and its values, a range as a `THRU` expression of its low and high. */
+    public record Condition(String name, List<Value> values, Origin origin) {
         public Condition {
             values = List.copyOf(values);
             Invalid.origin(origin, "condition " + name);

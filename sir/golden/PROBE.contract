@@ -6,12 +6,16 @@ item PROBE 4 D level 1 parent 0 record 4 WORKING_STORAGE offset 0 length 3 DISPL
 item PROBE 5 N level 1 parent 0 record 5 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
 item PROBE 6 X level 1 parent 0 record 6 WORKING_STORAGE offset 0 length 10 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXX"
 item PROBE 7 Y level 1 parent 0 record 7 WORKING_STORAGE offset 0 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
-item PROBE 8 G1 level 1 parent 0 record 8 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
-item PROBE 9 F1 level 5 parent 8 record 8 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
-item PROBE 10 F2 level 5 parent 8 record 8 WORKING_STORAGE offset 1 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
-item PROBE 11 G2 level 1 parent 0 record 11 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
-item PROBE 12 F1 level 5 parent 11 record 11 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
-item PROBE 13 F2 level 5 parent 11 record 11 WORKING_STORAGE offset 1 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
+item PROBE 8 Z level 1 parent 0 record 8 WORKING_STORAGE offset 0 length 5 DISPLAY NUMERIC digits 5 scale 2 signed picture "S999V99"
+item PROBE 9 G1 level 1 parent 0 record 9 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
+item PROBE 10 F1 level 5 parent 9 record 9 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item PROBE 11 F2 level 5 parent 9 record 9 WORKING_STORAGE offset 1 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
+item PROBE 12 G2 level 1 parent 0 record 12 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
+item PROBE 13 F1 level 5 parent 12 record 12 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item PROBE 14 F2 level 5 parent 12 record 12 WORKING_STORAGE offset 1 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
+value PROBE 7 'A  ''B''  C'
+value PROBE 8 -1.50
+condition PROBE 8 Z-LOW (THRU -999.99 0) | 1
 paragraph PROBE 0 "" ""
 paragraph PROBE 1 "MAIN" ""
 paragraph PROBE 2 "P1" ""
@@ -20,15 +24,16 @@ edge PROBE PERFORM 1 2 2
 statement PROBE 1.0 COMPUTE compute-store=#1 compute-store=keyword:ROUNDED compute-statement=keyword:= compute-statement=(/ (* #2 (** (+ #3 1) 2)) (neg #4)) | on-size-error-phrase
 statement PROBE 1.0.on-size-error-phrase.0 DISPLAY display-operand='SIZE'
 statement PROBE 1.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#1 add-to=keyword:ROUNDED
-statement PROBE 1.2 EVALUATE evaluate-select=#1 evaluate-also-select=keyword:ALSO evaluate-select=TRUE | evaluate-when-phrase=(evaluate-when-phrase (evaluate-when keyword:WHEN 1 (evaluate-also-condition keyword:ALSO (evaluate-condition keyword:ANY))) (evaluate-when keyword:WHEN (evaluate-condition 2 (evaluate-through keyword:THRU 5)) (evaluate-also-condition keyword:ALSO (> #2 0)))) | evaluate-when-other
+statement PROBE 1.2 EVALUATE evaluate-select=#1 evaluate-also-select=keyword:ALSO evaluate-select=TRUE{boolean TRUE} | evaluate-when-phrase=(evaluate-when-phrase (evaluate-when keyword:WHEN 1 (evaluate-also-condition keyword:ALSO (evaluate-condition keyword:ANY))) (evaluate-when keyword:WHEN (evaluate-condition 2 (evaluate-through keyword:THRU 5)) (evaluate-also-condition keyword:ALSO (> #2 0)))) | evaluate-when-other
 statement PROBE 1.2.evaluate-when-phrase.0 DISPLAY display-operand='ONE'
 statement PROBE 1.2.evaluate-when-other.0 DISPLAY display-operand='OTHER'
 statement PROBE 1.3 INSPECT inspect-statement=#6 inspect-tallying-phrase=keyword:TALLYING inspect-for=#5 inspect-for=keyword:FOR inspect-all-leadings=keyword:ALL inspect-all-leading='A' inspect-all-leadings=keyword:LEADING inspect-all-leading='B'
 statement PROBE 1.4 STRING string-sending=#6 string-delimited-by-phrase=keyword:DELIMITED string-delimited-by-phrase=keyword:BY string-delimited-by-phrase=keyword:SIZE string-into-phrase=keyword:INTO string-into-phrase=#7
 statement PROBE 1.5 PERFORM perform-procedure-statement=@2..2 perform-test-clause=keyword:WITH perform-test-clause=keyword:TEST perform-test-clause=keyword:AFTER perform-until=keyword:UNTIL perform-until=(AND (> #1 1) (< #1 5))
 statement PROBE 1.6 IF if-statement=(AND (<> #1 #2) (NUMERIC #3)) | if-then | if-else
-statement PROBE 1.6.if-then.0 MOVE move-corresponding-to-statement=keyword:CORRESPONDING move-corresponding-to-sending-area=#8 move-corresponding-to-statement=keyword:TO move-corresponding-to-statement=#11
+statement PROBE 1.6.if-then.0 MOVE move-corresponding-to-statement=keyword:CORRESPONDING move-corresponding-to-sending-area=#9 move-corresponding-to-statement=keyword:TO move-corresponding-to-statement=#12
 statement PROBE 1.6.if-else.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#6
-statement PROBE 1.7 STOP stop-statement=keyword:RUN
+statement PROBE 1.7 DISPLAY display-operand=X'C1F0'{hex C1F0} display-operand=Z'AB'{null_terminated AB} display-operand=N'NX'{national NX} display-operand="Q""Q" display-operand=+.5 display-operand=-12.250 display-operand=1.5E+3{float 15 -2} display-operand=.25E-2{float 25 4}
+statement PROBE 1.8 STOP stop-statement=keyword:RUN
 statement PROBE 2.0 SUBTRACT subtract-subtrahend=1 subtract-from-statement=keyword:FROM subtract-minuend=#1
 using PROBE [] 0

@@ -9,6 +9,7 @@ import katana.sir.types.Attributes;
 import katana.sir.types.Attributes.Category;
 import katana.sir.types.Attributes.Usage;
 import katana.sir.types.Item;
+import katana.sir.types.Value;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
 
@@ -27,7 +28,8 @@ final class DataMap {
     /** One entry while the map is built; a group's length is known only after its children's. */
     static final class Node {
         int id, level, parent, record, redefines, length, offset, syncSlack, occursMin, occursMax = 0, dependingOn;
-        String name, picture = "", value, dependingName, redefinesName;
+        String name, picture = "", dependingName, redefinesName;
+        Value value;
         char currency = '$';
         boolean decimalComma, blankWhenZero;
         Node renamesOne;
@@ -120,7 +122,7 @@ final class DataMap {
         n.sync = !e.dataSynchronizedClause().isEmpty();
         n.blankWhenZero = !e.dataBlankWhenZeroClause().isEmpty();
         if (!e.dataRedefinesClause().isEmpty()) n.redefinesName = e.dataRedefinesClause(0).dataName().getText().toUpperCase(Locale.ROOT);
-        if (!e.dataValueClause().isEmpty()) n.value = text(e.dataValueClause(0)).replaceFirst("(?i)^VALUES?\\s+(IS\\s+|ARE\\s+)?", "");
+        if (!e.dataValueClause().isEmpty()) n.value = value(e.dataValueClause(0));
         if (!e.dataOccursClause().isEmpty()) occurs(n, e.dataOccursClause(0));
     }
 
@@ -146,9 +148,22 @@ final class DataMap {
     }
 
     private void condition(CobolParser.DataDescriptionEntryFormat3Context c) {
-        List<String> values = new ArrayList<>();
-        for (var interval : c.dataValueClause().dataValueInterval()) values.add(text(interval));
+        List<Value> values = new ArrayList<>();
+        for (var interval : c.dataValueClause().dataValueInterval()) values.add(interval(interval));
         lastEntry.conditions.add(new Item.Condition(c.conditionName().getText().toUpperCase(Locale.ROOT), values, Origins.at(parse, c)));
+    }
+
+    /** An item's VALUE: its one value, or a `VALUES` expression of several. */
+    private static Value value(CobolParser.DataValueClauseContext v) {
+        List<Value> values = v.dataValueInterval().stream().map(DataMap::interval).toList();
+        return values.size() == 1 ? values.get(0) : new Value.Expression("VALUES", values);
+    }
+
+    /** One value of a VALUE clause: a literal (a word, as a Name, should one stand there), a range as `THRU`. */
+    private static Value interval(CobolParser.DataValueIntervalContext i) {
+        var from = i.dataValueIntervalFrom();
+        Value low = from.literal() != null ? Values.literal(from.literal()) : new Value.Name("word", from.getText().toUpperCase(Locale.ROOT));
+        return i.dataValueIntervalTo() == null ? low : new Value.Expression("THRU", List.of(low, Values.literal(i.dataValueIntervalTo().literal())));
     }
 
     /** A 66: the record's bytes from its first item through its last, as an item of the record. */

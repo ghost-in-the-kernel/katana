@@ -30,8 +30,8 @@ public final class Contract {
             new Kind("item", "each item's place and attribute tuple", p -> each(p.items(), Contract::item)),
             new Kind("redefines", "each item that redefines another", p -> each(p.items().stream().filter(i -> i.redefines() != 0).toList(), i -> i.id() + " " + i.redefines())),
             new Kind("occurs", "each table's bounds, ODO object, keys and indexes", p -> each(p.items().stream().filter(i -> i.occurs() != null).toList(), Contract::occurs)),
-            new Kind("value", "each item's VALUE as written", p -> each(p.items().stream().filter(i -> i.value() != null).toList(), i -> i.id() + " " + i.value())),
-            new Kind("condition", "each 88 and its values", p -> p.items().stream().flatMap(i -> i.conditions().stream().map(c -> i.id() + " " + c.name() + " " + String.join(" | ", c.values()))).toList()),
+            new Kind("value", "each item's VALUE", p -> each(p.items().stream().filter(i -> i.value() != null).toList(), i -> i.id() + " " + value(i.value()))),
+            new Kind("condition", "each 88 and its values", p -> p.items().stream().flatMap(i -> i.conditions().stream().map(c -> i.id() + " " + c.name() + " " + c.values().stream().map(Contract::value).collect(Collectors.joining(" | ")))).toList()),
             new Kind("file", "each file's organization, access, keys, status and records", p -> each(p.files(), Contract::file)),
             new Kind("paragraph", "each paragraph's place in textual order and its section", p -> each(p.procedure().paragraphs(), g -> g.index() + " " + quoted(g.name()) + " " + quoted(g.section()))),
             new Kind("falls", "control that falls from a paragraph into the next", Contract::falls),
@@ -124,7 +124,10 @@ public final class Contract {
         return value(c.target()) + " using " + c.using().stream().map(a -> a.mode() + ":" + value(a.value())).toList() + " returning " + value(c.returning());
     }
 
-    /** A value in one token: #item, #item(subscripts)[start:length], @paragraph..thru, file:NAME, a literal as written, (operator operands). */
+    /**
+     * A value in one token: #item, #item(subscripts)[start:length], @paragraph..thru, file:NAME, a literal
+     * as written (with `{kind payload scale}` after it when it is neither ALPHANUMERIC nor NUMERIC), (operator operands).
+     */
     static String value(Value v) {
         return switch (v) {
             case null -> "-";
@@ -133,11 +136,16 @@ public final class Contract {
             case Value.File f -> "file:" + f.name();
             case Value.Target t -> "@" + t.paragraph() + ".." + t.thru();
             case Value.Name n -> n.kind().replace(' ', '-') + ":" + n.text();
-            case Value.Literal l -> l.text();
-            case Value.Figurative f -> f.name() + (f.all() == null ? "" : " " + f.all().text());
+            case Value.Literal l -> literal(l);
+            case Value.Figurative f -> f.name() + (f.all() == null ? "" : " " + literal(f.all()));
             case Value.ConditionName c -> "#" + c.item() + "." + c.name();
             case Value.Expression e -> "(" + e.operator() + e.operands().stream().map(o -> " " + value(o)).collect(Collectors.joining()) + ")";
         };
+    }
+
+    private static String literal(Value.Literal l) {
+        if (l.kind() == Value.Literal.Kind.ALPHANUMERIC || l.kind() == Value.Literal.Kind.NUMERIC) return l.text();
+        return l.text() + "{" + l.kind().name().toLowerCase(java.util.Locale.ROOT) + " " + l.payload() + (l.scale() == 0 ? "" : " " + l.scale()) + "}";
     }
 
     private static String quoted(String s) {

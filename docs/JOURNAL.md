@@ -982,3 +982,23 @@ taken; closed by a later `decision` entry naming it).
   nothing, but must name them.
 - **Resolved:** A6. **Touched:** `sir/build/Roles.java`, `Paragraphs` and `Values` (class-based
   forms of their predicates, so the walk and the vocabulary share them), the sir tests.
+
+### J-082 Tithe pass 2, A3: literals that say what they mean, and cobc as their oracle
+- **Who:** Opus. **Class:** build. **Intent:** the lowering decodes no literal (SIR-08).
+- **Found:** `Value.Literal` is now text, `Kind` (alphanumeric, hex, null-terminated, national, DBCS,
+  numeric, float, boolean, CICS) and payload (characters, hex bytes, or a signed unscaled integer and
+  a scale); `Item.value` and `Condition.values` are `Value`s (a range a `THRU` expression), not text.
+  Three things surfaced. (1) Every VALUE in the IR with a run of spaces inside its literal was wrong:
+  the text was rebuilt from tokens and collapsed them (`"       COMPUTED="` was `" COMPUTED="`), in
+  CardDemo's and NIST's report lines alike, and A5's goldens had pinned the wrong value, a golden
+  written by the code it checks (R-056's case). (2) `ALL QUOTE` and the like reached the number
+  decoder; they are now `Figurative("ALL QUOTE")`. (3) The oracle: `LiteralIntegrationTest` has cobc
+  `-std=ibm` DISPLAY every literal of CardDemo, NIST and OMP (14,601 distinct; numbers through an
+  `S9(18)V9(18)` field, a decimal comma in a program of its own) and compares the bytes with the
+  payload. It refuted one thing: `-0` is a negative zero to cobc, and the payload had lost the sign;
+  it keeps `-0` now. Its mutations (a wrong byte, a lost space, a lost sign, of each compared kind)
+  each turn it red. National, DBCS, boolean and CICS literals are counted, not compared (one, zero,
+  two and zero in the corpora).
+- **Resolved:** A3; SIR-08. **Touched:** `sir/types/Value.java`, `Item.java`, `sir/build/Literals.java`,
+  `Values`, `DataMap`, `Contract` (a literal of another kind prints its payload in braces), the
+  goldens (the VALUE lines; PROBE gains each kind), `docs/SEMANTIC-IR.md`, the sir tests.

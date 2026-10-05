@@ -37,7 +37,7 @@ class SirTypesTest {
 
     private static final Attributes GROUP = new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.GROUP, 0, 0, false, false, false, "");
 
-    private static Item item(int id, String name, int level, int parent, int record, Item.Section section, int offset, int length, Attributes a, String value, Origin origin) {
+    private static Item item(int id, String name, int level, int parent, int record, Item.Section section, int offset, int length, Attributes a, Value value, Origin origin) {
         return new Item(id, name, level, parent, record, section, offset, length, a, 0, null, 0, value, List.of(), origin);
     }
 
@@ -50,8 +50,8 @@ class SirTypesTest {
         items.add(item(3, "AMOUNT", 5, 1, 1, Item.Section.FILE, 10, 7, number(7, 2, "99999V99"), null, at(cpy, 4, 12)));
         items.add(item(4, "FILLER", 5, 1, 1, Item.Section.FILE, 17, 3, text(3), null, at(cpy, 5, 12)));
         items.add(item(5, "OUT-REC", 1, 0, 5, Item.Section.FILE, 0, 20, text(20), null, at(cbl, 17, 8)));
-        items.add(item(6, "EOF", 1, 0, 6, Item.Section.WORKING_STORAGE, 0, 1, text(1), "'N'", at(cbl, 19, 8)));
-        items.add(item(7, "COPIED", 1, 0, 7, Item.Section.WORKING_STORAGE, 0, 5, number(5, 0, "99999"), "0", at(cbl, 20, 8)));
+        items.add(item(6, "EOF", 1, 0, 6, Item.Section.WORKING_STORAGE, 0, 1, text(1), new Value.Literal("'N'", Value.Literal.Kind.ALPHANUMERIC, "N", 0), at(cbl, 19, 8)));
+        items.add(item(7, "COPIED", 1, 0, 7, Item.Section.WORKING_STORAGE, 0, 5, number(5, 0, "99999"), new Value.Literal("0", Value.Literal.Kind.NUMERIC, "0", 0), at(cbl, 20, 8)));
         return items;
     }
 
@@ -75,16 +75,16 @@ class SirTypesTest {
 
     static List<Statement> statements() {
         Statement read = statement("READ", 24, List.of(operand("file", new Value.File("IN-FILE"))), List.of(
-                new Statement.Branch("at-end", null, List.of(statement("MOVE", 25, List.of(operand("from", new Value.Literal("'Y'", false)), operand("to", field(6))), List.of()))),
+                new Statement.Branch("at-end", null, List.of(statement("MOVE", 25, List.of(operand("from", new Value.Literal("'Y'", Value.Literal.Kind.ALPHANUMERIC, "Y", 0)), operand("to", field(6))), List.of()))),
                 new Statement.Branch("not-at-end", null, List.of(
                         statement("WRITE", 27, List.of(operand("record", field(5)), operand("from", field(1))), List.of()),
-                        statement("ADD", 28, List.of(operand("addend", new Value.Literal("1", true)), operand("to", field(7))), List.of())))));
-        Value until = new Value.Expression("=", List.of(field(6), new Value.Literal("'Y'", false)));
+                        statement("ADD", 28, List.of(operand("addend", new Value.Literal("1", Value.Literal.Kind.NUMERIC, "1", 0)), operand("to", field(7))), List.of())))));
+        Value until = new Value.Expression("=", List.of(field(6), new Value.Literal("'Y'", Value.Literal.Kind.ALPHANUMERIC, "Y", 0)));
         return List.of(
                 statement("OPEN", 22, List.of(operand("input", new Value.File("IN-FILE")), operand("output", new Value.File("OUT-FILE"))), List.of()),
                 statement("PERFORM", 23, List.of(), List.of(new Statement.Branch("body", until, List.of(read)))),
                 statement("CLOSE", 31, List.of(operand("file", new Value.File("IN-FILE")), operand("file", new Value.File("OUT-FILE"))), List.of()),
-                statement("DISPLAY", 32, List.of(operand("item", new Value.Literal("'COPIED '", false)), operand("item", field(7)), operand("item", new Value.Literal("' RECORDS'", false))), List.of()),
+                statement("DISPLAY", 32, List.of(operand("item", new Value.Literal("'COPIED '", Value.Literal.Kind.ALPHANUMERIC, "COPIED ", 0)), operand("item", field(7)), operand("item", new Value.Literal("' RECORDS'", Value.Literal.Kind.ALPHANUMERIC, " RECORDS", 0))), List.of()),
                 statement("STOP RUN", 33, List.of(), List.of()));
     }
 
@@ -130,5 +130,8 @@ class SirTypesTest {
         refused("SIR-06", () -> new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(0, "P", "", List.of(), at("x", 1, 1))),
                 List.of(new Procedure.Edge(Procedure.Kind.PERFORM, 0, 3, 3, at("x", 1, 1)))));
         refused("SIR-07", () -> new Statement("MOVE", List.of(), List.of(), null));
+        refused("SIR-08", () -> new Value.Literal("X'C'", Value.Literal.Kind.HEX, "C", 0));
+        refused("SIR-08", () -> new Value.Literal("1.5", Value.Literal.Kind.NUMERIC, "1.5", 0));
+        refused("SIR-08", () -> new Value.Literal("'A'", Value.Literal.Kind.ALPHANUMERIC, "A", 1));
     }
 }

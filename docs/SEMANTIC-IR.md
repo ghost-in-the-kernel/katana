@@ -20,7 +20,8 @@ means what it means under.
 `Item`: each data item in textual order, numbered from 1: name, level, parent, record, `Section`
 (FILE, WORKING-STORAGE, LOCAL-STORAGE, LINKAGE), offset in the record and length in bytes, the
 `Attributes` tuple, the item it REDEFINES, its `Occurs` (with the ODO object, its `Key`s and INDEXED
-BY items), SYNC slack, VALUE as written, and its 88s, each a `Condition`. `Attributes`: `Usage`,
+BY items), SYNC slack, its VALUE as a `Value`, and its 88s, each a `Condition` whose values are
+`Value`s (a range a THRU expression). `Attributes`: `Usage`,
 `Category`, digits, scale, signed, sign separate, sign leading, PICTURE.
 
 ## The paragraph graph
@@ -34,8 +35,10 @@ or ALTER) from one paragraph to another, through the end of a PERFORM range.
 `Statement`: a verb, its operands, each an `Operand` with its role, and its phrases, each a `Branch`
 with its condition and statements. What it operates on is a `Value`: a `Field` (subscripted and
 reference-modified as written), a `File`, a `Target` paragraph, a `Name` that is not data, a
-`Literal`, a `Figurative` constant, a `ConditionName`, or an `Expression` of these. A statement's
-roles and an expression's operators are the grammar's (front/grammar), not chosen here.
+`Literal` (its text, its `Kind` and its decoded payload, SIR-08), a `Figurative` constant, a
+`ConditionName`, or an `Expression` of these. A statement's roles and an expression's operators are
+the grammar's (front/grammar), not chosen here; sir/roles.golden lists every verb's roles and branch
+labels (tithe pass 2, A6).
 
 ## Files
 
@@ -60,7 +63,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | `item` | each item's place and attribute tuple |
 | `redefines` | each item that redefines another |
 | `occurs` | each table's bounds, ODO object, keys and indexes |
-| `value` | each item's VALUE as written |
+| `value` | each item's VALUE |
 | `condition` | each 88 and its values |
 | `file` | each file's organization, access, keys, status and records |
 | `paragraph` | each paragraph's place in textual order and its section |
@@ -96,3 +99,8 @@ shape: `lower/golden/<PROG>.java`, the generated Java byte for byte, a refactor 
   edge and the header carry the place in the COBOL they came from (2.3's source map), as the IR's own
   `Origin` (file, line, column, and its `Kind`: source, replaced or added), so a reader of the IR needs
   nothing of the front end.
+- **SIR-08 A literal carries what it means.** Its `Kind` (alphanumeric, hex, null-terminated,
+  national, DBCS, numeric, float, boolean, CICS) and its payload: the characters with quotes undone,
+  the bytes as pairs of hex digits, or a signed unscaled integer with its scale (value = payload ×
+  10^-scale; only a number has a scale), so the lowering decodes nothing. cobc is its oracle
+  (`LiteralIntegrationTest`).

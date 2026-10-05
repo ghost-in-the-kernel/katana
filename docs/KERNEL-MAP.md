@@ -636,3 +636,14 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/build/Roles.java:Roles.walk` | called by `front/Preprocessor.java:Preprocessor.text` and 6 more | 2026-10-05 |  |
 | sir | `sir/build/Roles.java:Roles.called` | called by `sir/build/Roles.java:Roles.vocabulary` and 1 more | 2026-10-05 |  |
 | sir | `sir/build/Roles.java:Roles.context` | called by `sir/build/Roles.java:Roles.vocabulary` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.value` | called by `oracle/compare/Compare.java:Compare.record` and 20 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.interval` | called by `sir/build/DataMap.java:DataMap.condition` | 2026-10-05 |  |
+| sir | `sir/build/Literals.java:Literals.Literals` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Literals.java:Literals.of` | called by `oracle/compare/Layout.java:Layout.raw` and 78 more | 2026-10-05 |  |
+| sir | `sir/build/Literals.java:Literals.quote` | called by `front/Preprocessor.java:Preprocessor.replace` and 2 more | 2026-10-05 |  |
+| sir | `sir/build/Literals.java:Literals.unquote` | called by `front/Copybooks.java:Copybooks.read` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Literals.java:Literals.number` | called by `oracle/fixture/Fixture.java:Fixture.place` and 2 more | 2026-10-05 |  |
+| sir | `sir/contract/Contract.java:Contract.literal` | called by `sir/build/Build.java:Build.data#3` and 6 more | 2026-10-05 |  |
+| sir | `sir/types/Value.java:Value.Literal.Literal` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Value.java:Value.Literal.numeric` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Literals.java:Literals.unscaled` | called by `sir/build/Literals.java:Literals.number` | 2026-10-05 |  |

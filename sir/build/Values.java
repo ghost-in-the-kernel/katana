@@ -54,7 +54,7 @@ final class Values {
             case CobolParser.QualifiedDataNameContext q -> field(q, List.of(), null, null);
             case CobolParser.LiteralContext l -> literal(l);
             case CobolParser.FigurativeConstantContext f -> figurative(f);
-            case CobolParser.IntegerLiteralContext n -> new Value.Literal(n.getText(), true);
+            case CobolParser.IntegerLiteralContext n -> Literals.of(n.getText());
             case CobolParser.FileNameContext f -> file(upper(f.getText()));
             case CobolParser.ConditionNameReferenceContext c -> conditionName(c);
             case CobolParser.IndexNameContext x -> named(x.getText(), List.of(), x);
@@ -116,7 +116,7 @@ final class Values {
         Value name = of(s.getChild(0));
         String offset = s.integerLiteral().getText();
         boolean minus = offset.startsWith("-") || DataMap.text(s).replace(s.getChild(0).getText(), "").trim().startsWith("-");
-        return new Value.Expression(minus ? "-" : "+", List.of(name, new Value.Literal(offset.replaceFirst("^[-+]", ""), true)));
+        return new Value.Expression(minus ? "-" : "+", List.of(name, Literals.of(offset.replaceFirst("^[-+]", ""))));
     }
 
     /** A data name with its qualifiers, to a Field, to a ConditionName when it names an 88, else a Name and a finding. */
@@ -169,14 +169,17 @@ final class Values {
         return new Value.Name("unresolved", name);
     }
 
-    private static Value literal(CobolParser.LiteralContext l) {
+    /** A literal, or the figurative constant it is (ZERO is also a numeric literal's word). */
+    static Value literal(CobolParser.LiteralContext l) {
         if (l.figurativeConstant() != null) return figurative(l.figurativeConstant());
-        return new Value.Literal(l.getText(), l.NONNUMERICLITERAL() == null);
+        if (l.numericLiteral() != null && l.numericLiteral().ZERO() != null) return new Value.Figurative("ZERO", null);
+        return Literals.of(l.getText());
     }
 
-    /** A figurative constant by its singular name; ALL with its literal. */
+    /** A figurative constant by its singular name; ALL with its literal, or ALL and a figurative's name (ALL QUOTE). */
     private static Value figurative(CobolParser.FigurativeConstantContext f) {
-        if (f.ALL() != null) return new Value.Figurative("ALL", new Value.Literal(f.literal().getText(), f.literal().NONNUMERICLITERAL() == null));
+        if (f.ALL() != null && f.literal().figurativeConstant() != null) return new Value.Figurative("ALL " + ((Value.Figurative) figurative(f.literal().figurativeConstant())).name(), null);
+        if (f.ALL() != null) return new Value.Figurative("ALL", Literals.of(f.literal().getText()));
         String word = upper(f.getText());
         return new Value.Figurative(switch (word) {
             case "SPACES" -> "SPACE";

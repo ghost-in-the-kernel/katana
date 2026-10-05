@@ -1,4 +1,5 @@
-      * Tithe pass 2, A1: every keyword-bearing construct the IR once dropped, in one program.
+      * Tithe pass 2, A1: every keyword-bearing construct the IR once dropped, in one program;
+      * A3: each kind of literal, and VALUEs with their spaces.
        IDENTIFICATION DIVISION.
        PROGRAM-ID. PROBE.
        DATA DIVISION.
@@ -9,7 +10,9 @@
        01  D            PIC 9(3).
        01  N            PIC 9(3).
        01  X            PIC X(10).
-       01  Y            PIC X(20).
+       01  Y            PIC X(20) VALUE 'A  ''B''  C'.
+       01  Z            PIC S9(3)V99 VALUE -1.50.
+           88  Z-LOW    VALUE -999.99 THRU 0, 1.
        01  G1.
            05  F1       PIC X.
            05  F2       PIC 9.
@@ -37,6 +40,7 @@
            ELSE
                MOVE SPACES TO X
            END-IF
+           DISPLAY X'C1F0' Z'AB' N'NX' "Q""Q" +.5 -12.250 1.5E+3 .25E-2
            STOP RUN.
        P1.
            SUBTRACT 1 FROM A.

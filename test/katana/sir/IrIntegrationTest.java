@@ -104,14 +104,14 @@ class IrIntegrationTest {
         return out.toString();
     }
 
-    private static Map<String, Path> programs(Path root) throws Exception {
+    static Map<String, Path> programs(Path root) throws Exception {
         try (Stream<Path> files = Files.walk(root)) {
             return files.filter(Files::isRegularFile).filter(p -> p.getFileName().toString().toLowerCase().matches(".*\\.(cbl|cob|cobol)"))
                     .collect(Collectors.toMap(p -> root.relativize(p).toString(), p -> p, (a, b) -> a, TreeMap::new));
         }
     }
 
-    private static List<Path> folders(Path root) throws Exception {
+    static List<Path> folders(Path root) throws Exception {
         try (Stream<Path> files = Files.walk(root)) {
             List<Path> folders = new ArrayList<>(files.filter(p -> p.getFileName().toString().toLowerCase().matches(".*\\.(cpy|copy)")).map(Path::getParent).distinct().sorted().toList());
             folders.add(ROOT.resolve("front/ibm"));

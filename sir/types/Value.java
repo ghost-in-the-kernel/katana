@@ -20,8 +20,28 @@ public sealed interface Value {
     /** A file, by its name (OPEN, CLOSE, READ, START, DELETE). */
     record File(String name) implements Value {}
 
-    /** A literal as written, quotes kept for a nonnumeric one. */
-    record Literal(String text, boolean numeric) implements Value {}
+    /**
+     * A literal: as written (quotes kept), its kind, and what it means (SIR-08). The payload is the
+     * characters for ALPHANUMERIC, NULL_TERMINATED (without its X'00'), NATIONAL and DBCS, quotes undone;
+     * the bytes as hex digits for HEX; the unscaled value, signed, for NUMERIC and FLOAT, worth
+     * `payload × 10^-scale`; the word for BOOLEAN; the reference as written for CICS (DFHRESP, DFHVALUE).
+     */
+    record Literal(String text, Kind kind, String payload, int scale) implements Value {
+        public enum Kind { ALPHANUMERIC, HEX, NULL_TERMINATED, NATIONAL, DBCS, NUMERIC, FLOAT, BOOLEAN, CICS }
+
+        /** SIR-08: the payload is its kind's: hex digits in pairs, a signed integer, and a scale only for a number. */
+        public Literal {
+            boolean number = kind == Kind.NUMERIC || kind == Kind.FLOAT;
+            if (kind == Kind.HEX && !payload.matches("([0-9A-F]{2})*")) throw new Invalid("SIR-08", "hex literal " + text + " decodes to " + payload);
+            if (number && !payload.matches("-?(0|[1-9][0-9]*)")) throw new Invalid("SIR-08", "numeric literal " + text + " decodes to " + payload);
+            if (!number && scale != 0) throw new Invalid("SIR-08", "the " + kind + " literal " + text + " has a scale");
+        }
+
+        /** Whether it is a number. */
+        public boolean numeric() {
+            return kind == Kind.NUMERIC || kind == Kind.FLOAT;
+        }
+    }
 
     /** ZERO, SPACE, HIGH-VALUE, LOW-VALUE, QUOTE, NULL, or ALL with its literal. */
     record Figurative(String name, Literal all) implements Value {}
