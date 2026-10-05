@@ -292,6 +292,32 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-048, R-049, P-03
 - **subject:** front-end
 
+### R-017: The IR is complete: a lowering consults nothing but it, held by "no token left behind"
+- **Decision:** The Semantic IR carries everything a lowering needs; `lower/` reads `sir/` and the
+  profile and nothing else, never the parse tree, and decides no semantics (a keyword's meaning is
+  the IR's to state, the lowering's to emit). Held by a mechanical test: for every statement
+  subtree, every terminal outside a stated noise list appears in the IR as verb, role, keyword,
+  operator or literal; on a probe program in the fast loop, on NIST in integration. Arithmetic and
+  conditions are operator trees over a fixed vocabulary, not grammar-rule shapes. `Origin` is an IR
+  type. Literals carry a kind and a decoded payload. The role vocabulary is pinned by a golden.
+- **Why:** The phase-2 boundary review (J-073) found `ROUNDED` nowhere in `sir/`, EVALUATE's WHEN
+  groups collapsed, INSPECT's ALL and LEADING as one role, and expressions stored as ProLeap's rule
+  names, while every check passed, because the round-trip and contract checks compared the IR with
+  itself. A lowering built on that IR would have had to read the tree or decide semantics, which
+  MOD-03 forbids; the reviewer's estimate was six extra weeks in phase 3. The test is the one that
+  cannot be always green: it reads the tree the IR was built from and asks what was left behind.
+- **Claims:** C-1 keyword alternatives are where the loss is: `verified` (the probe, J-073; 37
+  `(KEYWORD | KEYWORD)` alternatives in the procedure rules). C-2 the data map side is complete:
+  `verified` (12,881 of 12,893 NIST fields placed as `cobc` places them, the rest explained). C-3 the
+  no-token test is sufficient for completeness: `hypothesis`; phase 3.3's lowering of NIST without
+  consulting the tree is the trial.
+- **Held by:** the no-token-left-behind test (tithe pass 2, A1); `sir/roles.golden`; per-program
+  contract goldens; `ModulesTest` (`lower/` imports `sir` only).
+- **Source:** the phase-2 boundary review, 2026-10-05; decided by Fable at the boundary, for Ghost.
+- **Status:** in force
+- **See also:** R-007, R-018, R-024, P-11
+- **subject:** semantic-ir
+
 ### R-026: Katana's sort is stable; an unordered tie in the original is a finding
 - **Decision:** `oracle/sort` is stable (records with equal keys keep input order, DFSORT's
   `EQUALS`). When a SORT step's cards do not specify `EQUALS` and the input holds records with equal
@@ -728,7 +754,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 
 ---
 
-Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-017 the IR is complete; R-018
+Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
 the attribute tuple; R-019 byte-image representation; R-020 Decimal with explicit scale; R-021 the
 dispatcher; R-022 TRUNC(OPT) as STD with a finding; R-023 float as IEEE with a finding; R-024 one
 emitter; R-025 indexed-file comparison on logical unload; R-028 coverage in every proof; R-029 refuted intent never acted on; R-030 ledger

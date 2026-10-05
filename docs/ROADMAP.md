@@ -563,7 +563,8 @@ evaluation license until R-037's provisional is filed.
 2.7 **Findings, first set:** F-08's non-exact classes detected at IR level and reported.
     *Check:* a program using TRUNC(OPT) or an overlapping PERFORM range produces the finding before
     any lowering.
-2.8 **Tithe pass 2.**
+2.8 **Tithe pass 2** (the phase-2 boundary; its plan and check are in `docs/HANDOFF.md` "For Opus:
+    tithe pass 2", written 2026-10-05 from the boundary review, J-073; closes with R-017 in force).
 
 Decisions recorded: R-014 CICS/DB2 graft; R-015 EPL-2.0; R-016 indicator-column and tab policy;
 R-017 the IR is complete (nothing in lowering consults the tree); R-018 the attribute tuple as

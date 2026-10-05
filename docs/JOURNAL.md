@@ -891,3 +891,24 @@ taken; closed by a later `decision` entry naming it).
   the common one: phase 3's lowering must say what it does with each. F-08's last class,
   uninitialized reads, needs data flow and is listed in FINDINGS.md as not yet found.
 - **Touched:** `findings/`, `sir/check/NonExact.java`, `docs/FINDINGS.md`, tests, CLAUDE.md.
+
+### J-073 The phase-2 boundary review: the IR's statement side was not complete, and every check was green
+- **Who:** Fable asked a reviewer who had not seen the plan; Fable verified; Ghost's tithe call.
+  **Class:** failure-caught.
+- **Intent:** 2.8, the tithe evaluation Ghost asked for before phase 3.
+- **Found:** `sir/build/Paragraphs.walk` skips every terminal node; `ROUNDED` is nowhere in `sir/`;
+  EVALUATE's WHEN groups collapse and ANY is lost; INSPECT ALL and LEADING are one role; STOP RUN and
+  STOP literal lose the word; arithmetic and conditions are stored as ProLeap rule shapes. Every IR
+  type imports `katana.front.Mapped.Origin`, which `lower/` may not import. `ir.golden` holds ten
+  lines of counts and the 415,863 contract lines are discarded. The data map side is sound.
+- **Caught by:** a fresh reviewer with a probe program through `Build.program` and `IrJson.write`.
+  Not caught by: the round-trip test (IR to JSON to IR, compared with itself) or the contract-facts
+  count. The metrics were all green; the environment was fine; the artifact was not.
+- **Resolved:** R-017 recorded with the "no token left behind" test as what holds it; tithe pass 2
+  written as A (the IR), B (phase-3 seams), C (ordinary) in HANDOFF; 2.8 closes on A and B.
+- **Note:** third member of the always-green family (J-006 the Gradle up-to-date task, the CI that
+  would be always red). The rule they share: a check that compares a thing with itself, or that
+  cannot fail, is not a check. The study should count these; the fix each time was a test that reads
+  the *other* side (the tree, the file system, the run). Also: the reviewer's estimate — six weeks
+  of phase 3 saved by 60 hours of tithe — is the tithe's claim (R-008) with a number on it.
+
