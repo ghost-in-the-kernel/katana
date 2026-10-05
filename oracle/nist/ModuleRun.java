@@ -53,9 +53,13 @@ public final class ModuleRun {
         return member.owner().startsWith("OB") ? "OB" : member.owner().substring(0, 2);
     }
 
-    /** Runs a module's programs in a folder of their own and returns each run's outcome, in order. */
+    /**
+     * Runs a module's programs in a folder of their own under a runner (`Cobc`, or phase 3's Java lane;
+     * LANE-09) and returns each run's outcome, in order. The environment it passes is cobc's runtime's
+     * (COB_SET_DEBUG, COB_LIBRARY_PATH, the switches); another runner maps what it needs of it.
+     */
     public static List<Outcome> run(String module, List<Population.Member> extracted, RunNotes notes, Map<String, String> switches,
-                                    Path dir, Cobc cobc) {
+                                    Path dir, Runner runner) {
         try {
             Files.createDirectories(dir);
             Map<String, Population.Member> data = new HashMap<>();
@@ -66,7 +70,7 @@ public final class ModuleRun {
             List<Outcome> outcomes = new ArrayList<>();
             for (Population.Member main : extracted) {
                 if (!main.kind().equals("COBOL") || !main.name().equals(main.owner()) || !module(main).equals(module)) continue;
-                outcomes.addAll(runMain(main, extracted, data, notes, switches, dir, cobc));
+                outcomes.addAll(runMain(main, extracted, data, notes, switches, dir, runner));
             }
             return outcomes;
         } catch (IOException e) {
@@ -76,19 +80,19 @@ public final class ModuleRun {
 
     /** A main program with its SUBRTN modules, then each of its SUBPRG members in order. */
     private static List<Outcome> runMain(Population.Member main, List<Population.Member> extracted,
-                                         Map<String, Population.Member> data, RunNotes notes, Map<String, String> switches, Path dir, Cobc cobc) throws IOException {
+                                         Map<String, Population.Member> data, RunNotes notes, Map<String, String> switches, Path dir, Runner runner) throws IOException {
         List<Outcome> outcomes = new ArrayList<>();
         for (Population.Member sub : extracted) {
             if (sub.owner().equals(main.name()) && !sub.name().equals(main.name()) && isSubroutine(sub)) {
                 write(dir, sub);
-                Cobc.Result compiled = cobc.compileModule(dir, sub.name() + ".CBL", List.of());
+                Runner.Result compiled = runner.module(dir, sub.name() + ".CBL");
                 if (!compiled.ok()) return List.of(Outcome.compileError(main.name(), sub.name() + ": " + compiled.output()));
             }
         }
-        outcomes.addAll(runProgram(main, data, notes, switches, dir, cobc));
+        outcomes.addAll(runProgram(main, data, notes, switches, dir, runner));
         for (Population.Member sub : extracted) {
             if (sub.owner().equals(main.name()) && !sub.name().equals(main.name()) && !isSubroutine(sub)) {
-                outcomes.addAll(runProgram(sub, data, notes, switches, dir, cobc));
+                outcomes.addAll(runProgram(sub, data, notes, switches, dir, runner));
             }
         }
         return outcomes;
@@ -96,9 +100,9 @@ public final class ModuleRun {
 
     /** One program compiled and run once per debugging setting its run note gives, its absent files removed first. */
     private static List<Outcome> runProgram(Population.Member program, Map<String, Population.Member> data, RunNotes notes,
-                                            Map<String, String> switches, Path dir, Cobc cobc) throws IOException {
+                                            Map<String, String> switches, Path dir, Runner runner) throws IOException {
         write(dir, program);
-        Cobc.Result compiled = cobc.compile(dir, program.name() + ".CBL", List.of());
+        Runner.Result compiled = runner.program(dir, program.name() + ".CBL");
         if (!compiled.ok()) return List.of(Outcome.compileError(program.name(), compiled.output()));
         RunNotes.Note note = notes.of(program.name(), module(program));
         byte[] input = data.containsKey(program.name())
@@ -112,7 +116,7 @@ public final class ModuleRun {
             if (!debug.isEmpty()) env.put("COB_SET_DEBUG", debug.equals("on") ? "Y" : "N");
             env.put("COB_LIBRARY_PATH", ".");
             env.putAll(switches);
-            Cobc.Result ran = cobc.execute(dir, program.name(), env, input);
+            Runner.Result ran = runner.run(dir, program.name(), env, input);
             Path print = dir.resolve(PRINT);
             String printed = Files.exists(print) ? Files.readString(print, StandardCharsets.ISO_8859_1) : "";
             Optional<Report.Counts> counts = Report.read(printed);

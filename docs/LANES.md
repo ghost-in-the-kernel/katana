@@ -29,6 +29,30 @@ Invariants are numbered LANE-01 onward, in this document only, and a number is n
 - **LANE-05 The java lane's stub runs sequential datasets only.** A fixture with an indexed dataset, a
   stub or a called module is refused by the java lane with a finding; those wait for `rt/` (phase 3).
 
+## The generated program's contract (phase 3; tithe pass 2, B2)
+
+What `lower/` emits for each program, and what `rt/` and the java lane hold it to. `CopyRecords`
+(test/katana/oracle/lane/) is its first instance, run by the check below.
+
+- **LANE-06 A program is a static entry and an adapter.** Each generated program's class has
+  `public static int run(Map<String,String> dd, String parm, InputStream sysin, PrintStream sysout)`:
+  its DDs by name (LANE-01's, `DD_` dropped), its PARM ("" for none), SYSIN and the step's stdout; it
+  returns the return code. A `main(String[] args)` adapter builds those from the `DD_` variables, the
+  one argument, System.in and System.out, and exits with what `run` returned. A lane and NIST call
+  `run` in one JVM: NIST's 437 programs under two profiles as a JVM each would take about five minutes
+  the pre-push check does not have.
+- **LANE-07 An ASSIGN name finds its file through the DDs, then the working directory.** A file
+  ASSIGNed to `X` is `dd.get("X")` when the step binds that DD, else a file named `X` in the step's
+  working directory, as cobc resolves it (NIST's programs ASSIGN to names such as `XXXXX001`, which
+  its run writes beside them).
+- **LANE-08 An abend is thrown, the return code returned.** `rt/`'s `Abend(code)` ends the program
+  abnormally; the adapter, or the lane calling `run`, prints `CEE3ABD abend Unnnn` on stderr (with no
+  code, `CEE3ABD abend with no code`), as LANE-04 says of the cobc lane; RETURN-CODE at STOP RUN or
+  GOBACK is what `run` returns.
+- **LANE-09 NIST runs through a runner, not through cobc.** `ModuleRun` takes an
+  `oracle/nist/Runner` (build a called module, build a main program, run it); `Cobc` is one, and the
+  java lane's is the other, so phase 3.4 runs NIST through both lanes without a change to `ModuleRun`.
+
 ## The check
 
 `test/katana/oracle/lane/TrivialLanesIntegrationTest.java`: `oracle/fixture/trivial/COPY.fixture`

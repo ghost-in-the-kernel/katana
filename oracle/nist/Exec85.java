@@ -121,9 +121,9 @@ public final class Exec85 {
             Files.write(work.resolve(POPULATION), records(population));
             Files.write(work.resolve(CARDS), records(cards));
             Files.write(work.resolve("EXEC85.cbl"), program(Population.read(population)), StandardCharsets.ISO_8859_1);
-            Cobc.Result compiled = cobc.compile(work, "EXEC85.cbl", List.of());
+            Runner.Result compiled = cobc.compile(work, "EXEC85.cbl", List.of());
             if (!compiled.ok()) throw new IllegalStateException("EXEC85 did not compile:\n" + compiled.output());
-            Cobc.Result ran = cobc.execute(work, "EXEC85", Map.of());
+            Runner.Result ran = cobc.execute(work, "EXEC85", Map.of());
             if (!ran.ok()) throw new IllegalStateException("EXEC85 failed:\n" + ran.output());
             return Population.read(lines(Files.readAllBytes(work.resolve(SOURCE)), WIDTH));
         } catch (IOException e) {

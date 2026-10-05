@@ -1045,3 +1045,17 @@ taken; closed by a later `decision` entry naming it).
   comparator's and the sort's. Both `// Unsure: R-053 default` lines are gone with their readers.
 - **Resolved:** B1. **Touched:** `oracle/compare/` (Layout, Decode, Overpunch), `oracle/sort/Zoned`,
   `oracle/lane/` (Paragraphs, CobcLane), their tests, the kernel map's closing rows.
+
+### J-086 Tithe pass 2, B2: the generated program's contract, and NIST's runner seam
+- **Who:** Opus. **Class:** build. **Intent:** phase 3's `lower/` emits to a written contract, and 3.4
+  ("NIST through both lanes") has a seam to stand on.
+- **Found:** LANES.md now says what a generated program is (LANE-06 to LANE-09): a static `run(dd,
+  parm, sysin, sysout)` returning the return code, a `main` adapter over the `DD_` variables; an
+  ASSIGN resolved through the DDs, then the working directory (NIST's `XXXXX001` names); an abend
+  thrown and printed as LANE-04 says; NIST run through `oracle/nist/Runner`, which `Cobc` implements,
+  so `ModuleRun` no longer names cobc. The in-process entry is chosen for time: 437 programs under two
+  profiles as a JVM each is about five minutes the pre-push check lacks. The lanes' job steps already
+  had a seam (`oracle/lane/ProgramRunner`); NIST was the one without. `CopyRecords`, the one Java
+  program the java lane runs, now has the contract's shape, so the trivial lanes' check holds it.
+- **Resolved:** B2. **Touched:** `docs/LANES.md`, `oracle/nist/` (Runner, Cobc, ModuleRun, Exec85),
+  `CopyRecords`, the literal oracle's import.

@@ -689,3 +689,8 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/compare/Layout.java:Layout.place` | the comparator's own copybook reader, retired in tithe pass 2, B1 | 2026-10-05 | superseded-by: `oracle/compare/Layout.java:Layout.flatten` |
 | oracle | `oracle/compare/Layout.java:Layout.elementary` | the comparator's own copybook reader, retired in tithe pass 2, B1 | 2026-10-05 | superseded-by: `oracle/compare/Layout.java:Layout.flatten` |
 | oracle | `oracle/compare/Layout.java:Layout.expand` | a second PICTURE expander, retired in tithe pass 2, B1 | 2026-10-05 | superseded-by: `sir/build/Pictures.java:Pictures.expand` |
+| oracle | `oracle/nist/Cobc.java:Cobc.module` | called by `oracle/lane/CobcLane.java:CobcLane.libraries` and 4 more | 2026-10-05 |  |
+| oracle | `oracle/nist/Cobc.java:Cobc.program` | called by `oracle/lane/Generated.java:Generated.loader` and 14 more | 2026-10-05 |  |
+| oracle | `oracle/nist/Cobc.java:Cobc.run#3` | called by `front/Parse.java:Parse.text#2` and 19 more | 2026-10-05 |  |
+| oracle | `oracle/nist/Runner.java:Runner.Result.ok` | called by `oracle/nist/Exec85.java:Exec85.run` and 2 more | 2026-10-05 |  |
+| oracle | `oracle/nist/Cobc.java:Cobc.Result.ok` | moved to the runner seam in tithe pass 2, B2 | 2026-10-05 | superseded-by: `oracle/nist/Runner.java:Runner.Result.ok` |

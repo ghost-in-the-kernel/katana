@@ -20,6 +20,7 @@ import java.util.TreeMap;
 import katana.front.Copybooks;
 import katana.front.Parse;
 import katana.oracle.nist.Cobc;
+import katana.oracle.nist.Runner;
 import katana.oracle.nist.NistSources;
 import katana.sir.build.Build;
 import katana.sir.types.Item;
@@ -108,7 +109,7 @@ class LiteralIntegrationTest {
         source.append("STOP RUN.\n");
         Files.writeString(dir.resolve("LITERALS.cbl"), source, StandardCharsets.ISO_8859_1);
         Cobc cobc = new Cobc(Duration.ofSeconds(120), "ibm");
-        Cobc.Result compiled = cobc.compile(dir, "LITERALS.cbl", List.of("-free"));
+        Runner.Result compiled = cobc.compile(dir, "LITERALS.cbl", List.of("-free"));
         if (!compiled.ok()) return List.of("cobc refused the program: " + compiled.output());
         byte[] out = cobc.execute(dir, "LITERALS", Map.of()).output().getBytes(StandardCharsets.ISO_8859_1);
         List<String> mismatches = new ArrayList<>();

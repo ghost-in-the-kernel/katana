@@ -16,14 +16,7 @@ import java.util.concurrent.TimeUnit;
  * is a crash, not a hung build. The cobc lane for jobs (oracle/lane/) has its own runner, since it
  * binds DDs to files and keeps stdout and stderr apart; this one stays NIST's.
  */
-public final class Cobc {
-    /** How a process ended: its exit code (-1 when it was stopped at the time limit) and what it printed. */
-    public record Result(int exit, String output) {
-        public boolean ok() {
-            return exit == 0;
-        }
-    }
-
+public final class Cobc implements Runner {
     private final Duration limit;
     private final String dialect;
 
@@ -62,6 +55,21 @@ public final class Cobc {
         command.addAll(flags);
         command.add(source);
         return run(dir, command, Map.of());
+    }
+
+    @Override
+    public Result module(Path dir, String source) {
+        return compileModule(dir, source, List.of());
+    }
+
+    @Override
+    public Result program(Path dir, String source) {
+        return compile(dir, source, List.of());
+    }
+
+    @Override
+    public Result run(Path dir, String program, Map<String, String> env, byte[] input) {
+        return execute(dir, program, env, input);
     }
 
     /** Runs an executable built in a folder, with these environment variables added and nothing on its input. */
