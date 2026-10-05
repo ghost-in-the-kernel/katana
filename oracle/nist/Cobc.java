@@ -47,6 +47,11 @@ public final class Cobc {
         return cobc(dir, source, "-x", flags);
     }
 
+    /** Translates a source in a folder to C (`-C`), under this dialect: its data layout is 2.5's oracle for the data map. */
+    public Result translate(Path dir, String source, List<String> flags) {
+        return cobc(dir, source, "-C", flags);
+    }
+
     /** Compiles a source in a folder into a module another program CALLs (`-m`), under this dialect. */
     public Result compileModule(Path dir, String source, List<String> flags) {
         return cobc(dir, source, "-m", flags);

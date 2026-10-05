@@ -478,3 +478,46 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/types/Value.java:Value.Expression.Expression` | no caller | 2026-10-05 |  |
 | sir | `sir/types/Procedure.java:Procedure.inside` | called by `sir/types/Procedure.java:Procedure.Procedure` | 2026-10-05 |  |
 | sir | `sir/types/Procedure.java:Procedure.index` | moved or retired in phase 2.4 (a compact constructor cannot read its fields) | 2026-10-05 | superseded-by: `sir/types/Procedure.java:Procedure.inside` |
+| oracle | `oracle/nist/Cobc.java:Cobc.translate` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.Build` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.data` | called by `sir/build/Build.java:Build.all` | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.all` | called by `oracle/lane/CobcLane.java:CobcLane.end` | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.data#2` | called by `sir/build/Build.java:Build.data` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.first` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.environment` and 6 more | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.units` | called by `sir/build/Build.java:Build.data` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Build.java:Build.nested` | called by `sir/build/Build.java:Build.units` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.DataMap` | no caller | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.section` | called by `sir/build/Build.java:Build.data#2` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.format1` | called by `sir/build/DataMap.java:DataMap.section` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.add` | called by `front/Errors.java:Errors.listen` and 106 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.index` | called by `front/Copybooks.java:Copybooks.Copybooks` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.clauses` | called by `sir/build/DataMap.java:DataMap.format1` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.sign` | called by `sir/build/DataMap.java:DataMap.clauses` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.occurs` | called by `oracle/compare/Layout.java:Layout.place` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.condition` | called by `sir/build/DataMap.java:DataMap.section` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.renames` | called by `sir/build/DataMap.java:DataMap.section` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.usage` | called by `oracle/compare/Layout.java:Layout.elementary` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.text` | called by `front/Parse.java:Parse.file` and 16 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.resolve` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 29 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.sibling` | called by `sir/build/DataMap.java:DataMap.resolve` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.named` | called by `sir/build/DataMap.java:DataMap.resolve` and 2 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.layout` | called by `sir/build/Build.java:Build.data#2` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.place` | called by `oracle/compare/Layout.java:Layout.read` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.extent` | called by `sir/build/DataMap.java:DataMap.place` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.renamed` | called by `sir/build/DataMap.java:DataMap.layout` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.alignment` | called by `sir/build/DataMap.java:DataMap.place` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.size` | called by `front/Lines.java:Lines.normalize#2` and 50 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.items` | called by `oracle/compare/Layout.java:Layout.read` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.keys` | called by `oracle/sort/Dfsort.java:Dfsort.run` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.indexes` | called by `sir/build/DataMap.java:DataMap.items` | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.attributes` | called by `oracle/fixture/Fixture.java:Fixture.Dd.attributes` and 19 more | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.read` | called by `front/Preprocessor.java:Preprocessor.exitCopyStatement` and 11 more | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.read#2` | called by `front/Preprocessor.java:Preprocessor.exitCopyStatement` and 12 more | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.digits` | called by `sir/build/DataMap.java:DataMap.size` and 2 more | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.scale` | called by `oracle/compare/Decode.java:Decode.value` and 2 more | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.floating` | called by `sir/build/Pictures.java:Pictures.scale` | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.firstOf` | called by `sir/build/Pictures.java:Pictures.scale` | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.lastOf` | called by `sir/build/Pictures.java:Pictures.scale` | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.expand` | called by `front/Copybooks.java:Copybooks.read` and 6 more | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.Symbols.scan` | called by `sir/build/Pictures.java:Pictures.read#2` | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.Symbols.category` | called by `sir/build/DataMap.java:DataMap.attributes` and 1 more | 2026-10-05 |  |

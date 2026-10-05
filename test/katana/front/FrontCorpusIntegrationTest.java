@@ -6,22 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import katana.oracle.nist.Cobc;
-import katana.oracle.nist.Exec85;
-import katana.oracle.nist.ModuleRun;
-import katana.oracle.nist.Population;
+import katana.oracle.nist.NistSources;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -120,34 +115,10 @@ class FrontCorpusIntegrationTest {
         return out;
     }
 
-    /**
-     * NIST under COBOL 85: EXEC85 extracts the programs and copy members; each program of a module the
-     * NIST run compiles that cobc did not refuse (both read from oracle/nist/programs.golden) is parsed with the copy members beside it,
-     * a library's members in the library's folder as the NIST run lays them out.
-     */
+    /** NIST under COBOL 85 (NistSources), each program with its copy members beside it. */
     private static Map<String, String> nist() throws Exception {
-        Path work = Files.createDirectories(ROOT.resolve("build/front-nist"));
-        String cards = Files.readString(ROOT.resolve("oracle/nist/exec85.cards"));
-        List<Population.Member> members = Exec85.run(ROOT.resolve("corpus/nist-cobol85-test-suite/newcob.val"), Exec85.cards(cards),
-                Files.createTempDirectory(work, "exec85"), new Cobc(Duration.ofSeconds(30)));
-        Path copy = Files.createTempDirectory(work, "copy");
-        Map<String, String> libraries = Map.of("ALTLB", "ALTLIB1/ALTLB", "ALTL1", "ALTLIB2/ALTLB");
-        Map<String, Path> programs = new TreeMap<>();
-        List<String[]> golden = Files.readAllLines(ROOT.resolve("oracle/nist/programs.golden")).stream().filter(l -> !l.startsWith("#")).map(l -> l.split(" ")).toList();
-        Set<String> modules = golden.stream().map(f -> f[0]).collect(Collectors.toSet());
-        Set<String> refused = golden.stream().filter(f -> f[3].equals("compile")).map(f -> f[1]).collect(Collectors.toSet());
-        for (Population.Member m : members) {
-            if (m.kind().equals("CLBRY")) {
-                Path file = copy.resolve(libraries.getOrDefault(m.name(), m.name()) + ".CPY");
-                Files.createDirectories(file.getParent());
-                Files.write(file, m.lines(), StandardCharsets.ISO_8859_1);
-            } else if (m.kind().equals("COBOL") && modules.contains(ModuleRun.module(m)) && !refused.contains(m.name())) {
-                Path file = copy.resolve(m.name() + ".CBL");
-                Files.write(file, m.lines(), StandardCharsets.ISO_8859_1);
-                programs.put(m.name(), file);
-            }
-        }
-        Copybooks books = new Copybooks(List.of(copy), name -> 8);
+        Map<String, Path> programs = NistSources.write(ROOT, Files.createDirectories(ROOT.resolve("build/front-nist")));
+        Copybooks books = new Copybooks(List.of(programs.values().iterator().next().getParent()), name -> 8);
         return report("nist", parseAll(programs, (path, text) -> Parse.text(text, path.toString(), books)), true);
     }
 

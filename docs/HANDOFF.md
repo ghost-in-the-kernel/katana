@@ -15,6 +15,10 @@
   taken:** the round trip is held now from the parsed text back to the COBOL text, character for
   character, over the whole corpus; 3.3's provenance comment cites an origin, and its check extends
   the same round trip to lowered statements.
+- **One data-map difference from cobc is cobc's** (from step 2.5, J-067). NIST NC124A's
+  `$$,$$$.$$`: cobc lays it out with scale 0, ours 2, IBM's rule (the floating `$` after the point holds
+  digits), and cobc itself gives `+++++.++` scale 2. **Default taken:** ours, listed in
+  `sir/datamap.golden`; a trial (MOVE 12.34 to it, DISPLAY) would show which the cobc lane prints.
 - **"An IBM dialect switch mirroring `ibm-strict.conf`"** (2.1's text) would mean reading GnuCOBOL's
   configuration, which R-045 keeps off screen. **Default taken:** no switch in 2.1; the grammar accepts
   the union, and the dialect is the profile's (R-049) when `sir/` needs it.

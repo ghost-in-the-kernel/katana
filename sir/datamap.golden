@@ -1,0 +1,17 @@
+# Phase 2.5 (docs/ROADMAP.md): the data map against `cobc -C -std=ibm`'s layout, on every program cobc
+# accepts: `corpus NAME programs P fields F differ D`, then each difference as `PROGRAM FIELD: what`.
+# Written by `gradle integration -Dkatana.record=true`.
+corpus carddemo programs 11 fields 215 differ 0
+corpus nist programs 426 fields 12893 differ 12
+DB205A INQUE-SPECS: no item of ours (a finding: COMMUNICATION SECTION)
+DB205A OUTQUE-SPECS: no item of ours (a finding: COMMUNICATION SECTION)
+NC124A EDIT-AREA-12: scale 2 vs 0
+RW101A RW-FS1-GROUP: no item of ours (a finding: REPORT SECTION)
+RW102A RW-FS2-GROUP: no item of ours (a finding: REPORT SECTION)
+RW103A RW-FS3-HEADING: no item of ours (a finding: REPORT SECTION)
+RW103A RW-FS3-DETAIL: no item of ours (a finding: REPORT SECTION)
+RW104A RW-FS4-HEADING: no item of ours (a finding: REPORT SECTION)
+RW104A RW-FS4-DETAIL: no item of ours (a finding: REPORT SECTION)
+RW104A RW-FS4-FOOTING: no item of ours (a finding: REPORT SECTION)
+RW301M RREC: no item of ours (a finding: REPORT SECTION)
+RW302M RREC: no item of ours (a finding: REPORT SECTION)

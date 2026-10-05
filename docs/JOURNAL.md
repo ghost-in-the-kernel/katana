@@ -779,3 +779,17 @@ taken; closed by a later `decision` entry naming it).
   Statements are one record, verb plus role-tagged operands and branches, not a type per verb: 2.5
   will say whether that holds. Twice a record's compact constructor read a field before it was set.
 - **Touched:** `sir/types/`, `docs/SEMANTIC-IR.md`, `CLAUDE.md`, the sir tests, TODO, DONE.
+
+### J-067 Phase 2.5a: the data map is cobc's layout on 13,108 fields
+- **Who:** Opus. **Class:** build. **Intent:** 2.5's data map, held to `cobc -C`.
+- **Found:** first comparison 208/215 on CardDemo and 12,397/12,531 on NIST; then 215/215 and 12,881/
+  12,893 after: edited pictures with a sign symbol are signed; a floating string's symbols after the
+  point are digits, a lone sign is not; an all-P picture is all scale; CURRENCY SIGN and
+  DECIMAL-POINT IS COMMA; BLANK WHEN ZERO makes a DISPLAY number edited; a 66 of one item takes its
+  attributes; nested programs each have their own layout file. The 12 left: 11 Report Writer groups
+  and COMMUNICATION descriptions, features Enterprise COBOL lacks, now findings; 1 a cobc scale
+  (HANDOFF). Several "differences" were my matcher's, pairing same-named fields of other records.
+  The fresh-clone gate failed first: `.gitignore`'s `build/` also hid `sir/build/` (the roadmap's
+  name), which compiled here and was never committed; the line is `/build/` now.
+- **Touched:** `sir/build/`, `oracle/nist/Cobc.java` (`translate`), the sir tests, `NistSources`
+  (shared by the front and sir corpus tests), CI's lane step.

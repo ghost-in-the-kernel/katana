@@ -23,6 +23,9 @@ Check: the data map matches `cobc -C`'s `b_N` sizes, offsets and attribute tuple
 it accepts (F-06's oracle for the data map, used as a test); the IR serializes to JSON and
 round-trips.
 
+2.5a, the data map, is built and held (J-067); the paragraph graph, statements, files, CALLs, the
+JSON round trip and `sir/check` remain.
+
 ### 2.6 `sir/contract`
 
 Check: none in the roadmap; written here before the item starts.
