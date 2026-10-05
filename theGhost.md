@@ -419,6 +419,20 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** profile
 
 
+### R-050: One CI run per change
+- **Decision:** CI runs once for each change: on a push to `main`, where every step lands (R-040), or
+  when started by hand. A push to a working branch and a pull request run nothing, since the commits
+  they carry are the ones `main` gets. A second run of the same commit is overhead, not a check.
+- **Why:** Every step was pushed to `main` and then to the working branch, and both pushes ran the
+  whole workflow on the same commit; GitHub Actions minutes ran out on 2026-10-04 and return on
+  2026-11-02. Until then a step's gate is the same image and commands run on a fresh clone before the
+  push, with the results in its commit message (`docs/HANDOFF.md`).
+- **Held by:** `.github/workflows/ci.yml` (its `on:`).
+- **Source:** Ghost, 2026-10-05, as a directive; Opus found the duplicate runs.
+- **Status:** in force
+- **See also:** R-040, R-041
+- **subject:** process
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-010 DFSORT

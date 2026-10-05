@@ -41,6 +41,10 @@ the tab width CUSTREC needs), which CREASTMT and PRTCATBL wait on, and on R-010.
 
 ## Waiting on a run
 
+- **CI is out of GitHub Actions minutes until 2026-11-02** (R-050). Until then a step's gate is the CI
+  image and commands on a fresh clone before the push: `gradle build`, both NIST steps and the lane
+  step, their results quoted in the commit message. The first commit only checked that way is
+  `6701f6f` (1.5a). When minutes return, run the workflow by hand on `main` once.
 - NIST under `-std=ibm` (phase 1.2) is recorded (`oracle/nist/IBM-CHANGES.md`); three of its causes
   are what `rt/Decimal` and the profile must model before phase 3.1 freezes the numeric runtime:
   IBM's intermediate precision (`-farithmetic-osvs`, 61 failures), binary items not truncated

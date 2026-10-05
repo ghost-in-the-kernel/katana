@@ -1,9 +1,12 @@
-# The fast loop on every push and pull request, in the pinned image with the network off
-# (docs/ROADMAP.md 0.3): what passes here is what a clean clone builds offline.
+# The fast loop in the pinned image with the network off (docs/ROADMAP.md 0.3): what passes here is
+# what a clean clone builds offline. One run per change (R-050): on a push to main, where every step
+# lands (R-040), and by hand; a branch push or a pull request runs nothing, since its commits are the
+# ones main gets.
 name: ci
 on:
   push:
-  pull_request:
+    branches: [main]
+  workflow_dispatch:
 jobs:
   fast-loop:
     runs-on: ubuntu-24.04

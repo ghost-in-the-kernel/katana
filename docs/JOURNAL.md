@@ -536,3 +536,15 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
 - **Resolved:** records padded to full length; the copybooks' hashes in the key; a tab reported only
   for a copybook a program copies. **Caught by:** the measurement's empty output, a read of the cache
   code while adding shadow copybooks, and reading the first report. **Cost:** three runs.
+
+### J-047 Every change ran CI twice, until the minutes ran out
+- **Who:** Opus found it; Ghost decided. **Class:** decision.
+- **Intent:** Checking CI after 1.5a (`6701f6f`).
+- **Found:** GitHub Actions minutes are spent until 2026-11-02; both runs of `6701f6f` sit unfinished.
+  Each step since 0.x was pushed to `main` and then to the working branch, and the workflow ran on
+  every push, so every commit ran the whole workflow twice (the NIST job alone about four minutes a run).
+- **Resolved:** R-050, Ghost's directive: one run per change, on a push to `main` or by hand. Until
+  the minutes return, the fresh-clone run in the CI image is the gate, quoted in each commit message.
+- **Note:** the commit's own gate line was written before the build ran, and Docker was down; it
+  was run before the push and passed, but a result is written after the run, never before.
+- **Touched:** `.github/workflows/ci.yml`, `theGhost.md` (R-050), `HANDOFF.md`.
