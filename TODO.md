@@ -26,6 +26,11 @@ lowering.
 
 Check: none in the roadmap; written here before the item starts.
 
+Before it starts (Ghost, 2026-10-05): the refactoring tithe is overdue and needs an evaluation, of the
+working environment, context management and the routing to the functions a change updates. The
+implementing agent stops here and asks; Fable writes the tithe plan for the project as it stands, and
+2.8's check comes from that plan.
+
 ## Phase 3: literal lowering and the runtime, proven on NIST
 
 ### 3.1 `rt/` core

@@ -7,6 +7,10 @@
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
+- **At 2.8, before the tithe starts** (Ghost, 2026-10-05): the refactoring tithe is overdue and needs
+  an evaluation (the working environment, context management, the routing to updateable functions).
+  Fable writes the tithe pass plan for the project as it stands then; 2.8's check comes from it.
+
 (phase 2's six from steps 2.1–2.5 answered mid-phase 2026-10-05 while Fable was present: R-055; all
 six defaults hold, three roadmap wordings corrected)
 
