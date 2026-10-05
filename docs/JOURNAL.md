@@ -1172,3 +1172,13 @@ taken; closed by a later `decision` entry naming it).
 - **Caught by:** the assertion written to hold the trial's result, on its first run (R-056 again).
 - **Resolved:** 3.1's first step. **Touched:** `oracle/autotest/`, its tests, `corpus/fetch.sh`
   (pinned), `scripts/prepush.sh` (an `autotest` suite), `docs/checks.json`, TODO.md.
+
+### J-094 Phase 3.1: Appendix A located, and refused by the network
+- **Who:** Opus. **Class:** stop (R-053, one step). **Intent:** read IBM's intermediate-results rules
+  before `rt/Decimal`, as the roadmap and R-049 require.
+- **Found:** a search finds the topic and the 6.4 Programming Guide PDF; `www.ibm.com` and
+  `publibfp.dhe.ibm.com` are both refused by this environment's egress proxy (403), so the notes'
+  "[unverified] recollection" stays unverified. No reversible default exists for freezing `Decimal`
+  on a recollection R-049 calls a hypothesis, so that step stops; the parts of 3.1 that do not
+  compute intermediates continue.
+- **Resolved:** HANDOFF "For Ghost" (allow the two hosts, or attach the PDF). **Touched:** HANDOFF.
