@@ -18,7 +18,8 @@ import java.util.stream.Stream;
  * printed as the Markdown table docs/AGENT.md records, then the warnings of ROADMAP 4.2: long or
  * branching functions with no comment saying what they are for, and the `// Unsure:` lines.
  *   gradle metrics                 the table and the warnings
- *   gradle metrics --args=--time   also times the fast loop (`gradle test --offline --rerun-tasks`)
+ *   gradle metrics --args=--time   also times the fast loop (`gradle test --offline --rerun-tasks`) twice:
+ *                                  cold (the first run starts its daemon), then warm, the one held (R-054)
  * Ported from Suite Builder's scripts/kernel-metrics.mjs.
  */
 final class Metrics {
@@ -38,7 +39,9 @@ final class Metrics {
         List<Scan.Function> functions = Repo.functions(java);
         Map<String, String> metrics = new LinkedHashMap<>();
         metrics.put("Mandatory context (words)", String.valueOf(words(Repo.read("CLAUDE.md"))) + " (CLAUDE.md)");
-        metrics.put("Fast loop (s)", time ? fastLoop() : "not timed (--time)");
+        String cold = time ? fastLoop() : "not timed (--time)";
+        metrics.put("Fast loop (s)", time ? fastLoop() : cold);
+        metrics.put("Fast loop, cold (s)", cold);
         metrics.put("Largest source file (lines)", largest(java));
         metrics.put("Files a routing row opens", routing(Repo.read("CLAUDE.md")));
         metrics.put("Functions over 20 paths", String.valueOf(functions.stream().filter(f -> f.paths() > 20).count()));
@@ -128,6 +131,7 @@ final class Metrics {
         return String.valueOf(skipped);
     }
 
+    /** One `gradle test` from scratch, in seconds; the first of a session pays for starting the daemon. */
     private static String fastLoop() throws Exception {
         long started = System.nanoTime();
         Process run = new ProcessBuilder("gradle", "test", "--offline", "--rerun-tasks", "-q")

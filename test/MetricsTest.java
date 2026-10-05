@@ -7,13 +7,13 @@ import java.util.regex.Pattern;
 /**
  * Holds docs/AGENT.md's metrics (docs/ROADMAP.md 5, R-008): a metric may improve and may grow within
  * its target, but past its target it may not get worse than the value recorded. A metric marked "not
- * armed" is reported, not compared, until it is first met; then it must be armed (R-042). The fast
- * loop and the skipped tests are measured after a run (`gradle metrics --args=--time`), so they are
- * recorded at each tithe pass and not held here.
+ * armed" is reported, not compared, until it is first met or a phase boundary arms it at its value
+ * (R-042, R-054). The fast loop (warm, and cold beside it) and the skipped tests are measured after a
+ * run (`gradle metrics --args=--time`), so they are recorded at each tithe pass and not held here.
  */
 final class MetricsTest {
     private static final Pattern NUMBER = Pattern.compile("\\d[\\d,]*(?:\\.\\d+)?");
-    private static final List<String> AFTER_A_RUN = List.of("Fast loop (s)", "Skipped tests reported on the fast loop");
+    private static final List<String> AFTER_A_RUN = List.of("Fast loop (s)", "Fast loop, cold (s)", "Skipped tests reported on the fast loop");
 
     public static void main(String[] args) {
         run().exit();

@@ -193,11 +193,7 @@ the two not entered its abend and I/O-status paragraphs).
 
 ### 1.10 Tithe pass 1
 
-Every metric re-measured and recorded in `docs/AGENT.md`. Two need Ghost at the boundary (HANDOFF): the
-fast loop is 20 s measured cold against a target under 20 (18 s timed alone, 7 s with Gradle's daemon
-warm; pass 0 was 12), and docs lines per source line is 0.45 against 0.35, unarmed until phase 2 by
-R-042. The fresh-agent trial ("a SORT step has `SUM FIELDS=NONE`: say what you would change, then
-stop"), on a clean copy: `CLAUDE.md` second, then the DFSORT row's three files, and nothing changed.
-What it showed and was fixed: the row's contract named only decisions, and the rule that SUM waits
-for a fixture lived in a javadoc; it is in the row now (J-057). The boundary count of R-053 is
-recorded when Fable and Ghost answer the lists. Phase 1 is done.
+Every metric re-measured in `docs/AGENT.md`; the fast loop and the docs ratio went to the boundary
+(R-054). The fresh-agent trial (`SUM FIELDS=NONE`, propose only) went `CLAUDE.md`, then the DFSORT
+row's three files, and changed nothing; its one gap, P-11 only in a javadoc, is in the row (J-057).
+The boundary count: 6 held, 3 reversed, 0 stopped, 2 trials (J-058). Phase 1 is done.

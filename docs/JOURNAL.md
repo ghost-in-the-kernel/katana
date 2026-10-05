@@ -707,24 +707,25 @@ taken; closed by a later `decision` entry naming it).
 ### J-059 R-012 reversed: the gate holds SYSOUT DDs and stderr; the stderr trial passes
 - **Who:** Opus. **Class:** reversal (R-053), trial (R-052).
 - **Intent:** Switch the first reversed default of the phase-1 boundary, and run its trial.
-- **Found:** the gate compared only `.stdout` files in the sysout folder. It now compares every file
-  there, in either run: SYSOUT DDs, stdout, and stderr with the run folder's path (as given and as
-  resolved) replaced by `<work>`. The trial ran all nine CardDemo fixtures, not only four: no
-  difference. One stderr is written, CREASTMT's STEP040 SIGSEGV message (R-027), with no path in it, so
-  the normalization has nothing to remove on these fixtures yet; `GateTest` holds that it would.
+- **Found:** the gate compared only stdout. It now compares every sysout file in either run, stderr
+  with the run folder's path as `<work>`. The trial ran all nine CardDemo fixtures: no difference; the
+  one stderr written is CREASTMT's SIGSEGV (R-027), with no path, so `GateTest` holds the token.
 - **Resolved:** R-012 C-2 verified for CardDemo; the trial leaves HANDOFF.
 - **Touched:** `oracle/lane/Gate.java`, `GateTest`, `theGhost.md`, `docs/HANDOFF.md`, KERNEL-MAP.
 
 ### J-060 R-011's sign-variant rule built; R-013's goldens re-recorded
 - **Who:** Opus. **Class:** decision built (R-053 boundary).
 - **Intent:** Build what the boundary decided for the comparator and the proof.
-- **Found:** the comparator compared same-encoding zoned fields by their bytes, so C against F was
-  a difference under every profile. It now takes the consumer's NUMPROC (`Compare.Numproc.of` the
-  profile's `ibm.numproc`) at every call: under NOPFD two EBCDIC zoned values equal but for the sign
-  nibble (same sign class on a signed field, any sign on an unsigned one) are a `sign-variant` note
-  per field, listed in the proof report; under PFD they are a difference. Every caller states its
-  NUMPROC, so no default decides it. The two report goldens gain PROOF.md's two new lines and nothing
-  else (no CardDemo or trivial dataset is EBCDIC, so no note appears).
+- **Found:** C against F in one encoding was a difference under every profile. Every call now states
+  the consumer's NUMPROC (no default): under NOPFD an EBCDIC zoned value equal but for its sign nibble
+  is a per-field `sign-variant` note in the report; under PFD a difference. The goldens gain PROOF.md's
+  two lines and nothing else (no fixture dataset is EBCDIC).
 - **Resolved:** R-011 and R-013 held by code and goldens.
-- **Touched:** `oracle/compare/Compare.java`, `oracle/proof/ProofReport.java`, `CompareTest`, the
-  comparator's callers, `CLAUDE.md` (the comparator's and the proof's contracts), the two goldens.
+- **Touched:** `Compare`, `ProofReport`, `CompareTest` and the callers, `CLAUDE.md`, the two goldens.
+
+### J-061 R-054 built: the fast loop warm, the docs ratio armed and trimmed to fit
+- **Who:** Opus. **Class:** reversal (R-053). **Intent:** build R-054.
+- **Found:** `gradle metrics --args=--time` now runs the loop twice: cold 24 s, warm 9 s (held). The
+  docs ratio was 0.46 at arming, the boundary's own lines on top of 0.45; answered HANDOFF text, a
+  duplicate HANDOFF item and my own DONE and journal lines were cut to bring it to the 0.45 armed.
+- **Touched:** `scripts/Metrics.java`, `MetricsTest`, `docs/AGENT.md`, HANDOFF, DONE, JOURNAL.

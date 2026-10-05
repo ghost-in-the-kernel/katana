@@ -3,21 +3,15 @@
 ## What to work on next
 
 `TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phases 0 and 1 are done
-(1.5 with one part of its check deferred, below). **This is the phase boundary (R-053):** Fable answers
-"For Fable", Ghost "For Ghost"; each reversed default is switched in its own commit under goldens;
-the tithe records how many held. Then phase 2.1.
+(1.5 with one part of its check deferred, below); the boundary's reversals are built. Next: 2.1.
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
-(phase 1's six answered 2026-10-04: R-011, R-012, R-013, R-027; the Layout and Paragraphs readers
-hold as defaults until `sir/` replaces them in 2.5, with a test that the replacement agrees with each
-on every CardDemo copybook and program before the reader is deleted; LANES.md as written, and RECFM=V
-by trial: see "Trials" below)
+(none open; phase 1's six answered 2026-10-04, J-058)
 
 ## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
 
-(phase 1's three answered 2026-10-04: R-013 with two added lines; R-054 warm fast loop and the docs
-ratio armed at 0.45)
+(none open; phase 1's three answered 2026-10-04, J-058)
 
 ## Trials (R-052: a question settled by running something; the implementing agent runs it)
 
@@ -55,8 +49,5 @@ ratio armed at 0.45)
   are what `rt/Decimal` and the profile must model before phase 3.1 freezes the numeric runtime:
   IBM's intermediate precision (`-farithmetic-osvs`, 61 failures), binary items not truncated
   (`-fno-binary-truncate`, 8) and segment numbers ignored (`-fsection-segments=ignore`, 31).
-- The IBM Enterprise COBOL 6.x manuals (intermediate results appendix, TRUNC, NUMPROC, SYNC, CICS
-  translator output): HTTP 403 from the study's container; must be read from an unblocked network
-  before phase 3.1 freezes the numeric runtime.
 - che4z's CICS and DB2 grammars driven over CardDemo and BankDemo (phase 2.2): generated, never run;
   about 30 minutes.
