@@ -61,8 +61,11 @@ final class Compiler {
         try {
             Path dir = Files.createDirectories(cache.resolve(key));
             if (!Files.exists(dir.resolve(file))) {
-                Path refusal = compile(dir, name, source, arguments, file);
+                // Compiled in a folder of its own and renamed into place, so parallel test JVMs sharing the cache never see half a program.
+                Path work = Files.createTempDirectory(cache, key + ".");
+                Path refusal = compile(work, name, source, arguments, file);
                 if (refusal != null) return new Built(null, firstError(Files.readString(refusal, StandardCharsets.ISO_8859_1)));
+                Files.move(work.resolve(file), dir.resolve(file), StandardCopyOption.ATOMIC_MOVE);
             }
             Files.createDirectories(bin);
             return new Built(Files.copy(dir.resolve(file), bin.resolve(file), StandardCopyOption.REPLACE_EXISTING), "");

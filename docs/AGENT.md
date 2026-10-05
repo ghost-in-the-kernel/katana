@@ -36,6 +36,7 @@ cold beside it) and the skipped tests are measured after a run, so the test does
 | Mandatory context (words) | < 1,500 | 872 | every task pays it | 636 |
 | Fast loop (s) | < 20 | 9 (warm, the daemon running: R-054) | the agent runs it after every edit | 12 |
 | Fast loop, cold (s) | < 30 | 24 (reported, not held: R-054) | a fresh session pays it once | — |
+| Pre-push check, every suite (min) | < 3 | 3.4 (armed in tithe 2a; 6.2 before it; one module 1.8, docs 0.3) | paid before every push while CI has no minutes (R-050) | — |
 | Largest source file (lines) | < 400 | 241 | fits a read without paging | 179 |
 | Files a routing row opens | ≤ 5 | 4 | first five reads decide the task | 4 |
 | Functions over 20 paths | 0 new | 0 | branching is where agents misread | 0 |

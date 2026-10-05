@@ -833,3 +833,16 @@ taken; closed by a later `decision` entry naming it).
 - **Note:** the tithe was missed for 14 commits because nothing enforces R-008's cadence; the
   metrics test should count commits since the last tithe and warn past eight (an item for 2a).
 
+
+### J-071 Tithe 2a.1: the pre-push check from 6.2 minutes to 3.4, and to 1.8 for one module
+- **Who:** Opus. **Class:** measurement; build. **Intent:** HANDOFF's tithe 2a, item 1.
+- **Found:** measured stage by stage, not 8-10 minutes but 371 s: clone 0, corpus fetch 4, build 47,
+  NIST cobol85 68, ibm 64, the rest 188. The levers, each alone: (a) the corpus from this checkout by
+  hard link, then `fetch.sh` verifies: worth the 4 s there were; (b) the image is already cached
+  here: worth nothing; one container and one Gradle start instead of four: 308 s; integration classes
+  in up to four JVMs: 201 s, which needed the lane's compile cache made atomic (a compile renamed into
+  place) so two JVMs never share half a program; splitting NIST's dialects into two classes: 237 s,
+  slower on four cores, reverted. (c) run what the change touches (`scripts/prepush.sh`, with `--all`):
+  a docs change 18 s, a `sir/` change 105 s. The metric is armed at 3.4 against a target of 3.
+- **Resolved:** `scripts/prepush.sh`; AGENT.md's metric; HANDOFF's R-050 line. **Touched:** those,
+  `build.gradle`, `oracle/lane/Compiler.java`, Metrics.

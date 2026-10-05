@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 final class MetricsTest {
     private static final Pattern NUMBER = Pattern.compile("\\d[\\d,]*(?:\\.\\d+)?");
-    private static final List<String> AFTER_A_RUN = List.of("Fast loop (s)", "Fast loop, cold (s)", "Skipped tests reported on the fast loop");
+    private static final List<String> AFTER_A_RUN = List.of("Fast loop (s)", "Fast loop, cold (s)", "Pre-push check, every suite (min)", "Skipped tests reported on the fast loop");
 
     public static void main(String[] args) {
         run().exit();

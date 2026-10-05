@@ -42,6 +42,7 @@ final class Metrics {
         String cold = time ? fastLoop() : "not timed (--time)";
         metrics.put("Fast loop (s)", time ? fastLoop() : cold);
         metrics.put("Fast loop, cold (s)", cold);
+        metrics.put("Pre-push check, every suite (min)", "timed by scripts/prepush.sh --all");
         metrics.put("Largest source file (lines)", largest(java));
         metrics.put("Files a routing row opens", routing(Repo.read("CLAUDE.md")));
         metrics.put("Functions over 20 paths", String.valueOf(functions.stream().filter(f -> f.paths() > 20).count()));
