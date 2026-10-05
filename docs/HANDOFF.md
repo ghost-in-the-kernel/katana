@@ -2,9 +2,10 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.9 are done
-(1.5 with one part of its check deferred, below). Next: phase 1.10, tithe pass 1, the end of phase 1;
-then the boundary (R-053): the lists below answered, defaults reversed or kept.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phases 0 and 1 are done
+(1.5 with one part of its check deferred, below). **This is the phase boundary (R-053):** Fable answers
+"For Fable", Ghost "For Ghost"; each reversed default is switched in its own commit under goldens;
+the tithe records how many held. Then phase 2.1.
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
@@ -55,6 +56,17 @@ then the boundary (R-053): the lists below answered, defaults reversed or kept.
   storage change, governance), with one line added: paragraphs the fixtures never entered. R-013
   itself is not recorded. **Default taken:** the draft as written; reversing it is a text change and a
   re-record of the two report goldens.
+- **The fast-loop metric is measured cold** (from step 1.10, J-057). `gradle metrics --args=--time`
+  times a nested `gradle test` that starts its own daemon: 20 s, against a target under 20 (R-008). The
+  same loop is 18 s timed alone and 7 s with the daemon warm, which is what an agent pays after an edit;
+  the tests themselves take under 4 s. Options: measure warm (the agent's cost); keep cold and trim
+  compile and the metrics test; raise the target. **Default taken:** recorded both, the metric left as
+  measured, nothing changed.
+- **Docs lines per source line arms in phase 2 at 0.45** (from step 1.10). R-042 arms it "when the
+  first module carries real code (phase 2)"; `oracle/` has carried real code since 1.1, and the ratio
+  is 0.45 against 0.35, so arming it at 2.1 fails the fast loop at once. Options: arm it at 2.1 and cut
+  documents to fit; arm it with pass 1's 0.45 as the recorded value to ratchet from; leave it unarmed.
+  **Default taken:** unarmed, as R-042 reads, until Ghost says.
 
 (the items below predate R-053)
 

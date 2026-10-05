@@ -674,3 +674,18 @@ taken; closed by a later `decision` entry naming it).
   (class (d): a buyer reads it); the paragraph reader listed for Fable. Both reports held as goldens.
 - **Touched:** `oracle/proof/`, `oracle/lane/Paragraphs.java`, the lane's traced run, `docs/PROOF.md`,
   `HANDOFF.md`.
+
+### J-057 Tithe pass 1: the trial found its files, the fast loop sits on its line
+- **Who:** Opus; the trial by a fresh general-purpose agent. **Class:** measurement.
+- **Intent:** Phase 1.10's check.
+- **Found:** metrics: context 872 words, largest file 241 lines, routing 4 files, no function over
+  20 paths, no duplicate helpers, every decision linked, nothing stale or skipped; the fast loop 20 s
+  measured cold (18 s alone, 7 s warm, compile 2.6 s of it); docs per source 0.45. The trial, on a
+  clean copy and told only to propose: `CLAUDE.md` second, then `oracle/sort/SortCards.java`,
+  `Dfsort.java` and `oracle/lane/Sorts.java`; nothing changed (`git status` clean). Its gap: the DFSORT
+  row's contract named R-010, R-026 and R-051 only; the rule that SUM waits for a fixture (P-11) was
+  in a javadoc. No IBM text on which duplicate SUM keeps has been read; none is needed until a
+  fixture uses SUM.
+- **Resolved:** the DFSORT row names P-11's rule; the two metric questions listed for Ghost with their
+  defaults; SUM's IBM text waits until a fixture needs SUM.
+- **Touched:** `docs/AGENT.md`, `CLAUDE.md`, `DONE.md`, `HANDOFF.md`.

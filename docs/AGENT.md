@@ -32,15 +32,15 @@ the first module carries real code.
 Measured by `gradle metrics --args=--time` in the image and recorded here at every tithe pass; the
 fast loop and the skipped tests are measured after a run, so the test does not hold them.
 
-| Metric | Phase 0 target | Measured (tithe pass 0, 2026-10-04) | Why it matters to the agent |
-| --- | --- | --- | --- |
-| Mandatory context (words) | < 1,500 | 636 | every task pays it |
-| Fast loop (s) | < 20 | 12 | the agent runs it after every edit |
-| Largest source file (lines) | < 400 | 179 | fits a read without paging |
-| Files a routing row opens | ≤ 5 | 4 | first five reads decide the task |
-| Functions over 20 paths | 0 new | 0 | branching is where agents misread |
-| Duplicate helpers (same body, two names) | 0 | 0 | the agent edits one and misses the other |
-| Decisions without `See also` | 0 | 0 | grep misses what links find (T-18) |
-| Docs lines per source line | < 0.35 | 1.13 (not armed: no module has code yet, R-042) | Suite Builder reached 0.37 and it hurt |
-| Stale generated artifacts | 0 | 0 | detected by test |
-| Skipped tests reported on the fast loop | 0 | 0 | a real skip hides among 119 (T-15) |
+| Metric | Phase 0 target | Measured (tithe pass 1, 2026-10-05) | Why it matters to the agent | Pass 0 (2026-10-04) |
+| --- | --- | --- | --- | --- |
+| Mandatory context (words) | < 1,500 | 872 | every task pays it | 636 |
+| Fast loop (s) | < 20 | 20 cold (18 timed alone; 7 with Gradle's daemon warm; for Ghost, HANDOFF) | the agent runs it after every edit | 12 |
+| Largest source file (lines) | < 400 | 241 | fits a read without paging | 179 |
+| Files a routing row opens | ≤ 5 | 4 | first five reads decide the task | 4 |
+| Functions over 20 paths | 0 new | 0 | branching is where agents misread | 0 |
+| Duplicate helpers (same body, two names) | 0 | 0 | the agent edits one and misses the other | 0 |
+| Decisions without `See also` | 0 | 0 | grep misses what links find (T-18) | 0 |
+| Docs lines per source line | < 0.35 | 0.45 (not armed until phase 2, R-042; for Ghost, HANDOFF) | Suite Builder reached 0.37 and it hurt | 1.13 |
+| Stale generated artifacts | 0 | 0 | detected by test | 0 |
+| Skipped tests reported on the fast loop | 0 | 0 | a real skip hides among 119 (T-15) | 0 |

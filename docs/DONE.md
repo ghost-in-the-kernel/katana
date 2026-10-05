@@ -190,3 +190,14 @@ its wording Ghost's (HANDOFF). Two reports are held as goldens: `oracle/proof/CO
 trivial fixture, the cobc lane against the java lane) and `oracle/proof/POSTTRAN.report.md` (the cobc
 lane against the study's frozen TRANFILE and rejects: the same; CBTRN02C 24 of 26 paragraphs entered,
 the two not entered its abend and I/O-status paragraphs).
+
+### 1.10 Tithe pass 1
+
+Every metric re-measured and recorded in `docs/AGENT.md`. Two need Ghost at the boundary (HANDOFF): the
+fast loop is 20 s measured cold against a target under 20 (18 s timed alone, 7 s with Gradle's daemon
+warm; pass 0 was 12), and docs lines per source line is 0.45 against 0.35, unarmed until phase 2 by
+R-042. The fresh-agent trial ("a SORT step has `SUM FIELDS=NONE`: say what you would change, then
+stop"), on a clean copy: `CLAUDE.md` second, then the DFSORT row's three files, and nothing changed.
+What it showed and was fixed: the row's contract named only decisions, and the rule that SUM waits
+for a fixture lived in a javadoc; it is in the row now (J-057). The boundary count of R-053 is
+recorded when Fable and Ghost answer the lists. Phase 1 is done.

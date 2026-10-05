@@ -8,15 +8,6 @@ the first open item has a check.
 
 ## Phase 1: the oracle and the corpus
 
-### 1.10 Tithe pass 1
-
-Check: every metric in `docs/AGENT.md` re-measured and recorded at tithe pass 1, none worse than its
-target or than pass 0 without a decision; a fresh-agent trial on a phase-1 task phrased as a proposal
-("say what you would change, then stop"), scored on the files it opened first and on changing
-nothing, and what it showed fixed; the boundary count of R-053 (deferred questions held and reversed)
-recorded once Fable and Ghost have answered the lists. (Written by Opus before the step, from
-docs/ROADMAP.md section 5 and tithe pass 0.)
-
 ## Phase 2: the front end and the Semantic IR
 
 ### 2.1 Fork ProLeap's two grammars
