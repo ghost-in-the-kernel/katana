@@ -548,3 +548,16 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
 - **Note:** the commit's own gate line was written before the build ran, and Docker was down; it
   was run before the push and passed, but a result is written after the run, never before.
 - **Touched:** `.github/workflows/ci.yml`, `theGhost.md` (R-050), `HANDOFF.md`.
+
+### J-048 The three 1.5 questions, decided; DFSORT's padding read from IBM
+- **Who:** Opus raised (J-043, J-044, J-045); Fable read IBM's text; Ghost decided. **Class:**
+  decision.
+- **Found:** IBM's DFSORT guide was reachable from Fable's network: fixed-length records are padded
+  with binary zeros on the right and truncated on the right, ICE171I and return code per PAD/TRUNC
+  (RC0/RC4/RC16). CUSTREC.cpy compiles at 4-column tabs and not at 8. The Java sort ran all five
+  CardDemo SORT cards; the generated-COBOL sort two.
+- **Resolved:** R-051 (pad X'00' / truncate, RC per fixture setting, default RC0 as a stated
+  hypothesis); R-016 amended (tab width declared per source in the fixture, default 8; CardDemo
+  declares 4 with its evidence); R-010 (Java sort) and R-026 (stable, with a tie finding).
+- **Touched:** R-010, R-016, R-026, R-051; `docs/research/ibm-options.md` §8; HANDOFF.
+

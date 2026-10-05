@@ -11,33 +11,21 @@ the tab width CUSTREC needs), which CREASTMT and PRTCATBL wait on, and on R-010.
 
 ## Waiting on Ghost
 
-- **DFSORT, an OUTREC record SORTOUT's LRECL does not hold** (J-043; blocks 1.5's CREASTMT and
-  PRTCATBL). CREASTMT's OUTREC builds 328 bytes into a SORTOUT of LRECL 350; PRTCATBL's builds 41
-  into 40. What does DFSORT do: pad the short record (with blanks or binary zeros?) and truncate the
-  long one, with which return code, or stop? The lane stops both with a finding until IBM's text
-  (the DFSORT Application Programming Guide, on SORTOUT LRECL and the PAD/TRUNC options) is read.
-- **R-016's tab width against CUSTREC.cpy** (J-044; blocks 1.5's CREASTMT). At 8-column stops every
-  one of CUSTREC's 17 tabbed lines reaches column 75, so its PICTURE clauses fall past column 72 and
-  CBSTM03A does not compile (`unbalanced parentheses`, `invalid PICTURE character '2'`, as in the
-  study); at 4-column stops it compiles. Keep 8 (CREASTMT never runs), take 4 for CardDemo as a
-  stated hypothesis, or let a fixture declare its sources' tab width?
-- **R-010, the DFSORT implementation** (J-045): measured on TRANREPT-STUDY, both reproduce the
-  frozen hashes; the Java sort runs all five CardDemo SORT steps' cards (228 ms for the job), the
-  generated COBOL sort two of five (334 ms, no OUTREC, no concatenation). Opus leans to the Java sort.
 - **Appendix A of the Enterprise COBOL Programming Guide** ("Intermediate results and arithmetic
   precision"): the one IBM semantic still unverified (R-049, `docs/PROFILE.md`). Blocks phase 3.1.
   Closes when Ghost pastes the topic URL (path-style `ibm.com/docs/en/SS6SG3_6.4.0/pg/ref/<topic>.html`
   URLs are reachable when the id is known) or attaches the PDF (SC27-8714) for a full read.
 - **Two more IBM texts to confirm when reachable**, neither blocking: IDCAMS reads columns 2–72
   (DFSMS Access Method Services Commands; the lane applies it, J-035, two secondary sources); the
-  Enterprise COBOL rule for tab characters in source (R-016 assumes 8-column stops, as a finding).
+  Enterprise COBOL rule for tab characters in source (R-016: fixture-declared width, default 8, as a
+  finding); DFSORT's IBM-supplied PAD/TRUNC defaults and whether its padding rule applies to the
+  OUTREC-reformatted length (R-051 assumes RC0 and yes).
 - Counsel on R-002's license texts and R-015 (EPL-2.0 grammars), before any copy leaves the repo.
 - Counsel on JUnit 5 (EPL-2.0, vendored for tests only, unmodified, never shipped): a lighter
   question than R-015's che4z grammars, which would be modified and shipped inside the compiler. The
   two go to counsel together; neither blocks phase 1 (R-045 notes the distinction).
 - The provisional patent application (R-037), before any public disclosure; realistically after
   phase 4, when there is a CardDemo proof to describe.
-- R-010 (DFSORT as generated COBOL or Java) after phase 1.5 measures both.
 
 ## Waiting on a run
 

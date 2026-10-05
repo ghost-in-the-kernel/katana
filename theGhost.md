@@ -160,23 +160,64 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-012 (the double-run gate, reserved), R-048
 - **subject:** oracle-fixture
 
+### R-010: DFSORT steps run on Katana's own Java sort
+- **Decision:** A SORT step in a job runs on `oracle/sort`, a Java implementation of the DFSORT
+  control-card subset Katana supports (SORT FIELDS, INCLUDE/OMIT, SUM, INREC/OUTREC/OUTFIL as needed,
+  concatenated SORTIN), reading and writing the fixture's datasets by their declared record formats.
+  The generated-COBOL-SORT variant of the study (`sortstep.cbl`) is retired. An unsupported card
+  stops the step with a finding quoting the card (never a guess).
+- **Why:** Phase 1.5 measured both on TRANREPT-STUDY: both reproduce the frozen hashes; the Java sort
+  runs all five CardDemo SORT steps' cards (228 ms for the job), the generated COBOL sort two of five
+  (334 ms, no OUTREC, no concatenation). The Java sort is also the one that can carry DFSORT's
+  documented padding, truncation and stability rules (R-026, R-051) as code rather than as COBOL
+  emitted around them.
+- **Held by:** `oracle/sort`; the CardDemo SORT steps' frozen hashes; the finding on an unsupported
+  card.
+- **Source:** Opus's measurement and lean, 2026-10-04; decided by Ghost with Reviewer G.
+- **Status:** in force
+- **See also:** R-026, R-048, R-051
+- **subject:** sort
+
 ### R-016: The indicator column is read permissively; a tab is expanded to the next 8-column stop, as a finding
 - **Decision:** Column 7 accepts any indicator character GnuCOBOL or Enterprise COBOL accepts. A tab
   anywhere in a source or copy line is expanded to spaces to the next tab stop at columns 9, 17, 25 ...
-  (every 8, from column 1) before columns are mapped; the source map keeps the original column; a
-  finding records each file with tabs ("tab in source, expanded under the 8-column assumption").
+  (every 8, from column 1) before columns are mapped, **unless the fixture declares a tab width for
+  the source** (`tabs <width> <path-pattern>`; amended 2026-10-04, below); the source map keeps the
+  original column; a finding records each file with tabs and the width used ("tab in source,
+  expanded at N columns; a hypothesis until the Enterprise COBOL rule is read").
   The cobc lane preprocesses copybooks and sources the same way into a shadow copy, so the two lanes
   compile identical text. The 8-column assumption is a hypothesis until the Enterprise COBOL text on
   tabs is read; the finding says so.
 - **Why:** CardDemo's `CUSTREC.cpy` carries tabs in the indicator area and `cobc` rejects it (the
   study); CREASTMT's full run, moved into 1.5 by R-048, cannot close without a policy. Two lanes that
   see different text prove nothing about each other, so the expansion is done once, upstream of both.
-- **Held by:** `front/` (phase 2) and the cobc lane's preprocessing step; a fixture test on
-  `CUSTREC.cpy`; the finding.
-- **Source:** Opus raised it as a 1.5 prerequisite; decided by Ghost with Reviewer G, 2026-10-04.
+- **Amended 2026-10-04 (J-044):** at 8-column stops every tabbed line of CardDemo's `CUSTREC.cpy`
+  runs past column 72 and CBSTM03A does not compile; at 4 it compiles. The width a file was written
+  at is a property of that file, not of COBOL, so the fixture declares it per source pattern, default
+  8; CardDemo's fixtures declare 4 for `CUSTREC.cpy`, with "compiles at 4, not at 8" recorded as the
+  evidence and the hypothesis. The expansion still happens once, upstream of both lanes.
+- **Held by:** `front/` (phase 2) and the cobc lane's preprocessing step; `docs/FIXTURE.md` (`tabs`);
+  a fixture test on `CUSTREC.cpy`; the finding.
+- **Source:** Opus raised it as a 1.5 prerequisite; decided by Ghost with Reviewer G, 2026-10-04;
+  amended the same day on Opus's measurement.
 - **Status:** in force
 - **See also:** R-048, R-049, P-03
 - **subject:** front-end
+
+### R-026: Katana's sort is stable; an unordered tie in the original is a finding
+- **Decision:** `oracle/sort` is stable (records with equal keys keep input order, DFSORT's
+  `EQUALS`). When a SORT step's cards do not specify `EQUALS` and the input holds records with equal
+  keys, the step records a finding: the mainframe's order among those records is unspecified, so a
+  byte comparison of that dataset against mainframe gold may differ there without being wrong, and
+  the comparator is told which records.
+- **Why:** DFSORT does not guarantee stability without `EQUALS` (the study, `docs/research/oracle.md`);
+  GnuCOBOL's SORT proved stable in the study. A deterministic lane needs one order; a proof needs to
+  know where that order was the lane's choice rather than the program's.
+- **Held by:** `oracle/sort`; the finding; the comparator's tie list.
+- **Source:** the study (2026-10-04); decided by Ghost with Reviewer G.
+- **Status:** in force
+- **See also:** R-010, R-013
+- **subject:** sort
 
 ### R-037: Patent protection is intended; nothing public before a provisional is filed
 - **Decision:** Ghost intends to seek patent protection. Candidate claims: per-pass translation
@@ -433,14 +474,40 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-040, R-041
 - **subject:** process
 
+### R-051: A reformatted record that does not match SORTOUT's LRECL is padded or truncated as DFSORT does
+- **Decision:** For fixed-length output, when the record `oracle/sort` builds is shorter than
+  SORTOUT's LRECL it is padded on the right with binary zeros (X'00'); when longer, it is truncated
+  on the right; the step continues with return code 0 and a finding naming the step, the two lengths
+  and the records affected. The return code follows the fixture's `dfsort.pad` / `dfsort.trunc`
+  setting (`RC0` default, `RC4`, or `RC16` which stops the step), as DFSORT's PAD/TRUNC options do.
+- **Why:** IBM's DFSORT Application Programming Guide (z/OS 2.2, "Padding and truncation"), read
+  from this session: "DFSORT pads fixed-length records with binary zeros on the right when the
+  SORTOUT LRECL is larger than the SORTIN LRECL provided that: The Blockset technique is selected.
+  The application is a sort or copy. PAD=RC16 is not in effect." and "DFSORT truncates fixed-length
+  records on the right when the SORTOUT LRECL is smaller than the SORTIN/SORTINnn LRECL provided
+  that: The application is not a conventional merge or tape work data set sort. TRUNC=RC16 is not in
+  effect." PAD/TRUNC: "RC0 ... issue message ICE171I (once), set a return code of 0 and continue";
+  RC4 the same with return code 4; RC16 "issue message ICE196A, terminate and give a return code of
+  16"; default "usually the installation default". Two hypotheses remain and are stated in the
+  finding: that the rule applies to the OUTREC/OUTFIL-reformatted length as it does to SORTIN's
+  LRECL (the same page says INREC/OUTREC/OUTFIL "pad, truncate, and reformat records"), and that the
+  IBM-supplied installation default is RC0. CREASTMT (328 into 350) therefore pads with X'00';
+  PRTCATBL (41 into 40) truncates one byte; both run.
+- **Held by:** `oracle/sort`; the finding; `docs/FIXTURE.md` (`dfsort.pad`, `dfsort.trunc`);
+  `docs/research/ibm-options.md` (the quotes and their URLs).
+- **Source:** Opus raised it (J-043); IBM text read by Fable; decided by Ghost with Reviewer G,
+  2026-10-04.
+- **Status:** in force
+- **See also:** R-010, R-026, P-03
+- **subject:** sort
+
 ---
 
-Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-010 DFSORT
-implementation; R-011 what the comparator normalizes and refuses; R-012 the double-run gate; R-013 what a proof covers and never covers; R-014 CICS/DB2 grammar graft; R-015
+Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-011 what the comparator normalizes and refuses; R-012 the double-run gate; R-013 what a proof covers and never covers; R-014 CICS/DB2 grammar graft; R-015
 EPL-2.0 grammars (counsel); R-017 the IR is complete; R-018
 the attribute tuple; R-019 byte-image representation; R-020 Decimal with explicit scale; R-021 the
 dispatcher; R-022 TRUNC(OPT) as STD with a finding; R-023 float as IEEE with a finding; R-024 one
-emitter; R-025 indexed-file comparison on logical unload; R-026 SORT stability; R-027 stub facade
+emitter; R-025 indexed-file comparison on logical unload; R-027 stub facade
 contract; R-028 coverage in every proof; R-029 refuted intent never acted on; R-030 ledger
 append-only; R-031 models propose intent only, later, never v1; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual

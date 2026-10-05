@@ -200,3 +200,24 @@ TRUNC(BIN)/COMP-5 size error is detected against the binary capacity, not the PI
 - Unreachable this session: PG 6.4 pgmvs.pdf / igy6pg40.pdf / igy3pg*.pdf (digest stops at TOC);
   `ibm.com/docs/en/cobol-zos/6.4.0?topic=...` (403); Migration Guide mg.pdf 6.4/6.5 (403);
   web.archive.org (blocked); cadcobol.com.br mirror (suspended); Micro Focus docs (robots).
+
+## 8. DFSORT padding and truncation (read 2026-10-04, primary)
+
+[verbatim, DFSORT Application Programming Guide, z/OS 2.2, "Padding and truncation", S19] "DFSORT
+truncates fixed-length records on the right when the SORTOUT LRECL is smaller than the
+SORTIN/SORTINnn LRECL provided that: The application is not a conventional merge or tape work data
+set sort. TRUNC=RC16 is not in effect." "DFSORT pads fixed-length records with binary zeros on the
+right when the SORTOUT LRECL is larger than the SORTIN LRECL provided that: The Blockset technique is
+selected. The application is a sort or copy. PAD=RC16 is not in effect." "DFSORT does not pad or
+truncate records returned from an E15 or E35 user exit". Variable-length: VLLONG/NOVLLONG.
+[verbatim, same guide, "Specifying EXEC/DFSPARM PARM options", S20] PAD: "RC0 specifies that DFSORT
+should issue message ICE171I (once), set a return code of 0 and continue processing when the SORTOUT
+LRECL is larger than the SORTIN/SORTINnn LRECL"; RC4 likewise with return code 4; "RC16 specifies
+that DFSORT should issue message ICE196A, terminate and give a return code of 16". TRUNC: the same
+three for "smaller than". Default: "Usually the installation default." SOLRF "specifies whether
+DFSORT should set the SORTOUT LRECL to the reformatted record length when the SORTOUT LRECL is
+unknown." [unverified] the IBM-supplied installation default is PAD=RC0, TRUNC=RC0; the rule applies
+to the reformatted (OUTREC/OUTFIL) length when SORTOUT LRECL is specified.
+- S19 https://www.ibm.com/docs/en/SSLTBW_2.2.0/com.ibm.zos.v2r2.icea100/ice2ca_Padding_and_truncation.htm
+- S20 https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.icea100/spexec.htm
+
