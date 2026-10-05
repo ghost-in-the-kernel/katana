@@ -349,6 +349,23 @@ in generated suites is the precedent; here it is the product's reason to exist.
 
 ---
 
+### 4.6 How a question is answered, and when the work stops (R-052, R-053)
+
+A question met during the work is classed, not escalated by reflex:
+
+| Class | Who answers | What the agent does meanwhile |
+| --- | --- | --- |
+| an implementation choice inside a contract | the implementing agent | decides, journals, continues |
+| a factual claim with an empirical referee | a **trial**: a fixture, test or measurement whose result is the answer | specifies it (or asks Fable to), runs it, decides on the result |
+| a contract, IR shape, semantic rule, reading of a source | Fable, at the phase boundary | lists it under HANDOFF "For Fable", takes the reversible default marked `// Unsure: R-053 default`, continues |
+| scope, license, name, money, a new module, anything outside parties see, anything irreversible | Ghost, at the phase boundary | lists it under "For Ghost"; continues on a reversible default if one exists, else stops that step and works on what is independent |
+
+Fable is a source of answers and of trial designs, consulted when the agent is uncertain; it is not
+a second opinion to argue with, and a trial runs only when the consulted answer is itself uncertain.
+A phase runs from its first step to its last on this rule; the boundary is where the deferred lists
+are answered, defaults reversed under goldens, and the count of held-versus-reversed defaults
+recorded by the tithe.
+
 ## 5. The navigation tithe
 
 **Cadence.** Every eighth commit is a tithe commit: it changes no behaviour (goldens identical) and

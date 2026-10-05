@@ -501,6 +501,66 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-010, R-026, P-03
 - **subject:** sort
 
+### R-052: Claims carry a status; an uncertain claim is settled by a trial, not an argument
+- **Decision:** Every decision from here on lists the factual claims it stands on under **Claims**,
+  each tagged `verified` (a primary source quoted, or a run recorded) or `hypothesis` (with the
+  source or trial that would settle it). A question raised during the work is answered in this order:
+  (1) by a source, read; (2) by a **trial**: a fixture, test or measurement whose result is the
+  answer, specified by whoever is uncertain (Fable when consulted, Opus otherwise), implemented and
+  run by the implementing agent, recorded in the journal with class `trial`; (3) by argument, only for
+  a design trade-off with no empirical referee, and then as a decision with its trade-off named.
+  Fable is consulted as a source of answers and of trial designs, not as a debater; a trial is run
+  only when the consulted answer is itself uncertain. `GhostTest` refuses a new decision with no
+  Claims section (from R-053 on).
+- **Why:** Ghost, 2026-10-04. Every decision that went well today rested on a claim that was checked
+  (DFSORT's padding read; CUSTREC's tab width measured; the two sorts timed); every failure rested on
+  one that was not ("I only changed documents", twice). Two models arguing converge on the plausible,
+  not the true; a run converges on the true. Fable's budget is rationed by the week, so it answers
+  questions and designs trials rather than arguing.
+- **Claims:** C-1 the claim-status shape is usable: `verified`, R-049 and R-051 already carry it
+  informally. C-2 a trial is cheaper than a debate: `hypothesis`; the study measures it as trials per
+  phase against Fable minutes per phase in the journal.
+- **Held by:** `GhostTest` (Claims required from R-053); `docs/JOURNAL.md` (class `trial`);
+  `docs/ROADMAP.md` §4.6.
+- **Source:** Ghost, 2026-10-04; recorded by Fable.
+- **Status:** in force
+- **See also:** R-046, R-049, R-051, P-11
+- **subject:** process
+
+### R-053: The implementing agent runs a phase to its end; decisions are classed, and only the irreversible stop it
+- **Decision:** An implementing agent (Opus) works from a phase's first step to its last without
+  stopping for a human, by classing each question it meets: **(a) its own** (an implementation
+  choice inside a module's contract): decide, journal, continue. **(b) a trial's** (R-052): run it,
+  decide on the result, journal, continue. **(c) Fable's** (a contract, an IR shape, a semantic rule,
+  a reading of a source): write it under `docs/HANDOFF.md` "For Fable" with the options and a lean,
+  take the **reversible default** (the option that can be switched by one small change, marked
+  `// Unsure: R-053 default` in code and as a finding in any proof), and continue. **(d) Ghost's**
+  (scope, license, name, money, a new module or import per R-043, anything a customer or outside
+  party would see, anything that cannot be undone): write it under "For Ghost" the same way and
+  continue on the reversible default **unless no reversible default exists**, in which case the
+  agent stops that step, works on any step that does not depend on it, and stops the phase only when
+  nothing independent remains. At the **phase boundary** (1.x → 2.x), before the next phase's first
+  step: Fable answers the "For Fable" list and Ghost the "For Ghost" list; every default that is
+  reversed is switched in its own commit with goldens proving the switch; the journal records each as
+  class `decision` with "deferred from step N". The tithe pass at the boundary counts how many
+  defaults held and how many were reversed.
+- **Why:** Ghost, 2026-10-04: a chain of work that stops at every question spends more on waiting
+  than on building, and most questions raised today were answered the way the agent had leaned. The
+  cost of a wrong default is bounded by choosing the reversible option and marking it; the cost of
+  stopping is unbounded. The irreversible stays a stop because that is the one case where a wrong
+  guess cannot be bought back (ROADMAP's working rule, and Suite Builder's HANDOFF bar).
+- **Claims:** C-1 most deferred questions are decided the way the agent leaned: `hypothesis`; the
+  boundary tithe measures held-versus-reversed. C-2 a reversible default exists for most class (c)
+  and (d) questions: `hypothesis`; the same count, with the stops recorded. C-3 switching a default
+  under goldens is cheap: `hypothesis`; commits and minutes per reversal, journaled.
+- **Held by:** `docs/HANDOFF.md` ("For Fable", "For Ghost" with the step each came from);
+  `docs/ROADMAP.md` §4.6; the `// Unsure: R-053 default` marker that `metrics` lists; the boundary
+  tithe's count.
+- **Source:** Ghost, 2026-10-04; recorded by Fable.
+- **Status:** in force
+- **See also:** R-008, R-040, R-043, R-052
+- **subject:** process
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-011 what the comparator normalizes and refuses; R-012 the double-run gate; R-013 what a proof covers and never covers; R-014 CICS/DB2 grammar graft; R-015

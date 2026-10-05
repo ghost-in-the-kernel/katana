@@ -9,6 +9,14 @@ TRANREPT-STUDY reproduces the frozen sort and report (`a7d14a96â€¦`, `19b7f04fâ€
 SORTTEST run every step. It stays open on the two questions below for Ghost (DFSORT record lengths;
 the tab width CUSTREC needs), which CREASTMT and PRTCATBL wait on, and on R-010.
 
+## For Fable (R-053: answered at the phase boundary; the default taken is named)
+
+(none yet)
+
+## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
+
+(none yet; the items below predate R-053)
+
 ## Waiting on Ghost
 
 - **Appendix A of the Enterprise COBOL Programming Guide** ("Intermediate results and arithmetic

@@ -15,7 +15,9 @@ metrics, documents or modules the event changed or created. **Caught by**: for a
 noticed it (a test, a run, a person, an agent's habit, luck). **Cost**: wall time or commits, where
 known. **Class**: one of `contradiction` (the plan disagreed with itself or with reality),
 `ambiguity` (two readings, both reasonable), `failure-caught`, `failure-missed`, `decision`,
-`measurement`, `direction`.
+`measurement`, `direction`, `trial` (a question settled by running something: name the trial, its
+result, and the decision it produced), `deferred` (a question parked under R-053 with the default
+taken; closed by a later `decision` entry naming it).
 
 ---
 
@@ -560,4 +562,18 @@ known. **Class**: one of `contradiction` (the plan disagreed with itself or with
   hypothesis); R-016 amended (tab width declared per source in the fixture, default 8; CardDemo
   declares 4 with its evidence); R-010 (Java sort) and R-026 (stable, with a tie finding).
 - **Touched:** R-010, R-016, R-026, R-051; `docs/research/ibm-options.md` §8; HANDOFF.
+
+### J-049 How questions are answered, and when the chain stops
+- **Who:** Ghost; recorded by Fable. **Class:** decision.
+- **Found:** Ghost proposed adversarial Fable pairs debating every Opus question; Fable argued that
+  debate does not manufacture facts and that the budget is weekly. Ghost reframed: Fable as a source
+  of answers and trial designs when uncertain; trials implemented by Opus and their results the
+  answer; and the implementing agent running a phase to its end, deferring human decisions to the
+  boundary where a reversible default exists.
+- **Resolved:** R-052 (claims with status; trials before arguments) and R-053 (phase-scope autonomy
+  with a four-class rule and the irreversible as the only stop). Journal gains classes `trial` and
+  `deferred`; HANDOFF gains "For Fable" and "For Ghost" lists with the step each came from.
+- **Touched:** R-052, R-053, ROADMAP §4.6, this file's schema.
+- **Note:** the framework is itself an experiment: R-052's and R-053's Claims name what the
+  boundary tithe measures (trials per phase against Fable minutes; defaults held against reversed).
 
