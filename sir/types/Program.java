@@ -58,6 +58,7 @@ public record Program(Header header, List<Item> items, List<FileDescriptor> file
         }
         for (FileDescriptor f : files) {
             optional.accept(f.recordKey());
+            optional.accept(f.relativeKey());
             optional.accept(f.status());
             f.alternateKeys().forEach(k -> item.accept(k.item()));
             f.records().forEach(item);

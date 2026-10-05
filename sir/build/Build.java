@@ -21,8 +21,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
  * COBOL does not have (Report Writer, the COMMUNICATION SECTION), which the profile's compiler rejects.
  */
 public final class Build {
-    /** The data map of a program and what could not be built. */
-    public record Data(List<Item> items, List<String> findings) {}
+    /** The data map of a program, what could not be built, and the CURRENCY SIGN and DECIMAL-POINT its pictures were read under. */
+    public record Data(List<Item> items, List<String> findings, char currency, boolean decimalComma) {}
 
     /** A program's IR, with the programs nested in it, and everything that could not be built in any of them. */
     public record Result(Program program, List<String> findings) {}
@@ -80,7 +80,8 @@ public final class Build {
         files.forEach(f -> insideFiles.add(f.name()));
         for (var inner : unit.programUnit()) nested.add(program(parse, inner, profileHash, findings, inside, insideFiles));
         var id = unit.identificationDivision().programIdParagraph();
-        Header header = new Header(Values.upper(id.programName().getText()).replaceAll("[\"']", ""), Origins.at(parse, unit).file(), profileHash, Origins.at(parse, id));
+        Header header = new Header(Values.upper(id.programName().getText()).replaceAll("[\"']", ""), Origins.at(parse, unit).file(), profileHash,
+                String.valueOf(data.currency()), data.decimalComma(), Origins.at(parse, id));
         return new Program(header, data.items(), files, procedure, paragraphs.calls, nested);
     }
 
@@ -112,7 +113,7 @@ public final class Build {
     /** The first program's data map: FILE, WORKING-STORAGE, LOCAL-STORAGE and LINKAGE, in that order of the source. */
     public static Data data(Parse.Result parse) {
         List<CobolParser.ProgramUnitContext> units = units(parse);
-        return units.isEmpty() ? new Data(List.of(), List.of("no program")) : data(parse, units.get(0));
+        return units.isEmpty() ? new Data(List.of(), List.of("no program"), '$', false) : data(parse, units.get(0));
     }
 
     /** Every program's data map, each program before the programs nested in it, in textual order. */
@@ -130,11 +131,7 @@ public final class Build {
     private static Data data(Parse.Result parse, CobolParser.ProgramUnitContext program, Map<String, List<Integer>> records) {
         List<String> findings = new ArrayList<>();
         DataMap map = new DataMap(parse, findings);
-        CobolParser.CurrencySignClauseContext currency = first(program, CobolParser.CurrencySignClauseContext.class);
-        if (currency != null) {
-            String symbol = currency.literal().size() > 1 ? currency.literal(1).getText() : currency.literal(0).getText();
-            map.currency = symbol.replaceAll("[\"']", "").charAt(0);
-        }
+        map.currency = currency(program);
         map.decimalComma = first(program, CobolParser.DecimalPointClauseContext.class) != null;
         if (program != null && program.dataDivision() != null) {
             for (CobolParser.DataDivisionSectionContext s : program.dataDivision().dataDivisionSection()) {
@@ -162,7 +159,15 @@ public final class Build {
         Placement placement = new Placement(parse, map.nodes, findings);
         placement.resolve();
         placement.layout();
-        return new Data(new Tuples(parse, map.nodes, placement).items(), findings);
+        return new Data(new Tuples(parse, map.nodes, placement).items(), findings, map.currency, map.decimalComma);
+    }
+
+    /** A unit's CURRENCY SIGN (its PICTURE symbol, when it names two), `$` when none. */
+    private static char currency(ParseTree program) {
+        CobolParser.CurrencySignClauseContext currency = first(program, CobolParser.CurrencySignClauseContext.class);
+        if (currency == null) return '$';
+        String symbol = currency.literal().size() > 1 ? currency.literal(1).getText() : currency.literal(0).getText();
+        return symbol.replaceAll("[\"']", "").charAt(0);
     }
 
     /** The first node of a kind under a node, depth first, or null. */

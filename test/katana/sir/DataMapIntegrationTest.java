@@ -31,7 +31,8 @@ class DataMapIntegrationTest {
     private static final Path GOLDEN = ROOT.resolve("sir/datamap.golden");
     private static final String HEADER = """
             # Phase 2.5 (docs/ROADMAP.md): the data map against `cobc -C -std=ibm`'s layout, on every program cobc
-            # accepts: `corpus NAME programs P fields F differ D`, then each difference as `PROGRAM FIELD: what`.
+            # accepts: `corpus NAME programs P fields F masks M flagged G differ D` (M of the fields edited, G JUSTIFIED,
+            # BLANK WHEN ZERO or EXTERNAL, each compared too; tithe pass 2, A4), then each difference as `PROGRAM FIELD: what`.
             # Written by `gradle integration -Dkatana.record=true`.
             """;
 
@@ -61,7 +62,7 @@ class DataMapIntegrationTest {
         List<String> flags = new ArrayList<>();
         for (Path p : copybooks) flags.addAll(List.of("-I", p.toAbsolutePath().toString()));
         flags.addAll(List.of("-I", copybooks.get(0).resolve("ALTLIB1").toAbsolutePath().toString()));
-        int translated = 0, fields = 0;
+        int translated = 0, fields = 0, masks = 0, flagged = 0;
         List<String> differences = new ArrayList<>();
         for (var program : programs.entrySet()) {
             Files.copy(program.getValue(), work.resolve(program.getKey() + ".cbl"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
@@ -74,14 +75,16 @@ class DataMapIntegrationTest {
                 for (CobcLayout.Field f : layout.get(u)) {
                     if (!CobcLayout.compared(f)) continue;
                     fields++;
+                    if (f.picture() != null) masks++;
+                    if ((f.flags() & 0x18) != 0 || f.external()) flagged++;
                     Item item = CobcLayout.match(f, units.get(u).items());
                     String finding = units.get(u).findings().stream().filter(x -> x.startsWith("REPORT SECTION") || x.startsWith("COMMUNICATION SECTION")).findFirst().orElse(null);
-                    String why = item != null ? CobcLayout.difference(item, f) : finding == null ? "no item of ours" : "no item of ours (a finding: " + finding.substring(0, finding.indexOf(" at ")) + ")";
+                    String why = item != null ? CobcLayout.difference(item, f, units.get(u)) : finding == null ? "no item of ours" : "no item of ours (a finding: " + finding.substring(0, finding.indexOf(" at ")) + ")";
                     if (why != null) differences.add(program.getKey() + " " + f.name() + ": " + why);
                 }
             }
         }
-        StringBuilder out = new StringBuilder("corpus " + name + " programs " + translated + " fields " + fields + " differ " + differences.size() + "\n");
+        StringBuilder out = new StringBuilder("corpus " + name + " programs " + translated + " fields " + fields + " masks " + masks + " flagged " + flagged + " differ " + differences.size() + "\n");
         differences.forEach(d -> out.append(d).append('\n'));
         return out.toString();
     }

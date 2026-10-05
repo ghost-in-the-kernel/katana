@@ -1002,3 +1002,19 @@ taken; closed by a later `decision` entry naming it).
 - **Resolved:** A3; SIR-08. **Touched:** `sir/types/Value.java`, `Item.java`, `sir/build/Literals.java`,
   `Values`, `DataMap`, `Contract` (a literal of another kind prints its payload in braces), the
   goldens (the VALUE lines; PROBE gains each kind), `docs/SEMANTIC-IR.md`, the sir tests.
+
+### J-083 Tithe pass 2, A4: PICTURE as data, and the clauses the IR dropped
+- **Who:** Opus. **Class:** build. **Intent:** the lowering and `rt/` read no PICTURE string.
+- **Found:** `Attributes.mask`, one symbol a character position for an edited item (S, V, P dropped;
+  the currency sign written `$`, the point `.`, which the `Header` names: CURRENCY SIGN and
+  DECIMAL-POINT IS COMMA, both read before and then lost); `Item.flags` JUSTIFIED, BLANK WHEN ZERO
+  (a flag now, the category fold kept, as cobc folds it too), EXTERNAL, GLOBAL; `FileDescriptor`'s
+  RELATIVE KEY. The oracle is cobc's own output, read only: each edited field's picture symbols
+  (run-length, CR and DB written C and D), its flag bits (0x08 and 0x10, observed with a probe), and
+  the names it takes EXTERNAL addresses of. On CardDemo and NIST all 750 masks and 36 flagged fields
+  agree; `CobcLayoutTest` shows each comparison failing when ours differs. GLOBAL has no oracle (cobc
+  writes nothing for it that a reader of its output can see); it is read, not compared.
+- **Resolved:** A4. **Touched:** `sir/types/` (Attributes, Item, Header, FileDescriptor, Program's
+  key check), `sir/build/` (DataMap, Tuples, Pictures, Files, Build), `Contract` (an `editing` kind;
+  mask and flags on item lines; `relative` on file lines), `docs/SEMANTIC-IR.md`, the goldens, the
+  data map oracle.

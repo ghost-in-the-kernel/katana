@@ -117,6 +117,11 @@ record Pictures(String expanded, Category category, int digits, int scale, boole
         return -1;
     }
 
+    /** One symbol a character position: the expanded picture without S, V and P. */
+    String mask() {
+        return expanded.replaceAll("[SVP]", "");
+    }
+
     /** `X(3)9(2)` as `XXX99`. */
     static String expand(String picture) {
         StringBuilder out = new StringBuilder();

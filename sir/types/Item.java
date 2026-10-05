@@ -7,10 +7,14 @@ import java.util.List;
  * level, parent (0 for a record), the record it belongs to, the section it is in, its offset in that
  * record and its length in bytes, its attribute tuple, the item it REDEFINES (0 for none), its OCCURS
  * (null for none), the slack bytes SYNC put before it, its VALUE (null for none; several, as for a table, a `VALUES` expression of them), its
- * condition names (88s), and its origin.
+ * condition names (88s), the clauses it states that change how it is moved or shared (its `Flag`s,
+ * on the entry that states them), and its origin.
  */
 public record Item(int id, String name, int level, int parent, int record, Section section, int offset, int length, Attributes attributes,
-        int redefines, Occurs occurs, int syncSlack, Value value, List<Condition> conditions, Origin origin) {
+        int redefines, Occurs occurs, int syncSlack, Value value, List<Condition> conditions, List<Flag> flags, Origin origin) {
+    /** JUSTIFIED RIGHT, BLANK WHEN ZERO, EXTERNAL, GLOBAL: each as stated, in this order. */
+    public enum Flag { JUSTIFIED, BLANK_WHEN_ZERO, EXTERNAL, GLOBAL }
+
     /** Where an item is declared. */
     public enum Section { FILE, WORKING_STORAGE, LOCAL_STORAGE, LINKAGE }
 
@@ -38,6 +42,7 @@ public record Item(int id, String name, int level, int parent, int record, Secti
     public Item {
         if (id < 1 || level < 1 || level > 88 || offset < 0 || length < 0 || syncSlack < 0) throw new Invalid("SIR-02", "item " + id + " " + name + ": id, level, offset or length out of range");
         conditions = List.copyOf(conditions);
+        flags = List.copyOf(flags);
         Invalid.origin(origin, "item " + name);
     }
 }

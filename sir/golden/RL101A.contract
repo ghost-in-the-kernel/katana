@@ -1,4 +1,5 @@
 profile RL101A sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+editing RL101A currency $ point .
 item RL101A 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item RL101A 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item RL101A 3 RL-FS2R1-F-G-120 level 1 parent 0 record 3 FILE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
@@ -67,12 +68,12 @@ item RL101A 65 FILLER level 2 parent 64 record 64 WORKING_STORAGE offset 0 lengt
 item RL101A 66 FILLER level 2 parent 64 record 64 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
 item RL101A 67 COMPUTED-X level 2 parent 64 record 64 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
 item RL101A 68 COMPUTED-A level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
-item RL101A 69 COMPUTED-N level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
-item RL101A 70 COMPUTED-0V18 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
-item RL101A 71 COMPUTED-4V14 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
-item RL101A 72 COMPUTED-14V4 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item RL101A 69 COMPUTED-N level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999" mask "-999999999.999999999"
+item RL101A 70 COMPUTED-0V18 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999" mask "-.999999999999999999"
+item RL101A 71 COMPUTED-4V14 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999" mask "-9999.99999999999999"
+item RL101A 72 COMPUTED-14V4 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999" mask "-99999999999999.9999"
 item RL101A 73 CM-18V0 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
-item RL101A 74 COMPUTED-18V0 level 4 parent 73 record 64 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item RL101A 74 COMPUTED-18V0 level 4 parent 73 record 64 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999" mask "-999999999999999999"
 item RL101A 75 FILLER level 4 parent 73 record 64 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
 item RL101A 76 FILLER level 3 parent 67 record 64 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item RL101A 77 TEST-CORRECT level 1 parent 0 record 77 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
@@ -80,12 +81,12 @@ item RL101A 78 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 0 lengt
 item RL101A 79 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
 item RL101A 80 CORRECT-X level 2 parent 77 record 77 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
 item RL101A 81 CORRECT-A level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
-item RL101A 82 CORRECT-N level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
-item RL101A 83 CORRECT-0V18 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
-item RL101A 84 CORRECT-4V14 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
-item RL101A 85 CORRECT-14V4 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item RL101A 82 CORRECT-N level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999" mask "-999999999.999999999"
+item RL101A 83 CORRECT-0V18 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999" mask "-.999999999999999999"
+item RL101A 84 CORRECT-4V14 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999" mask "-9999.99999999999999"
+item RL101A 85 CORRECT-14V4 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999" mask "-99999999999999.9999"
 item RL101A 86 CR-18V0 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
-item RL101A 87 CORRECT-18V0 level 4 parent 86 record 77 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item RL101A 87 CORRECT-18V0 level 4 parent 86 record 77 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999" mask "-999999999999999999"
 item RL101A 88 FILLER level 4 parent 86 record 77 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
 item RL101A 89 FILLER level 3 parent 80 record 77 WORKING_STORAGE offset 67 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
 item RL101A 90 COR-ANSI-REFERENCE level 3 parent 80 record 77 WORKING_STORAGE offset 69 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -261,8 +262,8 @@ value RL101A 164 SPACE
 value RL101A 165 "*****************************************************************"
 value RL101A 166 "******************************************************"
 value RL101A 167 "RL101A"
-file RL101A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
-file RL101A RL-FS2 assign "REL1" RELATIVE SEQUENTIAL key 0 alternate [] status 5 records [3] 120..120
+file RL101A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
+file RL101A RL-FS2 assign "REL1" RELATIVE SEQUENTIAL key 0 relative 0 alternate [] status 5 records [3] 120..120
 paragraph RL101A 0 "" ""
 paragraph RL101A 1 "OPEN-FILES" "CCVS1"
 paragraph RL101A 2 "CCVS-INIT-FILE" "CCVS1"

@@ -1,8 +1,9 @@
 # Phase 2.5 (docs/ROADMAP.md): the data map against `cobc -C -std=ibm`'s layout, on every program cobc
-# accepts: `corpus NAME programs P fields F differ D`, then each difference as `PROGRAM FIELD: what`.
+# accepts: `corpus NAME programs P fields F masks M flagged G differ D` (M of the fields edited, G JUSTIFIED,
+# BLANK WHEN ZERO or EXTERNAL, each compared too; tithe pass 2, A4), then each difference as `PROGRAM FIELD: what`.
 # Written by `gradle integration -Dkatana.record=true`.
-corpus carddemo programs 11 fields 215 differ 0
-corpus nist programs 426 fields 12893 differ 12
+corpus carddemo programs 11 fields 215 masks 4 flagged 0 differ 0
+corpus nist programs 426 fields 12893 masks 746 flagged 36 differ 12
 DB205A INQUE-SPECS: no item of ours (a finding: COMMUNICATION SECTION)
 DB205A OUTQUE-SPECS: no item of ours (a finding: COMMUNICATION SECTION)
 NC124A EDIT-AREA-12: scale 2 vs 0

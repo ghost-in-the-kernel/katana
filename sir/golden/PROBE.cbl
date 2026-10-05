@@ -1,8 +1,16 @@
       * Tithe pass 2, A1: every keyword-bearing construct the IR once dropped, in one program;
-      * A3: each kind of literal, and VALUEs with their spaces.
+      * A3: each kind of literal, and VALUEs with their spaces; A4: a mask, the flags, a RELATIVE KEY.
        IDENTIFICATION DIVISION.
        PROGRAM-ID. PROBE.
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT REL-FILE ASSIGN TO "REL" ORGANIZATION RELATIVE
+               ACCESS RANDOM RELATIVE KEY RK.
        DATA DIVISION.
+       FILE SECTION.
+       FD  REL-FILE.
+       01  REL-REC      PIC X(10).
        WORKING-STORAGE SECTION.
        01  A            PIC S9(5)V99.
        01  B            PIC S9(5)V99.
@@ -13,6 +21,12 @@
        01  Y            PIC X(20) VALUE 'A  ''B''  C'.
        01  Z            PIC S9(3)V99 VALUE -1.50.
            88  Z-LOW    VALUE -999.99 THRU 0, 1.
+       01  RK           PIC 9(4).
+       01  M            PIC $$,$$9.99CR.
+       01  J            PIC X(5) JUSTIFIED RIGHT.
+       01  K            PIC 9(4) BLANK WHEN ZERO.
+       01  EXT          PIC X EXTERNAL.
+       01  GLB          PIC XXBX/0 GLOBAL.
        01  G1.
            05  F1       PIC X.
            05  F2       PIC 9.

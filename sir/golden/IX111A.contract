@@ -1,4 +1,5 @@
 profile IX111A sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+editing IX111A currency $ point .
 item IX111A 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item IX111A 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item IX111A 3 IX-NOPR1-F-G-240 level 1 parent 0 record 3 FILE offset 0 length 240 DISPLAY GROUP digits 0 scale 0 picture ""
@@ -27,12 +28,12 @@ item IX111A 25 FILLER level 2 parent 24 record 24 WORKING_STORAGE offset 0 lengt
 item IX111A 26 FILLER level 2 parent 24 record 24 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
 item IX111A 27 COMPUTED-X level 2 parent 24 record 24 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
 item IX111A 28 COMPUTED-A level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
-item IX111A 29 COMPUTED-N level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
-item IX111A 30 COMPUTED-0V18 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
-item IX111A 31 COMPUTED-4V14 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
-item IX111A 32 COMPUTED-14V4 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item IX111A 29 COMPUTED-N level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999" mask "-999999999.999999999"
+item IX111A 30 COMPUTED-0V18 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999" mask "-.999999999999999999"
+item IX111A 31 COMPUTED-4V14 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999" mask "-9999.99999999999999"
+item IX111A 32 COMPUTED-14V4 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999" mask "-99999999999999.9999"
 item IX111A 33 CM-18V0 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
-item IX111A 34 COMPUTED-18V0 level 4 parent 33 record 24 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item IX111A 34 COMPUTED-18V0 level 4 parent 33 record 24 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999" mask "-999999999999999999"
 item IX111A 35 FILLER level 4 parent 33 record 24 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
 item IX111A 36 FILLER level 3 parent 27 record 24 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item IX111A 37 TEST-CORRECT level 1 parent 0 record 37 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
@@ -40,12 +41,12 @@ item IX111A 38 FILLER level 2 parent 37 record 37 WORKING_STORAGE offset 0 lengt
 item IX111A 39 FILLER level 2 parent 37 record 37 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
 item IX111A 40 CORRECT-X level 2 parent 37 record 37 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
 item IX111A 41 CORRECT-A level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
-item IX111A 42 CORRECT-N level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
-item IX111A 43 CORRECT-0V18 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
-item IX111A 44 CORRECT-4V14 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
-item IX111A 45 CORRECT-14V4 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item IX111A 42 CORRECT-N level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999" mask "-999999999.999999999"
+item IX111A 43 CORRECT-0V18 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999" mask "-.999999999999999999"
+item IX111A 44 CORRECT-4V14 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999" mask "-9999.99999999999999"
+item IX111A 45 CORRECT-14V4 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999" mask "-99999999999999.9999"
 item IX111A 46 CR-18V0 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
-item IX111A 47 CORRECT-18V0 level 4 parent 46 record 37 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item IX111A 47 CORRECT-18V0 level 4 parent 46 record 37 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999" mask "-999999999999999999"
 item IX111A 48 FILLER level 4 parent 46 record 37 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
 item IX111A 49 FILLER level 3 parent 40 record 37 WORKING_STORAGE offset 67 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
 item IX111A 50 COR-ANSI-REFERENCE level 3 parent 40 record 37 WORKING_STORAGE offset 69 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -212,8 +213,8 @@ value IX111A 124 SPACE
 value IX111A 125 "*****************************************************************"
 value IX111A 126 "******************************************************"
 value IX111A 127 "IX111A"
-file IX111A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
-file IX111A IX-NOP assign "INDEX2" INDEXED SEQUENTIAL key 7 alternate [] status 11 records [3] 240..240
+file IX111A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
+file IX111A IX-NOP assign "INDEX2" INDEXED SEQUENTIAL key 7 relative 0 alternate [] status 11 records [3] 240..240
 paragraph IX111A 0 "INPUT-PROCESS" "SECT-IX111-0001"
 paragraph IX111A 1 "PASS-DECL" "SECT-IX111-0001"
 paragraph IX111A 2 "FAIL-DECL" "SECT-IX111-0001"

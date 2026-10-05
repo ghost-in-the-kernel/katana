@@ -677,3 +677,5 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/build/DataMap.java:DataMap.keys` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Tuples.java:Tuples.keys` |
 | sir | `sir/build/DataMap.java:DataMap.indexes` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Tuples.java:Tuples.indexes` |
 | sir | `sir/build/DataMap.java:DataMap.attributes` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Tuples.java:Tuples.attributes` |
+| sir | `sir/build/Build.java:Build.currency` | called by `sir/build/Build.java:Build.program#2` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Pictures.java:Pictures.mask` | called by `sir/build/Tuples.java:Tuples.attributes` and 1 more | 2026-10-05 |  |

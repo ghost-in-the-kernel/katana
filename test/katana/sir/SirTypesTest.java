@@ -28,17 +28,17 @@ class SirTypesTest {
     }
 
     private static Attributes text(int length) {
-        return new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.ALPHANUMERIC, 0, 0, false, false, false, "X".repeat(length));
+        return new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.ALPHANUMERIC, 0, 0, false, false, false, "X".repeat(length), "");
     }
 
     private static Attributes number(int digits, int scale, String picture) {
-        return new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.NUMERIC, digits, scale, false, false, false, picture);
+        return new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.NUMERIC, digits, scale, false, false, false, picture, "");
     }
 
-    private static final Attributes GROUP = new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.GROUP, 0, 0, false, false, false, "");
+    private static final Attributes GROUP = new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.GROUP, 0, 0, false, false, false, "", "");
 
     private static Item item(int id, String name, int level, int parent, int record, Item.Section section, int offset, int length, Attributes a, Value value, Origin origin) {
-        return new Item(id, name, level, parent, record, section, offset, length, a, 0, null, 0, value, List.of(), origin);
+        return new Item(id, name, level, parent, record, section, offset, length, a, 0, null, 0, value, List.of(), List.of(), origin);
     }
 
     /** COPYREC's data map: COPY-REC from the copybook, OUT-REC, EOF and COPIED. */
@@ -91,12 +91,12 @@ class SirTypesTest {
     static List<FileDescriptor> files() {
         String cbl = "oracle/fixture/trivial/cbl/COPYREC.cbl";
         return List.of(
-                new FileDescriptor("IN-FILE", "INFILE", FileDescriptor.Organization.SEQUENTIAL, FileDescriptor.Access.SEQUENTIAL, 0, List.of(), 0, List.of(1), 20, 20, at(cbl, 8, 12)),
-                new FileDescriptor("OUT-FILE", "OUTFILE", FileDescriptor.Organization.SEQUENTIAL, FileDescriptor.Access.SEQUENTIAL, 0, List.of(), 0, List.of(5), 20, 20, at(cbl, 10, 12)));
+                new FileDescriptor("IN-FILE", "INFILE", FileDescriptor.Organization.SEQUENTIAL, FileDescriptor.Access.SEQUENTIAL, 0, List.of(), 0, 0, List.of(1), 20, 20, at(cbl, 8, 12)),
+                new FileDescriptor("OUT-FILE", "OUTFILE", FileDescriptor.Organization.SEQUENTIAL, FileDescriptor.Access.SEQUENTIAL, 0, List.of(), 0, 0, List.of(5), 20, 20, at(cbl, 10, 12)));
     }
 
     static Header header() {
-        return new Header("COPYREC", "oracle/fixture/trivial/cbl/COPYREC.cbl", HASH, at("oracle/fixture/trivial/cbl/COPYREC.cbl", 4, 8));
+        return new Header("COPYREC", "oracle/fixture/trivial/cbl/COPYREC.cbl", HASH, "$", false, at("oracle/fixture/trivial/cbl/COPYREC.cbl", 4, 8));
     }
 
     @Test
@@ -113,7 +113,7 @@ class SirTypesTest {
 
     @Test
     void eachInvariantRefusesAViolation() {
-        refused("SIR-01", () -> new Header("COPYREC", "x", "sha256:nope", at("x", 1, 1)));
+        refused("SIR-01", () -> new Header("COPYREC", "x", "sha256:nope", "$", false, at("x", 1, 1)));
         List<Item> renumbered = new ArrayList<>(items());
         renumbered.set(3, item(9, "FILLER", 5, 1, 1, Item.Section.FILE, 17, 3, text(3), null, at("x", 1, 1)));
         refused("SIR-02", () -> new Program(header(), renumbered, files(), procedure(statements()), List.of(), List.of()));
@@ -121,7 +121,10 @@ class SirTypesTest {
         outside.set(3, item(4, "FILLER", 5, 1, 1, Item.Section.FILE, 17, 4, text(4), null, at("x", 1, 1)));
         refused("SIR-03", () -> new Program(header(), outside, files(), procedure(statements()), List.of(), List.of()));
         refused("SIR-04", () -> number(0, 0, "9"));
-        refused("SIR-04", () -> new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.ALPHANUMERIC, 0, 0, true, false, false, "X"));
+        refused("SIR-04", () -> new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.ALPHANUMERIC, 0, 0, true, false, false, "X", ""));
+        refused("SIR-04", () -> new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.NUMERIC_EDITED, 3, 0, false, false, false, "ZZ9", ""));
+        refused("SIR-04", () -> new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.NUMERIC_EDITED, 3, 2, false, false, false, "Z9V99", "Z9V99"));
+        refused("SIR-04", () -> new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.ALPHANUMERIC, 0, 0, false, false, false, "X", "X"));
         List<Statement> stray = List.of(statement("MOVE", 1, List.of(operand("to", field(8))), List.of()));
         refused("SIR-05", () -> new Program(header(), items(), files(), procedure(stray), List.of(), List.of()));
         List<Statement> noFile = List.of(statement("CLOSE", 1, List.of(operand("file", new Value.File("NOPE"))), List.of()));

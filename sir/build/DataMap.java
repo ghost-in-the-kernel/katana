@@ -34,6 +34,7 @@ final class DataMap {
         final List<Item.Condition> conditions = new ArrayList<>();
         final List<String> indexNames = new ArrayList<>();
         final List<String[]> keyNames = new ArrayList<>();
+        final List<Item.Flag> flags = new ArrayList<>();
         ParserRuleContext ctx;
     }
 
@@ -114,6 +115,10 @@ final class DataMap {
         }
         n.sync = !e.dataSynchronizedClause().isEmpty();
         n.blankWhenZero = !e.dataBlankWhenZeroClause().isEmpty();
+        if (!e.dataJustifiedClause().isEmpty()) n.flags.add(Item.Flag.JUSTIFIED);
+        if (n.blankWhenZero) n.flags.add(Item.Flag.BLANK_WHEN_ZERO);
+        if (!e.dataExternalClause().isEmpty()) n.flags.add(Item.Flag.EXTERNAL);
+        if (!e.dataGlobalClause().isEmpty()) n.flags.add(Item.Flag.GLOBAL);
         if (!e.dataRedefinesClause().isEmpty()) n.redefinesName = e.dataRedefinesClause(0).dataName().getText().toUpperCase(Locale.ROOT);
         if (!e.dataValueClause().isEmpty()) n.value = value(e.dataValueClause(0));
         if (!e.dataOccursClause().isEmpty()) occurs(n, e.dataOccursClause(0));

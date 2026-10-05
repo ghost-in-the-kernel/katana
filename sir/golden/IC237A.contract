@@ -1,4 +1,5 @@
 profile IC237A sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+editing IC237A currency $ point .
 item IC237A 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item IC237A 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item IC237A 3 WS-A level 1 parent 0 record 3 WORKING_STORAGE offset 0 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
@@ -21,12 +22,12 @@ item IC237A 19 FILLER level 2 parent 18 record 18 WORKING_STORAGE offset 0 lengt
 item IC237A 20 FILLER level 2 parent 18 record 18 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
 item IC237A 21 COMPUTED-X level 2 parent 18 record 18 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
 item IC237A 22 COMPUTED-A level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
-item IC237A 23 COMPUTED-N level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
-item IC237A 24 COMPUTED-0V18 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
-item IC237A 25 COMPUTED-4V14 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
-item IC237A 26 COMPUTED-14V4 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item IC237A 23 COMPUTED-N level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999" mask "-999999999.999999999"
+item IC237A 24 COMPUTED-0V18 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999" mask "-.999999999999999999"
+item IC237A 25 COMPUTED-4V14 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999" mask "-9999.99999999999999"
+item IC237A 26 COMPUTED-14V4 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999" mask "-99999999999999.9999"
 item IC237A 27 CM-18V0 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
-item IC237A 28 COMPUTED-18V0 level 4 parent 27 record 18 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item IC237A 28 COMPUTED-18V0 level 4 parent 27 record 18 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999" mask "-999999999999999999"
 item IC237A 29 FILLER level 4 parent 27 record 18 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
 item IC237A 30 FILLER level 3 parent 21 record 18 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item IC237A 31 TEST-CORRECT level 1 parent 0 record 31 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
@@ -34,12 +35,12 @@ item IC237A 32 FILLER level 2 parent 31 record 31 WORKING_STORAGE offset 0 lengt
 item IC237A 33 FILLER level 2 parent 31 record 31 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
 item IC237A 34 CORRECT-X level 2 parent 31 record 31 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
 item IC237A 35 CORRECT-A level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
-item IC237A 36 CORRECT-N level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
-item IC237A 37 CORRECT-0V18 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
-item IC237A 38 CORRECT-4V14 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
-item IC237A 39 CORRECT-14V4 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item IC237A 36 CORRECT-N level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999" mask "-999999999.999999999"
+item IC237A 37 CORRECT-0V18 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999" mask "-.999999999999999999"
+item IC237A 38 CORRECT-4V14 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999" mask "-9999.99999999999999"
+item IC237A 39 CORRECT-14V4 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999" mask "-99999999999999.9999"
 item IC237A 40 CR-18V0 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
-item IC237A 41 CORRECT-18V0 level 4 parent 40 record 31 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item IC237A 41 CORRECT-18V0 level 4 parent 40 record 31 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999" mask "-999999999999999999"
 item IC237A 42 FILLER level 4 parent 40 record 31 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
 item IC237A 43 FILLER level 3 parent 34 record 31 WORKING_STORAGE offset 67 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
 item IC237A 44 COR-ANSI-REFERENCE level 3 parent 34 record 31 WORKING_STORAGE offset 69 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -209,7 +210,7 @@ value IC237A 118 SPACE
 value IC237A 119 "*****************************************************************"
 value IC237A 120 "******************************************************"
 value IC237A 121 "IC237A"
-file IC237A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
+file IC237A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
 paragraph IC237A 0 "" ""
 paragraph IC237A 1 "OPEN-FILES" "CCVS1"
 paragraph IC237A 2 "CLOSE-FILES" "CCVS1"
@@ -449,6 +450,7 @@ statement IC237A 29.0 GO TO go-to-statement-simple=@2..2
 call IC237A "IC237A-1" using [REFERENCE:#3, REFERENCE:#4, REFERENCE:#5] returning -
 using IC237A [] 0
 profile IC237A-1 sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+editing IC237A-1 currency $ point .
 item IC237A-1 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item IC237A-1 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item IC237A-1 3 L-A level 1 parent 0 record 3 LINKAGE offset 0 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
@@ -456,7 +458,7 @@ item IC237A-1 4 L-A1 level 1 parent 0 record 4 LINKAGE offset 0 length 1 DISPLAY
 item IC237A-1 5 L-B level 1 parent 0 record 5 LINKAGE offset 0 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
 item IC237A-1 6 L-C level 1 parent 0 record 6 LINKAGE offset 0 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
 redefines IC237A-1 4 3
-file IC237A-1 PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
+file IC237A-1 PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
 paragraph IC237A-1 0 "" ""
 paragraph IC237A-1 1 "CALLED-FROM-NC121A-FUNCTION" "SECT-IC237A-1-001"
 paragraph IC237A-1 2 "IC237A-EXIT" "SECT-IC237A-1-001"

@@ -31,7 +31,7 @@ final class Tuples {
         for (Node n : nodes) {
             Item.Occurs occurs = n.occursMax == 0 ? null : new Item.Occurs(n.occursMin, n.occursMax, n.dependingOn, keys(n), indexes(n));
             items.add(new Item(n.id, n.name, n.level, n.parent, n.record, n.section, n.offset, n.length, attributes(n), n.redefines, occurs, n.syncSlack, n.value,
-                    n.conditions, Origins.at(parse, n.ctx)));
+                    n.conditions, n.flags, Origins.at(parse, n.ctx)));
         }
         return items;
     }
@@ -61,7 +61,7 @@ final class Tuples {
     /** The attribute tuple: a group's is GROUP; an elementary item's from its usage and PICTURE. */
     static Attributes attributes(Node n) {
         if (n.renamesOne != null) return attributes(n.renamesOne);
-        if (!n.children.isEmpty() || n.level == 66) return new Attributes(n.usage, Category.GROUP, 0, 0, false, false, false, "");
+        if (!n.children.isEmpty() || n.level == 66) return new Attributes(n.usage, Category.GROUP, 0, 0, false, false, false, "", "");
         Pictures p = n.pic;
         Category category = switch (n.usage) {
             case FLOAT_SHORT, FLOAT_LONG -> Category.NUMERIC;
@@ -70,8 +70,9 @@ final class Tuples {
             default -> p == null ? Category.ALPHANUMERIC : p.category() == Category.NUMERIC && n.blankWhenZero && n.usage == Usage.DISPLAY ? Category.NUMERIC_EDITED : p.category();
         };
         boolean numeric = category == Category.NUMERIC || category == Category.NUMERIC_EDITED;
-        if (!numeric || p == null) return new Attributes(n.usage, category, 0, 0, false, false, false, p == null ? "" : p.expanded());
+        String mask = category == Category.NUMERIC_EDITED || category == Category.ALPHANUMERIC_EDITED ? p.mask() : "";
+        if (!numeric || p == null) return new Attributes(n.usage, category, 0, 0, false, false, false, p == null ? "" : p.expanded(), mask);
         boolean signed = p.signed();
-        return new Attributes(n.usage, category, Math.max(1, p.digits()), p.scale(), signed, signed && n.signSeparate, signed && n.leading, p.expanded());
+        return new Attributes(n.usage, category, Math.max(1, p.digits()), p.scale(), signed, signed && n.signSeparate, signed && n.leading, p.expanded(), mask);
     }
 }

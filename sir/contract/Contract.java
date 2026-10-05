@@ -27,7 +27,8 @@ public final class Contract {
 
     public static final List<Kind> KINDS = List.of(
             new Kind("profile", "the profile the program means what it means under", p -> List.of(p.header().profileHash())),
-            new Kind("item", "each item's place and attribute tuple", p -> each(p.items(), Contract::item)),
+            new Kind("editing", "the currency sign and decimal point a mask's `$` and `.` stand for", p -> List.of("currency " + p.header().currency() + " point " + (p.header().decimalComma() ? "," : "."))),
+            new Kind("item", "each item's place, attribute tuple, edit mask and flags", p -> each(p.items(), Contract::item)),
             new Kind("redefines", "each item that redefines another", p -> each(p.items().stream().filter(i -> i.redefines() != 0).toList(), i -> i.id() + " " + i.redefines())),
             new Kind("occurs", "each table's bounds, ODO object, keys and indexes", p -> each(p.items().stream().filter(i -> i.occurs() != null).toList(), Contract::occurs)),
             new Kind("value", "each item's VALUE", p -> each(p.items().stream().filter(i -> i.value() != null).toList(), i -> i.id() + " " + value(i.value()))),
@@ -76,7 +77,8 @@ public final class Contract {
         Attributes a = i.attributes();
         return i.id() + " " + i.name() + " level " + i.level() + " parent " + i.parent() + " record " + i.record() + " " + i.section() + " offset " + i.offset() + " length "
                 + i.length() + " " + a.usage() + " " + a.category() + " digits " + a.digits() + " scale " + a.scale() + (a.signed() ? " signed" : "")
-                + (a.signSeparate() ? " separate" : "") + (a.leading() ? " leading" : "") + (i.syncSlack() > 0 ? " slack " + i.syncSlack() : "") + " picture " + quoted(a.picture());
+                + (a.signSeparate() ? " separate" : "") + (a.leading() ? " leading" : "") + (i.syncSlack() > 0 ? " slack " + i.syncSlack() : "") + " picture " + quoted(a.picture())
+                + (a.mask().isEmpty() ? "" : " mask " + quoted(a.mask())) + i.flags().stream().map(f -> " " + f.name().toLowerCase(java.util.Locale.ROOT).replace('_', '-')).collect(Collectors.joining());
     }
 
     private static String occurs(Item i) {
@@ -86,7 +88,7 @@ public final class Contract {
     }
 
     private static String file(FileDescriptor f) {
-        return f.name() + " assign " + quoted(f.assign()) + " " + f.organization() + " " + f.access() + " key " + f.recordKey() + " alternate "
+        return f.name() + " assign " + quoted(f.assign()) + " " + f.organization() + " " + f.access() + " key " + f.recordKey() + " relative " + f.relativeKey() + " alternate "
                 + f.alternateKeys().stream().map(k -> k.item() + (k.duplicates() ? "D" : "")).toList() + " status " + f.status() + " records " + f.records()
                 + " " + f.minRecord() + ".." + f.maxRecord();
     }

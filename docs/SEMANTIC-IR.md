@@ -22,7 +22,9 @@ means what it means under.
 `Attributes` tuple, the item it REDEFINES, its `Occurs` (with the ODO object, its `Key`s and INDEXED
 BY items), SYNC slack, its VALUE as a `Value`, and its 88s, each a `Condition` whose values are
 `Value`s (a range a THRU expression). `Attributes`: `Usage`,
-`Category`, digits, scale, signed, sign separate, sign leading, PICTURE.
+`Category`, digits, scale, signed, sign separate, sign leading, PICTURE, and an edited item's mask (one
+symbol a character position, the currency sign written `$` and the point `.`, the `Header` saying
+which they are). An item's `Flag`s: JUSTIFIED, BLANK WHEN ZERO, EXTERNAL, GLOBAL, as stated.
 
 ## The paragraph graph
 
@@ -43,7 +45,7 @@ labels (tithe pass 2, A6).
 ## Files
 
 `FileDescriptor`: its name, its ASSIGN, `Organization`, `Access`, RECORD KEY, each `AlternateKey`,
-FILE STATUS item, its records, and its smallest and largest record.
+RELATIVE KEY, FILE STATUS item, its records, and its smallest and largest record.
 
 ## CALL interfaces
 
@@ -60,7 +62,8 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | Kind | Covers |
 | --- | --- |
 | `profile` | the profile the program means what it means under |
-| `item` | each item's place and attribute tuple |
+| `editing` | the currency sign and decimal point a mask's `$` and `.` stand for |
+| `item` | each item's place, attribute tuple, edit mask and flags |
 | `redefines` | each item that redefines another |
 | `occurs` | each table's bounds, ODO object, keys and indexes |
 | `value` | each item's VALUE |
@@ -81,7 +84,8 @@ shape: `lower/golden/<PROG>.java`, the generated Java byte for byte, a refactor 
 ## Invariants
 
 - **SIR-01 The header names the profile by its hash.** `sha256:` and 64 hex digits; a program means
-  what it means under one profile (R-007, R-049).
+  what it means under one profile (R-007, R-049). It also says the program's CURRENCY SIGN and
+  whether DECIMAL-POINT IS COMMA.
 - **SIR-02 Items are numbered in textual order.** 1, 2, ... with a parent before its children; a
   record (level 01 or 77) is its own record and every other item's record precedes it.
 - **SIR-03 An item lies inside its parent and its record.** Its offset and length fit its parent's
@@ -89,7 +93,7 @@ shape: `lower/golden/<PROG>.java`, the generated Java byte for byte, a refactor 
   an OCCURS runs from a minimum to a maximum no smaller.
 - **SIR-04 Only a numeric item has digits and a sign.** A numeric or numeric-edited item has 1 to 38
   digits (a floating-point one none); every other has none and is unsigned; a PICTURE is always
-  written, "" for none.
+  written, "" for none; an edited item, and only one, has a mask, without S, V or P.
 - **SIR-05 Every reference resolves.** Each item an item, a file, a key, an ODO object, the procedure
   or a statement names is in the data map, and each file a statement names is one of the program's.
 - **SIR-06 The paragraph graph is closed.** Paragraphs are numbered 0, 1, ... in textual order;

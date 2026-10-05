@@ -2,9 +2,9 @@
 # `corpus NAME programs P built B round-trip R build-findings F check-findings C contract-facts N tokens-left T`, then each program
 # that did not build or round-trip; then `non-exact NAME` with each F-08 kind found and how often (2.7).
 # Written by `gradle integration -Dkatana.record=true`.
-corpus carddemo programs 31 built 31 round-trip 31 build-findings 17 check-findings 5 contract-facts 23802 tokens-left 0
+corpus carddemo programs 31 built 31 round-trip 31 build-findings 17 check-findings 5 contract-facts 23833 tokens-left 0
 non-exact carddemo NE-04 2 NE-05 2
-corpus nist programs 437 built 437 round-trip 437 build-findings 47 check-findings 679 contract-facts 416054 tokens-left 0
+corpus nist programs 437 built 437 round-trip 437 build-findings 47 check-findings 679 contract-facts 416506 tokens-left 0
 non-exact nist NE-02 1 NE-03 1 NE-04 233 NE-05 13
-corpus omp programs 29 built 29 round-trip 29 build-findings 36 check-findings 39 contract-facts 2915 tokens-left 0
+corpus omp programs 29 built 29 round-trip 29 build-findings 36 check-findings 39 contract-facts 2944 tokens-left 0
 non-exact omp NE-04 2
