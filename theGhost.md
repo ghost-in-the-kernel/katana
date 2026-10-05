@@ -349,17 +349,24 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   mode, high-order truncation by PICTURE or by binary width per `TruncMode`, SIZE ERROR
   keep-on-overflow, and division by zero as a status, never an exception. `java.math.MathContext`
   (significant-digit precision) is never used: COBOL's limits are integer digits plus decimal digits.
-  **The IBM profiles' intermediate rules (Appendix A) are a hypothesis until read (R-049):** until
-  then `EXACT` is the only profile that builds, and a program compiled under `IBM_*` is a finding
-  ("arithmetic under hypothesis H-A") rather than a result. The profile is pluggable so that reading
-  Appendix A changes one table, not the runtime.
+  The IBM profiles' intermediate rules are IBM's Appendix A, read 2026-10-05 (pages 793–801 of the
+  6.4 Programming Guide, quoted in `docs/research/ibm-options.md` §4) and held as a table in
+  `rt/ArithProfile` whose test checks every row; `IBM_COMPAT` and `IBM_EXTEND` build and are results,
+  not findings. (Amended the same day: as first written, the IBM profiles were a finding "until
+  Appendix A is read"; it was read within hours of the network opening, and the recollection it
+  replaced was wrong in two rules: past the cap IBM keeps decimal places and drops high-order integer
+  places when d ≤ dmax, the reverse of the recollection; in division op1 is the divisor, the
+  recollection had the operands swapped.) The profile is pluggable so that a correction changes one
+  table, not the runtime.
 - **Why:** The catalogue's trap 4: `1/3*300` into `999V99` is 99.00 on IBM and 99.99 exact; a
   `MathContext` rounds by significant digits and matches neither. The shape is settled by the
   catalogue; only the IBM table waits on IBM's text, which this environment cannot reach (J-094).
 - **Claims:** C-1 BigInteger+scale with explicit store rules reproduces libcob's observable behaviour
   on the autotests: `hypothesis`; the 378 runnable autotests through the java lane are the trial.
-  C-2 the IBM dmax rules as recalled (`docs/research/ibm-options.md` §4): `hypothesis` until Appendix
-  A is read.
+  C-2 the IBM intermediate-result rules: `verified` (Appendix A read and quoted, §4; `ArithProfile`'s
+  table test; the reproducer `1/3*300` into `999V99` = 99.00 matching `cobc -std=ibm`). Open, for
+  `rt/Decimal`: whether places an intermediate cannot carry are truncated or rounded, and when
+  ROUNDED's extra place applies; IBM's text is silent and `cobc`'s output settles it (a trial).
 - **Held by:** `rt/Decimal`, `rt/ArithProfile`; a test that `MathContext` is not imported anywhere in
   `rt/`; the finding on `IBM_*` until R-049 closes.
 - **Source:** the catalogue; decided by Fable, 2026-10-05.
@@ -701,7 +708,8 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   `docs/PROFILE.md`: *verified* (quoted from a primary IBM source, `docs/research/ibm-options.md`) or
   *hypothesis*. A lowering that depends on a hypothesis says so in its findings and the proof report
   ("valid under hypothesis H-n"). The program collating sequence is not a field; it is read from the
-  program. Appendix A (intermediate results) is wholly hypothesis and blocks phase 3.1, not phase 1.
+  program. Appendix A (intermediate results) was wholly hypothesis when this was written and blocked
+  phase 3.1; it was read on 2026-10-05 and is verified (R-020, amended).
 - **Why:** The study's container could not reach IBM's manuals at all (F-10). From this session the
   performance-tuning papers, the compiler-option tables, the Customization Guide and eleven APARs
   were reached and quoted: TRUNC, NUMPROC, ARITH, CODEPAGE and ZONEDATA/INVDATA semantics are now

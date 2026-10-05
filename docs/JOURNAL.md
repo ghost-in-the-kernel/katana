@@ -1200,3 +1200,21 @@ taken; closed by a later `decision` entry naming it).
 - **Resolved:** R-049's Appendix A row verified (its Decision text, which calls it a hypothesis, is
   Ghost's to amend); the HANDOFF item closed. **Touched:** the research notes, PROFILE.md,
   `rt/katana/rt/ArithProfile.java`, its test, the kernel map.
+
+### J-096 Appendix A read: the hypothesis was wrong in two rules, and nothing stood on it
+- **Who:** Ghost opened the hosts; Opus read and transcribed; Fable amended R-020 and R-049.
+  **Class:** measurement → decision.
+- **Found:** IBM's Appendix A (6.4 PG pp. 793–801) against the recollection carried since phase 1:
+  past the 30/31-digit cap IBM keeps decimal places and drops high-order integer places when
+  d ≤ dmax (the recollection said the opposite); in division op1 is the divisor and the carried
+  places are i2 + d1 and max(d2 − d1, dmax) (the recollection had the operands swapped). The rest
+  held. `rt/ArithProfile` is built from the tables; the reproducer gives 99.00 under them.
+- **Resolved:** R-020 amended (IBM profiles are results, not findings); R-049's Appendix A row
+  verified; the one remaining question (truncate or round the uncarried places; ROUNDED's extra
+  place) is a trial against `cobc`.
+- **Touched:** R-020, R-049, `docs/research/ibm-options.md` §4, `docs/PROFILE.md`, `rt/ArithProfile`.
+- **Note:** the status discipline did its job: two wrong rules sat in the notes for two days marked
+  `hypothesis`, and no code was built on them. Had R-049 recorded them as fact, `rt/Decimal` would
+  have shipped the wrong overflow rule and the wrong division. R-052's cost of a hypothesis was one
+  label; the cost of the alternative would have been a penny in a bank's ledger.
+
