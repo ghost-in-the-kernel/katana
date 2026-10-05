@@ -605,3 +605,16 @@ taken; closed by a later `decision` entry naming it).
   INLINE now runs end to end; CREASTMT runs to CBSTM03A (J-050).
 - **Touched:** `oracle/sort/`, `oracle/lane/`, `oracle/fixture/`, `docs/FIXTURE.md`, the nine fixtures,
   `oracle/lane/carddemo.golden`, `docs/KERNEL-MAP.md`.
+
+### J-052 The gate built; the hundredths are two columns, not one
+- **Who:** Opus. **Class:** measurement.
+- **Intent:** Phase 1.6's check: with the clock pinned to the second the gate fails naming TRANFILE
+  column 326; with hundredths and zone it passes.
+- **Found:** all nine CardDemo fixtures run identically twice under their own clocks. POSTTRAN with
+  `2024-03-01 12:00:00` set outside the fixture (R-009) fails with one difference:
+  `TRANSACT.VSAM.KSDS (DD TRANFILE in STEP15): 257 of 257 records differ, in columns 325-326`. F-02's
+  "column 326" was one run's view: there the tens digit of the hundredths happened to agree.
+- **Resolved:** the gate names the columns that differ rather than a fixed one; the check asserts that
+  326 is among them. R-012's text is drafted for Fable (HANDOFF), with the gate as built as the default.
+- **Touched:** `oracle/lane/Gate.java`, `CobcLane` (a clock set outside the fixture, reported),
+  `Report` (record lengths), `HANDOFF.md`.

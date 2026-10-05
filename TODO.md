@@ -8,11 +8,6 @@ the first open item has a check.
 
 ## Phase 1: the oracle and the corpus
 
-### 1.6 The determinism gate
-
-Check: with the clock pinned to seconds only, the gate fails naming TRANFILE column 326; with
-hundredths and zone, it passes.
-
 ### 1.7 The comparator
 
 Check: an injected one-byte change in a COMP-3 field is reported with the field name and both

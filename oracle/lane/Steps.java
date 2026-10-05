@@ -35,7 +35,10 @@ final class Steps {
     private final Report report;
     private final List<Integer> rcs = new ArrayList<>();
 
-    Steps(Fixture fixture, Datasets datasets, Programs programs, Map<String, String> paths, Path work, Report report) {
+    private final String clock;
+
+    Steps(Fixture fixture, Datasets datasets, Programs programs, Map<String, String> paths, Path work, Report report, String clock) {
+        this.clock = clock != null ? clock : fixture.first("clock").values().get(0).replaceAll("\\s+", " ");
         this.fixture = fixture;
         this.datasets = datasets;
         this.programs = programs;
@@ -128,7 +131,7 @@ final class Steps {
 
     /** Each DD bound: sysout to a file, dummy to /dev/null, inline cards to a file (and stdin for SYSIN), a dataset by its disposition. */
     private Bound bind(Fixture.Step step) {
-        Map<String, String> env = new HashMap<>(Map.of("COB_CURRENT_DATE", fixture.first("clock").values().get(0).replaceAll("\\s+", " "),
+        Map<String, String> env = new HashMap<>(Map.of("COB_CURRENT_DATE", clock,
                 "TZ", fixture.first("tz").values().get(0)));
         Map<String, String> dsns = new HashMap<>();
         Map<String, List<String>> inputs = new HashMap<>();

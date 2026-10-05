@@ -145,3 +145,13 @@ a concatenated SORTIN, PRTCATBL-INLINE truncates 41 bytes to 40 and CREASTMT pad
 are expanded at each file's declared width (R-016; CUSTREC.cpy at 4). **Deferred under R-053:**
 CREASTMT end to end. It runs to CBSTM03A, which compiles and then reads z/OS control blocks from
 address 0 and ends on SIGSEGV (J-050, HANDOFF "For Fable").
+
+### 1.6 The determinism gate
+
+`oracle/lane/Gate.java`: the cobc lane runs a job twice in separate folders, and `Gate.compare` holds
+the two runs to each other on every dataset's logical unload, every program step's stdout and every
+step's outcome; `Gate.require` is what the comparator (1.7) calls first. A difference is named by its
+dataset, the DDs that reach it, the records and the columns. Every CardDemo fixture passes; POSTTRAN
+with its clock pinned to the second (set outside the fixture, R-009) fails at
+`TRANSACT.VSAM.KSDS (DD TRANFILE in STEP15): 257 of 257 records differ, in columns 325-326` (J-052).
+R-012's text waits for Fable (HANDOFF).

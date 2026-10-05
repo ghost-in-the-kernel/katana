@@ -327,3 +327,12 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/lane/SortConditions.java:SortConditions.Compare.test` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.Compare.test` |
 | oracle | `oracle/lane/SortConditions.java:SortConditions.Group.test` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.Group.test` |
 | oracle | `oracle/lane/Sorts.java:Sorts.generated` | moved or retired in phase 1.5b | 2026-10-05 | removed: the generated-COBOL sort retired by R-010 (phase 1.5b) |
+| oracle | `oracle/lane/Gate.java:Gate.Gate` | no caller | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.compare` | called by `oracle/sort/Dfsort.java:Dfsort.ties` | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.require` | no caller | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.dataset` | called by `oracle/lane/CobcLane.java:CobcLane.end` and 2 more | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.dds` | called by `oracle/fixture/Fixture.java:Fixture.place` and 9 more | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.stdouts` | called by `oracle/lane/Gate.java:Gate.compare` | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.ranges` | called by `oracle/lane/Gate.java:Gate.dataset` | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.read` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 8 more | 2026-10-05 |  |
+| oracle | `oracle/lane/Report.java:Report.lrecls` | called by `oracle/lane/Gate.java:Gate.compare` | 2026-10-05 |  |

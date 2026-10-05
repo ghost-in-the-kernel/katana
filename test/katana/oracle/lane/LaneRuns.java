@@ -15,9 +15,20 @@ final class LaneRuns {
     static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private final Map<String, Report> reports = new HashMap<>();
     private final String folder;
+    private final String clock;
 
     LaneRuns(String folder) {
+        this(folder, null);
+    }
+
+    /** Runs in build/FOLDER, with a clock set outside the fixtures when clock is not null (the gate's own check, R-009). */
+    LaneRuns(String folder, String clock) {
         this.folder = folder;
+        this.clock = clock;
+    }
+
+    Path work(String job) {
+        return ROOT.resolve("build/" + folder + "/" + job);
     }
 
     /** A fixture through the lane in build/FOLDER/JOB, once. */
@@ -29,7 +40,7 @@ final class LaneRuns {
             Path carddemo = ROOT.resolve("corpus/carddemo");
             CobcLane.Setup setup = new CobcLane.Setup(ROOT, Map.of("carddemo", carddemo, "repo", ROOT), carddemo.resolve("app/cbl"),
                     List.of(carddemo.resolve("app/cpy")), ROOT.resolve("build/" + folder + "/" + job), ROOT.resolve("build/lane-cache"),
-                    Duration.ofSeconds(60), this::unloaded);
+                    Duration.ofSeconds(60), this::unloaded, clock);
             Report report = CobcLane.run(fixture, setup);
             reports.put(job, report);
             return report;

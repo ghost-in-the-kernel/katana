@@ -14,6 +14,7 @@ public final class Report {
     private final List<String> lines = new ArrayList<>();
     private final Map<String, String> steps = new LinkedHashMap<>();
     private final Map<String, String> datasets = new LinkedHashMap<>();
+    private final Map<String, Integer> lrecls = new LinkedHashMap<>();
     private final List<String> findings = new ArrayList<>();
     private final List<String> notes = new ArrayList<>();
 
@@ -26,8 +27,9 @@ public final class Report {
         lines.add("step " + name + " " + outcome);
     }
 
-    void dataset(String dsn, int records, String sha256) {
+    void dataset(String dsn, int lrecl, int records, String sha256) {
         datasets.put(dsn, sha256);
+        lrecls.put(dsn, lrecl);
         lines.add("dataset " + dsn + " records=" + records + " " + sha256);
     }
 
@@ -54,6 +56,11 @@ public final class Report {
     /** Each dataset's records at the end, by name, as `sha256:...`. */
     public Map<String, String> datasets() {
         return datasets;
+    }
+
+    /** Each dataset's record length, by name. */
+    public Map<String, Integer> lrecls() {
+        return lrecls;
     }
 
     public List<String> findings() {

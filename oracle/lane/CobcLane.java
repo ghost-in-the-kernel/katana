@@ -25,9 +25,9 @@ import katana.profile.Profile;
  * unloaded and hashed at the end. A refused fixture runs nothing.
  */
 public final class CobcLane {
-    /** Where a run finds what it needs: the repository, the `from=` roots by prefix, program sources, copybooks, its folders, and other jobs' datasets. */
+    /** Where a run finds what it needs: the repository, the `from=` roots by prefix, program sources, copybooks, its folders, other jobs' datasets, and a clock set outside the fixture (null for the fixture's own, R-009). */
     public record Setup(Path root, Map<String, Path> sources, Path programs, List<Path> copybooks, Path work, Path cache,
-                        Duration limit, JobSource jobs) {}
+                        Duration limit, JobSource jobs, String clock) {}
 
     /** A dataset as another job leaves it, unloaded (a `job:` source). */
     public interface JobSource {
@@ -65,12 +65,13 @@ public final class CobcLane {
         String name = fixture.first("profile").values().get(0);
         Profile profile = Profile.read(Programs.text(setup.root().resolve("profile/" + name + ".profile")));
         report.line("profile " + name + " " + profile.hash());
+        if (setup.clock() != null) report.line("clock set outside the fixture: " + setup.clock() + " (R-009; for the gate's own check)");
         try {
             prepare(profile);
             String stopped = Start.catalog(fixture, datasets, setup, paths);
             if (stopped == null) stopped = libraries();
             if (stopped != null) report.finding(stopped);
-            new Steps(fixture, datasets, programs, paths, setup.work(), report).run(stopped != null);
+            new Steps(fixture, datasets, programs, paths, setup.work(), report, setup.clock()).run(stopped != null);
             end();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -113,7 +114,7 @@ public final class CobcLane {
         for (Datasets.Entry entry : new ArrayList<>(datasets.all())) {
             byte[] records = datasets.unload(entry);
             Files.write(unload.resolve(entry.dsn()), records);
-            report.dataset(entry.dsn(), records.length / entry.lrecl(), Content.sha256(records));
+            report.dataset(entry.dsn(), entry.lrecl(), records.length / entry.lrecl(), Content.sha256(records));
         }
         List<String> tabbed = new ArrayList<>(programs.tabbed());
         for (String file : tabbedCopybooks) if (programs.copied().contains(file.replaceAll("\\.[^.]*$", "").toUpperCase())) tabbed.add(file);

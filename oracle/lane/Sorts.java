@@ -15,6 +15,7 @@ import katana.oracle.sort.Dfsort;
 final class Sorts {
     private Sorts() {}
 
+    /** SORTIN and SORTOUT checked, the records read, the sort run, its notes reported, SORTOUT written; or the finding that stops it. */
     static Steps.Outcome run(Fixture.Step step, Steps.Bound bound, Datasets datasets, Report report, Dfsort.Rules rules) {
         List<String> dsns = bound.inputs().get("SORTIN");
         Datasets.Entry out = bound.dsns().containsKey("SORTOUT") ? datasets.get(bound.dsns().get("SORTOUT")) : null;

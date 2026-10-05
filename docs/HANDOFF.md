@@ -2,9 +2,9 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.5 are done
-(1.5 with one part of its check deferred, below). Next: phase 1.6, the determinism gate; the phase
-runs to its end under R-053.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.6 are done
+(1.5 with one part of its check deferred, below). Next: phase 1.7, the comparator; the phase runs to
+its end under R-053.
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
@@ -19,6 +19,14 @@ runs to its end under R-053.
   lines 266 to 290, which changes the program under test (Opus leans against: the two lanes would
   prove different programs). Lean: (1). **Default taken:** the lane reports CBSTM03A's abend as the
   outcome (`abend SIGSEGV`), the golden holds it, and 1.5's "CREASTMT end to end" waits on this.
+- **R-012's text, the double-run gate** (from step 1.6, J-052; the roadmap reserves it for phase 1).
+  Drafted as built: "The cobc lane runs a fixture's job twice, each in its own folder, and nothing is
+  compared against the original until the two runs are identical on every dataset's logical unload,
+  every program step's stdout and every step's outcome; a difference is reported by dataset, the DDs
+  that reach it, records and columns. A clock that is not pinned to hundredths and zone is refused
+  before the run (R-009); the gate is what catches what a fixture cannot state." Open: whether the gate
+  also holds stderr (libcob's messages can carry paths) and SYSOUT DDs. **Default taken:** the gate
+  as built (`oracle/lane/Gate.java`), stderr and SYSOUT DDs not held.
 
 ## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
 
