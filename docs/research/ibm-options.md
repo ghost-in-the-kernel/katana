@@ -206,10 +206,15 @@ places (the cap, and which operand of a division is which) and is gone.
   to the attributes of its comparand." "Abbreviated IF statements are handled as though the statements
   were not abbreviated."
 
-What the text leaves open, for `rt/` to treat as a hypothesis and the oracle to settle: whether an
-intermediate's dropped decimal places are truncated or rounded (the text says "truncates", p. 797, of
-digits beyond the cap; it does not name the rule for d below the theoretical places), and exactly when
-ROUNDED's extra place "might be carried".
+What the text leaves open, and the trial against cobc `-std=ibm` that settled it (J-096): an
+intermediate's dropped decimal places are truncated (`A / B * B`, 2 and 3, into 9V99 is 1.98; rounding
+would give 2.01), and ROUNDED's extra place does not enter dmax (into 9V9 ROUNDED it is 1.8; an extra
+place would give 2.0). The second is cobc's behaviour; IBM's "might be carried for accuracy if
+necessary" (p. 794) is not settled on IBM itself. [verbatim, Language Reference 6.4 SC27-8713-03,
+p. 296, S20] "When the size of the fractional result exceeds the number of places provided for its
+storage, truncation occurs unless ROUNDED is specified. When ROUNDED is specified, the least
+significant digit of the resultant identifier is increased by 1 whenever the most significant digit of
+the excess is greater than or equal to 5."
 
 The measured reproducer, under this table: `COMPUTE X = 1 / 3 * 300` into `999V99`. dmax is 2 (the
 receiver). `1 / 3`: op1 the divisor (i1 1, d1 0), op2 the dividend (i2 1, d2 0); i = i2 + d1 = 1,
@@ -272,6 +277,7 @@ TRUNC(BIN)/COMP-5 size error is detected against the binary capacity, not the PI
 - S17 https://www.ibm.com/support/pages/pitfalls-invalid-programs-and-data
 - S18 https://www.ibm.com/support/pages/apar/PH37328
 - S19 https://publibfp.dhe.ibm.com/epubs/pdf/igy6pg40.pdf (Enterprise COBOL for z/OS 6.4 Programming Guide, SC27-8714-03; Appendix A, pp. 793-801, read in full 2026-10-05)
+- S20 https://publibfp.dhe.ibm.com/epubs/pdf/igy6lr40.pdf (Enterprise COBOL for z/OS 6.4 Language Reference; the ROUNDED phrase, p. 296, read 2026-10-05)
 - Unreachable this session: PG 6.4 pgmvs.pdf / igy6pg40.pdf / igy3pg*.pdf (digest stops at TOC);
   `ibm.com/docs/en/cobol-zos/6.4.0?topic=...` (403); Migration Guide mg.pdf 6.4/6.5 (403);
   web.archive.org (blocked); cadcobol.com.br mirror (suspended); Micro Focus docs (robots).

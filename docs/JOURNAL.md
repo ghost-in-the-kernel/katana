@@ -1200,3 +1200,20 @@ taken; closed by a later `decision` entry naming it).
 - **Resolved:** R-049's Appendix A row verified (its Decision text, which calls it a hypothesis, is
   Ghost's to amend); the HANDOFF item closed. **Touched:** the research notes, PROFILE.md,
   `rt/katana/rt/ArithProfile.java`, its test, the kernel map.
+
+### J-096 Phase 3.1: the intermediate-results trial; truncation holds, ROUNDED's place does not enter dmax
+- **Who:** Fable designed the trial and set the defaults; Opus ran it. **Class:** trial.
+- **Found:** first IBM's own text was checked for the ROUNDED question: the Programming Guide says
+  only that one more place "might be carried"; the Language Reference (p. 296) verifies the final
+  store (truncate unless ROUNDED, half up on the excess's first digit) and says nothing of dmax. Then
+  cobc `-std=ibm`. The first fixture used literals and its control printed 1.9, not 1.8: cobc folds an
+  all-literal expression at compile time with more places, so the fixture was wrong, as the control
+  was there to say. With data items: `A / B * B` into 9V99 is 1.98 (truncation; rounding gives 2.01),
+  into 9V9 ROUNDED 1.8 (no extra place in dmax; with one, 2.0), the control 1.8, and 1 / 3 * 300 into
+  999V99 99.00. The truncation default holds; the ROUNDED default is refuted on cobc and becomes
+  `ArithProfile.dmax` with no added place, an `// Unsure` naming IBM's "might". The literal folding is
+  a finding against cobc's dialect (HANDOFF).
+- **Caught by:** the trial's control case, on its first run.
+- **Resolved:** `ArithTrialIntegrationTest` (cobc its oracle; `ArithProfileTest#roundingThe...` its
+  mutation; the new `rt` pre-push suite its gate). **Touched:** `rt/ArithProfile`, its tests,
+  PROFILE.md, the research notes, `scripts/prepush.sh`, `docs/checks.json`, HANDOFF.

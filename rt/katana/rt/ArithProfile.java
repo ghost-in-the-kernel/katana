@@ -5,8 +5,8 @@ package katana.rt;
  * Enterprise COBOL 6.4 Programming Guide, Appendix A, gives them (docs/research/ibm-options.md §4):
  * the places theoretically possible for + - * / (p. 795), then cut to the profile's cap, 30 digits
  * under ARITH(COMPAT) and 31 under ARITH(EXTEND) (pp. 795-796). EXACT carries the theoretical places
- * uncut. `rt/Decimal` computes with the places this says; how it drops the places an intermediate
- * cannot carry is its own, still open (PROFILE.md).
+ * uncut. The places an intermediate cannot carry are truncated, not rounded: cobc -std=ibm prints 1.98
+ * for `A / B * B` into 9V99 with A 2 and B 3, where rounding would give 2.01 (J-096).
  */
 public enum ArithProfile {
     IBM_COMPAT(30), IBM_EXTEND(31), EXACT(Integer.MAX_VALUE);
@@ -19,6 +19,20 @@ public enum ArithProfile {
 
     ArithProfile(int cap) {
         this.cap = cap;
+    }
+
+    /**
+     * A statement's dmax (p. 794): the greatest of the receivers' decimal places and the operands'
+     * (divisors and exponents left out by the caller). ROUNDED adds no place here: cobc -std=ibm prints
+     * 1.8 for `COMPUTE R ROUNDED = A / B * B` into 9V9 with A 2 and B 3, where an extra place would give
+     * 2.0 (ArithTrialIntegrationTest, J-096); IBM's text says only that one more place "might be carried".
+     */
+    // Unsure: IBM's "one more decimal place might be carried" under ROUNDED (PG p. 794) is unsettled on IBM itself; cobc -std=ibm carries none (J-096).
+    // Decision: R-049
+    public static int dmax(int receiverDecimals, int... operandDecimals) {
+        int dmax = receiverDecimals;
+        for (int d : operandDecimals) dmax = Math.max(dmax, d);
+        return dmax;
     }
 
     /** `op1 + op2` or `op1 - op2`: the greater integer places and one more, the greater decimal places (p. 795). */

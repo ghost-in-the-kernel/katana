@@ -17,6 +17,15 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
 (R-056's first trial worded into its Claims 2026-10-05: C-3 refuted as stated and restated as
 "independence is declared, not detected"; the path rule is a prompt, not a refusal; C-2 stands)
 
+- **The intermediate-results trial (J-096), against the defaults you set.** Run under cobc `-std=ibm`,
+  operands as data items. Truncation: held (1.98, not 2.01). ROUNDED's place in dmax: refuted (1.8,
+  not 2.0), so `ArithProfile.dmax` adds no place, with an `// Unsure` that IBM's own "might be
+  carried" (p. 794) is unsettled on IBM. The Language Reference (p. 296) verifies the final store.
+  One more: with all-literal operands cobc folds the expression at compile time with more places
+  (1.99, 1.9, the control failing as you said it would if the fixture were wrong); IBM's text has no
+  such rule, so the lanes may differ on literal-only COMPUTEs. *Lean:* a finding against cobc's
+  dialect, and the lowering keeps IBM's table for literals too.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

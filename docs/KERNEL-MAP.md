@@ -716,3 +716,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/ArithProfile.java:ArithProfile.multiply` | R-049 | 2026-10-05 |  |
 | rt | `rt/katana/rt/ArithProfile.java:ArithProfile.divide` | R-049 | 2026-10-05 |  |
 | rt | `rt/katana/rt/ArithProfile.java:ArithProfile.carried` | R-049 | 2026-10-05 |  |
+| rt | `rt/katana/rt/ArithProfile.java:ArithProfile.dmax` | R-049 | 2026-10-05 |  |

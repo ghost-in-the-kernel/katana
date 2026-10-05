@@ -47,4 +47,11 @@ class ArithProfileTest {
         BigDecimal ir2 = ir1.multiply(BigDecimal.valueOf(300)).setScale(product.decimal(), RoundingMode.DOWN);
         assertEquals("99.00", ir2.setScale(2, RoundingMode.DOWN).toPlainString());
     }
+
+    /** R-056's mutation for the trial: intermediates rounded instead of truncated, case 1 is 2.01, not cobc's 1.98. */
+    @Test
+    void roundingTheIntermediatesWouldFailTheTrial() {
+        assertEquals("1.98", ArithTrialIntegrationTest.rt(RoundingMode.DOWN).get(0));
+        assertEquals("2.01", ArithTrialIntegrationTest.rt(RoundingMode.HALF_UP).get(0));
+    }
 }
