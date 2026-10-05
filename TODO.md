@@ -8,11 +8,6 @@ the first open item has a check.
 
 ## Phase 1: the oracle and the corpus
 
-### 1.7 The comparator
-
-Check: an injected one-byte change in a COMP-3 field is reported with the field name and both
-decoded values; an `iconv`-style byte-blind transcode of the OMP data is detected as corruption.
-
 ### 1.8 The java lane
 
 Check: a hand-written Java program that copies its input to its output passes a trivial fixture

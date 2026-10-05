@@ -153,6 +153,8 @@ ODO = `OCCURS ... DEPENDING`, C3 = COMP-3/COMPUTATIONAL-3, GOTO = `GO TO`, ALTER
 ### cobol-programming-course (Open Mainframe Project)
 - URL: https://github.com/openmainframeproject/cobol-programming-course
 - License: CC-BY-4.0 (course text); code under the same LICENSE file.
+- Fetched by `fetch.sh` at commit `1f037d24`: the comparator's check (phase 1.7) reads
+  `Labs/data/data` (EBCDIC, 45 records of 170 bytes) and CBL0001's record layout.
 - 30 COBOL (3,618 lines; `.cobol` extension), 43 JCL, data in `Labs/data/`. Enterprise COBOL
   dialect (compiled on IBM Z). Programs: CBL0001-CBL0033 (sequential read, edit, totals),
   PAYROL00/PAYROL0X, SRCHBIN/SRCHSER, HELLO, ADDAMT. COMP-3 60 hits, SQL 31 (course #3 DB2 lab).

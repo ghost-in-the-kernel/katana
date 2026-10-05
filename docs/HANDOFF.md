@@ -2,9 +2,9 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.6 are done
-(1.5 with one part of its check deferred, below). Next: phase 1.7, the comparator; the phase runs to
-its end under R-053.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.7 are done
+(1.5 with one part of its check deferred, below). Next: phase 1.8, the java lane as a stub; the phase
+runs to its end under R-053.
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
@@ -27,6 +27,18 @@ its end under R-053.
   before the run (R-009); the gate is what catches what a fixture cannot state." Open: whether the gate
   also holds stderr (libcob's messages can carry paths) and SYSOUT DDs. **Default taken:** the gate
   as built (`oracle/lane/Gate.java`), stderr and SYSOUT DDs not held.
+- **R-011's text, what the comparator normalizes and refuses** (from step 1.7, J-053). Drafted as built:
+  "The comparator normalizes text encoding (each side decoded by its declared encoding), the sign-zone
+  scheme of zoned numbers, and framing (RDW, line terminators), always under the copybook, and masks
+  only what is declared, listing each mask applied. It never normalizes packed or binary bytes, record
+  counts, record order (collation), rounding or truncation. A difference is grouped by field." Open:
+  whether a zoned field that decodes to the same value from different sign nibbles (C against F) is the
+  same (built: yes, a sign-zone scheme) or a difference. **Default taken:** as built
+  (`oracle/compare/Compare.java`).
+- **Who reads copybooks for the comparator before phase 2** (from step 1.7). Built: a small reader in
+  `oracle/compare/Layout.java`, refusing OCCURS DEPENDING ON, SIGN SEPARATE, floating point and
+  pointers, to be replaced by the Semantic IR's data map when phase 2 has it. **Default taken:** that
+  reader, marked `// Unsure: R-053 default`.
 
 ## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
 

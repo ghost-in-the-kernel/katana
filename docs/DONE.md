@@ -155,3 +155,16 @@ dataset, the DDs that reach it, the records and the columns. Every CardDemo fixt
 with its clock pinned to the second (set outside the fixture, R-009) fails at
 `TRANSACT.VSAM.KSDS (DD TRANFILE in STEP15): 257 of 257 records differ, in columns 325-326` (J-052).
 R-012's text waits for Fable (HANDOFF).
+
+### 1.7 The comparator
+
+`oracle/compare/`: two datasets as logical record streams (fixed, lines, or RDW), compared field by
+field under a copybook layout (`Layout`: levels, PICTURE, USAGE, OCCURS, REDEFINES). Text and zoned
+fields compare by value across declared encodings (ascii, cp037, cp1140) and sign-zone schemes; packed
+and binary fields, record counts, record order, rounding and truncation are compared as they are,
+never normalized. A difference is grouped by field: how many records, and the first's record, byte
+offset, both bytes and both decoded values. Masks are declared and each one applied is listed.
+Nothing is compared before the gate passes (`Gate.require`). On the OMP course's EBCDIC data, a
+one-byte change in a COMP-3 field is reported with its field and both values, and a byte-blind
+`iconv` is caught as corrupt packed fields (ACCT-BALANCE in 44 of 45 records, ACCT-LIMIT in 9) while
+every text field compares the same (J-053). R-011's text and the copybook reader wait for Fable.

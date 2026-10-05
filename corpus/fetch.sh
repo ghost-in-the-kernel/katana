@@ -29,7 +29,8 @@ p https://github.com/Zaneham/nist-cobol85-test-suite nist-cobol85-test-suite 042
 if wanted nist-cobol85-test-suite; then
   echo "744a04982095a3abea29a9df5faf63d226083edecc7b5bf34bc412eae0d53274  nist-cobol85-test-suite/newcob.val" | sha256sum -c --quiet
 fi
-c https://github.com/openmainframeproject/cobol-programming-course omp-cobol-course
+# The OMP course: pinned, since the comparator's check reads its EBCDIC data (phase 1.7).
+p https://github.com/openmainframeproject/cobol-programming-course omp-cobol-course 1f037d24326124f4f2c5cd2d31e5220ceb549580
 c https://github.com/TypeCobolTeam/TypeCobol typecobol
 # BankDemo: "solely for internal demonstration purposes" (Rocket). Private study only; never redistributed.
 c https://github.com/RocketSoftwareCOBOLandMainframe/BankDemo bankdemo

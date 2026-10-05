@@ -336,3 +336,29 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/lane/Gate.java:Gate.ranges` | called by `oracle/lane/Gate.java:Gate.dataset` | 2026-10-05 |  |
 | oracle | `oracle/lane/Gate.java:Gate.read` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 8 more | 2026-10-05 |  |
 | oracle | `oracle/lane/Report.java:Report.lrecls` | called by `oracle/lane/Gate.java:Gate.compare` | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.Side.fixed` | called by `oracle/fixture/Content.java:Content.records` and 3 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.Side.lines` | called by `oracle/fixture/Content.java:Content.records` and 18 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.Side.rdw` | no caller | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.Side.split` | called by `oracle/compare/Compare.java:Compare.Side.fixed` and 23 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.Compare` | no caller | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.compare` | called by `oracle/sort/Dfsort.java:Dfsort.ties` | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.record` | called by `oracle/compare/Compare.java:Compare.compare` | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.same` | called by `oracle/compare/Compare.java:Compare.record` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.note` | called by `oracle/compare/Compare.java:Compare.record` and 2 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Decode.java:Decode.Decode` | no caller | 2026-10-05 |  |
+| oracle | `oracle/compare/Decode.java:Decode.charset` | called by `oracle/compare/Decode.java:Decode.value` | 2026-10-05 |  |
+| oracle | `oracle/compare/Decode.java:Decode.value` | called by `oracle/compare/Compare.java:Compare.record` and 7 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Decode.java:Decode.packed` | called by `oracle/compare/Decode.java:Decode.value` | 2026-10-05 |  |
+| oracle | `oracle/compare/Decode.java:Decode.zonedEbcdic` | called by `oracle/compare/Decode.java:Decode.value` | 2026-10-05 |  |
+| oracle | `oracle/compare/Decode.java:Decode.zonedAscii` | called by `oracle/compare/Decode.java:Decode.value` | 2026-10-05 |  |
+| oracle | `oracle/compare/Decode.java:Decode.hex` | called by `oracle/compare/Compare.java:Compare.record` and 3 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.Unsupported.Unsupported` | no caller | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.Layout` | no caller | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.fields` | called by `oracle/compare/Compare.java:Compare.record` | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.length` | called by `oracle/compare/Compare.java:Compare.record` and 30 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.read` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 8 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.items` | called by `oracle/compare/Layout.java:Layout.read` | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.item` | called by `oracle/compare/Layout.java:Layout.items` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.place` | called by `oracle/compare/Layout.java:Layout.read` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.elementary` | called by `oracle/compare/Layout.java:Layout.place` | 2026-10-05 |  |
+| oracle | `oracle/compare/Layout.java:Layout.expand` | called by `oracle/compare/Layout.java:Layout.elementary` and 2 more | 2026-10-05 |  |

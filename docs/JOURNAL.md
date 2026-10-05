@@ -618,3 +618,19 @@ taken; closed by a later `decision` entry naming it).
   326 is among them. R-012's text is drafted for Fable (HANDOFF), with the gate as built as the default.
 - **Touched:** `oracle/lane/Gate.java`, `CobcLane` (a clock set outside the fixture, reported),
   `Report` (record lengths), `HANDOFF.md`.
+
+### J-053 iconv corrupts money silently
+- **Who:** Opus. **Class:** measurement.
+- **Intent:** Phase 1.7's check: a one-byte change in a COMP-3 field reported with its field and both
+  values; a byte-blind `iconv` of the OMP data detected as corruption.
+- **Found:** the one-byte change: `ACCT-FIELDS.ACCT-BALANCE: 1 of 45 records differ; first at record
+  5, byte offset 693: X'003131313C' (31313.13) then X'003121313C' (31213.13)`. `iconv -f IBM037 -t
+  ISO-8859-1` leaves every text field right and changes ACCT-BALANCE in 44 of 45 records and
+  ACCT-LIMIT in 9; the changed bytes are still valid packed decimals (188.74 becomes 186.73,
+  5000000.00 becomes 2600000.00), so a reader that decoded them would see plausible wrong money, not
+  an error. The study's "byte-blind iconv would corrupt the packed fields" was right, and quieter than
+  it said.
+- **Resolved:** packed and binary fields are compared as bytes, never as decoded values; R-011's text
+  and the copybook reader are listed for Fable (HANDOFF), each with its default. The OMP course is now
+  fetched at a pinned commit.
+- **Touched:** `oracle/compare/`, `corpus/fetch.sh`, `corpus/MANIFEST.md`, CI, `HANDOFF.md`.
