@@ -159,9 +159,10 @@ public final class Build {
                 }
             }
         }
-        map.resolve();
-        map.layout();
-        return new Data(map.items(), findings);
+        Placement placement = new Placement(parse, map.nodes, findings);
+        placement.resolve();
+        placement.layout();
+        return new Data(new Tuples(parse, map.nodes, placement).items(), findings);
     }
 
     /** The first node of a kind under a node, depth first, or null. */

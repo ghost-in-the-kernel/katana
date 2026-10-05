@@ -647,3 +647,33 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/types/Value.java:Value.Literal.Literal` | no caller | 2026-10-05 |  |
 | sir | `sir/types/Value.java:Value.Literal.numeric` | no caller | 2026-10-05 |  |
 | sir | `sir/build/Literals.java:Literals.unscaled` | called by `sir/build/Literals.java:Literals.number` | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.Placement` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.resolve` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 29 more | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.sibling` | called by `sir/build/Placement.java:Placement.resolve` | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.named` | called by `sir/build/Placement.java:Placement.resolve` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.layout` | called by `sir/build/Build.java:Build.data#3` | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.place` | called by `oracle/compare/Layout.java:Layout.read` and 3 more | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.extent` | called by `sir/build/Placement.java:Placement.place` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.inRecord` | called by `sir/build/Placement.java:Placement.renamed` | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.renamed` | called by `sir/build/Placement.java:Placement.layout` | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.alignment` | called by `sir/build/Placement.java:Placement.place` | 2026-10-05 |  |
+| sir | `sir/build/Placement.java:Placement.size` | called by `front/Lines.java:Lines.normalize#2` and 66 more | 2026-10-05 |  |
+| sir | `sir/build/Tuples.java:Tuples.Tuples` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Tuples.java:Tuples.items` | called by `oracle/compare/Layout.java:Layout.read` and 4 more | 2026-10-05 |  |
+| sir | `sir/build/Tuples.java:Tuples.keys` | called by `oracle/sort/Dfsort.java:Dfsort.run` and 4 more | 2026-10-05 |  |
+| sir | `sir/build/Tuples.java:Tuples.indexes` | called by `sir/build/Tuples.java:Tuples.items` | 2026-10-05 |  |
+| sir | `sir/build/Tuples.java:Tuples.attributes` | called by `oracle/fixture/Fixture.java:Fixture.Dd.attributes` and 21 more | 2026-10-05 |  |
+| sir | `sir/build/DataMap.java:DataMap.resolve` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Placement.java:Placement.resolve` |
+| sir | `sir/build/DataMap.java:DataMap.sibling` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Placement.java:Placement.sibling` |
+| sir | `sir/build/DataMap.java:DataMap.named` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Placement.java:Placement.named` |
+| sir | `sir/build/DataMap.java:DataMap.layout` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Placement.java:Placement.layout` |
+| sir | `sir/build/DataMap.java:DataMap.place` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Placement.java:Placement.place` |
+| sir | `sir/build/DataMap.java:DataMap.extent` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Placement.java:Placement.extent` |
+| sir | `sir/build/DataMap.java:DataMap.inRecord` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Placement.java:Placement.inRecord` |
+| sir | `sir/build/DataMap.java:DataMap.renamed` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Placement.java:Placement.renamed` |
+| sir | `sir/build/DataMap.java:DataMap.alignment` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Placement.java:Placement.alignment` |
+| sir | `sir/build/DataMap.java:DataMap.size` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Placement.java:Placement.size` |
+| sir | `sir/build/DataMap.java:DataMap.items` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Tuples.java:Tuples.items` |
+| sir | `sir/build/DataMap.java:DataMap.keys` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Tuples.java:Tuples.keys` |
+| sir | `sir/build/DataMap.java:DataMap.indexes` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Tuples.java:Tuples.indexes` |
+| sir | `sir/build/DataMap.java:DataMap.attributes` | moved in tithe pass 2, C3 | 2026-10-05 | superseded-by: `sir/build/Tuples.java:Tuples.attributes` |
