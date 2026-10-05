@@ -78,6 +78,11 @@ class AutotestsTest {
         Autotests.write(Autotests.read("sample.at", SAMPLE), out);
         assertTrue(Files.readString(out.resolve("sample-2/prog.cob")).contains("PROGRAM-ID. prog."));
         assertEquals("A, (B) [[1]]\n", Files.readString(out.resolve("sample-2/check-1.stdout")));
+        assertEquals("$COBCRUN_DIRECT ./prog\n", Files.readString(out.resolve("sample-2/check-1.sh")));
         assertTrue(Files.readString(out.resolve("sample-19/case.txt")).startsWith("title a skipped one\n"));
+        String nested = "AT_SETUP([n])\nAT_DATA([SUB/copy.inc], [x])\nAT_CLEANUP\n";
+        Autotests.write(Autotests.read("nested.at", nested), out);
+        assertEquals("x", Files.readString(out.resolve("nested-1/SUB/copy.inc")));
+        assertThrows(Autotests.Malformed.class, () -> Autotests.write(Autotests.read("escape.at", nested.replace("SUB/", "../../")), out));
     }
 }

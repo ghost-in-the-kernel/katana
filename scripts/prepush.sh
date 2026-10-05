@@ -17,12 +17,13 @@ suites=""; why=""
 add() { case " $suites " in *" $1 "*) ;; *) suites="$suites $1"; why="$why
   $1: $2";; esac; }
 if [ -n "$ALL" ]; then
-  for s in nist fixture lane front sir; do add $s "--all"; done
+  for s in nist fixture lane front sir autotest; do add $s "--all"; done
 else
   for f in $CHANGED; do
     case "$f" in
       *.md|theGhost.md|docs/*|README*|LICENSE) ;;
       oracle/nist/*|test/katana/oracle/nist/*) add nist "$f" ;;
+      oracle/autotest/*|test/katana/oracle/autotest/*) add autotest "$f" ;;
       oracle/fixture/*|test/katana/oracle/fixture/*) add fixture "$f"; add lane "$f" ;;
       oracle/*|test/katana/oracle/*) add lane "$f" ;;
       profile/*|test/katana/profile/*) add nist "$f"; add fixture "$f"; add lane "$f" ;;
@@ -30,7 +31,7 @@ else
       sir/*|test/katana/sir/*) add sir "$f"; add quick "$f" ;;
       lower/*|rt/*|test/katana/lower/*|test/katana/rt/*) add quick "$f" ;;
       test/*.java|scripts/*) ;;
-      *) for s in nist fixture lane front sir; do add $s "$f (the build or the corpus)"; done ;;
+      *) for s in nist fixture lane front sir autotest; do add $s "$f (the build or the corpus)"; done ;;
     esac
   done
 fi
@@ -43,6 +44,7 @@ for s in $suites; do
     front) tests="$tests --tests katana.front.*" ;;
     sir) tests="$tests --tests katana.sir.*" ;;
     quick) tests="$tests --tests katana.oracle.nist.ModuleRunIntegrationTest" ;;
+    autotest) tests="$tests --tests katana.oracle.autotest.*" ;;
   esac
 done
 PROPS=""
@@ -51,8 +53,8 @@ echo "suites:${suites:- none (the fast loop and the doc tests only)}$why"
 WORK=$(mktemp -d /tmp/claude-0/prepush.XXXXXX)
 start=$(date +%s)
 git clone -q "$ROOT" "$WORK/katana"
-for c in nist-cobol85-test-suite carddemo omp-cobol-course; do cp -al "$ROOT/corpus/$c" "$WORK/katana/corpus/$c"; done
-sh "$WORK/katana/corpus/fetch.sh" nist-cobol85-test-suite carddemo omp-cobol-course >/dev/null
+for c in nist-cobol85-test-suite carddemo omp-cobol-course gnucobol-autotests; do cp -al "$ROOT/corpus/$c" "$WORK/katana/corpus/$c"; done
+sh "$WORK/katana/corpus/fetch.sh" nist-cobol85-test-suite carddemo omp-cobol-course gnucobol-autotests >/dev/null
 cd "$WORK/katana"
 TASKS="build"; [ -n "$tests" ] && TASKS="build integration $tests"
 status=0

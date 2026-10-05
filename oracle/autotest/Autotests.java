@@ -146,7 +146,7 @@ public final class Autotests {
     }
 
     /** A quoted string at `[`: its text with the outer quotes removed and inner ones kept. */
-    // Unsure: whether Autotest strips a second level from an expected stdout written `[[x]]` is a hypothesis; phase 3's first run of the extracted cases under cobc settles it (J-087).
+    // Unsure: whether Autotest strips a second level from an expected stdout written `[[x]]`; two runnable cases bear on it (run_misc.at:1762, run_ml.at:856) and both stop before printing under 3.1's trial (exit 127, a command not mapped; J-093); AutotestCorpusIntegrationTest names them.
     private String quoted() {
         int line = line(at), depth = 0;
         StringBuilder out = new StringBuilder();
@@ -194,18 +194,25 @@ public final class Autotests {
 
     /**
      * Each case to a folder of its own under `out` (`<file>-<line>/`): the files it writes, and
-     * `case.txt` with its title, keywords and checks (each check's stdout and stderr beside it as
-     * `check-<n>.stdout` and `.stderr`). For phase 3's runner; under corpus/, never committed (R-045).
+     * `case.txt` with its title, keywords and each check's status and line (each check's command beside
+     * it as `check-<n>.sh`, its stdout and stderr as `.stdout` and `.stderr`). For phase 3's runner;
+     * under corpus/, never committed (R-045).
      */
     public static void write(List<Case> cases, Path out) {
         try {
             for (Case c : cases) {
                 Path dir = Files.createDirectories(out.resolve(c.file().replaceAll("\\.at$", "") + "-" + c.line()));
-                for (var f : c.files().entrySet()) Files.writeString(dir.resolve(f.getKey()), f.getValue(), StandardCharsets.ISO_8859_1);
+                for (var f : c.files().entrySet()) {
+                    Path file = dir.resolve(f.getKey()).normalize();
+                    if (!file.startsWith(dir)) throw new Malformed(c.file(), c.line(), "AT_DATA writes outside its case: " + f.getKey());
+                    Files.createDirectories(file.getParent());
+                    Files.writeString(file, f.getValue(), StandardCharsets.ISO_8859_1);
+                }
                 StringBuilder about = new StringBuilder("title " + c.title() + "\nkeywords " + String.join(" ", c.keywords()) + "\nconditional " + c.conditional() + "\n");
                 for (int i = 0; i < c.checks().size(); i++) {
                     Check k = c.checks().get(i);
-                    about.append("check ").append(i).append(" status ").append(k.status()).append(" line ").append(k.line()).append('\n').append(k.command().strip()).append('\n');
+                    about.append("check ").append(i).append(" status ").append(k.status()).append(" line ").append(k.line()).append('\n');
+                    Files.writeString(dir.resolve("check-" + i + ".sh"), k.command().strip() + "\n", StandardCharsets.ISO_8859_1);
                     Files.writeString(dir.resolve("check-" + i + ".stdout"), k.stdout(), StandardCharsets.ISO_8859_1);
                     Files.writeString(dir.resolve("check-" + i + ".stderr"), k.stderr(), StandardCharsets.ISO_8859_1);
                 }

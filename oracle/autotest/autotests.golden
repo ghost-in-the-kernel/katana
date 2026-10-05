@@ -1,0 +1,41 @@
+# Phase 3.1: GnuCOBOL's autotests as Katana reads them (oracle/autotest/Autotests.java), counts only (R-045):
+# `FILE cases C runnable R conditional K`, R the cases that compile a program and run it against an
+# expected stdout; then the total. Written by `gradle integration -Dkatana.record=true`.
+backcomp.at cases 7 runnable 1 conditional 0
+configuration.at cases 25 runnable 0 conditional 0
+data_binary.at cases 18 runnable 12 conditional 0
+data_display.at cases 9 runnable 5 conditional 0
+data_packed.at cases 24 runnable 7 conditional 0
+data_pointer.at cases 1 runnable 0 conditional 0
+listings.at cases 38 runnable 0 conditional 0
+run_accept.at cases 6 runnable 2 conditional 0
+run_extensions.at cases 107 runnable 56 conditional 3
+run_file.at cases 119 runnable 41 conditional 44
+run_functions.at cases 126 runnable 38 conditional 1
+run_fundamental.at cases 120 runnable 65 conditional 2
+run_initialize.at cases 14 runnable 2 conditional 0
+run_manual_screen.at cases 68 runnable 0 conditional 68
+run_misc.at cases 205 runnable 101 conditional 7
+run_ml.at cases 28 runnable 12 conditional 26
+run_refmod.at cases 11 runnable 4 conditional 0
+run_reportwriter.at cases 28 runnable 3 conditional 1
+run_returncode.at cases 3 runnable 0 conditional 0
+run_subscripts.at cases 13 runnable 6 conditional 0
+syn_copy.at cases 25 runnable 9 conditional 1
+syn_definition.at cases 67 runnable 0 conditional 4
+syn_file.at cases 49 runnable 0 conditional 3
+syn_functions.at cases 16 runnable 0 conditional 0
+syn_literals.at cases 16 runnable 0 conditional 1
+syn_misc.at cases 161 runnable 8 conditional 5
+syn_move.at cases 18 runnable 0 conditional 0
+syn_multiply.at cases 3 runnable 0 conditional 0
+syn_occurs.at cases 13 runnable 0 conditional 0
+syn_redefines.at cases 17 runnable 0 conditional 0
+syn_refmod.at cases 5 runnable 0 conditional 0
+syn_reportwriter.at cases 11 runnable 0 conditional 0
+syn_screen.at cases 21 runnable 0 conditional 0
+syn_set.at cases 2 runnable 0 conditional 0
+syn_subscripts.at cases 6 runnable 0 conditional 0
+syn_value.at cases 13 runnable 0 conditional 0
+used_binaries.at cases 33 runnable 6 conditional 3
+total files 37 cases 1446 runnable 378 conditional 169

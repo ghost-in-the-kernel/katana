@@ -24,11 +24,17 @@ c https://github.com/AnyEvalOrg/eval-nist-cobol85 eval-nist-cobol85
 # and only when named (`corpus/fetch.sh gnucobol-autotests`), never by a bare fetch: R-045 dates it to
 # phase 3. oracle/autotest/Autotests.java reads them into corpus/gnucobol-autotests/cases/ (tithe
 # pass 2, B3); nothing read from them enters the repository.
+# Pinned, since oracle/autotest/autotests.golden holds their counts.
+AUTOTESTS=868143c3b1689e23bd0e5bf161cf0e9ec522808b
 case " $ONLY " in *" gnucobol-autotests "*)
   [ -d gnucobol-autotests ] || {
     git clone -q --depth 1 --filter=blob:none --sparse https://github.com/OCamlPro/gnucobol gnucobol-autotests
     git -C gnucobol-autotests sparse-checkout set tests/testsuite.src
-  } ;;
+  }
+  [ "$(git -C gnucobol-autotests rev-parse HEAD)" = "$AUTOTESTS" ] || {
+    git -C gnucobol-autotests fetch -q --depth 1 origin "$AUTOTESTS" && git -C gnucobol-autotests checkout -q "$AUTOTESTS"
+  }
+  [ "$(git -C gnucobol-autotests rev-parse HEAD)" = "$AUTOTESTS" ] || { echo "gnucobol-autotests is not at $AUTOTESTS" >&2; exit 1; } ;;
 esac
 c https://github.com/uwol/proleap-cobol-parser proleap-cobol-parser
 # NIST CCVS85's population file, the source of the NIST run (R-044): pinned, and checked by hash.

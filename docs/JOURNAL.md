@@ -1153,3 +1153,22 @@ taken; closed by a later `decision` entry naming it).
   new checks caught squeezed spaces in 14,601 literals, a lost sign on -0, a copybook reader gluing
   01 records together, and two decisions whose named tests never existed.
 
+
+### J-093 Phase 3.1, first step: the autotests fetched, read and run once
+- **Who:** Opus. **Class:** trial. **Intent:** 3.1's check has its cases, counted, and the reader's
+  open hypothesis is put to a run.
+- **Found:** `fetch.sh gnucobol-autotests`, pinned at 868143c, gives 37 `.at` files; every one
+  reads: 1,446 cases, 378 that compile a program and run it against an expected stdout, 169 marked
+  `AT_SKIP_IF` or `AT_XFAIL_IF` (counts in `oracle/autotest/autotests.golden`, cases under
+  `corpus/`, nothing of their text on screen or in the tree, R-045). One case wrote a file into a
+  subfolder; the writer makes the folder and refuses a path out of its case. Each runnable case ran
+  once under cobc with the Autotest variables mapped to cobc's own command line (`$COMPILE` as
+  `cobc -x`, and so on): 227 of 378 pass; 116 of the failures are an exit status, likely flags the
+  testsuite's configuration sets, which R-045 keeps off the screen. The hypothesis: my first scoring
+  said no expected stdout held a bracket; the integration test I then wrote said two did. The script
+  had stopped at each case's first failing check and never looked at later ones. The two cases
+  (run_misc.at:1762, run_ml.at:856) both stop with exit 127 before printing, so the question stays
+  open, named, and the test lists the cases it turns on.
+- **Caught by:** the assertion written to hold the trial's result, on its first run (R-056 again).
+- **Resolved:** 3.1's first step. **Touched:** `oracle/autotest/`, its tests, `corpus/fetch.sh`
+  (pinned), `scripts/prepush.sh` (an `autotest` suite), `docs/checks.json`, TODO.md.

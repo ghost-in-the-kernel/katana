@@ -27,6 +27,10 @@ Its first step (from tithe pass 2, B3): `corpus/fetch.sh gnucobol-autotests`, th
 `oracle/autotest/Autotests` over every `.at` file into `corpus/gnucobol-autotests/cases/`, the count of
 cases and of those with an expected stdout held by a test, and each runnable case run once under cobc
 to settle the reader's one open hypothesis (whether `[[x]]` in an expected stdout means `[x]`).
+*Done (J-093):* 1,446 cases in 37 files, 378 runnable, counts held by
+`oracle/autotest/autotests.golden`; a first run under plain cobc passes 227 of 378, most failures an
+exit status (compile flags the testsuite sets and Katana does not yet know, R-045 forbidding a look
+at its configuration). The hypothesis stays open: the two cases it turns on stop before printing.
 
 ### 3.2 `rt/Dispatcher`
 
