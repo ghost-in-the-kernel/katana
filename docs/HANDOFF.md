@@ -129,7 +129,11 @@ drafted by Fable from R-002 as the per-customer template, status DRAFT awaiting 
 file's last paragraph; the first `rt/` file may land against it, and counsel reviews before the
 first delivery.)
 
-(phase 3.1's Appendix A: Ghost allowed the two IBM hosts, 2026-10-05; read in full, J-095)
+(phase 3.1's Appendix A: Ghost allowed the two IBM hosts, 2026-10-05; read in full and quoted, J-095.
+Fable recorded R-019 to R-024 the same hour; R-020's condition for the IBM profiles, "a finding until
+Appendix A is read", is met: `rt/ArithProfile` holds the IBM tables, and R-020's text is Fable's to
+update. What Appendix A leaves open, truncation or rounding below the theoretical places and when
+ROUNDED's extra place is carried, is `rt/Decimal`'s to settle against cobc's output.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
