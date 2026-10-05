@@ -130,3 +130,18 @@ and with it the reject file (`86f3b341…`) and the program's stdout (`a33ef3a7�
 through the PARM driver; TRANREPT-STUDY and CREASTMT run to their SORT. `oracle/lane/carddemo.golden`
 holds all five reports; CI runs them in a step of their own. Not built, since no fixture needs them
 yet: temporary datasets (the schema has none) and the COBDATFT stub (J-036).
+
+### 1.5 The DFSORT subset
+
+Katana's DFSORT is Java (R-010, `oracle/sort`): SYMNAMES, SORT FIELDS on CH and ZD keys (ZD with
+IBM's overpunch letters), EQUALS, INCLUDE/OMIT, OUTREC with columns, blanks, constants and EDIT;
+stable, with a finding naming the SORTOUT records whose order was the lane's choice when the cards
+lack EQUALS (R-026); a record shorter or longer than SORTOUT's LRECL padded with X'00' or truncated
+as IBM's guide states (R-051), under the fixture's `dfsort.pad`/`dfsort.trunc`; any other card a
+finding quoting it. A generated COBOL SORT was measured beside it and retired (J-045). Every CardDemo
+SORT step runs (TRANREPT's and PRTCATBL's in their REPROCT-inline fixtures, J-035): TRANREPT-STUDY
+reproduces the frozen sort `a7d14a96…` and report `19b7f04f…` (and CBTRN03C's stdout), COMBTRAN reads
+a concatenated SORTIN, PRTCATBL-INLINE truncates 41 bytes to 40 and CREASTMT pads 328 to 350. Tabs
+are expanded at each file's declared width (R-016; CUSTREC.cpy at 4). **Deferred under R-053:**
+CREASTMT end to end. It runs to CBSTM03A, which compiles and then reads z/OS control blocks from
+address 0 and ends on SIGSEGV (J-050, HANDOFF "For Fable").

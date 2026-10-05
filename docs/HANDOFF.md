@@ -2,16 +2,23 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.4 are done.
-
-Phases 1.1 to 1.4 are done. Phase 1.5, the DFSORT subset, is built and in part proven:
-TRANREPT-STUDY reproduces the frozen sort and report (`a7d14a96…`, `19b7f04f…`), and COMBTRAN and
-SORTTEST run every step. It stays open on the two questions below for Ghost (DFSORT record lengths;
-the tab width CUSTREC needs), which CREASTMT and PRTCATBL wait on, and on R-010.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.5 are done
+(1.5 with one part of its check deferred, below). Next: phase 1.6, the determinism gate; the phase
+runs to its end under R-053.
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
-(none yet)
+- **CBSTM03A reads z/OS control blocks** (from step 1.5, J-050). CREASTMT's last step runs CardDemo's
+  CBSTM03A, which sets a pointer to the PSA at address 0, follows it to the TCB and the TIOT, and
+  DISPLAYs the job, the step and every DD name before writing a statement; under GnuCOBOL on Linux
+  address 0 is unmapped and it ends on SIGSEGV. No cobc run can give it a PSA. Options: (1) CBSTM03A
+  is outside the cobc lane, a finding, and its oracle waits for the java lane, whose runtime can stand
+  in for the PSA, TCB and TIOT from the fixture's job and DDs (a z/OS storage facade beside the LE stub
+  facade); (2) the same facade in the cobc lane, through a shared-memory shim mapped at address 0
+  (needs `vm.mmap_min_addr` 0: root, not portable); (3) a fixture-declared source overlay replacing
+  lines 266 to 290, which changes the program under test (Opus leans against: the two lanes would
+  prove different programs). Lean: (1). **Default taken:** the lane reports CBSTM03A's abend as the
+  outcome (`abend SIGSEGV`), the golden holds it, and 1.5's "CREASTMT end to end" waits on this.
 
 ## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
 

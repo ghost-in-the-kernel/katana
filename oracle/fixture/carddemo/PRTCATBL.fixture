@@ -10,6 +10,9 @@ source carddemo:app/jcl/PRTCATBL.jcl
 profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
 clock 2024-03-01 12:00:00.00 +00:00
 tz UTC
+# CUSTREC.cpy was written with 4-column tabs: at 8 its PICTUREs run past column 72 and CBSTM03A
+# does not compile, at 4 it does (R-016, J-044); the evidence and the hypothesis.
+tabs 4 CUSTREC.cpy
 
 dataset AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS org=KSDS lrecl=50 keys=17,0 from=carddemo:app/data/ASCII/tcatbal.txt framing=lines sha256=edaaf7202b8ddd35053db4ac59b992bc3eb5ef64aac22bab9b2aeb6bf6aadd68
 dataset AWS.M2.CARDDEMO.CNTL(REPROCT) org=PS lrecl=80 from=carddemo:app/ctl/REPROCT.ctl framing=lines sha256=d4be5d9e718500a6c3865f3c1857887ab2e024133019e38385ecd5290a381098

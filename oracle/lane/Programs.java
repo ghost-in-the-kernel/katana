@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * A program step in the cobc lane: the program built from its source (a module and the PARM driver
  * when its PROCEDURE DIVISION takes USING), run with each DD bound by `DD_<name>` (GnuCOBOL's file
  * mapping), the fixture's clock and zone, the run's bin folder as the library path (STEPLIB), and an
- * abend read from the CEE3ABD stub's line rather than the 8-bit exit status.
+ * abend read from the CEE3ABD stub's line, or the signal libcob reports, rather than the 8-bit exit status.
  */
 final class Programs {
     /** How a program step ended: its return code, the abend code (Unnnn) or null, and a finding that stopped it, or null. */
@@ -24,7 +24,7 @@ final class Programs {
 
     private static final Pattern USING = Pattern.compile("(?m)^.{6}[ D].*PROCEDURE\\s+DIVISION\\s+USING");
     private static final Pattern COPY = Pattern.compile("(?m)^.{6}[ D].*?\\bCOPY\\s+['\"]?([A-Z0-9#@$-]+)");
-    private static final Pattern ABEND = Pattern.compile("CEE3ABD abend (U\\d{4}|with no code)");
+    private static final Pattern ABEND = Pattern.compile("CEE3ABD abend (U\\d{4}|with no code)|\\(signal (SIG[A-Z]+)\\)");
     private final Path sources;
     private final Compiler compiler;
     private final Path work;
@@ -33,7 +33,10 @@ final class Programs {
     private final java.util.Set<String> tabbed = new java.util.TreeSet<>();
     private final java.util.Set<String> copied = new java.util.TreeSet<>();
 
-    Programs(Path sources, Compiler compiler, Path work, Duration limit) {
+    private final java.util.function.ToIntFunction<String> width;
+
+    Programs(Path sources, Compiler compiler, Path work, Duration limit, java.util.function.ToIntFunction<String> width) {
+        this.width = width;
         this.sources = sources;
         this.compiler = compiler;
         this.work = work;
@@ -68,19 +71,6 @@ final class Programs {
         return compiler.build(name, read(source, name), true, work.resolve("bin")).refusal();
     }
 
-    /** Builds one of the lane's own programs and runs it with SORTIN holding these records and SORTOUT this file; its exit code. */
-    int runGenerated(String name, String source, byte[] sortin, Path sortout) {
-        Compiler.Built built = compiler.build(name, source.getBytes(StandardCharsets.US_ASCII), false, work.resolve("bin"));
-        if (!built.refusal().isEmpty()) throw new IllegalStateException("the lane's " + name + " did not compile: " + built.refusal());
-        try {
-            Path in = Files.write(work.resolve(name + ".in"), sortin);
-            return Exec.run(List.of(built.file().toString()), work, Map.of("DD_SORTIN", in.toString(), "DD_SORTOUT", sortout.toString()),
-                    Path.of("/dev/null"), work.resolve("sysout/" + name + ".stdout"), work.resolve("sysout/" + name + ".stderr"), limit);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
     /** Builds a stub from the lane's own source into bin. */
     void stub(String name, String source) {
         compiler.build(name, source.getBytes(StandardCharsets.US_ASCII), true, work.resolve("bin"));
@@ -106,7 +96,8 @@ final class Programs {
         int exit = Exec.run(List.of(executable), work, all, stdin, work.resolve("sysout/" + step + ".stdout"), work.resolve("sysout/" + step + ".stderr"), limit);
         if (exit == -1) return new Ended(exit, null, name + " ran past the time limit");
         Matcher abend = ABEND.matcher(text(work.resolve("sysout/" + step + ".stderr")));
-        return new Ended(exit, abend.find() ? abend.group(1) : null, null);
+        // A program libcob stops on a signal ended abnormally, as z/OS would end it with a system abend.
+        return new Ended(exit, !abend.find() ? null : abend.group(1) != null ? abend.group(1) : abend.group(2), null);
     }
 
     /** A source's bytes as cobc gets them (tabs expanded, R-016), its original hash kept for the report. */
@@ -117,7 +108,7 @@ final class Programs {
             if (Tabs.has(bytes)) tabbed.add(source.getFileName().toString());
             Matcher copy = COPY.matcher(new String(bytes, StandardCharsets.ISO_8859_1));
             while (copy.find()) copied.add(copy.group(1));
-            return Tabs.expand(bytes);
+            return Tabs.expand(bytes, width.applyAsInt(source.getFileName().toString()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

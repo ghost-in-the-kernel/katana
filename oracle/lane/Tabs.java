@@ -10,23 +10,23 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * R-016 in the cobc lane: a tab in a source or copy line is expanded to spaces up to the next
- * 8-column stop (columns 9, 17, 25, ...) before cobc reads it, into a shadow copy, so both lanes
- * compile the same text. Each file that held a tab is reported, since the 8-column stop is a
- * hypothesis until IBM's text on tabs is read.
+ * R-016 in the cobc lane: a tab in a source or copy line is expanded to spaces up to the next tab stop,
+ * every 8 columns or the width the fixture declares for the file (`tabs`), before cobc reads it, into a
+ * shadow copy, so both lanes compile the same text. Each file that held a tab is reported with the
+ * width used, a hypothesis until the Enterprise COBOL rule is read.
  */
 final class Tabs {
     private Tabs() {}
 
-    /** The text with every tab expanded to the next 8-column stop, line by line. */
-    static byte[] expand(byte[] source) {
+    /** The text with every tab expanded to the next stop of this width, line by line. */
+    static byte[] expand(byte[] source, int width) {
         String text = new String(source, StandardCharsets.ISO_8859_1);
         if (text.indexOf('\t') < 0) return source;
         StringBuilder out = new StringBuilder();
         int column = 0;
         for (char c : text.toCharArray()) {
             if (c == '\t') {
-                do out.append(' '); while (++column % 8 != 0);
+                do out.append(' '); while (++column % width != 0);
             } else {
                 out.append(c);
                 column = c == '\n' ? 0 : column + 1;
@@ -35,13 +35,25 @@ final class Tabs {
         return out.toString().getBytes(StandardCharsets.ISO_8859_1);
     }
 
+    /** The width a fixture's `tabs` lines give a file name (the first whose pattern matches), else 8. */
+    static java.util.function.ToIntFunction<String> widths(katana.oracle.fixture.Fixture fixture) {
+        List<String[]> rules = new ArrayList<>();
+        for (var line : fixture.header()) if (line.keyword().equals("tabs")) rules.add(new String[] {line.values().get(0), line.values().get(1)});
+        return name -> {
+            for (String[] rule : rules) {
+                if (java.nio.file.FileSystems.getDefault().getPathMatcher("glob:" + rule[1]).matches(Path.of(name))) return Integer.parseInt(rule[0]);
+            }
+            return 8;
+        };
+    }
+
     static boolean has(byte[] source) {
         for (byte b : source) if (b == '\t') return true;
         return false;
     }
 
-    /** Copies each copybook folder to shadow/0, shadow/1, ... with tabs expanded; the folders, and the names of files that held tabs. */
-    static List<Path> shadow(List<Path> folders, Path shadow, List<String> expanded) {
+    /** Copies each copybook folder to shadow/0, shadow/1, ... with tabs expanded at each file's width; the folders, and the names of files that held tabs. */
+    static List<Path> shadow(List<Path> folders, Path shadow, java.util.function.ToIntFunction<String> width, List<String> expanded) {
         List<Path> copies = new ArrayList<>();
         try {
             for (int i = 0; i < folders.size(); i++) {
@@ -50,7 +62,7 @@ final class Tabs {
                     for (Path file : files.filter(Files::isRegularFile).sorted().toList()) {
                         byte[] bytes = Files.readAllBytes(file);
                         if (has(bytes)) expanded.add(file.getFileName().toString());
-                        Files.write(copy.resolve(file.getFileName()), expand(bytes));
+                        Files.write(copy.resolve(file.getFileName()), expand(bytes, width.applyAsInt(file.getFileName().toString())));
                     }
                 }
                 copies.add(copy);

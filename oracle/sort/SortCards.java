@@ -1,4 +1,4 @@
-package katana.oracle.lane;
+package katana.oracle.sort;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * DFSORT's control cards as far as CardDemo uses them (docs/ROADMAP.md 1.5): SYMNAMES (fields and
- * constants), SORT FIELDS, INCLUDE or OMIT COND, and OUTREC FIELDS or BUILD. A statement, operand,
+ * DFSORT's control cards as far as CardDemo uses them (docs/ROADMAP.md 1.5, R-010): SYMNAMES (fields
+ * and constants), SORT FIELDS (with EQUALS), OPTION EQUALS, INCLUDE or OMIT COND, and OUTREC FIELDS
+ * or BUILD. A statement, operand,
  * format or form outside this is refused with the card quoted (`Unsupported`), never guessed. SUM and
  * INREC are built when a fixture needs them (P-11).
  */
@@ -18,8 +19,8 @@ final class SortCards {
     /** A sort key: a field, ascending or not. */
     record Key(Field field, boolean ascending) {}
 
-    /** What a SORT step does: its keys, its selection (null for all, `omit` to invert), and its OUTREC items (null for none). */
-    record Spec(List<Key> keys, SortConditions.Cond select, boolean omit, List<SortOutrec.Item> outrec) {}
+    /** What a SORT step does: its keys, whether EQUALS was asked, its selection (null for all, `omit` to invert), and its OUTREC items (null for none). */
+    record Spec(List<Key> keys, boolean equals, SortConditions.Cond select, boolean omit, List<SortOutrec.Item> outrec) {}
 
     /** A card, or a construction on it, the lane does not run; the message quotes it. */
     static final class Unsupported extends RuntimeException {
@@ -41,10 +42,19 @@ final class SortCards {
         SortConditions.Cond select = null;
         boolean omit = false;
         List<SortOutrec.Item> outrec = null;
+        boolean equals = false;
         for (String[] statement : statements(sysin)) {
             String verb = statement[0], operand = statement[1];
             switch (verb) {
-                case "SORT" -> keys = cards.keys(operand(operand, "FIELDS"));
+                case "SORT" -> {
+                    String fields = operand.replaceAll(",(NO)?EQUALS$", "");
+                    if (!fields.equals(operand)) equals = operand.endsWith(",EQUALS");
+                    keys = cards.keys(operand(fields, "FIELDS"));
+                }
+                case "OPTION" -> {
+                    if (!operand.matches("(NO)?EQUALS")) throw new Unsupported("OPTION " + operand + ": the lane reads OPTION EQUALS and NOEQUALS");
+                    equals = operand.equals("EQUALS");
+                }
                 case "INCLUDE", "OMIT" -> {
                     if (select != null) throw new Unsupported("a second INCLUDE or OMIT: " + verb + " " + operand);
                     select = SortConditions.parse(operand(operand, "COND"), cards);
@@ -55,7 +65,7 @@ final class SortCards {
             }
         }
         if (keys == null) throw new Unsupported("no SORT FIELDS statement");
-        return new Spec(keys, select, omit, outrec);
+        return new Spec(keys, equals, select, omit, outrec);
     }
 
     /** SYMNAMES: `name,position,length,format` or `name,constant`; a blank ends the statement, `*` in column 1 is a comment. */

@@ -12,16 +12,17 @@ import org.junit.jupiter.api.Test;
 /**
  * Phases 1.4 and 1.5 (R-048): the CardDemo fixtures through the cobc lane. POSTTRAN reproduces the
  * study's frozen TRANFILE unload (F-02); INTCALC runs through the PARM driver; TRANREPT-STUDY
- * reproduces the frozen sort and report; COMBTRAN and SORTTEST run every step. TRANREPT and PRTCATBL
- * as the JCL writes them stop at REPROCT's comment in column 1 (J-035); CREASTMT and PRTCATBL-INLINE
- * stop where an OUTREC builds records SORTOUT's length does not hold (J-043). Every report is held by
+ * reproduces the frozen sort and report; COMBTRAN, SORTTEST and PRTCATBL-INLINE run every step, an
+ * OUTREC's records padded or truncated to SORTOUT's length (R-051). TRANREPT and PRTCATBL as the JCL
+ * writes them stop at REPROCT's comment in column 1 (J-035); CREASTMT runs to CBSTM03A, which reads
+ * z/OS control blocks from address 0 and ends on SIGSEGV (J-049). Every report is held by
  * oracle/lane/carddemo.golden (`-Dkatana.record=true` rewrites it). Needs cobc and `corpus/fetch.sh carddemo`.
  */
 @Tag("integration")
 class CardDemoLaneIntegrationTest {
     private static final Path ROOT = LaneRuns.ROOT;
     private static final List<String> JOBS = List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST");
-    private final LaneRuns lane = new LaneRuns(CobcLane.Sort.JAVA, "lane");
+    private final LaneRuns lane = new LaneRuns("lane");
 
     private Report run(String job) {
         return lane.run(job);
@@ -72,9 +73,20 @@ class CardDemoLaneIntegrationTest {
     }
 
     @Test
-    void anOutrecLengthSortoutDoesNotHoldStopsTheJob() {
-        assertEquals(List.of("step STEP010: SORT: records of 328 bytes for SORTOUT's lrecl 350"), run("CREASTMT").findings());
-        assertEquals(List.of("step STEP10R: SORT: records of 41 bytes for SORTOUT's lrecl 40"), run("PRTCATBL-INLINE").findings());
+    void anOutrecLengthSortoutDoesNotHoldIsPaddedOrTruncated() {
+        Report creastmt = run("CREASTMT"), prtcatbl = run("PRTCATBL-INLINE");
+        assertEquals("SORT rc=0", creastmt.steps().get("STEP010"));
+        assertTrue(creastmt.notes().stream().anyMatch(n -> n.startsWith("step STEP010: records of 328 bytes for SORTOUT's lrecl 350: 257 padded on the right with X'00'")), creastmt.text());
+        assertEquals(List.of(), prtcatbl.findings(), prtcatbl.text());
+        assertTrue(prtcatbl.notes().stream().anyMatch(n -> n.startsWith("step STEP10R: records of 41 bytes for SORTOUT's lrecl 40: 50 truncated on the right")), prtcatbl.text());
+    }
+
+    @Test
+    void creastmtRunsToCbstm03aWhichReadsZosControlBlocks() {
+        Report creastmt = run("CREASTMT");
+        assertEquals(List.of(), creastmt.findings(), creastmt.text());
+        assertTrue(creastmt.steps().get("STEP040").startsWith("CBSTM03A abend SIGSEGV"), creastmt.text());
+        assertTrue(creastmt.notes().contains("tab in CUSTREC.cpy, expanded at 4 columns (R-016; a hypothesis until the Enterprise COBOL rule is read)"), creastmt.text());
     }
 
     @Test

@@ -1,4 +1,4 @@
-package katana.oracle.lane;
+package katana.oracle.sort;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -77,12 +77,32 @@ class SortTest {
         assertThrows(SortCards.Unsupported.class, () -> SortCards.read(List.of("X,=,4,CH"), List.of(" SORT FIELDS=(1,4,CH,A)")));
     }
 
+    private static List<byte[]> records(String... records) {
+        return java.util.Arrays.stream(records).map(SortTest::bytes).toList();
+    }
+
     @Test
-    void theGeneratedSortKeepsEqualKeysInOrderAndRefusesOutrec() {
-        String source = SortCobol.source(SortCards.read(TRANREPT_SYMNAMES, TRANREPT_SYSIN), 350);
-        assertTrue(source.contains("WITH DUPLICATES IN ORDER"));
-        assertTrue(source.contains("C1 >= '2024-03-01'"), source);
-        assertThrows(SortCards.Unsupported.class, () -> SortCobol.source(SortCards.read(List.of(),
-                List.of("  SORT FIELDS=(263,16,CH,A)", "  OUTREC FIELDS=(1:263,16)")), 350));
+    void equalKeysKeepInputOrderAndWithoutEqualsTheRunsAreANote() {
+        List<byte[]> input = records("B1", "A1", "B2", "A2", "C1");
+        Dfsort.Result result = Dfsort.run(List.of(), List.of(" SORT FIELDS=(1,1,CH,A)"), input, 2, Dfsort.Rules.DEFAULT);
+        assertEquals("A1A2B1B2C1", new String(result.records(), StandardCharsets.ISO_8859_1));
+        assertEquals(1, result.notes().size());
+        assertTrue(result.notes().get(0).contains("4 records in 2 runs") && result.notes().get(0).endsWith("SORTOUT records 1-2, 3-4"), result.notes().get(0));
+        assertEquals(List.of(), Dfsort.run(List.of(), List.of(" SORT FIELDS=(1,1,CH,A),EQUALS"), input, 2, Dfsort.Rules.DEFAULT).notes());
+        assertEquals(List.of(), Dfsort.run(List.of(), List.of(" OPTION EQUALS", " SORT FIELDS=(1,1,CH,A)"), input, 2, Dfsort.Rules.DEFAULT).notes());
+    }
+
+    @Test
+    void aShortRecordIsPaddedWithBinaryZerosAndALongOneTruncated() {
+        Dfsort.Result padded = Dfsort.run(List.of(), List.of(" SORT FIELDS=(1,2,CH,A),EQUALS"), records("AB", "CD"), 4, Dfsort.Rules.DEFAULT);
+        assertEquals("AB\0\0CD\0\0", new String(padded.records(), StandardCharsets.ISO_8859_1));
+        assertEquals(0, padded.rc());
+        assertTrue(padded.notes().get(0).startsWith("records of 2 bytes for SORTOUT's lrecl 4: 2 padded on the right with X'00' (ICE171I, PAD=RC0"), padded.notes().get(0));
+        Dfsort.Result truncated = Dfsort.run(List.of(), List.of(" SORT FIELDS=(1,2,CH,A),EQUALS"), records("ABC", "DEF"), 2, new Dfsort.Rules("RC0", "RC4"));
+        assertEquals("ABDE", new String(truncated.records(), StandardCharsets.ISO_8859_1));
+        assertEquals(4, truncated.rc());
+        Dfsort.Result stopped = Dfsort.run(List.of(), List.of(" SORT FIELDS=(1,2,CH,A),EQUALS"), records("AB"), 4, new Dfsort.Rules("RC16", "RC0"));
+        assertEquals(16, stopped.rc());
+        assertTrue(stopped.stop().contains("PAD=RC16"), stopped.stop());
     }
 }

@@ -1,4 +1,4 @@
-package katana.oracle.lane;
+package katana.oracle.sort;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;

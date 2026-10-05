@@ -249,3 +249,81 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/lane/SortConditions.java:SortConditions.Compare.test` | called by `oracle/lane/SortConditions.java:SortConditions.Group.test` and 1 more | 2026-10-04 |  |
 | oracle | `oracle/lane/SortConditions.java:SortConditions.Group.test` | called by `oracle/lane/Sorts.java:Sorts.run` | 2026-10-04 |  |
 | oracle | `oracle/lane/Sorts.java:Sorts.generated` | called by `oracle/lane/Datasets.java:Datasets.load` and 2 more | 2026-10-04 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.options` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.environment` | 2026-10-05 |  |
+| oracle | `oracle/lane/Steps.java:Steps.rules` | called by `oracle/lane/Steps.java:Steps.execute` | 2026-10-05 |  |
+| oracle | `oracle/lane/Steps.java:Steps.header` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.environment` and 4 more | 2026-10-05 |  |
+| oracle | `oracle/lane/Tabs.java:Tabs.widths` | called by `oracle/lane/CobcLane.java:CobcLane.CobcLane` | 2026-10-05 |  |
+| oracle | `oracle/sort/Dfsort.java:Dfsort.Dfsort` | no caller | 2026-10-05 |  |
+| oracle | `oracle/sort/Dfsort.java:Dfsort.run` | called by `oracle/lane/CobcLane.java:CobcLane.run` and 15 more | 2026-10-05 |  |
+| oracle | `oracle/sort/Dfsort.java:Dfsort.order` | called by `oracle/sort/Dfsort.java:Dfsort.run` | 2026-10-05 |  |
+| oracle | `oracle/sort/Dfsort.java:Dfsort.ties` | called by `oracle/sort/Dfsort.java:Dfsort.run` | 2026-10-05 |  |
+| oracle | `oracle/sort/Dfsort.java:Dfsort.output` | called by `oracle/nist/Exec85.java:Exec85.run` and 3 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.Unsupported.Unsupported` | no caller | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.SortCards` | no caller | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.read` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.profiles` and 7 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.symbols` | called by `oracle/sort/SortCards.java:SortCards.read` | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.keys` | called by `oracle/sort/Dfsort.java:Dfsort.run` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.field` | called by `oracle/sort/Dfsort.java:Dfsort.order` and 3 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.constant` | called by `oracle/sort/SortConditions.java:SortConditions.comparison` and 2 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.isConstant` | called by `oracle/sort/SortCards.java:SortCards.symbols` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.operand` | called by `oracle/sort/SortCards.java:SortCards.read` | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.split` | called by `oracle/fixture/Content.java:Content.records` and 20 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.statements` | called by `oracle/sort/SortCards.java:SortCards.read` | 2026-10-05 |  |
+| oracle | `oracle/sort/SortCards.java:SortCards.firstWord` | called by `oracle/sort/SortCards.java:SortCards.symbols` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortConditions.java:SortConditions.Compare.test` | called by `oracle/sort/Dfsort.java:Dfsort.run` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortConditions.java:SortConditions.Group.test` | called by `oracle/sort/Dfsort.java:Dfsort.run` | 2026-10-05 |  |
+| oracle | `oracle/sort/SortConditions.java:SortConditions.SortConditions` | no caller | 2026-10-05 |  |
+| oracle | `oracle/sort/SortConditions.java:SortConditions.parse` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.clock` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortConditions.java:SortConditions.comparison` | called by `oracle/sort/SortConditions.java:SortConditions.parse` | 2026-10-05 |  |
+| oracle | `oracle/sort/SortConditions.java:SortConditions.field` | called by `oracle/sort/Dfsort.java:Dfsort.order` and 2 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortConditions.java:SortConditions.character` | called by `oracle/sort/SortConditions.java:SortConditions.Compare.test` | 2026-10-05 |  |
+| oracle | `oracle/sort/SortConditions.java:SortConditions.zoned` | called by `oracle/sort/SortConditions.java:SortConditions.Compare.test` | 2026-10-05 |  |
+| oracle | `oracle/sort/SortConditions.java:SortConditions.text` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` and 4 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortConditions.java:SortConditions.holds` | called by `oracle/sort/SortConditions.java:SortConditions.character` and 1 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortOutrec.java:SortOutrec.SortOutrec` | no caller | 2026-10-05 |  |
+| oracle | `oracle/sort/SortOutrec.java:SortOutrec.parse` | called by `oracle/fixture/FixtureCheck.java:FixtureCheck.clock` and 2 more | 2026-10-05 |  |
+| oracle | `oracle/sort/SortOutrec.java:SortOutrec.item` | called by `oracle/sort/SortOutrec.java:SortOutrec.parse` | 2026-10-05 |  |
+| oracle | `oracle/sort/SortOutrec.java:SortOutrec.column` | called by `oracle/sort/SortOutrec.java:SortOutrec.parse` | 2026-10-05 |  |
+| oracle | `oracle/sort/SortOutrec.java:SortOutrec.edit` | called by `oracle/sort/SortOutrec.java:SortOutrec.item` | 2026-10-05 |  |
+| oracle | `oracle/sort/SortOutrec.java:SortOutrec.build` | called by `oracle/lane/Datasets.java:Datasets.generated` and 4 more | 2026-10-05 |  |
+| oracle | `oracle/sort/Zoned.java:Zoned.Zoned` | no caller | 2026-10-05 |  |
+| oracle | `oracle/sort/Zoned.java:Zoned.value` | called by `oracle/lane/Idcams.java:Idcams.command` and 5 more | 2026-10-05 |  |
+| oracle | `oracle/lane/SortCards.java:SortCards.Unsupported.Unsupported` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.Unsupported.Unsupported` |
+| oracle | `oracle/lane/SortCards.java:SortCards.SortCards` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.SortCards` |
+| oracle | `oracle/lane/SortCards.java:SortCards.read` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.read` |
+| oracle | `oracle/lane/SortCards.java:SortCards.symbols` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.symbols` |
+| oracle | `oracle/lane/SortCards.java:SortCards.keys` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.keys` |
+| oracle | `oracle/lane/SortCards.java:SortCards.field` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.field` |
+| oracle | `oracle/lane/SortCards.java:SortCards.constant` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.constant` |
+| oracle | `oracle/lane/SortCards.java:SortCards.isConstant` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.isConstant` |
+| oracle | `oracle/lane/SortCards.java:SortCards.operand` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.operand` |
+| oracle | `oracle/lane/SortCards.java:SortCards.split` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.split` |
+| oracle | `oracle/lane/SortCards.java:SortCards.statements` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.statements` |
+| oracle | `oracle/lane/SortCards.java:SortCards.firstWord` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortCards.java:SortCards.firstWord` |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.SortConditions` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.SortConditions` |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.parse` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.parse` |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.comparison` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.comparison` |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.field` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.field` |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.character` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.character` |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.zoned` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.zoned` |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.text` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.text` |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.holds` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.holds` |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.SortOutrec` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortOutrec.java:SortOutrec.SortOutrec` |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.parse` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortOutrec.java:SortOutrec.parse` |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.item` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortOutrec.java:SortOutrec.item` |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.column` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortOutrec.java:SortOutrec.column` |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.edit` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortOutrec.java:SortOutrec.edit` |
+| oracle | `oracle/lane/SortOutrec.java:SortOutrec.build` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortOutrec.java:SortOutrec.build` |
+| oracle | `oracle/lane/Sorts.java:Sorts.order` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/Dfsort.java:Dfsort.order` |
+| oracle | `oracle/lane/Sorts.java:Sorts.output` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/Dfsort.java:Dfsort.output` |
+| oracle | `oracle/lane/Zoned.java:Zoned.Zoned` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/Zoned.java:Zoned.Zoned` |
+| oracle | `oracle/lane/Zoned.java:Zoned.value` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/Zoned.java:Zoned.value` |
+| oracle | `oracle/lane/Programs.java:Programs.runGenerated` | moved or retired in phase 1.5b | 2026-10-05 | removed: the generated-COBOL sort retired by R-010 (phase 1.5b) |
+| oracle | `oracle/lane/SortCobol.java:SortCobol.SortCobol` | moved or retired in phase 1.5b | 2026-10-05 | removed: the generated-COBOL sort retired by R-010 (phase 1.5b) |
+| oracle | `oracle/lane/SortCobol.java:SortCobol.source` | moved or retired in phase 1.5b | 2026-10-05 | removed: the generated-COBOL sort retired by R-010 (phase 1.5b) |
+| oracle | `oracle/lane/SortCobol.java:SortCobol.record` | moved or retired in phase 1.5b | 2026-10-05 | removed: the generated-COBOL sort retired by R-010 (phase 1.5b) |
+| oracle | `oracle/lane/SortCobol.java:SortCobol.collect` | moved or retired in phase 1.5b | 2026-10-05 | removed: the generated-COBOL sort retired by R-010 (phase 1.5b) |
+| oracle | `oracle/lane/SortCobol.java:SortCobol.condition` | moved or retired in phase 1.5b | 2026-10-05 | removed: the generated-COBOL sort retired by R-010 (phase 1.5b) |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.Compare.test` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.Compare.test` |
+| oracle | `oracle/lane/SortConditions.java:SortConditions.Group.test` | moved or retired in phase 1.5b | 2026-10-05 | superseded-by: `oracle/sort/SortConditions.java:SortConditions.Group.test` |
+| oracle | `oracle/lane/Sorts.java:Sorts.generated` | moved or retired in phase 1.5b | 2026-10-05 | removed: the generated-COBOL sort retired by R-010 (phase 1.5b) |

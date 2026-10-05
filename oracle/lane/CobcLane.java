@@ -27,10 +27,7 @@ import katana.profile.Profile;
 public final class CobcLane {
     /** Where a run finds what it needs: the repository, the `from=` roots by prefix, program sources, copybooks, its folders, and other jobs' datasets. */
     public record Setup(Path root, Map<String, Path> sources, Path programs, List<Path> copybooks, Path work, Path cache,
-                        Duration limit, JobSource jobs, Sort sort) {}
-
-    /** How SORT steps run (R-010 weighs the two): Katana's Java sort, or a COBOL program generated from the cards. */
-    public enum Sort { JAVA, COBOL }
+                        Duration limit, JobSource jobs) {}
 
     /** A dataset as another job leaves it, unloaded (a `job:` source). */
     public interface JobSource {
@@ -43,10 +40,12 @@ public final class CobcLane {
     private final Report report = new Report();
     private final Map<String, String> paths = new HashMap<>();
     private final List<String> tabbedCopybooks = new ArrayList<>();
+    private final java.util.function.ToIntFunction<String> widths;
     private Datasets datasets;
     private Programs programs;
 
     private CobcLane(Fixture fixture, Setup setup) {
+        this.widths = Tabs.widths(fixture);
         this.fixture = fixture;
         this.setup = setup;
     }
@@ -71,7 +70,7 @@ public final class CobcLane {
             String stopped = Start.catalog(fixture, datasets, setup, paths);
             if (stopped == null) stopped = libraries();
             if (stopped != null) report.finding(stopped);
-            new Steps(fixture, datasets, programs, paths, setup.work(), report, setup.sort()).run(stopped != null);
+            new Steps(fixture, datasets, programs, paths, setup.work(), report).run(stopped != null);
             end();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -88,10 +87,10 @@ public final class CobcLane {
         }
         Files.createDirectories(setup.work().resolve("sysout"));
         Files.createDirectories(setup.work().resolve("inline"));
-        List<Path> shadows = Tabs.shadow(setup.copybooks(), setup.work().resolve("shadow"), tabbedCopybooks);
+        List<Path> shadows = Tabs.shadow(setup.copybooks(), setup.work().resolve("shadow"), widths, tabbedCopybooks);
         Compiler compiler = new Compiler(profile, shadows, setup.cache(), setup.limit());
         datasets = new Datasets(setup.work(), compiler, setup.limit());
-        programs = new Programs(setup.programs(), compiler, setup.work(), setup.limit());
+        programs = new Programs(setup.programs(), compiler, setup.work(), setup.limit(), widths);
     }
 
     /** The stubs and called modules on the library path; why the job cannot run, or null. */
@@ -118,7 +117,7 @@ public final class CobcLane {
         }
         List<String> tabbed = new ArrayList<>(programs.tabbed());
         for (String file : tabbedCopybooks) if (programs.copied().contains(file.replaceAll("\\.[^.]*$", "").toUpperCase())) tabbed.add(file);
-        tabbed.forEach(f -> report.note("tab in " + f + ", expanded under the 8-column assumption (R-016; a hypothesis until IBM's text is read)"));
+        tabbed.forEach(f -> report.note("tab in " + f + ", expanded at " + widths.applyAsInt(f) + " columns (R-016; a hypothesis until the Enterprise COBOL rule is read)"));
         programs.sourceHashes().entrySet().stream().sorted(Map.Entry.comparingByKey())
                 .forEach(e -> report.line("program " + e.getKey() + " " + e.getValue()));
     }

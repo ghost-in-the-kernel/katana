@@ -14,11 +14,9 @@ import katana.oracle.fixture.Fixture;
 final class LaneRuns {
     static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private final Map<String, Report> reports = new HashMap<>();
-    private final CobcLane.Sort sort;
     private final String folder;
 
-    LaneRuns(CobcLane.Sort sort, String folder) {
-        this.sort = sort;
+    LaneRuns(String folder) {
         this.folder = folder;
     }
 
@@ -31,7 +29,7 @@ final class LaneRuns {
             Path carddemo = ROOT.resolve("corpus/carddemo");
             CobcLane.Setup setup = new CobcLane.Setup(ROOT, Map.of("carddemo", carddemo, "repo", ROOT), carddemo.resolve("app/cbl"),
                     List.of(carddemo.resolve("app/cpy")), ROOT.resolve("build/" + folder + "/" + job), ROOT.resolve("build/lane-cache"),
-                    Duration.ofSeconds(60), this::unloaded, sort);
+                    Duration.ofSeconds(60), this::unloaded);
             Report report = CobcLane.run(fixture, setup);
             reports.put(job, report);
             return report;

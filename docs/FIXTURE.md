@@ -31,6 +31,9 @@ is one card of the inline DD above it, kept as written (a lane pads it to 80 byt
 | `tz` | 1 | | | `TZ`; once |
 | `module` | 1 | | | a called program the lane puts on `COB_LIBRARY_PATH` |
 | `stub` | 1 | | | a callee the lane stands in for (`CEE3ABD`) |
+| `tabs` | 2 | | | the tab width (1 to 16) a source or copybook was written at, and a file-name pattern (`4 CUSTREC.cpy`); the default is 8 (R-016) |
+| `dfsort.pad` | 1 | | | DFSORT's PAD: `RC0` (the default), `RC4` or `RC16`, for a record shorter than SORTOUT's LRECL (R-051); once |
+| `dfsort.trunc` | 1 | | | DFSORT's TRUNC, the same for a record longer than SORTOUT's LRECL; once |
 | `dataset` | 1 | `org`, `lrecl`, `keys`, `over`, `unique`, `from`, `framing`, `sha256`, `defined-by` | `empty` | a dataset in the catalog and how it starts |
 | `gold` | 1 | `sha256` | | a dataset's records as the mainframe wrote them |
 | `step` | 1 | `pgm`, `parm`, `cond` | | a step, in order; its DDs follow it |
@@ -93,3 +96,6 @@ index file's pages are never hashed (F-02: BDB pages differ between identical ru
   the step. A generation is `(+n)` of a declared base, new in this job, or `(0)` or `(-n)`, which the
   fixture declares as a sequential dataset that exists when the job starts.
 - **FIXTURE-08 A dataset has one record length.** A DD's `lrecl` is the dataset's.
+- **FIXTURE-09 The lane's options are stated, or the documented default holds.** `dfsort.pad` and
+  `dfsort.trunc` are `RC0`, `RC4` or `RC16` (`RC0` when absent, R-051); `tabs` is a width of 1 to 16
+  and a file-name pattern (8 when no pattern matches, R-016).

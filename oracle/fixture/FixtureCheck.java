@@ -28,7 +28,7 @@ import katana.profile.Profile;
 public final class FixtureCheck {
     static final Pattern CLOCK = Pattern.compile("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{2} [+-]\\d{2}:\\d{2}");
     private static final Pattern GENERATION = Pattern.compile("(.+)\\(([+-]?\\d+)\\)");
-    private static final List<String> ONCE = List.of("job", "profile", "clock", "tz");
+    private static final List<String> ONCE = List.of("job", "profile", "clock", "tz", "dfsort.pad", "dfsort.trunc");
     private static final Set<String> CONTENT = Set.of("from", "sha256", "framing", "over", "unique");
 
     private FixtureCheck() {}
@@ -68,6 +68,7 @@ public final class FixtureCheck {
         if (fixture.first("job") == null) refusals.add("no job line");
         if (fixture.first("tz") == null) refusals.add("no tz line: TZ is the machine's");
         clock(fixture.first("clock"), refusals);
+        options(fixture, refusals);
         Schema.Line profile = fixture.first("profile");
         if (profile == null || profile.values().size() < 2) {
             refusals.add("no profile line: the fixture is valid for no profile (P-12)");
@@ -76,6 +77,18 @@ public final class FixtureCheck {
         String name = profile.values().get(0), hash = profile.values().get(1), actual = profiles.apply(name);
         if (actual == null) refusals.add("profile " + name + " does not exist");
         else if (!actual.equals(hash)) refusals.add("profile " + name + " is " + actual + ", the fixture says " + hash);
+    }
+
+    /** FIXTURE-09: `dfsort.pad` and `dfsort.trunc` are RC0, RC4 or RC16 (R-051); `tabs` is a width of 1 to 16 and a file-name pattern (R-016). */
+    private static void options(Fixture fixture, List<String> refusals) {
+        for (Schema.Line line : fixture.header()) {
+            List<String> v = line.values();
+            boolean dfsort = line.keyword().startsWith("dfsort.");
+            if (dfsort && !v.isEmpty() && !v.get(0).matches("RC0|RC4|RC16")) refusals.add("line " + line.number() + ": " + line.keyword() + " is RC0, RC4 or RC16");
+            if (line.keyword().equals("tabs") && v.size() == 2 && (!v.get(0).matches("[1-9]|1[0-6]") || !v.get(1).matches("[\\w.*?-]+"))) {
+                refusals.add("line " + line.number() + ": tabs is a width of 1 to 16 and a file-name pattern");
+            }
+        }
     }
 
     /** FIXTURE-03: an unpinned clock is refused; seconds alone are unpinned, since hundredths leak (F-02). */

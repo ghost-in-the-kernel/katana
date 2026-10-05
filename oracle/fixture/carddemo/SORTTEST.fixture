@@ -6,6 +6,9 @@ source carddemo:samples/jcl/SORTTEST.jcl
 profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
 clock 2024-03-01 12:00:00.00 +00:00
 tz UTC
+# CUSTREC.cpy was written with 4-column tabs: at 8 its PICTUREs run past column 72 and CBSTM03A
+# does not compile, at 4 it does (R-016, J-044); the evidence and the hypothesis.
+tabs 4 CUSTREC.cpy
 
 dataset AWS.M2.CARDDEMO.TRANSACT.BKUP org=GDG
 dataset AWS.M2.CARDDEMO.TRANSACT.BKUP(0) org=PS lrecl=350 from=job:POSTTRAN:AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS sha256=aed617444207a7ebd2684e589c8569f766fb5d1d8323a25a658f8c4c03020b48

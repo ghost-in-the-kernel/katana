@@ -577,3 +577,31 @@ taken; closed by a later `decision` entry naming it).
 - **Note:** the framework is itself an experiment: R-052's and R-053's Claims name what the
   boundary tithe measures (trials per phase against Fable minutes; defaults held against reversed).
 
+
+### J-050 CBSTM03A reads the PSA at address 0
+- **Who:** Opus. **Class:** contradiction.
+- **Intent:** Phase 1.5, CREASTMT end to end, after R-051 and R-016's amendment let its SORT and
+  CBSTM03A's compile through.
+- **Found:** CBSTM03A ended on SIGSEGV with nothing written. Its source (lines 235 to 290, and its
+  own header: the program exercises constructs "to help create exercise modernization tooling") sets
+  a POINTER to the PSA at absolute address 0, follows it to the TCB and the TIOT, and DISPLAYs the job,
+  the step and the DD names. On Linux address 0 is unmapped; on z/OS it is the PSA.
+- **Options:** a z/OS storage facade in the java lane; one in the cobc lane at address 0; a source
+  overlay (changes the program under test). Listed for Fable with a lean (HANDOFF).
+- **Resolved:** class (c) under R-053: a signal libcob reports is now an abend (`abend SIGSEGV`, with
+  the abnormal dispositions), the golden holds CREASTMT's run to it, and 1.5 closes with that part of
+  its check deferred. The phase continues.
+- **Touched:** `oracle/lane/Programs.java`, `oracle/lane/carddemo.golden`, `HANDOFF.md`, `DONE.md`.
+
+### J-051 1.5 closed on Fable's three answers
+- **Who:** Opus, from R-010, R-016 (amended), R-026 and R-051. **Class:** decision.
+- **Intent:** Build what Fable's answers decided.
+- **Resolved:** the sort moved to `oracle/sort` with one entry point (`Dfsort.run`); the generated COBOL
+  sort and its measurement test removed, their functions closed in the kernel map; EQUALS read
+  (`SORT ... ,EQUALS`, `OPTION EQUALS`), ties without it a note listing SORTOUT's record ranges
+  (TRANREPT-STUDY: 255 records in 48 runs); short records padded with X'00', long ones truncated, with
+  RC4 giving return code 4 and RC16 stopping the step; the fixture's `tabs`, `dfsort.pad` and
+  `dfsort.trunc` lines (FIXTURE-09), every CardDemo fixture declaring `tabs 4 CUSTREC.cpy`. PRTCATBL-
+  INLINE now runs end to end; CREASTMT runs to CBSTM03A (J-050).
+- **Touched:** `oracle/sort/`, `oracle/lane/`, `oracle/fixture/`, `docs/FIXTURE.md`, the nine fixtures,
+  `oracle/lane/carddemo.golden`, `docs/KERNEL-MAP.md`.

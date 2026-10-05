@@ -1,4 +1,4 @@
-package katana.oracle.lane;
+package katana.oracle.sort;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

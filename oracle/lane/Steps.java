@@ -34,10 +34,8 @@ final class Steps {
     private final Path work;
     private final Report report;
     private final List<Integer> rcs = new ArrayList<>();
-    private final CobcLane.Sort sort;
 
-    Steps(Fixture fixture, Datasets datasets, Programs programs, Map<String, String> paths, Path work, Report report, CobcLane.Sort sort) {
-        this.sort = sort;
+    Steps(Fixture fixture, Datasets datasets, Programs programs, Map<String, String> paths, Path work, Report report) {
         this.fixture = fixture;
         this.datasets = datasets;
         this.programs = programs;
@@ -65,6 +63,16 @@ final class Steps {
         }
     }
 
+    /** The fixture's DFSORT PAD and TRUNC (R-051), RC0 where it states none. */
+    private katana.oracle.sort.Dfsort.Rules rules() {
+        return new katana.oracle.sort.Dfsort.Rules(header("dfsort.pad"), header("dfsort.trunc"));
+    }
+
+    private String header(String keyword) {
+        var line = fixture.first(keyword);
+        return line == null ? "RC0" : line.values().get(0);
+    }
+
     /** COND=(code,op): the step is bypassed when `code op rc` holds for any earlier return code. */
     private boolean bypassed(String cond) {
         String[] c = cond.split(",");
@@ -87,7 +95,7 @@ final class Steps {
             return new Outcome(pgm + " not run", 0, false, bound.finding());
         }
         Outcome outcome;
-        if (SORTS.contains(pgm)) outcome = Sorts.run(step, bound, datasets, report, sort == CobcLane.Sort.COBOL ? programs : null);
+        if (SORTS.contains(pgm)) outcome = Sorts.run(step, bound, datasets, report, rules());
         else if (pgm.equals("IEFBR14")) outcome = new Outcome("IEFBR14 rc=0", 0, false, null);
         else if (pgm.equals("IDCAMS")) outcome = idcams(step, bound);
         else if (pgm.equals("IEBGENER")) outcome = Utilities.iebgener(step, bound.dsns(), datasets);
