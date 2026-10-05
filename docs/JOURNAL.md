@@ -912,3 +912,12 @@ taken; closed by a later `decision` entry naming it).
   the *other* side (the tree, the file system, the run). Also: the reviewer's estimate — six weeks
   of phase 3 saved by 60 hours of tithe — is the tithe's claim (R-008) with a number on it.
 
+
+### J-076 Tithe pass 2, A5: per-program contract goldens
+- **Who:** Opus. **Class:** build. **Intent:** make A1-A4's changes land as reviewable diffs.
+- **Found:** the smallest NIST program of each module is a monitor program of 7 to 55 facts, which would
+  show nothing; the twelve kept are each module's smallest with 400 facts or more (DB204A IC237A IF142A
+  IX111A NC127A OBIC3A RL101A RW102A SG202A SM106A SQ210M ST104A), 4,577 lines of COBOL and 6,132
+  contract lines with COPYREC's. Only SM106A copies (K6SCA). The goldens live in `sir/golden/` and run in
+  the fast loop, no corpus needed.
+- **Touched:** `sir/golden/`, `IrGoldenTest`, `ContractTest`, `docs/SEMANTIC-IR.md`.

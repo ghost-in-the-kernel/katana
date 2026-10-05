@@ -1,0 +1,565 @@
+profile RL101A sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+item RL101A 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 3 RL-FS2R1-F-G-120 level 1 parent 0 record 3 FILE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 4 FILLER level 2 parent 3 record 3 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 5 RL-FS2-STATUS level 1 parent 0 record 5 WORKING_STORAGE offset 0 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
+item RL101A 6 WRK-CS-09V00 level 1 parent 0 record 6 WORKING_STORAGE offset 0 length 4 BINARY NUMERIC digits 9 scale 0 signed picture "S999999999"
+item RL101A 7 FILE-RECORD-INFORMATION-REC level 1 parent 0 record 7 WORKING_STORAGE offset 0 length 2640 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 8 FILE-RECORD-INFO-SKELETON level 3 parent 7 record 7 WORKING_STORAGE offset 0 length 240 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 9 FILLER level 5 parent 8 record 7 WORKING_STORAGE offset 0 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 10 FILLER level 5 parent 8 record 7 WORKING_STORAGE offset 48 length 46 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 11 FILLER level 5 parent 8 record 7 WORKING_STORAGE offset 94 length 26 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 12 FILLER level 5 parent 8 record 7 WORKING_STORAGE offset 120 length 37 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 13 FILLER level 5 parent 8 record 7 WORKING_STORAGE offset 157 length 38 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 14 FILLER level 5 parent 8 record 7 WORKING_STORAGE offset 195 length 38 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 15 FILLER level 5 parent 8 record 7 WORKING_STORAGE offset 233 length 7 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXX"
+item RL101A 16 FILE-RECORD-INFO level 3 parent 7 record 7 WORKING_STORAGE offset 240 length 240 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 17 FILE-RECORD-INFO-P1-120 level 5 parent 16 record 7 WORKING_STORAGE offset 240 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 18 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 240 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item RL101A 19 XFILE-NAME level 7 parent 17 record 7 WORKING_STORAGE offset 245 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item RL101A 20 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 251 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item RL101A 21 XRECORD-NAME level 7 parent 17 record 7 WORKING_STORAGE offset 259 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item RL101A 22 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 265 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 23 REELUNIT-NUMBER level 7 parent 17 record 7 WORKING_STORAGE offset 266 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
+item RL101A 24 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 267 length 7 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXX"
+item RL101A 25 XRECORD-NUMBER level 7 parent 17 record 7 WORKING_STORAGE offset 274 length 6 DISPLAY NUMERIC digits 6 scale 0 picture "999999"
+item RL101A 26 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 280 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item RL101A 27 UPDATE-NUMBER level 7 parent 17 record 7 WORKING_STORAGE offset 286 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item RL101A 28 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 288 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item RL101A 29 ODO-NUMBER level 7 parent 17 record 7 WORKING_STORAGE offset 293 length 4 DISPLAY NUMERIC digits 4 scale 0 picture "9999"
+item RL101A 30 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 297 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item RL101A 31 XPROGRAM-NAME level 7 parent 17 record 7 WORKING_STORAGE offset 302 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item RL101A 32 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 307 length 7 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXX"
+item RL101A 33 XRECORD-LENGTH level 7 parent 17 record 7 WORKING_STORAGE offset 314 length 6 DISPLAY NUMERIC digits 6 scale 0 picture "999999"
+item RL101A 34 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 320 length 7 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXX"
+item RL101A 35 CHARS-OR-RECORDS level 7 parent 17 record 7 WORKING_STORAGE offset 327 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
+item RL101A 36 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 329 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 37 XBLOCK-SIZE level 7 parent 17 record 7 WORKING_STORAGE offset 330 length 4 DISPLAY NUMERIC digits 4 scale 0 picture "9999"
+item RL101A 38 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 334 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item RL101A 39 RECORDS-IN-FILE level 7 parent 17 record 7 WORKING_STORAGE offset 340 length 6 DISPLAY NUMERIC digits 6 scale 0 picture "999999"
+item RL101A 40 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 346 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item RL101A 41 XFILE-ORGANIZATION level 7 parent 17 record 7 WORKING_STORAGE offset 351 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
+item RL101A 42 FILLER level 7 parent 17 record 7 WORKING_STORAGE offset 353 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item RL101A 43 XLABEL-TYPE level 7 parent 17 record 7 WORKING_STORAGE offset 359 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 44 FILE-RECORD-INFO-P121-240 level 5 parent 16 record 7 WORKING_STORAGE offset 360 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 45 FILLER level 7 parent 44 record 7 WORKING_STORAGE offset 360 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item RL101A 46 XRECORD-KEY level 7 parent 44 record 7 WORKING_STORAGE offset 368 length 29 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 47 FILLER level 7 parent 44 record 7 WORKING_STORAGE offset 397 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item RL101A 48 ALTERNATE-KEY1 level 7 parent 44 record 7 WORKING_STORAGE offset 406 length 29 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 49 FILLER level 7 parent 44 record 7 WORKING_STORAGE offset 435 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item RL101A 50 ALTERNATE-KEY2 level 7 parent 44 record 7 WORKING_STORAGE offset 444 length 29 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 51 FILLER level 7 parent 44 record 7 WORKING_STORAGE offset 473 length 7 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXX"
+item RL101A 52 TEST-RESULTS level 1 parent 0 record 52 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 53 FILLER level 2 parent 52 record 52 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 54 FEATURE level 2 parent 52 record 52 WORKING_STORAGE offset 1 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RL101A 55 FILLER level 2 parent 52 record 52 WORKING_STORAGE offset 21 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 56 P-OR-F level 2 parent 52 record 52 WORKING_STORAGE offset 22 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item RL101A 57 FILLER level 2 parent 52 record 52 WORKING_STORAGE offset 27 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 58 PAR-NAME level 2 parent 52 record 52 WORKING_STORAGE offset 28 length 22 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 59 FILLER level 3 parent 58 record 52 WORKING_STORAGE offset 28 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item RL101A 60 PARDOT-X level 3 parent 58 record 52 WORKING_STORAGE offset 47 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 61 DOTVALUE level 3 parent 58 record 52 WORKING_STORAGE offset 48 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item RL101A 62 FILLER level 2 parent 52 record 52 WORKING_STORAGE offset 50 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item RL101A 63 RE-MARK level 2 parent 52 record 52 WORKING_STORAGE offset 58 length 61 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 64 TEST-COMPUTED level 1 parent 0 record 64 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 65 FILLER level 2 parent 64 record 64 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 66 FILLER level 2 parent 64 record 64 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item RL101A 67 COMPUTED-X level 2 parent 64 record 64 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 68 COMPUTED-A level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RL101A 69 COMPUTED-N level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item RL101A 70 COMPUTED-0V18 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item RL101A 71 COMPUTED-4V14 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item RL101A 72 COMPUTED-14V4 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item RL101A 73 CM-18V0 level 3 parent 67 record 64 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 74 COMPUTED-18V0 level 4 parent 73 record 64 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item RL101A 75 FILLER level 4 parent 73 record 64 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 76 FILLER level 3 parent 67 record 64 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 77 TEST-CORRECT level 1 parent 0 record 77 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 78 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 79 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item RL101A 80 CORRECT-X level 2 parent 77 record 77 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 81 CORRECT-A level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RL101A 82 CORRECT-N level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item RL101A 83 CORRECT-0V18 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item RL101A 84 CORRECT-4V14 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item RL101A 85 CORRECT-14V4 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item RL101A 86 CR-18V0 level 3 parent 80 record 77 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 87 CORRECT-18V0 level 4 parent 86 record 77 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item RL101A 88 FILLER level 4 parent 86 record 77 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 89 FILLER level 3 parent 80 record 77 WORKING_STORAGE offset 67 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
+item RL101A 90 COR-ANSI-REFERENCE level 3 parent 80 record 77 WORKING_STORAGE offset 69 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 91 CCVS-C-1 level 1 parent 0 record 91 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 92 FILLER level 2 parent 91 record 91 WORKING_STORAGE offset 0 length 99 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 93 FILLER level 2 parent 91 record 91 WORKING_STORAGE offset 99 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RL101A 94 CCVS-C-2 level 1 parent 0 record 94 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 95 FILLER level 2 parent 94 record 94 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 96 FILLER level 2 parent 94 record 94 WORKING_STORAGE offset 1 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item RL101A 97 FILLER level 2 parent 94 record 94 WORKING_STORAGE offset 7 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item RL101A 98 FILLER level 2 parent 94 record 94 WORKING_STORAGE offset 22 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item RL101A 99 FILLER level 2 parent 94 record 94 WORKING_STORAGE offset 26 length 94 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 100 REC-SKL-SUB level 1 parent 0 record 100 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item RL101A 101 REC-CT level 1 parent 0 record 101 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item RL101A 102 DELETE-COUNTER level 1 parent 0 record 102 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RL101A 103 ERROR-COUNTER level 1 parent 0 record 103 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RL101A 104 INSPECT-COUNTER level 1 parent 0 record 104 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RL101A 105 PASS-COUNTER level 1 parent 0 record 105 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RL101A 106 TOTAL-ERROR level 1 parent 0 record 106 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RL101A 107 ERROR-HOLD level 1 parent 0 record 107 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RL101A 108 DUMMY-HOLD level 1 parent 0 record 108 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 109 RECORD-COUNT level 1 parent 0 record 109 WORKING_STORAGE offset 0 length 5 DISPLAY NUMERIC digits 5 scale 0 picture "99999"
+item RL101A 110 ANSI-REFERENCE level 1 parent 0 record 110 WORKING_STORAGE offset 0 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 111 CCVS-H-1 level 1 parent 0 record 111 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 112 FILLER level 2 parent 111 record 111 WORKING_STORAGE offset 0 length 39 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 113 FILLER level 2 parent 111 record 111 WORKING_STORAGE offset 39 length 42 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 114 FILLER level 2 parent 111 record 111 WORKING_STORAGE offset 81 length 39 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 115 CCVS-H-2A level 1 parent 0 record 115 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 116 FILLER level 2 parent 115 record 115 WORKING_STORAGE offset 0 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 117 FILLER level 2 parent 115 record 115 WORKING_STORAGE offset 40 length 7 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXX"
+item RL101A 118 FILLER level 2 parent 115 record 115 WORKING_STORAGE offset 47 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item RL101A 119 FILLER level 2 parent 115 record 115 WORKING_STORAGE offset 51 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 120 FILLER level 2 parent 115 record 115 WORKING_STORAGE offset 79 length 41 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 121 CCVS-H-2B level 1 parent 0 record 121 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 122 FILLER level 2 parent 121 record 121 WORKING_STORAGE offset 0 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item RL101A 123 TEST-ID level 2 parent 121 record 121 WORKING_STORAGE offset 15 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item RL101A 124 FILLER level 2 parent 121 record 121 WORKING_STORAGE offset 24 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item RL101A 125 FILLER level 2 parent 121 record 121 WORKING_STORAGE offset 28 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item RL101A 126 FILLER level 2 parent 121 record 121 WORKING_STORAGE offset 40 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 127 FILLER level 2 parent 121 record 121 WORKING_STORAGE offset 62 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 128 CCVS-H-3 level 1 parent 0 record 128 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 129 FILLER level 2 parent 128 record 128 WORKING_STORAGE offset 0 length 34 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 130 FILLER level 2 parent 128 record 128 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 131 FILLER level 2 parent 128 record 128 WORKING_STORAGE offset 92 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 132 CCVS-E-1 level 1 parent 0 record 132 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 133 FILLER level 2 parent 132 record 132 WORKING_STORAGE offset 0 length 52 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 134 FILLER level 2 parent 132 record 132 WORKING_STORAGE offset 52 length 14 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXX"
+item RL101A 135 ID-AGAIN level 2 parent 132 record 132 WORKING_STORAGE offset 66 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item RL101A 136 FILLER level 2 parent 132 record 132 WORKING_STORAGE offset 75 length 45 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 137 CCVS-E-2 level 1 parent 0 record 137 WORKING_STORAGE offset 0 length 100 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 138 FILLER level 2 parent 137 record 137 WORKING_STORAGE offset 0 length 31 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 139 FILLER level 2 parent 137 record 137 WORKING_STORAGE offset 31 length 21 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXX"
+item RL101A 140 CCVS-E-2-2 level 2 parent 137 record 137 WORKING_STORAGE offset 52 length 48 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 141 ERROR-TOTAL level 3 parent 140 record 137 WORKING_STORAGE offset 52 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item RL101A 142 FILLER level 3 parent 140 record 137 WORKING_STORAGE offset 55 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 143 ENDER-DESC level 3 parent 140 record 137 WORKING_STORAGE offset 56 length 44 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 144 CCVS-E-3 level 1 parent 0 record 144 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 145 FILLER level 2 parent 144 record 144 WORKING_STORAGE offset 0 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 146 FILLER level 2 parent 144 record 144 WORKING_STORAGE offset 22 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item RL101A 147 FILLER level 2 parent 144 record 144 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 148 FILLER level 2 parent 144 record 144 WORKING_STORAGE offset 92 length 13 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXX"
+item RL101A 149 FILLER level 2 parent 144 record 144 WORKING_STORAGE offset 105 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item RL101A 150 CCVS-E-4 level 1 parent 0 record 150 WORKING_STORAGE offset 0 length 50 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 151 CCVS-E-4-1 level 2 parent 150 record 150 WORKING_STORAGE offset 0 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item RL101A 152 FILLER level 2 parent 150 record 150 WORKING_STORAGE offset 3 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item RL101A 153 CCVS-E-4-2 level 2 parent 150 record 150 WORKING_STORAGE offset 7 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item RL101A 154 FILLER level 2 parent 150 record 150 WORKING_STORAGE offset 10 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 155 XXINFO level 1 parent 0 record 155 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 156 FILLER level 2 parent 155 record 155 WORKING_STORAGE offset 0 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item RL101A 157 INFO-TEXT level 2 parent 155 record 155 WORKING_STORAGE offset 19 length 53 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 158 FILLER level 4 parent 157 record 155 WORKING_STORAGE offset 19 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item RL101A 159 XXCOMPUTED level 4 parent 157 record 155 WORKING_STORAGE offset 27 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RL101A 160 FILLER level 4 parent 157 record 155 WORKING_STORAGE offset 47 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item RL101A 161 XXCORRECT level 4 parent 157 record 155 WORKING_STORAGE offset 52 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RL101A 162 INF-ANSI-REFERENCE level 2 parent 155 record 155 WORKING_STORAGE offset 72 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 163 HYPHEN-LINE level 1 parent 0 record 163 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RL101A 164 FILLER level 2 parent 163 record 163 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RL101A 165 FILLER level 2 parent 163 record 163 WORKING_STORAGE offset 1 length 65 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 166 FILLER level 2 parent 163 record 163 WORKING_STORAGE offset 66 length 54 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RL101A 167 CCVS-PGM-ID level 1 parent 0 record 167 WORKING_STORAGE offset 0 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+redefines RL101A 69 68
+redefines RL101A 70 68
+redefines RL101A 71 68
+redefines RL101A 72 68
+redefines RL101A 73 68
+redefines RL101A 82 81
+redefines RL101A 83 81
+redefines RL101A 84 81
+redefines RL101A 85 81
+redefines RL101A 86 81
+occurs RL101A 16 10..10 depending 0 keys [] indexed []
+value RL101A 6 ZERO
+value RL101A 9 "FILE= ,RECORD= /0,RECNO=000000,UPDT=00"
+value RL101A 10 ",ODO=0000,PGM= ,LRECL=000000,BLKSIZ =0000"
+value RL101A 11 ",LFIL=000000,ORG= ,LBLR= "
+value RL101A 12 ",RECKEY= "
+value RL101A 13 ",ALTKEY1= "
+value RL101A 14 ",ALTKEY2= "
+value RL101A 15 SPACE
+value RL101A 53 SPACE
+value RL101A 54 SPACE
+value RL101A 55 SPACE
+value RL101A 56 SPACE
+value RL101A 57 SPACE
+value RL101A 59 SPACE
+value RL101A 60 SPACE
+value RL101A 61 ZERO
+value RL101A 62 SPACE
+value RL101A 65 SPACE
+value RL101A 66 " COMPUTED="
+value RL101A 68 SPACE
+value RL101A 76 SPACE
+value RL101A 78 SPACE
+value RL101A 79 " CORRECT ="
+value RL101A 81 SPACE
+value RL101A 89 SPACE
+value RL101A 90 SPACE
+value RL101A 92 " FEATURE PASS PARAGRAPH-NAME REMARKS"
+value RL101A 93 SPACE
+value RL101A 95 SPACE
+value RL101A 96 "TESTED"
+value RL101A 97 SPACE
+value RL101A 98 "FAIL"
+value RL101A 99 SPACE
+value RL101A 100 ZERO
+value RL101A 101 ZERO
+value RL101A 102 ZERO
+value RL101A 103 ZERO
+value RL101A 104 ZERO
+value RL101A 105 ZERO
+value RL101A 106 ZERO
+value RL101A 107 ZERO
+value RL101A 108 SPACE
+value RL101A 109 ZERO
+value RL101A 110 SPACES
+value RL101A 112 SPACES
+value RL101A 113 "OFFICIAL COBOL COMPILER VALIDATION SYSTEM"
+value RL101A 114 SPACES
+value RL101A 116 SPACE
+value RL101A 117 "CCVS85 "
+value RL101A 118 "4.2 "
+value RL101A 119 " COPY - NOT FOR DISTRIBUTION"
+value RL101A 120 SPACE
+value RL101A 122 "TEST RESULT OF "
+value RL101A 124 " IN "
+value RL101A 125 " HIGH "
+value RL101A 126 " LEVEL VALIDATION FOR "
+value RL101A 127 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value RL101A 129 " FOR OFFICIAL USE ONLY "
+value RL101A 130 "COBOL 85 VERSION 4.2, Apr 1993 SSVG "
+value RL101A 131 " COPYRIGHT 1985 "
+value RL101A 133 SPACE
+value RL101A 134 "END OF TEST- "
+value RL101A 136 SPACES
+value RL101A 138 SPACE
+value RL101A 139 SPACE
+value RL101A 141 SPACE
+value RL101A 142 SPACE
+value RL101A 143 "ERRORS ENCOUNTERED"
+value RL101A 145 " FOR OFFICIAL USE ONLY"
+value RL101A 146 SPACE
+value RL101A 147 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value RL101A 148 SPACE
+value RL101A 149 " COPYRIGHT 1985"
+value RL101A 151 SPACE
+value RL101A 152 " OF "
+value RL101A 153 SPACE
+value RL101A 154 " TESTS WERE EXECUTED SUCCESSFULLY"
+value RL101A 156 "*** INFORMATION ***"
+value RL101A 158 SPACE
+value RL101A 160 SPACE
+value RL101A 164 SPACE
+value RL101A 165 "*****************************************************************"
+value RL101A 166 "******************************************************"
+value RL101A 167 "RL101A"
+file RL101A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
+file RL101A RL-FS2 assign "REL1" RELATIVE SEQUENTIAL key 0 alternate [] status 5 records [3] 120..120
+paragraph RL101A 0 "" ""
+paragraph RL101A 1 "OPEN-FILES" "CCVS1"
+paragraph RL101A 2 "CCVS-INIT-FILE" "CCVS1"
+paragraph RL101A 3 "CCVS-INIT-EXIT" "CCVS1"
+paragraph RL101A 4 "CLOSE-FILES" "CCVS1"
+paragraph RL101A 5 "TERMINATE-CCVS" "CCVS1"
+paragraph RL101A 6 "INSPT" "CCVS1"
+paragraph RL101A 7 "PASS" "CCVS1"
+paragraph RL101A 8 "FAIL" "CCVS1"
+paragraph RL101A 9 "DE-LETE" "CCVS1"
+paragraph RL101A 10 "PRINT-DETAIL" "CCVS1"
+paragraph RL101A 11 "HEAD-ROUTINE" "CCVS1"
+paragraph RL101A 12 "COLUMN-NAMES-ROUTINE" "CCVS1"
+paragraph RL101A 13 "END-ROUTINE" "CCVS1"
+paragraph RL101A 14 "END-RTN-EXIT" "CCVS1"
+paragraph RL101A 15 "END-ROUTINE-1" "CCVS1"
+paragraph RL101A 16 "END-ROUTINE-12" "CCVS1"
+paragraph RL101A 17 "END-ROUTINE-13" "CCVS1"
+paragraph RL101A 18 "WRITE-LINE" "CCVS1"
+paragraph RL101A 19 "WRT-LN" "CCVS1"
+paragraph RL101A 20 "BLANK-LINE-PRINT" "CCVS1"
+paragraph RL101A 21 "FAIL-ROUTINE" "CCVS1"
+paragraph RL101A 22 "FAIL-ROUTINE-WRITE" "CCVS1"
+paragraph RL101A 23 "FAIL-ROUTINE-EX" "CCVS1"
+paragraph RL101A 24 "BAIL-OUT" "CCVS1"
+paragraph RL101A 25 "BAIL-OUT-WRITE" "CCVS1"
+paragraph RL101A 26 "BAIL-OUT-EX" "CCVS1"
+paragraph RL101A 27 "CCVS1-EXIT" "CCVS1"
+paragraph RL101A 28 "REL-INIT-001" "SECT-RL101-001"
+paragraph RL101A 29 "REL-TEST-001" "SECT-RL101-001"
+paragraph RL101A 30 "REL-DELETE-001" "SECT-RL101-001"
+paragraph RL101A 31 "REL-FAIL-001" "SECT-RL101-001"
+paragraph RL101A 32 "REL-WRITE-001" "SECT-RL101-001"
+paragraph RL101A 33 "REL-INIT-002" "SECT-RL101-001"
+paragraph RL101A 34 "REL-TEST-002" "SECT-RL101-001"
+paragraph RL101A 35 "REL-DELETE-002" "SECT-RL101-001"
+paragraph RL101A 36 "REL-TEST-002-1" "SECT-RL101-001"
+paragraph RL101A 37 "REL-WRITE-002" "SECT-RL101-001"
+paragraph RL101A 38 "CCVS-999999" "CCVS-EXIT"
+falls RL101A 0 1
+falls RL101A 1 2
+falls RL101A 2 3
+falls RL101A 4 5
+falls RL101A 6 7
+falls RL101A 7 8
+falls RL101A 8 9
+falls RL101A 9 10
+falls RL101A 10 11
+falls RL101A 11 12
+falls RL101A 12 13
+falls RL101A 13 14
+falls RL101A 14 15
+falls RL101A 15 16
+falls RL101A 16 17
+falls RL101A 17 18
+falls RL101A 18 19
+falls RL101A 19 20
+falls RL101A 20 21
+falls RL101A 22 23
+falls RL101A 23 24
+falls RL101A 24 25
+falls RL101A 25 26
+falls RL101A 26 27
+falls RL101A 27 28
+falls RL101A 28 29
+falls RL101A 31 32
+falls RL101A 32 33
+falls RL101A 33 34
+falls RL101A 35 36
+falls RL101A 37 38
+edge RL101A PERFORM 1 11 12
+edge RL101A PERFORM 1 2 2
+edge RL101A GO_TO 3 27 27
+edge RL101A PERFORM 4 13 17
+edge RL101A PERFORM 10 18 18
+edge RL101A PERFORM 10 18 18
+edge RL101A PERFORM 10 21 23
+edge RL101A PERFORM 10 24 26
+edge RL101A PERFORM 11 18 18
+edge RL101A PERFORM 11 18 18
+edge RL101A PERFORM 11 18 18
+edge RL101A PERFORM 11 18 18
+edge RL101A PERFORM 12 18 18
+edge RL101A PERFORM 12 18 18
+edge RL101A PERFORM 12 18 18
+edge RL101A PERFORM 13 18 18
+edge RL101A PERFORM 14 18 18
+edge RL101A PERFORM 15 18 18
+edge RL101A PERFORM 16 18 18
+edge RL101A PERFORM 17 18 18
+edge RL101A PERFORM 17 18 18
+edge RL101A PERFORM 17 18 18
+edge RL101A PERFORM 18 19 19
+edge RL101A PERFORM 18 19 19
+edge RL101A PERFORM 18 19 19
+edge RL101A PERFORM 18 19 19
+edge RL101A PERFORM 20 19 19
+edge RL101A GO_TO 21 22 22
+edge RL101A GO_TO 21 22 22
+edge RL101A PERFORM 21 18 18
+edge RL101A GO_TO 21 23 23
+edge RL101A PERFORM 22 18 18
+edge RL101A PERFORM 22 18 18
+edge RL101A GO_TO 24 25 25
+edge RL101A GO_TO 24 26 26
+edge RL101A PERFORM 25 18 18
+edge RL101A GO_TO 29 31 31
+edge RL101A GO_TO 29 32 32
+edge RL101A GO_TO 29 29 29
+edge RL101A PERFORM 30 9 9
+edge RL101A GO_TO 30 32 32
+edge RL101A PERFORM 31 8 8
+edge RL101A PERFORM 32 10 10
+edge RL101A GO_TO 34 36 36
+edge RL101A GO_TO 34 36 36
+edge RL101A GO_TO 34 34 34
+edge RL101A PERFORM 36 8 8
+edge RL101A PERFORM 36 7 7
+edge RL101A GO_TO 36 37 37
+edge RL101A PERFORM 37 10 10
+edge RL101A GO_TO 38 4 4
+statement RL101A 1.0 OPEN open-output=file:PRINT-FILE
+statement RL101A 1.1 MOVE move-to-sending-area=#167 move-to-statement=#123
+statement RL101A 1.2 MOVE move-to-sending-area=#167 move-to-statement=#135
+statement RL101A 1.3 MOVE move-to-sending-area=SPACE move-to-statement=#52
+statement RL101A 1.4 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=@12..12
+statement RL101A 1.5 MOVE move-to-sending-area=ZERO move-to-statement=#100
+statement RL101A 1.6 PERFORM perform-procedure-statement=@2..2 perform-times=9
+statement RL101A 2.0 ADD add-from=1 add-to=#100
+statement RL101A 2.1 MOVE move-to-sending-area=#8 move-to-statement=#16(#100)
+statement RL101A 3.0 GO TO go-to-statement-simple=@27..27
+statement RL101A 4.0 PERFORM perform-procedure-statement=@13..13 perform-procedure-statement=@17..17
+statement RL101A 4.1 CLOSE close-file=file:PRINT-FILE
+statement RL101A 5.0 STOP
+statement RL101A 6.0 MOVE move-to-sending-area="INSPT" move-to-statement=#56
+statement RL101A 6.1 ADD add-from=1 add-to=#104
+statement RL101A 7.0 MOVE move-to-sending-area="PASS " move-to-statement=#56
+statement RL101A 7.1 ADD add-from=1 add-to=#105
+statement RL101A 8.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#56
+statement RL101A 8.1 ADD add-from=1 add-to=#103
+statement RL101A 9.0 MOVE move-to-sending-area="*****" move-to-statement=#56
+statement RL101A 9.1 ADD add-from=1 add-to=#102
+statement RL101A 9.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=#63
+statement RL101A 10.0 IF if-statement=(NOT EQUAL TO #101 ZERO)
+statement RL101A 10.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#60
+statement RL101A 10.0.if-then.1 MOVE move-to-sending-area=#101 move-to-statement=#61
+statement RL101A 10.1 MOVE move-to-sending-area=#52 move-to-statement=#1
+statement RL101A 10.2 PERFORM perform-procedure-statement=@18..18
+statement RL101A 10.3 IF if-statement=(EQUAL TO #56 "FAIL*")
+statement RL101A 10.3.if-then.0 PERFORM perform-procedure-statement=@18..18
+statement RL101A 10.3.if-then.1 PERFORM perform-procedure-statement=@21..21 perform-procedure-statement=@23..23
+statement RL101A 10.3.if-else.0 PERFORM perform-procedure-statement=@24..24 perform-procedure-statement=@26..26
+statement RL101A 10.4 MOVE move-to-sending-area=SPACE move-to-statement=#56
+statement RL101A 10.5 MOVE move-to-sending-area=SPACE move-to-statement=#67
+statement RL101A 10.6 MOVE move-to-sending-area=SPACE move-to-statement=#80
+statement RL101A 10.7 IF if-statement=(EQUAL TO #101 ZERO)
+statement RL101A 10.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#58
+statement RL101A 10.8 MOVE move-to-sending-area=SPACE move-to-statement=#63
+statement RL101A 11.0 MOVE move-to-sending-area=#111 move-to-statement=#2
+statement RL101A 11.1 PERFORM perform-procedure-statement=@18..18 perform-times=2
+statement RL101A 11.2 MOVE move-to-sending-area=#115 move-to-statement=#2
+statement RL101A 11.3 PERFORM perform-procedure-statement=@18..18 perform-times=2
+statement RL101A 11.4 MOVE move-to-sending-area=#121 move-to-statement=#2
+statement RL101A 11.5 PERFORM perform-procedure-statement=@18..18 perform-times=3
+statement RL101A 11.6 MOVE move-to-sending-area=#128 move-to-statement=#2
+statement RL101A 11.7 PERFORM perform-procedure-statement=@18..18 perform-times=3
+statement RL101A 12.0 MOVE move-to-sending-area=#91 move-to-statement=#2
+statement RL101A 12.1 PERFORM perform-procedure-statement=@18..18
+statement RL101A 12.2 MOVE move-to-sending-area=#94 move-to-statement=#2
+statement RL101A 12.3 PERFORM perform-procedure-statement=@18..18 perform-times=2
+statement RL101A 12.4 MOVE move-to-sending-area=#163 move-to-statement=#2
+statement RL101A 12.5 PERFORM perform-procedure-statement=@18..18
+statement RL101A 13.0 MOVE move-to-sending-area=#163 move-to-statement=#2
+statement RL101A 13.1 PERFORM perform-procedure-statement=@18..18 perform-times=5
+statement RL101A 14.0 MOVE move-to-sending-area=#132 move-to-statement=#2
+statement RL101A 14.1 PERFORM perform-procedure-statement=@18..18 perform-times=2
+statement RL101A 15.0 ADD add-from=#103 add-to=#107
+statement RL101A 15.1 ADD add-from=#104 add-to=#107
+statement RL101A 15.2 ADD add-from=#102 add-to=#107
+statement RL101A 15.3 ADD add-from=#105 add-to=#107
+statement RL101A 15.4 MOVE move-to-sending-area=#105 move-to-statement=#151
+statement RL101A 15.5 MOVE move-to-sending-area=#107 move-to-statement=#153
+statement RL101A 15.6 MOVE move-to-sending-area=#150 move-to-statement=#140
+statement RL101A 15.7 MOVE move-to-sending-area=#137 move-to-statement=#2
+statement RL101A 15.8 PERFORM perform-procedure-statement=@18..18
+statement RL101A 16.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#143
+statement RL101A 16.1 IF if-statement=(IS EQUAL TO #103 ZERO)
+statement RL101A 16.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#141
+statement RL101A 16.1.if-else.0 MOVE move-to-sending-area=#103 move-to-statement=#141
+statement RL101A 16.2 MOVE move-to-sending-area=#137 move-to-statement=#2
+statement RL101A 16.3 PERFORM perform-procedure-statement=@18..18
+statement RL101A 17.0 IF if-statement=(IS EQUAL TO #102 ZERO)
+statement RL101A 17.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#141
+statement RL101A 17.0.if-else.0 MOVE move-to-sending-area=#102 move-to-statement=#141
+statement RL101A 17.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#143
+statement RL101A 17.2 MOVE move-to-sending-area=#137 move-to-statement=#2
+statement RL101A 17.3 PERFORM perform-procedure-statement=@18..18
+statement RL101A 17.4 IF if-statement=(EQUAL TO #104 ZERO)
+statement RL101A 17.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#141
+statement RL101A 17.4.if-else.0 MOVE move-to-sending-area=#104 move-to-statement=#141
+statement RL101A 17.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#143
+statement RL101A 17.6 MOVE move-to-sending-area=#137 move-to-statement=#2
+statement RL101A 17.7 PERFORM perform-procedure-statement=@18..18
+statement RL101A 17.8 MOVE move-to-sending-area=#144 move-to-statement=#2
+statement RL101A 17.9 PERFORM perform-procedure-statement=@18..18
+statement RL101A 18.0 ADD add-from=1 add-to=#109
+statement RL101A 18.1 IF if-statement=(GREATER #109 50)
+statement RL101A 18.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#108
+statement RL101A 18.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement RL101A 18.1.if-then.2 WRITE record-name=#2
+statement RL101A 18.1.if-then.3 MOVE move-to-sending-area=#91 move-to-statement=#2
+statement RL101A 18.1.if-then.4 PERFORM perform-procedure-statement=@19..19
+statement RL101A 18.1.if-then.5 MOVE move-to-sending-area=#94 move-to-statement=#2
+statement RL101A 18.1.if-then.6 PERFORM perform-procedure-statement=@19..19 perform-times=2
+statement RL101A 18.1.if-then.7 MOVE move-to-sending-area=#163 move-to-statement=#2
+statement RL101A 18.1.if-then.8 PERFORM perform-procedure-statement=@19..19
+statement RL101A 18.1.if-then.9 MOVE move-to-sending-area=#108 move-to-statement=#2
+statement RL101A 18.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=#109
+statement RL101A 18.2 PERFORM perform-procedure-statement=@19..19
+statement RL101A 19.0 WRITE record-name=#2 write-advancing-lines=1
+statement RL101A 19.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement RL101A 20.0 PERFORM perform-procedure-statement=@19..19
+statement RL101A 21.0 IF if-statement=(NOT EQUAL TO #67 SPACE)
+statement RL101A 21.0.if-then.0 GO TO go-to-statement-simple=@22..22
+statement RL101A 21.1 IF if-statement=(NOT EQUAL TO #80 SPACE)
+statement RL101A 21.1.if-then.0 GO TO go-to-statement-simple=@22..22
+statement RL101A 21.2 MOVE move-to-sending-area=#110 move-to-statement=#162
+statement RL101A 21.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#157
+statement RL101A 21.4 MOVE move-to-sending-area=#155 move-to-statement=#2
+statement RL101A 21.5 PERFORM perform-procedure-statement=@18..18 perform-times=2
+statement RL101A 21.6 MOVE move-to-sending-area=SPACE move-to-statement=#162
+statement RL101A 21.7 GO TO go-to-statement-simple=@23..23
+statement RL101A 22.0 MOVE move-to-sending-area=#64 move-to-statement=#1
+statement RL101A 22.1 PERFORM perform-procedure-statement=@18..18
+statement RL101A 22.2 MOVE move-to-sending-area=#110 move-to-statement=#90
+statement RL101A 22.3 MOVE move-to-sending-area=#77 move-to-statement=#1
+statement RL101A 22.4 PERFORM perform-procedure-statement=@18..18 perform-times=2
+statement RL101A 22.5 MOVE move-to-sending-area=SPACE move-to-statement=#90
+statement RL101A 23.0 EXIT
+statement RL101A 24.0 IF if-statement=(NOT EQUAL TO #68 SPACE)
+statement RL101A 24.0.if-then.0 GO TO go-to-statement-simple=@25..25
+statement RL101A 24.1 IF if-statement=(EQUAL TO #81 SPACE)
+statement RL101A 24.1.if-then.0 GO TO go-to-statement-simple=@26..26
+statement RL101A 25.0 MOVE move-to-sending-area=#81 move-to-statement=#161
+statement RL101A 25.1 MOVE move-to-sending-area=#68 move-to-statement=#159
+statement RL101A 25.2 MOVE move-to-sending-area=#110 move-to-statement=#162
+statement RL101A 25.3 MOVE move-to-sending-area=#155 move-to-statement=#2
+statement RL101A 25.4 PERFORM perform-procedure-statement=@18..18 perform-times=2
+statement RL101A 25.5 MOVE move-to-sending-area=SPACE move-to-statement=#162
+statement RL101A 26.0 EXIT
+statement RL101A 27.0 EXIT
+statement RL101A 28.0 MOVE move-to-sending-area="FILE CREATE RL-FS2" move-to-statement=#54
+statement RL101A 28.1 OPEN open-output=file:RL-FS2
+statement RL101A 28.2 MOVE move-to-sending-area="RL-FS2" move-to-statement=#19(1)
+statement RL101A 28.3 MOVE move-to-sending-area="R1-F-G" move-to-statement=#21(1)
+statement RL101A 28.4 MOVE move-to-sending-area=#167 move-to-statement=#31(1)
+statement RL101A 28.5 MOVE move-to-sending-area=000120 move-to-statement=#33(1)
+statement RL101A 28.6 MOVE move-to-sending-area="RC" move-to-statement=#35(1)
+statement RL101A 28.7 MOVE move-to-sending-area=0001 move-to-statement=#37(1)
+statement RL101A 28.8 MOVE move-to-sending-area=000500 move-to-statement=#39(1)
+statement RL101A 28.9 MOVE move-to-sending-area="RL" move-to-statement=#41(1)
+statement RL101A 28.10 MOVE move-to-sending-area="S" move-to-statement=#43(1)
+statement RL101A 28.11 MOVE move-to-sending-area=000001 move-to-statement=#25(1)
+statement RL101A 29.0 MOVE move-to-sending-area=#17(1) move-to-statement=#3
+statement RL101A 29.1 WRITE record-name=#3
+statement RL101A 29.1.invalid-key-phrase.0 GO TO go-to-statement-simple=@31..31
+statement RL101A 29.2 IF if-statement=(EQUAL TO #25(1) 500)
+statement RL101A 29.2.if-then.0 GO TO go-to-statement-simple=@32..32
+statement RL101A 29.3 ADD add-from=000001 add-to=#25(1)
+statement RL101A 29.4 GO TO go-to-statement-simple=@29..29
+statement RL101A 30.0 PERFORM perform-procedure-statement=@9..9
+statement RL101A 30.1 GO TO go-to-statement-simple=@32..32
+statement RL101A 31.0 PERFORM perform-procedure-statement=@8..8
+statement RL101A 31.1 MOVE move-to-sending-area="BOUNDARY VIOLATION" move-to-statement=#63
+statement RL101A 32.0 MOVE move-to-sending-area="REL-TEST-001" move-to-statement=#58
+statement RL101A 32.1 MOVE move-to-sending-area="FILE CREATED, LFILE " move-to-statement=#68
+statement RL101A 32.2 MOVE move-to-sending-area=#25(1) move-to-statement=#87
+statement RL101A 32.3 PERFORM perform-procedure-statement=@10..10
+statement RL101A 32.4 CLOSE close-file=file:RL-FS2
+statement RL101A 33.0 OPEN open-input=file:RL-FS2
+statement RL101A 33.1 MOVE move-to-sending-area=ZERO move-to-statement=#6
+statement RL101A 34.0 READ read-statement=file:RL-FS2
+statement RL101A 34.0.at-end-phrase.0 GO TO go-to-statement-simple=@36..36
+statement RL101A 34.1 MOVE move-to-sending-area=#3 move-to-statement=#17(1)
+statement RL101A 34.2 ADD add-from=1 add-to=#6
+statement RL101A 34.3 IF if-statement=(GREATER #6 500)
+statement RL101A 34.3.if-then.0 MOVE move-to-sending-area="MORE THAN 500 RECORDS" move-to-statement=#63
+statement RL101A 34.3.if-then.1 GO TO go-to-statement-simple=@36..36
+statement RL101A 34.4 GO TO go-to-statement-simple=@34..34
+statement RL101A 36.0 IF if-statement=(NOT EQUAL TO #25(1) 500)
+statement RL101A 36.0.if-then.0 PERFORM perform-procedure-statement=@8..8
+statement RL101A 36.0.if-else.0 PERFORM perform-procedure-statement=@7..7
+statement RL101A 36.1 GO TO go-to-statement-simple=@37..37
+statement RL101A 37.0 MOVE move-to-sending-area="REL-TEST-002" move-to-statement=#58
+statement RL101A 37.1 MOVE move-to-sending-area="FILE VERIFIED, LFILE" move-to-statement=#68
+statement RL101A 37.2 MOVE move-to-sending-area=#25(1) move-to-statement=#87
+statement RL101A 37.3 PERFORM perform-procedure-statement=@10..10
+statement RL101A 37.4 CLOSE close-file=file:RL-FS2
+statement RL101A 38.0 GO TO go-to-statement-simple=@4..4
+using RL101A [] 0

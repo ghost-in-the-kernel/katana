@@ -1,0 +1,450 @@
+profile IC237A sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+item IC237A 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 3 WS-A level 1 parent 0 record 3 WORKING_STORAGE offset 0 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
+item IC237A 4 WS-B level 1 parent 0 record 4 WORKING_STORAGE offset 0 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
+item IC237A 5 WS-C level 1 parent 0 record 5 WORKING_STORAGE offset 0 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
+item IC237A 6 TEST-RESULTS level 1 parent 0 record 6 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 7 FILLER level 2 parent 6 record 6 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IC237A 8 FEATURE level 2 parent 6 record 6 WORKING_STORAGE offset 1 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IC237A 9 FILLER level 2 parent 6 record 6 WORKING_STORAGE offset 21 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IC237A 10 P-OR-F level 2 parent 6 record 6 WORKING_STORAGE offset 22 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item IC237A 11 FILLER level 2 parent 6 record 6 WORKING_STORAGE offset 27 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IC237A 12 PAR-NAME level 2 parent 6 record 6 WORKING_STORAGE offset 28 length 22 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 13 FILLER level 3 parent 12 record 6 WORKING_STORAGE offset 28 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item IC237A 14 PARDOT-X level 3 parent 12 record 6 WORKING_STORAGE offset 47 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IC237A 15 DOTVALUE level 3 parent 12 record 6 WORKING_STORAGE offset 48 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IC237A 16 FILLER level 2 parent 6 record 6 WORKING_STORAGE offset 50 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item IC237A 17 RE-MARK level 2 parent 6 record 6 WORKING_STORAGE offset 58 length 61 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 18 TEST-COMPUTED level 1 parent 0 record 18 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 19 FILLER level 2 parent 18 record 18 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 20 FILLER level 2 parent 18 record 18 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item IC237A 21 COMPUTED-X level 2 parent 18 record 18 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 22 COMPUTED-A level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IC237A 23 COMPUTED-N level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item IC237A 24 COMPUTED-0V18 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item IC237A 25 COMPUTED-4V14 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item IC237A 26 COMPUTED-14V4 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item IC237A 27 CM-18V0 level 3 parent 21 record 18 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 28 COMPUTED-18V0 level 4 parent 27 record 18 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item IC237A 29 FILLER level 4 parent 27 record 18 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IC237A 30 FILLER level 3 parent 21 record 18 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 31 TEST-CORRECT level 1 parent 0 record 31 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 32 FILLER level 2 parent 31 record 31 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 33 FILLER level 2 parent 31 record 31 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item IC237A 34 CORRECT-X level 2 parent 31 record 31 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 35 CORRECT-A level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IC237A 36 CORRECT-N level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item IC237A 37 CORRECT-0V18 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item IC237A 38 CORRECT-4V14 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item IC237A 39 CORRECT-14V4 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item IC237A 40 CR-18V0 level 3 parent 34 record 31 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 41 CORRECT-18V0 level 4 parent 40 record 31 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item IC237A 42 FILLER level 4 parent 40 record 31 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IC237A 43 FILLER level 3 parent 34 record 31 WORKING_STORAGE offset 67 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
+item IC237A 44 COR-ANSI-REFERENCE level 3 parent 34 record 31 WORKING_STORAGE offset 69 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 45 CCVS-C-1 level 1 parent 0 record 45 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 46 FILLER level 2 parent 45 record 45 WORKING_STORAGE offset 0 length 99 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 47 FILLER level 2 parent 45 record 45 WORKING_STORAGE offset 99 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IC237A 48 CCVS-C-2 level 1 parent 0 record 48 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 49 FILLER level 2 parent 48 record 48 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IC237A 50 FILLER level 2 parent 48 record 48 WORKING_STORAGE offset 1 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item IC237A 51 FILLER level 2 parent 48 record 48 WORKING_STORAGE offset 7 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item IC237A 52 FILLER level 2 parent 48 record 48 WORKING_STORAGE offset 22 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IC237A 53 FILLER level 2 parent 48 record 48 WORKING_STORAGE offset 26 length 94 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 54 REC-SKL-SUB level 1 parent 0 record 54 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IC237A 55 REC-CT level 1 parent 0 record 55 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IC237A 56 DELETE-COUNTER level 1 parent 0 record 56 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IC237A 57 ERROR-COUNTER level 1 parent 0 record 57 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IC237A 58 INSPECT-COUNTER level 1 parent 0 record 58 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IC237A 59 PASS-COUNTER level 1 parent 0 record 59 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IC237A 60 TOTAL-ERROR level 1 parent 0 record 60 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IC237A 61 ERROR-HOLD level 1 parent 0 record 61 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IC237A 62 DUMMY-HOLD level 1 parent 0 record 62 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 63 RECORD-COUNT level 1 parent 0 record 63 WORKING_STORAGE offset 0 length 5 DISPLAY NUMERIC digits 5 scale 0 picture "99999"
+item IC237A 64 ANSI-REFERENCE level 1 parent 0 record 64 WORKING_STORAGE offset 0 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 65 CCVS-H-1 level 1 parent 0 record 65 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 66 FILLER level 2 parent 65 record 65 WORKING_STORAGE offset 0 length 39 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 67 FILLER level 2 parent 65 record 65 WORKING_STORAGE offset 39 length 42 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 68 FILLER level 2 parent 65 record 65 WORKING_STORAGE offset 81 length 39 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 69 CCVS-H-2A level 1 parent 0 record 69 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 70 FILLER level 2 parent 69 record 69 WORKING_STORAGE offset 0 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 71 FILLER level 2 parent 69 record 69 WORKING_STORAGE offset 40 length 7 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXX"
+item IC237A 72 FILLER level 2 parent 69 record 69 WORKING_STORAGE offset 47 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IC237A 73 FILLER level 2 parent 69 record 69 WORKING_STORAGE offset 51 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 74 FILLER level 2 parent 69 record 69 WORKING_STORAGE offset 79 length 41 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 75 CCVS-H-2B level 1 parent 0 record 75 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 76 FILLER level 2 parent 75 record 75 WORKING_STORAGE offset 0 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item IC237A 77 TEST-ID level 2 parent 75 record 75 WORKING_STORAGE offset 15 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item IC237A 78 FILLER level 2 parent 75 record 75 WORKING_STORAGE offset 24 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IC237A 79 FILLER level 2 parent 75 record 75 WORKING_STORAGE offset 28 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item IC237A 80 FILLER level 2 parent 75 record 75 WORKING_STORAGE offset 40 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 81 FILLER level 2 parent 75 record 75 WORKING_STORAGE offset 62 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 82 CCVS-H-3 level 1 parent 0 record 82 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 83 FILLER level 2 parent 82 record 82 WORKING_STORAGE offset 0 length 34 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 84 FILLER level 2 parent 82 record 82 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 85 FILLER level 2 parent 82 record 82 WORKING_STORAGE offset 92 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 86 CCVS-E-1 level 1 parent 0 record 86 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 87 FILLER level 2 parent 86 record 86 WORKING_STORAGE offset 0 length 52 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 88 FILLER level 2 parent 86 record 86 WORKING_STORAGE offset 52 length 14 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXX"
+item IC237A 89 ID-AGAIN level 2 parent 86 record 86 WORKING_STORAGE offset 66 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item IC237A 90 FILLER level 2 parent 86 record 86 WORKING_STORAGE offset 75 length 45 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 91 CCVS-E-2 level 1 parent 0 record 91 WORKING_STORAGE offset 0 length 100 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 92 FILLER level 2 parent 91 record 91 WORKING_STORAGE offset 0 length 31 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 93 FILLER level 2 parent 91 record 91 WORKING_STORAGE offset 31 length 21 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXX"
+item IC237A 94 CCVS-E-2-2 level 2 parent 91 record 91 WORKING_STORAGE offset 52 length 48 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 95 ERROR-TOTAL level 3 parent 94 record 91 WORKING_STORAGE offset 52 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item IC237A 96 FILLER level 3 parent 94 record 91 WORKING_STORAGE offset 55 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IC237A 97 ENDER-DESC level 3 parent 94 record 91 WORKING_STORAGE offset 56 length 44 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 98 CCVS-E-3 level 1 parent 0 record 98 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 99 FILLER level 2 parent 98 record 98 WORKING_STORAGE offset 0 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 100 FILLER level 2 parent 98 record 98 WORKING_STORAGE offset 22 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item IC237A 101 FILLER level 2 parent 98 record 98 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 102 FILLER level 2 parent 98 record 98 WORKING_STORAGE offset 92 length 13 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXX"
+item IC237A 103 FILLER level 2 parent 98 record 98 WORKING_STORAGE offset 105 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item IC237A 104 CCVS-E-4 level 1 parent 0 record 104 WORKING_STORAGE offset 0 length 50 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 105 CCVS-E-4-1 level 2 parent 104 record 104 WORKING_STORAGE offset 0 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item IC237A 106 FILLER level 2 parent 104 record 104 WORKING_STORAGE offset 3 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IC237A 107 CCVS-E-4-2 level 2 parent 104 record 104 WORKING_STORAGE offset 7 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item IC237A 108 FILLER level 2 parent 104 record 104 WORKING_STORAGE offset 10 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 109 XXINFO level 1 parent 0 record 109 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 110 FILLER level 2 parent 109 record 109 WORKING_STORAGE offset 0 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item IC237A 111 INFO-TEXT level 2 parent 109 record 109 WORKING_STORAGE offset 19 length 53 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 112 FILLER level 4 parent 111 record 109 WORKING_STORAGE offset 19 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item IC237A 113 XXCOMPUTED level 4 parent 111 record 109 WORKING_STORAGE offset 27 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IC237A 114 FILLER level 4 parent 111 record 109 WORKING_STORAGE offset 47 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item IC237A 115 XXCORRECT level 4 parent 111 record 109 WORKING_STORAGE offset 52 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IC237A 116 INF-ANSI-REFERENCE level 2 parent 109 record 109 WORKING_STORAGE offset 72 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 117 HYPHEN-LINE level 1 parent 0 record 117 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IC237A 118 FILLER level 2 parent 117 record 117 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IC237A 119 FILLER level 2 parent 117 record 117 WORKING_STORAGE offset 1 length 65 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 120 FILLER level 2 parent 117 record 117 WORKING_STORAGE offset 66 length 54 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IC237A 121 CCVS-PGM-ID level 1 parent 0 record 121 WORKING_STORAGE offset 0 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+redefines IC237A 23 22
+redefines IC237A 24 22
+redefines IC237A 25 22
+redefines IC237A 26 22
+redefines IC237A 27 22
+redefines IC237A 36 35
+redefines IC237A 37 35
+redefines IC237A 38 35
+redefines IC237A 39 35
+redefines IC237A 40 35
+value IC237A 3 ZERO
+value IC237A 4 ZERO
+value IC237A 5 ZERO
+value IC237A 7 SPACE
+value IC237A 8 SPACE
+value IC237A 9 SPACE
+value IC237A 10 SPACE
+value IC237A 11 SPACE
+value IC237A 13 SPACE
+value IC237A 14 SPACE
+value IC237A 15 ZERO
+value IC237A 16 SPACE
+value IC237A 19 SPACE
+value IC237A 20 " COMPUTED="
+value IC237A 22 SPACE
+value IC237A 30 SPACE
+value IC237A 32 SPACE
+value IC237A 33 " CORRECT ="
+value IC237A 35 SPACE
+value IC237A 43 SPACE
+value IC237A 44 SPACE
+value IC237A 46 " FEATURE PASS PARAGRAPH-NAME REMARKS"
+value IC237A 47 SPACE
+value IC237A 49 SPACE
+value IC237A 50 "TESTED"
+value IC237A 51 SPACE
+value IC237A 52 "FAIL"
+value IC237A 53 SPACE
+value IC237A 54 ZERO
+value IC237A 55 ZERO
+value IC237A 56 ZERO
+value IC237A 57 ZERO
+value IC237A 58 ZERO
+value IC237A 59 ZERO
+value IC237A 60 ZERO
+value IC237A 61 ZERO
+value IC237A 62 SPACE
+value IC237A 63 ZERO
+value IC237A 64 SPACES
+value IC237A 66 SPACES
+value IC237A 67 "OFFICIAL COBOL COMPILER VALIDATION SYSTEM"
+value IC237A 68 SPACES
+value IC237A 70 SPACE
+value IC237A 71 "CCVS85 "
+value IC237A 72 "4.2 "
+value IC237A 73 " COPY - NOT FOR DISTRIBUTION"
+value IC237A 74 SPACE
+value IC237A 76 "TEST RESULT OF "
+value IC237A 78 " IN "
+value IC237A 79 " HIGH "
+value IC237A 80 " LEVEL VALIDATION FOR "
+value IC237A 81 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value IC237A 83 " FOR OFFICIAL USE ONLY "
+value IC237A 84 "COBOL 85 VERSION 4.2, Apr 1993 SSVG "
+value IC237A 85 " COPYRIGHT 1985 "
+value IC237A 87 SPACE
+value IC237A 88 "END OF TEST- "
+value IC237A 90 SPACES
+value IC237A 92 SPACE
+value IC237A 93 SPACE
+value IC237A 95 SPACE
+value IC237A 96 SPACE
+value IC237A 97 "ERRORS ENCOUNTERED"
+value IC237A 99 " FOR OFFICIAL USE ONLY"
+value IC237A 100 SPACE
+value IC237A 101 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value IC237A 102 SPACE
+value IC237A 103 " COPYRIGHT 1985"
+value IC237A 105 SPACE
+value IC237A 106 " OF "
+value IC237A 107 SPACE
+value IC237A 108 " TESTS WERE EXECUTED SUCCESSFULLY"
+value IC237A 110 "*** INFORMATION ***"
+value IC237A 112 SPACE
+value IC237A 114 SPACE
+value IC237A 118 SPACE
+value IC237A 119 "*****************************************************************"
+value IC237A 120 "******************************************************"
+value IC237A 121 "IC237A"
+file IC237A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
+paragraph IC237A 0 "" ""
+paragraph IC237A 1 "OPEN-FILES" "CCVS1"
+paragraph IC237A 2 "CLOSE-FILES" "CCVS1"
+paragraph IC237A 3 "TERMINATE-CCVS" "CCVS1"
+paragraph IC237A 4 "INSPT" "CCVS1"
+paragraph IC237A 5 "PASS" "CCVS1"
+paragraph IC237A 6 "FAIL" "CCVS1"
+paragraph IC237A 7 "DE-LETE" "CCVS1"
+paragraph IC237A 8 "PRINT-DETAIL" "CCVS1"
+paragraph IC237A 9 "HEAD-ROUTINE" "CCVS1"
+paragraph IC237A 10 "COLUMN-NAMES-ROUTINE" "CCVS1"
+paragraph IC237A 11 "END-ROUTINE" "CCVS1"
+paragraph IC237A 12 "END-RTN-EXIT" "CCVS1"
+paragraph IC237A 13 "END-ROUTINE-1" "CCVS1"
+paragraph IC237A 14 "END-ROUTINE-12" "CCVS1"
+paragraph IC237A 15 "END-ROUTINE-13" "CCVS1"
+paragraph IC237A 16 "WRITE-LINE" "CCVS1"
+paragraph IC237A 17 "WRT-LN" "CCVS1"
+paragraph IC237A 18 "BLANK-LINE-PRINT" "CCVS1"
+paragraph IC237A 19 "FAIL-ROUTINE" "CCVS1"
+paragraph IC237A 20 "FAIL-ROUTINE-WRITE" "CCVS1"
+paragraph IC237A 21 "FAIL-ROUTINE-EX" "CCVS1"
+paragraph IC237A 22 "BAIL-OUT" "CCVS1"
+paragraph IC237A 23 "BAIL-OUT-WRITE" "CCVS1"
+paragraph IC237A 24 "BAIL-OUT-EX" "CCVS1"
+paragraph IC237A 25 "CCVS1-EXIT" "CCVS1"
+paragraph IC237A 26 "CALL-INIT-1" "SECT-IC237A-001"
+paragraph IC237A 27 "CALL-TEST-0" "SECT-IC237A-001"
+paragraph IC237A 28 "CALL-TEST-1" "SECT-IC237A-001"
+paragraph IC237A 29 "CCVS-999999" "CCVS-EXIT"
+falls IC237A 0 1
+falls IC237A 2 3
+falls IC237A 4 5
+falls IC237A 5 6
+falls IC237A 6 7
+falls IC237A 7 8
+falls IC237A 8 9
+falls IC237A 9 10
+falls IC237A 10 11
+falls IC237A 11 12
+falls IC237A 12 13
+falls IC237A 13 14
+falls IC237A 14 15
+falls IC237A 15 16
+falls IC237A 16 17
+falls IC237A 17 18
+falls IC237A 18 19
+falls IC237A 20 21
+falls IC237A 21 22
+falls IC237A 22 23
+falls IC237A 23 24
+falls IC237A 24 25
+falls IC237A 25 26
+falls IC237A 26 27
+falls IC237A 27 28
+falls IC237A 28 29
+edge IC237A PERFORM 1 9 10
+edge IC237A GO_TO 1 25 25
+edge IC237A PERFORM 2 11 15
+edge IC237A PERFORM 8 16 16
+edge IC237A PERFORM 8 16 16
+edge IC237A PERFORM 8 19 21
+edge IC237A PERFORM 8 22 24
+edge IC237A PERFORM 9 16 16
+edge IC237A PERFORM 9 16 16
+edge IC237A PERFORM 9 16 16
+edge IC237A PERFORM 9 16 16
+edge IC237A PERFORM 10 16 16
+edge IC237A PERFORM 10 16 16
+edge IC237A PERFORM 10 16 16
+edge IC237A PERFORM 11 16 16
+edge IC237A PERFORM 12 16 16
+edge IC237A PERFORM 13 16 16
+edge IC237A PERFORM 14 16 16
+edge IC237A PERFORM 15 16 16
+edge IC237A PERFORM 15 16 16
+edge IC237A PERFORM 15 16 16
+edge IC237A PERFORM 16 17 17
+edge IC237A PERFORM 16 17 17
+edge IC237A PERFORM 16 17 17
+edge IC237A PERFORM 16 17 17
+edge IC237A PERFORM 18 17 17
+edge IC237A GO_TO 19 20 20
+edge IC237A GO_TO 19 20 20
+edge IC237A PERFORM 19 16 16
+edge IC237A GO_TO 19 21 21
+edge IC237A PERFORM 20 16 16
+edge IC237A PERFORM 20 16 16
+edge IC237A GO_TO 22 23 23
+edge IC237A GO_TO 22 24 24
+edge IC237A PERFORM 23 16 16
+edge IC237A PERFORM 28 5 5
+edge IC237A PERFORM 28 8 8
+edge IC237A PERFORM 28 6 6
+edge IC237A PERFORM 28 8 8
+edge IC237A GO_TO 29 2 2
+statement IC237A 1.0 OPEN open-output=file:PRINT-FILE
+statement IC237A 1.1 MOVE move-to-sending-area=#121 move-to-statement=#77
+statement IC237A 1.2 MOVE move-to-sending-area=#121 move-to-statement=#89
+statement IC237A 1.3 MOVE move-to-sending-area=SPACE move-to-statement=#6
+statement IC237A 1.4 PERFORM perform-procedure-statement=@9..9 perform-procedure-statement=@10..10
+statement IC237A 1.5 GO TO go-to-statement-simple=@25..25
+statement IC237A 2.0 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=@15..15
+statement IC237A 2.1 CLOSE close-file=file:PRINT-FILE
+statement IC237A 3.0 STOP
+statement IC237A 4.0 MOVE move-to-sending-area="INSPT" move-to-statement=#10
+statement IC237A 4.1 ADD add-from=1 add-to=#58
+statement IC237A 5.0 MOVE move-to-sending-area="PASS " move-to-statement=#10
+statement IC237A 5.1 ADD add-from=1 add-to=#59
+statement IC237A 6.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#10
+statement IC237A 6.1 ADD add-from=1 add-to=#57
+statement IC237A 7.0 MOVE move-to-sending-area="*****" move-to-statement=#10
+statement IC237A 7.1 ADD add-from=1 add-to=#56
+statement IC237A 7.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=#17
+statement IC237A 8.0 IF if-statement=(NOT EQUAL TO #55 ZERO)
+statement IC237A 8.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#14
+statement IC237A 8.0.if-then.1 MOVE move-to-sending-area=#55 move-to-statement=#15
+statement IC237A 8.1 MOVE move-to-sending-area=#6 move-to-statement=#1
+statement IC237A 8.2 PERFORM perform-procedure-statement=@16..16
+statement IC237A 8.3 IF if-statement=(EQUAL TO #10 "FAIL*")
+statement IC237A 8.3.if-then.0 PERFORM perform-procedure-statement=@16..16
+statement IC237A 8.3.if-then.1 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=@21..21
+statement IC237A 8.3.if-else.0 PERFORM perform-procedure-statement=@22..22 perform-procedure-statement=@24..24
+statement IC237A 8.4 MOVE move-to-sending-area=SPACE move-to-statement=#10
+statement IC237A 8.5 MOVE move-to-sending-area=SPACE move-to-statement=#21
+statement IC237A 8.6 MOVE move-to-sending-area=SPACE move-to-statement=#34
+statement IC237A 8.7 IF if-statement=(EQUAL TO #55 ZERO)
+statement IC237A 8.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#12
+statement IC237A 8.8 MOVE move-to-sending-area=SPACE move-to-statement=#17
+statement IC237A 9.0 MOVE move-to-sending-area=#65 move-to-statement=#2
+statement IC237A 9.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IC237A 9.2 MOVE move-to-sending-area=#69 move-to-statement=#2
+statement IC237A 9.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IC237A 9.4 MOVE move-to-sending-area=#75 move-to-statement=#2
+statement IC237A 9.5 PERFORM perform-procedure-statement=@16..16 perform-times=3
+statement IC237A 9.6 MOVE move-to-sending-area=#82 move-to-statement=#2
+statement IC237A 9.7 PERFORM perform-procedure-statement=@16..16 perform-times=3
+statement IC237A 10.0 MOVE move-to-sending-area=#45 move-to-statement=#2
+statement IC237A 10.1 PERFORM perform-procedure-statement=@16..16
+statement IC237A 10.2 MOVE move-to-sending-area=#48 move-to-statement=#2
+statement IC237A 10.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IC237A 10.4 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement IC237A 10.5 PERFORM perform-procedure-statement=@16..16
+statement IC237A 11.0 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement IC237A 11.1 PERFORM perform-procedure-statement=@16..16 perform-times=5
+statement IC237A 12.0 MOVE move-to-sending-area=#86 move-to-statement=#2
+statement IC237A 12.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IC237A 13.0 ADD add-from=#57 add-to=#61
+statement IC237A 13.1 ADD add-from=#58 add-to=#61
+statement IC237A 13.2 ADD add-from=#56 add-to=#61
+statement IC237A 13.3 ADD add-from=#59 add-to=#61
+statement IC237A 13.4 MOVE move-to-sending-area=#59 move-to-statement=#105
+statement IC237A 13.5 MOVE move-to-sending-area=#61 move-to-statement=#107
+statement IC237A 13.6 MOVE move-to-sending-area=#104 move-to-statement=#94
+statement IC237A 13.7 MOVE move-to-sending-area=#91 move-to-statement=#2
+statement IC237A 13.8 PERFORM perform-procedure-statement=@16..16
+statement IC237A 14.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#97
+statement IC237A 14.1 IF if-statement=(IS EQUAL TO #57 ZERO)
+statement IC237A 14.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#95
+statement IC237A 14.1.if-else.0 MOVE move-to-sending-area=#57 move-to-statement=#95
+statement IC237A 14.2 MOVE move-to-sending-area=#91 move-to-statement=#2
+statement IC237A 14.3 PERFORM perform-procedure-statement=@16..16
+statement IC237A 15.0 IF if-statement=(IS EQUAL TO #56 ZERO)
+statement IC237A 15.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#95
+statement IC237A 15.0.if-else.0 MOVE move-to-sending-area=#56 move-to-statement=#95
+statement IC237A 15.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#97
+statement IC237A 15.2 MOVE move-to-sending-area=#91 move-to-statement=#2
+statement IC237A 15.3 PERFORM perform-procedure-statement=@16..16
+statement IC237A 15.4 IF if-statement=(EQUAL TO #58 ZERO)
+statement IC237A 15.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#95
+statement IC237A 15.4.if-else.0 MOVE move-to-sending-area=#58 move-to-statement=#95
+statement IC237A 15.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#97
+statement IC237A 15.6 MOVE move-to-sending-area=#91 move-to-statement=#2
+statement IC237A 15.7 PERFORM perform-procedure-statement=@16..16
+statement IC237A 15.8 MOVE move-to-sending-area=#98 move-to-statement=#2
+statement IC237A 15.9 PERFORM perform-procedure-statement=@16..16
+statement IC237A 16.0 ADD add-from=1 add-to=#63
+statement IC237A 16.1 IF if-statement=(GREATER #63 50)
+statement IC237A 16.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#62
+statement IC237A 16.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IC237A 16.1.if-then.2 WRITE record-name=#2
+statement IC237A 16.1.if-then.3 MOVE move-to-sending-area=#45 move-to-statement=#2
+statement IC237A 16.1.if-then.4 PERFORM perform-procedure-statement=@17..17
+statement IC237A 16.1.if-then.5 MOVE move-to-sending-area=#48 move-to-statement=#2
+statement IC237A 16.1.if-then.6 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement IC237A 16.1.if-then.7 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement IC237A 16.1.if-then.8 PERFORM perform-procedure-statement=@17..17
+statement IC237A 16.1.if-then.9 MOVE move-to-sending-area=#62 move-to-statement=#2
+statement IC237A 16.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=#63
+statement IC237A 16.2 PERFORM perform-procedure-statement=@17..17
+statement IC237A 17.0 WRITE record-name=#2 write-advancing-lines=1
+statement IC237A 17.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IC237A 18.0 PERFORM perform-procedure-statement=@17..17
+statement IC237A 19.0 IF if-statement=(NOT EQUAL TO #21 SPACE)
+statement IC237A 19.0.if-then.0 GO TO go-to-statement-simple=@20..20
+statement IC237A 19.1 IF if-statement=(NOT EQUAL TO #34 SPACE)
+statement IC237A 19.1.if-then.0 GO TO go-to-statement-simple=@20..20
+statement IC237A 19.2 MOVE move-to-sending-area=#64 move-to-statement=#116
+statement IC237A 19.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#111
+statement IC237A 19.4 MOVE move-to-sending-area=#109 move-to-statement=#2
+statement IC237A 19.5 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IC237A 19.6 MOVE move-to-sending-area=SPACE move-to-statement=#116
+statement IC237A 19.7 GO TO go-to-statement-simple=@21..21
+statement IC237A 20.0 MOVE move-to-sending-area=#18 move-to-statement=#1
+statement IC237A 20.1 PERFORM perform-procedure-statement=@16..16
+statement IC237A 20.2 MOVE move-to-sending-area=#64 move-to-statement=#44
+statement IC237A 20.3 MOVE move-to-sending-area=#31 move-to-statement=#1
+statement IC237A 20.4 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IC237A 20.5 MOVE move-to-sending-area=SPACE move-to-statement=#44
+statement IC237A 21.0 EXIT
+statement IC237A 22.0 IF if-statement=(NOT EQUAL TO #22 SPACE)
+statement IC237A 22.0.if-then.0 GO TO go-to-statement-simple=@23..23
+statement IC237A 22.1 IF if-statement=(EQUAL TO #35 SPACE)
+statement IC237A 22.1.if-then.0 GO TO go-to-statement-simple=@24..24
+statement IC237A 23.0 MOVE move-to-sending-area=#35 move-to-statement=#115
+statement IC237A 23.1 MOVE move-to-sending-area=#22 move-to-statement=#113
+statement IC237A 23.2 MOVE move-to-sending-area=#64 move-to-statement=#116
+statement IC237A 23.3 MOVE move-to-sending-area=#109 move-to-statement=#2
+statement IC237A 23.4 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IC237A 23.5 MOVE move-to-sending-area=SPACE move-to-statement=#116
+statement IC237A 24.0 EXIT
+statement IC237A 25.0 EXIT
+statement IC237A 26.0 MOVE move-to-sending-area="CALL-TEST-1" move-to-statement=#12
+statement IC237A 26.1 MOVE move-to-sending-area=1 move-to-statement=#3
+statement IC237A 26.2 MOVE move-to-sending-area=3 move-to-statement=#4
+statement IC237A 26.3 MOVE move-to-sending-area=5 move-to-statement=#5
+statement IC237A 27.0 CALL call-statement="IC237A-1" call-by-reference=#3 call-by-reference=#4 call-by-reference=#5
+statement IC237A 28.0 IF if-statement=(= #5 #3)
+statement IC237A 28.0.if-then.0 PERFORM perform-procedure-statement=@5..5
+statement IC237A 28.0.if-then.1 PERFORM perform-procedure-statement=@8..8
+statement IC237A 28.0.if-else.0 MOVE move-to-sending-area=1 move-to-statement=#36
+statement IC237A 28.0.if-else.1 MOVE move-to-sending-area=#3 move-to-statement=#23
+statement IC237A 28.0.if-else.2 MOVE move-to-sending-area="WRONG VALUE RETURNED FROM CALL TO IC237A-1" move-to-statement=#17
+statement IC237A 28.0.if-else.3 PERFORM perform-procedure-statement=@6..6
+statement IC237A 28.0.if-else.4 PERFORM perform-procedure-statement=@8..8
+statement IC237A 29.0 GO TO go-to-statement-simple=@2..2
+call IC237A "IC237A-1" using [REFERENCE:#3, REFERENCE:#4, REFERENCE:#5] returning -
+using IC237A [] 0

@@ -1,0 +1,538 @@
+profile IX111A sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+item IX111A 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 3 IX-NOPR1-F-G-240 level 1 parent 0 record 3 FILE offset 0 length 240 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 4 IX-NOP-REC-120 level 5 parent 3 record 3 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 5 IX-NOP-REC-120-240 level 5 parent 3 record 3 FILE offset 120 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 6 FILLER level 10 parent 5 record 3 FILE offset 120 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item IX111A 7 IX-NOP-KEY level 10 parent 5 record 3 FILE offset 128 length 29 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 8 FILLER level 10 parent 5 record 3 FILE offset 157 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item IX111A 9 IX-NOP-ALTER-KEY level 10 parent 5 record 3 FILE offset 166 length 29 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 10 FILLER level 10 parent 5 record 3 FILE offset 195 length 45 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 11 IX-NOP-STATUS level 1 parent 0 record 11 WORKING_STORAGE offset 0 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
+item IX111A 12 TEST-RESULTS level 1 parent 0 record 12 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 13 FILLER level 2 parent 12 record 12 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IX111A 14 FEATURE level 2 parent 12 record 12 WORKING_STORAGE offset 1 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IX111A 15 FILLER level 2 parent 12 record 12 WORKING_STORAGE offset 21 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IX111A 16 P-OR-F level 2 parent 12 record 12 WORKING_STORAGE offset 22 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item IX111A 17 FILLER level 2 parent 12 record 12 WORKING_STORAGE offset 27 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IX111A 18 PAR-NAME level 2 parent 12 record 12 WORKING_STORAGE offset 28 length 22 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 19 FILLER level 3 parent 18 record 12 WORKING_STORAGE offset 28 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item IX111A 20 PARDOT-X level 3 parent 18 record 12 WORKING_STORAGE offset 47 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IX111A 21 DOTVALUE level 3 parent 18 record 12 WORKING_STORAGE offset 48 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IX111A 22 FILLER level 2 parent 12 record 12 WORKING_STORAGE offset 50 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item IX111A 23 RE-MARK level 2 parent 12 record 12 WORKING_STORAGE offset 58 length 61 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 24 TEST-COMPUTED level 1 parent 0 record 24 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 25 FILLER level 2 parent 24 record 24 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 26 FILLER level 2 parent 24 record 24 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item IX111A 27 COMPUTED-X level 2 parent 24 record 24 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 28 COMPUTED-A level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IX111A 29 COMPUTED-N level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item IX111A 30 COMPUTED-0V18 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item IX111A 31 COMPUTED-4V14 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item IX111A 32 COMPUTED-14V4 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item IX111A 33 CM-18V0 level 3 parent 27 record 24 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 34 COMPUTED-18V0 level 4 parent 33 record 24 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item IX111A 35 FILLER level 4 parent 33 record 24 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IX111A 36 FILLER level 3 parent 27 record 24 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 37 TEST-CORRECT level 1 parent 0 record 37 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 38 FILLER level 2 parent 37 record 37 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 39 FILLER level 2 parent 37 record 37 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item IX111A 40 CORRECT-X level 2 parent 37 record 37 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 41 CORRECT-A level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IX111A 42 CORRECT-N level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item IX111A 43 CORRECT-0V18 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item IX111A 44 CORRECT-4V14 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item IX111A 45 CORRECT-14V4 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item IX111A 46 CR-18V0 level 3 parent 40 record 37 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 47 CORRECT-18V0 level 4 parent 46 record 37 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item IX111A 48 FILLER level 4 parent 46 record 37 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IX111A 49 FILLER level 3 parent 40 record 37 WORKING_STORAGE offset 67 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
+item IX111A 50 COR-ANSI-REFERENCE level 3 parent 40 record 37 WORKING_STORAGE offset 69 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 51 CCVS-C-1 level 1 parent 0 record 51 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 52 FILLER level 2 parent 51 record 51 WORKING_STORAGE offset 0 length 99 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 53 FILLER level 2 parent 51 record 51 WORKING_STORAGE offset 99 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IX111A 54 CCVS-C-2 level 1 parent 0 record 54 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 55 FILLER level 2 parent 54 record 54 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IX111A 56 FILLER level 2 parent 54 record 54 WORKING_STORAGE offset 1 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item IX111A 57 FILLER level 2 parent 54 record 54 WORKING_STORAGE offset 7 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item IX111A 58 FILLER level 2 parent 54 record 54 WORKING_STORAGE offset 22 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IX111A 59 FILLER level 2 parent 54 record 54 WORKING_STORAGE offset 26 length 94 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 60 REC-SKL-SUB level 1 parent 0 record 60 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IX111A 61 REC-CT level 1 parent 0 record 61 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IX111A 62 DELETE-COUNTER level 1 parent 0 record 62 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IX111A 63 ERROR-COUNTER level 1 parent 0 record 63 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IX111A 64 INSPECT-COUNTER level 1 parent 0 record 64 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IX111A 65 PASS-COUNTER level 1 parent 0 record 65 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IX111A 66 TOTAL-ERROR level 1 parent 0 record 66 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IX111A 67 ERROR-HOLD level 1 parent 0 record 67 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IX111A 68 DUMMY-HOLD level 1 parent 0 record 68 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 69 RECORD-COUNT level 1 parent 0 record 69 WORKING_STORAGE offset 0 length 5 DISPLAY NUMERIC digits 5 scale 0 picture "99999"
+item IX111A 70 ANSI-REFERENCE level 1 parent 0 record 70 WORKING_STORAGE offset 0 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 71 CCVS-H-1 level 1 parent 0 record 71 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 72 FILLER level 2 parent 71 record 71 WORKING_STORAGE offset 0 length 39 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 73 FILLER level 2 parent 71 record 71 WORKING_STORAGE offset 39 length 42 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 74 FILLER level 2 parent 71 record 71 WORKING_STORAGE offset 81 length 39 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 75 CCVS-H-2A level 1 parent 0 record 75 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 76 FILLER level 2 parent 75 record 75 WORKING_STORAGE offset 0 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 77 FILLER level 2 parent 75 record 75 WORKING_STORAGE offset 40 length 7 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXX"
+item IX111A 78 FILLER level 2 parent 75 record 75 WORKING_STORAGE offset 47 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IX111A 79 FILLER level 2 parent 75 record 75 WORKING_STORAGE offset 51 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 80 FILLER level 2 parent 75 record 75 WORKING_STORAGE offset 79 length 41 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 81 CCVS-H-2B level 1 parent 0 record 81 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 82 FILLER level 2 parent 81 record 81 WORKING_STORAGE offset 0 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item IX111A 83 TEST-ID level 2 parent 81 record 81 WORKING_STORAGE offset 15 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item IX111A 84 FILLER level 2 parent 81 record 81 WORKING_STORAGE offset 24 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IX111A 85 FILLER level 2 parent 81 record 81 WORKING_STORAGE offset 28 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item IX111A 86 FILLER level 2 parent 81 record 81 WORKING_STORAGE offset 40 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 87 FILLER level 2 parent 81 record 81 WORKING_STORAGE offset 62 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 88 CCVS-H-3 level 1 parent 0 record 88 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 89 FILLER level 2 parent 88 record 88 WORKING_STORAGE offset 0 length 34 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 90 FILLER level 2 parent 88 record 88 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 91 FILLER level 2 parent 88 record 88 WORKING_STORAGE offset 92 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 92 CCVS-E-1 level 1 parent 0 record 92 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 93 FILLER level 2 parent 92 record 92 WORKING_STORAGE offset 0 length 52 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 94 FILLER level 2 parent 92 record 92 WORKING_STORAGE offset 52 length 14 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXX"
+item IX111A 95 ID-AGAIN level 2 parent 92 record 92 WORKING_STORAGE offset 66 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item IX111A 96 FILLER level 2 parent 92 record 92 WORKING_STORAGE offset 75 length 45 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 97 CCVS-E-2 level 1 parent 0 record 97 WORKING_STORAGE offset 0 length 100 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 98 FILLER level 2 parent 97 record 97 WORKING_STORAGE offset 0 length 31 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 99 FILLER level 2 parent 97 record 97 WORKING_STORAGE offset 31 length 21 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXX"
+item IX111A 100 CCVS-E-2-2 level 2 parent 97 record 97 WORKING_STORAGE offset 52 length 48 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 101 ERROR-TOTAL level 3 parent 100 record 97 WORKING_STORAGE offset 52 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item IX111A 102 FILLER level 3 parent 100 record 97 WORKING_STORAGE offset 55 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IX111A 103 ENDER-DESC level 3 parent 100 record 97 WORKING_STORAGE offset 56 length 44 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 104 CCVS-E-3 level 1 parent 0 record 104 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 105 FILLER level 2 parent 104 record 104 WORKING_STORAGE offset 0 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 106 FILLER level 2 parent 104 record 104 WORKING_STORAGE offset 22 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item IX111A 107 FILLER level 2 parent 104 record 104 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 108 FILLER level 2 parent 104 record 104 WORKING_STORAGE offset 92 length 13 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXX"
+item IX111A 109 FILLER level 2 parent 104 record 104 WORKING_STORAGE offset 105 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item IX111A 110 CCVS-E-4 level 1 parent 0 record 110 WORKING_STORAGE offset 0 length 50 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 111 CCVS-E-4-1 level 2 parent 110 record 110 WORKING_STORAGE offset 0 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item IX111A 112 FILLER level 2 parent 110 record 110 WORKING_STORAGE offset 3 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IX111A 113 CCVS-E-4-2 level 2 parent 110 record 110 WORKING_STORAGE offset 7 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item IX111A 114 FILLER level 2 parent 110 record 110 WORKING_STORAGE offset 10 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 115 XXINFO level 1 parent 0 record 115 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 116 FILLER level 2 parent 115 record 115 WORKING_STORAGE offset 0 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item IX111A 117 INFO-TEXT level 2 parent 115 record 115 WORKING_STORAGE offset 19 length 53 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 118 FILLER level 4 parent 117 record 115 WORKING_STORAGE offset 19 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item IX111A 119 XXCOMPUTED level 4 parent 117 record 115 WORKING_STORAGE offset 27 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IX111A 120 FILLER level 4 parent 117 record 115 WORKING_STORAGE offset 47 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item IX111A 121 XXCORRECT level 4 parent 117 record 115 WORKING_STORAGE offset 52 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IX111A 122 INF-ANSI-REFERENCE level 2 parent 115 record 115 WORKING_STORAGE offset 72 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 123 HYPHEN-LINE level 1 parent 0 record 123 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IX111A 124 FILLER level 2 parent 123 record 123 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IX111A 125 FILLER level 2 parent 123 record 123 WORKING_STORAGE offset 1 length 65 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 126 FILLER level 2 parent 123 record 123 WORKING_STORAGE offset 66 length 54 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IX111A 127 CCVS-PGM-ID level 1 parent 0 record 127 WORKING_STORAGE offset 0 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+redefines IX111A 29 28
+redefines IX111A 30 28
+redefines IX111A 31 28
+redefines IX111A 32 28
+redefines IX111A 33 28
+redefines IX111A 42 41
+redefines IX111A 43 41
+redefines IX111A 44 41
+redefines IX111A 45 41
+redefines IX111A 46 41
+value IX111A 13 SPACE
+value IX111A 14 SPACE
+value IX111A 15 SPACE
+value IX111A 16 SPACE
+value IX111A 17 SPACE
+value IX111A 19 SPACE
+value IX111A 20 SPACE
+value IX111A 21 ZERO
+value IX111A 22 SPACE
+value IX111A 25 SPACE
+value IX111A 26 " COMPUTED="
+value IX111A 28 SPACE
+value IX111A 36 SPACE
+value IX111A 38 SPACE
+value IX111A 39 " CORRECT ="
+value IX111A 41 SPACE
+value IX111A 49 SPACE
+value IX111A 50 SPACE
+value IX111A 52 " FEATURE PASS PARAGRAPH-NAME REMARKS"
+value IX111A 53 SPACE
+value IX111A 55 SPACE
+value IX111A 56 "TESTED"
+value IX111A 57 SPACE
+value IX111A 58 "FAIL"
+value IX111A 59 SPACE
+value IX111A 60 ZERO
+value IX111A 61 ZERO
+value IX111A 62 ZERO
+value IX111A 63 ZERO
+value IX111A 64 ZERO
+value IX111A 65 ZERO
+value IX111A 66 ZERO
+value IX111A 67 ZERO
+value IX111A 68 SPACE
+value IX111A 69 ZERO
+value IX111A 70 SPACES
+value IX111A 72 SPACES
+value IX111A 73 "OFFICIAL COBOL COMPILER VALIDATION SYSTEM"
+value IX111A 74 SPACES
+value IX111A 76 SPACE
+value IX111A 77 "CCVS85 "
+value IX111A 78 "4.2 "
+value IX111A 79 " COPY - NOT FOR DISTRIBUTION"
+value IX111A 80 SPACE
+value IX111A 82 "TEST RESULT OF "
+value IX111A 84 " IN "
+value IX111A 85 " HIGH "
+value IX111A 86 " LEVEL VALIDATION FOR "
+value IX111A 87 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value IX111A 89 " FOR OFFICIAL USE ONLY "
+value IX111A 90 "COBOL 85 VERSION 4.2, Apr 1993 SSVG "
+value IX111A 91 " COPYRIGHT 1985 "
+value IX111A 93 SPACE
+value IX111A 94 "END OF TEST- "
+value IX111A 96 SPACES
+value IX111A 98 SPACE
+value IX111A 99 SPACE
+value IX111A 101 SPACE
+value IX111A 102 SPACE
+value IX111A 103 "ERRORS ENCOUNTERED"
+value IX111A 105 " FOR OFFICIAL USE ONLY"
+value IX111A 106 SPACE
+value IX111A 107 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value IX111A 108 SPACE
+value IX111A 109 " COPYRIGHT 1985"
+value IX111A 111 SPACE
+value IX111A 112 " OF "
+value IX111A 113 SPACE
+value IX111A 114 " TESTS WERE EXECUTED SUCCESSFULLY"
+value IX111A 116 "*** INFORMATION ***"
+value IX111A 118 SPACE
+value IX111A 120 SPACE
+value IX111A 124 SPACE
+value IX111A 125 "*****************************************************************"
+value IX111A 126 "******************************************************"
+value IX111A 127 "IX111A"
+file IX111A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
+file IX111A IX-NOP assign "INDEX2" INDEXED SEQUENTIAL key 7 alternate [] status 11 records [3] 240..240
+paragraph IX111A 0 "INPUT-PROCESS" "SECT-IX111-0001"
+paragraph IX111A 1 "PASS-DECL" "SECT-IX111-0001"
+paragraph IX111A 2 "FAIL-DECL" "SECT-IX111-0001"
+paragraph IX111A 3 "PRINT-DETAIL-DECL" "SECT-IX111-0001"
+paragraph IX111A 4 "WRITE-LINE-DECL" "SECT-IX111-0001"
+paragraph IX111A 5 "WRT-LN-DECL" "SECT-IX111-0001"
+paragraph IX111A 6 "BLANK-LINE-PRINT-DECL" "SECT-IX111-0001"
+paragraph IX111A 7 "FAIL-ROUTINE-DECL" "SECT-IX111-0001"
+paragraph IX111A 8 "FAIL-ROUTINE-WRITE-DECL" "SECT-IX111-0001"
+paragraph IX111A 9 "FAIL-ROUTINE-EX-DECL" "SECT-IX111-0001"
+paragraph IX111A 10 "BAIL-OUT-DECL" "SECT-IX111-0001"
+paragraph IX111A 11 "BAIL-OUT-WRITE-DECL" "SECT-IX111-0001"
+paragraph IX111A 12 "BAIL-OUT-EX-DECL" "SECT-IX111-0001"
+paragraph IX111A 13 "ABNORMAL-TERM-DECL" "SECT-IX111-0001"
+paragraph IX111A 14 "EXIT-DECL" "SECT-IX111-0001"
+paragraph IX111A 15 "OPEN-FILES" "CCVS1"
+paragraph IX111A 16 "CCVS-INIT-EXIT" "CCVS1"
+paragraph IX111A 17 "CLOSE-FILES" "CCVS1"
+paragraph IX111A 18 "TERMINATE-CCVS" "CCVS1"
+paragraph IX111A 19 "HEAD-ROUTINE" "CCVS1"
+paragraph IX111A 20 "COLUMN-NAMES-ROUTINE" "CCVS1"
+paragraph IX111A 21 "END-ROUTINE" "CCVS1"
+paragraph IX111A 22 "END-RTN-EXIT" "CCVS1"
+paragraph IX111A 23 "END-ROUTINE-1" "CCVS1"
+paragraph IX111A 24 "END-ROUTINE-12" "CCVS1"
+paragraph IX111A 25 "END-ROUTINE-13" "CCVS1"
+paragraph IX111A 26 "WRITE-LINE" "CCVS1"
+paragraph IX111A 27 "WRT-LN" "CCVS1"
+paragraph IX111A 28 "BLANK-LINE-PRINT" "CCVS1"
+paragraph IX111A 29 "FAIL-ROUTINE" "CCVS1"
+paragraph IX111A 30 "FAIL-ROUTINE-WRITE" "CCVS1"
+paragraph IX111A 31 "FAIL-ROUTINE-EX" "CCVS1"
+paragraph IX111A 32 "BAIL-OUT" "CCVS1"
+paragraph IX111A 33 "BAIL-OUT-WRITE" "CCVS1"
+paragraph IX111A 34 "BAIL-OUT-EX" "CCVS1"
+paragraph IX111A 35 "CCVS1-EXIT" "CCVS1"
+paragraph IX111A 36 "SEQ-INIT-010" "SECT-IX111A-0003"
+paragraph IX111A 37 "OPN-INIT-GF-01-0" "SECT-IX111A-0003"
+paragraph IX111A 38 "OPN-TEST-GF-01-0" "SECT-IX111A-0003"
+paragraph IX111A 39 "TERMINATE-ROUTINE" "SECT-IX111A-0003"
+paragraph IX111A 40 "CCVS-999999" "CCVS-EXIT"
+falls IX111A 0 1
+falls IX111A 1 2
+falls IX111A 2 3
+falls IX111A 3 4
+falls IX111A 4 5
+falls IX111A 5 6
+falls IX111A 6 7
+falls IX111A 8 9
+falls IX111A 9 10
+falls IX111A 10 11
+falls IX111A 11 12
+falls IX111A 12 13
+falls IX111A 13 14
+falls IX111A 14 15
+falls IX111A 15 16
+falls IX111A 17 18
+falls IX111A 19 20
+falls IX111A 20 21
+falls IX111A 21 22
+falls IX111A 22 23
+falls IX111A 23 24
+falls IX111A 24 25
+falls IX111A 25 26
+falls IX111A 26 27
+falls IX111A 27 28
+falls IX111A 28 29
+falls IX111A 30 31
+falls IX111A 31 32
+falls IX111A 32 33
+falls IX111A 33 34
+falls IX111A 34 35
+falls IX111A 35 36
+falls IX111A 36 37
+falls IX111A 37 38
+falls IX111A 38 39
+falls IX111A 39 40
+edge IX111A PERFORM 0 1 1
+edge IX111A GO_TO 0 13 13
+edge IX111A PERFORM 0 2 2
+edge IX111A GO_TO 0 13 13
+edge IX111A PERFORM 1 3 3
+edge IX111A PERFORM 2 3 3
+edge IX111A PERFORM 3 4 4
+edge IX111A PERFORM 3 4 4
+edge IX111A PERFORM 3 7 9
+edge IX111A PERFORM 3 10 12
+edge IX111A PERFORM 4 5 5
+edge IX111A PERFORM 6 5 5
+edge IX111A GO_TO 7 8 8
+edge IX111A GO_TO 7 8 8
+edge IX111A PERFORM 7 4 4
+edge IX111A GO_TO 7 9 9
+edge IX111A PERFORM 8 4 4
+edge IX111A PERFORM 8 4 4
+edge IX111A GO_TO 10 11 11
+edge IX111A GO_TO 10 12 12
+edge IX111A PERFORM 11 4 4
+edge IX111A PERFORM 13 4 4
+edge IX111A PERFORM 13 4 4
+edge IX111A PERFORM 15 19 20
+edge IX111A GO_TO 16 35 35
+edge IX111A PERFORM 17 21 25
+edge IX111A PERFORM 19 26 26
+edge IX111A PERFORM 19 26 26
+edge IX111A PERFORM 19 26 26
+edge IX111A PERFORM 19 26 26
+edge IX111A PERFORM 20 26 26
+edge IX111A PERFORM 20 26 26
+edge IX111A PERFORM 20 26 26
+edge IX111A PERFORM 21 26 26
+edge IX111A PERFORM 22 26 26
+edge IX111A PERFORM 23 26 26
+edge IX111A PERFORM 24 26 26
+edge IX111A PERFORM 25 26 26
+edge IX111A PERFORM 25 26 26
+edge IX111A PERFORM 25 26 26
+edge IX111A PERFORM 26 27 27
+edge IX111A PERFORM 26 27 27
+edge IX111A PERFORM 26 27 27
+edge IX111A PERFORM 26 27 27
+edge IX111A PERFORM 26 27 27
+edge IX111A PERFORM 26 27 27
+edge IX111A PERFORM 26 27 27
+edge IX111A PERFORM 26 27 27
+edge IX111A PERFORM 28 27 27
+edge IX111A GO_TO 29 30 30
+edge IX111A GO_TO 29 30 30
+edge IX111A PERFORM 29 26 26
+edge IX111A GO_TO 29 31 31
+edge IX111A PERFORM 30 26 26
+edge IX111A PERFORM 30 26 26
+edge IX111A GO_TO 32 33 33
+edge IX111A GO_TO 32 34 34
+edge IX111A PERFORM 33 26 26
+edge IX111A GO_TO 40 17 17
+statement IX111A 0.0 IF if-statement=(= #11 "35")
+statement IX111A 0.0.if-then.0 PERFORM perform-procedure-statement=@1..1
+statement IX111A 0.0.if-then.1 GO TO go-to-statement-simple=@13..13
+statement IX111A 0.0.if-else.0 MOVE move-to-sending-area="35" move-to-statement=#41
+statement IX111A 0.0.if-else.1 MOVE move-to-sending-area=#11 move-to-statement=#28
+statement IX111A 0.0.if-else.2 MOVE move-to-sending-area="STATUS FOR OPEN INPUT OF FILE THAT IS NOT      PRESENT INCORRECT" move-to-statement=#23
+statement IX111A 0.0.if-else.3 MOVE move-to-sending-area="IX-2, FILE STATUS" move-to-statement=#70
+statement IX111A 0.0.if-else.4 PERFORM perform-procedure-statement=@2..2
+statement IX111A 0.0.if-else.5 GO TO go-to-statement-simple=@13..13
+statement IX111A 1.0 MOVE move-to-sending-area="PASS " move-to-statement=#16
+statement IX111A 1.1 ADD add-from=1 add-to=#65
+statement IX111A 1.2 PERFORM perform-procedure-statement=@3..3
+statement IX111A 2.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#16
+statement IX111A 2.1 ADD add-from=1 add-to=#63
+statement IX111A 2.2 PERFORM perform-procedure-statement=@3..3
+statement IX111A 3.0 IF if-statement=(NOT EQUAL TO #61 ZERO)
+statement IX111A 3.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#20
+statement IX111A 3.0.if-then.1 MOVE move-to-sending-area=#61 move-to-statement=#21
+statement IX111A 3.1 MOVE move-to-sending-area=#12 move-to-statement=#1
+statement IX111A 3.2 PERFORM perform-procedure-statement=@4..4
+statement IX111A 3.3 IF if-statement=(EQUAL TO #16 "FAIL*")
+statement IX111A 3.3.if-then.0 PERFORM perform-procedure-statement=@4..4
+statement IX111A 3.3.if-then.1 PERFORM perform-procedure-statement=@7..7 perform-procedure-statement=@9..9
+statement IX111A 3.3.if-else.0 PERFORM perform-procedure-statement=@10..10 perform-procedure-statement=@12..12
+statement IX111A 3.4 MOVE move-to-sending-area=SPACE move-to-statement=#16
+statement IX111A 3.5 MOVE move-to-sending-area=SPACE move-to-statement=#27
+statement IX111A 3.6 MOVE move-to-sending-area=SPACE move-to-statement=#40
+statement IX111A 3.7 IF if-statement=(EQUAL TO #61 ZERO)
+statement IX111A 3.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#18
+statement IX111A 3.8 MOVE move-to-sending-area=SPACE move-to-statement=#23
+statement IX111A 4.0 ADD add-from=1 add-to=#69
+statement IX111A 4.1 PERFORM perform-procedure-statement=@5..5
+statement IX111A 5.0 WRITE record-name=#2 write-advancing-lines=1
+statement IX111A 5.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IX111A 6.0 PERFORM perform-procedure-statement=@5..5
+statement IX111A 7.0 IF if-statement=(NOT EQUAL TO #27 SPACE)
+statement IX111A 7.0.if-then.0 GO TO go-to-statement-simple=@8..8
+statement IX111A 7.1 IF if-statement=(NOT EQUAL TO #40 SPACE)
+statement IX111A 7.1.if-then.0 GO TO go-to-statement-simple=@8..8
+statement IX111A 7.2 MOVE move-to-sending-area=#70 move-to-statement=#122
+statement IX111A 7.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#117
+statement IX111A 7.4 MOVE move-to-sending-area=#115 move-to-statement=#2
+statement IX111A 7.5 PERFORM perform-procedure-statement=@4..4 perform-times=2
+statement IX111A 7.6 MOVE move-to-sending-area=SPACE move-to-statement=#122
+statement IX111A 7.7 GO TO go-to-statement-simple=@9..9
+statement IX111A 8.0 MOVE move-to-sending-area=#24 move-to-statement=#1
+statement IX111A 8.1 PERFORM perform-procedure-statement=@4..4
+statement IX111A 8.2 MOVE move-to-sending-area=#70 move-to-statement=#50
+statement IX111A 8.3 MOVE move-to-sending-area=#37 move-to-statement=#1
+statement IX111A 8.4 PERFORM perform-procedure-statement=@4..4 perform-times=2
+statement IX111A 8.5 MOVE move-to-sending-area=SPACE move-to-statement=#50
+statement IX111A 9.0 EXIT
+statement IX111A 10.0 IF if-statement=(NOT EQUAL TO #28 SPACE)
+statement IX111A 10.0.if-then.0 GO TO go-to-statement-simple=@11..11
+statement IX111A 10.1 IF if-statement=(EQUAL TO #41 SPACE)
+statement IX111A 10.1.if-then.0 GO TO go-to-statement-simple=@12..12
+statement IX111A 11.0 MOVE move-to-sending-area=#41 move-to-statement=#121
+statement IX111A 11.1 MOVE move-to-sending-area=#28 move-to-statement=#119
+statement IX111A 11.2 MOVE move-to-sending-area=#70 move-to-statement=#122
+statement IX111A 11.3 MOVE move-to-sending-area=#115 move-to-statement=#2
+statement IX111A 11.4 PERFORM perform-procedure-statement=@4..4 perform-times=2
+statement IX111A 11.5 MOVE move-to-sending-area=SPACE move-to-statement=#122
+statement IX111A 12.0 EXIT
+statement IX111A 13.0 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IX111A 13.1 PERFORM perform-procedure-statement=@4..4
+statement IX111A 13.2 MOVE move-to-sending-area="ABNORMAL TERMINATION AT THIS POINT IS ACCEPTABLE" move-to-statement=#2
+statement IX111A 13.3 PERFORM perform-procedure-statement=@4..4 perform-times=3
+statement IX111A 14.0 EXIT
+statement IX111A 15.0 OPEN open-output=file:PRINT-FILE
+statement IX111A 15.1 MOVE move-to-sending-area=#127 move-to-statement=#83
+statement IX111A 15.2 MOVE move-to-sending-area=#127 move-to-statement=#95
+statement IX111A 15.3 MOVE move-to-sending-area=SPACE move-to-statement=#12
+statement IX111A 15.4 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=@20..20
+statement IX111A 15.5 MOVE move-to-sending-area=ZERO move-to-statement=#60
+statement IX111A 16.0 GO TO go-to-statement-simple=@35..35
+statement IX111A 17.0 PERFORM perform-procedure-statement=@21..21 perform-procedure-statement=@25..25
+statement IX111A 17.1 CLOSE close-file=file:PRINT-FILE
+statement IX111A 18.0 STOP
+statement IX111A 19.0 MOVE move-to-sending-area=#71 move-to-statement=#2
+statement IX111A 19.1 PERFORM perform-procedure-statement=@26..26 perform-times=2
+statement IX111A 19.2 MOVE move-to-sending-area=#75 move-to-statement=#2
+statement IX111A 19.3 PERFORM perform-procedure-statement=@26..26 perform-times=2
+statement IX111A 19.4 MOVE move-to-sending-area=#81 move-to-statement=#2
+statement IX111A 19.5 PERFORM perform-procedure-statement=@26..26 perform-times=3
+statement IX111A 19.6 MOVE move-to-sending-area=#88 move-to-statement=#2
+statement IX111A 19.7 PERFORM perform-procedure-statement=@26..26 perform-times=3
+statement IX111A 20.0 MOVE move-to-sending-area=#51 move-to-statement=#2
+statement IX111A 20.1 PERFORM perform-procedure-statement=@26..26
+statement IX111A 20.2 MOVE move-to-sending-area=#54 move-to-statement=#2
+statement IX111A 20.3 PERFORM perform-procedure-statement=@26..26 perform-times=2
+statement IX111A 20.4 MOVE move-to-sending-area=#123 move-to-statement=#2
+statement IX111A 20.5 PERFORM perform-procedure-statement=@26..26
+statement IX111A 21.0 MOVE move-to-sending-area=#123 move-to-statement=#2
+statement IX111A 21.1 PERFORM perform-procedure-statement=@26..26 perform-times=5
+statement IX111A 22.0 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement IX111A 22.1 PERFORM perform-procedure-statement=@26..26 perform-times=2
+statement IX111A 23.0 ADD add-from=#63 add-to=#67
+statement IX111A 23.1 ADD add-from=#64 add-to=#67
+statement IX111A 23.2 ADD add-from=#62 add-to=#67
+statement IX111A 23.3 ADD add-from=#65 add-to=#67
+statement IX111A 23.4 MOVE move-to-sending-area=#65 move-to-statement=#111
+statement IX111A 23.5 MOVE move-to-sending-area=#67 move-to-statement=#113
+statement IX111A 23.6 MOVE move-to-sending-area=#110 move-to-statement=#100
+statement IX111A 23.7 MOVE move-to-sending-area=#97 move-to-statement=#2
+statement IX111A 23.8 PERFORM perform-procedure-statement=@26..26
+statement IX111A 24.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#103
+statement IX111A 24.1 IF if-statement=(IS EQUAL TO #63 ZERO)
+statement IX111A 24.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#101
+statement IX111A 24.1.if-else.0 MOVE move-to-sending-area=#63 move-to-statement=#101
+statement IX111A 24.2 MOVE move-to-sending-area=#97 move-to-statement=#2
+statement IX111A 24.3 PERFORM perform-procedure-statement=@26..26
+statement IX111A 25.0 IF if-statement=(IS EQUAL TO #62 ZERO)
+statement IX111A 25.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#101
+statement IX111A 25.0.if-else.0 MOVE move-to-sending-area=#62 move-to-statement=#101
+statement IX111A 25.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#103
+statement IX111A 25.2 MOVE move-to-sending-area=#97 move-to-statement=#2
+statement IX111A 25.3 PERFORM perform-procedure-statement=@26..26
+statement IX111A 25.4 IF if-statement=(EQUAL TO #64 ZERO)
+statement IX111A 25.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#101
+statement IX111A 25.4.if-else.0 MOVE move-to-sending-area=#64 move-to-statement=#101
+statement IX111A 25.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#103
+statement IX111A 25.6 MOVE move-to-sending-area=#97 move-to-statement=#2
+statement IX111A 25.7 PERFORM perform-procedure-statement=@26..26
+statement IX111A 25.8 MOVE move-to-sending-area=#104 move-to-statement=#2
+statement IX111A 25.9 PERFORM perform-procedure-statement=@26..26
+statement IX111A 26.0 ADD add-from=1 add-to=#69
+statement IX111A 26.1 IF if-statement=(GREATER #69 42)
+statement IX111A 26.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#68
+statement IX111A 26.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IX111A 26.1.if-then.2 WRITE record-name=#2
+statement IX111A 26.1.if-then.3 MOVE move-to-sending-area=#71 move-to-statement=#2
+statement IX111A 26.1.if-then.4 PERFORM perform-procedure-statement=@27..27 perform-times=2
+statement IX111A 26.1.if-then.5 MOVE move-to-sending-area=#75 move-to-statement=#2
+statement IX111A 26.1.if-then.6 PERFORM perform-procedure-statement=@27..27 perform-times=2
+statement IX111A 26.1.if-then.7 MOVE move-to-sending-area=#81 move-to-statement=#2
+statement IX111A 26.1.if-then.8 PERFORM perform-procedure-statement=@27..27 perform-times=3
+statement IX111A 26.1.if-then.9 MOVE move-to-sending-area=#88 move-to-statement=#2
+statement IX111A 26.1.if-then.10 PERFORM perform-procedure-statement=@27..27 perform-times=3
+statement IX111A 26.1.if-then.11 MOVE move-to-sending-area=#51 move-to-statement=#2
+statement IX111A 26.1.if-then.12 PERFORM perform-procedure-statement=@27..27
+statement IX111A 26.1.if-then.13 MOVE move-to-sending-area=#54 move-to-statement=#2
+statement IX111A 26.1.if-then.14 PERFORM perform-procedure-statement=@27..27
+statement IX111A 26.1.if-then.15 MOVE move-to-sending-area=#123 move-to-statement=#2
+statement IX111A 26.1.if-then.16 PERFORM perform-procedure-statement=@27..27
+statement IX111A 26.1.if-then.17 MOVE move-to-sending-area=#68 move-to-statement=#2
+statement IX111A 26.1.if-then.18 MOVE move-to-sending-area=ZERO move-to-statement=#69
+statement IX111A 26.2 PERFORM perform-procedure-statement=@27..27
+statement IX111A 27.0 WRITE record-name=#2 write-advancing-lines=1
+statement IX111A 27.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IX111A 28.0 PERFORM perform-procedure-statement=@27..27
+statement IX111A 29.0 IF if-statement=(NOT EQUAL TO #27 SPACE)
+statement IX111A 29.0.if-then.0 GO TO go-to-statement-simple=@30..30
+statement IX111A 29.1 IF if-statement=(NOT EQUAL TO #40 SPACE)
+statement IX111A 29.1.if-then.0 GO TO go-to-statement-simple=@30..30
+statement IX111A 29.2 MOVE move-to-sending-area=#70 move-to-statement=#122
+statement IX111A 29.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#117
+statement IX111A 29.4 MOVE move-to-sending-area=#115 move-to-statement=#2
+statement IX111A 29.5 PERFORM perform-procedure-statement=@26..26 perform-times=2
+statement IX111A 29.6 MOVE move-to-sending-area=SPACE move-to-statement=#122
+statement IX111A 29.7 GO TO go-to-statement-simple=@31..31
+statement IX111A 30.0 MOVE move-to-sending-area=#24 move-to-statement=#1
+statement IX111A 30.1 PERFORM perform-procedure-statement=@26..26
+statement IX111A 30.2 MOVE move-to-sending-area=#70 move-to-statement=#50
+statement IX111A 30.3 MOVE move-to-sending-area=#37 move-to-statement=#1
+statement IX111A 30.4 PERFORM perform-procedure-statement=@26..26 perform-times=2
+statement IX111A 30.5 MOVE move-to-sending-area=SPACE move-to-statement=#50
+statement IX111A 31.0 EXIT
+statement IX111A 32.0 IF if-statement=(NOT EQUAL TO #28 SPACE)
+statement IX111A 32.0.if-then.0 GO TO go-to-statement-simple=@33..33
+statement IX111A 32.1 IF if-statement=(EQUAL TO #41 SPACE)
+statement IX111A 32.1.if-then.0 GO TO go-to-statement-simple=@34..34
+statement IX111A 33.0 MOVE move-to-sending-area=#41 move-to-statement=#121
+statement IX111A 33.1 MOVE move-to-sending-area=#28 move-to-statement=#119
+statement IX111A 33.2 MOVE move-to-sending-area=#70 move-to-statement=#122
+statement IX111A 33.3 MOVE move-to-sending-area=#115 move-to-statement=#2
+statement IX111A 33.4 PERFORM perform-procedure-statement=@26..26 perform-times=2
+statement IX111A 33.5 MOVE move-to-sending-area=SPACE move-to-statement=#122
+statement IX111A 34.0 EXIT
+statement IX111A 35.0 EXIT
+statement IX111A 37.0 MOVE move-to-sending-area=SPACE move-to-statement=#11
+statement IX111A 37.1 MOVE move-to-sending-area="OPEN INPUT   35 EXP." move-to-statement=#14
+statement IX111A 37.2 MOVE move-to-sending-area="OPN-TEST-GF-01-0" move-to-statement=#18
+statement IX111A 38.0 OPEN open-input=file:IX-NOP
+statement IX111A 39.0 EXIT
+statement IX111A 40.0 GO TO go-to-statement-simple=@17..17
+using IX111A [] 0

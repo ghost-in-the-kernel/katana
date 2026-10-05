@@ -1,0 +1,453 @@
+profile SQ210M sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+item SQ210M 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 3 LINAGE-CTR level 77 parent 0 record 3 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item SQ210M 4 DETAIL-LINE-1 level 1 parent 0 record 4 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 5 FILLER level 2 parent 4 record 4 WORKING_STORAGE offset 0 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SQ210M 6 FILLER level 2 parent 4 record 4 WORKING_STORAGE offset 20 length 13 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXX"
+item SQ210M 7 DL1-LINE-NO level 2 parent 4 record 4 WORKING_STORAGE offset 33 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item SQ210M 8 FILLER level 2 parent 4 record 4 WORKING_STORAGE offset 35 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 9 DL1-LC level 2 parent 4 record 4 WORKING_STORAGE offset 75 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item SQ210M 10 FILLER level 2 parent 4 record 4 WORKING_STORAGE offset 77 length 43 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 11 COMMENT-LINE-1 level 1 parent 0 record 11 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 12 COMMENT-LINE-2 level 1 parent 0 record 12 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 13 COMMENT-LINE-3 level 1 parent 0 record 13 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 14 COMMENT-LINE-4 level 1 parent 0 record 14 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 15 LAST-LINE level 1 parent 0 record 15 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 16 TEST-RESULTS level 1 parent 0 record 16 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 17 FILLER level 2 parent 16 record 16 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SQ210M 18 FEATURE level 2 parent 16 record 16 WORKING_STORAGE offset 1 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SQ210M 19 FILLER level 2 parent 16 record 16 WORKING_STORAGE offset 21 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SQ210M 20 P-OR-F level 2 parent 16 record 16 WORKING_STORAGE offset 22 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item SQ210M 21 FILLER level 2 parent 16 record 16 WORKING_STORAGE offset 27 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SQ210M 22 PAR-NAME level 2 parent 16 record 16 WORKING_STORAGE offset 28 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 23 FILLER level 3 parent 22 record 16 WORKING_STORAGE offset 28 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item SQ210M 24 PARDOT-X level 3 parent 22 record 16 WORKING_STORAGE offset 40 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SQ210M 25 DOTVALUE level 3 parent 22 record 16 WORKING_STORAGE offset 41 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item SQ210M 26 FILLER level 3 parent 22 record 16 WORKING_STORAGE offset 43 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item SQ210M 27 FILLER level 2 parent 16 record 16 WORKING_STORAGE offset 48 length 10 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXX"
+item SQ210M 28 RE-MARK level 2 parent 16 record 16 WORKING_STORAGE offset 58 length 61 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 29 TEST-COMPUTED level 1 parent 0 record 29 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 30 FILLER level 2 parent 29 record 29 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 31 FILLER level 2 parent 29 record 29 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item SQ210M 32 COMPUTED-X level 2 parent 29 record 29 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 33 COMPUTED-A level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SQ210M 34 COMPUTED-N level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item SQ210M 35 COMPUTED-0V18 level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item SQ210M 36 COMPUTED-4V14 level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item SQ210M 37 COMPUTED-14V4 level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item SQ210M 38 CM-18V0 level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 39 COMPUTED-18V0 level 4 parent 38 record 29 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item SQ210M 40 FILLER level 4 parent 38 record 29 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SQ210M 41 FILLER level 3 parent 32 record 29 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 42 TEST-CORRECT level 1 parent 0 record 42 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 43 FILLER level 2 parent 42 record 42 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 44 FILLER level 2 parent 42 record 42 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item SQ210M 45 CORRECT-X level 2 parent 42 record 42 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 46 CORRECT-A level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SQ210M 47 CORRECT-N level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item SQ210M 48 CORRECT-0V18 level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item SQ210M 49 CORRECT-4V14 level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item SQ210M 50 CORRECT-14V4 level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item SQ210M 51 CR-18V0 level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 52 CORRECT-18V0 level 4 parent 51 record 42 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item SQ210M 53 FILLER level 4 parent 51 record 42 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SQ210M 54 FILLER level 3 parent 45 record 42 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 55 CCVS-C-1 level 1 parent 0 record 55 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 56 FILLER level 2 parent 55 record 55 WORKING_STORAGE offset 0 length 99 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 57 FILLER level 2 parent 55 record 55 WORKING_STORAGE offset 99 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SQ210M 58 CCVS-C-2 level 1 parent 0 record 58 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 59 FILLER level 2 parent 58 record 58 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SQ210M 60 FILLER level 2 parent 58 record 58 WORKING_STORAGE offset 1 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item SQ210M 61 FILLER level 2 parent 58 record 58 WORKING_STORAGE offset 7 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item SQ210M 62 FILLER level 2 parent 58 record 58 WORKING_STORAGE offset 22 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item SQ210M 63 FILLER level 2 parent 58 record 58 WORKING_STORAGE offset 26 length 94 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 64 REC-SKL-SUB level 1 parent 0 record 64 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item SQ210M 65 REC-CT level 1 parent 0 record 65 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item SQ210M 66 DELETE-CNT level 1 parent 0 record 66 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SQ210M 67 ERROR-COUNTER level 1 parent 0 record 67 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SQ210M 68 INSPECT-COUNTER level 1 parent 0 record 68 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SQ210M 69 PASS-COUNTER level 1 parent 0 record 69 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SQ210M 70 TOTAL-ERROR level 1 parent 0 record 70 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SQ210M 71 ERROR-HOLD level 1 parent 0 record 71 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SQ210M 72 DUMMY-HOLD level 1 parent 0 record 72 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 73 RECORD-COUNT level 1 parent 0 record 73 WORKING_STORAGE offset 0 length 5 DISPLAY NUMERIC digits 5 scale 0 picture "99999"
+item SQ210M 74 CCVS-H-1 level 1 parent 0 record 74 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 75 FILLER level 2 parent 74 record 74 WORKING_STORAGE offset 0 length 27 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 76 FILLER level 2 parent 74 record 74 WORKING_STORAGE offset 27 length 67 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 77 FILLER level 2 parent 74 record 74 WORKING_STORAGE offset 94 length 26 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 78 CCVS-H-2 level 1 parent 0 record 78 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 79 FILLER level 2 parent 78 record 78 WORKING_STORAGE offset 0 length 52 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 80 FILLER level 2 parent 78 record 78 WORKING_STORAGE offset 52 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item SQ210M 81 TEST-ID level 2 parent 78 record 78 WORKING_STORAGE offset 71 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item SQ210M 82 FILLER level 2 parent 78 record 78 WORKING_STORAGE offset 80 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 83 CCVS-H-3 level 1 parent 0 record 83 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 84 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 0 length 34 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 85 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 86 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 92 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 87 CCVS-E-1 level 1 parent 0 record 87 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 88 FILLER level 2 parent 87 record 87 WORKING_STORAGE offset 0 length 52 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 89 FILLER level 2 parent 87 record 87 WORKING_STORAGE offset 52 length 14 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXX"
+item SQ210M 90 ID-AGAIN level 2 parent 87 record 87 WORKING_STORAGE offset 66 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item SQ210M 91 FILLER level 2 parent 87 record 87 WORKING_STORAGE offset 75 length 45 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 92 CCVS-E-2 level 1 parent 0 record 92 WORKING_STORAGE offset 0 length 102 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 93 FILLER level 2 parent 92 record 92 WORKING_STORAGE offset 0 length 31 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 94 FILLER level 2 parent 92 record 92 WORKING_STORAGE offset 31 length 21 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 95 CCVS-E-2-2 level 2 parent 92 record 92 WORKING_STORAGE offset 52 length 50 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 96 ERROR-TOTAL level 3 parent 95 record 92 WORKING_STORAGE offset 52 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item SQ210M 97 FILLER level 3 parent 95 record 92 WORKING_STORAGE offset 55 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SQ210M 98 ENDER-DESC level 3 parent 95 record 92 WORKING_STORAGE offset 56 length 46 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 99 CCVS-E-3 level 1 parent 0 record 99 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 100 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 0 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 101 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 22 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item SQ210M 102 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 103 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 92 length 13 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXX"
+item SQ210M 104 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 105 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item SQ210M 105 CCVS-E-4 level 1 parent 0 record 105 WORKING_STORAGE offset 0 length 50 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 106 CCVS-E-4-1 level 2 parent 105 record 105 WORKING_STORAGE offset 0 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item SQ210M 107 FILLER level 2 parent 105 record 105 WORKING_STORAGE offset 3 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item SQ210M 108 CCVS-E-4-2 level 2 parent 105 record 105 WORKING_STORAGE offset 7 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item SQ210M 109 FILLER level 2 parent 105 record 105 WORKING_STORAGE offset 10 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 110 XXINFO level 1 parent 0 record 110 WORKING_STORAGE offset 0 length 95 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 111 FILLER level 2 parent 110 record 110 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 112 INFO-TEXT level 2 parent 110 record 110 WORKING_STORAGE offset 30 length 65 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 113 FILLER level 4 parent 112 record 110 WORKING_STORAGE offset 30 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SQ210M 114 XXCOMPUTED level 4 parent 112 record 110 WORKING_STORAGE offset 50 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SQ210M 115 FILLER level 4 parent 112 record 110 WORKING_STORAGE offset 70 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item SQ210M 116 XXCORRECT level 4 parent 112 record 110 WORKING_STORAGE offset 75 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SQ210M 117 HYPHEN-LINE level 1 parent 0 record 117 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SQ210M 118 FILLER level 2 parent 117 record 117 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SQ210M 119 FILLER level 2 parent 117 record 117 WORKING_STORAGE offset 1 length 65 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 120 FILLER level 2 parent 117 record 117 WORKING_STORAGE offset 66 length 54 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SQ210M 121 CCVS-PGM-ID level 1 parent 0 record 121 WORKING_STORAGE offset 0 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+redefines SQ210M 34 33
+redefines SQ210M 35 33
+redefines SQ210M 36 33
+redefines SQ210M 37 33
+redefines SQ210M 38 33
+redefines SQ210M 47 46
+redefines SQ210M 48 46
+redefines SQ210M 49 46
+redefines SQ210M 50 46
+redefines SQ210M 51 46
+value SQ210M 3 66
+value SQ210M 5 SPACE
+value SQ210M 6 "THIS IS LINE "
+value SQ210M 8 " OF 80 DETAIL LINES. LINAGE-COUNTER IS "
+value SQ210M 10 "."
+value SQ210M 11 "BECAUSE OF THE NATURE OF THESE TESTS A PASS OR FAIL CANNOT BE DETERMINED WITHIN THE PROGRAM. THE USER MUST VISUALLY"
+value SQ210M 12 "CHECK THE POSITION OF EACH LINE TO DETERMINE THE ACCURACY OF THE VARIOUS WRITE OPTIONS. VII-27 TO 29"
+value SQ210M 13 "IN THIS TEST THE FIRST LOGICAL PAGE SHOULD CONTAIN 20 DETAIL LINES. ALL SUCCEEDING LOGICAL PAGES SHOULD CONTAIN 30"
+value SQ210M 14 "DETAIL LINES. ALL LOGICAL PAGES SHOULD BE SEPARATED BY 5 BLANK LINES."
+value SQ210M 15 "THIS IS THE LAST LINE IN THE PAGE BODY OF THIS LOGICAL PAGE. USE IT AS A REFERENCE POINT FOR THE FOLLOWING TEST PAGES."
+value SQ210M 17 SPACE
+value SQ210M 18 SPACE
+value SQ210M 19 SPACE
+value SQ210M 20 SPACE
+value SQ210M 21 SPACE
+value SQ210M 23 SPACE
+value SQ210M 24 SPACE
+value SQ210M 25 ZERO
+value SQ210M 26 SPACE
+value SQ210M 27 SPACE
+value SQ210M 30 SPACE
+value SQ210M 31 " COMPUTED="
+value SQ210M 33 SPACE
+value SQ210M 41 SPACE
+value SQ210M 43 SPACE
+value SQ210M 44 " CORRECT ="
+value SQ210M 46 SPACE
+value SQ210M 54 SPACE
+value SQ210M 56 " FEATURE PASS PARAGRAPH-NAME REMARKS"
+value SQ210M 57 SPACE
+value SQ210M 59 SPACE
+value SQ210M 60 "TESTED"
+value SQ210M 61 SPACE
+value SQ210M 62 "FAIL"
+value SQ210M 63 SPACE
+value SQ210M 64 ZERO
+value SQ210M 65 ZERO
+value SQ210M 66 ZERO
+value SQ210M 67 ZERO
+value SQ210M 68 3
+value SQ210M 69 ZERO
+value SQ210M 70 ZERO
+value SQ210M 71 ZERO
+value SQ210M 72 SPACE
+value SQ210M 73 ZERO
+value SQ210M 75 SPACE
+value SQ210M 76 " FEDERAL SOFTWARE TESTING CENTER COBOL COMPILER VALIDATION SYSTEM"
+value SQ210M 77 SPACE
+value SQ210M 79 "CCVS85 FSTC COPY, NOT FOR DISTRIBUTION."
+value SQ210M 80 "TEST RESULTS SET- "
+value SQ210M 82 SPACE
+value SQ210M 84 " FOR OFFICIAL USE ONLY "
+value SQ210M 85 "COBOL 85 VERSION 4.2, Apr 1993 SSVG "
+value SQ210M 86 " COPYRIGHT 1985 "
+value SQ210M 88 SPACE
+value SQ210M 89 "END OF TEST- "
+value SQ210M 91 " NTIS DISTRIBUTION COBOL 85"
+value SQ210M 93 SPACE
+value SQ210M 94 SPACE
+value SQ210M 96 SPACE
+value SQ210M 97 SPACE
+value SQ210M 98 "ERRORS ENCOUNTERED"
+value SQ210M 100 " FOR OFFICIAL USE ONLY"
+value SQ210M 101 SPACE
+value SQ210M 102 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value SQ210M 103 SPACE
+value SQ210M 104 " COPYRIGHT 1985"
+value SQ210M 106 SPACE
+value SQ210M 107 " OF "
+value SQ210M 108 SPACE
+value SQ210M 109 " TESTS WERE EXECUTED SUCCESSFULLY"
+value SQ210M 111 " *** INFORMATION ***"
+value SQ210M 113 SPACE
+value SQ210M 115 SPACE
+value SQ210M 118 SPACE
+value SQ210M 119 "*****************************************************************"
+value SQ210M 120 "******************************************************"
+value SQ210M 121 "SQ210M"
+file SQ210M PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
+paragraph SQ210M 0 "" ""
+paragraph SQ210M 1 "OPEN-FILES" "CCVS1"
+paragraph SQ210M 2 "CLOSE-FILES" "CCVS1"
+paragraph SQ210M 3 "TERMINATE-CCVS" "CCVS1"
+paragraph SQ210M 4 "INSPT" "CCVS1"
+paragraph SQ210M 5 "PASS" "CCVS1"
+paragraph SQ210M 6 "FAIL" "CCVS1"
+paragraph SQ210M 7 "DE-LETE" "CCVS1"
+paragraph SQ210M 8 "PRINT-DETAIL" "CCVS1"
+paragraph SQ210M 9 "HEAD-ROUTINE" "CCVS1"
+paragraph SQ210M 10 "COLUMN-NAMES-ROUTINE" "CCVS1"
+paragraph SQ210M 11 "END-ROUTINE" "CCVS1"
+paragraph SQ210M 12 "END-RTN-EXIT" "CCVS1"
+paragraph SQ210M 13 "END-ROUTINE-1" "CCVS1"
+paragraph SQ210M 14 "END-ROUTINE-12" "CCVS1"
+paragraph SQ210M 15 "END-ROUTINE-13" "CCVS1"
+paragraph SQ210M 16 "WRITE-LINE" "CCVS1"
+paragraph SQ210M 17 "WRT-LN" "CCVS1"
+paragraph SQ210M 18 "BLANK-LINE-PRINT" "CCVS1"
+paragraph SQ210M 19 "FAIL-ROUTINE" "CCVS1"
+paragraph SQ210M 20 "FAIL-ROUTINE-WRITE" "CCVS1"
+paragraph SQ210M 21 "FAIL-ROUTINE-EX" "CCVS1"
+paragraph SQ210M 22 "BAIL-OUT" "CCVS1"
+paragraph SQ210M 23 "BAIL-OUT-WRITE" "CCVS1"
+paragraph SQ210M 24 "BAIL-OUT-EX" "CCVS1"
+paragraph SQ210M 25 "CCVS1-EXIT" "CCVS1"
+paragraph SQ210M 26 "WRITE-INIT-GF-01" "SECT-SQ210M-0001"
+paragraph SQ210M 27 "WRITE-TEST-GF-01" "SECT-SQ210M-0001"
+paragraph SQ210M 28 "SQ210M-END-ROUTINE" "SECT-SQ210M-0001"
+paragraph SQ210M 29 "PRINT-DETAIL-1" "SECT-SQ210M-0001"
+paragraph SQ210M 30 "CCVS-999999" "CCVS-EXIT"
+falls SQ210M 0 1
+falls SQ210M 2 3
+falls SQ210M 4 5
+falls SQ210M 5 6
+falls SQ210M 6 7
+falls SQ210M 7 8
+falls SQ210M 8 9
+falls SQ210M 9 10
+falls SQ210M 10 11
+falls SQ210M 11 12
+falls SQ210M 12 13
+falls SQ210M 13 14
+falls SQ210M 14 15
+falls SQ210M 15 16
+falls SQ210M 16 17
+falls SQ210M 17 18
+falls SQ210M 18 19
+falls SQ210M 20 21
+falls SQ210M 21 22
+falls SQ210M 22 23
+falls SQ210M 23 24
+falls SQ210M 24 25
+falls SQ210M 25 26
+falls SQ210M 26 27
+falls SQ210M 27 28
+falls SQ210M 29 30
+edge SQ210M PERFORM 1 9 10
+edge SQ210M GO_TO 1 25 25
+edge SQ210M PERFORM 2 11 15
+edge SQ210M PERFORM 8 16 16
+edge SQ210M PERFORM 8 16 16
+edge SQ210M PERFORM 8 19 21
+edge SQ210M PERFORM 8 22 24
+edge SQ210M PERFORM 9 16 16
+edge SQ210M PERFORM 9 16 16
+edge SQ210M PERFORM 9 16 16
+edge SQ210M PERFORM 10 16 16
+edge SQ210M PERFORM 10 16 16
+edge SQ210M PERFORM 10 16 16
+edge SQ210M PERFORM 11 16 16
+edge SQ210M PERFORM 12 16 16
+edge SQ210M PERFORM 13 16 16
+edge SQ210M PERFORM 14 16 16
+edge SQ210M PERFORM 15 16 16
+edge SQ210M PERFORM 15 16 16
+edge SQ210M PERFORM 15 16 16
+edge SQ210M PERFORM 16 17 17
+edge SQ210M PERFORM 16 17 17
+edge SQ210M PERFORM 16 17 17
+edge SQ210M PERFORM 16 17 17
+edge SQ210M PERFORM 18 17 17
+edge SQ210M GO_TO 19 20 20
+edge SQ210M GO_TO 19 20 20
+edge SQ210M PERFORM 19 16 16
+edge SQ210M GO_TO 19 21 21
+edge SQ210M PERFORM 20 16 16
+edge SQ210M PERFORM 20 16 16
+edge SQ210M GO_TO 22 23 23
+edge SQ210M GO_TO 22 24 24
+edge SQ210M PERFORM 23 16 16
+edge SQ210M PERFORM 27 8 8
+edge SQ210M PERFORM 27 18 18
+edge SQ210M PERFORM 27 29 29
+edge SQ210M GO_TO 28 30 30
+edge SQ210M GO_TO 30 2 2
+statement SQ210M 1.0 OPEN open-output=file:PRINT-FILE
+statement SQ210M 1.1 MOVE move-to-sending-area=#121 move-to-statement=#81
+statement SQ210M 1.2 MOVE move-to-sending-area=#121 move-to-statement=#90
+statement SQ210M 1.3 MOVE move-to-sending-area=SPACE move-to-statement=#16
+statement SQ210M 1.4 PERFORM perform-procedure-statement=@9..9 perform-procedure-statement=@10..10
+statement SQ210M 1.5 GO TO go-to-statement-simple=@25..25
+statement SQ210M 2.0 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=@15..15
+statement SQ210M 2.1 CLOSE close-file=file:PRINT-FILE
+statement SQ210M 3.0 STOP
+statement SQ210M 4.0 MOVE move-to-sending-area="INSPT" move-to-statement=#20
+statement SQ210M 4.1 ADD add-from=1 add-to=#68
+statement SQ210M 5.0 MOVE move-to-sending-area="PASS " move-to-statement=#20
+statement SQ210M 5.1 ADD add-from=1 add-to=#69
+statement SQ210M 6.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#20
+statement SQ210M 6.1 ADD add-from=1 add-to=#67
+statement SQ210M 7.0 MOVE move-to-sending-area="*****" move-to-statement=#20
+statement SQ210M 7.1 ADD add-from=1 add-to=#66
+statement SQ210M 7.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=#28
+statement SQ210M 8.0 IF if-statement=(NOT EQUAL TO #65 ZERO)
+statement SQ210M 8.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#24
+statement SQ210M 8.0.if-then.1 MOVE move-to-sending-area=#65 move-to-statement=#25
+statement SQ210M 8.1 MOVE move-to-sending-area=#16 move-to-statement=#1
+statement SQ210M 8.2 PERFORM perform-procedure-statement=@16..16
+statement SQ210M 8.3 IF if-statement=(EQUAL TO #20 "FAIL*")
+statement SQ210M 8.3.if-then.0 PERFORM perform-procedure-statement=@16..16
+statement SQ210M 8.3.if-then.1 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=@21..21
+statement SQ210M 8.3.if-else.0 PERFORM perform-procedure-statement=@22..22 perform-procedure-statement=@24..24
+statement SQ210M 8.4 MOVE move-to-sending-area=SPACE move-to-statement=#20
+statement SQ210M 8.5 MOVE move-to-sending-area=SPACE move-to-statement=#32
+statement SQ210M 8.6 MOVE move-to-sending-area=SPACE move-to-statement=#45
+statement SQ210M 8.7 IF if-statement=(EQUAL TO #65 ZERO)
+statement SQ210M 8.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#22
+statement SQ210M 8.8 MOVE move-to-sending-area=SPACE move-to-statement=#28
+statement SQ210M 9.0 MOVE move-to-sending-area=#74 move-to-statement=#2
+statement SQ210M 9.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement SQ210M 9.2 MOVE move-to-sending-area=#78 move-to-statement=#2
+statement SQ210M 9.3 PERFORM perform-procedure-statement=@16..16 perform-times=5
+statement SQ210M 9.4 MOVE move-to-sending-area=#83 move-to-statement=#2
+statement SQ210M 9.5 PERFORM perform-procedure-statement=@16..16 perform-times=3
+statement SQ210M 10.0 MOVE move-to-sending-area=#55 move-to-statement=#2
+statement SQ210M 10.1 PERFORM perform-procedure-statement=@16..16
+statement SQ210M 10.2 MOVE move-to-sending-area=#58 move-to-statement=#2
+statement SQ210M 10.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement SQ210M 10.4 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement SQ210M 10.5 PERFORM perform-procedure-statement=@16..16
+statement SQ210M 11.0 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement SQ210M 11.1 PERFORM perform-procedure-statement=@16..16 perform-times=5
+statement SQ210M 12.0 MOVE move-to-sending-area=#87 move-to-statement=#2
+statement SQ210M 12.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement SQ210M 13.0 ADD add-from=#67 add-to=#71
+statement SQ210M 13.1 ADD add-from=#68 add-to=#71
+statement SQ210M 13.2 ADD add-from=#66 add-to=#71
+statement SQ210M 13.3 ADD add-from=#69 add-to=#71
+statement SQ210M 13.4 MOVE move-to-sending-area=#69 move-to-statement=#106
+statement SQ210M 13.5 MOVE move-to-sending-area=#71 move-to-statement=#108
+statement SQ210M 13.6 MOVE move-to-sending-area=#105 move-to-statement=#95
+statement SQ210M 13.7 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SQ210M 13.8 PERFORM perform-procedure-statement=@16..16
+statement SQ210M 14.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#98
+statement SQ210M 14.1 IF if-statement=(IS EQUAL TO #67 ZERO)
+statement SQ210M 14.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
+statement SQ210M 14.1.if-else.0 MOVE move-to-sending-area=#67 move-to-statement=#96
+statement SQ210M 14.2 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SQ210M 14.3 PERFORM perform-procedure-statement=@16..16
+statement SQ210M 15.0 IF if-statement=(IS EQUAL TO #66 ZERO)
+statement SQ210M 15.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
+statement SQ210M 15.0.if-else.0 MOVE move-to-sending-area=#66 move-to-statement=#96
+statement SQ210M 15.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#98
+statement SQ210M 15.2 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SQ210M 15.3 PERFORM perform-procedure-statement=@16..16
+statement SQ210M 15.4 IF if-statement=(EQUAL TO #68 ZERO)
+statement SQ210M 15.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
+statement SQ210M 15.4.if-else.0 MOVE move-to-sending-area=#68 move-to-statement=#96
+statement SQ210M 15.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#98
+statement SQ210M 15.6 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SQ210M 15.7 PERFORM perform-procedure-statement=@16..16
+statement SQ210M 15.8 MOVE move-to-sending-area=#99 move-to-statement=#2
+statement SQ210M 15.9 PERFORM perform-procedure-statement=@16..16
+statement SQ210M 16.0 ADD add-from=1 add-to=#73
+statement SQ210M 16.1 IF if-statement=(GREATER #73 50)
+statement SQ210M 16.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#72
+statement SQ210M 16.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement SQ210M 16.1.if-then.2 WRITE record-name=#2
+statement SQ210M 16.1.if-then.3 MOVE move-to-sending-area=#55 move-to-statement=#2
+statement SQ210M 16.1.if-then.4 PERFORM perform-procedure-statement=@17..17
+statement SQ210M 16.1.if-then.5 MOVE move-to-sending-area=#58 move-to-statement=#2
+statement SQ210M 16.1.if-then.6 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement SQ210M 16.1.if-then.7 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement SQ210M 16.1.if-then.8 PERFORM perform-procedure-statement=@17..17
+statement SQ210M 16.1.if-then.9 MOVE move-to-sending-area=#72 move-to-statement=#2
+statement SQ210M 16.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=#73
+statement SQ210M 16.2 PERFORM perform-procedure-statement=@17..17
+statement SQ210M 17.0 WRITE record-name=#2 write-advancing-lines=1
+statement SQ210M 17.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement SQ210M 18.0 PERFORM perform-procedure-statement=@17..17
+statement SQ210M 19.0 IF if-statement=(NOT EQUAL TO #32 SPACE)
+statement SQ210M 19.0.if-then.0 GO TO go-to-statement-simple=@20..20
+statement SQ210M 19.1 IF if-statement=(NOT EQUAL TO #45 SPACE)
+statement SQ210M 19.1.if-then.0 GO TO go-to-statement-simple=@20..20
+statement SQ210M 19.2 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#112
+statement SQ210M 19.3 MOVE move-to-sending-area=#110 move-to-statement=#2
+statement SQ210M 19.4 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement SQ210M 19.5 GO TO go-to-statement-simple=@21..21
+statement SQ210M 20.0 MOVE move-to-sending-area=#29 move-to-statement=#1
+statement SQ210M 20.1 PERFORM perform-procedure-statement=@16..16
+statement SQ210M 20.2 MOVE move-to-sending-area=#42 move-to-statement=#1
+statement SQ210M 20.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement SQ210M 21.0 EXIT
+statement SQ210M 22.0 IF if-statement=(NOT EQUAL TO #33 SPACE)
+statement SQ210M 22.0.if-then.0 GO TO go-to-statement-simple=@23..23
+statement SQ210M 22.1 IF if-statement=(EQUAL TO #46 SPACE)
+statement SQ210M 22.1.if-then.0 GO TO go-to-statement-simple=@24..24
+statement SQ210M 23.0 MOVE move-to-sending-area=#46 move-to-statement=#116
+statement SQ210M 23.1 MOVE move-to-sending-area=#33 move-to-statement=#114
+statement SQ210M 23.2 MOVE move-to-sending-area=#110 move-to-statement=#2
+statement SQ210M 23.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement SQ210M 24.0 EXIT
+statement SQ210M 25.0 EXIT
+statement SQ210M 26.0 MOVE move-to-sending-area=#11 move-to-statement=#1
+statement SQ210M 26.1 WRITE record-name=#1 write-advancing-lines=5
+statement SQ210M 26.2 MOVE move-to-sending-area=#12 move-to-statement=#1
+statement SQ210M 26.3 WRITE record-name=#1 write-advancing-lines=1
+statement SQ210M 27.0 MOVE move-to-sending-area="LINAGE INT / D-N MIX" move-to-statement=#18
+statement SQ210M 27.1 MOVE move-to-sending-area="WRITE-TEST-GF-01" move-to-statement=#22
+statement SQ210M 27.2 PERFORM perform-procedure-statement=@8..8
+statement SQ210M 27.3 MOVE move-to-sending-area=#13 move-to-statement=#1
+statement SQ210M 27.4 WRITE record-name=#1 write-advancing-lines=5
+statement SQ210M 27.5 MOVE move-to-sending-area=#14 move-to-statement=#1
+statement SQ210M 27.6 WRITE record-name=#1 write-advancing-lines=1
+statement SQ210M 27.7 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement SQ210M 27.8 PERFORM perform-procedure-statement=@18..18 perform-until=(EQUAL register:LINAGE-COUNTER 66)
+statement SQ210M 27.9 MOVE move-to-sending-area=20 move-to-statement=#3
+statement SQ210M 27.10 MOVE move-to-sending-area=#15 move-to-statement=#1
+statement SQ210M 27.11 WRITE record-name=#1 write-advancing-lines=1
+statement SQ210M 27.12 MOVE move-to-sending-area=30 move-to-statement=#3
+statement SQ210M 27.13 MOVE move-to-sending-area=1 move-to-statement=#7
+statement SQ210M 27.14 PERFORM perform-procedure-statement=@29..29 perform-times=80
+statement SQ210M 28.0 MOVE move-to-sending-area="END OF SQ210M VALIDATION TESTS" move-to-statement=#1
+statement SQ210M 28.1 WRITE record-name=#1 write-advancing-lines=1
+statement SQ210M 28.2 GO TO go-to-statement-simple=@30..30
+statement SQ210M 29.0 MOVE move-to-sending-area=register:LINAGE-COUNTER move-to-statement=#9
+statement SQ210M 29.1 MOVE move-to-sending-area=#4 move-to-statement=#1
+statement SQ210M 29.2 WRITE record-name=#1 write-advancing-lines=1
+statement SQ210M 29.3 ADD add-from=1 add-to=#7
+statement SQ210M 30.0 GO TO go-to-statement-simple=@2..2
+using SQ210M [] 0

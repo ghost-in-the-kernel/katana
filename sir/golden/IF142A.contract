@@ -1,0 +1,500 @@
+profile IF142A sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+item IF142A 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 3 TEMP1 level 1 parent 0 record 3 WORKING_STORAGE offset 0 length 21 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXX"
+item IF142A 4 WS-DATE level 1 parent 0 record 4 WORKING_STORAGE offset 0 length 19 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 5 WS-YEAR level 2 parent 4 record 4 WORKING_STORAGE offset 0 length 4 DISPLAY NUMERIC digits 4 scale 0 picture "9999"
+item IF142A 6 WS-MONTH level 2 parent 4 record 4 WORKING_STORAGE offset 4 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IF142A 7 WS-DAY level 2 parent 4 record 4 WORKING_STORAGE offset 6 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IF142A 8 WS-HOUR level 2 parent 4 record 4 WORKING_STORAGE offset 8 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IF142A 9 WS-MIN level 2 parent 4 record 4 WORKING_STORAGE offset 10 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IF142A 10 WS-SECOND level 2 parent 4 record 4 WORKING_STORAGE offset 12 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IF142A 11 WS-HUNDSEC level 2 parent 4 record 4 WORKING_STORAGE offset 14 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IF142A 12 WS-GREENW level 2 parent 4 record 4 WORKING_STORAGE offset 16 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IF142A 13 WS-OFFSET level 2 parent 4 record 4 WORKING_STORAGE offset 17 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IF142A 14 TEST-RESULTS level 1 parent 0 record 14 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 15 FILLER level 2 parent 14 record 14 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IF142A 16 FEATURE level 2 parent 14 record 14 WORKING_STORAGE offset 1 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IF142A 17 FILLER level 2 parent 14 record 14 WORKING_STORAGE offset 21 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IF142A 18 P-OR-F level 2 parent 14 record 14 WORKING_STORAGE offset 22 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item IF142A 19 FILLER level 2 parent 14 record 14 WORKING_STORAGE offset 27 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IF142A 20 PAR-NAME level 2 parent 14 record 14 WORKING_STORAGE offset 28 length 22 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 21 FILLER level 3 parent 20 record 14 WORKING_STORAGE offset 28 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item IF142A 22 PARDOT-X level 3 parent 20 record 14 WORKING_STORAGE offset 47 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IF142A 23 DOTVALUE level 3 parent 20 record 14 WORKING_STORAGE offset 48 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IF142A 24 FILLER level 2 parent 14 record 14 WORKING_STORAGE offset 50 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item IF142A 25 RE-MARK level 2 parent 14 record 14 WORKING_STORAGE offset 58 length 61 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 26 TEST-COMPUTED level 1 parent 0 record 26 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 27 FILLER level 2 parent 26 record 26 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 28 FILLER level 2 parent 26 record 26 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item IF142A 29 COMPUTED-X level 2 parent 26 record 26 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 30 COMPUTED-A level 3 parent 29 record 26 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IF142A 31 COMPUTED-N level 3 parent 29 record 26 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item IF142A 32 COMPUTED-0V18 level 3 parent 29 record 26 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item IF142A 33 COMPUTED-4V14 level 3 parent 29 record 26 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item IF142A 34 COMPUTED-14V4 level 3 parent 29 record 26 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item IF142A 35 CM-18V0 level 3 parent 29 record 26 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 36 COMPUTED-18V0 level 4 parent 35 record 26 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item IF142A 37 FILLER level 4 parent 35 record 26 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IF142A 38 FILLER level 3 parent 29 record 26 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 39 TEST-CORRECT level 1 parent 0 record 39 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 40 FILLER level 2 parent 39 record 39 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 41 FILLER level 2 parent 39 record 39 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item IF142A 42 CORRECT-X level 2 parent 39 record 39 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 43 CORRECT-A level 3 parent 42 record 39 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IF142A 44 CORRECT-N level 3 parent 42 record 39 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item IF142A 45 CORRECT-0V18 level 3 parent 42 record 39 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item IF142A 46 CORRECT-4V14 level 3 parent 42 record 39 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item IF142A 47 CORRECT-14V4 level 3 parent 42 record 39 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item IF142A 48 CR-18V0 level 3 parent 42 record 39 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 49 CORRECT-18V0 level 4 parent 48 record 39 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item IF142A 50 FILLER level 4 parent 48 record 39 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IF142A 51 FILLER level 3 parent 42 record 39 WORKING_STORAGE offset 67 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
+item IF142A 52 COR-ANSI-REFERENCE level 3 parent 42 record 39 WORKING_STORAGE offset 69 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 53 CCVS-C-1 level 1 parent 0 record 53 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 54 FILLER level 2 parent 53 record 53 WORKING_STORAGE offset 0 length 99 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 55 FILLER level 2 parent 53 record 53 WORKING_STORAGE offset 99 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IF142A 56 CCVS-C-2 level 1 parent 0 record 56 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 57 FILLER level 2 parent 56 record 56 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IF142A 58 FILLER level 2 parent 56 record 56 WORKING_STORAGE offset 1 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item IF142A 59 FILLER level 2 parent 56 record 56 WORKING_STORAGE offset 7 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item IF142A 60 FILLER level 2 parent 56 record 56 WORKING_STORAGE offset 22 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IF142A 61 FILLER level 2 parent 56 record 56 WORKING_STORAGE offset 26 length 94 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 62 REC-SKL-SUB level 1 parent 0 record 62 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IF142A 63 REC-CT level 1 parent 0 record 63 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item IF142A 64 DELETE-COUNTER level 1 parent 0 record 64 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IF142A 65 ERROR-COUNTER level 1 parent 0 record 65 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IF142A 66 INSPECT-COUNTER level 1 parent 0 record 66 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IF142A 67 PASS-COUNTER level 1 parent 0 record 67 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IF142A 68 TOTAL-ERROR level 1 parent 0 record 68 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IF142A 69 ERROR-HOLD level 1 parent 0 record 69 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item IF142A 70 DUMMY-HOLD level 1 parent 0 record 70 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 71 RECORD-COUNT level 1 parent 0 record 71 WORKING_STORAGE offset 0 length 5 DISPLAY NUMERIC digits 5 scale 0 picture "99999"
+item IF142A 72 ANSI-REFERENCE level 1 parent 0 record 72 WORKING_STORAGE offset 0 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 73 CCVS-H-1 level 1 parent 0 record 73 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 74 FILLER level 2 parent 73 record 73 WORKING_STORAGE offset 0 length 39 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 75 FILLER level 2 parent 73 record 73 WORKING_STORAGE offset 39 length 42 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 76 FILLER level 2 parent 73 record 73 WORKING_STORAGE offset 81 length 39 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 77 CCVS-H-2A level 1 parent 0 record 77 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 78 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 0 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 79 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 40 length 7 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXX"
+item IF142A 80 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 47 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IF142A 81 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 51 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 82 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 79 length 41 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 83 CCVS-H-2B level 1 parent 0 record 83 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 84 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 0 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item IF142A 85 TEST-ID level 2 parent 83 record 83 WORKING_STORAGE offset 15 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item IF142A 86 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 24 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IF142A 87 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 28 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item IF142A 88 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 40 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 89 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 62 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 90 CCVS-H-3 level 1 parent 0 record 90 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 91 FILLER level 2 parent 90 record 90 WORKING_STORAGE offset 0 length 34 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 92 FILLER level 2 parent 90 record 90 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 93 FILLER level 2 parent 90 record 90 WORKING_STORAGE offset 92 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 94 CCVS-E-1 level 1 parent 0 record 94 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 95 FILLER level 2 parent 94 record 94 WORKING_STORAGE offset 0 length 52 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 96 FILLER level 2 parent 94 record 94 WORKING_STORAGE offset 52 length 14 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXX"
+item IF142A 97 ID-AGAIN level 2 parent 94 record 94 WORKING_STORAGE offset 66 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item IF142A 98 FILLER level 2 parent 94 record 94 WORKING_STORAGE offset 75 length 45 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 99 CCVS-E-2 level 1 parent 0 record 99 WORKING_STORAGE offset 0 length 100 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 100 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 0 length 31 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 101 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 31 length 21 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXX"
+item IF142A 102 CCVS-E-2-2 level 2 parent 99 record 99 WORKING_STORAGE offset 52 length 48 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 103 ERROR-TOTAL level 3 parent 102 record 99 WORKING_STORAGE offset 52 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item IF142A 104 FILLER level 3 parent 102 record 99 WORKING_STORAGE offset 55 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IF142A 105 ENDER-DESC level 3 parent 102 record 99 WORKING_STORAGE offset 56 length 44 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 106 CCVS-E-3 level 1 parent 0 record 106 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 107 FILLER level 2 parent 106 record 106 WORKING_STORAGE offset 0 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 108 FILLER level 2 parent 106 record 106 WORKING_STORAGE offset 22 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item IF142A 109 FILLER level 2 parent 106 record 106 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 110 FILLER level 2 parent 106 record 106 WORKING_STORAGE offset 92 length 13 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXX"
+item IF142A 111 FILLER level 2 parent 106 record 106 WORKING_STORAGE offset 105 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item IF142A 112 CCVS-E-4 level 1 parent 0 record 112 WORKING_STORAGE offset 0 length 50 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 113 CCVS-E-4-1 level 2 parent 112 record 112 WORKING_STORAGE offset 0 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item IF142A 114 FILLER level 2 parent 112 record 112 WORKING_STORAGE offset 3 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item IF142A 115 CCVS-E-4-2 level 2 parent 112 record 112 WORKING_STORAGE offset 7 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item IF142A 116 FILLER level 2 parent 112 record 112 WORKING_STORAGE offset 10 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 117 XXINFO level 1 parent 0 record 117 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 118 FILLER level 2 parent 117 record 117 WORKING_STORAGE offset 0 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item IF142A 119 INFO-TEXT level 2 parent 117 record 117 WORKING_STORAGE offset 19 length 53 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 120 FILLER level 4 parent 119 record 117 WORKING_STORAGE offset 19 length 8 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXX"
+item IF142A 121 XXCOMPUTED level 4 parent 119 record 117 WORKING_STORAGE offset 27 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IF142A 122 FILLER level 4 parent 119 record 117 WORKING_STORAGE offset 47 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item IF142A 123 XXCORRECT level 4 parent 119 record 117 WORKING_STORAGE offset 52 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item IF142A 124 INF-ANSI-REFERENCE level 2 parent 117 record 117 WORKING_STORAGE offset 72 length 48 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 125 HYPHEN-LINE level 1 parent 0 record 125 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item IF142A 126 FILLER level 2 parent 125 record 125 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item IF142A 127 FILLER level 2 parent 125 record 125 WORKING_STORAGE offset 1 length 65 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 128 FILLER level 2 parent 125 record 125 WORKING_STORAGE offset 66 length 54 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item IF142A 129 CCVS-PGM-ID level 1 parent 0 record 129 WORKING_STORAGE offset 0 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+redefines IF142A 31 30
+redefines IF142A 32 30
+redefines IF142A 33 30
+redefines IF142A 34 30
+redefines IF142A 35 30
+redefines IF142A 44 43
+redefines IF142A 45 43
+redefines IF142A 46 43
+redefines IF142A 47 43
+redefines IF142A 48 43
+value IF142A 15 SPACE
+value IF142A 16 SPACE
+value IF142A 17 SPACE
+value IF142A 18 SPACE
+value IF142A 19 SPACE
+value IF142A 21 SPACE
+value IF142A 22 SPACE
+value IF142A 23 ZERO
+value IF142A 24 SPACE
+value IF142A 27 SPACE
+value IF142A 28 " COMPUTED="
+value IF142A 30 SPACE
+value IF142A 38 SPACE
+value IF142A 40 SPACE
+value IF142A 41 " CORRECT ="
+value IF142A 43 SPACE
+value IF142A 51 SPACE
+value IF142A 52 SPACE
+value IF142A 54 " FEATURE PASS PARAGRAPH-NAME REMARKS"
+value IF142A 55 SPACE
+value IF142A 57 SPACE
+value IF142A 58 "TESTED"
+value IF142A 59 SPACE
+value IF142A 60 "FAIL"
+value IF142A 61 SPACE
+value IF142A 62 ZERO
+value IF142A 63 ZERO
+value IF142A 64 ZERO
+value IF142A 65 ZERO
+value IF142A 66 ZERO
+value IF142A 67 ZERO
+value IF142A 68 ZERO
+value IF142A 69 ZERO
+value IF142A 70 SPACE
+value IF142A 71 ZERO
+value IF142A 72 SPACES
+value IF142A 74 SPACES
+value IF142A 75 "OFFICIAL COBOL COMPILER VALIDATION SYSTEM"
+value IF142A 76 SPACES
+value IF142A 78 SPACE
+value IF142A 79 "CCVS85 "
+value IF142A 80 "4.2 "
+value IF142A 81 " COPY - NOT FOR DISTRIBUTION"
+value IF142A 82 SPACE
+value IF142A 84 "TEST RESULT OF "
+value IF142A 86 " IN "
+value IF142A 87 " HIGH "
+value IF142A 88 " LEVEL VALIDATION FOR "
+value IF142A 89 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value IF142A 91 " FOR OFFICIAL USE ONLY "
+value IF142A 92 "COBOL 85 VERSION 4.2, Apr 1993 SSVG "
+value IF142A 93 " COPYRIGHT 1985 "
+value IF142A 95 SPACE
+value IF142A 96 "END OF TEST- "
+value IF142A 98 SPACES
+value IF142A 100 SPACE
+value IF142A 101 SPACE
+value IF142A 103 SPACE
+value IF142A 104 SPACE
+value IF142A 105 "ERRORS ENCOUNTERED"
+value IF142A 107 " FOR OFFICIAL USE ONLY"
+value IF142A 108 SPACE
+value IF142A 109 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value IF142A 110 SPACE
+value IF142A 111 " COPYRIGHT 1985"
+value IF142A 113 SPACE
+value IF142A 114 " OF "
+value IF142A 115 SPACE
+value IF142A 116 " TESTS WERE EXECUTED SUCCESSFULLY"
+value IF142A 118 "*** INFORMATION ***"
+value IF142A 120 SPACE
+value IF142A 122 SPACE
+value IF142A 126 SPACE
+value IF142A 127 "*****************************************************************"
+value IF142A 128 "******************************************************"
+value IF142A 129 "IF142A"
+condition IF142A 5 CON-YEAR 1990 THRU 9999
+condition IF142A 6 CON-MONTH 01 THRU 12
+condition IF142A 7 CON-DAY 01 THRU 31
+condition IF142A 8 CON-HOUR 00 THRU 23
+condition IF142A 9 CON-MIN 00 THRU 59
+condition IF142A 10 CON-SEC 00 THRU 59
+condition IF142A 11 CON-HUNDSEC 00 THRU 99
+condition IF142A 12 CON-GREENW "-" | "+" | "0"
+condition IF142A 13 CON-OFFSET 00 THRU 13
+file IF142A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
+paragraph IF142A 0 "" ""
+paragraph IF142A 1 "OPEN-FILES" "CCVS1"
+paragraph IF142A 2 "CLOSE-FILES" "CCVS1"
+paragraph IF142A 3 "TERMINATE-CCVS" "CCVS1"
+paragraph IF142A 4 "INSPT" "CCVS1"
+paragraph IF142A 5 "PASS" "CCVS1"
+paragraph IF142A 6 "FAIL" "CCVS1"
+paragraph IF142A 7 "DE-LETE" "CCVS1"
+paragraph IF142A 8 "PRINT-DETAIL" "CCVS1"
+paragraph IF142A 9 "HEAD-ROUTINE" "CCVS1"
+paragraph IF142A 10 "COLUMN-NAMES-ROUTINE" "CCVS1"
+paragraph IF142A 11 "END-ROUTINE" "CCVS1"
+paragraph IF142A 12 "END-RTN-EXIT" "CCVS1"
+paragraph IF142A 13 "END-ROUTINE-1" "CCVS1"
+paragraph IF142A 14 "END-ROUTINE-12" "CCVS1"
+paragraph IF142A 15 "END-ROUTINE-13" "CCVS1"
+paragraph IF142A 16 "WRITE-LINE" "CCVS1"
+paragraph IF142A 17 "WRT-LN" "CCVS1"
+paragraph IF142A 18 "BLANK-LINE-PRINT" "CCVS1"
+paragraph IF142A 19 "FAIL-ROUTINE" "CCVS1"
+paragraph IF142A 20 "FAIL-ROUTINE-WRITE" "CCVS1"
+paragraph IF142A 21 "FAIL-ROUTINE-EX" "CCVS1"
+paragraph IF142A 22 "BAIL-OUT" "CCVS1"
+paragraph IF142A 23 "BAIL-OUT-WRITE" "CCVS1"
+paragraph IF142A 24 "BAIL-OUT-EX" "CCVS1"
+paragraph IF142A 25 "CCVS1-EXIT" "CCVS1"
+paragraph IF142A 26 "F-WHENCOMP-INFO" "SECT-IF142A"
+paragraph IF142A 27 "F-WHENCOMP-01" "SECT-IF142A"
+paragraph IF142A 28 "F-WHENCOMP-TEST-01" "SECT-IF142A"
+paragraph IF142A 29 "F-WHENCOMP-DELETE-01" "SECT-IF142A"
+paragraph IF142A 30 "F-WHENCOMP-WRITE-01" "SECT-IF142A"
+paragraph IF142A 31 "F-WHENCOMP-TEST-02" "SECT-IF142A"
+paragraph IF142A 32 "F-WHENCOMP-DELETE-02" "SECT-IF142A"
+paragraph IF142A 33 "F-WHENCOMP-WRITE-02" "SECT-IF142A"
+paragraph IF142A 34 "CCVS-999999" "CCVS-EXIT"
+falls IF142A 0 1
+falls IF142A 2 3
+falls IF142A 4 5
+falls IF142A 5 6
+falls IF142A 6 7
+falls IF142A 7 8
+falls IF142A 8 9
+falls IF142A 9 10
+falls IF142A 10 11
+falls IF142A 11 12
+falls IF142A 12 13
+falls IF142A 13 14
+falls IF142A 14 15
+falls IF142A 15 16
+falls IF142A 16 17
+falls IF142A 17 18
+falls IF142A 18 19
+falls IF142A 20 21
+falls IF142A 21 22
+falls IF142A 22 23
+falls IF142A 23 24
+falls IF142A 24 25
+falls IF142A 25 26
+falls IF142A 26 27
+falls IF142A 27 28
+falls IF142A 30 31
+falls IF142A 33 34
+edge IF142A PERFORM 1 9 10
+edge IF142A GO_TO 1 25 25
+edge IF142A PERFORM 2 11 15
+edge IF142A PERFORM 8 16 16
+edge IF142A PERFORM 8 16 16
+edge IF142A PERFORM 8 19 21
+edge IF142A PERFORM 8 22 24
+edge IF142A PERFORM 9 16 16
+edge IF142A PERFORM 9 16 16
+edge IF142A PERFORM 9 16 16
+edge IF142A PERFORM 9 16 16
+edge IF142A PERFORM 10 16 16
+edge IF142A PERFORM 10 16 16
+edge IF142A PERFORM 10 16 16
+edge IF142A PERFORM 11 16 16
+edge IF142A PERFORM 12 16 16
+edge IF142A PERFORM 13 16 16
+edge IF142A PERFORM 14 16 16
+edge IF142A PERFORM 15 16 16
+edge IF142A PERFORM 15 16 16
+edge IF142A PERFORM 15 16 16
+edge IF142A PERFORM 16 17 17
+edge IF142A PERFORM 16 17 17
+edge IF142A PERFORM 16 17 17
+edge IF142A PERFORM 16 17 17
+edge IF142A PERFORM 16 17 17
+edge IF142A PERFORM 16 17 17
+edge IF142A PERFORM 16 17 17
+edge IF142A PERFORM 16 17 17
+edge IF142A PERFORM 18 17 17
+edge IF142A GO_TO 19 20 20
+edge IF142A GO_TO 19 20 20
+edge IF142A PERFORM 19 16 16
+edge IF142A GO_TO 19 21 21
+edge IF142A PERFORM 20 16 16
+edge IF142A PERFORM 20 16 16
+edge IF142A GO_TO 22 23 23
+edge IF142A GO_TO 22 24 24
+edge IF142A PERFORM 23 16 16
+edge IF142A PERFORM 28 5 5
+edge IF142A PERFORM 28 6 6
+edge IF142A GO_TO 28 30 30
+edge IF142A PERFORM 29 7 7
+edge IF142A GO_TO 29 30 30
+edge IF142A PERFORM 30 8 8
+edge IF142A PERFORM 31 5 5
+edge IF142A PERFORM 31 6 6
+edge IF142A GO_TO 31 33 33
+edge IF142A PERFORM 32 7 7
+edge IF142A GO_TO 32 33 33
+edge IF142A PERFORM 33 8 8
+edge IF142A GO_TO 34 2 2
+statement IF142A 1.0 OPEN open-output=file:PRINT-FILE
+statement IF142A 1.1 MOVE move-to-sending-area=#129 move-to-statement=#85
+statement IF142A 1.2 MOVE move-to-sending-area=#129 move-to-statement=#97
+statement IF142A 1.3 MOVE move-to-sending-area=SPACE move-to-statement=#14
+statement IF142A 1.4 PERFORM perform-procedure-statement=@9..9 perform-procedure-statement=@10..10
+statement IF142A 1.5 GO TO go-to-statement-simple=@25..25
+statement IF142A 2.0 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=@15..15
+statement IF142A 2.1 CLOSE close-file=file:PRINT-FILE
+statement IF142A 3.0 STOP
+statement IF142A 4.0 MOVE move-to-sending-area="INSPT" move-to-statement=#18
+statement IF142A 4.1 ADD add-from=1 add-to=#66
+statement IF142A 5.0 MOVE move-to-sending-area="PASS " move-to-statement=#18
+statement IF142A 5.1 ADD add-from=1 add-to=#67
+statement IF142A 6.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#18
+statement IF142A 6.1 ADD add-from=1 add-to=#65
+statement IF142A 7.0 MOVE move-to-sending-area="*****" move-to-statement=#18
+statement IF142A 7.1 ADD add-from=1 add-to=#64
+statement IF142A 7.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=#25
+statement IF142A 8.0 IF if-statement=(NOT EQUAL TO #63 ZERO)
+statement IF142A 8.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#22
+statement IF142A 8.0.if-then.1 MOVE move-to-sending-area=#63 move-to-statement=#23
+statement IF142A 8.1 MOVE move-to-sending-area=#14 move-to-statement=#1
+statement IF142A 8.2 PERFORM perform-procedure-statement=@16..16
+statement IF142A 8.3 IF if-statement=(EQUAL TO #18 "FAIL*")
+statement IF142A 8.3.if-then.0 PERFORM perform-procedure-statement=@16..16
+statement IF142A 8.3.if-then.1 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=@21..21
+statement IF142A 8.3.if-else.0 PERFORM perform-procedure-statement=@22..22 perform-procedure-statement=@24..24
+statement IF142A 8.4 MOVE move-to-sending-area=SPACE move-to-statement=#18
+statement IF142A 8.5 MOVE move-to-sending-area=SPACE move-to-statement=#29
+statement IF142A 8.6 MOVE move-to-sending-area=SPACE move-to-statement=#42
+statement IF142A 8.7 IF if-statement=(EQUAL TO #63 ZERO)
+statement IF142A 8.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#20
+statement IF142A 8.8 MOVE move-to-sending-area=SPACE move-to-statement=#25
+statement IF142A 9.0 MOVE move-to-sending-area=#73 move-to-statement=#2
+statement IF142A 9.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IF142A 9.2 MOVE move-to-sending-area=#77 move-to-statement=#2
+statement IF142A 9.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IF142A 9.4 MOVE move-to-sending-area=#83 move-to-statement=#2
+statement IF142A 9.5 PERFORM perform-procedure-statement=@16..16 perform-times=3
+statement IF142A 9.6 MOVE move-to-sending-area=#90 move-to-statement=#2
+statement IF142A 9.7 PERFORM perform-procedure-statement=@16..16 perform-times=3
+statement IF142A 10.0 MOVE move-to-sending-area=#53 move-to-statement=#2
+statement IF142A 10.1 PERFORM perform-procedure-statement=@16..16
+statement IF142A 10.2 MOVE move-to-sending-area=#56 move-to-statement=#2
+statement IF142A 10.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IF142A 10.4 MOVE move-to-sending-area=#125 move-to-statement=#2
+statement IF142A 10.5 PERFORM perform-procedure-statement=@16..16
+statement IF142A 11.0 MOVE move-to-sending-area=#125 move-to-statement=#2
+statement IF142A 11.1 PERFORM perform-procedure-statement=@16..16 perform-times=5
+statement IF142A 12.0 MOVE move-to-sending-area=#94 move-to-statement=#2
+statement IF142A 12.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IF142A 13.0 ADD add-from=#65 add-to=#69
+statement IF142A 13.1 ADD add-from=#66 add-to=#69
+statement IF142A 13.2 ADD add-from=#64 add-to=#69
+statement IF142A 13.3 ADD add-from=#67 add-to=#69
+statement IF142A 13.4 MOVE move-to-sending-area=#67 move-to-statement=#113
+statement IF142A 13.5 MOVE move-to-sending-area=#69 move-to-statement=#115
+statement IF142A 13.6 MOVE move-to-sending-area=#112 move-to-statement=#102
+statement IF142A 13.7 MOVE move-to-sending-area=#99 move-to-statement=#2
+statement IF142A 13.8 PERFORM perform-procedure-statement=@16..16
+statement IF142A 14.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#105
+statement IF142A 14.1 IF if-statement=(IS EQUAL TO #65 ZERO)
+statement IF142A 14.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#103
+statement IF142A 14.1.if-else.0 MOVE move-to-sending-area=#65 move-to-statement=#103
+statement IF142A 14.2 MOVE move-to-sending-area=#99 move-to-statement=#2
+statement IF142A 14.3 PERFORM perform-procedure-statement=@16..16
+statement IF142A 15.0 IF if-statement=(IS EQUAL TO #64 ZERO)
+statement IF142A 15.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#103
+statement IF142A 15.0.if-else.0 MOVE move-to-sending-area=#64 move-to-statement=#103
+statement IF142A 15.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#105
+statement IF142A 15.2 MOVE move-to-sending-area=#99 move-to-statement=#2
+statement IF142A 15.3 PERFORM perform-procedure-statement=@16..16
+statement IF142A 15.4 IF if-statement=(EQUAL TO #66 ZERO)
+statement IF142A 15.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#103
+statement IF142A 15.4.if-else.0 MOVE move-to-sending-area=#66 move-to-statement=#103
+statement IF142A 15.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#105
+statement IF142A 15.6 MOVE move-to-sending-area=#99 move-to-statement=#2
+statement IF142A 15.7 PERFORM perform-procedure-statement=@16..16
+statement IF142A 15.8 MOVE move-to-sending-area=#106 move-to-statement=#2
+statement IF142A 15.9 PERFORM perform-procedure-statement=@16..16
+statement IF142A 16.0 ADD add-from=1 add-to=#71
+statement IF142A 16.1 IF if-statement=(GREATER #71 42)
+statement IF142A 16.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#70
+statement IF142A 16.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IF142A 16.1.if-then.2 WRITE record-name=#2
+statement IF142A 16.1.if-then.3 MOVE move-to-sending-area=#73 move-to-statement=#2
+statement IF142A 16.1.if-then.4 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement IF142A 16.1.if-then.5 MOVE move-to-sending-area=#77 move-to-statement=#2
+statement IF142A 16.1.if-then.6 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement IF142A 16.1.if-then.7 MOVE move-to-sending-area=#83 move-to-statement=#2
+statement IF142A 16.1.if-then.8 PERFORM perform-procedure-statement=@17..17 perform-times=3
+statement IF142A 16.1.if-then.9 MOVE move-to-sending-area=#90 move-to-statement=#2
+statement IF142A 16.1.if-then.10 PERFORM perform-procedure-statement=@17..17 perform-times=3
+statement IF142A 16.1.if-then.11 MOVE move-to-sending-area=#53 move-to-statement=#2
+statement IF142A 16.1.if-then.12 PERFORM perform-procedure-statement=@17..17
+statement IF142A 16.1.if-then.13 MOVE move-to-sending-area=#56 move-to-statement=#2
+statement IF142A 16.1.if-then.14 PERFORM perform-procedure-statement=@17..17
+statement IF142A 16.1.if-then.15 MOVE move-to-sending-area=#125 move-to-statement=#2
+statement IF142A 16.1.if-then.16 PERFORM perform-procedure-statement=@17..17
+statement IF142A 16.1.if-then.17 MOVE move-to-sending-area=#70 move-to-statement=#2
+statement IF142A 16.1.if-then.18 MOVE move-to-sending-area=ZERO move-to-statement=#71
+statement IF142A 16.2 PERFORM perform-procedure-statement=@17..17
+statement IF142A 17.0 WRITE record-name=#2 write-advancing-lines=1
+statement IF142A 17.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement IF142A 18.0 PERFORM perform-procedure-statement=@17..17
+statement IF142A 19.0 IF if-statement=(NOT EQUAL TO #29 SPACE)
+statement IF142A 19.0.if-then.0 GO TO go-to-statement-simple=@20..20
+statement IF142A 19.1 IF if-statement=(NOT EQUAL TO #42 SPACE)
+statement IF142A 19.1.if-then.0 GO TO go-to-statement-simple=@20..20
+statement IF142A 19.2 MOVE move-to-sending-area=#72 move-to-statement=#124
+statement IF142A 19.3 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#119
+statement IF142A 19.4 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement IF142A 19.5 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IF142A 19.6 MOVE move-to-sending-area=SPACE move-to-statement=#124
+statement IF142A 19.7 GO TO go-to-statement-simple=@21..21
+statement IF142A 20.0 MOVE move-to-sending-area=#26 move-to-statement=#1
+statement IF142A 20.1 PERFORM perform-procedure-statement=@16..16
+statement IF142A 20.2 MOVE move-to-sending-area=#72 move-to-statement=#52
+statement IF142A 20.3 MOVE move-to-sending-area=#39 move-to-statement=#1
+statement IF142A 20.4 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IF142A 20.5 MOVE move-to-sending-area=SPACE move-to-statement=#52
+statement IF142A 21.0 EXIT
+statement IF142A 22.0 IF if-statement=(NOT EQUAL TO #30 SPACE)
+statement IF142A 22.0.if-then.0 GO TO go-to-statement-simple=@23..23
+statement IF142A 22.1 IF if-statement=(EQUAL TO #43 SPACE)
+statement IF142A 22.1.if-then.0 GO TO go-to-statement-simple=@24..24
+statement IF142A 23.0 MOVE move-to-sending-area=#43 move-to-statement=#123
+statement IF142A 23.1 MOVE move-to-sending-area=#30 move-to-statement=#121
+statement IF142A 23.2 MOVE move-to-sending-area=#72 move-to-statement=#124
+statement IF142A 23.3 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement IF142A 23.4 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement IF142A 23.5 MOVE move-to-sending-area=SPACE move-to-statement=#124
+statement IF142A 24.0 EXIT
+statement IF142A 25.0 EXIT
+statement IF142A 26.0 MOVE move-to-sending-area="See ref. A-75 2.46" move-to-statement=#72
+statement IF142A 26.1 MOVE move-to-sending-area="WHEN-COMPILED" move-to-statement=#16
+statement IF142A 27.0 MOVE move-to-sending-area=SPACE move-to-statement=#3
+statement IF142A 27.1 MOVE move-to-sending-area=SPACE move-to-statement=#4
+statement IF142A 28.0 MOVE move-to-sending-area=(FUNCTION WHEN-COMPILED) move-to-statement=#3
+statement IF142A 28.1 MOVE move-to-sending-area=#3 move-to-statement=#4
+statement IF142A 28.2 IF if-statement=(Condition #5.CON-YEAR (AND #6.CON-MONTH) (AND #7.CON-DAY) (AND #8.CON-HOUR) (AND #9.CON-MIN) (AND #10.CON-SEC) (AND #11.CON-HUNDSEC) (AND #12.CON-GREENW) (AND #13.CON-OFFSET))
+statement IF142A 28.2.if-then.0 PERFORM perform-procedure-statement=@5..5
+statement IF142A 28.2.if-else.0 MOVE move-to-sending-area=#3 move-to-statement=#30
+statement IF142A 28.2.if-else.1 MOVE move-to-sending-area="Date & Time value " move-to-statement=#42
+statement IF142A 28.2.if-else.2 PERFORM perform-procedure-statement=@6..6
+statement IF142A 28.3 GO TO go-to-statement-simple=@30..30
+statement IF142A 29.0 PERFORM perform-procedure-statement=@7..7
+statement IF142A 29.1 GO TO go-to-statement-simple=@30..30
+statement IF142A 30.0 MOVE move-to-sending-area="F-WHENCOMP-01" move-to-statement=#20
+statement IF142A 30.1 PERFORM perform-procedure-statement=@8..8
+statement IF142A 31.0 IF if-statement=(>= (FUNCTION WHEN-COMPILED) #3)
+statement IF142A 31.0.if-then.0 PERFORM perform-procedure-statement=@5..5
+statement IF142A 31.0.if-else.0 PERFORM perform-procedure-statement=@6..6
+statement IF142A 31.1 GO TO go-to-statement-simple=@33..33
+statement IF142A 32.0 PERFORM perform-procedure-statement=@7..7
+statement IF142A 32.1 GO TO go-to-statement-simple=@33..33
+statement IF142A 33.0 MOVE move-to-sending-area="F-WHENCOMP-02" move-to-statement=#20
+statement IF142A 33.1 PERFORM perform-procedure-statement=@8..8
+statement IF142A 34.0 GO TO go-to-statement-simple=@2..2
+using IF142A [] 0

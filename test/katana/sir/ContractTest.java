@@ -16,10 +16,9 @@ import katana.sir.json.IrJson;
 import katana.sir.types.Program;
 import org.junit.jupiter.api.Test;
 
-/** 2.6's check on COPYREC and the document: the kinds table, the golden, the fact-for-fact diff, the same lines from the same IR. */
+/** 2.6's check on COPYREC and the document: the kinds table, the fact-for-fact diff, the same lines from the same IR (the goldens: IrGoldenTest). */
 class ContractTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
-    private static final Path GOLDEN = ROOT.resolve("sir/contract/COPYREC.contract");
 
     private static Program copyrec() {
         Path trivial = ROOT.resolve("oracle/fixture/trivial");
@@ -34,14 +33,6 @@ class ContractTest {
         Matcher m = Pattern.compile("(?m)^\\| `([a-z]+)` \\|").matcher(doc);
         while (m.find()) documented.add(m.group(1));
         assertEquals(Contract.KINDS.stream().map(Contract.Kind::name).toList(), documented);
-    }
-
-    /** `-Dkatana.record=true` on the fast loop rewrites the golden (its diff is the review). */
-    @Test
-    void copyrecsContractIsTheGolden() throws Exception {
-        String lines = String.join("\n", Contract.lines(copyrec())) + "\n";
-        if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, lines);
-        assertEquals(Files.readString(GOLDEN), lines);
     }
 
     @Test

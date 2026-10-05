@@ -1,0 +1,590 @@
+profile SG202A sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+item SG202A 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 3 LAST-STATE-A level 1 parent 0 record 3 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 4 LAST-STATE-B level 2 parent 3 record 3 WORKING_STORAGE offset 0 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
+item SG202A 5 LAST-STATE-C level 2 parent 3 record 3 WORKING_STORAGE offset 1 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
+item SG202A 6 ALTER-NOT-CALL level 1 parent 0 record 6 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 7 PERF-OVER-RES level 1 parent 0 record 7 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 8 PERF-OVER-RES-A level 2 parent 7 record 7 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 9 PERF-OVER-RES-B level 2 parent 7 record 7 WORKING_STORAGE offset 1 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 10 PERF-RES-OVER level 1 parent 0 record 10 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 11 PERF-RES-OVER-A level 2 parent 10 record 10 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 12 PERF-RES-OVER-B level 2 parent 10 record 10 WORKING_STORAGE offset 1 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 13 FALL-RSLT level 1 parent 0 record 13 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 14 FALL-RSLT-1 level 2 parent 13 record 13 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 15 FALL-RSLT-2 level 2 parent 13 record 13 WORKING_STORAGE offset 1 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 16 TEST-RESULTS level 1 parent 0 record 16 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 17 FILLER level 2 parent 16 record 16 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 18 FEATURE level 2 parent 16 record 16 WORKING_STORAGE offset 1 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SG202A 19 FILLER level 2 parent 16 record 16 WORKING_STORAGE offset 21 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 20 P-OR-F level 2 parent 16 record 16 WORKING_STORAGE offset 22 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item SG202A 21 FILLER level 2 parent 16 record 16 WORKING_STORAGE offset 27 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 22 PAR-NAME level 2 parent 16 record 16 WORKING_STORAGE offset 28 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 23 FILLER level 3 parent 22 record 16 WORKING_STORAGE offset 28 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item SG202A 24 PARDOT-X level 3 parent 22 record 16 WORKING_STORAGE offset 40 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 25 DOTVALUE level 3 parent 22 record 16 WORKING_STORAGE offset 41 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item SG202A 26 FILLER level 3 parent 22 record 16 WORKING_STORAGE offset 43 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item SG202A 27 FILLER level 2 parent 16 record 16 WORKING_STORAGE offset 48 length 10 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXX"
+item SG202A 28 RE-MARK level 2 parent 16 record 16 WORKING_STORAGE offset 58 length 61 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 29 TEST-COMPUTED level 1 parent 0 record 29 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 30 FILLER level 2 parent 29 record 29 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 31 FILLER level 2 parent 29 record 29 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item SG202A 32 COMPUTED-X level 2 parent 29 record 29 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 33 COMPUTED-A level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SG202A 34 COMPUTED-N level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item SG202A 35 COMPUTED-0V18 level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item SG202A 36 COMPUTED-4V14 level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item SG202A 37 COMPUTED-14V4 level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item SG202A 38 CM-18V0 level 3 parent 32 record 29 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 39 COMPUTED-18V0 level 4 parent 38 record 29 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item SG202A 40 FILLER level 4 parent 38 record 29 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 41 FILLER level 3 parent 32 record 29 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 42 TEST-CORRECT level 1 parent 0 record 42 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 43 FILLER level 2 parent 42 record 42 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 44 FILLER level 2 parent 42 record 42 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item SG202A 45 CORRECT-X level 2 parent 42 record 42 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 46 CORRECT-A level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SG202A 47 CORRECT-N level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item SG202A 48 CORRECT-0V18 level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item SG202A 49 CORRECT-4V14 level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item SG202A 50 CORRECT-14V4 level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item SG202A 51 CR-18V0 level 3 parent 45 record 42 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 52 CORRECT-18V0 level 4 parent 51 record 42 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item SG202A 53 FILLER level 4 parent 51 record 42 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 54 FILLER level 3 parent 45 record 42 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 55 CCVS-C-1 level 1 parent 0 record 55 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 56 FILLER level 2 parent 55 record 55 WORKING_STORAGE offset 0 length 99 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 57 FILLER level 2 parent 55 record 55 WORKING_STORAGE offset 99 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SG202A 58 CCVS-C-2 level 1 parent 0 record 58 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 59 FILLER level 2 parent 58 record 58 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 60 FILLER level 2 parent 58 record 58 WORKING_STORAGE offset 1 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item SG202A 61 FILLER level 2 parent 58 record 58 WORKING_STORAGE offset 7 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item SG202A 62 FILLER level 2 parent 58 record 58 WORKING_STORAGE offset 22 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item SG202A 63 FILLER level 2 parent 58 record 58 WORKING_STORAGE offset 26 length 94 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 64 REC-SKL-SUB level 1 parent 0 record 64 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item SG202A 65 REC-CT level 1 parent 0 record 65 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item SG202A 66 DELETE-CNT level 1 parent 0 record 66 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SG202A 67 ERROR-COUNTER level 1 parent 0 record 67 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SG202A 68 INSPECT-COUNTER level 1 parent 0 record 68 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SG202A 69 PASS-COUNTER level 1 parent 0 record 69 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SG202A 70 TOTAL-ERROR level 1 parent 0 record 70 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SG202A 71 ERROR-HOLD level 1 parent 0 record 71 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item SG202A 72 DUMMY-HOLD level 1 parent 0 record 72 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 73 RECORD-COUNT level 1 parent 0 record 73 WORKING_STORAGE offset 0 length 5 DISPLAY NUMERIC digits 5 scale 0 picture "99999"
+item SG202A 74 CCVS-H-1 level 1 parent 0 record 74 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 75 FILLER level 2 parent 74 record 74 WORKING_STORAGE offset 0 length 27 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 76 FILLER level 2 parent 74 record 74 WORKING_STORAGE offset 27 length 67 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 77 FILLER level 2 parent 74 record 74 WORKING_STORAGE offset 94 length 26 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 78 CCVS-H-2 level 1 parent 0 record 78 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 79 FILLER level 2 parent 78 record 78 WORKING_STORAGE offset 0 length 52 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 80 FILLER level 2 parent 78 record 78 WORKING_STORAGE offset 52 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item SG202A 81 TEST-ID level 2 parent 78 record 78 WORKING_STORAGE offset 71 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item SG202A 82 FILLER level 2 parent 78 record 78 WORKING_STORAGE offset 80 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 83 CCVS-H-3 level 1 parent 0 record 83 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 84 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 0 length 34 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 85 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 86 FILLER level 2 parent 83 record 83 WORKING_STORAGE offset 92 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 87 CCVS-E-1 level 1 parent 0 record 87 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 88 FILLER level 2 parent 87 record 87 WORKING_STORAGE offset 0 length 52 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 89 FILLER level 2 parent 87 record 87 WORKING_STORAGE offset 52 length 14 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXX"
+item SG202A 90 ID-AGAIN level 2 parent 87 record 87 WORKING_STORAGE offset 66 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item SG202A 91 FILLER level 2 parent 87 record 87 WORKING_STORAGE offset 75 length 45 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 92 CCVS-E-2 level 1 parent 0 record 92 WORKING_STORAGE offset 0 length 100 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 93 FILLER level 2 parent 92 record 92 WORKING_STORAGE offset 0 length 31 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 94 FILLER level 2 parent 92 record 92 WORKING_STORAGE offset 31 length 21 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXX"
+item SG202A 95 CCVS-E-2-2 level 2 parent 92 record 92 WORKING_STORAGE offset 52 length 48 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 96 ERROR-TOTAL level 3 parent 95 record 92 WORKING_STORAGE offset 52 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item SG202A 97 FILLER level 3 parent 95 record 92 WORKING_STORAGE offset 55 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 98 ENDER-DESC level 3 parent 95 record 92 WORKING_STORAGE offset 56 length 44 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 99 CCVS-E-3 level 1 parent 0 record 99 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 100 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 0 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 101 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 22 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item SG202A 102 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 103 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 92 length 13 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXX"
+item SG202A 104 FILLER level 2 parent 99 record 99 WORKING_STORAGE offset 105 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item SG202A 105 CCVS-E-4 level 1 parent 0 record 105 WORKING_STORAGE offset 0 length 50 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 106 CCVS-E-4-1 level 2 parent 105 record 105 WORKING_STORAGE offset 0 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item SG202A 107 FILLER level 2 parent 105 record 105 WORKING_STORAGE offset 3 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item SG202A 108 CCVS-E-4-2 level 2 parent 105 record 105 WORKING_STORAGE offset 7 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item SG202A 109 FILLER level 2 parent 105 record 105 WORKING_STORAGE offset 10 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 110 XXINFO level 1 parent 0 record 110 WORKING_STORAGE offset 0 length 95 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 111 FILLER level 2 parent 110 record 110 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 112 INFO-TEXT level 2 parent 110 record 110 WORKING_STORAGE offset 30 length 65 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 113 FILLER level 4 parent 112 record 110 WORKING_STORAGE offset 30 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SG202A 114 XXCOMPUTED level 4 parent 112 record 110 WORKING_STORAGE offset 50 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SG202A 115 FILLER level 4 parent 112 record 110 WORKING_STORAGE offset 70 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item SG202A 116 XXCORRECT level 4 parent 112 record 110 WORKING_STORAGE offset 75 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item SG202A 117 HYPHEN-LINE level 1 parent 0 record 117 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item SG202A 118 FILLER level 2 parent 117 record 117 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item SG202A 119 FILLER level 2 parent 117 record 117 WORKING_STORAGE offset 1 length 65 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 120 FILLER level 2 parent 117 record 117 WORKING_STORAGE offset 66 length 54 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item SG202A 121 CCVS-PGM-ID level 1 parent 0 record 121 WORKING_STORAGE offset 0 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+redefines SG202A 34 33
+redefines SG202A 35 33
+redefines SG202A 36 33
+redefines SG202A 37 33
+redefines SG202A 38 33
+redefines SG202A 47 46
+redefines SG202A 48 46
+redefines SG202A 49 46
+redefines SG202A 50 46
+redefines SG202A 51 46
+value SG202A 4 0
+value SG202A 5 0
+value SG202A 14 " "
+value SG202A 15 " "
+value SG202A 17 SPACE
+value SG202A 18 SPACE
+value SG202A 19 SPACE
+value SG202A 20 SPACE
+value SG202A 21 SPACE
+value SG202A 23 SPACE
+value SG202A 24 SPACE
+value SG202A 25 ZERO
+value SG202A 26 SPACE
+value SG202A 27 SPACE
+value SG202A 30 SPACE
+value SG202A 31 " COMPUTED="
+value SG202A 33 SPACE
+value SG202A 41 SPACE
+value SG202A 43 SPACE
+value SG202A 44 " CORRECT ="
+value SG202A 46 SPACE
+value SG202A 54 SPACE
+value SG202A 56 " FEATURE PASS PARAGRAPH-NAME REMARKS"
+value SG202A 57 SPACE
+value SG202A 59 SPACE
+value SG202A 60 "TESTED"
+value SG202A 61 SPACE
+value SG202A 62 "FAIL"
+value SG202A 63 SPACE
+value SG202A 64 ZERO
+value SG202A 65 ZERO
+value SG202A 66 ZERO
+value SG202A 67 ZERO
+value SG202A 68 ZERO
+value SG202A 69 ZERO
+value SG202A 70 ZERO
+value SG202A 71 ZERO
+value SG202A 72 SPACE
+value SG202A 73 ZERO
+value SG202A 75 SPACE
+value SG202A 76 " FEDERAL COMPILER TESTING CENTER COBOL COMPILER VALIDATION SYSTEM"
+value SG202A 77 SPACE
+value SG202A 79 "CCVS74 NCC COPY, NOT FOR DISTRIBUTION."
+value SG202A 80 "TEST RESULTS SET- "
+value SG202A 82 SPACE
+value SG202A 84 " FOR OFFICIAL USE ONLY "
+value SG202A 85 "COBOL 85 VERSION 4.2, Apr 1993 SSVG "
+value SG202A 86 " COPYRIGHT 1974 "
+value SG202A 88 SPACE
+value SG202A 89 "END OF TEST- "
+value SG202A 91 " NTIS DISTRIBUTION COBOL 74"
+value SG202A 93 SPACE
+value SG202A 94 SPACE
+value SG202A 96 SPACE
+value SG202A 97 SPACE
+value SG202A 98 "ERRORS ENCOUNTERED"
+value SG202A 100 " FOR OFFICIAL USE ONLY"
+value SG202A 101 SPACE
+value SG202A 102 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value SG202A 103 SPACE
+value SG202A 104 " COPYRIGHT 1974"
+value SG202A 106 SPACE
+value SG202A 107 " OF "
+value SG202A 108 SPACE
+value SG202A 109 " TESTS WERE EXECUTED SUCCESSFULLY"
+value SG202A 111 " *** INFORMATION ***"
+value SG202A 113 SPACE
+value SG202A 115 SPACE
+value SG202A 118 SPACE
+value SG202A 119 "*****************************************************************"
+value SG202A 120 "******************************************************"
+value SG202A 121 "SG202A"
+file SG202A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
+paragraph SG202A 0 "" ""
+paragraph SG202A 1 "PARAGRAPH-NAME-1" "SEC00"
+paragraph SG202A 2 "OPEN-FILES" "CCVS1"
+paragraph SG202A 3 "CLOSE-FILES" "CCVS1"
+paragraph SG202A 4 "TERMINATE-CCVS" "CCVS1"
+paragraph SG202A 5 "INSPT" "CCVS1"
+paragraph SG202A 6 "PASS" "CCVS1"
+paragraph SG202A 7 "FAIL" "CCVS1"
+paragraph SG202A 8 "DE-LETE" "CCVS1"
+paragraph SG202A 9 "PRINT-DETAIL" "CCVS1"
+paragraph SG202A 10 "HEAD-ROUTINE" "CCVS1"
+paragraph SG202A 11 "COLUMN-NAMES-ROUTINE" "CCVS1"
+paragraph SG202A 12 "END-ROUTINE" "CCVS1"
+paragraph SG202A 13 "END-RTN-EXIT" "CCVS1"
+paragraph SG202A 14 "END-ROUTINE-1" "CCVS1"
+paragraph SG202A 15 "END-ROUTINE-12" "CCVS1"
+paragraph SG202A 16 "END-ROUTINE-13" "CCVS1"
+paragraph SG202A 17 "WRITE-LINE" "CCVS1"
+paragraph SG202A 18 "WRT-LN" "CCVS1"
+paragraph SG202A 19 "BLANK-LINE-PRINT" "CCVS1"
+paragraph SG202A 20 "FAIL-ROUTINE" "CCVS1"
+paragraph SG202A 21 "FAIL-ROUTINE-WRITE" "CCVS1"
+paragraph SG202A 22 "FAIL-ROUTINE-EX" "CCVS1"
+paragraph SG202A 23 "BAIL-OUT" "CCVS1"
+paragraph SG202A 24 "BAIL-OUT-WRITE" "CCVS1"
+paragraph SG202A 25 "BAIL-OUT-EX" "CCVS1"
+paragraph SG202A 26 "CCVS1-EXIT" "CCVS1"
+paragraph SG202A 27 "SG-02-001" "SECT-SG-02-001"
+paragraph SG202A 28 "P0003" "SECT-SG-02-001"
+paragraph SG202A 29 "P0004" "SECT-SG-02-001"
+paragraph SG202A 30 "P0010" "SECT-SG-02-001"
+paragraph SG202A 31 "TEST-1" "SECT-SG-02-001"
+paragraph SG202A 32 "TEST-1-DELETE" "SECT-SG-02-001"
+paragraph SG202A 33 "TEST-1-WRITE" "SECT-SG-02-001"
+paragraph SG202A 34 "TEST-2" "SECT-SG-02-001"
+paragraph SG202A 35 "TEST-2-DELETE" "SECT-SG-02-001"
+paragraph SG202A 36 "TEST-2-WRITE" "SECT-SG-02-001"
+paragraph SG202A 37 "TEST-3" "SECT-SG-02-001"
+paragraph SG202A 38 "TEST-3-DELETE" "SECT-SG-02-001"
+paragraph SG202A 39 "TEST-3-WRITE" "SECT-SG-02-001"
+paragraph SG202A 40 "TEST-4" "SECT-SG-02-001"
+paragraph SG202A 41 "TEST-4-DELETE" "SECT-SG-02-001"
+paragraph SG202A 42 "TEST-4-WRITE" "SECT-SG-02-001"
+paragraph SG202A 43 "TEST-5" "SECT-SG-02-001"
+paragraph SG202A 44 "P2801" "SEC28"
+paragraph SG202A 45 "TEST-5-DELETE" "SEC28"
+paragraph SG202A 46 "TEST-5-WRITE" "SEC28"
+paragraph SG202A 47 "CLOSE-ROUTINE" "SEC28"
+paragraph SG202A 48 "P3901" "SEC39"
+paragraph SG202A 49 "P3902" "SEC39"
+paragraph SG202A 50 "P3903" "SEC39"
+paragraph SG202A 51 "P3904" "SEC39"
+paragraph SG202A 52 "P4001" "SEC40"
+paragraph SG202A 53 "P4002" "SEC40"
+paragraph SG202A 54 "P4003" "SEC40"
+paragraph SG202A 55 "P4004" "SEC40"
+paragraph SG202A 56 "P4501" "SEC45"
+paragraph SG202A 57 "P4502" "SEC45"
+paragraph SG202A 58 "P4801" "SEC48"
+paragraph SG202A 59 "P4802" "SEC48"
+falls SG202A 0 1
+falls SG202A 3 4
+falls SG202A 5 6
+falls SG202A 6 7
+falls SG202A 7 8
+falls SG202A 8 9
+falls SG202A 9 10
+falls SG202A 10 11
+falls SG202A 11 12
+falls SG202A 12 13
+falls SG202A 13 14
+falls SG202A 14 15
+falls SG202A 15 16
+falls SG202A 16 17
+falls SG202A 17 18
+falls SG202A 18 19
+falls SG202A 19 20
+falls SG202A 21 22
+falls SG202A 22 23
+falls SG202A 23 24
+falls SG202A 24 25
+falls SG202A 25 26
+falls SG202A 26 27
+falls SG202A 27 28
+falls SG202A 28 29
+falls SG202A 30 31
+falls SG202A 32 33
+falls SG202A 33 34
+falls SG202A 35 36
+falls SG202A 36 37
+falls SG202A 38 39
+falls SG202A 39 40
+falls SG202A 41 42
+falls SG202A 42 43
+falls SG202A 43 44
+falls SG202A 45 46
+falls SG202A 46 47
+falls SG202A 50 51
+falls SG202A 51 52
+falls SG202A 54 55
+falls SG202A 55 56
+falls SG202A 56 57
+falls SG202A 58 59
+edge SG202A GO_TO 1 30 30
+edge SG202A PERFORM 2 10 11
+edge SG202A GO_TO 2 26 26
+edge SG202A PERFORM 3 12 16
+edge SG202A PERFORM 9 17 17
+edge SG202A PERFORM 9 17 17
+edge SG202A PERFORM 9 20 22
+edge SG202A PERFORM 9 23 25
+edge SG202A PERFORM 10 17 17
+edge SG202A PERFORM 10 17 17
+edge SG202A PERFORM 10 17 17
+edge SG202A PERFORM 11 17 17
+edge SG202A PERFORM 11 17 17
+edge SG202A PERFORM 11 17 17
+edge SG202A PERFORM 12 17 17
+edge SG202A PERFORM 13 17 17
+edge SG202A PERFORM 14 17 17
+edge SG202A PERFORM 15 17 17
+edge SG202A PERFORM 16 17 17
+edge SG202A PERFORM 16 17 17
+edge SG202A PERFORM 16 17 17
+edge SG202A PERFORM 17 18 18
+edge SG202A PERFORM 17 18 18
+edge SG202A PERFORM 17 18 18
+edge SG202A PERFORM 17 18 18
+edge SG202A PERFORM 19 18 18
+edge SG202A GO_TO 20 21 21
+edge SG202A GO_TO 20 21 21
+edge SG202A PERFORM 20 17 17
+edge SG202A GO_TO 20 22 22
+edge SG202A PERFORM 21 17 17
+edge SG202A PERFORM 21 17 17
+edge SG202A GO_TO 23 24 24
+edge SG202A GO_TO 23 25 25
+edge SG202A PERFORM 24 17 17
+edge SG202A GO_TO 29 58 58
+edge SG202A PERFORM 30 2 26
+edge SG202A PERFORM 31 48 51
+edge SG202A PERFORM 31 48 51
+edge SG202A PERFORM 31 48 51
+edge SG202A PERFORM 31 6 6
+edge SG202A PERFORM 31 7 7
+edge SG202A GO_TO 31 33 33
+edge SG202A PERFORM 32 8 8
+edge SG202A PERFORM 33 9 9
+edge SG202A ALTER 52 54 54
+edge SG202A PERFORM 34 52 55
+edge SG202A PERFORM 34 6 6
+edge SG202A PERFORM 34 7 7
+edge SG202A GO_TO 34 36 36
+edge SG202A PERFORM 35 8 8
+edge SG202A PERFORM 36 9 9
+edge SG202A PERFORM 37 56 28
+edge SG202A PERFORM 37 6 6
+edge SG202A PERFORM 37 7 7
+edge SG202A GO_TO 37 39 39
+edge SG202A PERFORM 38 8 8
+edge SG202A PERFORM 39 9 9
+edge SG202A PERFORM 40 29 59
+edge SG202A PERFORM 40 6 6
+edge SG202A PERFORM 40 7 7
+edge SG202A GO_TO 40 42 42
+edge SG202A PERFORM 41 8 8
+edge SG202A PERFORM 42 9 9
+edge SG202A PERFORM 44 6 6
+edge SG202A PERFORM 44 7 7
+edge SG202A GO_TO 44 46 46
+edge SG202A PERFORM 45 8 8
+edge SG202A PERFORM 46 9 9
+edge SG202A GO_TO 47 3 3
+edge SG202A GO_TO 48 49 49
+edge SG202A ALTER 48 50 50
+edge SG202A GO_TO 49 51 51
+edge SG202A ALTER 48 49 49
+edge SG202A GO_TO 52 53 53
+edge SG202A GO_TO 53 55 55
+edge SG202A GO_TO 57 28 28
+statement SG202A 1.0 GO TO go-to-statement-simple=@30..30
+statement SG202A 2.0 OPEN open-output=file:PRINT-FILE
+statement SG202A 2.1 MOVE move-to-sending-area=#121 move-to-statement=#81
+statement SG202A 2.2 MOVE move-to-sending-area=#121 move-to-statement=#90
+statement SG202A 2.3 MOVE move-to-sending-area=SPACE move-to-statement=#16
+statement SG202A 2.4 PERFORM perform-procedure-statement=@10..10 perform-procedure-statement=@11..11
+statement SG202A 2.5 GO TO go-to-statement-simple=@26..26
+statement SG202A 3.0 PERFORM perform-procedure-statement=@12..12 perform-procedure-statement=@16..16
+statement SG202A 3.1 CLOSE close-file=file:PRINT-FILE
+statement SG202A 4.0 STOP
+statement SG202A 5.0 MOVE move-to-sending-area="INSPT" move-to-statement=#20
+statement SG202A 5.1 ADD add-from=1 add-to=#68
+statement SG202A 6.0 MOVE move-to-sending-area="PASS " move-to-statement=#20
+statement SG202A 6.1 ADD add-from=1 add-to=#69
+statement SG202A 7.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#20
+statement SG202A 7.1 ADD add-from=1 add-to=#67
+statement SG202A 8.0 MOVE move-to-sending-area="*****" move-to-statement=#20
+statement SG202A 8.1 ADD add-from=1 add-to=#66
+statement SG202A 8.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=#28
+statement SG202A 9.0 IF if-statement=(NOT EQUAL TO #65 ZERO)
+statement SG202A 9.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#24
+statement SG202A 9.0.if-then.1 MOVE move-to-sending-area=#65 move-to-statement=#25
+statement SG202A 9.1 MOVE move-to-sending-area=#16 move-to-statement=#1
+statement SG202A 9.2 PERFORM perform-procedure-statement=@17..17
+statement SG202A 9.3 IF if-statement=(EQUAL TO #20 "FAIL*")
+statement SG202A 9.3.if-then.0 PERFORM perform-procedure-statement=@17..17
+statement SG202A 9.3.if-then.1 PERFORM perform-procedure-statement=@20..20 perform-procedure-statement=@22..22
+statement SG202A 9.3.if-else.0 PERFORM perform-procedure-statement=@23..23 perform-procedure-statement=@25..25
+statement SG202A 9.4 MOVE move-to-sending-area=SPACE move-to-statement=#20
+statement SG202A 9.5 MOVE move-to-sending-area=SPACE move-to-statement=#32
+statement SG202A 9.6 MOVE move-to-sending-area=SPACE move-to-statement=#45
+statement SG202A 9.7 IF if-statement=(EQUAL TO #65 ZERO)
+statement SG202A 9.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#22
+statement SG202A 9.8 MOVE move-to-sending-area=SPACE move-to-statement=#28
+statement SG202A 10.0 MOVE move-to-sending-area=#74 move-to-statement=#2
+statement SG202A 10.1 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement SG202A 10.2 MOVE move-to-sending-area=#78 move-to-statement=#2
+statement SG202A 10.3 PERFORM perform-procedure-statement=@17..17 perform-times=5
+statement SG202A 10.4 MOVE move-to-sending-area=#83 move-to-statement=#2
+statement SG202A 10.5 PERFORM perform-procedure-statement=@17..17 perform-times=3
+statement SG202A 11.0 MOVE move-to-sending-area=#55 move-to-statement=#2
+statement SG202A 11.1 PERFORM perform-procedure-statement=@17..17
+statement SG202A 11.2 MOVE move-to-sending-area=#58 move-to-statement=#2
+statement SG202A 11.3 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement SG202A 11.4 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement SG202A 11.5 PERFORM perform-procedure-statement=@17..17
+statement SG202A 12.0 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement SG202A 12.1 PERFORM perform-procedure-statement=@17..17 perform-times=5
+statement SG202A 13.0 MOVE move-to-sending-area=#87 move-to-statement=#2
+statement SG202A 13.1 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement SG202A 14.0 ADD add-from=#67 add-to=#71
+statement SG202A 14.1 ADD add-from=#68 add-to=#71
+statement SG202A 14.2 ADD add-from=#66 add-to=#71
+statement SG202A 14.3 ADD add-from=#69 add-to=#71
+statement SG202A 14.4 MOVE move-to-sending-area=#69 move-to-statement=#106
+statement SG202A 14.5 MOVE move-to-sending-area=#71 move-to-statement=#108
+statement SG202A 14.6 MOVE move-to-sending-area=#105 move-to-statement=#95
+statement SG202A 14.7 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SG202A 14.8 PERFORM perform-procedure-statement=@17..17
+statement SG202A 15.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#98
+statement SG202A 15.1 IF if-statement=(IS EQUAL TO #67 ZERO)
+statement SG202A 15.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
+statement SG202A 15.1.if-else.0 MOVE move-to-sending-area=#67 move-to-statement=#96
+statement SG202A 15.2 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SG202A 15.3 PERFORM perform-procedure-statement=@17..17
+statement SG202A 16.0 IF if-statement=(IS EQUAL TO #66 ZERO)
+statement SG202A 16.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
+statement SG202A 16.0.if-else.0 MOVE move-to-sending-area=#66 move-to-statement=#96
+statement SG202A 16.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#98
+statement SG202A 16.2 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SG202A 16.3 PERFORM perform-procedure-statement=@17..17
+statement SG202A 16.4 IF if-statement=(EQUAL TO #68 ZERO)
+statement SG202A 16.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#96
+statement SG202A 16.4.if-else.0 MOVE move-to-sending-area=#68 move-to-statement=#96
+statement SG202A 16.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#98
+statement SG202A 16.6 MOVE move-to-sending-area=#92 move-to-statement=#2
+statement SG202A 16.7 PERFORM perform-procedure-statement=@17..17
+statement SG202A 16.8 MOVE move-to-sending-area=#99 move-to-statement=#2
+statement SG202A 16.9 PERFORM perform-procedure-statement=@17..17
+statement SG202A 17.0 ADD add-from=1 add-to=#73
+statement SG202A 17.1 IF if-statement=(GREATER #73 50)
+statement SG202A 17.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#72
+statement SG202A 17.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement SG202A 17.1.if-then.2 WRITE record-name=#2
+statement SG202A 17.1.if-then.3 MOVE move-to-sending-area=#55 move-to-statement=#2
+statement SG202A 17.1.if-then.4 PERFORM perform-procedure-statement=@18..18
+statement SG202A 17.1.if-then.5 MOVE move-to-sending-area=#58 move-to-statement=#2
+statement SG202A 17.1.if-then.6 PERFORM perform-procedure-statement=@18..18 perform-times=2
+statement SG202A 17.1.if-then.7 MOVE move-to-sending-area=#117 move-to-statement=#2
+statement SG202A 17.1.if-then.8 PERFORM perform-procedure-statement=@18..18
+statement SG202A 17.1.if-then.9 MOVE move-to-sending-area=#72 move-to-statement=#2
+statement SG202A 17.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=#73
+statement SG202A 17.2 PERFORM perform-procedure-statement=@18..18
+statement SG202A 18.0 WRITE record-name=#2 write-advancing-lines=1
+statement SG202A 18.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement SG202A 19.0 PERFORM perform-procedure-statement=@18..18
+statement SG202A 20.0 IF if-statement=(NOT EQUAL TO #32 SPACE)
+statement SG202A 20.0.if-then.0 GO TO go-to-statement-simple=@21..21
+statement SG202A 20.1 IF if-statement=(NOT EQUAL TO #45 SPACE)
+statement SG202A 20.1.if-then.0 GO TO go-to-statement-simple=@21..21
+statement SG202A 20.2 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#112
+statement SG202A 20.3 MOVE move-to-sending-area=#110 move-to-statement=#2
+statement SG202A 20.4 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement SG202A 20.5 GO TO go-to-statement-simple=@22..22
+statement SG202A 21.0 MOVE move-to-sending-area=#29 move-to-statement=#1
+statement SG202A 21.1 PERFORM perform-procedure-statement=@17..17
+statement SG202A 21.2 MOVE move-to-sending-area=#42 move-to-statement=#1
+statement SG202A 21.3 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement SG202A 22.0 EXIT
+statement SG202A 23.0 IF if-statement=(NOT EQUAL TO #33 SPACE)
+statement SG202A 23.0.if-then.0 GO TO go-to-statement-simple=@24..24
+statement SG202A 23.1 IF if-statement=(EQUAL TO #46 SPACE)
+statement SG202A 23.1.if-then.0 GO TO go-to-statement-simple=@25..25
+statement SG202A 24.0 MOVE move-to-sending-area=#46 move-to-statement=#116
+statement SG202A 24.1 MOVE move-to-sending-area=#33 move-to-statement=#114
+statement SG202A 24.2 MOVE move-to-sending-area=#110 move-to-statement=#2
+statement SG202A 24.3 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement SG202A 25.0 EXIT
+statement SG202A 26.0 EXIT
+statement SG202A 28.0 MOVE move-to-sending-area="B" move-to-statement=#9
+statement SG202A 29.0 MOVE move-to-sending-area="X" move-to-statement=#11
+statement SG202A 29.1 GO TO go-to-statement-simple=@58..58
+statement SG202A 30.0 PERFORM perform-procedure-statement=@2..26
+statement SG202A 31.0 MOVE move-to-sending-area=SPACE move-to-statement=#46
+statement SG202A 31.1 PERFORM perform-procedure-statement=@48..51
+statement SG202A 31.2 PERFORM perform-procedure-statement=@48..48 perform-procedure-statement=@51..51
+statement SG202A 31.3 PERFORM perform-procedure-statement=@48..51
+statement SG202A 31.4 IF if-statement=(EQUAL TO #3 "23")
+statement SG202A 31.4.if-then.0 PERFORM perform-procedure-statement=@6..6
+statement SG202A 31.4.if-else.0 MOVE move-to-sending-area=#3 move-to-statement=#33
+statement SG202A 31.4.if-else.1 MOVE move-to-sending-area="23" move-to-statement=#46
+statement SG202A 31.4.if-else.2 PERFORM perform-procedure-statement=@7..7
+statement SG202A 31.5 GO TO go-to-statement-simple=@33..33
+statement SG202A 32.0 PERFORM perform-procedure-statement=@8..8
+statement SG202A 33.0 MOVE move-to-sending-area="TEST-1" move-to-statement=#22
+statement SG202A 33.1 MOVE move-to-sending-area="LAST USED STATE" move-to-statement=#18
+statement SG202A 33.2 PERFORM perform-procedure-statement=@9..9
+statement SG202A 34.0 MOVE move-to-sending-area=SPACE move-to-statement=#46
+statement SG202A 34.1 ALTER alter-proceed-to=@52..52 alter-proceed-to=@54..54
+statement SG202A 34.2 PERFORM perform-procedure-statement=@52..55
+statement SG202A 34.3 IF if-statement=(EQUAL TO #6 "B")
+statement SG202A 34.3.if-then.0 PERFORM perform-procedure-statement=@6..6
+statement SG202A 34.3.if-else.0 MOVE move-to-sending-area=#6 move-to-statement=#33
+statement SG202A 34.3.if-else.1 MOVE move-to-sending-area="B" move-to-statement=#46
+statement SG202A 34.3.if-else.2 PERFORM perform-procedure-statement=@7..7
+statement SG202A 34.4 GO TO go-to-statement-simple=@36..36
+statement SG202A 35.0 PERFORM perform-procedure-statement=@8..8
+statement SG202A 36.0 MOVE move-to-sending-area="TEST-2" move-to-statement=#22
+statement SG202A 36.1 MOVE move-to-sending-area="ALTER NOT CALLD" move-to-statement=#18
+statement SG202A 36.2 PERFORM perform-procedure-statement=@9..9
+statement SG202A 37.0 MOVE move-to-sending-area=SPACE move-to-statement=#46
+statement SG202A 37.1 PERFORM perform-procedure-statement=@56..56 perform-procedure-statement=@28..28
+statement SG202A 37.2 IF if-statement=(IS EQUAL TO #7 "AB")
+statement SG202A 37.2.if-then.0 PERFORM perform-procedure-statement=@6..6
+statement SG202A 37.2.if-else.0 MOVE move-to-sending-area=#7 move-to-statement=#33
+statement SG202A 37.2.if-else.1 MOVE move-to-sending-area="AB" move-to-statement=#46
+statement SG202A 37.2.if-else.2 PERFORM perform-procedure-statement=@7..7
+statement SG202A 37.3 GO TO go-to-statement-simple=@39..39
+statement SG202A 38.0 PERFORM perform-procedure-statement=@8..8
+statement SG202A 39.0 MOVE move-to-sending-area="TEST-3" move-to-statement=#22
+statement SG202A 39.1 MOVE move-to-sending-area="PERFORM OVER/FIX" move-to-statement=#18
+statement SG202A 39.2 PERFORM perform-procedure-statement=@9..9
+statement SG202A 40.0 MOVE move-to-sending-area=SPACE move-to-statement=#46
+statement SG202A 40.1 PERFORM perform-procedure-statement=@29..29 perform-procedure-statement=@59..59
+statement SG202A 40.2 IF if-statement=(EQUAL TO #10 "XY")
+statement SG202A 40.2.if-then.0 PERFORM perform-procedure-statement=@6..6
+statement SG202A 40.2.if-else.0 MOVE move-to-sending-area=#10 move-to-statement=#33
+statement SG202A 40.2.if-else.1 MOVE move-to-sending-area="XY" move-to-statement=#46
+statement SG202A 40.2.if-else.2 PERFORM perform-procedure-statement=@7..7
+statement SG202A 40.3 GO TO go-to-statement-simple=@42..42
+statement SG202A 41.0 PERFORM perform-procedure-statement=@8..8
+statement SG202A 42.0 MOVE move-to-sending-area="TEST-4" move-to-statement=#22
+statement SG202A 42.1 MOVE move-to-sending-area="PERFORM FIX/OVER" move-to-statement=#18
+statement SG202A 42.2 PERFORM perform-procedure-statement=@9..9
+statement SG202A 43.0 MOVE move-to-sending-area=SPACE move-to-statement=#46
+statement SG202A 43.1 MOVE move-to-sending-area="A" move-to-statement=#14
+statement SG202A 44.0 MOVE move-to-sending-area="B" move-to-statement=#15
+statement SG202A 44.1 IF if-statement=(EQUAL TO #13 "AB")
+statement SG202A 44.1.if-then.0 PERFORM perform-procedure-statement=@6..6
+statement SG202A 44.1.if-else.0 MOVE move-to-sending-area=#13 move-to-statement=#33
+statement SG202A 44.1.if-else.1 MOVE move-to-sending-area="AB" move-to-statement=#46
+statement SG202A 44.1.if-else.2 PERFORM perform-procedure-statement=@7..7
+statement SG202A 44.2 GO TO go-to-statement-simple=@46..46
+statement SG202A 45.0 PERFORM perform-procedure-statement=@8..8
+statement SG202A 46.0 MOVE move-to-sending-area="TEST-5" move-to-statement=#22
+statement SG202A 46.1 MOVE move-to-sending-area="FALL THRU IMPLIED" move-to-statement=#18
+statement SG202A 46.2 PERFORM perform-procedure-statement=@9..9
+statement SG202A 47.0 GO TO go-to-statement-simple=@3..3
+statement SG202A 48.0 GO TO go-to-statement-simple=@49..49
+statement SG202A 49.0 ALTER alter-proceed-to=@48..48 alter-proceed-to=@50..50
+statement SG202A 49.1 ADD add-from=1 add-to=#4
+statement SG202A 49.2 GO TO go-to-statement-simple=@51..51
+statement SG202A 50.0 ALTER alter-proceed-to=@48..48 alter-proceed-to=@49..49
+statement SG202A 50.1 ADD add-from=3 add-to=#5
+statement SG202A 51.0 EXIT
+statement SG202A 52.0 GO TO go-to-statement-simple=@53..53
+statement SG202A 53.0 MOVE move-to-sending-area="A" move-to-statement=#6
+statement SG202A 53.1 GO TO go-to-statement-simple=@55..55
+statement SG202A 54.0 MOVE move-to-sending-area="B" move-to-statement=#6
+statement SG202A 55.0 EXIT
+statement SG202A 56.0 MOVE move-to-sending-area="A" move-to-statement=#8
+statement SG202A 57.0 GO TO go-to-statement-simple=@28..28
+statement SG202A 58.0 MOVE move-to-sending-area="Y" move-to-statement=#12
+statement SG202A 59.0 EXIT
+using SG202A [] 0

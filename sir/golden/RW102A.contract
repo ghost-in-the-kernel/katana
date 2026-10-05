@@ -1,0 +1,518 @@
+profile RW102A sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+item RW102A 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 3 LC-ERRORS level 1 parent 0 record 3 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item RW102A 4 PC-ERRORS level 1 parent 0 record 4 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item RW102A 5 WS-COUNTER level 1 parent 0 record 5 WORKING_STORAGE offset 0 length 6 DISPLAY NUMERIC digits 6 scale 0 picture "999999"
+item RW102A 6 TEST-RESULTS level 1 parent 0 record 6 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 7 FILLER level 2 parent 6 record 6 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RW102A 8 FEATURE level 2 parent 6 record 6 WORKING_STORAGE offset 1 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RW102A 9 FILLER level 2 parent 6 record 6 WORKING_STORAGE offset 21 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RW102A 10 P-OR-F level 2 parent 6 record 6 WORKING_STORAGE offset 22 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item RW102A 11 FILLER level 2 parent 6 record 6 WORKING_STORAGE offset 27 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RW102A 12 PAR-NAME level 2 parent 6 record 6 WORKING_STORAGE offset 28 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 13 FILLER level 3 parent 12 record 6 WORKING_STORAGE offset 28 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item RW102A 14 PARDOT-X level 3 parent 12 record 6 WORKING_STORAGE offset 40 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RW102A 15 DOTVALUE level 3 parent 12 record 6 WORKING_STORAGE offset 41 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item RW102A 16 FILLER level 3 parent 12 record 6 WORKING_STORAGE offset 43 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item RW102A 17 FILLER level 2 parent 6 record 6 WORKING_STORAGE offset 48 length 10 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXX"
+item RW102A 18 RE-MARK level 2 parent 6 record 6 WORKING_STORAGE offset 58 length 61 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 19 TEST-COMPUTED level 1 parent 0 record 19 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 20 FILLER level 2 parent 19 record 19 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 21 FILLER level 2 parent 19 record 19 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item RW102A 22 COMPUTED-X level 2 parent 19 record 19 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 23 COMPUTED-A level 3 parent 22 record 19 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RW102A 24 COMPUTED-N level 3 parent 22 record 19 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item RW102A 25 COMPUTED-0V18 level 3 parent 22 record 19 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item RW102A 26 COMPUTED-4V14 level 3 parent 22 record 19 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item RW102A 27 COMPUTED-14V4 level 3 parent 22 record 19 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item RW102A 28 CM-18V0 level 3 parent 22 record 19 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 29 COMPUTED-18V0 level 4 parent 28 record 19 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item RW102A 30 FILLER level 4 parent 28 record 19 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RW102A 31 FILLER level 3 parent 22 record 19 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 32 TEST-CORRECT level 1 parent 0 record 32 WORKING_STORAGE offset 0 length 117 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 33 FILLER level 2 parent 32 record 32 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 34 FILLER level 2 parent 32 record 32 WORKING_STORAGE offset 30 length 17 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXX"
+item RW102A 35 CORRECT-X level 2 parent 32 record 32 WORKING_STORAGE offset 47 length 70 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 36 CORRECT-A level 3 parent 35 record 32 WORKING_STORAGE offset 47 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RW102A 37 CORRECT-N level 3 parent 35 record 32 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 9 signed picture "-999999999.999999999"
+item RW102A 38 CORRECT-0V18 level 3 parent 35 record 32 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 18 signed picture "-.999999999999999999"
+item RW102A 39 CORRECT-4V14 level 3 parent 35 record 32 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 14 signed picture "-9999.99999999999999"
+item RW102A 40 CORRECT-14V4 level 3 parent 35 record 32 WORKING_STORAGE offset 47 length 20 DISPLAY NUMERIC_EDITED digits 18 scale 4 signed picture "-99999999999999.9999"
+item RW102A 41 CR-18V0 level 3 parent 35 record 32 WORKING_STORAGE offset 47 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 42 CORRECT-18V0 level 4 parent 41 record 32 WORKING_STORAGE offset 47 length 19 DISPLAY NUMERIC_EDITED digits 18 scale 0 signed picture "-999999999999999999"
+item RW102A 43 FILLER level 4 parent 41 record 32 WORKING_STORAGE offset 66 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RW102A 44 FILLER level 3 parent 35 record 32 WORKING_STORAGE offset 67 length 50 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 45 CCVS-C-1 level 1 parent 0 record 45 WORKING_STORAGE offset 0 length 119 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 46 FILLER level 2 parent 45 record 45 WORKING_STORAGE offset 0 length 99 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 47 FILLER level 2 parent 45 record 45 WORKING_STORAGE offset 99 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RW102A 48 CCVS-C-2 level 1 parent 0 record 48 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 49 FILLER level 2 parent 48 record 48 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RW102A 50 FILLER level 2 parent 48 record 48 WORKING_STORAGE offset 1 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item RW102A 51 FILLER level 2 parent 48 record 48 WORKING_STORAGE offset 7 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item RW102A 52 FILLER level 2 parent 48 record 48 WORKING_STORAGE offset 22 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item RW102A 53 FILLER level 2 parent 48 record 48 WORKING_STORAGE offset 26 length 94 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 54 REC-SKL-SUB level 1 parent 0 record 54 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item RW102A 55 REC-CT level 1 parent 0 record 55 WORKING_STORAGE offset 0 length 2 DISPLAY NUMERIC digits 2 scale 0 picture "99"
+item RW102A 56 DELETE-CNT level 1 parent 0 record 56 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RW102A 57 ERROR-COUNTER level 1 parent 0 record 57 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RW102A 58 INSPECT-COUNTER level 1 parent 0 record 58 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RW102A 59 PASS-COUNTER level 1 parent 0 record 59 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RW102A 60 TOTAL-ERROR level 1 parent 0 record 60 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RW102A 61 ERROR-HOLD level 1 parent 0 record 61 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item RW102A 62 DUMMY-HOLD level 1 parent 0 record 62 WORKING_STORAGE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 63 RECORD-COUNT level 1 parent 0 record 63 WORKING_STORAGE offset 0 length 5 DISPLAY NUMERIC digits 5 scale 0 picture "99999"
+item RW102A 64 CCVS-H-1 level 1 parent 0 record 64 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 65 FILLER level 2 parent 64 record 64 WORKING_STORAGE offset 0 length 27 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 66 FILLER level 2 parent 64 record 64 WORKING_STORAGE offset 27 length 67 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 67 FILLER level 2 parent 64 record 64 WORKING_STORAGE offset 94 length 26 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 68 CCVS-H-2 level 1 parent 0 record 68 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 69 FILLER level 2 parent 68 record 68 WORKING_STORAGE offset 0 length 52 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 70 FILLER level 2 parent 68 record 68 WORKING_STORAGE offset 52 length 19 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXX"
+item RW102A 71 TEST-ID level 2 parent 68 record 68 WORKING_STORAGE offset 71 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item RW102A 72 FILLER level 2 parent 68 record 68 WORKING_STORAGE offset 80 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 73 CCVS-H-3 level 1 parent 0 record 73 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 74 FILLER level 2 parent 73 record 73 WORKING_STORAGE offset 0 length 34 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 75 FILLER level 2 parent 73 record 73 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 76 FILLER level 2 parent 73 record 73 WORKING_STORAGE offset 92 length 28 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 77 CCVS-E-1 level 1 parent 0 record 77 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 78 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 0 length 52 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 79 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 52 length 14 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXX"
+item RW102A 80 ID-AGAIN level 2 parent 77 record 77 WORKING_STORAGE offset 66 length 9 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXX"
+item RW102A 81 FILLER level 2 parent 77 record 77 WORKING_STORAGE offset 75 length 45 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 82 CCVS-E-2 level 1 parent 0 record 82 WORKING_STORAGE offset 0 length 100 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 83 FILLER level 2 parent 82 record 82 WORKING_STORAGE offset 0 length 31 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 84 FILLER level 2 parent 82 record 82 WORKING_STORAGE offset 31 length 21 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXX"
+item RW102A 85 CCVS-E-2-2 level 2 parent 82 record 82 WORKING_STORAGE offset 52 length 48 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 86 ERROR-TOTAL level 3 parent 85 record 82 WORKING_STORAGE offset 52 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item RW102A 87 FILLER level 3 parent 85 record 82 WORKING_STORAGE offset 55 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RW102A 88 ENDER-DESC level 3 parent 85 record 82 WORKING_STORAGE offset 56 length 44 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 89 CCVS-E-3 level 1 parent 0 record 89 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 90 FILLER level 2 parent 89 record 89 WORKING_STORAGE offset 0 length 22 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 91 FILLER level 2 parent 89 record 89 WORKING_STORAGE offset 22 length 12 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXX"
+item RW102A 92 FILLER level 2 parent 89 record 89 WORKING_STORAGE offset 34 length 58 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 93 FILLER level 2 parent 89 record 89 WORKING_STORAGE offset 92 length 13 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXX"
+item RW102A 94 FILLER level 2 parent 89 record 89 WORKING_STORAGE offset 105 length 15 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXX"
+item RW102A 95 CCVS-E-4 level 1 parent 0 record 95 WORKING_STORAGE offset 0 length 50 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 96 CCVS-E-4-1 level 2 parent 95 record 95 WORKING_STORAGE offset 0 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item RW102A 97 FILLER level 2 parent 95 record 95 WORKING_STORAGE offset 3 length 4 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXX"
+item RW102A 98 CCVS-E-4-2 level 2 parent 95 record 95 WORKING_STORAGE offset 7 length 3 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXX"
+item RW102A 99 FILLER level 2 parent 95 record 95 WORKING_STORAGE offset 10 length 40 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 100 XXINFO level 1 parent 0 record 100 WORKING_STORAGE offset 0 length 95 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 101 FILLER level 2 parent 100 record 100 WORKING_STORAGE offset 0 length 30 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 102 INFO-TEXT level 2 parent 100 record 100 WORKING_STORAGE offset 30 length 65 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 103 FILLER level 4 parent 102 record 100 WORKING_STORAGE offset 30 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RW102A 104 XXCOMPUTED level 4 parent 102 record 100 WORKING_STORAGE offset 50 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RW102A 105 FILLER level 4 parent 102 record 100 WORKING_STORAGE offset 70 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX"
+item RW102A 106 XXCORRECT level 4 parent 102 record 100 WORKING_STORAGE offset 75 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item RW102A 107 HYPHEN-LINE level 1 parent 0 record 107 WORKING_STORAGE offset 0 length 120 DISPLAY GROUP digits 0 scale 0 picture ""
+item RW102A 108 FILLER level 2 parent 107 record 107 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item RW102A 109 FILLER level 2 parent 107 record 107 WORKING_STORAGE offset 1 length 65 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 110 FILLER level 2 parent 107 record 107 WORKING_STORAGE offset 66 length 54 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+item RW102A 111 CCVS-PGM-ID level 1 parent 0 record 111 WORKING_STORAGE offset 0 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+redefines RW102A 24 23
+redefines RW102A 25 23
+redefines RW102A 26 23
+redefines RW102A 27 23
+redefines RW102A 28 23
+redefines RW102A 37 36
+redefines RW102A 38 36
+redefines RW102A 39 36
+redefines RW102A 40 36
+redefines RW102A 41 36
+value RW102A 3 0
+value RW102A 4 0
+value RW102A 5 ZERO
+value RW102A 7 SPACE
+value RW102A 8 SPACE
+value RW102A 9 SPACE
+value RW102A 10 SPACE
+value RW102A 11 SPACE
+value RW102A 13 SPACE
+value RW102A 14 SPACE
+value RW102A 15 ZERO
+value RW102A 16 SPACE
+value RW102A 17 SPACE
+value RW102A 20 SPACE
+value RW102A 21 " COMPUTED="
+value RW102A 23 SPACE
+value RW102A 31 SPACE
+value RW102A 33 SPACE
+value RW102A 34 " CORRECT ="
+value RW102A 36 SPACE
+value RW102A 44 SPACE
+value RW102A 46 " FEATURE PASS PARAGRAPH-NAME REMARKS"
+value RW102A 47 SPACE
+value RW102A 49 SPACE
+value RW102A 50 "TESTED"
+value RW102A 51 SPACE
+value RW102A 52 "FAIL"
+value RW102A 53 SPACE
+value RW102A 54 ZERO
+value RW102A 55 ZERO
+value RW102A 56 ZERO
+value RW102A 57 ZERO
+value RW102A 58 ZERO
+value RW102A 59 ZERO
+value RW102A 60 ZERO
+value RW102A 61 ZERO
+value RW102A 62 SPACE
+value RW102A 63 ZERO
+value RW102A 65 SPACE
+value RW102A 66 " FEDERAL COMPILER TESTING CENTER COBOL COMPILER VALIDATION SYSTEM"
+value RW102A 67 SPACE
+value RW102A 69 "CCVS74 NCC COPY, NOT FOR DISTRIBUTION."
+value RW102A 70 "TEST RESULTS SET- "
+value RW102A 72 SPACE
+value RW102A 74 " FOR OFFICIAL USE ONLY "
+value RW102A 75 "COBOL 85 VERSION 4.2, Apr 1993 SSVG "
+value RW102A 76 " COPYRIGHT 1974 "
+value RW102A 78 SPACE
+value RW102A 79 "END OF TEST- "
+value RW102A 81 " NTIS DISTRIBUTION COBOL 74"
+value RW102A 83 SPACE
+value RW102A 84 SPACE
+value RW102A 86 SPACE
+value RW102A 87 SPACE
+value RW102A 88 "ERRORS ENCOUNTERED"
+value RW102A 90 " FOR OFFICIAL USE ONLY"
+value RW102A 91 SPACE
+value RW102A 92 "ON-SITE VALIDATION, NATIONAL INSTITUTE OF STD & TECH. "
+value RW102A 93 SPACE
+value RW102A 94 " COPYRIGHT 1974"
+value RW102A 96 SPACE
+value RW102A 97 " OF "
+value RW102A 98 SPACE
+value RW102A 99 " TESTS WERE EXECUTED SUCCESSFULLY"
+value RW102A 101 " *** INFORMATION ***"
+value RW102A 103 SPACE
+value RW102A 105 SPACE
+value RW102A 108 SPACE
+value RW102A 109 "*****************************************************************"
+value RW102A 110 "******************************************************"
+value RW102A 111 "RW102A"
+file RW102A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [1, 2] 120..120
+file RW102A RW-FS2 assign "RPT1" SEQUENTIAL SEQUENTIAL key 0 alternate [] status 0 records [] 0..0
+paragraph RW102A 0 "" ""
+paragraph RW102A 1 "OPEN-FILES" "CCVS1"
+paragraph RW102A 2 "CLOSE-FILES" "CCVS1"
+paragraph RW102A 3 "TERMINATE-CCVS" "CCVS1"
+paragraph RW102A 4 "INSPT" "CCVS1"
+paragraph RW102A 5 "PASS" "CCVS1"
+paragraph RW102A 6 "FAIL" "CCVS1"
+paragraph RW102A 7 "DE-LETE" "CCVS1"
+paragraph RW102A 8 "PRINT-DETAIL" "CCVS1"
+paragraph RW102A 9 "HEAD-ROUTINE" "CCVS1"
+paragraph RW102A 10 "COLUMN-NAMES-ROUTINE" "CCVS1"
+paragraph RW102A 11 "END-ROUTINE" "CCVS1"
+paragraph RW102A 12 "END-RTN-EXIT" "CCVS1"
+paragraph RW102A 13 "END-ROUTINE-1" "CCVS1"
+paragraph RW102A 14 "END-ROUTINE-12" "CCVS1"
+paragraph RW102A 15 "END-ROUTINE-13" "CCVS1"
+paragraph RW102A 16 "WRITE-LINE" "CCVS1"
+paragraph RW102A 17 "WRT-LN" "CCVS1"
+paragraph RW102A 18 "BLANK-LINE-PRINT" "CCVS1"
+paragraph RW102A 19 "FAIL-ROUTINE" "CCVS1"
+paragraph RW102A 20 "FAIL-ROUTINE-WRITE" "CCVS1"
+paragraph RW102A 21 "FAIL-ROUTINE-EX" "CCVS1"
+paragraph RW102A 22 "BAIL-OUT" "CCVS1"
+paragraph RW102A 23 "BAIL-OUT-WRITE" "CCVS1"
+paragraph RW102A 24 "BAIL-OUT-EX" "CCVS1"
+paragraph RW102A 25 "CCVS1-EXIT" "CCVS1"
+paragraph RW102A 26 "RW102-INIT" "SECT-RW102-0001"
+paragraph RW102A 27 "INIT-TEST-03" "SECT-RW102-0001"
+paragraph RW102A 28 "INIT-TEST-03-01" "SECT-RW102-0001"
+paragraph RW102A 29 "INIT-FAIL-03-01" "SECT-RW102-0001"
+paragraph RW102A 30 "INIT-WRITE-03-01" "SECT-RW102-0001"
+paragraph RW102A 31 "INIT-TEST-03-02" "SECT-RW102-0001"
+paragraph RW102A 32 "INIT-FAIL-03-02" "SECT-RW102-0001"
+paragraph RW102A 33 "INIT-WRITE-03-02" "SECT-RW102-0001"
+paragraph RW102A 34 "GENER-TEST-07" "SECT-RW102-0001"
+paragraph RW102A 35 "GENER-TEST-07-01" "SECT-RW102-0001"
+paragraph RW102A 36 "GENER-FAIL-07-01" "SECT-RW102-0001"
+paragraph RW102A 37 "GENER-WRITE-07-01" "SECT-RW102-0001"
+paragraph RW102A 38 "GENER-DETAIL-LINE" "SECT-RW102-0001"
+paragraph RW102A 39 "GENER-TEST-07-02" "SECT-RW102-0001"
+paragraph RW102A 40 "GENER-FAIL-07-02" "SECT-RW102-0001"
+paragraph RW102A 41 "GENER-WRITE-07-02" "SECT-RW102-0001"
+paragraph RW102A 42 "TERM-TEST-STATE" "SECT-RW102-0001"
+paragraph RW102A 43 "CLOSE-RW-FS2" "SECT-RW102-0001"
+paragraph RW102A 44 "TERM-WRITE-02" "SECT-RW102-0001"
+paragraph RW102A 45 "EXIT-RW102" "SECT-RW102-0001"
+paragraph RW102A 46 "CCVS-999999" "CCVS-EXIT"
+falls RW102A 0 1
+falls RW102A 2 3
+falls RW102A 4 5
+falls RW102A 5 6
+falls RW102A 6 7
+falls RW102A 7 8
+falls RW102A 8 9
+falls RW102A 9 10
+falls RW102A 10 11
+falls RW102A 11 12
+falls RW102A 12 13
+falls RW102A 13 14
+falls RW102A 14 15
+falls RW102A 15 16
+falls RW102A 16 17
+falls RW102A 17 18
+falls RW102A 18 19
+falls RW102A 20 21
+falls RW102A 21 22
+falls RW102A 22 23
+falls RW102A 23 24
+falls RW102A 24 25
+falls RW102A 25 26
+falls RW102A 26 27
+falls RW102A 27 28
+falls RW102A 28 29
+falls RW102A 29 30
+falls RW102A 30 31
+falls RW102A 31 32
+falls RW102A 32 33
+falls RW102A 33 34
+falls RW102A 34 35
+falls RW102A 35 36
+falls RW102A 36 37
+falls RW102A 38 39
+falls RW102A 39 40
+falls RW102A 40 41
+falls RW102A 41 42
+falls RW102A 42 43
+falls RW102A 43 44
+falls RW102A 44 45
+falls RW102A 45 46
+edge RW102A PERFORM 1 9 10
+edge RW102A GO_TO 1 25 25
+edge RW102A PERFORM 2 11 15
+edge RW102A PERFORM 8 16 16
+edge RW102A PERFORM 8 16 16
+edge RW102A PERFORM 8 19 21
+edge RW102A PERFORM 8 22 24
+edge RW102A PERFORM 9 16 16
+edge RW102A PERFORM 9 16 16
+edge RW102A PERFORM 9 16 16
+edge RW102A PERFORM 10 16 16
+edge RW102A PERFORM 10 16 16
+edge RW102A PERFORM 10 16 16
+edge RW102A PERFORM 11 16 16
+edge RW102A PERFORM 12 16 16
+edge RW102A PERFORM 13 16 16
+edge RW102A PERFORM 14 16 16
+edge RW102A PERFORM 15 16 16
+edge RW102A PERFORM 15 16 16
+edge RW102A PERFORM 15 16 16
+edge RW102A PERFORM 16 17 17
+edge RW102A PERFORM 16 17 17
+edge RW102A PERFORM 16 17 17
+edge RW102A PERFORM 16 17 17
+edge RW102A PERFORM 18 17 17
+edge RW102A GO_TO 19 20 20
+edge RW102A GO_TO 19 20 20
+edge RW102A PERFORM 19 16 16
+edge RW102A GO_TO 19 21 21
+edge RW102A PERFORM 20 16 16
+edge RW102A PERFORM 20 16 16
+edge RW102A GO_TO 22 23 23
+edge RW102A GO_TO 22 24 24
+edge RW102A PERFORM 23 16 16
+edge RW102A PERFORM 28 5 5
+edge RW102A GO_TO 28 30 30
+edge RW102A PERFORM 29 6 6
+edge RW102A PERFORM 30 8 8
+edge RW102A PERFORM 31 5 5
+edge RW102A GO_TO 31 33 33
+edge RW102A PERFORM 32 6 6
+edge RW102A PERFORM 33 8 8
+edge RW102A PERFORM 34 38 38
+edge RW102A PERFORM 35 5 5
+edge RW102A GO_TO 35 37 37
+edge RW102A PERFORM 36 6 6
+edge RW102A PERFORM 37 8 8
+edge RW102A GO_TO 37 39 39
+edge RW102A PERFORM 39 5 5
+edge RW102A GO_TO 39 41 41
+edge RW102A PERFORM 40 6 6
+edge RW102A PERFORM 41 8 8
+edge RW102A PERFORM 44 8 8
+edge RW102A GO_TO 46 2 2
+statement RW102A 1.0 OPEN open-output=file:PRINT-FILE
+statement RW102A 1.1 MOVE move-to-sending-area=#111 move-to-statement=#71
+statement RW102A 1.2 MOVE move-to-sending-area=#111 move-to-statement=#80
+statement RW102A 1.3 MOVE move-to-sending-area=SPACE move-to-statement=#6
+statement RW102A 1.4 PERFORM perform-procedure-statement=@9..9 perform-procedure-statement=@10..10
+statement RW102A 1.5 GO TO go-to-statement-simple=@25..25
+statement RW102A 2.0 PERFORM perform-procedure-statement=@11..11 perform-procedure-statement=@15..15
+statement RW102A 2.1 CLOSE close-file=file:PRINT-FILE
+statement RW102A 3.0 STOP
+statement RW102A 4.0 MOVE move-to-sending-area="INSPT" move-to-statement=#10
+statement RW102A 4.1 ADD add-from=1 add-to=#58
+statement RW102A 5.0 MOVE move-to-sending-area="PASS " move-to-statement=#10
+statement RW102A 5.1 ADD add-from=1 add-to=#59
+statement RW102A 6.0 MOVE move-to-sending-area="FAIL*" move-to-statement=#10
+statement RW102A 6.1 ADD add-from=1 add-to=#57
+statement RW102A 7.0 MOVE move-to-sending-area="*****" move-to-statement=#10
+statement RW102A 7.1 ADD add-from=1 add-to=#56
+statement RW102A 7.2 MOVE move-to-sending-area="****TEST DELETED****" move-to-statement=#18
+statement RW102A 8.0 IF if-statement=(NOT EQUAL TO #55 ZERO)
+statement RW102A 8.0.if-then.0 MOVE move-to-sending-area="." move-to-statement=#14
+statement RW102A 8.0.if-then.1 MOVE move-to-sending-area=#55 move-to-statement=#15
+statement RW102A 8.1 MOVE move-to-sending-area=#6 move-to-statement=#1
+statement RW102A 8.2 PERFORM perform-procedure-statement=@16..16
+statement RW102A 8.3 IF if-statement=(EQUAL TO #10 "FAIL*")
+statement RW102A 8.3.if-then.0 PERFORM perform-procedure-statement=@16..16
+statement RW102A 8.3.if-then.1 PERFORM perform-procedure-statement=@19..19 perform-procedure-statement=@21..21
+statement RW102A 8.3.if-else.0 PERFORM perform-procedure-statement=@22..22 perform-procedure-statement=@24..24
+statement RW102A 8.4 MOVE move-to-sending-area=SPACE move-to-statement=#10
+statement RW102A 8.5 MOVE move-to-sending-area=SPACE move-to-statement=#22
+statement RW102A 8.6 MOVE move-to-sending-area=SPACE move-to-statement=#35
+statement RW102A 8.7 IF if-statement=(EQUAL TO #55 ZERO)
+statement RW102A 8.7.if-then.0 MOVE move-to-sending-area=SPACE move-to-statement=#12
+statement RW102A 8.8 MOVE move-to-sending-area=SPACE move-to-statement=#18
+statement RW102A 9.0 MOVE move-to-sending-area=#64 move-to-statement=#2
+statement RW102A 9.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement RW102A 9.2 MOVE move-to-sending-area=#68 move-to-statement=#2
+statement RW102A 9.3 PERFORM perform-procedure-statement=@16..16 perform-times=5
+statement RW102A 9.4 MOVE move-to-sending-area=#73 move-to-statement=#2
+statement RW102A 9.5 PERFORM perform-procedure-statement=@16..16 perform-times=3
+statement RW102A 10.0 MOVE move-to-sending-area=#45 move-to-statement=#2
+statement RW102A 10.1 PERFORM perform-procedure-statement=@16..16
+statement RW102A 10.2 MOVE move-to-sending-area=#48 move-to-statement=#2
+statement RW102A 10.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement RW102A 10.4 MOVE move-to-sending-area=#107 move-to-statement=#2
+statement RW102A 10.5 PERFORM perform-procedure-statement=@16..16
+statement RW102A 11.0 MOVE move-to-sending-area=#107 move-to-statement=#2
+statement RW102A 11.1 PERFORM perform-procedure-statement=@16..16 perform-times=5
+statement RW102A 12.0 MOVE move-to-sending-area=#77 move-to-statement=#2
+statement RW102A 12.1 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement RW102A 13.0 ADD add-from=#57 add-to=#61
+statement RW102A 13.1 ADD add-from=#58 add-to=#61
+statement RW102A 13.2 ADD add-from=#56 add-to=#61
+statement RW102A 13.3 ADD add-from=#59 add-to=#61
+statement RW102A 13.4 MOVE move-to-sending-area=#59 move-to-statement=#96
+statement RW102A 13.5 MOVE move-to-sending-area=#61 move-to-statement=#98
+statement RW102A 13.6 MOVE move-to-sending-area=#95 move-to-statement=#85
+statement RW102A 13.7 MOVE move-to-sending-area=#82 move-to-statement=#2
+statement RW102A 13.8 PERFORM perform-procedure-statement=@16..16
+statement RW102A 14.0 MOVE move-to-sending-area="TEST(S) FAILED" move-to-statement=#88
+statement RW102A 14.1 IF if-statement=(IS EQUAL TO #57 ZERO)
+statement RW102A 14.1.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#86
+statement RW102A 14.1.if-else.0 MOVE move-to-sending-area=#57 move-to-statement=#86
+statement RW102A 14.2 MOVE move-to-sending-area=#82 move-to-statement=#2
+statement RW102A 14.3 PERFORM perform-procedure-statement=@16..16
+statement RW102A 15.0 IF if-statement=(IS EQUAL TO #56 ZERO)
+statement RW102A 15.0.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#86
+statement RW102A 15.0.if-else.0 MOVE move-to-sending-area=#56 move-to-statement=#86
+statement RW102A 15.1 MOVE move-to-sending-area="TEST(S) DELETED     " move-to-statement=#88
+statement RW102A 15.2 MOVE move-to-sending-area=#82 move-to-statement=#2
+statement RW102A 15.3 PERFORM perform-procedure-statement=@16..16
+statement RW102A 15.4 IF if-statement=(EQUAL TO #58 ZERO)
+statement RW102A 15.4.if-then.0 MOVE move-to-sending-area="NO " move-to-statement=#86
+statement RW102A 15.4.if-else.0 MOVE move-to-sending-area=#58 move-to-statement=#86
+statement RW102A 15.5 MOVE move-to-sending-area="TEST(S) REQUIRE INSPECTION" move-to-statement=#88
+statement RW102A 15.6 MOVE move-to-sending-area=#82 move-to-statement=#2
+statement RW102A 15.7 PERFORM perform-procedure-statement=@16..16
+statement RW102A 15.8 MOVE move-to-sending-area=#89 move-to-statement=#2
+statement RW102A 15.9 PERFORM perform-procedure-statement=@16..16
+statement RW102A 16.0 ADD add-from=1 add-to=#63
+statement RW102A 16.1 IF if-statement=(GREATER #63 50)
+statement RW102A 16.1.if-then.0 MOVE move-to-sending-area=#2 move-to-statement=#62
+statement RW102A 16.1.if-then.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement RW102A 16.1.if-then.2 WRITE record-name=#2
+statement RW102A 16.1.if-then.3 MOVE move-to-sending-area=#45 move-to-statement=#2
+statement RW102A 16.1.if-then.4 PERFORM perform-procedure-statement=@17..17
+statement RW102A 16.1.if-then.5 MOVE move-to-sending-area=#48 move-to-statement=#2
+statement RW102A 16.1.if-then.6 PERFORM perform-procedure-statement=@17..17 perform-times=2
+statement RW102A 16.1.if-then.7 MOVE move-to-sending-area=#107 move-to-statement=#2
+statement RW102A 16.1.if-then.8 PERFORM perform-procedure-statement=@17..17
+statement RW102A 16.1.if-then.9 MOVE move-to-sending-area=#62 move-to-statement=#2
+statement RW102A 16.1.if-then.10 MOVE move-to-sending-area=ZERO move-to-statement=#63
+statement RW102A 16.2 PERFORM perform-procedure-statement=@17..17
+statement RW102A 17.0 WRITE record-name=#2 write-advancing-lines=1
+statement RW102A 17.1 MOVE move-to-sending-area=SPACE move-to-statement=#2
+statement RW102A 18.0 PERFORM perform-procedure-statement=@17..17
+statement RW102A 19.0 IF if-statement=(NOT EQUAL TO #22 SPACE)
+statement RW102A 19.0.if-then.0 GO TO go-to-statement-simple=@20..20
+statement RW102A 19.1 IF if-statement=(NOT EQUAL TO #35 SPACE)
+statement RW102A 19.1.if-then.0 GO TO go-to-statement-simple=@20..20
+statement RW102A 19.2 MOVE move-to-sending-area="NO FURTHER INFORMATION, SEE PROGRAM." move-to-statement=#102
+statement RW102A 19.3 MOVE move-to-sending-area=#100 move-to-statement=#2
+statement RW102A 19.4 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement RW102A 19.5 GO TO go-to-statement-simple=@21..21
+statement RW102A 20.0 MOVE move-to-sending-area=#19 move-to-statement=#1
+statement RW102A 20.1 PERFORM perform-procedure-statement=@16..16
+statement RW102A 20.2 MOVE move-to-sending-area=#32 move-to-statement=#1
+statement RW102A 20.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement RW102A 21.0 EXIT
+statement RW102A 22.0 IF if-statement=(NOT EQUAL TO #23 SPACE)
+statement RW102A 22.0.if-then.0 GO TO go-to-statement-simple=@23..23
+statement RW102A 22.1 IF if-statement=(EQUAL TO #36 SPACE)
+statement RW102A 22.1.if-then.0 GO TO go-to-statement-simple=@24..24
+statement RW102A 23.0 MOVE move-to-sending-area=#36 move-to-statement=#106
+statement RW102A 23.1 MOVE move-to-sending-area=#23 move-to-statement=#104
+statement RW102A 23.2 MOVE move-to-sending-area=#100 move-to-statement=#2
+statement RW102A 23.3 PERFORM perform-procedure-statement=@16..16 perform-times=2
+statement RW102A 24.0 EXIT
+statement RW102A 25.0 EXIT
+statement RW102A 26.0 OPEN open-output=file:RW-FS2
+statement RW102A 27.0 INITIATE report-name=unresolved:RW-FS2-REPORT-1
+statement RW102A 28.0 IF if-statement=(EQUAL TO register:LINE-COUNTER ZERO)
+statement RW102A 28.0.if-then.0 PERFORM perform-procedure-statement=@5..5
+statement RW102A 28.0.if-then.1 GO TO go-to-statement-simple=@30..30
+statement RW102A 29.0 PERFORM perform-procedure-statement=@6..6
+statement RW102A 29.1 MOVE move-to-sending-area=ZERO move-to-statement=#42
+statement RW102A 29.2 MOVE move-to-sending-area=register:LINE-COUNTER move-to-statement=#29
+statement RW102A 29.3 MOVE move-to-sending-area="LINE-COUNTER AFTER INITIATE" move-to-statement=#18
+statement RW102A 30.0 MOVE move-to-sending-area="INIT-TEST-03" move-to-statement=#12
+statement RW102A 30.1 MOVE move-to-sending-area=1 move-to-statement=#55
+statement RW102A 30.2 MOVE move-to-sending-area="INITIATE REPORT" move-to-statement=#8
+statement RW102A 30.3 PERFORM perform-procedure-statement=@8..8
+statement RW102A 31.0 IF if-statement=(EQUAL TO register:PAGE-COUNTER 1)
+statement RW102A 31.0.if-then.0 PERFORM perform-procedure-statement=@5..5
+statement RW102A 31.0.if-then.1 GO TO go-to-statement-simple=@33..33
+statement RW102A 32.0 PERFORM perform-procedure-statement=@6..6
+statement RW102A 32.1 MOVE move-to-sending-area=1 move-to-statement=#42
+statement RW102A 32.2 MOVE move-to-sending-area=register:PAGE-COUNTER move-to-statement=#29
+statement RW102A 32.3 MOVE move-to-sending-area="PAGE-COUNTER AFTER INITIATE" move-to-statement=#18
+statement RW102A 33.0 MOVE move-to-sending-area=2 move-to-statement=#55
+statement RW102A 33.1 PERFORM perform-procedure-statement=@8..8
+statement RW102A 34.0 PERFORM perform-procedure-statement=@38..38 perform-times=20
+statement RW102A 35.0 IF if-statement=(EQUAL TO #3 ZERO)
+statement RW102A 35.0.if-then.0 PERFORM perform-procedure-statement=@5..5
+statement RW102A 35.0.if-then.1 GO TO go-to-statement-simple=@37..37
+statement RW102A 36.0 PERFORM perform-procedure-statement=@6..6
+statement RW102A 36.1 MOVE move-to-sending-area=#3 move-to-statement=#29
+statement RW102A 36.2 MOVE move-to-sending-area=ZERO move-to-statement=#42
+statement RW102A 36.3 MOVE move-to-sending-area="NUMBER OF LINE-COUNTER ERRORS" move-to-statement=#18
+statement RW102A 37.0 MOVE move-to-sending-area="GENER-TEST-7" move-to-statement=#12
+statement RW102A 37.1 MOVE move-to-sending-area="GENERATE 20 LINES" move-to-statement=#8
+statement RW102A 37.2 MOVE move-to-sending-area=1 move-to-statement=#55
+statement RW102A 37.3 PERFORM perform-procedure-statement=@8..8
+statement RW102A 37.4 GO TO go-to-statement-simple=@39..39
+statement RW102A 38.0 ADD add-from=1 add-to=#5
+statement RW102A 38.1 GENERATE report-name=unresolved:RW-FS2-GROUP
+statement RW102A 38.2 IF if-statement=(NOT EQUAL TO register:LINE-COUNTER #5)
+statement RW102A 38.2.if-then.0 ADD add-from=1 add-to=#3
+statement RW102A 38.3 IF if-statement=(NOT EQUAL TO register:PAGE-COUNTER 1)
+statement RW102A 38.3.if-then.0 ADD add-from=1 add-to=#4
+statement RW102A 39.0 IF if-statement=(EQUAL TO #4 ZERO)
+statement RW102A 39.0.if-then.0 PERFORM perform-procedure-statement=@5..5
+statement RW102A 39.0.if-then.1 GO TO go-to-statement-simple=@41..41
+statement RW102A 40.0 PERFORM perform-procedure-statement=@6..6
+statement RW102A 40.1 MOVE move-to-sending-area=#4 move-to-statement=#29
+statement RW102A 40.2 MOVE move-to-sending-area=ZERO move-to-statement=#42
+statement RW102A 40.3 MOVE move-to-sending-area="NUMBER OF PAGE-COUNTER ERRORS" move-to-statement=#18
+statement RW102A 41.0 MOVE move-to-sending-area=2 move-to-statement=#55
+statement RW102A 41.1 PERFORM perform-procedure-statement=@8..8
+statement RW102A 42.0 TERMINATE report-name=unresolved:RW-FS2-REPORT-1
+statement RW102A 43.0 CLOSE close-file=file:RW-FS2
+statement RW102A 44.0 MOVE move-to-sending-area=ZERO move-to-statement=#55
+statement RW102A 44.1 MOVE move-to-sending-area="TERMINATE REPORT" move-to-statement=#8
+statement RW102A 44.2 MOVE move-to-sending-area="TERM-TEST-02" move-to-statement=#12
+statement RW102A 44.3 MOVE move-to-sending-area="1 PAGE REPORT" move-to-statement=#23
+statement RW102A 44.4 MOVE move-to-sending-area="20 LINES PER PAGE" move-to-statement=#36
+statement RW102A 44.5 MOVE move-to-sending-area="CHECK RWCS OUTPUT REPORT" move-to-statement=#18
+statement RW102A 44.6 PERFORM perform-procedure-statement=@8..8
+statement RW102A 45.0 EXIT
+statement RW102A 46.0 GO TO go-to-statement-simple=@2..2
+using RW102A [] 0

@@ -70,6 +70,11 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | `call` | each CALL's target, arguments with their modes, and RETURNING |
 | `using` | the program's own USING and RETURNING items |
 
+Goldens: each program's contract, every line, is held in `sir/golden/<PROG>.contract` (COPYREC and one
+NIST program of each module, the NIST sources beside it as EXEC85 extracted them; `IrGoldenTest`), so a
+change to the IR lands as a reviewable diff. The lowering's goldens will stand beside them in the same
+shape: `lower/golden/<PROG>.java`, the generated Java byte for byte, a refactor changing none (P-02).
+
 ## Invariants
 
 - **SIR-01 The header names the profile by its hash.** `sha256:` and 64 hex digits; a program means
