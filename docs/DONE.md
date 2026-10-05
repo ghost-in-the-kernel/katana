@@ -256,3 +256,17 @@ TRUNC(OPT) over binary items, overlapping and recursive PERFORM ranges, division
 ERROR, ODO tables, COMP-1 and COMP-2. `NonExactTest` holds the check (TRUNC(OPT) and an overlapping
 range each a finding, a nested range not); `docs/FINDINGS.md` tables the kinds (`FindingsDocTest`);
 `sir/ir.golden` counts them over the corpus. Uninitialized reads wait for phase 5's data flow. J-075.
+
+### 2.8 Tithe pass 2, the phase-2 boundary
+
+Fable's plan (HANDOFF "For Opus: tithe pass 2"), each item its own commit through the pre-push check.
+The IR made complete: no token left behind (A1, R-017 in force, held by `NoTokenLeftTest` and the
+corpus run: 0 tokens left on CardDemo, NIST and OMP), `Origin` its own (A2), literals with their kind
+and payload under cobc as oracle (A3, SIR-08), PICTURE as an edit mask and the clauses it dropped
+(A4), per-program contract goldens (A5), the role vocabulary from the grammar (A6), R-056's meta-test
+over `docs/checks.json` (A7). The seams phase 3 stands on: the oracle reads COBOL through `sir/`
+only (B1), the generated program's contract and NIST's `Runner` (B2, LANE-06 to 09), the Autotest
+reader with the fetch left to phase 3 by R-045 (B3), `rt/` compiled against the JDK alone (B4). The
+tithe: the kernel map's stale column (C1), the quick NIST (C2), `DataMap` split (C3), pass 2 measured
+and two decisions' missing tests written (C4). J-076 to J-091.
+

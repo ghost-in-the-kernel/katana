@@ -31,6 +31,16 @@ class DocTests {
     }
 
     @Test
+    void journal() {
+        assertEquals(List.of(), JournalTest.run().problems());
+    }
+
+    @Test
+    void license() {
+        assertEquals(List.of(), LicenseTest.run().problems());
+    }
+
+    @Test
     void todo() {
         assertEquals(List.of(), TodoTest.run().problems());
     }

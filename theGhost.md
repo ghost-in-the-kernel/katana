@@ -509,8 +509,9 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   with the reference on the shelf is not a clean room. Removed in the same commit as this decision:
   `expand.pl`, `report.pl`, `summary.pl`, the per-module `EXEC85.conf`, and GnuCOBOL's shipped
   `*.txt` expectations.
-- **Held by:** `.gitignore` and `corpus/fetch.sh`; `oracle/prototypes/README.md`; a `test/LicenseTest`
-  (phase 1) that fails on a file whose header names the GPL outside `corpus/` and `third_party/`.
+- **Held by:** `.gitignore` and `corpus/fetch.sh`; `oracle/prototypes/README.md`; `test/LicenseTest.java`
+  (written in tithe pass 2, C4; named here since phase 1, missing until then), which fails on a file
+  whose header names the GPL outside `corpus/` and `third_party/`.
 - **Source:** Opus raised it in HANDOFF during 1.1b; decided by Ghost with Reviewer G, 2026-10-04.
 - **Status:** in force
 - **See also:** R-002, R-015, R-044
@@ -529,8 +530,8 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   messages. The journal's first thirteen entries are the day's own contradictions and their
   resolutions, each already cited in a decision; a record that exists only as decisions loses the
   failures that produced no decision (J-006, J-007, J-011).
-- **Held by:** `docs/JOURNAL.md`; a `JournalTest` (phase 1 tithe) that holds the ids sequential and
-  every entry to the field set.
+- **Held by:** `docs/JOURNAL.md`; `test/JournalTest.java` (written in tithe pass 2, C4; named here
+  since phase 1, missing until then): each id above every earlier one, every entry its Who and Class.
 - **Source:** Ghost, 2026-10-04 (the brief to the Suite Builder session); recorded by Fable.
 - **Status:** in force
 - **See also:** R-008 (tithe), R-042 (who writes what)

@@ -2,8 +2,10 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phases 0 and 1 are done
-(1.5 with one part of its check deferred, below). Phase 2: 2.1 and 2.3-2.5 done, 2.2 deferred to 7.2 (R-015).
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phases 0, 1 and 2 are
+done (1.5 with one part of its check deferred, below; 2.2 deferred to 7.2, R-015), and tithe pass 2
+with them (J-091). Phase 3 starts after the boundary: Fable answers "For Fable" and Ghost "For Ghost"
+below; 3.1's first step is the autotest fetch TODO names.
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
@@ -24,7 +26,7 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   stated; the rule's work is done by the declaration, and the path test could become a prompt
   ("say why") rather than a refusal, as it now is in effect. Yours to word in R-056's Claims.
 
-## For Opus: tithe pass 2, the phase-2 boundary (2.8's check is this list)
+## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell
 from 6.2 to 1.8 minutes for a one-module change: the environment is sound. What the metrics cannot
@@ -145,7 +147,7 @@ R-015)
 
 ## For Opus
 
-(tithe pass 2a done, J-071 to J-073; next: TODO.md from its first item, 2.6)
+(tithe pass 2a done, J-071 to J-073; tithe pass 2 done, J-076 to J-091; next: the boundary, then 3.1)
 
 ## Trials (R-052: a question settled by running something; the implementing agent runs it)
 

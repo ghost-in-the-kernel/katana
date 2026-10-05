@@ -1116,3 +1116,21 @@ taken; closed by a later `decision` entry naming it).
   the profile); `--all` at a boundary runs everything. The suite is held by ChecksTest like the others
   (it must select a test).
 - **Resolved:** C2. **Touched:** `ModuleRunIntegrationTest`, `build.gradle`, `scripts/prepush.sh`.
+
+### J-091 Tithe pass 2 recorded: the phase-2 boundary, and the R-053 count
+- **Who:** Opus. **Class:** measurement. **Intent:** C4: re-measure, record, count; close 2.8.
+- **Found:** every metric within its target but one. The warm fast loop is 14 s (11), cold 22 s;
+  the largest file 258 lines (344 before C3); the docs ratio 0.32. The pre-push check over every
+  suite is 3.5 minutes against 3.4 armed and a 3-minute target: A3's literal oracle parsed the corpora
+  a fourth time and took it to 4.1; letting one corpus pass serve both the IR report and the literal
+  check brought it back; the rest is three heavy classes (NIST, the data map, the front corpus) each
+  parsing NIST in its own JVM, the next tithe's to merge. Two decisions named tests that did not
+  exist: R-046's JournalTest and R-045's LicenseTest, both written now (a sweep of every Held-by
+  found no third). JournalTest lists the one duplicate id the journal has (the boundary review's
+  J-073, which R-056 cites) and refuses another. The R-053 count for phase 2: six "For Fable"
+  defaults held, none reversed, one stop downgraded to a deferral (J-069); this tithe adds three
+  open items under its own defaults (B3 against R-045 and rt/LICENSE for Ghost; R-056's C-3 trial
+  for Fable), to be counted when they are answered.
+- **Resolved:** C4; 2.8 (A1-A7, B1-B4 and C1-C4 on main; R-017 in force, held by A1's tests).
+- **Touched:** `docs/AGENT.md`, `docs/DONE.md`, TODO.md, HANDOFF, the journal and license tests,
+  R-045's and R-046's Held by, `IrIntegrationTest`, `LiteralIntegrationTest`.

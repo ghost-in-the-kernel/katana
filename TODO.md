@@ -17,15 +17,6 @@ Check: every `EXEC CICS` and `EXEC SQL` in the corpus parses to a command tree o
 Stopped (R-053, no reversible default): the graft needs che4z's EPL-2.0 grammars in the tree, which
 R-015 admits only after counsel. Measured outside the tree (J-064); waiting on Ghost (HANDOFF).
 
-### 2.8 Tithe pass 2
-
-Check: none in the roadmap; written here before the item starts.
-
-Before it starts (Ghost, 2026-10-05): the refactoring tithe is overdue and needs an evaluation, of the
-working environment, context management and the routing to the functions a change updates. The
-implementing agent stops here and asks; Fable writes the tithe plan for the project as it stands, and
-2.8's check comes from that plan.
-
 ## Phase 3: literal lowering and the runtime, proven on NIST
 
 ### 3.1 `rt/` core
