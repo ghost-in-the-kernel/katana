@@ -43,13 +43,10 @@ In this order, each its own commit, goldens unchanged; measure before and after 
 
 ## Trials (R-052: a question settled by running something; the implementing agent runs it)
 
-- **NC124A's edited picture `$$,$$$.$$`** (R-055): MOVE 12.34 to it and DISPLAY under the cobc lane;
-  the printed text shows whether cobc's scale 0 or Katana's 2 is what cobc actually does; the result
-  goes in `oracle/nist/IBM-CHANGES.md`.
 - **The recalled DFHAID values** (R-055 C-2): compare DFHPF13–24 and DFHPA1–3 against IBM's CICS
   documentation when reachable, or a second independent copybook; until then `hypothesis`.
 
-(none open; RECFM=V J-062, stderr J-059)
+(run: RECFM=V J-062, stderr J-059, NC124A J-072)
 
 ## Waiting on Ghost
 

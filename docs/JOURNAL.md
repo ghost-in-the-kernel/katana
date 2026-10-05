@@ -846,3 +846,20 @@ taken; closed by a later `decision` entry naming it).
   a docs change 18 s, a `sir/` change 105 s. The metric is armed at 3.4 against a target of 3.
 - **Resolved:** `scripts/prepush.sh`; AGENT.md's metric; HANDOFF's R-050 line. **Touched:** those,
   `build.gradle`, `oracle/lane/Compiler.java`, Metrics.
+
+### J-072 Tithe 2a.4-5: fresh-agent trial 2 passes; every trial has a result or "not yet run"
+- **Who:** Opus; the trial by a fresh general-purpose agent. **Class:** trial (R-052); measurement.
+- **Found:** trial 2 ("propose where a RECFM=V dataset's RDW handling would go ... then stop"), on a
+  clean clone: the directory, `CLAUDE.md`, a grep for `recfm|RDW`, then `docs/LANES.md` third; LANE-02
+  and J-062 named; nothing changed. Pass on all four counts. Its one detour: it found LANES.md by grep,
+  since the routing row said "the DD contract" and not record formats; the row says RECFM now. Its
+  proposal converts only at load and unload (`Datasets`), so hashes stay over IBM's bytes.
+- **The trials:** stderr determinism: run, passes (J-059). RECFM=V: run, no GnuCOBOL format is IBM's
+  RDW (J-062). NC124A's scale: run, cobc prints the cents, so it behaves with Katana's scale 2
+  (`oracle/nist/IBM-CHANGES.md`). The recalled DFHAID values: not yet run; IBM's text is unreachable
+  here and the corpus has no copy that defines them, only programs that use them.
+- **Note (Ghost, on 2.5's report):** two stops this phase were mine with no blocker: 2.2 stopped
+  though a reversible default existed (che4z out, EXEC kept as tagged text), and after answering
+  Ghost's question mid-turn I ended the turn instead of going on. The rule: a question answered is not
+  a stopping point; a step stops only when nothing reversible can be done.
+- **Touched:** `CLAUDE.md` (one row), `oracle/nist/IBM-CHANGES.md`, `docs/HANDOFF.md`.

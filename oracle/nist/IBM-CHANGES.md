@@ -45,3 +45,10 @@ failures.
 | ST140A | 1 | `reserved-word` | - | uses `CHAR` as a data name |
 | ST144A | 1 | `reserved-word` | - | uses `CHAR` as a data name |
 | ST147A | 1 | `reserved-word` | - | uses `CHAR` as a data name |
+
+## Trials outside the run
+
+- **NC124A's `$$,$$$.$$`** (R-055, tithe 2a, J-072): `cobc -C` gives the field scale 0, Katana 2.
+  Moved under both dialects, cobc prints 12.34 as `   $12.34` and 1234.5 as `$1,234.50`, and
+  `+++++.++` 12.34 as `  +12.34`: it keeps the cents, so it behaves with scale 2. Its attribute's 0 is
+  how cobc stores the picture, not what it does; the data map's 2 stands, as `sir/datamap.golden` lists.
