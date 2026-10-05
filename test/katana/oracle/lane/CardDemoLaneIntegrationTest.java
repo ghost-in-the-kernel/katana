@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
  * reproduces the frozen sort and report; COMBTRAN, SORTTEST and PRTCATBL-INLINE run every step, an
  * OUTREC's records padded or truncated to SORTOUT's length (R-051). TRANREPT and PRTCATBL as the JCL
  * writes them stop at REPROCT's comment in column 1 (J-035); CREASTMT runs to CBSTM03A, which reads
- * z/OS control blocks from address 0 and ends on SIGSEGV (J-049). Every report is held by
+ * z/OS control blocks from address 0 and ends on SIGSEGV, a finding naming R-027 (J-049). Every report is held by
  * oracle/lane/carddemo.golden (`-Dkatana.record=true` rewrites it). Needs cobc and `corpus/fetch.sh carddemo`.
  */
 @Tag("integration")
@@ -84,7 +84,8 @@ class CardDemoLaneIntegrationTest {
     @Test
     void creastmtRunsToCbstm03aWhichReadsZosControlBlocks() {
         Report creastmt = run("CREASTMT");
-        assertEquals(List.of(), creastmt.findings(), creastmt.text());
+        assertEquals(1, creastmt.findings().size(), creastmt.text());
+        assertTrue(creastmt.findings().get(0).startsWith("step STEP040: CBSTM03A ended on SIGSEGV, held as its outcome;") && creastmt.findings().get(0).endsWith("(R-027)"), creastmt.text());
         assertTrue(creastmt.steps().get("STEP040").startsWith("CBSTM03A abend SIGSEGV"), creastmt.text());
         assertTrue(creastmt.notes().contains("tab in CUSTREC.cpy, expanded at 4 columns (R-016; a hypothesis until the Enterprise COBOL rule is read)"), creastmt.text());
     }

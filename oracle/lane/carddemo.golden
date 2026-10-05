@@ -72,6 +72,7 @@ step STEP020 IDCAMS rc=0
 step STEP030 IEFBR14 rc=0
 stdout STEP040 lines=0 sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 stderr STEP040 lines=3 first: 
+finding step STEP040: CBSTM03A ended on SIGSEGV, held as its outcome; a program that reads z/OS control blocks through storage (the PSA at address 0) is outside the cobc lane, its oracle the java lane (R-027)
 step STEP040 CBSTM03A abend SIGSEGV rc=11
 dataset AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS records=50 sha256:00a9fd689c9e572a60101afa688ab210f2f012f70040d219617d6134bb708649
 dataset AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS records=50 sha256:d49145cf821e7aae049706569b8bf90f6fb52e0fcc53e8099e39beb55e5c7056

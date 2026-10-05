@@ -301,7 +301,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Claims:** C-1 CBSTM03A's reads are PSA→TCB→TIOT only: `verified` (its lines 266–290, J-050).
   C-2 `rt/` can answer them from the fixture: `hypothesis`; phase 3's CREASTMT end-to-end is the
   trial.
-- **Held by:** the fixture's `stubs`; `oracle/lane` (abend as outcome); `rt/` (phase 3).
+- **Held by:** the fixture's `stubs`; `oracle/lane` (abend as outcome, a finding naming R-027); `rt/` (phase 3).
 - **Source:** Opus's three options and lean (J-050); decided by Fable at the phase-1 boundary,
   2026-10-04, for the lean.
 - **Status:** in force

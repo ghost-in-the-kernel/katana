@@ -125,6 +125,10 @@ final class Steps {
         report.line("stdout " + step.name() + " lines=" + stdout.lines().count() + " " + Content.sha256(stdout.getBytes(StandardCharsets.ISO_8859_1)));
         String stderr = Programs.text(work.resolve("sysout/" + step.name() + ".stderr"));
         if (!stderr.isBlank()) report.line("stderr " + step.name() + " lines=" + stderr.lines().count() + " first: " + stderr.lines().findFirst().orElse("").replace(work.toString(), "<work>"));
+        if (ended.abend() != null && ended.abend().startsWith("SIG")) {
+            report.finding("step " + step.name() + ": " + pgm + " ended on " + ended.abend() + ", held as its outcome; a program that reads z/OS control blocks"
+                    + " through storage (the PSA at address 0) is outside the cobc lane, its oracle the java lane (R-027)");
+        }
         String line = pgm + (ended.abend() != null ? " abend " + ended.abend() + " rc=" + ended.rc() : " rc=" + ended.rc());
         return new Outcome(line, ended.rc(), ended.abend() != null, null);
     }
