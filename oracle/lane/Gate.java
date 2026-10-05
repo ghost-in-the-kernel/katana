@@ -14,8 +14,9 @@ import katana.oracle.fixture.Fixture;
 
 /**
  * The determinism gate (docs/ROADMAP.md 1.6): the cobc lane runs a job twice, and nothing is compared
- * against it until the two runs are identical, on every dataset's logical unload, every program step's
- * stdout and every step's outcome. What differs is named: the dataset, the DDs that reach it, how many
+ * against it until the two runs are identical, on every dataset's logical unload, every SYSOUT DD, every
+ * program step's stdout, every step's stderr with the run folder's path replaced by a token, and every
+ * step's outcome (R-012). What differs is named: the dataset, the DDs that reach it, how many
  * records, and in which columns (F-02: a clock pinned to the second leaves the hundredths in TRANFILE
  * column 326).
  */
@@ -42,7 +43,7 @@ public final class Gate {
                     read(workA.resolve("unload").resolve(dsn)), read(workB.resolve("unload").resolve(dsn)));
             if (difference != null) differences.add(difference);
         }
-        differences.addAll(stdouts(workA, workB));
+        differences.addAll(sysouts(workA, workB));
         return new Result(differences.isEmpty(), differences);
     }
 
@@ -76,25 +77,56 @@ public final class Gate {
         return dds.isEmpty() ? "" : " (" + String.join(", ", dds) + ")";
     }
 
-    /** Each program step's stdout, line by line: the first line that differs. */
-    private static List<String> stdouts(Path workA, Path workB) {
+    /**
+     * Every file the steps wrote to the sysout folder, in either run: SYSOUT DDs, stdout, and stderr with
+     * each run's folder path replaced by `<work>` (R-012); the first line that differs is named.
+     */
+    private static List<String> sysouts(Path workA, Path workB) {
+        Set<String> names = new TreeSet<>(names(workA.resolve("sysout")));
+        names.addAll(names(workB.resolve("sysout")));
         List<String> differences = new ArrayList<>();
-        try (Stream<Path> files = Files.list(workA.resolve("sysout"))) {
-            for (Path file : files.filter(f -> f.toString().endsWith(".stdout")).sorted().toList()) {
-                List<String> a = Files.readAllLines(file, StandardCharsets.ISO_8859_1);
-                Path other = workB.resolve("sysout").resolve(file.getFileName());
-                List<String> b = Files.exists(other) ? Files.readAllLines(other, StandardCharsets.ISO_8859_1) : List.of();
-                for (int i = 0; i < Math.max(a.size(), b.size()); i++) {
-                    if (i >= a.size() || i >= b.size() || !a.get(i).equals(b.get(i))) {
-                        differences.add(file.getFileName() + ": line " + (i + 1) + " differs");
-                        break;
-                    }
+        for (String name : names) {
+            List<String> a = sysoutLines(workA, name), b = sysoutLines(workB, name);
+            if (a == null || b == null) {
+                differences.add(name + " is in one run only");
+                continue;
+            }
+            for (int i = 0; i < Math.max(a.size(), b.size()); i++) {
+                if (i >= a.size() || i >= b.size() || !a.get(i).equals(b.get(i))) {
+                    differences.add(name + ": line " + (i + 1) + " differs");
+                    break;
                 }
             }
+        }
+        return differences;
+    }
+
+    private static List<String> names(Path folder) {
+        if (!Files.isDirectory(folder)) return List.of();
+        try (Stream<Path> files = Files.list(folder)) {
+            return files.map(f -> f.getFileName().toString()).toList();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-        return differences;
+    }
+
+    /** A sysout file's lines, null when absent; a stderr file's with the run folder's path as `<work>`. */
+    static List<String> sysoutLines(Path work, String name) {
+        byte[] bytes = read(work.resolve("sysout").resolve(name));
+        if (bytes == null) return null;
+        String text = new String(bytes, StandardCharsets.ISO_8859_1);
+        if (name.endsWith(".stderr")) text = normalize(text, work);
+        return text.lines().toList();
+    }
+
+    /** The run folder's path, as given and as resolved, replaced by `<work>`. */
+    static String normalize(String text, Path work) {
+        try {
+            text = text.replace(work.toRealPath().toString(), "<work>");
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        return text.replace(work.toAbsolutePath().toString(), "<work>");
     }
 
     /** Sorted numbers as ranges: `1-2, 4`. */

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Phase 1.6's check: with the clock pinned to hundredths and zone every CardDemo fixture runs the same
- * twice and the gate passes; with POSTTRAN's clock pinned to the second (set outside the fixture,
+ * twice and the gate passes, SYSOUT DDs and stderr held (R-012); with POSTTRAN's clock pinned to the second (set outside the fixture,
  * R-009) the gate fails, naming TRANFILE and nothing but its hundredths, columns 325 and 326 (F-02).
  */
 @Tag("integration")

@@ -214,9 +214,11 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   stderr proves noisy in practice, the noise is named and masked by declaration (R-011), never
   dropped wholesale.
 - **Claims:** C-1 two runs of a pinned fixture are identical: `verified` (CardDemo, F-02, 1.6).
-  C-2 stderr is deterministic after path normalization: `hypothesis`; trial: the four CardDemo
-  fixtures through the gate with stderr held; a difference is a finding to name.
-- **Held by:** `oracle/lane/Gate.java`; `GateTest` (the seconds-only clock fails it).
+  C-2 stderr is deterministic after path normalization: `verified` for the CardDemo fixtures (the
+  trial, J-059: all nine through the gate with SYSOUT DDs and stderr held, no difference; CREASTMT's
+  SIGSEGV message is the one stderr written).
+- **Held by:** `oracle/lane/Gate.java`; `GateTest` (SYSOUT DDs and stderr held, the path a token);
+  `GateIntegrationTest` (the seconds-only clock fails it).
 - **Source:** built by Opus in 1.6 (J-052); decided by Fable at the phase-1 boundary, 2026-10-04,
   reversing the default on SYSOUT and stderr.
 - **Status:** in force

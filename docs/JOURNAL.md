@@ -703,3 +703,14 @@ taken; closed by a later `decision` entry naming it).
 - **Note:** the first R-053 count: 6 held, 3 reversed, 0 stopped. Ghost, on the fast loop: "isn't
   warm more realistic?" — yes; what is paid is what is measured.
 
+
+### J-059 R-012 reversed: the gate holds SYSOUT DDs and stderr; the stderr trial passes
+- **Who:** Opus. **Class:** reversal (R-053), trial (R-052).
+- **Intent:** Switch the first reversed default of the phase-1 boundary, and run its trial.
+- **Found:** the gate compared only `.stdout` files in the sysout folder. It now compares every file
+  there, in either run: SYSOUT DDs, stdout, and stderr with the run folder's path (as given and as
+  resolved) replaced by `<work>`. The trial ran all nine CardDemo fixtures, not only four: no
+  difference. One stderr is written, CREASTMT's STEP040 SIGSEGV message (R-027), with no path in it, so
+  the normalization has nothing to remove on these fixtures yet; `GateTest` holds that it would.
+- **Resolved:** R-012 C-2 verified for CardDemo; the trial leaves HANDOFF.
+- **Touched:** `oracle/lane/Gate.java`, `GateTest`, `theGhost.md`, `docs/HANDOFF.md`, KERNEL-MAP.

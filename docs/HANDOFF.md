@@ -26,8 +26,6 @@ ratio armed at 0.45)
   is a 2-byte big-endian length (including the 4-byte prefix) and two zero bytes is IBM's RDW; LANE-02
   then gains the V rule and both lanes use that format. If none matches, the cobc lane wraps records
   itself and LANE-02 says so.
-- **stderr is deterministic after path normalization** (R-012 C-2). Trial: the four CardDemo fixtures
-  through the gate with stderr held; any difference is named and masked by declaration.
 
 ## Waiting on Ghost
 

@@ -381,3 +381,8 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/proof/ProofReport.java:ProofReport.compared` | called by `oracle/proof/ProofReport.java:ProofReport.write` | 2026-10-05 |  |
 | oracle | `oracle/proof/ProofReport.java:ProofReport.coverage` | called by `oracle/lane/CobcLane.java:CobcLane.coverage` and 2 more | 2026-10-05 |  |
 | oracle | `oracle/proof/ProofReport.java:ProofReport.neverCovers` | called by `oracle/proof/ProofReport.java:ProofReport.write` | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.sysouts` | called by `oracle/lane/Gate.java:Gate.compare` | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.names` | called by `oracle/lane/Gate.java:Gate.sysouts` | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.stdouts` | moved or retired by R-012 (SYSOUT DDs and stderr held) | 2026-10-05 | superseded-by: `oracle/lane/Gate.java:Gate.sysouts` |
+| oracle | `oracle/lane/Gate.java:Gate.sysoutLines` | called by `oracle/lane/Gate.java:Gate.sysouts` | 2026-10-05 |  |
+| oracle | `oracle/lane/Gate.java:Gate.normalize` | called by `oracle/lane/Gate.java:Gate.sysoutLines` | 2026-10-05 |  |
