@@ -819,3 +819,17 @@ taken; closed by a later `decision` entry naming it).
   check Opus runs in CI's absence caught a `.gitignore` line hiding `sir/build/` — a `main` that
   would not compile — which is the check paying for itself (J-062).
 
+### J-070 Ghost's two phase-2 answers, and the tithe called
+- **Who:** Ghost; recorded by Fable. **Class:** decision.
+- **Found:** Ghost: no lawyer is available or expected, so the che4z question is not answered by
+  guessing; the ANTLR tool jar is fine. Fable: 14 commits since the phase-1 tithe and none a tithe
+  (R-008 says one in eight); mandatory context 631 → 982 words with two stale `CLAUDE.md` rows;
+  13 functions past the comment threshold; the 8–10-minute pre-push check is the largest cost in the
+  environment and not a metric.
+- **Resolved:** R-015 (che4z stays out for good; phase 7 writes its own command grammar from IBM's
+  published syntax, clean room); the jar accepted under R-001; tithe pass 2a listed in HANDOFF with
+  six items, the pre-push check first.
+- **Touched:** R-015, ROADMAP 2.2 and 7.2, HANDOFF.
+- **Note:** the tithe was missed for 14 commits because nothing enforces R-008's cadence; the
+  metrics test should count commits since the last tithe and warn past eight (an item for 2a).
+

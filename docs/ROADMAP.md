@@ -538,8 +538,9 @@ evaluation license until R-037's provisional is filed.
     NIST; a test holds those counts and may only rise (R-055).
 2.2 **Drive che4z's CICS and DB2 grammars** over CardDemo and BankDemo from a clone outside the
     tree (done: 220/220 and 32/32; 351/351 and 120/120), the evidence for the graft (R-014). The graft
-    itself waits on R-015 (counsel, EPL-2.0); until then EXEC blocks are opaque tagged text in the IR,
-    which phases 2–6 need nothing more of (R-005, R-055). The graft is phase 7.2's first step or earlier.
+    itself does not happen (R-015: no counsel, the grammars stay out); EXEC blocks are opaque tagged
+    text in the IR, which phases 2–6 need nothing more of (R-005, R-055). Phase 7.2 writes Katana's own
+    command grammar from IBM's published syntax.
     *Check:* every `EXEC CICS` and `EXEC SQL` in the corpus parses to a command tree or is a finding
     (held when the graft lands).
 2.3 **The source map.** Every tree node to file, line, column, and through COPY/REPLACE to the
@@ -714,8 +715,9 @@ output and is reported; R-035 the refactoring-distance report.
     exists for it; the check is the front end and the data map at production scale, and the
     lowering's compile time and output size.
     *Check:* parses with no error nodes; data map built; Java compiles; time and memory recorded.
-7.2 **CICS facade**: `EXEC CICS` commands lowered to calls on an interface with EIB and RESP in data,
-    with a recording stub for the oracle; BankDemo privately as the test.
+7.2 **CICS facade**: a command grammar for `EXEC CICS` written from IBM's published syntax (R-015,
+    clean room); commands lowered to calls on an interface with EIB and RESP in data, with a recording
+    stub for the oracle; BankDemo privately as the test.
 7.3 **DB2 facade**: `EXEC SQL` to an interface with SQLCA in data, host variables as Fields, DB2's
     full-width integer writes honoured; a recording stub.
 7.4 **JCL beyond CardDemo**: PROC with symbolic parameters, IF/THEN/ELSE, concatenation, COND; each

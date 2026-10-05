@@ -244,6 +244,28 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-A (roadmap), R-007, R-049
 - **subject:** proof
 
+### R-015: che4z's EPL-2.0 grammars stay out; CICS and SQL command syntax is Katana's own when needed
+- **Decision:** The che4z CICS and DB2 grammars (EPL-2.0) do not enter the tree. No counsel is
+  anticipated; the licensing question is parked indefinitely rather than guessed. Their measurement
+  (R-055: every EXEC block in CardDemo and BankDemo parses) stands as evidence that a command-level
+  parse is feasible. When phase 7's facades need `EXEC CICS` and `EXEC SQL` as command trees rather
+  than opaque text, Katana writes its own command grammar from IBM's published syntax (the CICS
+  Application Programming Reference and the Db2 SQL Reference), the way the NIST harness was written
+  from NIST's guide (R-044): a clean room, not a graft. If the project reaches a partner's or IBM's
+  review, the question may be reopened with their counsel.
+- **Why:** Ghost, 2026-10-05: no lawyer is available and none is expected; a license question that
+  cannot be answered is not answered by proceeding. The clean-room path costs more work in phase 7
+  and nothing before it (R-005), and it keeps the compiler's provenance uniform: every grammar in
+  the tree is MIT (ProLeap's fork) or Katana's.
+- **Claims:** C-1 IBM's command syntax for CICS and SQL is publicly documented in enough detail to
+  write a parser from: `hypothesis`; phase 7.2's first step is the trial. C-2 nothing before phase 7
+  needs a command tree: `verified` (R-005, R-055 C-3).
+- **Held by:** `third_party/MANIFEST.md` (no EPL entry); docs/ROADMAP.md 2.2 and 7.2.
+- **Source:** Ghost, 2026-10-05.
+- **Status:** in force
+- **See also:** R-002, R-014, R-044, R-045, R-055
+- **subject:** license
+
 ### R-016: The indicator column is read permissively; a tab is expanded to the next 8-column stop, as a finding
 - **Decision:** Column 7 accepts any indicator character GnuCOBOL or Enterprise COBOL accepts. A tab
   anywhere in a source or copy line is expanded to spaces to the next tab stop at columns 9, 17, 25 ...
@@ -706,8 +728,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 
 ---
 
-Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-015
-EPL-2.0 grammars (counsel); R-017 the IR is complete; R-018
+Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-017 the IR is complete; R-018
 the attribute tuple; R-019 byte-image representation; R-020 Decimal with explicit scale; R-021 the
 dispatcher; R-022 TRUNC(OPT) as STD with a finding; R-023 float as IEEE with a finding; R-024 one
 emitter; R-025 indexed-file comparison on logical unload; R-028 coverage in every proof; R-029 refuted intent never acted on; R-030 ledger
