@@ -26,6 +26,11 @@ class DocTests {
     }
 
     @Test
+    void checks() {
+        assertEquals(List.of(), ChecksTest.run().problems());
+    }
+
+    @Test
     void todo() {
         assertEquals(List.of(), TodoTest.run().problems());
     }

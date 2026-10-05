@@ -33,6 +33,16 @@ class CobcLayoutTest {
         assertEquals("external false vs true", CobcLayout.difference(edited("ZZ9", List.of()), field("ZZ9", 0, true), PLAIN));
     }
 
+    /** R-056's mutation for the layout itself: an item one byte off from cobc's field is not matched, so it is reported. */
+    @Test
+    void anOffsetOffByOneFindsNoItem() {
+        Item item = edited("ZZ9", List.of());
+        CobcLayout.Field at = new CobcLayout.Field("E", 3, "E", 0, "0x24", 3, 0, 0, "ZZ9", false);
+        CobcLayout.Field off = new CobcLayout.Field("E", 3, "E", 1, "0x24", 3, 0, 0, "ZZ9", false);
+        assertEquals(item, CobcLayout.match(at, List.of(item)));
+        assertNull(CobcLayout.match(off, List.of(item)));
+    }
+
     @Test
     void cobcsPictureIsReadUnderTheProgramsCurrencyAndPoint() {
         Build.Data f = new Build.Data(List.of(), List.of(), 'F', true);

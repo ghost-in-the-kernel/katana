@@ -1077,3 +1077,20 @@ taken; closed by a later `decision` entry naming it).
   would not exist when 3.1 starts.
 - **Resolved:** B3 as far as R-045 allows; HANDOFF "For Ghost"; TODO 3.1 names the first step.
 - **Touched:** `oracle/autotest/`, its test, `corpus/fetch.sh`, TODO.md, HANDOFF.
+
+### J-088 Tithe pass 2, A7: R-056's meta-test, and its first run as the trial of C-2 and C-3
+- **Who:** Opus. **Class:** trial. **Intent:** R-056 held by a test, and its two hypotheses measured.
+- **Found:** `docs/checks.json` registers 18 checks (every integration test, every test reading a
+  golden, and two more) with oracle kind and source, mutation test, and gate; `test/ChecksTest.java`
+  holds it: an unregistered integration or golden test, a self golden with no finding, an oracle in
+  the module's folder unexplained, a mutation that is not a test, a gate that does not run its test,
+  and a pre-push suite that selects no test are each refused, with a rejects case each. `build.gradle`
+  makes a test task that ran zero tests red (proved by pointing integration at a tag no test carries:
+  "integration ran no tests"). The first run's own hit: IrIntegrationTest's vocabulary oracle,
+  `sir/roles.golden`, lies in sir/; it is read from the grammar, so the entry says so. A mutation for
+  the data map's offsets was missing and is added (`CobcLayoutTest#anOffsetOffByOneFindsNoItem`).
+  Trial results: C-2, 6 of 18 checks have no killing test (findings, listed); C-3, the path rule's 4
+  hits were all independent oracles in the module's folder, and the 3 real mirrors were found by the
+  `self` declaration, one outside the module's folder (HANDOFF "For Fable").
+- **Resolved:** A7. **Touched:** `docs/checks.json`, `test/ChecksTest.java`, `test/DocTests.java`,
+  `build.gradle`, `CobcLayoutTest`, R-056's Held by, HANDOFF.

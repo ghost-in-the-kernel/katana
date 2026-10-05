@@ -12,6 +12,18 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
 
 (2.8's tithe evaluation and plan: written 2026-10-05, below under "For Opus: tithe pass 2")
 
+- **R-056's first trial (tithe pass 2, A7; J-088), for C-2 and C-3.** 18 checks registered. C-2:
+  6 have no test that shows them failing (front corpus, fixture sources, CardDemo lane, proof
+  reports, EXEC85, NIST module run), each listed as a finding in `docs/checks.json`; one declared
+  mutation per check was enough to name every gap, but not to close it. C-3: the oracle-path rule
+  fired 4 times and every hit was an independent oracle that happens to live in the module's folder
+  (a hand-written IBM-CHANGES.md, a copied published.summary, fixture hashes recorded from the study,
+  roles.golden read from the grammar); the 3 real mirrors (IR contracts, NIST programs golden, proof
+  reports) were caught only because their entries declare `self`, and one of them (`oracle/proof/`)
+  lies outside its module's folder, so the rule could not have caught it. *Lean:* C-3 is refuted as
+  stated; the rule's work is done by the declaration, and the path test could become a prompt
+  ("say why") rather than a refusal, as it now is in effect. Yours to word in R-056's Claims.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (2.8's check is this list)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

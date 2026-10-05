@@ -124,3 +124,10 @@ tasks.register('integration', Test) {
         showStandardStreams = true
     }
 }
+
+// R-056: a test task that ran zero tests is red (J-006: the doc tests once ran none and passed).
+tasks.withType(Test).configureEach { task ->
+    task.afterSuite { desc, result ->
+        if (desc.parent == null && result.testCount == 0) throw new GradleException("${task.name} ran no tests: a zero-run is red (R-056, J-006)")
+    }
+}

@@ -778,8 +778,10 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   (tithe pass 2, A7) is the trial, and a check it cannot kill is a finding. C-3 the oracle-path rule
   catches most non-independence: `hypothesis`; an oracle reimplementing the same logic elsewhere
   is the case it cannot catch, and stays judgment (`docs/GHOST-IN-THE-KERNEL.md`).
-- **Held by:** the meta-test (tithe pass 2, A7); the test task's zero-run rule; `scripts/prepush.sh`
-  and every commit script gating on the exit code (R-040).
+- **Held by:** `test/ChecksTest.java` over `docs/checks.json` (tithe pass 2, A7: every integration
+  and golden test registered with its oracle, mutation test and gate; every pre-push suite selecting
+  at least one test); `build.gradle`'s zero-run rule on every test task; `scripts/prepush.sh` and
+  every commit script gating on the exit code (R-040).
 - **Source:** Opus's analysis and draft at Ghost's request (2026-10-05, J-078); the fourth case
   added by Fable; decided by Ghost, recorded by Fable.
 - **Status:** in force
