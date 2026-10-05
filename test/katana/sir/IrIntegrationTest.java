@@ -22,6 +22,7 @@ import katana.sir.check.NonExact;
 import katana.sir.contract.Contract;
 import katana.sir.json.IrJson;
 import katana.sir.types.Program;
+import katana.sir.types.Value;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -44,8 +45,37 @@ class IrIntegrationTest {
             # Written by `gradle integration -Dkatana.record=true`.
             """;
 
+    /** Every literal of CardDemo, NIST and OMP, gathered while they are built once for both tests (C4). */
+    private static final Set<Value.Literal> LITERALS = new java.util.LinkedHashSet<>();
+    private static String report;
+
     @Test
     void everyProgramBuildsAndRoundTrips() throws Exception {
+        String recorded = Files.exists(GOLDEN) ? Files.readString(GOLDEN) : HEADER;
+        if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, report());
+        System.out.print(report());
+        assertEquals(recorded, report());
+    }
+
+    /** SIR-08 on the corpora: cobc prints each literal as its payload (LiteralIntegrationTest's comparison; the golden programs' too). */
+    @Test
+    void cobcPrintsEachLiteralOfTheCorporaAsItsPayload() throws Exception {
+        report();
+        Set<Value.Literal> literals = new java.util.LinkedHashSet<>(LITERALS);
+        Path golden = ROOT.resolve("sir/golden");
+        for (Build.Result r : Build.programs(Parse.file(golden.resolve("PROBE.cbl"), new Copybooks(List.of(golden), n -> 8), 8), HASH)) LiteralIntegrationTest.literals(r.program(), literals);
+        Map<Value.Literal.Kind, Integer> kinds = new TreeMap<>();
+        literals.forEach(l -> kinds.merge(l.kind(), 1, Integer::sum));
+        System.out.println("literals by kind: " + kinds);
+        List<Value.Literal> compared = literals.stream().filter(LiteralIntegrationTest::printable).toList();
+        org.junit.jupiter.api.Assertions.assertTrue(kinds.getOrDefault(Value.Literal.Kind.HEX, 0) > 0 && kinds.getOrDefault(Value.Literal.Kind.FLOAT, 0) > 0 && compared.size() > 1000,
+                "too few literals to refute anything: " + kinds);
+        assertEquals(List.of(), LiteralIntegrationTest.mismatches(compared, Files.createDirectories(ROOT.resolve("build/sir-literals/corpora"))));
+    }
+
+    /** The corpora built once: the golden's report, and the literals gathered on the way. */
+    private static synchronized String report() throws Exception {
+        if (report != null) return report;
         StringBuilder report = new StringBuilder(HEADER);
         Path carddemo = ROOT.resolve("corpus/carddemo/app");
         report.append(corpus("carddemo", programs(carddemo.resolve("cbl")), new Copybooks(List.of(carddemo.resolve("cpy"), carddemo.resolve("cpy-bms"), ROOT.resolve("front/ibm")),
@@ -56,10 +86,8 @@ class IrIntegrationTest {
         report.append(corpus("omp", programs(omp), new Copybooks(folders(omp), n -> 8)));
         Path bankdemo = ROOT.resolve("corpus/bankdemo");
         if (Files.isDirectory(bankdemo)) System.out.print("privately: " + corpus("bankdemo", programs(bankdemo), new Copybooks(folders(bankdemo), n -> 8)).lines().findFirst().orElse(""));
-        String recorded = Files.exists(GOLDEN) ? Files.readString(GOLDEN) : HEADER;
-        if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, report.toString());
-        System.out.print(report);
-        assertEquals(recorded, report.toString());
+        IrIntegrationTest.report = report.toString();
+        return IrIntegrationTest.report;
     }
 
     /** One corpus: each program that parses built, checked, and round-tripped; the counts, and what failed. */
@@ -84,6 +112,7 @@ class IrIntegrationTest {
                     Program back = IrJson.read(json, Program.class);
                     List<String> contract = Contract.lines(result.program());
                     facts += contract.size();
+                    if (!name.equals("bankdemo")) LiteralIntegrationTest.literals(result.program(), LITERALS);
                     trips &= back.equals(result.program()) && json.equals(IrJson.write(back)) && contract.equals(Contract.lines(back));
                 }
                 if (trips) roundTrip++;

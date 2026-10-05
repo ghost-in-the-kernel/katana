@@ -29,6 +29,7 @@ final class ChecksTest {
         run().exit();
     }
 
+    /** The registry held to the repository, and each rule shown to refuse its own broken input (R-056 applied to itself). */
     static Check run() {
         String json = Check.read("docs/checks.json");
         String prepush = Check.read("scripts/prepush.sh");

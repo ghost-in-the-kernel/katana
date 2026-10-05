@@ -77,6 +77,7 @@ class RolesGoldenTest {
         return outside;
     }
 
+    /** Each statement's verb, operand roles and branch labels against the vocabulary, its branches' statements too; what is outside it noted. */
     private static void check(List<Statement> statements, Map<String, Roles.Verb> vocabulary, Set<String> outside, Set<String> seen) {
         for (Statement s : statements) {
             Roles.Verb v = vocabulary.get(s.verb());

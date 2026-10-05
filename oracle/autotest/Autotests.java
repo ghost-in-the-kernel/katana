@@ -46,6 +46,7 @@ public final class Autotests {
         return new Autotests(file, text).cases();
     }
 
+    /** One pass over the text: a quoted string or a comment skipped whole, each `AT_` macro call read and applied to the case it is in. */
     private List<Case> cases() {
         List<Case> cases = new ArrayList<>();
         Builder open = null;
