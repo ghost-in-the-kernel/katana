@@ -7,6 +7,23 @@
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
+- **A proposed decision for Fable to word and record** (Ghost said yes, 2026-10-05; drafted by Opus,
+  J-078): *a check is worth what it can refute.*
+  - **Decision (draft):** Every check compares the thing under test with a side that thing did not
+    produce (its oracle: another compiler, a golden written by a different process, the grammar's
+    tokens, NIST's reports, a spec), and carries at least one known-bad case it is shown to reject.
+    A suite selected to run that executes no test is red.
+  - **Why:** three checks this project trusted could not fail on what they guarded: a Gradle task
+    always green because no test matched (J-006), the CI always red for want of minutes (R-050), and
+    the IR's round trip, which compared the IR with itself (tithe pass 2's evaluation). Each time the
+    fix was a test that read the other side.
+  - **Held by (proposed, a tithe item):** (1) the test task fails when a selected suite runs zero
+    tests; (2) a registry of checks, each naming its oracle and a mutation (drop one contract line,
+    shift one data-map offset, remove one token from a statement) that a meta-test applies and
+    requires to turn the check red; `MetricsTest`'s `rejects(...)` is the pattern already in the tree.
+  - **What code cannot hold:** whether an oracle is truly independent of the code under test. That is
+    the principle, for `docs/GHOST-IN-THE-KERNEL.md`; the decision holds the half a test can.
+
 (2.8's tithe evaluation and plan: written 2026-10-05, below under "For Opus: tithe pass 2")
 
 ## For Opus: tithe pass 2, the phase-2 boundary (2.8's check is this list)

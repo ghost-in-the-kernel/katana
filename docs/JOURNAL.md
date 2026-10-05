@@ -928,3 +928,13 @@ taken; closed by a later `decision` entry naming it).
   (file, line, column, kind) replaces it, and `sir/build/Origins` is the one conversion. `sir/types` no
   longer names `katana.front`; no golden changed.
 - **Touched:** `sir/types/`, `sir/build/`, `sir/check/NonExact.java`, `SirTypesTest`, SEMANTIC-IR.md.
+
+### J-078 A check that cannot fail: the generalization, drafted for Fable
+- **Who:** Opus, at Ghost's question. **Class:** decision (proposed). **Intent:** turn three instances
+  into one rule a test can hold.
+- **Found:** the always-green Gradle task, the always-red CI and the self-comparing round trip share
+  one property: none could fail on the defect it guarded. Two tests capture it: independence (the
+  expected side comes from outside the code under test) and falsifiability (a known-bad case is shown
+  rejected). Both can be enforced (a zero-test suite is red; a registry of checks with mutations a
+  meta-test applies); the judgment of independence cannot, and is a principle, not a decision.
+- **Resolved:** the draft in HANDOFF "For Fable"; Ghost takes it to Fable. **Touched:** HANDOFF.
