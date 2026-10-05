@@ -219,3 +219,12 @@ REPLACING at the place it replaced (REPLACED), or written by the front end (ADDE
 gives any token's or node's origin. The check, until lowering exists: every clean program of the
 corpus round-trips (`RoundTrip`: each SOURCE character is its file's at its place; every token has a
 file), held by `front/corpus.golden`'s counts; the lowered statements' half is 3.3's (HANDOFF). J-065.
+
+### 2.4 `sir/types`
+
+The Semantic IR as records, enums and sealed interfaces in `sir/types/`: the header with the profile
+hash, the data map (`Item`, its `Attributes` tuple, `Occurs`, 88s), the paragraph graph (`Procedure`:
+sections, paragraphs in textual order, PERFORM, GO TO and ALTER edges), statements as operations over
+`Value`s with roles and branches, `FileDescriptor`s and `Call`s, each element with its origin (2.3).
+`docs/SEMANTIC-IR.md` names them and SIR-01 to SIR-07; `SirDocTest` holds the two together;
+`SirTypesTest` builds COPYREC's IR by hand and has each invariant refuse one violation. J-066.

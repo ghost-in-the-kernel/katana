@@ -770,3 +770,12 @@ taken; closed by a later `decision` entry naming it).
   from the empty line before it; each break now takes its source line's end.
 - **Resolved:** the round trip in the corpus test; the lowered half is 3.3's (HANDOFF "For Fable").
 - **Touched:** `front/Mapped.java`, `Lines`, `Preprocessor`, `Copybooks`, `Parse`, the front tests.
+
+### J-066 Phase 2.4: the Semantic IR's types, and its check written first
+- **Who:** Opus. **Class:** build. **Intent:** 2.4, whose roadmap check was "none".
+- **Found:** the check was written into TODO before the code, then sharpened once in the same commit
+  (`Invalid`, the refusal, is the one class; files needed a `Value` of their own for OPEN and READ).
+  The roadmap's list has no VALUE or 88s, but the lowering needs both, so `Item` carries them.
+  Statements are one record, verb plus role-tagged operands and branches, not a type per verb: 2.5
+  will say whether that holds. Twice a record's compact constructor read a field before it was set.
+- **Touched:** `sir/types/`, `docs/SEMANTIC-IR.md`, `CLAUDE.md`, the sir tests, TODO, DONE.

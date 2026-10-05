@@ -452,3 +452,29 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | front | `front/Preprocessor.java:Preprocessor.Result.text` | called by `front/Parse.java:Parse.file` and 14 more | 2026-10-05 |  |
 | front | `front/Preprocessor.java:Preprocessor.run#2` | called by `front/Parse.java:Parse.text#2` and 18 more | 2026-10-05 |  |
 | front | `front/Lines.java:Lines.Line.of` | moved or retired in phase 2.3 (lines read as Mapped text) | 2026-10-05 | superseded-by: `front/Lines.java:Lines.normalize#2` |
+| sir | `sir/types/Attributes.java:Attributes.Attributes` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Call.java:Call.Call` | no caller | 2026-10-05 |  |
+| sir | `sir/types/FileDescriptor.java:FileDescriptor.FileDescriptor` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Header.java:Header.Header` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Invalid.java:Invalid.Invalid` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Invalid.java:Invalid.origin` | called by `front/Mapped.java:Mapped.added` and 12 more | 2026-10-05 |  |
+| sir | `sir/types/Item.java:Item.Occurs.Occurs` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Item.java:Item.Condition.Condition` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Item.java:Item.Item` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Procedure.java:Procedure.Section.Section` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Procedure.java:Procedure.Paragraph.Paragraph` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Procedure.java:Procedure.Edge.Edge` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Procedure.java:Procedure.Procedure` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Procedure.java:Procedure.index` | called by `front/Copybooks.java:Copybooks.Copybooks` and 2 more | 2026-10-05 |  |
+| sir | `sir/types/Program.java:Program.Program` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Program.java:Program.dataMap` | called by `sir/types/Program.java:Program.Program` | 2026-10-05 |  |
+| sir | `sir/types/Program.java:Program.references` | called by `sir/types/Program.java:Program.Program` | 2026-10-05 |  |
+| sir | `sir/types/Program.java:Program.statement` | called by `sir/types/Program.java:Program.references` | 2026-10-05 |  |
+| sir | `sir/types/Program.java:Program.value` | called by `oracle/compare/Compare.java:Compare.record` and 9 more | 2026-10-05 |  |
+| sir | `sir/types/Statement.java:Statement.Branch.Branch` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Statement.java:Statement.Statement` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Value.java:Value.Field.Field` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Value.java:Value.ConditionName.ConditionName` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Value.java:Value.Expression.Expression` | no caller | 2026-10-05 |  |
+| sir | `sir/types/Procedure.java:Procedure.inside` | called by `sir/types/Procedure.java:Procedure.Procedure` | 2026-10-05 |  |
+| sir | `sir/types/Procedure.java:Procedure.index` | moved or retired in phase 2.4 (a compact constructor cannot read its fields) | 2026-10-05 | superseded-by: `sir/types/Procedure.java:Procedure.inside` |
