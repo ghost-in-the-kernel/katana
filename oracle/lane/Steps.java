@@ -29,7 +29,7 @@ final class Steps {
     private static final Set<String> SORTS = Set.of("SORT", "DFSORT", "ICEMAN", "ICETOOL", "SYNCSORT");
     private final Fixture fixture;
     private final Datasets datasets;
-    private final Programs programs;
+    private final ProgramRunner programs;
     private final Map<String, String> paths;
     private final Path work;
     private final Report report;
@@ -37,7 +37,7 @@ final class Steps {
 
     private final String clock;
 
-    Steps(Fixture fixture, Datasets datasets, Programs programs, Map<String, String> paths, Path work, Report report, String clock) {
+    Steps(Fixture fixture, Datasets datasets, ProgramRunner programs, Map<String, String> paths, Path work, Report report, String clock) {
         this.clock = clock != null ? clock : fixture.first("clock").values().get(0).replaceAll("\\s+", " ");
         this.fixture = fixture;
         this.datasets = datasets;

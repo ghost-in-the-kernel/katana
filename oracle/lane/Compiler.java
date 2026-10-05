@@ -67,12 +67,12 @@ final class Compiler {
         }
     }
 
-    /** Runs cobc in the cache folder; the path of its output when it failed, else null. */
+    /** Runs cobc in the cache folder, the source in a subfolder of its own (a program named like a copybook it copies would otherwise copy itself); the path of cobc's output when it failed, else null. */
     private Path compile(Path dir, String name, byte[] source, List<String> arguments, String file) throws IOException {
-        Path src = Files.write(dir.resolve(name + ".cbl"), source);
+        Path src = Files.write(Files.createDirectories(dir.resolve("src")).resolve(name + ".cbl"), source);
         List<String> command = new ArrayList<>(List.of("cobc"));
         command.addAll(arguments);
-        command.addAll(List.of("-o", file, src.getFileName().toString()));
+        command.addAll(List.of("-o", file, "src/" + src.getFileName()));
         Path out = dir.resolve("cobc.out");
         int exit = Exec.run(command, dir, Map.of(), Path.of("/dev/null"), out, out, limit);
         return exit == 0 && Files.exists(dir.resolve(file)) ? null : out;

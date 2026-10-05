@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Phase 1.6's check: with the clock pinned to hundredths and zone every CardDemo fixture runs the same
  * twice and the gate passes; with POSTTRAN's clock pinned to the second (set outside the fixture,
- * R-009) the gate fails, naming TRANFILE column 326 (F-02).
+ * R-009) the gate fails, naming TRANFILE and nothing but its hundredths, columns 325 and 326 (F-02).
  */
 @Tag("integration")
 class GateIntegrationTest {
@@ -34,13 +34,22 @@ class GateIntegrationTest {
         }
     }
 
+    /**
+     * The hundredths of a clock pinned only to the second are live, and land in TRANFILE columns 325 and
+     * 326, the same value on every record of a run: two runs differ in 325, in 326 or in both, and about
+     * one pair in a hundred agrees by chance, so up to three pairs are run (J-055).
+     */
     @Test
-    void aClockPinnedToTheSecondFailsTheGateAtTranfileColumn326() throws Exception {
+    void aClockPinnedToTheSecondFailsTheGateInTranfilesHundredths() throws Exception {
         String seconds = "2024-03-01 12:00:00";
-        Gate.Result result = twice("POSTTRAN", new LaneRuns("gate-seconds-a", seconds), new LaneRuns("gate-seconds-b", seconds));
+        Gate.Result result = null;
+        for (int pair = 1; pair <= 3 && (result == null || result.identical()); pair++) {
+            result = twice("POSTTRAN", new LaneRuns("gate-seconds-a" + pair, seconds), new LaneRuns("gate-seconds-b" + pair, seconds));
+        }
         System.out.println("gate POSTTRAN, clock to the second: " + result.differences());
         assertFalse(result.identical());
-        assertTrue(result.differences().stream().anyMatch(d -> d.startsWith("dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS (DD TRANFILE in STEP15)")
-                && d.matches(".*in columns? .*\\b326\\b.*")), result.differences().toString());
+        assertEquals(1, result.differences().size(), result.differences().toString());
+        assertTrue(result.differences().get(0).matches("dataset AWS\\.M2\\.CARDDEMO\\.TRANSACT\\.VSAM\\.KSDS \\(DD TRANFILE in STEP15\\): \\d+ of 257 records differ, in (column 325|column 326|columns 325-326)"),
+                result.differences().get(0));
     }
 }

@@ -634,3 +634,29 @@ taken; closed by a later `decision` entry naming it).
   and the copybook reader are listed for Fable (HANDOFF), each with its default. The OMP course is now
   fetched at a pinned commit.
 - **Touched:** `oracle/compare/`, `corpus/fetch.sh`, `corpus/MANIFEST.md`, CI, `HANDOFF.md`.
+
+### J-054 The java lane's stub, and a program that copied itself
+- **Who:** Opus. **Class:** failure-caught.
+- **Intent:** Phase 1.8's check: a hand-written Java copy and a COBOL copy through both lanes, empty diff.
+- **Found:** the cobc lane refused Katana's own `COPYREC.cbl` with "recursive inclusion": the compile
+  cache wrote each source as `NAME.cbl` in the folder cobc ran in, and cobc's COPY search found it, so
+  a program named like a copybook it copies copied itself. No CardDemo program is named like its
+  copybooks, which is why 1.4 to 1.7 never met it.
+- **Resolved:** each source is compiled from a subfolder of its own. The check then passed from a
+  cold cache: both lanes' outputs compare with no difference and the same stdout. The DD contract is
+  `docs/LANES.md`, listed for Fable with the default taken (HANDOFF).
+- **Caught by:** the first run of the check. **Cost:** one run.
+- **Touched:** `oracle/lane/Compiler.java`, `JavaPrograms.java`, `ProgramRunner.java`, `CobcLane.java`,
+  `docs/LANES.md`, `oracle/fixture/trivial/`.
+
+### J-055 The seconds-only gate check was a coin with a hundred sides
+- **Who:** Opus (fault and fix). **Class:** failure-caught.
+- **Intent:** The fresh-clone gate before pushing 1.8.
+- **Found:** GateIntegrationTest's seconds-only check failed: this pair of runs differed only in column
+  325. The live hundredths land in TRANFILE columns 325 and 326, the same value on all 257 records of a
+  run, so a pair differs in 325, in 326 or in both as the digits fall (F-02 saw 326, J-052 both), and
+  about one pair in a hundred agrees and passes the gate. The test, and the roadmap's "column 326",
+  assumed one outcome of a random draw.
+- **Resolved:** the test asserts what is invariant: one difference, on TRANFILE, within columns 325 and
+  326, over up to three pairs of runs (a chance of about one in a million that all three agree).
+- **Caught by:** the gate run before a push, on a fresh clone. **Cost:** one gate run.

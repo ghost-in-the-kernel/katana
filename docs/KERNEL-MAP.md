@@ -362,3 +362,7 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/compare/Layout.java:Layout.place` | called by `oracle/compare/Layout.java:Layout.read` and 1 more | 2026-10-05 |  |
 | oracle | `oracle/compare/Layout.java:Layout.elementary` | called by `oracle/compare/Layout.java:Layout.place` | 2026-10-05 |  |
 | oracle | `oracle/compare/Layout.java:Layout.expand` | called by `oracle/compare/Layout.java:Layout.elementary` and 2 more | 2026-10-05 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.Setup.Setup` | no caller | 2026-10-05 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.javaLimits` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` | 2026-10-05 |  |
+| oracle | `oracle/lane/JavaPrograms.java:JavaPrograms.JavaPrograms` | no caller | 2026-10-05 |  |
+| oracle | `oracle/lane/JavaPrograms.java:JavaPrograms.run` | called by `oracle/lane/CobcLane.java:CobcLane.run` and 15 more | 2026-10-05 |  |

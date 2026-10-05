@@ -2,9 +2,9 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.7 are done
-(1.5 with one part of its check deferred, below). Next: phase 1.8, the java lane as a stub; the phase
-runs to its end under R-053.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phase 0 and 1.1 to 1.8 are done
+(1.5 with one part of its check deferred, below). Next: phase 1.9, the proof report v0; the phase runs
+to its end under R-053.
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
@@ -39,6 +39,10 @@ runs to its end under R-053.
   `oracle/compare/Layout.java`, refusing OCCURS DEPENDING ON, SIGN SEPARATE, floating point and
   pointers, to be replaced by the Semantic IR's data map when phase 2 has it. **Default taken:** that
   reader, marked `// Unsure: R-053 default`.
+- **The DD contract** (from step 1.8, J-054): `docs/LANES.md`, LANE-01 to 05, as both lanes keep it now.
+  Open: whether a RECFM=V dataset reaches a program with IBM's RDW (built: fixed records only, and the
+  cobc lane's GnuCOBOL default for V is not IBM's RDW, `docs/research/oracle.md`), and how the java
+  lane reaches an indexed dataset (phase 3). **Default taken:** the contract as written.
 
 ## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
 

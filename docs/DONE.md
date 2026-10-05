@@ -168,3 +168,13 @@ Nothing is compared before the gate passes (`Gate.require`). On the OMP course's
 one-byte change in a COMP-3 field is reported with its field and both values, and a byte-blind
 `iconv` is caught as corrupt packed fields (ACCT-BALANCE in 44 of 45 records, ACCT-LIMIT in 9) while
 every text field compares the same (J-053). R-011's text and the copybook reader wait for Fable.
+
+### 1.8 The java lane, as a stub
+
+The lanes share everything but the program step (`ProgramRunner`): the java lane runs a Java program
+under the cobc lane's DD contract, written down as `docs/LANES.md` (LANE-01 to 05): DDs as
+`DD_<name>` paths, fixed-length records, the clock and zone in the environment, the PARM as the one
+argument, SYSIN as stdin, stdout, the exit code, an abend on stderr. Its stub runs sequential datasets
+only and refuses the rest with a finding. The check: `oracle/fixture/trivial/COPY.fixture` through the
+cobc lane (Katana's `COPYREC.cbl`, twice, through the gate) and the java lane (a hand-written Java
+copy) compares with an empty diff, and the two stdouts are the same.

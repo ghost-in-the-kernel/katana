@@ -18,7 +18,9 @@ import katana.oracle.fixture.Schema;
 import katana.profile.Profile;
 
 /**
- * The cobc lane (docs/ROADMAP.md 1.4): runs a fixture's job under GnuCOBOL. The catalog starts as the
+ * The cobc lane (docs/ROADMAP.md 1.4): runs a fixture's job under GnuCOBOL; with `Setup.java`, the java
+ * lane's stub (1.8), the same job with each program step a Java program, under the same DD contract
+ * (docs/LANES.md). The catalog starts as the
  * fixture says, each source checked against its hash; each step's DDs are allocated by disposition
  * and bound; programs, IDCAMS, IEFBR14 and IEBGENER run; SORT stops the job with a finding naming
  * phase 1.5 (R-048); COND and an abend bypass later steps as JCL does; each dataset's records are
@@ -27,7 +29,13 @@ import katana.profile.Profile;
 public final class CobcLane {
     /** Where a run finds what it needs: the repository, the `from=` roots by prefix, program sources, copybooks, its folders, other jobs' datasets, and a clock set outside the fixture (null for the fixture's own, R-009). */
     public record Setup(Path root, Map<String, Path> sources, Path programs, List<Path> copybooks, Path work, Path cache,
-                        Duration limit, JobSource jobs, String clock) {}
+                        Duration limit, JobSource jobs, String clock, Map<String, List<String>> java) {
+        /** The cobc lane's setup: no Java programs. */
+        public Setup(Path root, Map<String, Path> sources, Path programs, List<Path> copybooks, Path work, Path cache,
+                     Duration limit, JobSource jobs, String clock) {
+            this(root, sources, programs, copybooks, work, cache, limit, jobs, clock, null);
+        }
+    }
 
     /** A dataset as another job leaves it, unloaded (a `job:` source). */
     public interface JobSource {
@@ -57,6 +65,7 @@ public final class CobcLane {
     /** The fixture checked, the profile read, the catalog started, the libraries built, the steps run, the end unloaded. */
     private Report run() {
         report.line("job " + fixture.first("job").values().get(0) + " " + fixture.hash());
+        if (setup.java() != null) report.line("lane java (the stub of phase 1.8)");
         List<String> refusals = FixtureCheck.refusals(fixture, FixtureCheck.profiles(setup.root()));
         if (!refusals.isEmpty()) {
             refusals.forEach(r -> report.finding("refused: " + r));
@@ -68,10 +77,12 @@ public final class CobcLane {
         if (setup.clock() != null) report.line("clock set outside the fixture: " + setup.clock() + " (R-009; for the gate's own check)");
         try {
             prepare(profile);
-            String stopped = Start.catalog(fixture, datasets, setup, paths);
-            if (stopped == null) stopped = libraries();
+            String stopped = setup.java() != null ? javaLimits() : null;
+            if (stopped == null) stopped = Start.catalog(fixture, datasets, setup, paths);
+            if (stopped == null && setup.java() == null) stopped = libraries();
             if (stopped != null) report.finding(stopped);
-            new Steps(fixture, datasets, programs, paths, setup.work(), report, setup.clock()).run(stopped != null);
+            ProgramRunner runner = setup.java() == null ? programs : new JavaPrograms(setup.java(), setup.work(), setup.limit());
+            new Steps(fixture, datasets, runner, paths, setup.work(), report, setup.clock()).run(stopped != null);
             end();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -92,6 +103,18 @@ public final class CobcLane {
         Compiler compiler = new Compiler(profile, shadows, setup.cache(), setup.limit());
         datasets = new Datasets(setup.work(), compiler, setup.limit());
         programs = new Programs(setup.programs(), compiler, setup.work(), setup.limit(), widths);
+    }
+
+    /** What the java lane's stub does not run yet (docs/LANES.md): indexed datasets, stubs and called modules, which wait for rt/ (phase 3). */
+    private String javaLimits() {
+        for (Schema.Line line : fixture.header()) {
+            if (line.keyword().equals("stub") || line.keyword().equals("module")) return "the java lane's stub has no " + line.keyword() + " " + line.values().get(0) + " yet (rt/, phase 3)";
+        }
+        for (Schema.Line d : fixture.datasets()) {
+            String org = d.attributes().get("org");
+            if ("KSDS".equals(org) || "PATH".equals(org)) return "the java lane's stub has no indexed dataset (" + d.values().get(0) + ") yet (rt/, phase 3)";
+        }
+        return null;
     }
 
     /** The stubs and called modules on the library path; why the job cannot run, or null. */

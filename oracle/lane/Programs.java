@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * mapping), the fixture's clock and zone, the run's bin folder as the library path (STEPLIB), and an
  * abend read from the CEE3ABD stub's line, or the signal libcob reports, rather than the 8-bit exit status.
  */
-final class Programs {
+final class Programs implements ProgramRunner {
     /** How a program step ended: its return code, the abend code (Unnnn) or null, and a finding that stopped it, or null. */
     record Ended(int rc, String abend, String finding) {}
 
@@ -77,7 +77,8 @@ final class Programs {
     }
 
     /** Runs a program step: env holds the clock, the zone and the DD bindings; stdin is the step's SYSIN cards or nothing. */
-    Ended run(String step, String name, String parm, Map<String, String> env, Path stdin) {
+    @Override
+    public Ended run(String step, String name, String parm, Map<String, String> env, Path stdin) {
         Path source = source(name);
         if (source == null) return new Ended(0, null, "no source for " + name);
         byte[] text = read(source, name);

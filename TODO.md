@@ -8,14 +8,13 @@ the first open item has a check.
 
 ## Phase 1: the oracle and the corpus
 
-### 1.8 The java lane
-
-Check: a hand-written Java program that copies its input to its output passes a trivial fixture
-through both lanes with an empty diff.
-
 ### 1.9 The proof report, v0
 
-Check: none in the roadmap; written here before the item starts.
+Check: the v0 report for the trivial fixture (the cobc lane against the java lane) and for POSTTRAN
+(the cobc lane against the study's frozen datasets) names the fixture and the profile by hash, the
+gate's result, each dataset compared with its masks and findings, each program's paragraphs entered
+and not entered (from a cobc trace), and quotes `docs/PROOF.md`'s "What it never covers" verbatim; a
+test fails when the quote and the document differ. (Written by Opus before the step, as TODO.md asks.)
 
 ### 1.10 Tithe pass 1
 

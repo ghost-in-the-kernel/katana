@@ -1,0 +1,14 @@
+# Phase 1.8's trivial fixture: one step copies a sequential dataset, record for record. The cobc lane
+# runs Katana's COPYREC.cbl, the java lane a hand-written Java program; the two outputs compare with an
+# empty diff (docs/LANES.md).
+job COPY
+profile ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+clock 2024-03-01 12:00:00.00 +00:00
+tz UTC
+
+dataset KATANA.TRIVIAL.IN org=PS lrecl=20 from=repo:oracle/fixture/trivial/IN.txt framing=lines sha256=8c66d11a4dff5b9f63294d7f7cc7a9e36169808a635b52eccba60d83db6cbb81
+
+step COPY pgm=COPYREC
+dd SYSOUT sysout
+dd INFILE dsn=KATANA.TRIVIAL.IN disp=SHR recfm=F lrecl=20 copybook=COPYREC encoding=ascii
+dd OUTFILE dsn=KATANA.TRIVIAL.OUT disp=NEW,CATLG,DELETE recfm=F lrecl=20 copybook=COPYREC encoding=ascii
