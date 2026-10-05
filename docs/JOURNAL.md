@@ -1234,3 +1234,23 @@ taken; closed by a later `decision` entry naming it).
 - **Resolved:** `ArithTrialIntegrationTest` (cobc its oracle; `ArithProfileTest#roundingThe...` its
   mutation; the new `rt` pre-push suite its gate). **Touched:** `rt/ArithProfile`, its tests,
   PROFILE.md, the research notes, `scripts/prepush.sh`, `docs/checks.json`, HANDOFF.
+
+### J-098 A double check of the chain from phase 2 to 3.1, on Ghost's hunch
+- **Who:** Ghost ("my qa spidey senses are tingling"); Opus audited. **Class:** trial.
+- **Found:** a clean baseline first (every suite, fresh clone, 240 s). Then each claim of the chain
+  asked three things: what holds it, whether that comes from outside what it checks, whether it could
+  fail. Three suspects. (1) A4's mask oracle normalized cobc's pictures with *our* reading of
+  CURRENCY SIGN and DECIMAL-POINT IS COMMA, so a misreading would have shifted both sides alike and
+  agreed: a mirror. cobc writes each unit's `decimal_point` and `currency_symbol` into its C; the
+  data map test now compares them, and every unit agrees (2 NIST units set them): no bug, a hole
+  closed. (2) J-093's "227 of 378" compared stdout only where one was expected; strictly re-scored it
+  is still 227 (stderr was never compared, and is not claimed). (3) The text helper that squeezed
+  VALUE spaces (J-082) still built the ASSIGN name, which was also upper-cased with its quotes
+  stripped: `ASSIGN TO "my  data.txt"` became `MY DATA.TXT`, a wrong file once LANE-07 resolves it.
+  No corpus program has such a literal, which is why no check saw it. Fixed: a literal keeps its
+  payload exactly, a word is upper-cased; the new test fails on the old code ("MY DATA.TXT"). A sweep
+  for the same class (literal text upper-cased or squeezed into the IR) found CALL targets already
+  exact and every other upper-casing applied to COBOL words.
+- **Caught by:** the hunch, then reading each check for where its expected side came from.
+- **Resolved:** `Files.assign`; `BuildTest#anAssignLiteralIsKeptAsWritten`; the data map test's
+  `editing` column (sir/datamap.golden). **Touched:** `sir/build/Files.java`, the sir tests, the golden.

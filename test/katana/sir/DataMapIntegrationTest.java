@@ -31,8 +31,9 @@ class DataMapIntegrationTest {
     private static final Path GOLDEN = ROOT.resolve("sir/datamap.golden");
     private static final String HEADER = """
             # Phase 2.5 (docs/ROADMAP.md): the data map against `cobc -C -std=ibm`'s layout, on every program cobc
-            # accepts: `corpus NAME programs P fields F masks M flagged G differ D` (M of the fields edited, G JUSTIFIED,
-            # BLANK WHEN ZERO or EXTERNAL, each compared too; tithe pass 2, A4), then each difference as `PROGRAM FIELD: what`.
+            # accepts: `corpus NAME programs P fields F masks M flagged G editing E differ D` (M of the fields edited, G JUSTIFIED,
+            # BLANK WHEN ZERO or EXTERNAL, each compared too; tithe pass 2, A4; E the program units whose DECIMAL-POINT or
+            # CURRENCY SIGN is not the default, every unit's compared with cobc's module, J-098), then each difference as `PROGRAM FIELD: what`.
             # Written by `gradle integration -Dkatana.record=true`.
             """;
 
@@ -62,7 +63,7 @@ class DataMapIntegrationTest {
         List<String> flags = new ArrayList<>();
         for (Path p : copybooks) flags.addAll(List.of("-I", p.toAbsolutePath().toString()));
         flags.addAll(List.of("-I", copybooks.get(0).resolve("ALTLIB1").toAbsolutePath().toString()));
-        int translated = 0, fields = 0, masks = 0, flagged = 0;
+        int translated = 0, fields = 0, masks = 0, flagged = 0, editing = 0;
         List<String> differences = new ArrayList<>();
         for (var program : programs.entrySet()) {
             Files.copy(program.getValue(), work.resolve(program.getKey() + ".cbl"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
@@ -71,6 +72,12 @@ class DataMapIntegrationTest {
             Parse.Result parse = Parse.file(program.getValue(), books, 8);
             List<Build.Data> units = Build.all(parse);
             List<List<CobcLayout.Field>> layout = CobcLayout.read(work, program.getKey());
+            List<String> modules = CobcLayout.editing(work, program.getKey());
+            for (int u = 0; u < Math.min(units.size(), modules.size()); u++) {
+                String ours = (units.get(u).decimalComma() ? "," : ".") + units.get(u).currency();
+                if (!ours.equals(modules.get(u))) differences.add(program.getKey() + " unit " + u + ": point and currency " + ours + " vs " + modules.get(u));
+                if (!modules.get(u).equals(".$")) editing++;
+            }
             for (int u = 0; u < Math.min(units.size(), layout.size()); u++) {
                 for (CobcLayout.Field f : layout.get(u)) {
                     if (!CobcLayout.compared(f)) continue;
@@ -84,7 +91,7 @@ class DataMapIntegrationTest {
                 }
             }
         }
-        StringBuilder out = new StringBuilder("corpus " + name + " programs " + translated + " fields " + fields + " masks " + masks + " flagged " + flagged + " differ " + differences.size() + "\n");
+        StringBuilder out = new StringBuilder("corpus " + name + " programs " + translated + " fields " + fields + " masks " + masks + " flagged " + flagged + " editing " + editing + " differ " + differences.size() + "\n");
         differences.forEach(d -> out.append(d).append('\n'));
         return out.toString();
     }

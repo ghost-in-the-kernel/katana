@@ -54,6 +54,14 @@ final class CobcLayout {
         return units;
     }
 
+    /** Each program unit's DECIMAL-POINT and CURRENCY SIGN as cobc sets them in its module, in the order of its C (`,$` for none). */
+    static List<String> editing(Path dir, String name) throws Exception {
+        List<String> units = new ArrayList<>();
+        Matcher m = Pattern.compile("module->decimal_point = '(.)';\\s*module->currency_symbol = '(.)';").matcher(Files.readString(dir.resolve(name + ".c")));
+        while (m.find()) units.add(m.group(1) + m.group(2));
+        return units;
+    }
+
     /** A picture's symbols, each as often as it repeats, to the `\\0` that ends them; C is CR and D is DB. */
     private static String picture(String symbols) {
         StringBuilder out = new StringBuilder();

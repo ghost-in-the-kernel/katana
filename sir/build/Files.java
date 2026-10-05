@@ -27,7 +27,7 @@ final class Files {
             List<FileDescriptor.AlternateKey> alternates = new ArrayList<>();
             String where = Origins.at(parse, e).toString();
             for (CobolParser.FileControlClauseContext c : e.fileControlClause()) {
-                if (c.assignClause() != null) assign = Values.upper(DataMap.text(c.assignClause()).replaceFirst("(?i)^ASSIGN\\s+(TO\\s+)?", "")).replaceAll("[\"']", "");
+                if (c.assignClause() != null) assign = assign(c.assignClause());
                 if (c.organizationClause() != null) organization = organization(c.organizationClause());
                 if (c.accessModeClause() != null) access = access(c.accessModeClause());
                 if (c.recordKeyClause() != null) key = names.item(Values.upper(c.recordKeyClause().qualifiedDataName().getText()), List.of(), null, where);
@@ -43,6 +43,15 @@ final class Files {
             files.add(new FileDescriptor(name, assign, organization, access, key, alternates, relative, status, mine, min, max, Origins.at(parse, e)));
         }
         return files;
+    }
+
+    /**
+     * What a file is ASSIGNed to: a literal's characters exactly as written (a file name's case and
+     * spaces are its own, LANE-07), or its words upper-cased (a name, `DISK`, `EXTERNAL X`).
+     */
+    private static String assign(CobolParser.AssignClauseContext a) {
+        if (a.literal() != null && Values.literal(a.literal()) instanceof katana.sir.types.Value.Literal l) return l.payload();
+        return Values.upper(DataMap.text(a).replaceFirst("(?i)^ASSIGN\\s+(TO\\s+)?", ""));
     }
 
     private static List<CobolParser.FileControlEntryContext> entries(CobolParser.ProgramUnitContext unit) {

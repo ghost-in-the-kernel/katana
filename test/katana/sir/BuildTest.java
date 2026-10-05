@@ -78,4 +78,16 @@ class BuildTest {
                 new Value.Figurative("ALL", new Value.Literal("'*'", Value.Literal.Kind.ALPHANUMERIC, "*", 0)), new Value.Expression("+", List.of(new Value.Literal("1", Value.Literal.Kind.NUMERIC, "1", 0))));
         for (Value v : values) assertEquals(v, IrJson.read(IrJson.write(v), Value.class), IrJson.write(v));
     }
+
+    /** A literal ASSIGN keeps its case and spaces (it names a file, LANE-07); a word is upper-cased (J-098). */
+    @Test
+    void anAssignLiteralIsKeptAsWritten() {
+        String program = String.join("\n",
+                "       IDENTIFICATION DIVISION.", "       PROGRAM-ID. A.", "       ENVIRONMENT DIVISION.", "       INPUT-OUTPUT SECTION.", "       FILE-CONTROL.",
+                "           SELECT F1 ASSIGN TO \"my  data.txt\".", "           SELECT F2 ASSIGN TO infile.", "       DATA DIVISION.", "       FILE SECTION.",
+                "       FD  F1.", "       01  R1 PIC X.", "       FD  F2.", "       01  R2 PIC X.", "       PROCEDURE DIVISION.", "           STOP RUN.", "");
+        katana.front.Parse.Result parse = katana.front.Parse.text(program, new katana.front.Copybooks(List.of(), n -> 8));
+        var files = Build.program(parse, HASH).program().files();
+        assertEquals(List.of("my  data.txt", "INFILE"), files.stream().map(katana.sir.types.FileDescriptor::assign).toList());
+    }
 }
