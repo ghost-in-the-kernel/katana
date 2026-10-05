@@ -7,7 +7,7 @@ a hypothesis to confirm against the manual).
 
 **Access note.** The Programming Guide (PG) and Language Reference (LR) PDFs are reachable but the
 fetch tool digests only their first ~30 pages (the contents), so the PG option chapter and
-Appendix A were not read; `ibm.com/docs` HTML is 403 except a few indexed pages. Primary sources
+Appendix A were not read on 2026-10-04 (Appendix A was read in full on 2026-10-05, §4, S19); `ibm.com/docs` HTML is 403 except a few indexed pages. Primary sources
 read in full: 6.4 Performance Tuning Guide, V4R2 Performance Tuning paper, 6.4 Customization
 Guide, the 6.2/6.5 PG option table, 6.2/6.3 What's New, IBM APARs, an IBM webinar deck.
 
@@ -114,33 +114,107 @@ stored into a shorter decimal receiver follows the LR alignment (truncation) rul
 intermediate results at 30 digits; EXTEND raises all three to 31; EXTEND also changes how
 floating-point values are converted to fixed point (31 digits kept).
 
-## 4. Appendix A, "Intermediate results and arithmetic precision"
+## 4. Appendix A, "Intermediate results and arithmetic precision" (read 2026-10-05, primary)
 
-Not reached in any primary form this session (PG PDF digest stops at the TOC; `ibm.com/docs`
-HTML 403; cadcobol.com.br mirror suspended; Micro Focus and Wayback disallowed). What follows is
-**[unverified]** recollection of the 3.x-6.x text, which is essentially unchanged across versions
-except for 30 -> 31 under ARITH(EXTEND):
+Read in full from the Enterprise COBOL for z/OS 6.4 Programming Guide, SC27-8714-03 (S19), pages
+793-801, once the environment allowed IBM's PDF host (J-095). Everything in this section is
+[verbatim] from it, page numbers given; the [unverified] recollection that stood here was wrong in two
+places (the cap, and which operand of a division is which) and is gone.
 
-- Terms: i1,i2 / d1,d2 = integer / decimal digits of op1, op2; ir = intermediate result; dmax =
-  in a given statement, the greatest of the decimal places of the final receiver(s) (plus 1 when
-  ROUNDED is specified), the decimal places of any operand except divisors and exponents, and the
-  dmax of any containing expression.
-- Fixed-point ir digits: `+`/`-`: i = max(i1,i2)+1, d = max(d1,d2). `*`: i = i1+i2, d = d1+d2.
-  `/`: i = i1+d2, d = max(d1-d2, dmax). `**` with an integer literal exponent n: i = i1*n,
-  d = d1*n (treated as repeated multiplication); `**` with a data-name or non-integer exponent:
-  floating point.
-- Cap: if i+d > 30 (COMPAT) / 31 (EXTEND): if d > dmax, d is reduced to max(dmax, 30-i) (31-i);
-  if i+d still exceeds the cap, high-order integer digits are lost (size error). Division is
-  computed with d = max(d1-d2, dmax) so quotients carry at least dmax places.
-- Floating point is used when any operand or receiver is COMP-1/COMP-2/external float or a
-  floating-point literal, or when an exponent has decimal places or is a non-literal.
-- In conditions, dmax is the maximum decimal places of all operands on both sides; in
-  non-arithmetic statements (subscripts, reference modification, etc.) the expression is
-  evaluated as if assigned to an integer receiver with dmax = max operand decimals.
+- [verbatim, p. 793] "In compatibility mode ... A maximum of 30 digits is used for fixed-point
+  intermediate results." "In extended mode ... A maximum of 31 digits is used for fixed-point
+  intermediate results."
+- [verbatim, p. 793] Intermediate results arise "In an ADD or SUBTRACT statement that contains more
+  than one operand immediately after the verb; In a COMPUTE statement that specifies a series of
+  arithmetic operations or multiple result fields; In an arithmetic expression contained in a
+  conditional statement or in a reference-modification specification; In an ADD, SUBTRACT, MULTIPLY,
+  or DIVIDE statement that uses the GIVING option and multiple result fields; In a statement that uses
+  an intrinsic function as an operand; In a statement that contains the ROUNDED phrase".
+- [verbatim, p. 794, terms] "i: The number of integer places carried for an intermediate result. (If
+  you use the ROUNDED phrase, one more integer place might be carried for accuracy if necessary.)"
+  "d: The number of decimal places carried for an intermediate result. (If you use the ROUNDED
+  phrase, one more decimal place might be carried for accuracy if necessary.)" "dmax: In a particular
+  statement, the largest of the following items: The number of decimal places needed for the final
+  result field or fields; The maximum number of decimal places defined for any operand, except
+  divisors or exponents; The outer-dmax for any function operand". "op1: The first operand in a
+  generated arithmetic statement (in division, the divisor). op2: The second operand in a generated
+  arithmetic statement (in division, the dividend)." "i1, i2: The number of integer places in op1 and
+  op2" "d1, d2: The number of decimal places in op1 and op2".
+- [verbatim, pp. 794-795] "COMPUTE Y = A + B * C - D / E + F ** G ... 1. Exponentiate F by G yielding
+  ir1. 2. Multiply B by C yielding ir2. 3. Divide E into D yielding ir3. 4. Add A to ir2 yielding ir4.
+  5. Subtract ir3 from ir4 yielding ir5. 6. Add ir5 to ir1 yielding Y."
+- [verbatim, p. 795, the precision theoretically possible]
 
-Secondary confirmation only: [paraphrase, datafield.dev ch. 5, S12] `*` sums integer and decimal
-digits of both operands. [paraphrase, APARs PH41526/PH42579, S13] compiler abends on COMPUTE ...
-ROUNDED with intermediate results "of more than 31 digits" (31 is the EXTEND ceiling).
+  | Operation | Integer places | Decimal places |
+  | --- | --- | --- |
+  | + or - | (i1 or i2) + 1, whichever is greater | d1 or d2, whichever is greater |
+  | * | i1 + i2 | d1 + d2 |
+  | / | i2 + d1 | (d2 - d1) or dmax, whichever is greater |
+
+- [verbatim, pp. 795-796, places carried for +, -, *, /; C is 30 under ARITH(COMPAT) and 31 under
+  ARITH(EXTEND), the two tables being the same but for that number]
+
+  | Value of i + d | Value of d | Value of i + dmax | Number of places carried for ir |
+  | --- | --- | --- | --- |
+  | <C or =C | Any value | Any value | i integer and d decimal places |
+  | >C | <dmax or =dmax | Any value | C-d integer and d decimal places |
+  | >C | >dmax | <C or =C | i integer and C-i decimal places |
+  | >C | >dmax | >C | C-dmax integer and dmax decimal places |
+
+- [verbatim, p. 796, exponentiation] "When op2 is expressed with decimals, floating-point instructions
+  are used." "When op2 is an integral literal or constant, the value d is computed as d = d1 * |op2|
+  and the value i is computed based on the characteristics of op1: When op1 is a data-name or
+  variable, i = i1 * |op2|; When op1 is a literal or constant, i is set equal to the number of
+  integers in the value of op1 ** |op2|." Under COMPAT: i + d < 30, "i integer and d decimal places
+  are carried"; = 30 with op1 of an odd number of digits, the same; = 30 with an even number, and > 30,
+  "Same action as when op2 is an integral data-name or variable" (the exception: "a 30-digit integer
+  raised to the power of literal 1"). Under EXTEND: < 31 carried; = 31 or > 31 as for a data-name
+  exponent (the same exception at 31). "If op2 is negative, the value of 1 is then divided by the
+  result produced by the preliminary computation." [p. 797] "When op2 is an integral data-name or
+  variable, dmax decimal places and 30-dmax (compatibility mode) or 31-dmax (extended mode) integer
+  places are used. op1 is multiplied by itself (|op2| - 1) times for nonzero op2. If op2 is equal to 0,
+  the result is 1. ... Fixed-point exponents with more than nine significant digits are always
+  truncated to nine digits." The internal results of the repeated multiplication "are much more
+  precise" than ir (p. 797).
+- [verbatim, pp. 797-798] "Whenever the number of digits in an intermediate result exceeds 30 in
+  compatibility mode or 31 in extended mode, the compiler truncates to 30 (compatibility mode) or 31
+  (extended mode) digits and issues a warning. If truncation occurs at run time, a message is issued
+  and the program continues running."
+- [verbatim, p. 798] "If an operation that involves binary operands requires intermediate results
+  longer than 18 digits, the compiler converts the operands to internal decimal before performing the
+  operation."
+- [verbatim, pp. 798-799] Integer functions: outer-dmax "always zero"; FACTORIAL "30 in compatibility
+  mode, 31 in extended mode"; MOD "min(i1 i2)"; INTEGER "one more digit than in the argument";
+  INTEGER-PART "same number of digits as in the argument". MAX, MIN, RANGE, REM, SUM: "the outer-dmax
+  is always equal to the inner-dmax", each evaluated by the steps given there (REM: divide, remove the
+  noninteger digits, multiply by argument two, subtract from argument one).
+- [verbatim, p. 800, floating point] "Floating-point instructions are used to compute an arithmetic
+  expression if any of the following conditions is true of the expression: A receiver or operand is
+  COMP-1, COMP-2, external floating point, or a floating-point literal. An exponent contains decimal
+  places. An exponent is an expression that contains an exponentiation or division operator, and dmax
+  is greater than zero. An intrinsic function is a floating-point function." COMPAT: "Single precision
+  is used if all receivers and operands are COMP-1 data items and the expression contains no
+  multiplication or exponentiation operations. In all other cases, long precision is used." EXTEND:
+  single as COMPAT; "Long precision is used if all receivers and operands are COMP-1 or COMP-2 data
+  items, at least one receiver or operand is a COMP-2 data item, and the expression contains no
+  multiplication or exponentiation operations. In all other cases, extended precision is used."
+- [verbatim, p. 801, conditions] "In an explicit relation condition where at least one of the
+  comparands is an arithmetic expression, dmax is the maximum number of decimal places for any operand
+  of either comparand, excluding divisors and exponents." "When the comparison between an arithmetic
+  expression and another data item or arithmetic expression does not use a relational operator (that
+  is, there is no explicit relation condition), the arithmetic expression is evaluated without regard
+  to the attributes of its comparand." "Abbreviated IF statements are handled as though the statements
+  were not abbreviated."
+
+What the text leaves open, for `rt/` to treat as a hypothesis and the oracle to settle: whether an
+intermediate's dropped decimal places are truncated or rounded (the text says "truncates", p. 797, of
+digits beyond the cap; it does not name the rule for d below the theoretical places), and exactly when
+ROUNDED's extra place "might be carried".
+
+The measured reproducer, under this table: `COMPUTE X = 1 / 3 * 300` into `999V99`. dmax is 2 (the
+receiver). `1 / 3`: op1 the divisor (i1 1, d1 0), op2 the dividend (i2 1, d2 0); i = i2 + d1 = 1,
+d = max(d2 - d1, dmax) = 2: 0.33. `* 300`: i = 1 + 3, d = 2 + 0: 99.00. cobc `-std=ibm` prints 99.00
+(oracle/nist/IBM-CHANGES.md); the exact value is 100, and a decimal-exact evaluation 99.99 or 100.00.
 
 ## 5. CODEPAGE / COLLSEQ
 
@@ -197,6 +271,7 @@ TRUNC(BIN)/COMP-5 size error is detected against the binary capacity, not the PI
 - S16 https://www.ibm.com/support/pages/apar/PH29821 ; /PH31472
 - S17 https://www.ibm.com/support/pages/pitfalls-invalid-programs-and-data
 - S18 https://www.ibm.com/support/pages/apar/PH37328
+- S19 https://publibfp.dhe.ibm.com/epubs/pdf/igy6pg40.pdf (Enterprise COBOL for z/OS 6.4 Programming Guide, SC27-8714-03; Appendix A, pp. 793-801, read in full 2026-10-05)
 - Unreachable this session: PG 6.4 pgmvs.pdf / igy6pg40.pdf / igy3pg*.pdf (digest stops at TOC);
   `ibm.com/docs/en/cobol-zos/6.4.0?topic=...` (403); Migration Guide mg.pdf 6.4/6.5 (403);
   web.archive.org (blocked); cadcobol.com.br mirror (suspended); Micro Focus docs (robots).

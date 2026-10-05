@@ -129,14 +129,7 @@ drafted by Fable from R-002 as the per-customer template, status DRAFT awaiting 
 file's last paragraph; the first `rt/` file may land against it, and counsel reviews before the
 first delivery.)
 
-- **Phase 3.1: IBM's Appendix A is behind this environment's network policy (J-094).** R-049 says
-  Appendix A (intermediate results) blocks `rt/Decimal` and `ArithProfile`. Its topic is found
-  (`ibm.com/docs/en/cobol-zos/6.4.0?topic=appendixes-intermediate-results-arithmetic-precision`, and the
-  whole Programming Guide at `publibfp.dhe.ibm.com/epubs/pdf/igy6pg40.pdf`), but both hosts are
-  refused by the session's egress proxy. *Remedy:* add `www.ibm.com` and `publibfp.dhe.ibm.com` to the
-  environment's allowed domains (cloud environment menu, Edit, Network access, Custom), or attach the
-  PDF. *Meanwhile:* the parts of 3.1 that do not compute intermediates go ahead (`Record`, `Field`,
-  sign codecs, MOVE, INSPECT/STRING/UNSTRING, collation); `Decimal` and `ArithProfile` wait.
+(phase 3.1's Appendix A: Ghost allowed the two IBM hosts, 2026-10-05; read in full, J-095)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 

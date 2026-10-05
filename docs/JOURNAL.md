@@ -1182,3 +1182,21 @@ taken; closed by a later `decision` entry naming it).
   on a recollection R-049 calls a hypothesis, so that step stops; the parts of 3.1 that do not
   compute intermediates continue.
 - **Resolved:** HANDOFF "For Ghost" (allow the two hosts, or attach the PDF). **Touched:** HANDOFF.
+
+### J-095 Phase 3.1: Appendix A read, and the recollection was wrong twice
+- **Who:** Opus; Ghost allowed the hosts; Fable set the terms (IBM's text as quotes with pages;
+  GnuCOBOL's implementation never a second opinion, only cobc's output). **Class:** decision built
+  (a reading of a source, R-052 (1)).
+- **Found:** the 6.4 Programming Guide, pp. 793-801, read in full and quoted into
+  `docs/research/ibm-options.md` §4. The recollection that stood there since phase 1 was wrong in
+  two places: past the 30/31 cap with d no more than dmax, IBM keeps the decimals and loses integer
+  places (the recollection reduced decimals); and in division op1 is the divisor, so the places are
+  i2 + d1 and max(d2 - d1, dmax). The first `rt/` file, `ArithProfile`, holds the tables (each
+  function citing R-049); its test holds each row and the measured point, `1 / 3 * 300` into
+  `999V99` = 99.00 under `cobc -std=ibm`, which the table gives (0.33 then 99.00). PROFILE.md's
+  Appendix A row is verified. What the text leaves open (truncation or rounding of decimals an
+  intermediate cannot carry; when ROUNDED's extra place is carried) is `rt/Decimal`'s, to settle
+  against cobc's output.
+- **Resolved:** R-049's Appendix A row verified (its Decision text, which calls it a hypothesis, is
+  Ghost's to amend); the HANDOFF item closed. **Touched:** the research notes, PROFILE.md,
+  `rt/katana/rt/ArithProfile.java`, its test, the kernel map.

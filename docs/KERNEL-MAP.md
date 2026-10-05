@@ -711,3 +711,8 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | oracle | `oracle/autotest/Autotests.java:Autotests.skipLine` |  | 2026-10-05 |  |
 | oracle | `oracle/autotest/Autotests.java:Autotests.line` |  | 2026-10-05 |  |
 | oracle | `oracle/autotest/Autotests.java:Autotests.write` |  | 2026-10-05 |  |
+| rt | `rt/katana/rt/ArithProfile.java:ArithProfile.ArithProfile` |  | 2026-10-05 |  |
+| rt | `rt/katana/rt/ArithProfile.java:ArithProfile.add` | R-049 | 2026-10-05 |  |
+| rt | `rt/katana/rt/ArithProfile.java:ArithProfile.multiply` | R-049 | 2026-10-05 |  |
+| rt | `rt/katana/rt/ArithProfile.java:ArithProfile.divide` | R-049 | 2026-10-05 |  |
+| rt | `rt/katana/rt/ArithProfile.java:ArithProfile.carried` | R-049 | 2026-10-05 |  |
