@@ -939,7 +939,22 @@ taken; closed by a later `decision` entry naming it).
   meta-test applies); the judgment of independence cannot, and is a principle, not a decision.
 - **Resolved:** the draft in HANDOFF "For Fable"; Ghost takes it to Fable. **Touched:** HANDOFF.
 
-### J-079 Tithe pass 2, A1: no token left behind, and what reading the tree found
+### J-079 The always-green family becomes a decision: R-056
+- **Who:** Ghost asked whether the insight could be a directive; Opus analysed; Fable added the
+  fourth case and recorded. **Class:** decision.
+- **Found:** Opus's generalization — a check is worth what it can refute; it must compare against
+  something the code under test did not produce and must be shown to fail once — splits into an
+  enforceable half (oracle named, killer mutation declared, zero-run is red; a meta-test) and a
+  judgment half (is the oracle really independent). Fable added the consequence clause from J-040:
+  a verdict that stops no action is the same failure.
+- **Resolved:** R-056 (the enforceable half, with Claims), a paragraph in GHOST-IN-THE-KERNEL.md
+  (the judgment half), tithe item A7 (the meta-test).
+- **Touched:** R-056, `docs/GHOST-IN-THE-KERNEL.md`, HANDOFF A7.
+- **Note:** Opus drafted the decision in HANDOFF (J-078) and left the recording to Ghost's word, as
+  R-043 asks; Fable recorded it with the consequence clause added. The first decision whose Why
+  cites four journal entries as its evidence.
+
+### J-080 Tithe pass 2, A1: no token left behind, and what reading the tree found
 - **Who:** Opus. **Class:** build. **Intent:** R-017's test, and the IR it requires.
 - **Found:** the walk now keeps every word (a keyword operand; the verb's own words and IS, ARE, THEN,
   END-x and punctuation aside), gives each rule holding statements its own branch with its other

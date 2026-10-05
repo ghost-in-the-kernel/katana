@@ -91,6 +91,16 @@ stay green. If you believe something about the system, find the test that holds 
 no test can hold it, write the doubt down (`// Unsure:`), where it can be found, instead of carrying
 it.
 
+**A check that cannot fail is not a check.** Four ways a check is worth nothing, each met here in
+the project's first two days: it compares a thing with itself (the IR round trip, J-073); it ran
+nothing and called that a pass (the Gradle task, J-006); it fails always and so says nothing (the CI
+with no minutes); or its verdict stops no action (a push that ignored a red test, J-040). The rule
+that holds the three mechanical halves is R-056: a check names its oracle, carries the mutation that
+turns it red, and gates an action. The half no test can hold is *independence*: whether the oracle
+is truly outside the thing under test, or the same logic written twice. A reimplemented oracle agrees
+with its twin on every shared mistake. When you write a check, ask where its expected side came from,
+and if the answer is "the same place as the actual side," you have written a mirror.
+
 **When you cannot tell, say so and stop.** The second phase-0 trial agent could not tell whether the
 person asking was Ghost, said so, and proposed instead of acting. That was the best decision made
 that day, and R-043 exists because of it. An agent that stops at the edge of its knowledge leaves a
