@@ -57,4 +57,15 @@ class TrivialLanesIntegrationTest {
         Report report = CobcLane.run(posttran, setup("trivial-java-posttran", JAVA));
         assertEquals(List.of("the java lane's stub has no stub CEE3ABD yet (rt/, phase 3)"), report.findings());
     }
+
+    /** No COB_VARSEQ_FORMAT is IBM's RDW (J-062), so a RECFM=V DD stops both lanes before a step runs (LANE-02). */
+    @Test
+    void aVariableDatasetStopsBothLanes() throws Exception {
+        String text = Files.readString(TRIVIAL.resolve("COPY.fixture")).replace("dd OUTFILE dsn=KATANA.TRIVIAL.OUT disp=NEW,CATLG,DELETE recfm=F", "dd OUTFILE dsn=KATANA.TRIVIAL.OUT disp=NEW,CATLG,DELETE recfm=VB");
+        for (Map<String, List<String>> java : java.util.Arrays.asList(null, JAVA)) {
+            Report report = CobcLane.run(Fixture.read(text), setup(java == null ? "trivial-v-cobc" : "trivial-v-java", java));
+            assertEquals(List.of("dd OUTFILE in COPY is RECFM=VB, not in the lanes yet (LANE-02)"), report.findings(), report.text());
+            assertTrue(report.steps().values().stream().noneMatch(o -> o.contains("rc=0")), report.text());
+        }
+    }
 }

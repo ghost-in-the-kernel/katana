@@ -389,3 +389,4 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/compare/Compare.java:Compare.Numproc.of` | called by `oracle/compare/Layout.java:Layout.raw` and 43 more | 2026-10-05 |  |
 | oracle | `oracle/compare/Compare.java:Compare.signVariant` | called by `oracle/compare/Compare.java:Compare.record` | 2026-10-05 |  |
 | oracle | `oracle/compare/Compare.java:Compare.negative` | called by `oracle/compare/Compare.java:Compare.signVariant` | 2026-10-05 |  |
+| oracle | `oracle/lane/CobcLane.java:CobcLane.variable` | called by `oracle/lane/CobcLane.java:CobcLane.run#2` | 2026-10-05 |  |

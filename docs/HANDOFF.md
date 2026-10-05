@@ -15,11 +15,7 @@
 
 ## Trials (R-052: a question settled by running something; the implementing agent runs it)
 
-- **RECFM=V reaches a program with IBM's RDW** (from LANES.md's open point). Trial: write a V
-  dataset through `cobc` under each `COB_VARSEQ_FORMAT` (0..3) and hexdump; the format whose prefix
-  is a 2-byte big-endian length (including the 4-byte prefix) and two zero bytes is IBM's RDW; LANE-02
-  then gains the V rule and both lanes use that format. If none matches, the cobc lane wraps records
-  itself and LANE-02 says so.
+(none open; RECFM=V J-062, stderr J-059)
 
 ## Waiting on Ghost
 

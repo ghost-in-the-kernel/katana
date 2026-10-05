@@ -15,7 +15,9 @@ Invariants are numbered LANE-01 onward, in this document only, and a number is n
   concatenation, the first), `/dev/null` for DUMMY, a file of 80-byte cards for an inline DD, a file
   the lane keeps for SYSOUT. The program finds its files by name, never by path.
 - **LANE-02 Records are fixed-length, back to back.** A sequential dataset is its records at its
-  `lrecl`, with no line terminators and no RDW.
+  `lrecl`, with no line terminators and no RDW. RECFM=V stops the job until a fixture needs it: no
+  `COB_VARSEQ_FORMAT` writes IBM's RDW (format 0's length leaves out the 4-byte prefix; J-062), so the
+  cobc lane will run format 0 and add or take 4 from each length at load and unload.
 - **LANE-03 The step's inputs are the environment, the PARM and SYSIN.** The fixture's clock is in
   `COB_CURRENT_DATE` and its zone in `TZ`; nothing else of the machine's environment is passed (PATH
   aside). The PARM is the program's one argument (the cobc lane passes it through a driver as z/OS

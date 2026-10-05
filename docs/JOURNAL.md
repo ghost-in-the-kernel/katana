@@ -729,3 +729,11 @@ taken; closed by a later `decision` entry naming it).
   docs ratio was 0.46 at arming, the boundary's own lines on top of 0.45; answered HANDOFF text, a
   duplicate HANDOFF item and my own DONE and journal lines were cut to bring it to the 0.45 armed.
 - **Touched:** `scripts/Metrics.java`, `MetricsTest`, `docs/AGENT.md`, HANDOFF, DONE, JOURNAL.
+
+### J-062 The RECFM=V trial: no GnuCOBOL format is IBM's RDW
+- **Who:** Opus. **Class:** trial (R-052). **Intent:** settle LANE-02's open point.
+- **Found:** two records (5 and 10 bytes) written by `cobc -std=ibm` under each `COB_VARSEQ_FORMAT`:
+  0 `00 05 00 00`, 1 `00 00 00 05`, 2 `05 00 00 00`, 3 `00 05`. Format 0 is IBM's shape, but its length
+  leaves out the 4-byte prefix (IBM writes `00 09 00 00`). The lane ignored `recfm`, so a V DD would
+  have run as fixed; it now stops both lanes with a finding until a fixture needs V (LANE-02).
+- **Touched:** `CobcLane`, `TrivialLanesIntegrationTest`, `docs/LANES.md`, HANDOFF.

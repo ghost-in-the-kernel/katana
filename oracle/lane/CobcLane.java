@@ -88,7 +88,8 @@ public final class CobcLane {
         if (setup.clock() != null) report.line("clock set outside the fixture: " + setup.clock() + " (R-009; for the gate's own check)");
         try {
             prepare(profile);
-            String stopped = setup.java() != null ? javaLimits() : null;
+            String stopped = variable();
+            if (stopped == null && setup.java() != null) stopped = javaLimits();
             if (stopped == null) stopped = Start.catalog(fixture, datasets, setup, paths);
             if (stopped == null && setup.java() == null) stopped = libraries();
             if (stopped != null) report.finding(stopped);
@@ -124,6 +125,17 @@ public final class CobcLane {
         for (Schema.Line d : fixture.datasets()) {
             String org = d.attributes().get("org");
             if ("KSDS".equals(org) || "PATH".equals(org)) return "the java lane's stub has no indexed dataset (" + d.values().get(0) + ") yet (rt/, phase 3)";
+        }
+        return null;
+    }
+
+    /** A RECFM=V DD stops both lanes until a fixture needs it: no `COB_VARSEQ_FORMAT` is IBM's RDW (LANE-02). */
+    private String variable() {
+        for (Fixture.Step step : fixture.steps()) {
+            for (Fixture.Dd dd : step.dds()) {
+                String recfm = dd.attributes().get("recfm");
+                if (recfm != null && recfm.startsWith("V")) return "dd " + dd.name() + " in " + step.name() + " is RECFM=" + recfm + ", not in the lanes yet (LANE-02)";
+            }
         }
         return null;
     }
