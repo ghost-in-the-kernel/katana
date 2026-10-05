@@ -44,7 +44,7 @@ class CompareOmpIntegrationTest {
         byte[] changed = data.clone();
         changed[4 * 170 + 15] ^= 0x10;
         Compare.Result result = Compare.compare(NOT_A_LANE, Compare.Side.fixed("OMP.DATA", data, 170, "cp037"),
-                Compare.Side.fixed("OMP.DATA", changed, 170, "cp037"), layout, List.of());
+                Compare.Side.fixed("OMP.DATA", changed, 170, "cp037"), layout, List.of(), Compare.Numproc.NOPFD);
         System.out.println("compare one byte: " + result.findings());
         assertEquals(1, result.findings().size());
         assertTrue(result.findings().get(0).matches("OMP\\.DATA ACCT-FIELDS\\.ACCT-BALANCE: 1 of 45 records differ; first at record 5, byte offset 693: X'\\w+' \\([-\\d.]+\\) then X'\\w+' \\([-\\d.]+\\), compared as bytes"),
@@ -57,7 +57,7 @@ class CompareOmpIntegrationTest {
         Process iconv = new ProcessBuilder("iconv", "-f", "IBM037", "-t", "ISO-8859-1", in.toString()).redirectOutput(out.toFile()).start();
         assertEquals(0, iconv.waitFor());
         Compare.Result result = Compare.compare(NOT_A_LANE, Compare.Side.fixed("OMP.DATA", Files.readAllBytes(in), 170, "cp037"),
-                Compare.Side.fixed("OMP.DATA", Files.readAllBytes(out), 170, "ascii"), layout(), List.of());
+                Compare.Side.fixed("OMP.DATA", Files.readAllBytes(out), 170, "ascii"), layout(), List.of(), Compare.Numproc.NOPFD);
         System.out.println("compare iconv: " + result.findings());
         assertTrue(result.findings().stream().allMatch(f -> f.startsWith("OMP.DATA ACCT-FIELDS.ACCT-LIMIT:") || f.startsWith("OMP.DATA ACCT-FIELDS.ACCT-BALANCE:")), result.findings().toString());
         assertEquals(2, result.findings().size(), result.findings().toString());

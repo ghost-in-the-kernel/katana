@@ -714,3 +714,17 @@ taken; closed by a later `decision` entry naming it).
   the normalization has nothing to remove on these fixtures yet; `GateTest` holds that it would.
 - **Resolved:** R-012 C-2 verified for CardDemo; the trial leaves HANDOFF.
 - **Touched:** `oracle/lane/Gate.java`, `GateTest`, `theGhost.md`, `docs/HANDOFF.md`, KERNEL-MAP.
+
+### J-060 R-011's sign-variant rule built; R-013's goldens re-recorded
+- **Who:** Opus. **Class:** decision built (R-053 boundary).
+- **Intent:** Build what the boundary decided for the comparator and the proof.
+- **Found:** the comparator compared same-encoding zoned fields by their bytes, so C against F was
+  a difference under every profile. It now takes the consumer's NUMPROC (`Compare.Numproc.of` the
+  profile's `ibm.numproc`) at every call: under NOPFD two EBCDIC zoned values equal but for the sign
+  nibble (same sign class on a signed field, any sign on an unsigned one) are a `sign-variant` note
+  per field, listed in the proof report; under PFD they are a difference. Every caller states its
+  NUMPROC, so no default decides it. The two report goldens gain PROOF.md's two new lines and nothing
+  else (no CardDemo or trivial dataset is EBCDIC, so no note appears).
+- **Resolved:** R-011 and R-013 held by code and goldens.
+- **Touched:** `oracle/compare/Compare.java`, `oracle/proof/ProofReport.java`, `CompareTest`, the
+  comparator's callers, `CLAUDE.md` (the comparator's and the proof's contracts), the two goldens.

@@ -43,7 +43,7 @@ class TrivialLanesIntegrationTest {
         Layout layout = Layout.read(Files.readString(TRIVIAL.resolve("cpy/COPYREC.cpy")));
         Compare.Result diff = Compare.compare(gate,
                 Compare.Side.fixed(OUT, Files.readAllBytes(ROOT.resolve("build/trivial-cobc-a/unload/" + OUT)), 20, "ascii"),
-                Compare.Side.fixed(OUT, Files.readAllBytes(ROOT.resolve("build/trivial-java/unload/" + OUT)), 20, "ascii"), layout, List.of());
+                Compare.Side.fixed(OUT, Files.readAllBytes(ROOT.resolve("build/trivial-java/unload/" + OUT)), 20, "ascii"), layout, List.of(), Compare.Numproc.NOPFD);
         assertEquals(List.of(), diff.findings());
         assertTrue(diff.same());
         assertEquals("COPIED 00005 RECORDS\n", Files.readString(ROOT.resolve("build/trivial-cobc-a/sysout/COPY.stdout")));

@@ -62,6 +62,7 @@ public final class ProofReport {
             out.add("| " + c.dataset() + " | " + masks + " | " + (c.result().same() ? "the same" : c.result().findings().size() + " findings") + " |");
         }
         for (Compared c : compared) c.result().findings().forEach(f -> out.add("- " + f));
+        for (Compared c : compared) c.result().notes().forEach(n -> out.add("- note: " + n));
         boolean same = compared.stream().allMatch(c -> c.result().same());
         out.add("");
         out.add(same ? "Every dataset compared is the same." : "Datasets differ: the findings above.");

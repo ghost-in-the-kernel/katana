@@ -386,3 +386,6 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | oracle | `oracle/lane/Gate.java:Gate.stdouts` | moved or retired by R-012 (SYSOUT DDs and stderr held) | 2026-10-05 | superseded-by: `oracle/lane/Gate.java:Gate.sysouts` |
 | oracle | `oracle/lane/Gate.java:Gate.sysoutLines` | called by `oracle/lane/Gate.java:Gate.sysouts` | 2026-10-05 |  |
 | oracle | `oracle/lane/Gate.java:Gate.normalize` | called by `oracle/lane/Gate.java:Gate.sysoutLines` | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.Numproc.of` | called by `oracle/compare/Layout.java:Layout.raw` and 43 more | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.signVariant` | called by `oracle/compare/Compare.java:Compare.record` | 2026-10-05 |  |
+| oracle | `oracle/compare/Compare.java:Compare.negative` | called by `oracle/compare/Compare.java:Compare.signVariant` | 2026-10-05 |  |

@@ -49,7 +49,7 @@ class ProofIntegrationTest {
         String out = "KATANA.TRIVIAL.OUT";
         Compare.Result result = Compare.compare(gate, Compare.Side.fixed(out, Files.readAllBytes(ROOT.resolve("build/proof-copy-a/unload/" + out)), 20, "ascii"),
                 Compare.Side.fixed(out, Files.readAllBytes(ROOT.resolve("build/proof-copy-java/unload/" + out)), 20, "ascii"),
-                Layout.read(Files.readString(TRIVIAL.resolve("cpy/COPYREC.cpy"))), List.of());
+                Layout.read(Files.readString(TRIVIAL.resolve("cpy/COPYREC.cpy"))), List.of(), Compare.Numproc.NOPFD);
         assertEquals(List.of(), java.findings());
         hold("COPY", ProofReport.write(fixture, "oracle/fixture/trivial/COPY.fixture", a, gate, "the java lane (a hand-written Java copy)",
                 List.of(new ProofReport.Compared(out, List.of(), result)), traced, Files.readString(ROOT.resolve("docs/PROOF.md"))));
@@ -70,9 +70,9 @@ class ProofIntegrationTest {
         String tranfile = "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS", rejects = "AWS.M2.CARDDEMO.DALYREJS.G0001V00";
         Compare.Result t = Compare.compare(gate, Compare.Side.fixed(tranfile, Files.readAllBytes(runA.work("POSTTRAN").resolve("unload/" + tranfile)), 350, "ascii"),
                 Compare.Side.fixed(tranfile, Files.readAllBytes(frozen.resolve("tranfile.unl")), 350, "ascii"),
-                Layout.read(Files.readString(carddemo.resolve("app/cpy/CVTRA05Y.cpy"))), List.of());
+                Layout.read(Files.readString(carddemo.resolve("app/cpy/CVTRA05Y.cpy"))), List.of(), Compare.Numproc.NOPFD);
         Compare.Result r = Compare.compare(gate, Compare.Side.fixed(rejects, Files.readAllBytes(runA.work("POSTTRAN").resolve("unload/" + rejects)), 430, "ascii"),
-                Compare.Side.fixed(rejects, Files.readAllBytes(frozen.resolve("dalyrejs.out")), 430, "ascii"), Layout.raw(430), List.of());
+                Compare.Side.fixed(rejects, Files.readAllBytes(frozen.resolve("dalyrejs.out")), 430, "ascii"), Layout.raw(430), List.of(), Compare.Numproc.NOPFD);
         assertTrue(t.same() && r.same(), t.findings() + " " + r.findings());
         assertTrue(traced.coverage().get("CBTRN02C").total() > 0, traced.text());
         hold("POSTTRAN", ProofReport.write(fixture, "oracle/fixture/carddemo/POSTTRAN.fixture", a, gate, "the study's frozen datasets (F-02, oracle/prototypes/carddemo/post1)",
