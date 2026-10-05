@@ -1,0 +1,125 @@
+# The statement vocabulary (tithe pass 2, A6), read from the grammar by sir/build/Roles.java: each
+# verb, then `roles` its operands can carry and `branches` the labels of its nested statements.
+# Phase 3's lowering covers every line. Written by `gradle test -Dkatana.record=true`.
+ACCEPT
+  roles accept-from-date-statement accept-from-escape-key-statement accept-from-mnemonic-statement accept-message-count-statement accept-statement
+  branches not-on-exception-clause on-exception-clause
+ADD
+  roles add-corresponding-statement add-from add-giving add-statement add-to add-to-giving add-to-giving-statement add-to-statement
+  branches not-on-size-error-phrase on-size-error-phrase
+ALTER
+  roles alter-proceed-to alter-statement
+CALL
+  roles call-by-content call-by-content-phrase call-by-reference call-by-reference-phrase call-by-value call-by-value-phrase call-giving-phrase call-statement call-using-phrase
+  branches not-on-exception-clause on-exception-clause on-overflow-phrase
+CANCEL
+  roles cancel-call cancel-statement cobol-word
+CLOSE
+  roles close-file close-port-file-iostatement close-port-file-iousing-associated-data close-port-file-iousing-associated-data-length close-port-file-iousing-close-disposition close-reel-unit-statement close-relative-statement close-statement
+COMPUTE
+  roles compute-statement compute-store
+  branches not-on-size-error-phrase on-size-error-phrase
+CONTINUE
+  roles continue-statement
+DELETE
+  roles delete-statement
+  branches invalid-key-phrase not-invalid-key-phrase
+DISABLE
+  roles cobol-word disable-statement
+DISPLAY
+  roles cobol-word display-at display-operand display-statement display-upon display-with
+  branches not-on-exception-clause on-exception-clause
+DIVIDE
+  roles divide-by-giving-statement divide-giving divide-giving-phrase divide-into divide-into-giving-statement divide-into-statement divide-remainder divide-statement
+  branches not-on-size-error-phrase on-size-error-phrase
+ENABLE
+  roles cobol-word enable-statement
+ENTRY
+  roles entry-statement
+EVALUATE
+  roles evaluate-also-select evaluate-select evaluate-statement
+  branches evaluate-when-other evaluate-when-phrase
+EXEC CICS
+  roles exec-cics-statement
+EXEC SQL
+  roles exec-sql-statement
+EXEC SQL IMS
+  roles exec-sql-ims-statement
+EXHIBIT
+  roles exhibit-operand exhibit-statement
+EXIT
+  roles exit-statement
+GENERATE
+  roles generate-statement report-name
+GO TO
+  roles go-to-depending-on-statement go-to-statement go-to-statement-simple
+GOBACK
+  roles goback-statement
+IF
+  roles if-statement
+  branches if-else if-then
+INITIALIZE
+  roles initialize-replacing-by initialize-replacing-phrase initialize-statement
+INITIATE
+  roles initiate-statement report-name
+INSPECT
+  roles inspect-all-leading inspect-all-leadings inspect-before-after inspect-by inspect-characters inspect-converting-phrase inspect-for inspect-replacing-all-leading inspect-replacing-all-leadings inspect-replacing-characters inspect-replacing-phrase inspect-statement inspect-tallying-phrase inspect-tallying-replacing-phrase inspect-to
+MERGE
+  roles cobol-word merge-collating-alphanumeric merge-collating-national merge-collating-sequence-phrase merge-giving merge-giving-phrase merge-on-key-clause merge-output-procedure-phrase merge-output-through merge-statement merge-using
+MOVE
+  roles move-corresponding-to-sending-area move-corresponding-to-statement move-statement move-to-sending-area move-to-statement
+MULTIPLY
+  roles multiply-giving multiply-giving-operand multiply-giving-result multiply-regular-operand multiply-statement
+  branches not-on-size-error-phrase on-size-error-phrase
+NEXT SENTENCE
+  roles next-sentence-statement
+OPEN
+  roles open-extend-statement open-input open-input-statement open-iostatement open-output open-output-statement open-statement
+PERFORM
+  roles perform-after perform-by perform-from perform-procedure-statement perform-statement perform-test-clause perform-times perform-until perform-varying-clause perform-varying-phrase
+  branches perform-inline-statement
+PURGE
+  roles cobol-word purge-statement
+READ
+  roles read-into read-key read-statement read-with
+  branches at-end-phrase invalid-key-phrase not-at-end-phrase not-invalid-key-phrase
+RECEIVE
+  roles cobol-word numeric-literal receive-before receive-from receive-from-statement receive-into-statement receive-size receive-statement receive-status receive-thread receive-with
+  branches not-on-exception-clause on-exception-clause receive-no-data receive-with-data
+RELEASE
+  roles record-name release-statement
+RETURN
+  roles return-into return-statement
+  branches at-end-phrase not-at-end-phrase
+REWRITE
+  roles record-name rewrite-from rewrite-statement
+  branches invalid-key-phrase not-invalid-key-phrase
+SEARCH
+  roles search-statement search-varying
+  branches at-end-phrase search-when
+SEND
+  roles send-advancing-lines send-advancing-mnemonic send-advancing-page send-advancing-phrase send-from-phrase send-replacing-phrase send-statement send-statement-async send-statement-sync send-with-phrase
+  branches not-on-exception-clause on-exception-clause
+SET
+  roles set-by-value set-statement set-to set-to-statement set-to-value set-up-down-by-statement
+SORT
+  roles cobol-word sort-collating-alphanumeric sort-collating-national sort-collating-sequence-phrase sort-duplicates-phrase sort-giving sort-giving-phrase sort-input-procedure-phrase sort-input-through sort-on-key-clause sort-output-procedure-phrase sort-output-through sort-statement sort-using
+START
+  roles start-key start-statement
+  branches invalid-key-phrase not-invalid-key-phrase
+STOP
+  roles stop-statement stop-statement-giving
+STRING
+  roles string-delimited-by-phrase string-for-phrase string-into-phrase string-sending string-sending-phrase string-statement string-with-pointer-phrase
+  branches not-on-overflow-phrase on-overflow-phrase
+SUBTRACT
+  roles subtract-corresponding-statement subtract-from-giving-statement subtract-from-statement subtract-giving subtract-minuend subtract-minuend-corresponding subtract-minuend-giving subtract-statement subtract-subtrahend
+  branches not-on-size-error-phrase on-size-error-phrase
+TERMINATE
+  roles report-name terminate-statement
+UNSTRING
+  roles unstring-count-in unstring-delimited-by-phrase unstring-delimiter-in unstring-into unstring-into-phrase unstring-or-all-phrase unstring-sending-phrase unstring-statement unstring-tallying-phrase unstring-with-pointer-phrase
+  branches not-on-overflow-phrase on-overflow-phrase
+WRITE
+  roles record-name write-advancing-lines write-advancing-mnemonic write-advancing-page write-advancing-phrase write-from-phrase write-statement
+  branches invalid-key-phrase not-invalid-key-phrase write-at-end-of-page-phrase write-not-at-end-of-page-phrase

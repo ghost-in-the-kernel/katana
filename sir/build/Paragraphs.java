@@ -145,7 +145,12 @@ final class Paragraphs {
 
     /** Whether the grammar lets the rule hold statements: its generated context has a `statement()` list. */
     private static boolean holdsStatements(ParserRuleContext rule) {
-        return HOLDERS.computeIfAbsent(rule.getClass(), c -> {
+        return holdsStatements(rule.getClass());
+    }
+
+    /** Whether a generated context class has a `statement()` list. */
+    static boolean holdsStatements(Class<?> rule) {
+        return HOLDERS.computeIfAbsent(rule, c -> {
             try {
                 c.getMethod("statement");
                 return true;
@@ -231,13 +236,23 @@ final class Paragraphs {
 
     /** `moveStatement` to MOVE, `goToStatement` to GO TO. */
     static String verbName(ParserRuleContext verb) {
-        String rule = verb.getClass().getSimpleName().replace("StatementContext", "").replace("Context", "");
+        return verbName(verb.getClass());
+    }
+
+    /** A statement context class's verb. */
+    static String verbName(Class<?> verb) {
+        String rule = verb.getSimpleName().replace("StatementContext", "").replace("Context", "");
         return rule.replaceAll("([a-z])([A-Z])", "$1 $2").toUpperCase(Locale.ROOT);
     }
 
     /** A rule's name as a role: `moveToSendingArea` to `move-to-sending-area`. */
     static String role(ParserRuleContext rule) {
-        String name = rule.getClass().getSimpleName().replace("Context", "");
+        return role(rule.getClass());
+    }
+
+    /** A context class's role. */
+    static String role(Class<?> rule) {
+        String name = rule.getSimpleName().replace("Context", "");
         return name.replaceAll("([a-z0-9])([A-Z])", "$1-$2").toLowerCase(Locale.ROOT);
     }
 }

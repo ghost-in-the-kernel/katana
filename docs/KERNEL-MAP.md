@@ -628,3 +628,11 @@ a function that goes away gets a later line with `superseded-by:` or `removed:` 
 | sir | `sir/build/Paragraphs.java:Paragraphs.holdsStatements` | called by `sir/build/Paragraphs.java:Paragraphs.walk` | 2026-10-05 |  |
 | sir | `sir/build/Paragraphs.java:Paragraphs.noise` | called by `sir/build/Paragraphs.java:Paragraphs.walk` and 2 more | 2026-10-05 |  |
 | sir | `sir/build/Values.java:Values.subscript` | called by `sir/build/Values.java:Values.table` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.holdsStatements#2` | called by `sir/build/Paragraphs.java:Paragraphs.walk` and 2 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.verbName#2` | called by `sir/build/Paragraphs.java:Paragraphs.statement` and 2 more | 2026-10-05 |  |
+| sir | `sir/build/Paragraphs.java:Paragraphs.role#2` | called by `oracle/nist/ModuleRun.java:ModuleRun.isSubroutine` and 6 more | 2026-10-05 |  |
+| sir | `sir/build/Roles.java:Roles.Roles` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Roles.java:Roles.vocabulary` | no caller | 2026-10-05 |  |
+| sir | `sir/build/Roles.java:Roles.walk` | called by `front/Preprocessor.java:Preprocessor.text` and 6 more | 2026-10-05 |  |
+| sir | `sir/build/Roles.java:Roles.called` | called by `sir/build/Roles.java:Roles.vocabulary` and 1 more | 2026-10-05 |  |
+| sir | `sir/build/Roles.java:Roles.context` | called by `sir/build/Roles.java:Roles.vocabulary` and 1 more | 2026-10-05 |  |

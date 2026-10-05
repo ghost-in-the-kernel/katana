@@ -36,11 +36,15 @@ final class Values {
 
     /** Whether a node is one this class turns into a Value whole. */
     static boolean isValue(ParseTree node) {
-        return node instanceof CobolParser.IdentifierContext || node instanceof CobolParser.LiteralContext || node instanceof CobolParser.QualifiedDataNameContext
-                || node instanceof CobolParser.FileNameContext || node instanceof CobolParser.ConditionContext || node instanceof CobolParser.ArithmeticExpressionContext
-                || node instanceof CobolParser.ConditionNameReferenceContext || node instanceof CobolParser.MnemonicNameContext || node instanceof CobolParser.IntegerLiteralContext
-                || node instanceof CobolParser.IndexNameContext || node instanceof CobolParser.FigurativeConstantContext || node instanceof CobolParser.AssignmentNameContext;
+        return VALUES.contains(node.getClass());
     }
+
+    /** The rules read as one value, whole. */
+    static final java.util.Set<Class<?>> VALUES = java.util.Set.of(CobolParser.IdentifierContext.class, CobolParser.LiteralContext.class,
+            CobolParser.QualifiedDataNameContext.class, CobolParser.FileNameContext.class, CobolParser.ConditionContext.class,
+            CobolParser.ArithmeticExpressionContext.class, CobolParser.ConditionNameReferenceContext.class, CobolParser.MnemonicNameContext.class,
+            CobolParser.IntegerLiteralContext.class, CobolParser.IndexNameContext.class, CobolParser.FigurativeConstantContext.class,
+            CobolParser.AssignmentNameContext.class);
 
     /** Any node this class knows to its Value; a rule it does not know, as an expression of its children. */
     Value of(ParseTree node) {

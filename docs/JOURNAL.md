@@ -968,3 +968,17 @@ taken; closed by a later `decision` entry naming it).
   CardDemo, NIST and OMP, and a mutation that drops keywords turns it red (kept as a test).
 - **Resolved:** A1; R-017's Held by names the tests. **Touched:** `sir/build/`, the sir tests,
   `sir/golden/` (PROBE added; every contract's statements re-recorded), `sir/ir.golden`, theGhost.md.
+
+### J-081 Tithe pass 2, A6: the role vocabulary, from the grammar
+- **Who:** Opus. **Class:** build. **Intent:** the vocabulary phase 3's lowering switches on, pinned.
+- **Found:** reading it from programs would pin only what a corpus happens to use, so `Roles` reads it
+  from the grammar's ATN with the walk's own three rules (a value or procedure name is an operand of
+  the rule calling it, a rule with `statement()` is a branch, any other rule is walked into): 50
+  verbs, `sir/roles.golden`. Shaped as R-056 asks: its oracle is the programs (every verb, role and
+  label the IR of the golden programs carries, and in the integration run of CardDemo, NIST and OMP,
+  is inside it; all are), its mutation drops MOVE's roles and the check turns red (kept as a test),
+  and the fast loop gates the commit. The vocabulary over-approximates: a role is any rule that can
+  hold a word or value, so a verb's own rule and `cobol-word` appear; the lowering may map those to
+  nothing, but must name them.
+- **Resolved:** A6. **Touched:** `sir/build/Roles.java`, `Paragraphs` and `Values` (class-based
+  forms of their predicates, so the walk and the vocabulary share them), the sir tests.

@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,6 +15,7 @@ import katana.front.Copybooks;
 import katana.front.Parse;
 import katana.oracle.nist.NistSources;
 import katana.sir.build.Build;
+import katana.sir.build.Roles;
 import katana.profile.Profile;
 import katana.sir.check.Check;
 import katana.sir.check.NonExact;
@@ -34,6 +36,7 @@ class IrIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final Path GOLDEN = ROOT.resolve("sir/ir.golden");
     private static final String HASH = "sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc";
+    private static final Map<String, Roles.Verb> ROLES = Roles.vocabulary();
     private static final String HEADER = """
             # Phase 2.5 (docs/ROADMAP.md): each corpus's programs built to the Semantic IR under the ibm profile, as
             # `corpus NAME programs P built B round-trip R build-findings F check-findings C contract-facts N tokens-left T`, then each program
@@ -88,6 +91,8 @@ class IrIntegrationTest {
                 List<String> left = TokenCoverage.missing(parse, results.stream().map(Build.Result::program).toList());
                 tokensLeft += left.size();
                 if (!left.isEmpty()) failures.add(entry.getKey() + ": " + left.size() + " tokens left behind, first " + left.get(0).replaceAll("^.*?:\\d+: ", ""));
+                Set<String> outside = RolesGoldenTest.outside(results.stream().map(Build.Result::program).toList(), ROLES, new java.util.HashSet<>());
+                if (!outside.isEmpty()) failures.add(entry.getKey() + ": outside sir/roles.golden: " + outside);
             } catch (RuntimeException e) {
                 failures.add(entry.getKey() + ": " + e.getMessage());
             }
