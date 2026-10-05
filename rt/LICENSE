@@ -1,0 +1,42 @@
+Katana Runtime License (rt/) — DRAFT, awaiting Ghost's approval (status line below)
+
+Copyright (c) 2026 Paul Jensen ("Ghost"). All rights reserved.
+
+This folder (rt/) is the Katana runtime: the Java library that a migrated program links against so
+that it behaves as the original COBOL did (records as bytes, COBOL numerics, PERFORM semantics,
+file verbs, SORT, CALL). It ships inside every migrated suite Katana produces. Its terms differ from
+the rest of this repository (see /LICENSE) in one respect: each customer receives a grant to the
+copy inside their own suite. These are those terms (theGhost.md, R-002).
+
+1. No general license. Except as granted in section 2 to a named Licensee, no license is granted to
+   use, copy, modify, distribute or run this runtime, commercially or otherwise.
+
+2. Per-customer grant. When Katana delivers a migrated suite to a customer under a written
+   engagement, that customer (the "Licensee", named in the engagement's schedule) receives a
+   perpetual, worldwide, royalty-free, non-exclusive license to:
+   (a) run, copy and modify the copy of this runtime delivered inside that suite, for the purpose of
+       running, maintaining and further developing that suite and the programs Katana migrated for
+       the Licensee;
+   (b) distribute that copy only as part of that suite, within the Licensee's own organization and
+       to contractors working on the Licensee's behalf, who are bound by these terms.
+   No recurring fee is owed for the grant. The grant survives the end of the engagement.
+
+3. What the grant does not include. The Licensee may not distribute this runtime separately from
+   the suite it was delivered in, sublicense it, offer it as a service to third parties, or use it to
+   run programs other than those migrated for the Licensee by Katana, without a further written
+   agreement with the copyright holder.
+
+4. Provenance. Each delivered copy carries the version of Katana that produced it and the hash of the
+   dialect profile the proof was made under (docs/PROFILE.md). The proof report delivered with the
+   suite states what was proven and what was not (docs/PROOF.md); this license grants no warranty
+   beyond what that report states.
+
+5. Notices. The Licensee keeps this notice and the copyright notice in every copy.
+
+6. No warranty beyond the proof report. Except as stated in the proof report delivered with the
+   suite, this runtime is provided "as is", without warranty of any kind, and the copyright holder is
+   not liable for damages arising from its use.
+
+Status: DRAFT. Written by Fable on 2026-10-05 from R-002; not legal advice; in force as the template
+for rt/ once Ghost approves this file, and to be reviewed by counsel before the first delivery to a
+customer. Until a Licensee is named in an engagement's schedule, section 2 grants nothing.

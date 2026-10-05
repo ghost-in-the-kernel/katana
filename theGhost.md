@@ -776,9 +776,15 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Claims:** C-1 the three cases that could not fail share the self-comparison or zero-run shape:
   `verified` (J-006, J-073, the IR golden's counts). C-2 one declared mutation per check is enough
   to catch the self-comparison shape: `hypothesis`; the meta-test's first run over the existing checks
-  (tithe pass 2, A7) is the trial, and a check it cannot kill is a finding. C-3 the oracle-path rule
-  catches most non-independence: `hypothesis`; an oracle reimplementing the same logic elsewhere
-  is the case it cannot catch, and stays judgment (`docs/GHOST-IN-THE-KERNEL.md`).
+  (tithe pass 2, A7) is the trial, and a check it cannot kill is a finding. C-3 (as first stated, "the oracle-path rule catches most non-independence"): **refuted** by the first
+  trial (J-088): the rule fired 4 times, every hit an independent oracle that happens to live in the
+  module's folder, and the 3 real mirrors were caught only because their entries declare `self`, one
+  of them outside its module's folder. C-3 restated: independence is *declared*, not detected; a
+  check's entry says `self` or names its oracle and why it is outside the code under test, and the
+  path rule is a prompt ("say why") rather than a refusal. Whether a declaration is honest stays
+  judgment (`docs/GHOST-IN-THE-KERNEL.md`). C-2 stands, narrowed: one declared mutation per check
+  named every gap (6 of 18 checks have no failing case, each a finding in `docs/checks.json`) and
+  closed none; closing them is phase-3 tithe work.
 - **Held by:** `test/ChecksTest.java` over `docs/checks.json` (tithe pass 2, A7: every integration
   and golden test registered with its oracle, mutation test and gate; every pre-push suite selecting
   at least one test); `build.gradle`'s zero-run rule on every test task; `scripts/prepush.sh` and

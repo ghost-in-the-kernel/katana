@@ -1134,3 +1134,22 @@ taken; closed by a later `decision` entry naming it).
 - **Resolved:** C4; 2.8 (A1-A7, B1-B4 and C1-C4 on main; R-017 in force, held by A1's tests).
 - **Touched:** `docs/AGENT.md`, `docs/DONE.md`, TODO.md, HANDOFF, the journal and license tests,
   R-045's and R-046's Held by, `IrIntegrationTest`, `LiteralIntegrationTest`.
+
+### J-092 The phase-2 boundary: three deferred items answered; the plan contradicted a decision
+- **Who:** Opus listed; Fable answered two and drafted one; Ghost's word on the draft. **Class:**
+  decision.
+- **Found:** Fable's tithe item B3 told Opus to fetch the GnuCOBOL autotests now and commit their
+  extracted cases under `oracle/fixture/`, which R-045 (Fable's own decision of the day before)
+  forbids twice over; Opus took the reversible default and reported. R-056's first trial refuted its
+  claim C-3 as stated (the oracle-path rule: 4 hits, all false; the 3 real mirrors caught only by
+  their own `self` declaration). `rt/` could not take its first file for want of a license text.
+- **Resolved:** B3's default holds, R-045 stands, the plan was wrong. C-3 restated: independence is
+  declared, not detected. `rt/LICENSE` drafted from R-002 as the per-customer template, DRAFT until
+  Ghost's word, counsel before the first delivery.
+- **Touched:** R-056 Claims; `rt/LICENSE`; HANDOFF.
+- **Note:** the R-053 count for phase 2, final: six defaults held, none reversed, one stop downgraded
+  to a deferral, plus at the boundary one default held against the plan that contradicted it. A
+  decision outranked a plan, which is the order the documents say. Also the pass's own numbers: the
+  new checks caught squeezed spaces in 14,601 literals, a lost sign on -0, a copybook reader gluing
+  01 records together, and two decisions whose named tests never existed.
+
