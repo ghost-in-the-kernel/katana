@@ -32,3 +32,7 @@ Every dataset compared is the same.
 - Concurrency: jobs and transactions that run at the same time, their locking and their ordering.
 - I/O performance, before or after a change of storage: how long a job takes is not compared.
 - Governance: who may run the job, change it, or read what it writes.
+- The compiler's own semantics beyond GnuCOBOL's reading of them: until a customer's mainframe output
+  reconciles the lanes on the same fixture, a proof says "equivalent under profile X as GnuCOBOL reads
+  it", and says so (R-013).
+- Intent: a proof says what the program does on the fixture's data, never what it was meant to do.
