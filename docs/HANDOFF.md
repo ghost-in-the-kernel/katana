@@ -7,46 +7,26 @@
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
-- **OMP is 29/30, not 30/30** (from step 2.1, J-063). CBL0007 is the course's lab with a deliberate
-  syntax error (an END-IF after the IF's period; the course has the student fix IGYPS2113-E), and cobc
-  refuses it too. A clean tree for it would be a parser bug. **Default taken:** the golden holds 29/30
-  and names CBL0007's error at its END-IF; the check's 30 should read 29 plus that one.
-- **2.3's check names lowered statements, which come in 3.3** (from step 2.3, J-065). **Default
-  taken:** the round trip is held now from the parsed text back to the COBOL text, character for
-  character, over the whole corpus; 3.3's provenance comment cites an origin, and its check extends
-  the same round trip to lowered statements.
-- **One data-map difference from cobc is cobc's** (from step 2.5, J-067). NIST NC124A's
-  `$$,$$$.$$`: cobc lays it out with scale 0, ours 2, IBM's rule (the floating `$` after the point holds
-  digits), and cobc itself gives `+++++.++` scale 2. **Default taken:** ours, listed in
-  `sir/datamap.golden`; a trial (MOVE 12.34 to it, DISPLAY) would show which the cobc lane prints.
-- **CICS names stay names in the IR** (from step 2.5, J-068). An EIB field, `DFHRESP(x)` and
-  `DFHVALUE(x)` in a program with EXEC CICS are `Value.Name("cics", ...)`, not items: the translator's
-  DFHEIBLK is not synthesized, so every online CardDemo program's `DEPENDING ON EIBCALEN` is a finding.
-  DFHAID gained DFHPF13-24 and DFHPA1-3 from IBM's layout as recalled. **Default taken:** names, as
-  R-005 keeps v1 batch; DFHEIBLK and the recalled AID values are read from IBM before CICS is lowered.
-- **"An IBM dialect switch mirroring `ibm-strict.conf`"** (2.1's text) would mean reading GnuCOBOL's
-  configuration, which R-045 keeps off screen. **Default taken:** no switch in 2.1; the grammar accepts
-  the union, and the dialect is the profile's (R-049) when `sir/` needs it.
-- **EIB and SQLCA are not synthesized in 2.1** (2.1's text lists them with DFHAID and DFHBMSCA). No
-  program COPYs them: CICS's translator inserts DFHEIBLK and SQLCA comes by EXEC SQL INCLUDE, which the
-  parser reads as a tagged line. Writing IBM's layouts from memory is risky. **Default taken:** they
-  come when `sir/` reads a field of them (2.4), from IBM's published layouts.
+(phase 2's six from steps 2.1–2.5 answered mid-phase 2026-10-05 while Fable was present: R-055; all
+six defaults hold, three roadmap wordings corrected)
 
 ## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
 
-- **2.2 is stopped on R-015** (from step 2.2, J-064). Its graft puts che4z's CICS and DB2 grammars
-  (EPL-2.0, modified, shipped in the compiler) in `front/`, which R-015 admits only after counsel; no
-  reversible default keeps that rule. The measurement 2.2 asks for, run from a clone outside the tree
-  with che4z's semantic checks stubbed: CardDemo 220/220 EXEC CICS and 32/32 EXEC SQL, BankDemo
-  351/351 and 120/120, the OMP labs' SQL 23/31, the 8 left being the course's `Z#####T` placeholder.
-  That is the evidence for R-014's graft. **Stopped:** 2.2 waits on counsel; 2.3 onward continue (none
-  needs CICS or SQL parsed: R-005 is batch first).
+- **2.2 reclassified from stopped to deferred** (R-055): che4z out of the tree is the reversible
+  default; the graft lands when counsel clears R-015. Ghost's part is unchanged: R-015 to counsel.
 - **The ANTLR tool is vendored** (from step 2.1): `third_party/antlr/antlr4-4.13.2-complete.jar`,
   BSD-3 (it bundles ANTLR 3's runtime, StringTemplate 4 and abego TreeLayout, all BSD), checked against
   Maven Central's SHA-1. It runs at build time to generate the parser into build/ and never ships.
-  docs/ROADMAP.md names the runtime only. **Default taken:** vendored, listed in `third_party/MANIFEST.md`.
+  **Default taken:** vendored, listed in `third_party/MANIFEST.md`. Fable's reading: R-001 already
+  vendors dependencies and BSD-3 is compatible with R-002; recommend accept.
 
 ## Trials (R-052: a question settled by running something; the implementing agent runs it)
+
+- **NC124A's edited picture `$$,$$$.$$`** (R-055): MOVE 12.34 to it and DISPLAY under the cobc lane;
+  the printed text shows whether cobc's scale 0 or Katana's 2 is what cobc actually does; the result
+  goes in `oracle/nist/IBM-CHANGES.md`.
+- **The recalled DFHAID values** (R-055 C-2): compare DFHPF13–24 and DFHPA1–3 against IBM's CICS
+  documentation when reachable, or a second independent copybook; until then `hypothesis`.
 
 (none open; RECFM=V J-062, stderr J-059)
 

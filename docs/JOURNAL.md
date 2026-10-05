@@ -804,3 +804,18 @@ taken; closed by a later `decision` entry naming it).
   discriminator was `kind` too; it is `is` now, and a unit test holds every Value kind.
 - **Resolved:** `sir/ir.golden`; the CICS-names default in HANDOFF. **Touched:** `sir/`, the sir
   tests, `front/ibm/DFHAID.cpy`, CLAUDE.md, TODO, DONE.
+
+### J-069 Phase 2's deferred questions answered mid-phase; 2.2 was deferred, not stopped
+- **Who:** Opus listed (J-063 to J-068); Fable answered while present; Ghost's two items noted.
+  **Class:** decision.
+- **Found:** all six "For Fable" defaults were right; three were the roadmap's wording being wrong
+  (30/30 OMP; "mirror ibm-strict.conf" against R-045; 2.3's check naming a step not yet built). The
+  2.2 stop had a reversible default the agent did not take: keep che4z out, keep the measurement,
+  keep EXEC blocks opaque, which is all R-005 needs until phase 7.
+- **Resolved:** R-055; two new trials (NC124A's scale; the DFHAID values).
+- **Touched:** R-055, ROADMAP 2.1–2.3, HANDOFF.
+- **Note:** for the R-053 count this phase: answered early, not at the boundary, because Fable was
+  present; six held, zero reversed, one stop downgraded to a deferral. The 8–10-minute pre-push
+  check Opus runs in CI's absence caught a `.gitignore` line hiding `sir/build/` — a `main` that
+  would not compile — which is the check paying for itself (J-062).
+

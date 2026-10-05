@@ -530,14 +530,18 @@ evaluation license until R-037's provisional is filed.
 2.1 **Fork ProLeap's two grammars** (MIT) into `front/grammar/`. Fix the measured gaps: `ALTERNATE
     KEY` without `RECORD`; keyword arguments to intrinsics (`FUNCTION TRIM(x, TRAILING)`); `NOT=` as
     one token; `LENGTH OF` inside reference modification; `PROGRAM-ID. X` without a period; tabs in
-    the indicator area under a permissive policy; quoted `COPY 'NAME'` resolution; an IBM dialect
-    switch mirroring `ibm-strict.conf`. Synthesize the IBM-supplied copybooks (DFHAID, DFHBMSCA,
+    the indicator area under a permissive policy; quoted `COPY 'NAME'` resolution. The dialect is the
+    profile's (R-049) and 1.2's measured differences; the grammar accepts the union (R-055, R-045). Synthesize the IBM-supplied copybooks (DFHAID, DFHBMSCA,
     EIB, SQLCA).
-    *Check:* 31/31 CardDemo, 82/82 BankDemo (privately), 30/30 OMP, and every NIST program `cobc`
-    accepts, parse to a tree with no error nodes; a test holds those counts and may only rise.
-2.2 **Drive che4z's CICS and DB2 grammars** over CardDemo and BankDemo (the 30-minute check never
-    done); decide the graft (R-014) and the EPL-2.0 question (R-015, a legal judgment Ghost makes).
-    *Check:* every `EXEC CICS` and `EXEC SQL` in the corpus parses to a command tree or is a finding.
+    *Check:* every program `cobc` accepts parses to a tree with no error nodes — 31/31 CardDemo,
+    82/82 BankDemo (privately), 29 of 30 OMP plus CBL0007 named (the course's deliberate error), 437
+    NIST; a test holds those counts and may only rise (R-055).
+2.2 **Drive che4z's CICS and DB2 grammars** over CardDemo and BankDemo from a clone outside the
+    tree (done: 220/220 and 32/32; 351/351 and 120/120), the evidence for the graft (R-014). The graft
+    itself waits on R-015 (counsel, EPL-2.0); until then EXEC blocks are opaque tagged text in the IR,
+    which phases 2–6 need nothing more of (R-005, R-055). The graft is phase 7.2's first step or earlier.
+    *Check:* every `EXEC CICS` and `EXEC SQL` in the corpus parses to a command tree or is a finding
+    (held when the graft lands).
 2.3 **The source map.** Every tree node to file, line, column, and through COPY/REPLACE to the
     copybook line. This is what every provenance comment and ledger line will cite.
     *Check:* a round trip from any lowered statement back to the COBOL text is exact.

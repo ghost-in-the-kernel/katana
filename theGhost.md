@@ -670,6 +670,40 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-008, R-042
 - **subject:** process
 
+### R-055: Phase 2's six deferred questions, answered mid-phase; 2.2 is deferred, not stopped
+- **Decision:** The six "For Fable" items of steps 2.1 to 2.5 hold on their defaults, with three
+  wording changes to the roadmap: (a) a corpus's parse check is "every program `cobc` accepts, and
+  every deliberately broken program named" (OMP is 29 plus CBL0007, whose error is the course's own
+  exercise); (b) 2.1's "IBM dialect switch mirroring `ibm-strict.conf`" becomes "the dialect is the
+  profile's (R-049) and 1.2's measured differences; the grammar accepts the union", because reading
+  GnuCOBOL's configuration is what R-045 forbids; (c) 2.3's round trip is held from parsed text to
+  source now and extended to lowered statements in 3.3. The NC124A edited-picture scale is Katana's
+  (`$$,$$$.$$` has two decimal places: floating insertion after the point holds digits), listed in
+  `sir/datamap.golden` as a cobc difference, with the trial Opus proposed (MOVE 12.34, DISPLAY, under
+  the cobc lane) run and its result recorded in `IBM-CHANGES.md`. CICS names stay names; DFHEIBLK,
+  SQLCA and the recalled DFHAID values (DFHPF13–24, DFHPA1–3) are `hypothesis` until read from IBM's
+  published layouts, which happens when `sir/` first needs a field of them. **2.2 is reclassified
+  from stopped to deferred:** its reversible default is that che4z's grammars stay out of the tree,
+  the measurement (CardDemo 220/220 EXEC CICS and 32/32 EXEC SQL; BankDemo 351/351 and 120/120, from
+  a clone outside the tree) is the evidence recorded for R-014, and EXEC blocks stay opaque tagged
+  text in the IR, which is all phases 2 to 6 need under R-005. The graft lands when counsel clears
+  R-015, as the first step of phase 7.2 or earlier.
+- **Why:** None of the six changes behaviour; each corrects the plan's wording to what the corpus
+  showed. On 2.2: R-053 says a step stops only when no reversible default exists, and one does; the
+  stop was more caution than the rule asks, which is the right error to make and the one to correct.
+- **Claims:** C-1 `$$,$$$.$$` has scale 2 under IBM and the standard: `verified` (the PICTURE
+  rules: floating insertion symbols to the right of the decimal point are digit positions; cobc's
+  own `+++++.++` gives scale 2). C-2 the recalled DFHAID values are IBM's: `hypothesis`; trial:
+  compare against IBM's CICS documentation when reachable, or a second independent copybook.
+  C-3 nothing in phases 2–6 needs EXEC blocks parsed: `verified` (R-005; the lowering emits them
+  as facade calls in 7.2).
+- **Held by:** docs/ROADMAP.md 2.1–2.3 wording; `sir/datamap.golden`; `oracle/nist/IBM-CHANGES.md`;
+  `docs/HANDOFF.md`.
+- **Source:** Opus listed (J-063 to J-068); answered by Fable mid-phase, 2026-10-05, while present.
+- **Status:** in force
+- **See also:** R-005, R-014, R-015, R-045, R-049, R-053
+- **subject:** process
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-015
