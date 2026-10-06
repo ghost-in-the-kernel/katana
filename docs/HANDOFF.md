@@ -287,6 +287,8 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   the TRAP(ON) runtime option has been set, all open files ... are closed"); both are the SQ work's.
   For Fable: "name rivals first" and "leave no unexplained residue" are for R-052's method, whose
   Decision text R-042 leaves to you.)
+  (Done, Fable 2026-10-06: both rules are in R-052's Decision text, with J-097, J-099 and J-142 as
+  their why.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 

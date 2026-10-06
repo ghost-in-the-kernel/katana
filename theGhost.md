@@ -816,7 +816,14 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   a design trade-off with no empirical referee, and then as a decision with its trade-off named.
   Fable is consulted as a source of answers and of trial designs, not as a debater; a trial is run
   only when the consulted answer is itself uncertain. `GhostTest` refuses a new decision with no
-  Claims section (from R-053 on).
+  Claims section (from R-053 on). A trial has two rules of its own (amended 2026-10-06, after R-020's
+  C-2 was marked verified twice on cases that could not separate the readings, J-097 and J-099, and
+  settled at the third attempt, J-142): **the rivals are named first**, every candidate reading
+  written down with the value it predicts for each case before the run, so that the cases are chosen
+  to tell the candidates apart and a case that gives the same value under every candidate is not
+  evidence; and **no unexplained residue is left**: an observation that fits none of the candidates
+  does not close the trial, it names a new candidate and gets its own cases (J-142's literal, D-023).
+  A trial that ends with a residue is recorded `open`, not `verified`.
 - **Why:** Ghost, 2026-10-04. Every decision that went well today rested on a claim that was checked
   (DFSORT's padding read; CUSTREC's tab width measured; the two sorts timed); every failure rested on
   one that was not ("I only changed documents", twice). Two models arguing converge on the plausible,
