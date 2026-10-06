@@ -1272,3 +1272,12 @@ taken; closed by a later `decision` entry naming it).
 - **Caught by:** Ghost's "spidey sense", then the evidence chain applied to the newest claim.
 - **Resolved:** `ArithProfile.last`; `ArithTrialIntegrationTest`; `ArithProfileTest#eachWrong...`;
   PROFILE.md, the research notes; HANDOFF (the chain for Fable). **Touched:** those.
+
+### J-100 A merge pushed to main before its fast loop passed
+- **Who:** Opus. **Class:** failure caught. **Intent:** merge Fable's R-020 claims and push.
+- **Found:** one shell line chained the fast loop and the push with `;`, not `&&`; Docker had died,
+  the loop exited 1, and the push to `main` (9a5ea03, a clean merge of docs) went ahead. The verdict
+  stopped nothing: R-056's fourth case, by the agent that drafted it. The merge was then gated over
+  every suite on a fresh clone (passed, 291 s, e04fb91). From here a push is its own command, run
+  only after the gate's line says passed.
+- **Caught by:** reading the exit code after the push. **Cost:** none in code; one ungated push.

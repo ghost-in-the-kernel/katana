@@ -43,7 +43,9 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   mutation per reading, then the regression test, then the implementation. J-097 skipped the
   independent model and chose cases that could not separate two readings; R-056 held, and still the
   claim was wrong. *Lean:* an amendment to R-056 (or a decision of its own) for semantic claims, and
-  an independent model of Appendix A before `rt/Decimal`, which Opus builds next.
+  an independent model of Appendix A before `rt/Decimal`, which Opus builds next. R-020's C-2 (recorded
+  from J-097 in the same hour) says "ROUNDED adds no place to dmax": still true, but it needs J-099's
+  half, the place on the last operation (`ArithProfile.last`), which changes `COMPUTE R ROUNDED = A / B`.
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
