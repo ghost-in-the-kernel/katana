@@ -35,6 +35,7 @@ at its configuration). The hypothesis stays open: the two cases it turns on stop
 byte images (J-102), MOVE (J-103), editing and de-editing (J-104), INSPECT (J-105), STRING and UNSTRING (J-106), comparison and collation (J-107), SIZE ERROR (J-108), DISPLAY (J-109).
 *The check by hand (J-110):* `AutotestRtIntegrationTest`, its golden `test/katana/rt/autotest/results.golden`
 (hand-lowered and passing counts); the cases `rt/` holds, then the rest through the lowering (HANDOFF).
+*Reached by hand (J-112):* 24 of 378, 19 passing the testsuite, all equal to cobc -std=ibm or a finding.
 
 ### 3.2 `rt/Dispatcher`
 

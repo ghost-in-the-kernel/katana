@@ -33,7 +33,8 @@ class AutotestRtIntegrationTest {
     static final List<Lowered> LOWERED = List.of(new RunFundamental146(), new RunFundamental247(), new RunFundamental296(), new RunFundamental2585(),
             new RunFundamental2628(), new RunFundamental4521(), new RunMisc2916(), new RunMisc2947(), new RunMisc7348(),
             new RunFundamental193(), new RunFundamental8846(), new RunFundamental8897(), new RunFundamental2433(), new RunFundamental2513(),
-            new RunMisc156(), new RunMisc190(), new RunMisc2799(), new RunMisc12873());
+            new RunMisc156(), new RunMisc190(), new RunMisc2799(), new RunMisc12873(),
+            new RunRefmod25(), new RunRefmod57(), new RunMisc23(), new RunMisc1029(), new RunInitialize90(), new DataPacked1026());
 
     private static final String ZONED_SIGN = "cobc's ibm dialect DISPLAYs an overpunched zoned item's sign separate in the overpunch's place; IBM's DISPSIGN(SEP) leads with it (J-109)";
 

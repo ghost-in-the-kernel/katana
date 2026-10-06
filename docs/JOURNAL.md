@@ -1459,3 +1459,16 @@ taken; closed by a later `decision` entry naming it).
   stores into B; caught by cobc's output before it was recorded. One reading taken (an `// Unsure` in
   the test's `Calc`): dmax counts operands inside a divisor expression, only a direct divisor left out.
 - **Resolved:** 18 cases. **Touched:** `test/katana/rt/autotest/`.
+
+### J-112 Phase 3.1's check by hand reaches what `rt/` holds: 24 autotests, 19 passing
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** Six more hand-lowered (static and dynamic reference modification, a literal DISPLAY, an
+  index condition, INITIALIZE of tables with leading and trailing separate signs and of packed items):
+  24 in all, 19 passing the testsuite, every one equal to cobc -std=ibm or a recorded finding. The 5
+  that fail the testsuite fail where its default dialect is not IBM's (a DISPLAY showing a decimal point
+  or a sign IBM's DISPSIGN does not), and equal cobc -std=ibm or J-109's finding there. That is the
+  reach by hand for now: of the runnable cases left, the rest need control flow (3.2), intrinsic
+  functions, files, CALL, GnuCOBOL's own items (78-level constants, BINARY-LONG, ROUNDED MODE, VALUE in
+  a REDEFINES) or compile flags the harness does not pass; they go through the lowering (3.3), as the
+  HANDOFF default says.
+- **Resolved:** 24 cases. **Touched:** `test/katana/rt/autotest/`.

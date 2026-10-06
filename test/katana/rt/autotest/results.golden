@@ -19,4 +19,10 @@ run_misc-156 FAIL SAME
 run_misc-190 PASS SAME
 run_misc-2799 PASS SAME
 run_misc-12873 FAIL SAME
-hand-lowered 18 of 378, passing 14
+run_refmod-25 PASS SAME
+run_refmod-57 PASS SAME
+run_misc-23 PASS SAME
+run_misc-1029 PASS SAME
+run_initialize-90 FAIL SAME
+data_packed-1026 PASS SAME
+hand-lowered 24 of 378, passing 19
