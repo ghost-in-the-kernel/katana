@@ -98,7 +98,12 @@ final class Conditions {
         }
         if (x.pattern(b) != null) return "Compare.figurative(" + x.sending(a) + ", " + x.pattern(b) + ", co)";
         if (x.pattern(a) != null) return "-Compare.figurative(" + x.sending(b) + ", " + x.pattern(a) + ", co)";
-        return "Compare.alphanumeric(" + x.sending(a) + ", " + x.sending(b) + ", co)";
+        return "Compare.alphanumeric(" + text(a) + ", " + text(b) + ", co)";
+    }
+
+    /** An operand of an alphanumeric comparison: a numeric literal as its characters as written (`012345678912`, J-130), any other as it sends. */
+    private String text(Value v) {
+        return v instanceof Value.Literal l && l.numeric() ? "Literal.text(" + Emitter.quote(Exprs.written(l)) + ", cp)" : x.sending(v);
     }
 
     private String sign(Value.Expression e) {

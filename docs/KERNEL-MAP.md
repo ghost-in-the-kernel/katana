@@ -1069,3 +1069,9 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | sir | `sir/build/Build.java:Build.alphabets` |  | 2026-10-06 |  |
 | sir | `sir/build/Build.java:Build.collating` |  | 2026-10-06 |  |
 | sir | `sir/types/Header.java:Header.Alphabet.Alphabet` |  | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.text` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.receiving` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.field#2` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.variable` | R-019 | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.under` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Table.java:Table.current` | R-019 | 2026-10-06 |  |

@@ -52,8 +52,17 @@ final class Exprs {
         return "new int[] {" + String.join(", ", v) + "}";
     }
 
-    /** A field reference as a Java expression of type Field. */
+    /** A field reference as a receiver: as `field` gives it, but a group holding its own OCCURS DEPENDING ON object at its maximum length (LR 6.4 p. 205). */
+    String receiving(Value.Field v) {
+        return field(v, true);
+    }
+
+    /** A field reference as a Java expression of type Field: a group holding an OCCURS DEPENDING ON table at its current length. */
     String field(Value.Field v) {
+        return field(v, false);
+    }
+
+    private String field(Value.Field v, boolean receiving) {
         Item i = item(v.item());
         String f = "f" + v.item();
         if (!v.subscripts().isEmpty()) {
@@ -61,8 +70,34 @@ final class Exprs {
             for (Value s : v.subscripts()) subs.add(index(s));
             f = "Table.at(" + f + ", " + ints(dimensions(i), false) + ", " + String.join(", ", subs) + ")";
         }
+        if (v.start() == null) f = variable(i, f, receiving);
         if (v.start() != null) f = "Table.ref(" + f + ", " + index(v.start()) + ", " + (v.length() == null ? "0" : index(v.length())) + ")";
         return f;
+    }
+
+    /**
+     * A group holding an OCCURS DEPENDING ON table (LR 6.4 pp. 204-205): the part of the table its object
+     * says, the object's value at the start of the operation; as a receiver whose own object is in the
+     * group, its maximum length. One table at the group's end; any other shape at its maximum.
+     */
+    // Decision: R-019
+    // Unsure: a group whose ODO table is followed by other items, holds two, or nests one in an OCCURS (IBM's complex ODO) keeps its maximum length here (J-133).
+    private String variable(Item group, String f, boolean receiving) {
+        if (group.attributes().category() != Attributes.Category.GROUP) return f;
+        List<Item> tables = new ArrayList<>();
+        for (Item t : p.items()) if (t.occurs() != null && t.occurs().dependingOn() != 0 && t.id() != group.id() && under(t, group)) tables.add(t);
+        if (tables.size() != 1) return f;
+        Item t = tables.get(0), object = item(t.occurs().dependingOn());
+        int before = t.offset() - group.offset();
+        boolean last = before + t.occurs().max() * t.length() == group.length();
+        boolean inside = object.record() == group.record() && object.offset() >= group.offset() && object.offset() < group.offset() + group.length();
+        if (!last || dimensions(t).size() != 1 || (receiving && inside)) return f;
+        return "Table.current(" + f + ", " + before + " + Table.index(f" + object.id() + ") * " + t.length() + ")";
+    }
+
+    private boolean under(Item i, Item group) {
+        for (Item a = i; a != null; a = a.parent() == 0 ? null : item(a.parent())) if (a.id() == group.id()) return true;
+        return false;
     }
 
     /** A subscript, a reference modifier, a count: a long. */
@@ -81,7 +116,7 @@ final class Exprs {
     String sending(Value v) {
         return switch (v) {
             case Value.Field f -> field(f);
-            case Value.Literal l when l.numeric() -> "Literal.number(" + Emitter.quote(l.payload()) + ", " + l.scale() + ", cp)";
+            case Value.Literal l when l.numeric() -> "Literal.number(" + Emitter.quote(written(l)) + ", " + l.scale() + ", cp)";
             case Value.Literal l when l.kind() == Value.Literal.Kind.ALPHANUMERIC -> "Literal.text(" + Emitter.quote(l.payload()) + ", cp)";
             case Value.Literal l when l.kind() == Value.Literal.Kind.HEX -> "Literal.hex(" + Emitter.quote(l.payload()) + ", cp)";
             default -> unsupported("sending " + v);

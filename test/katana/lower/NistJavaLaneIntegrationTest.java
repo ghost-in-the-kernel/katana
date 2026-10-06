@@ -29,7 +29,7 @@ class NistJavaLaneIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final String MODULE = "NC";
     /** The NC runs whose counts equal cobc's; raised as the lowering grows, never lowered (the bench discipline, P-01). */
-    static final int FLOOR = 75;
+    static final int FLOOR = 79;
 
     @Test
     void ncThroughTheJavaLane() throws Exception {

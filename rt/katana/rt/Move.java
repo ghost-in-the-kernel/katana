@@ -55,10 +55,21 @@ public final class Move {
         for (int k = 0; k < to.attr().length(); k++) to.record().bytes()[to.offset() + k] = pattern[k % pattern.length];
     }
 
-    /** A group MOVE between two fields (either a group): bytes, no conversion. */
+    /**
+     * A group MOVE between two fields (either a group): bytes, no conversion, "as though it were an
+     * alphanumeric-to-alphanumeric elementary move" (LR 6.4 p. 405), so a JUSTIFIED RIGHT receiver takes
+     * the bytes right-aligned, the leftmost cut or spaces before them.
+     */
     // Decision: R-019
     public static void group(Field from, Field to) {
-        group(from.record(), from.offset(), from.attr().length(), to.record(), to.offset(), to.attr().length());
+        if (!to.attr().justified()) {
+            group(from.record(), from.offset(), from.attr().length(), to.record(), to.offset(), to.attr().length());
+            return;
+        }
+        int n = from.attr().length(), m = to.attr().length();
+        byte[] src = java.util.Arrays.copyOfRange(from.record().bytes(), from.offset(), from.offset() + n);
+        byte space = to.record().codepage().character(' ');
+        for (int k = 0; k < m; k++) to.record().bytes()[to.offset() + k] = k - (m - n) >= 0 && k - (m - n) < n ? src[k - (m - n)] : space;
     }
 
     /** A group MOVE: the sender's bytes into the receiver's, left-aligned, space-filled, with no conversion. */

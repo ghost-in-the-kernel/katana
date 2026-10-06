@@ -6,10 +6,10 @@ import java.math.BigInteger;
 public final class Literal {
     private Literal() {}
 
-    /** A numeric literal: its unscaled value, signed, and its scale, as a signed zoned item of its digits. */
+    /** A numeric literal: its unscaled digits as written (leading zeros kept, J-133), signed, and its scale, as a signed zoned item of that many digits. */
     public static Field number(String unscaled, int scale, Codepage cp) {
         BigInteger v = new BigInteger(unscaled);
-        int digits = Math.max(1, Math.max(v.abs().toString().length(), scale));
+        int digits = Math.max(1, Math.max(unscaled.replaceFirst("^[-+]", "").length(), scale));
         Field f = new Field(Record.of(digits, cp), 0, Attr.zoned(digits, scale, true));
         f.put(new Decimal(v, scale));
         return f;

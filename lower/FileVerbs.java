@@ -62,7 +62,7 @@ final class FileVerbs {
         String record = "f" + d.records().get(0);
         f.e.line("ae = !" + name(file.name()) + ".read(" + record + ");");
         Value into = Verbs.operand(s, "read-into");
-        if (into != null) f.e.line("if (!ae) " + f.x.moveInto(new Value.Field(d.records().get(0), java.util.List.of(), null, null), f.x.field((Value.Field) into), f.x.item(((Value.Field) into).item())) + ";");
+        if (into != null) f.e.line("if (!ae) " + f.x.moveInto(new Value.Field(d.records().get(0), java.util.List.of(), null, null), f.x.receiving((Value.Field) into), f.x.item(((Value.Field) into).item())) + ";");
         f.branch("ae", Verbs.branch(s, "at-end-phrase"), Verbs.branch(s, "not-at-end-phrase"));
     }
 

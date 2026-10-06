@@ -151,7 +151,7 @@ final class TextVerbs {
             }
         }
         for (String p : pending) senders.add("new Strings.Sender(" + p + ", null)");
-        String into = f.x.field((Value.Field) Verbs.operand(s, "string-into-phrase"));
+        String into = f.x.receiving((Value.Field) Verbs.operand(s, "string-into-phrase"));
         Value pointer = Verbs.operand(s, "string-with-pointer-phrase");
         f.e.open("");
         f.e.line("Strings.Result r = Strings.string(List.of(" + String.join(", ", senders) + "), " + into + ".record().bytes(), " + into + ".offset(), " + into + ".attr().length(), " + (pointer == null ? "1" : f.x.index(pointer)) + ");");
@@ -178,11 +178,11 @@ final class TextVerbs {
                 delimiters.add("new Strings.Delimiter(" + sent(v) + ", " + all + ")");
                 all = false;
             } else if (o.role().equals("unstring-into") && v instanceof Value.Field fld) {
-                receivers.add("new Strings.Receiver(" + f.x.field(fld) + ", null)");
+                receivers.add("new Strings.Receiver(" + f.x.receiving(fld) + ", null)");
                 counts.add(null);
             } else if (o.role().equals("unstring-delimiter-in") && v instanceof Value.Field fld) {
                 String last = receivers.remove(receivers.size() - 1);
-                receivers.add(last.replace(", null)", ", " + f.x.field(fld) + ")"));
+                receivers.add(last.replace(", null)", ", " + f.x.receiving(fld) + ")"));
             } else if (o.role().equals("unstring-count-in") && v instanceof Value.Field fld) counts.set(counts.size() - 1, f.x.field(fld));
         }
         String from = f.x.field((Value.Field) Verbs.operand(s, "unstring-sending-phrase"));

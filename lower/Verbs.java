@@ -103,7 +103,7 @@ final class Verbs {
         }
         for (Value to : operands(s, "move-to-statement")) {
             Value.Field t = (Value.Field) to;
-            f.e.line(f.x.moveInto(from, f.x.field(t), f.x.item(t.item())) + ";");
+            f.e.line(f.x.moveInto(from, f.x.receiving(t), f.x.item(t.item())) + ";");
         }
     }
 
@@ -128,8 +128,8 @@ final class Verbs {
         String from = String.join(" ", conceptual);
         if (!s.branches().isEmpty() || other || !(conceptual.isEmpty() || IBM_CONCEPTUAL.contains(from))) {
             f.e.line(f.x.unsupported("ACCEPT at " + s.origin() + " " + s.operands()) + ";");
-        } else if (conceptual.isEmpty()) f.e.line("in.accept(" + f.x.field(into) + ");");
-        else f.e.line("Accept.from(" + f.x.field(into) + ", " + Emitter.quote(from) + ");");
+        } else if (conceptual.isEmpty()) f.e.line("in.accept(" + f.x.receiving(into) + ");");
+        else f.e.line("Accept.from(" + f.x.receiving(into) + ", " + Emitter.quote(from) + ");");
     }
 
     /** ACCEPT format 2's conceptual items (LR 6.4 p. 309); the grammar's others are not IBM's. */

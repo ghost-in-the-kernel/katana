@@ -46,6 +46,8 @@
           05 P PIC 9(3) VALUE 10.
           05 Q PIC 9(2) VALUE 7.
           05 R1 PIC 9 VALUE 2.
+       01 AED PIC XX0XXXBXX.
+       01 JR PIC X(12) JUSTIFIED RIGHT.
        PROCEDURE DIVISION.
        MAIN-PARA.
            MOVE CORRESPONDING SRC TO DST DST2
@@ -55,6 +57,11 @@
            DISPLAY "TBL " TBL
            MOVE 0123 TO DST2
            DISPLAY "LIT " DST2 " " 007 " " -0042
+           IF DST2 (1:4) = 0123 DISPLAY "GROUP EQ LITERAL" END-IF
+           MOVE 019823 TO AED
+           DISPLAY "AED [" AED "]"
+           MOVE NA TO JR
+           DISPLAY "JR [" JR "]"
            ADD CORR NA TO NB ROUNDED
            DISPLAY "ADD " NB
            SUBTRACT CORRESPONDING NA FROM NB

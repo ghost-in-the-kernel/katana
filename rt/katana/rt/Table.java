@@ -42,4 +42,10 @@ public final class Table {
     public static void set(Field f, long n) {
         Move.move(Literal.number(Long.toString(n), 0, f.record().codepage()), f);
     }
+
+    /** A group holding an OCCURS DEPENDING ON table, at its current length: its first `length` bytes (LR 6.4 p. 205). */
+    // Decision: R-019
+    public static Field current(Field group, long length) {
+        return new Field(group.record(), group.offset(), Attr.text((int) length, false));
+    }
 }

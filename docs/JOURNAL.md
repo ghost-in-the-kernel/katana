@@ -1798,3 +1798,21 @@ taken; closed by a later `decision` entry naming it).
   242.4332220010, its default dialect the exact sum: D-019, held in ADDIBM. The other arithmetic-osvs
   and binary-truncation runs are to be read one by one the same way (TODO); until each is, the
   register says "to be read", not a count.
+
+### J-133 Where NC failed more than cobc: written digits, JUSTIFIED group moves, ODO lengths; NC 75 to 79
+- **Who:** Opus. **Class:** build (3.4).
+- **Found:** Each from one program's first failure. NC103A and NC237A compared a group with a numeric
+  literal written with a leading zero (`012345678912`, `090109`): the comparison used the literal's
+  value, J-130's fault in another place; an alphanumeric comparison now takes the literal's characters
+  as written. NC105A moved `019823` into an alphanumeric-edited item one digit short: `rt/Literal.number`
+  sized the literal by its value; it now keeps the digits as written, and the lowering passes them.
+  NC107A moved a group into a JUSTIFIED RIGHT item left-aligned; IBM treats a group move "as though it
+  were an alphanumeric-to-alphanumeric elementary move" (LR 6.4 p. 405), so `Move.group` right-aligns
+  into a JUSTIFIED receiver. NC247A's seven: a group holding an OCCURS DEPENDING ON table took its
+  maximum length everywhere; IBM uses "only that part of the table area that is specified by the
+  object", except for a receiver whose object is in the group, which takes the maximum (pp. 204-205).
+  `Exprs.field` now gives such a group its current length (`Table.current`), and `Exprs.receiving` the
+  maximum when the object is inside, used for MOVE TO, STRING INTO, UNSTRING INTO and DELIMITER IN,
+  ACCEPT and READ INTO; IBM's complex ODO shapes keep the maximum, an `// Unsure`. CORRS and ODOS hold
+  each against cobc. NC through the Java lane: 75 to 79 (floor raised). NC105A now passes every test,
+  where cobc fails two: to be read against IBM's text with the other cobc-only failures (J-132).
