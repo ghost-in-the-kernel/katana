@@ -37,9 +37,20 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   `findings/`, `project/`, `cli/`) is all rights reserved, in a private repository, licensed per
   engagement. The runtime (`rt/`) is proprietary; each customer receives a perpetual, royalty-free
   license to the copy inside their own migrated suite, with no redistribution and no recurring fee.
-  The harness (`oracle/`, `bench/`, the fixture formats) is source-available under a non-commercial
-  license (PolyForm Noncommercial or counsel's equivalent): anyone may evaluate it; using it in paid
-  work requires a license. Forked ProLeap grammars keep their MIT notice; che4z grammars enter only
+  The harness (`oracle/`, `bench/`, the fixture formats) is under the same terms as the compiler,
+  which carry an evaluation grant (ninety days, no production, results unpublished), so it stays
+  evaluable. (Amended 2026-10-06: first "PolyForm Noncommercial or counsel's equivalent"; that text
+  expressly permits use by government institutions and by any educational or research organization
+  regardless of funding, which is two of the three things Ghost charges for.) The terms, in
+  `LICENSE`: no license by default; a teaching grant to accredited institutions for classroom use and
+  coursework only (not sponsored research, spin-outs, or government laboratories; widening it to
+  research is Ghost's, not taken); the evaluation grant; everything else, commercial, government at
+  any level, or nonprofit paid work, by written agreement with an annual fee. The fee is for using
+  Katana, never for running its output: the migrated Java, its proof and its ledger belong to the
+  party migrated for, and the runtime in their suite is theirs perpetually (Ghost, 2026-10-06: "the
+  party that runs Katana gets to keep the output for free; the conversion is labor; no rent on their
+  intellectual property"). No grant is exercised before R-037's provisional is filed, since a
+  classroom is a public disclosure. Forked ProLeap grammars keep their MIT notice; che4z grammars enter only
   per R-015 after counsel; GPL code (`cobc`, `cobj`) never enters the tree, only their outputs as
   oracles. Nothing leaves the repository before R-037's provisional application is filed.
 - **Why:** Ghost, 2026-10-04: the revenue funds the work, including the agents' compute; nobody uses it

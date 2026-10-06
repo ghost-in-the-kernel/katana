@@ -1,10 +1,57 @@
+Katana License — DRAFT, awaiting Ghost's approval (status line at the end)
+
 Copyright (c) 2026 Paul Jensen ("Ghost"). All rights reserved.
 
-This repository is private and proprietary. No license is granted to use, copy, modify, distribute
-or run any part of it, commercially or otherwise, except by written agreement with the copyright
-holder. Module-level terms (the runtime's per-customer grant, the harness's source-available
-non-commercial terms) are set out in theGhost.md, decision R-002, and will be instantiated as
-license files per module before any copy leaves this repository.
+Katana is a compiler from COBOL to Java with a proof of equivalence (this repository: the front end,
+the Semantic IR, the lowering, the Intent IR, the passes, the ledger, the findings, the command line,
+and the equivalence harness under oracle/ and bench/). The runtime under rt/ has its own terms
+(rt/LICENSE): a migrated program belongs to the party it was migrated for, and the runtime it links
+against is theirs to keep. These terms are for everything else.
 
-Third-party material under corpus/ and the prototypes under */prototypes/ carry their own licenses,
-listed in corpus/MANIFEST.md and in each prototypes/README.md.
+1. No license by default. Except as granted in sections 2 and 3, no license is granted to use, copy,
+   modify, distribute, run, or build upon any part of this work, for any purpose, by any person,
+   company, institution, or government.
+
+2. Teaching grant. An accredited educational institution may use this work, unmodified, to teach
+   computer science to its enrolled students: in a course, a lecture, an assignment, or a student
+   project done for credit. The grant covers reading the source, running the tool on programs the
+   institution has the right to use, and discussing what it does. It does not cover sponsored or
+   contract research, work for an outside party, a product or service, a spin-out or a startup, a
+   government or national laboratory, or publishing the source. A student who uses this work under
+   this grant may keep what they learned; they may not keep the work. The institution keeps this
+   notice with every copy and names the copyright holder wherever the work is cited.
+
+3. Evaluation grant. Any party may run this work for ninety days, on its own machines, on programs it
+   has the right to use, to decide whether to license it. The results stay inside the evaluating
+   party and are not published or used in production. No other right is granted by evaluating.
+
+4. Everything else is by agreement. Use for a commercial purpose, by a government or a public body at
+   any level, by a nonprofit in the course of paid work, or by anyone outside sections 2 and 3,
+   requires a written agreement with the copyright holder, which carries an annual fee. "Commercial
+   purpose" includes using the work to migrate programs for pay, offering it or its output as a
+   service, and using it inside a product. Ask: the copyright holder's contact is in the repository's
+   README.
+
+5. What the customer keeps. Under an engagement, the migrated Java, its proof report and its ledger
+   belong to the party the migration was done for, and the runtime inside their suite is theirs
+   under rt/LICENSE, perpetually and without further fee. The annual fee is for using Katana, not
+   for running what Katana produced.
+
+6. Patents. No patent license is granted by these terms. Rights under any patent the copyright holder
+   holds or obtains are granted only in a written agreement under section 4.
+
+7. Third-party material. The ProLeap grammars under front/grammar/ are MIT and keep their notice;
+   material under corpus/ and */prototypes/ carries its own license, listed in corpus/MANIFEST.md
+   and each prototypes/README.md. Nothing under the GNU General Public License is in this work.
+
+8. No warranty. This work is provided "as is", without warranty of any kind, and the copyright
+   holder is not liable for damages arising from its use, except as a written agreement under
+   section 4 states otherwise.
+
+9. Termination. A grant under section 2 or 3 ends automatically on any use outside it.
+
+Status: DRAFT. Written by Fable on 2026-10-06 from Ghost's instruction of the same day (theGhost.md,
+R-002 as amended); not legal advice; in force as the repository's terms once Ghost approves this
+file, and to be reviewed by counsel before any copy leaves the repository (R-037: nothing leaves
+before the provisional patent application is filed, and no teaching or evaluation grant is exercised
+before then).
