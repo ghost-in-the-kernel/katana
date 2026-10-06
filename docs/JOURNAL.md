@@ -1736,3 +1736,18 @@ taken; closed by a later `decision` entry naming it).
   6.4 p. 226). Such a record now takes the redefined record's storage, sized to the longest. Fifteen
   NC programs build their test tables that way: NC through the Java lane, 50 to 65 (floor raised).
   Neither the differential programs nor the autotests had an 01-level REDEFINES; FLOATS now does.
+
+### J-129 A result stored once in each receiver; overlapping operands are a finding (NE-08); NC 65 to 67
+- **Who:** Opus. **Class:** build (3.4); a finding kind; two questions.
+- **Found:** NC172A's `DIVIDE D INTO X GIVING Y X ROUNDED Z` failed from its third receiver: the
+  lowering recomputed the quotient for each receiver, so once X was stored the rest divided the new X.
+  A GIVING form's result, and COMPUTE's, is now computed once, with ROUNDED's place when any receiver
+  is ROUNDED (truncating again gives the others the same digits), and stored into each. A probe
+  (SHARED) showed cobc's other forms take each receiver in turn with the operands as they then are
+  (`ADD A TO A B`, A 2 and B 3, gives B 7), so those stay as they were. IBM calls operands that "share
+  part of their storage" unpredictable (LR 6.4 p. 297): two different items over the same bytes are now
+  NE-08 (`sir/check/NonExact`, following an 01's REDEFINES to the storage it shares; FINDINGS.md, with
+  NE-07's retirement said); one item named twice is a question for Fable with cobc's reading as the
+  default (HANDOFF). The same probe found cobc carrying ROUNDED's place into a division feeding an
+  addition, where J-099 found it not reaching one feeding a multiplication: a second question
+  (HANDOFF), SHARED's COMPUTE written without ROUNDED meanwhile. NC through the Java lane: 65 to 67.

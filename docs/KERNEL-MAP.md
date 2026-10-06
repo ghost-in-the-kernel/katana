@@ -1051,3 +1051,8 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Values.java:Values.edited` |  | 2026-10-06 |  |
 | lower | `lower/Values.java:Values.placed` | R-057 | 2026-10-06 |  |
 | rt | `rt/katana/rt/Move.java:Move.place#2` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.storeOnce` | R-020 | 2026-10-06 |  |
+| sir | `sir/check/NonExact.java:NonExact.overlap` | R-020 | 2026-10-06 |  |
+| sir | `sir/check/NonExact.java:NonExact.fields` |  | 2026-10-06 |  |
+| sir | `sir/check/NonExact.java:NonExact.meet` |  | 2026-10-06 |  |
+| sir | `sir/check/NonExact.java:NonExact.storage` |  | 2026-10-06 |  |

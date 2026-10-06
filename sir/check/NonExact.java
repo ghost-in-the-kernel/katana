@@ -46,6 +46,7 @@ public final class NonExact {
         }
         ranges(p, in, out);
         for (Procedure.Paragraph g : p.procedure().paragraphs()) for (Statement s : g.statements()) division(s, in, out);
+        for (Procedure.Paragraph g : p.procedure().paragraphs()) for (Statement s : g.statements()) overlap(p, s, in, out);
         for (Program nested : p.nested()) check(nested, profile, out);
     }
 
@@ -89,6 +90,49 @@ public final class NonExact {
         boolean guarded = s.branches().stream().anyMatch(b -> b.label().contains("size-error") && !b.label().contains("not-on"));
         if (divides && !guarded) out.add(new Finding(Finding.Kind.NE_04, where(s.origin()), in + s.verb() + " with no ON SIZE ERROR"));
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) division(t, in, out);
+    }
+
+    private static final java.util.Set<String> RECEIVERS = java.util.Set.of("add-to", "add-giving", "subtract-minuend", "subtract-giving",
+            "multiply-regular-operand", "multiply-giving-result", "divide-into", "divide-giving", "divide-remainder", "compute-store");
+    private static final java.util.Set<String> ARITHMETIC = java.util.Set.of("ADD", "SUBTRACT", "MULTIPLY", "DIVIDE", "COMPUTE");
+
+    /** An arithmetic statement one of whose operands shares storage with one of its receivers: IBM calls the result unpredictable (LR 6.4 p. 297). */
+    // Decision: R-020
+    private static void overlap(Program p, Statement s, String in, List<Finding> out) {
+        if (ARITHMETIC.contains(s.verb())) {
+            List<Value.Field> receivers = new ArrayList<>(), operands = new ArrayList<>();
+            for (Statement.Operand o : s.operands()) fields(o.value(), RECEIVERS.contains(o.role()) ? receivers : operands);
+            for (Value.Field r : receivers) {
+                Value.Field shared = operands.stream().filter(o -> meet(p, o, r)).findFirst().orElse(null);
+                if (shared == null) continue;
+                out.add(new Finding(Finding.Kind.NE_08, where(s.origin()), in + s.verb() + " stores into " + p.items().get(r.item() - 1).name() + ", which shares storage with its operand " + p.items().get(shared.item() - 1).name()));
+                break;
+            }
+        }
+        for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) overlap(p, t, in, out);
+    }
+
+    private static void fields(Value v, List<Value.Field> into) {
+        if (v instanceof Value.Field f) into.add(f);
+        if (v instanceof Value.Expression e) e.operands().forEach(o -> fields(o, into));
+    }
+
+    /**
+     * Whether two fields share part of their storage: two items of one record whose bytes meet. The same
+     * item as operand and receiver (`COMPUTE X = X + 1`) is not an overlap but ordinary COBOL.
+     */
+    // Unsure: whether IBM's "share part of their storage" covers one item named twice (`ADD A TO A B`) is not settled; cobc's reading is taken there (HANDOFF, J-129).
+    private static boolean meet(Program p, Value.Field a, Value.Field b) {
+        if (a.item() == b.item()) return false;
+        katana.sir.types.Item x = p.items().get(a.item() - 1), y = p.items().get(b.item() - 1);
+        return storage(p, x.record()) == storage(p, y.record()) && x.offset() < y.offset() + y.length() && y.offset() < x.offset() + x.length();
+    }
+
+    /** The record whose storage a record is: itself, or the one an 01 REDEFINES (LR 6.4 p. 226). */
+    private static int storage(Program p, int record) {
+        int r = record;
+        while (p.items().get(r - 1).redefines() != 0) r = p.items().get(p.items().get(r - 1).redefines() - 1).record();
+        return r;
     }
 
     private static boolean divides(Value v) {

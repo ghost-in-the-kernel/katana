@@ -65,6 +65,8 @@ class NonExactTest {
         assertEquals(List.of(Finding.Kind.NE_03), kinds("       MAIN.\n           PERFORM MAIN.\n           STOP RUN.", "", ibm));
         assertEquals(List.of(Finding.Kind.NE_04), kinds("           DIVIDE 2 INTO N.\n           DIVIDE 2 INTO N ON SIZE ERROR DISPLAY 0 END-DIVIDE.\n           STOP RUN.", "", ibm));
         assertEquals(List.of(Finding.Kind.NE_04), kinds("           COMPUTE N = N / 2.\n           STOP RUN.", "", ibm));
+        assertEquals(List.of(Finding.Kind.NE_08), kinds("           ADD A TO G.\n           ADD A TO B.\n           ADD A TO A.\n           STOP RUN.", "       01  G.\n           05  A PIC 9.\n           05  B PIC 9.\n       01  H REDEFINES G PIC 99.", ibm));
+        assertEquals(List.of(Finding.Kind.NE_08), kinds("           COMPUTE A = H + 1.\n           STOP RUN.", "       01  G.\n           05  A PIC 9.\n           05  B PIC 9.\n       01  H REDEFINES G PIC 99.", ibm));
         assertEquals(List.of(Finding.Kind.NE_05, Finding.Kind.NE_06),
                 kinds("           STOP RUN.", "       01  T.\n           05  E PIC X OCCURS 1 TO 9 DEPENDING ON N.\n       01  F        COMP-2.", ibm));
     }

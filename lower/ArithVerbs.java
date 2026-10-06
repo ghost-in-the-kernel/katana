@@ -25,6 +25,7 @@ final class ArithVerbs {
     void statement(Statement s) {
         boolean phrase = !Verbs.branch(s, "on-size-error-phrase").isEmpty() || !Verbs.branch(s, "not-on-size-error-phrase").isEmpty();
         f.e.line("sz = false;");
+        f.e.open("");
         switch (s.verb()) {
             case "ADD" -> add(s, phrase);
             case "SUBTRACT" -> subtract(s, phrase);
@@ -32,6 +33,7 @@ final class ArithVerbs {
             case "DIVIDE" -> divide(s, phrase);
             default -> compute(s, phrase);
         }
+        f.e.close();
         if (phrase) f.branch("sz", Verbs.branch(s, "on-size-error-phrase"), Verbs.branch(s, "not-on-size-error-phrase"));
     }
 
@@ -53,6 +55,25 @@ final class ArithVerbs {
     /** Each receiver given `value(receiver)`, the expression built as last for its ROUNDED. */
     private void store(List<Receiver> rs, java.util.function.BiFunction<Receiver, Boolean, String> value, boolean phrase) {
         for (Receiver r : rs) f.e.line("sz |= Arithmetic.store(" + f.x.field(r.field()) + ", " + value.apply(r, r.rounded()) + ", " + r.rounded() + ", " + phrase + ");");
+    }
+
+    /**
+     * A result that does not depend on its receiver (GIVING, COMPUTE): computed once, with ROUNDED's place
+     * when any receiver is ROUNDED (truncating it again gives the others the same digits), and stored into
+     * each receiver in turn, so a receiver that is also an operand does not change what the next receives
+     * (NC172A). IBM calls overlapping operands unpredictable (LR 6.4 p. 297), a finding (NE-08); this is
+     * cobc's reading, and NIST's. The other forms add to, subtract from, multiply or divide each receiver
+     * in turn with the operands' values as they then are, cobc's reading there too.
+     */
+    // Decision: R-020
+    private void storeOnce(List<Receiver> rs, java.util.function.BiFunction<Receiver, Boolean, String> value, boolean phrase) {
+        if (rs.size() == 1) {
+            store(rs, value, phrase);
+            return;
+        }
+        boolean any = rs.stream().anyMatch(Receiver::rounded);
+        f.e.line("Decimal.Term w = " + value.apply(rs.get(0), any) + ";");
+        store(rs, (r, rd) -> "w", phrase);
     }
 
     /** The values added together, as one term that is not the last operation: `a + b + c`. */
@@ -80,7 +101,7 @@ final class ArithVerbs {
         List<Value> all = new ArrayList<>(from);
         all.addAll(Verbs.operands(s, "add-to-giving"));
         int dmax = f.arith.dmax(items(giving), all);
-        store(giving, (r, rd) -> all.size() == 1 ? f.arith.operand(all.get(0)) : f.arith.result(sumExpression(all), dmax, rd), phrase);
+        storeOnce(giving, (r, rd) -> all.size() == 1 ? f.arith.operand(all.get(0)) : f.arith.result(sumExpression(all), dmax, rd), phrase);
     }
 
     private static Value sumExpression(List<Value> values) {
@@ -102,7 +123,7 @@ final class ArithVerbs {
         int dmax = f.arith.dmax(items(giving.isEmpty() ? minuends : giving), all);
         String total = sum(subtrahends, dmax);
         if (giving.isEmpty()) store(minuends, (r, rd) -> op("subtract", f.arith.operand(r.field()), total, dmax, rd), phrase);
-        else store(giving, (r, rd) -> op("subtract", f.arith.operand(minuend), total, dmax, rd), phrase);
+        else storeOnce(giving, (r, rd) -> op("subtract", f.arith.operand(minuend), total, dmax, rd), phrase);
     }
 
     /**
@@ -127,7 +148,7 @@ final class ArithVerbs {
         Value b = Verbs.operand(s, "multiply-giving-operand");
         int dmax = f.arith.dmax(items(giving.isEmpty() ? regular : giving), b == null ? List.of(a) : List.of(a, b));
         if (giving.isEmpty()) store(regular, (r, rd) -> op("multiply", f.arith.operand(a), f.arith.operand(r.field()), dmax, rd), phrase);
-        else store(giving, (r, rd) -> op("multiply", f.arith.operand(a), f.arith.operand(b), dmax, rd), phrase);
+        else storeOnce(giving, (r, rd) -> op("multiply", f.arith.operand(a), f.arith.operand(b), dmax, rd), phrase);
     }
 
     /** DIVIDE INTO (each receiver the dividend), INTO GIVING and BY GIVING; REMAINDER is not lowered yet. */
@@ -147,7 +168,7 @@ final class ArithVerbs {
         }
         Value dividend = byValue != null ? a : intoValue, divisor = byValue != null ? byValue : a;
         int dmax = f.arith.dmax(items(giving), List.of(dividend));
-        store(giving, (r, rd) -> op("divide", f.arith.operand(dividend), f.arith.operand(divisor), dmax, rd), phrase);
+        storeOnce(giving, (r, rd) -> op("divide", f.arith.operand(dividend), f.arith.operand(divisor), dmax, rd), phrase);
     }
 
     /**
@@ -177,6 +198,6 @@ final class ArithVerbs {
         List<Receiver> to = receivers(s, "compute-store");
         Value expression = Verbs.operand(s, "compute-statement");
         int dmax = f.arith.dmax(items(to), List.of(expression));
-        store(to, (r, rd) -> f.arith.result(expression, dmax, rd), phrase);
+        storeOnce(to, (r, rd) -> f.arith.result(expression, dmax, rd), phrase);
     }
 }

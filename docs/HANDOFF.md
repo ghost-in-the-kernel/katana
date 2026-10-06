@@ -200,6 +200,23 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   where cobc departs cites a D-number in its source). From now on a departure found by a check gets
   its row in the same commit as the test. Reporting upstream is Ghost's call, each one.
 
+- **One item as operand and receiver of an arithmetic statement (J-129).** IBM: "When operands in an
+  arithmetic statement share part of their storage (that is, when the operands overlap), the result
+  of the execution of such a statement is unpredictable" (LR 6.4 p. 297). Two different items over
+  the same bytes (a REDEFINES, a group and its member) are now NE-08, a finding. Whether the same item
+  named twice (`ADD A TO A B`, `DIVIDE X INTO X GIVING Y X`) "shares part of its storage" is the
+  question: if yes, those are NE-08 too; if no, a reading is needed. cobc: the GIVING forms compute the
+  result once and store it in each receiver (NIST's NC172A expects that); the other forms take each
+  receiver in turn with the operands as they then are (`ADD A TO A B` with A 2, B 3: A 4, B 7). *Default
+  taken:* not an overlap, cobc's reading in both, an `// Unsure` in `sir/check/NonExact.meet`.
+- **Where ROUNDED's extra place reaches (J-129; J-099's open point).** cobc -std=ibm, A 99V9 = 5, T 9 = 3:
+  `COMPUTE B ROUNDED = A / T + 1` into 99V9 is 2.7, so the division carried two places; J-099's
+  `A / B * B` into 9V9 ROUNDED (A 2, B 3) is 1.8, so there it carried one. The model gives the extra
+  place to the last operation only, which fits J-099 and gives 2.6 here. *Default taken:* the model
+  stands, the lane differs on such a COMPUTE (none of NC's runs needs it yet); a trial with a few
+  shapes (the extra place on an operation feeding + or - but not * or /?) would settle cobc's rule,
+  and IBM's "might be carried" (PG p. 794) stays the open text.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell
