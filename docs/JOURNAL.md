@@ -1591,3 +1591,15 @@ taken; closed by a later `decision` entry naming it).
   hypothesis, from its job's programs' IR, plus R-057's line in its header.
 - **Resolved:** Fable's 8a5d6de items. **Touched:** `profile/`, `findings/`, `sir/check/`, `oracle/proof/`,
   fixtures and goldens, FINDINGS, PROFILE, research, `theGhost.md` (R-057 C-2's status, with its quotes).
+
+### J-121 The discoveries register: a defect proven in another tool gets a number and its proof
+- **Who:** Ghost asked; Fable recorded R-058. **Class:** decision / direction.
+- **Found:** phase 3's differential tests had proven over a dozen departures of GnuCOBOL's ibm
+  dialect from IBM's text, each recorded in a journal entry and excused in a test's comment, none
+  with a number, none in one place an evaluator could read.
+- **Resolved:** R-058; `docs/DISCOVERIES.md` seeded with eleven rows (one withdrawn: the decimal
+  comma was Katana's own bug); the glossary's "discovery"; Opus backfills and adds the doc test.
+- **Note:** the same facts as anecdotes are nothing; with fixed fields and a test, they are a result
+  of the research, which is what Ghost asked for: "this is what the research project has already
+  discovered, and this is why this existing tool sometimes has bad output."
+

@@ -192,6 +192,14 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   report should carry them as "valid under hypothesis" (R-049's mechanism), clearable all at once by
   one mainframe run, and not in the same voice as NE-01 to NE-06.)
 
+## For Opus: the discoveries register (R-058, 2026-10-06)
+
+- **Backfill `docs/DISCOVERIES.md`** from J-097 to J-120: every "(Opus)" cell filled, every row's test
+  and journal entry real, the counts from the differential tests' own numbers; add `DiscoveriesDocTest`
+  (every row names an existing test and journal entry; every differential test that excludes cases
+  where cobc departs cites a D-number in its source). From now on a departure found by a check gets
+  its row in the same commit as the test. Reporting upstream is Ghost's call, each one.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

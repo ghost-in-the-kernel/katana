@@ -993,6 +993,43 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-020, R-049, P-03
 - **subject:** runtime
 
+### R-058: Every defect Katana's checks prove in an existing tool is a discovery, recorded with its proof
+- **Decision:** When a check in this repository shows that an existing implementation (GnuCOBOL's
+  `-std=ibm` dialect, a testsuite's expected output, a published manual's own example, any tool
+  Katana is compared with) gives output that disagrees with the authority it claims to follow, that
+  is a **discovery**, and it is recorded in `docs/DISCOVERIES.md` with fixed fields: its number
+  (D-001 onward, never reused), the tool and version, what it does, what the authority says (quoted,
+  with page or section, in `docs/research/`), the test that proves it (an existing check under
+  R-056, with its killer mutation), the journal entry that found it, how many of the generated or
+  corpus cases show it, and a status (`open`, `reported`, `fixed in <version>`, `withdrawn` with
+  why). A discovery is distinct from a finding (a finding is about the input program; a discovery is
+  about another tool) and from a claim (a claim is about Katana). A code comment or test that says
+  "against cobc" cites its D-number. The register is held by a doc test: every row names a test
+  that exists and a journal entry that exists; every differential test whose expected side excludes
+  cases "where cobc departs" names the discovery that excludes them, so no departure is excused
+  without a number. Reporting a discovery upstream is Ghost's decision each time (a bug report with a
+  COBOL reproducer discloses the defect, not Katana's method, but it names the project; R-037).
+- **Why:** Ghost, 2026-10-06: an evaluator of the research, or a buyer of the product, must be able
+  to see what the project has already established: that the existing tools sometimes produce wrong
+  output, where, and why, each with a test anyone can run. Scattered across journal entries and
+  test comments, the same facts are anecdotes; in one register with fixed fields and a test holding
+  it to the code, they are a result. Two days of phase 3 produced over a dozen (the intermediate cap
+  not applied, literal folding, five editing departures including IBM's own `-$999.99` example,
+  INSPECT phrases run one at a time, COMP-5 size error judged by capacity, two DISPLAY sign forms,
+  floating insertion characters dropped), and none had a number.
+- **Claims:** C-1 each discovery's reproducer is a COBOL program and an IBM citation, never GnuCOBOL
+  source: `verified` by construction (R-045). C-2 the register will matter to an evaluator more than
+  the pass counts: `hypothesis`; the NSF study's reviewers are the trial.
+- **Held by:** `docs/DISCOVERIES.md`; its doc test (Opus adds it with the backfill from the phase-3
+  journal entries, J-097 to J-120); `docs/GLOSSARY.md` ("discovery").
+- **Source:** Ghost, 2026-10-06 ("if we end up with tests that prove an existing implementation has
+  a bug in it, we need to be able to say to an evaluator: this is what the research project has
+  already discovered, and this is why this existing tool sometimes has bad output"); recorded by
+  Fable.
+- **Status:** in force
+- **See also:** R-045, R-046, R-052, R-056, P-03
+- **subject:** checks
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018

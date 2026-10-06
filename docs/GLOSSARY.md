@@ -29,6 +29,7 @@ have caught a real slip (R-039).
 | **oracle** | the comparison of two lanes' outputs under the copybooks, and its report | diff (that is the tool), verification, validation |
 | **comparator** | the component that performs the oracle's comparison | differ |
 | **finding** | what is wrong with the input, or what cannot be made exact; said first | warning, issue, error (an error is the tool failing) |
+| **discovery** | a defect Katana's checks prove in an existing tool, recorded in `docs/DISCOVERIES.md` with its proof (R-058) | a finding (that is about the input), a claim (that is about Katana), a bug of Katana's own |
 | **lowering** | the step from Semantic IR to literal | translation, transpilation, conversion, generation |
 | **pass** | one refactoring with obligations, a proof and ledger lines | transform, rewrite, rule (a rule is in Intent IR or in the rule tests) |
 | **obligation** | a property a pass must discharge before applying | precondition, guard |
