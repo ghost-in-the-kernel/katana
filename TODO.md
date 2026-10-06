@@ -48,6 +48,11 @@ runs NIST through the lowering, so it is met at 3.3-3.4.
 Check: the emitted data map equals the IR's; every statement has its comment; the Java compiles with
 `javac` against `rt/` only.
 
+*Begun (J-114):* `lower/`, its first increment; `LoweredAutotestsIntegrationTest` lowers the 21 hand-lowered
+autotests that parse, each printing what its hand-lowering prints, javac against `rt/` alone, one
+provenance comment a statement, the data map the IR's. *Next:* EVALUATE, SET, DIVIDE REMAINDER, PERFORM
+VARYING AFTER, MOVE CORRESPONDING, the front end's decimal comma (HANDOFF), then NIST NC.
+
 ### 3.4 NIST, module by module, through both lanes
 
 Check: the Java lane reproduces the same PASS/FAIL lines as the 9,610 GnuCOBOL passes, under both

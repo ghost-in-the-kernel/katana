@@ -1,0 +1,78 @@
+package katana.lower;
+
+import java.util.List;
+import katana.sir.types.Item;
+import katana.sir.types.Value;
+
+/**
+ * Arithmetic expressions as Appendix A computes them (R-020, `rt/Decimal`): each operand a term with its
+ * places, each operation given the statement's dmax, the last one told it is last (ROUNDED's place).
+ */
+final class Arith {
+    private final Exprs x;
+
+    Arith(Exprs x) {
+        this.x = x;
+    }
+
+    /** The most decimal places among an expression's operands, a divisor's left out (dmax's operand part). */
+    // Decision: R-020
+    // Unsure: an operand inside a divisor expression is counted, only a direct divisor left out; IBM's "except divisors" does not say which (J-111).
+    int decimals(Value v) {
+        return switch (v) {
+            case Value.Field f -> Math.max(0, x.item(f.item()).attributes().scale());
+            case Value.Literal l when l.numeric() -> l.scale();
+            case Value.Expression e when e.operator().equals("/") -> Math.max(decimals(e.operands().get(0)), e.operands().get(1) instanceof Value.Expression d ? decimals(d) : 0);
+            case Value.Expression e -> e.operands().stream().mapToInt(this::decimals).max().orElse(0);
+            default -> 0;
+        };
+    }
+
+    /** An expression's value as a `Decimal.Term`, its outermost operation the statement's last. */
+    String result(Value v, int dmax, boolean rounded) {
+        return term(v, dmax, true, rounded);
+    }
+
+    /** An expression's value as a `Decimal.Term` that is not the statement's last operation. */
+    String term(Value v, int dmax) {
+        return term(v, dmax, false, false);
+    }
+
+    /** An operand, or an operation over two terms (`neg` over one), as `rt/Decimal` computes it. */
+    private String term(Value v, int dmax, boolean last, boolean rounded) {
+        if (!(v instanceof Value.Expression e) || !x.numeric(v)) return operand(v);
+        if (e.operator().equals("neg")) return "Decimal.negate(" + term(e.operands().get(0), dmax, last, rounded) + ")";
+        String op = switch (e.operator()) {
+            case "+" -> "add";
+            case "-" -> "subtract";
+            case "*" -> "multiply";
+            case "/" -> "divide";
+            default -> null;
+        };
+        if (op == null) return x.unsupported("operator " + e.operator());
+        String a = term(e.operands().get(0), dmax, false, false), b = term(e.operands().get(1), dmax, false, false);
+        return "Decimal." + op + "(P, " + a + ", " + b + ", " + dmax + ", " + last + ", " + rounded + ")";
+    }
+
+    /** One operand as a term: a numeric item or literal with its integer places. */
+    String operand(Value v) {
+        return switch (v) {
+            case Value.Field f -> "Decimal.operand(" + x.field(f) + ".get(), " + integerPlaces(x.item(f.item())) + ")";
+            case Value.Literal l when l.numeric() -> "Decimal.operand(new Decimal(new java.math.BigInteger(" + Emitter.quote(l.payload()) + "), " + l.scale() + "), " + Math.max(0, l.payload().replace("-", "").length() - l.scale()) + ")";
+            case Value.Figurative f when x.numeric(f) -> "Decimal.operand(new Decimal(java.math.BigInteger.ZERO, 0), 1)";
+            default -> x.unsupported("arithmetic operand " + v);
+        };
+    }
+
+    static int integerPlaces(Item i) {
+        return Math.max(0, Lower.stored(i.attributes()) - i.attributes().scale());
+    }
+
+    /** dmax for a statement: its receivers' decimal places and its operands'. */
+    int dmax(List<Item> receivers, List<Value> operands) {
+        int d = 0;
+        for (Item r : receivers) d = Math.max(d, Math.max(0, r.attributes().scale()));
+        for (Value v : operands) d = Math.max(d, decimals(v));
+        return d;
+    }
+}

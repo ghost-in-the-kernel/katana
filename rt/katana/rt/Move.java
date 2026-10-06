@@ -31,6 +31,25 @@ public final class Move {
         } else text(fromNumeric ? digits(from) : bytes(from), to);
     }
 
+    /**
+     * A figurative constant or ALL literal into a field (LR p. 402): an alphanumeric or group receiver
+     * filled with its characters repeated; a numeric receiver given ZERO's value; any other the bytes.
+     */
+    // Decision: R-019
+    public static void fill(Field to, byte[] pattern, boolean zero) {
+        if (zero && (to.attr().category() == Attr.Category.NUMERIC || to.attr().category() == Attr.Category.NUMERIC_EDITED)) {
+            move(Literal.number("0", 0, to.record().codepage()), to);
+            return;
+        }
+        for (int k = 0; k < to.attr().length(); k++) to.record().bytes()[to.offset() + k] = pattern[k % pattern.length];
+    }
+
+    /** A group MOVE between two fields (either a group): bytes, no conversion. */
+    // Decision: R-019
+    public static void group(Field from, Field to) {
+        group(from.record(), from.offset(), from.attr().length(), to.record(), to.offset(), to.attr().length());
+    }
+
     /** A group MOVE: the sender's bytes into the receiver's, left-aligned, space-filled, with no conversion. */
     // Decision: R-019
     public static void group(Record from, int fromOffset, int fromLength, Record to, int toOffset, int toLength) {

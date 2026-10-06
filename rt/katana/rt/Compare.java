@@ -43,4 +43,17 @@ public final class Compare {
         if (a.category() != Attr.Category.NUMERIC) return java.util.Arrays.copyOfRange(f.record().bytes(), f.offset(), f.offset() + a.length());
         return Move.digits(f);
     }
+
+    /** Two items or literals compared as alphanumeric operands (a zoned integer as its digits), the shorter extended with spaces. */
+    // Decision: R-019
+    public static int alphanumeric(Field a, Field b, Collation c) {
+        byte[] x = operand(a), y = operand(b);
+        return text(x, 0, x.length, y, 0, y.length, a.record().codepage().character(' '), c);
+    }
+
+    /** An item against a figurative constant or ALL literal's characters. */
+    public static int figurative(Field a, byte[] pattern, Collation c) {
+        byte[] x = operand(a);
+        return all(x, 0, x.length, pattern, c);
+    }
 }

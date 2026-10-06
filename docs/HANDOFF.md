@@ -141,6 +141,24 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   IBM, and the shape (control passing an active PERFORM's exit) a finding the lowering raises, as
   NE-02 and NE-03 are for recursion and overlap.
 
+- **The lowering's first increment, and five readings it took (J-114).** `lower/` exists (its entry was
+  already in `docs/modules.json`): data map, VALUEs, the dispatcher, MOVE, DISPLAY, the arithmetic verbs
+  with ROUNDED and SIZE ERROR, IF, PERFORM in its forms, GO TO (DEPENDING, ALTER), INSPECT, STRING,
+  UNSTRING, INITIALIZE. Each reading below is an `// Unsure` in the code, the default taken:
+  (1) an item without VALUE starts as INITIALIZE would set it (zero or spaces), as cobc -std=ibm does;
+  IBM leaves it unpredictable. (2) A numeric literal DISPLAYed shows its sign and digits, no point, as
+  cobc -std=ibm shows it. (3) The program collating sequence is native until the IR carries the
+  ALPHABET clause. (4) An index holds its occurrence number in a fullword (IBM: a displacement). (5)
+  R-021's "one case per paragraph" is kept as one case per stretch of statements, each a method, so a
+  NIST-sized program stays under the JVM's 64 KB method limit; the dispatcher is unchanged.
+  *Lean:* (1) a decision of its own (it changes what a program prints when it reads before it writes);
+  (2)-(4) the IR's to carry, then no reading is left; (5) R-021's wording amended.
+- **A front-end bug, not yet fixed: the comma in numeric literals (J-114).** The lexer
+  (`front/grammar/Cobol.g4`, NUMERICLITERAL) takes a comma as the decimal point in every program, so
+  `DISPLAY 1,1,1` without DECIMAL-POINT IS COMMA reads as `1,1` and `,1`. IBM's text makes a separator
+  comma one followed by a space, so the program is not conforming, but the reading is wrong under any
+  rule. The fix needs the lexer to know the clause, and touches the NIST goldens; TODO 3.3 carries it.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

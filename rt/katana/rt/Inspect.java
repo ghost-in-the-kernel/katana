@@ -55,6 +55,20 @@ public final class Inspect {
         f.put(new Decimal(negative ? v.negate() : v, a.scale()));
     }
 
+    /** A TALLYING count added to its count field. */
+    // Decision: R-019
+    public static void add(Field counter, long n) {
+        java.math.BigDecimal v = counter.get().toBigDecimal().add(java.math.BigDecimal.valueOf(n));
+        Move.move(Literal.number(v.unscaledValue().toString(), v.scale(), counter.record().codepage()), counter);
+    }
+
+    /** A figurative constant's character repeated to a comparand's length (LR p. 357). */
+    public static byte[] repeat(byte[] pattern, int length) {
+        byte[] out = new byte[length];
+        for (int k = 0; k < length; k++) out[k] = pattern[k % pattern.length];
+        return out;
+    }
+
     /** A phrase's region: from AFTER's delimiter's end to BEFORE's delimiter, each delimiter the first in the whole item. */
     // Decision: R-019
     // Unsure: with both phrases IBM's text does not say where BEFORE's delimiter is searched from; this is cobc's reading, from the item's start, not from AFTER's (J-105).

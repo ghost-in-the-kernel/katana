@@ -1487,3 +1487,20 @@ taken; closed by a later `decision` entry naming it).
   check that could not have failed, caught by its own mutation (R-056 working as meant).
 - **Resolved:** `rt/Dispatcher`. **Open:** R-021 C-1's status (Fable). **Touched:** `rt/`,
   `test/katana/rt/`, `docs/checks.json`, HANDOFF, TODO.
+
+### J-114 Phase 3.3 begins: `lower/`, its first increment, held to the hand-lowerings
+- **Who:** Opus. **Class:** build; trial; question.
+- **Found:** `lower/` writes one Java class per program against `rt/` alone (R-024's one emitter, R-021's
+  dispatcher): a `Record` per 01 and 77, a `Field` per item, VALUEs, each stretch of statements a method
+  returning the next label, one provenance comment per statement. The check that matters most is the
+  one 3.1 made possible: each hand-lowered autotest's own `prog.cob` through the whole pipeline (parse,
+  IR, lower, javac, run) must print what its hand-lowering prints. 21 of the 24 parse; all 21 do,
+  byte for byte, after three fixes the comparison forced: the IR counts each P as a digit and `rt/` only
+  the stored ones; dmax counts the operands inside a divisor expression (the hand-lowering's reading,
+  which cobc -std=ibm agreed with in J-111); an index item was not held. Five readings taken, each an
+  `// Unsure` and a HANDOFF item. Found on the way: the front end reads `1,1` as a decimal in a program
+  without DECIMAL-POINT IS COMMA (HANDOFF; not fixed here). Build's NPE on an unclean parse was mine:
+  callers check `clean()` first, as the lowering's test now does.
+- **Resolved:** `lower/` (Lower, Emitter, Exprs, Values, Arith, Conditions, Flow, Verbs, ArithVerbs,
+  Performs, TextVerbs, Initialize); `rt/` gains Sysout, Literal, Table, Classes, Unsupported.
+  **Touched:** `lower/`, `rt/`, `test/katana/rt/autotest/`, `docs/checks.json`, HANDOFF, TODO.

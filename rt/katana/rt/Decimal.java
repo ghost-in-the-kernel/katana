@@ -60,6 +60,11 @@ public record Decimal(BigInteger unscaled, int scale) {
         return cut(a.value().toBigDecimal().multiply(b.value().toBigDecimal()), last ? p.last(places, rounded) : places, a, b);
     }
 
+    /** Unary minus: the value negated, its places unchanged. */
+    public static Term negate(Term a) {
+        return new Term(new Decimal(a.value().unscaled().negate(), a.value().scale()), a.places(), a.divisionByZero());
+    }
+
     /** `a / b`: the divisor is IBM's op1 and the dividend op2; the quotient computed to the places carried and truncated; a zero divisor a status. */
     // Decision: R-020
     public static Term divide(ArithProfile p, Term a, Term b, int dmax, boolean last, boolean rounded) {

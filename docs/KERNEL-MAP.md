@@ -810,3 +810,153 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Dispatcher.java:Dispatcher.depth` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Dispatcher.java:Dispatcher.alter` | R-021 | 2026-10-06 |  |
 | rt | `rt/katana/rt/Dispatcher.java:Dispatcher.goTo` |  | 2026-10-06 |  |
+| lower | `lower/Arith.java:Arith.Arith` |  | 2026-10-06 |  |
+| lower | `lower/Arith.java:Arith.decimals` | R-020 | 2026-10-06 |  |
+| lower | `lower/Arith.java:Arith.result` |  | 2026-10-06 |  |
+| lower | `lower/Arith.java:Arith.term` |  | 2026-10-06 |  |
+| lower | `lower/Arith.java:Arith.term#2` |  | 2026-10-06 |  |
+| lower | `lower/Arith.java:Arith.operand` |  | 2026-10-06 |  |
+| lower | `lower/Arith.java:Arith.integerPlaces` |  | 2026-10-06 |  |
+| lower | `lower/Arith.java:Arith.dmax` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.ArithVerbs` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.statement` | R-020 | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.receivers` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.items` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.store` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.sum` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.op` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.add` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.sumExpression` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.subtract` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.multiply` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.divide` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.compute` |  | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.Conditions` |  | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.of` | R-019 | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.join` |  | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.relation` |  | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.compare` |  | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.sign` |  | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.alphabetic` |  | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.conditionName` |  | 2026-10-06 |  |
+| lower | `lower/Emitter.java:Emitter.line` |  | 2026-10-06 |  |
+| lower | `lower/Emitter.java:Emitter.open` |  | 2026-10-06 |  |
+| lower | `lower/Emitter.java:Emitter.close` |  | 2026-10-06 |  |
+| lower | `lower/Emitter.java:Emitter.provenance` | R-024 | 2026-10-06 |  |
+| lower | `lower/Emitter.java:Emitter.statements` |  | 2026-10-06 |  |
+| lower | `lower/Emitter.java:Emitter.text` |  | 2026-10-06 |  |
+| lower | `lower/Emitter.java:Emitter.quote` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.Exprs` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.item` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.unsupported` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.unsupported#2` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.dimensions` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.occurrences` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.ints` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.field` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.index` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.sending` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.pattern` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.singular` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.moveInto` | R-019 | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.numeric` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.Flow` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.procedure` | R-021 | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.open` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.split` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.label` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.counter` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.end` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.step` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.indentEnd` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.statements` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.splits` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.splits#2` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.target` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.branch` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.jump` |  | 2026-10-06 |  |
+| lower | `lower/Initialize.java:Initialize.Initialize` |  | 2026-10-06 |  |
+| lower | `lower/Initialize.java:Initialize.statement` | R-019 | 2026-10-06 |  |
+| lower | `lower/Initialize.java:Initialize.receives` |  | 2026-10-06 |  |
+| lower | `lower/Initialize.java:Initialize.move` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.Lower` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.java` | R-024 | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.declareItems` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.defineItems` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.recordLength` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.attr` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.index` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.stored` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.edit` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.Performs` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.statement` | R-021 | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.count` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.once` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.loop` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.perform` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.varying` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.TextVerbs` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.isKeyword` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.word` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.bytes` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.inspect` | R-019 | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.read` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.Reader.Reader` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.Reader.take` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.Reader.value` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.add` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.phrases` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.converting` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.sent` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.string` | R-019 | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.overflow` |  | 2026-10-06 |  |
+| lower | `lower/TextVerbs.java:TextVerbs.unstring` | R-019 | 2026-10-06 |  |
+| lower | `lower/Values.java:Values.Values` |  | 2026-10-06 |  |
+| lower | `lower/Values.java:Values.initial` | R-019 | 2026-10-06 |  |
+| lower | `lower/Values.java:Values.governed` |  | 2026-10-06 |  |
+| lower | `lower/Values.java:Values.isText` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.Verbs` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.statement` | R-021 | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.operand` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.operands` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.keyword` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.branch` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.move` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.display` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.shown` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.goTo` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.altered` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.alters` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.alter` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.paragraphIndex` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.exit` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.lastOfSection` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Classes.java:Classes.Classes` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Classes.java:Classes.numeric` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Classes.java:Classes.allDigits` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Classes.java:Classes.zoned` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Classes.java:Classes.packed` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Classes.java:Classes.alphabetic` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Compare.java:Compare.alphanumeric` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Compare.java:Compare.figurative` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.negate` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.add` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.repeat` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Literal.java:Literal.Literal` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Literal.java:Literal.number` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Literal.java:Literal.text` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Literal.java:Literal.hex` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Literal.java:Literal.bytes` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Literal.java:Literal.figurative` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.fill` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.group#2` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Sysout.java:Sysout.Sysout` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Sysout.java:Sysout.display` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Table.java:Table.Table` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Table.java:Table.each` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Table.java:Table.walk` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Table.java:Table.at` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Table.java:Table.ref` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Table.java:Table.index` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Unsupported.java:Unsupported.Unsupported` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Unsupported.java:Unsupported.fail` |  | 2026-10-06 |  |
