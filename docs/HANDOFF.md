@@ -119,6 +119,9 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   profile field `ibm.dispsign` (`COMPAT` default, or `SEP`), a new profile per PROFILE's rule, which
   the lowering passes to `Display.of`; the cobc lane compares under SEP with the two families as
   findings. Not added: a profile field is yours to word (R-042).
+  (Answered, Fable 2026-10-06: added, worded in R-049's amendment: `ibm.dispsign`, `COMPAT` default
+  or `SEP`, status `verified` on Table 48; the cobc lane under SEP, the two families findings. Add the
+  PROFILE rows with the code, since the doc test binds them.)
 
 - **3.1's check, the 378 autotests through `rt/`: what is hand-lowered (default taken, R-053).** Most of
   the 378 test what `rt/` will never hold by hand (CALL and the C API, files, profiling, debugging
@@ -128,6 +131,10 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   every usage; about 50 by title), each compared with the testsuite's expected output (pass or fail
   only, R-045) and with cobc -std=ibm on the same program; the rest go through the lowering at 3.3.
   The count hand-lowered and passing is held by a golden, so the check says how far it reaches.
+  (Answered, Fable 2026-10-06: the default holds. 3.1's check is the count the golden holds, 24
+  hand-lowered and 19 equal to the testsuite; the 5 that differ where GnuCOBOL's default dialect is
+  not IBM's are findings against the testsuite's expectation, recorded by case number, not failures.
+  The rest of the 378 are 3.3's through the lowering, which is a better check than hand-lowering was.)
 
 - **R-021's C-1, PERFORM return: what cobc says, and what IBM leaves open (J-113).** `rt/Dispatcher`
   returns from the innermost active PERFORM whose range ends at the paragraph reached, dropping those
@@ -140,6 +147,9 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   reading differs on 21. *Lean:* C-1 recorded as verified against cobc -std=ibm, still a hypothesis on
   IBM, and the shape (control passing an active PERFORM's exit) a finding the lowering raises, as
   NE-02 and NE-03 are for recursion and overlap.
+  (Answered, Fable 2026-10-06: the lean holds, in R-021's claims: C-1 `verified` on cobc -std=ibm,
+  `hypothesis` on IBM, settled by a mainframe; C-3 the shape is a finding, its code and FINDINGS row
+  Opus's.)
 
 - **The lowering's first increment, and five readings it took (J-114).** `lower/` exists (its entry was
   already in `docs/modules.json`): data map, VALUEs, the dispatcher, MOVE, DISPLAY, the arithmetic verbs
@@ -153,11 +163,18 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   NIST-sized program stays under the JVM's 64 KB method limit; the dispatcher is unchanged.
   *Lean:* (1) a decision of its own (it changes what a program prints when it reads before it writes);
   (2)-(4) the IR's to carry, then no reading is left; (5) R-021's wording amended.
+  (Answered, Fable 2026-10-06: (1) is R-057: INITIALIZE's values, as cobc; the proof report's header
+  says initial values without VALUE are assumed until phase 5's finding names the reads; `ibm.wsclear`
+  records the customer's option. (2)–(4) agreed, the IR's; each `// Unsure` stays until the IR carries
+  it. (5) R-021 amended: one case per stretch, a mechanical cut, not structuring.)
 - **A front-end bug, not yet fixed: the comma in numeric literals (J-114).** The lexer
   (`front/grammar/Cobol.g4`, NUMERICLITERAL) takes a comma as the decimal point in every program, so
   `DISPLAY 1,1,1` without DECIMAL-POINT IS COMMA reads as `1,1` and `,1`. IBM's text makes a separator
   comma one followed by a space, so the program is not conforming, but the reading is wrong under any
   rule. The fix needs the lexer to know the clause, and touches the NIST goldens; TODO 3.3 carries it.
+  (Fable 2026-10-06: a bug fix may change a golden, P-02 binds refactors; the condition is that every
+  changed golden line is attributable to a comma literal, listed in the journal entry, and NC's count
+  does not fall.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 

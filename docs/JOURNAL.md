@@ -1534,3 +1534,17 @@ taken; closed by a later `decision` entry naming it).
   quotient times the divisor, LR p. 336) and unary signs lowered. NC: 22 of 95 runs equal cobc's, the
   new floor.
 - **Resolved:** the above. **Touched:** `lower/`, `test/katana/lower/`, `docs/checks.json`, TODO.
+
+### J-117 Phase 3's five waiting decisions, answered at Opus's report
+- **Who:** Opus's defaults (J-109, J-113, J-114); Fable decided. **Class:** decision.
+- **Found:** five defaults taken under R-053 in 3.1–3.3, each reversible, each marked, none stopping
+  the phase: a DISPSIGN profile field, the initial value of an item without VALUE, PERFORM return's
+  status, R-021's case granularity, and the scope of 3.1's hand-lowered check.
+- **Resolved:** all five held as taken. `ibm.dispsign` and `ibm.wsclear` worded in R-049; R-057
+  recorded (INITIALIZE's values, the proof report's header honest until phase 5's finding); R-021
+  amended (stretches; C-1 verified on cobc, hypothesis on IBM; C-3 the exit-pass finding). The
+  decimal-comma lexer bug may change NIST goldens under a named condition.
+- **Note:** R-053's count for phase 3 so far: 5 held, 0 reversed, 0 stopped. The defaults were
+  right because each was taken to keep the oracle agreeing and the disagreement written down,
+  which is the rule the phase runs on.
+

@@ -387,7 +387,9 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 
 ### R-021: Control flow in the literal is a dispatcher with a PERFORM continuation table
 - **Decision:** A program's procedure division lowers to `for (;;) switch (pc)`, one case per
-  paragraph, textual fall-through as the next case, GO TO as a `pc` assignment, PERFORM as a push of
+  stretch of statements (a paragraph begins a stretch; a stretch is cut where the JVM's 64 KB method
+  limit requires, each stretch's body a method the switch calls, which is a mechanical cut and not
+  structuring; amended 2026-10-06 from "one case per paragraph"), textual fall-through as the next case, GO TO as a `pc` assignment, PERFORM as a push of
   the continuation (the pc after the range's end) and a jump, the range's end checked against the
   continuation stack on every paragraph exit (IBM's `perform-osvs` return: reaching any active range's
   exit returns), ALTER as a table update with a finding, EXIT PARAGRAPH/SECTION, STOP RUN and GOBACK
@@ -397,9 +399,14 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   on 8 MLOC with the program still readable, where full structuring produced unmaintainable nesting.
   A dispatcher is exact by construction for every PERFORM/GO TO shape NIST has (NC and IC pass through
   it in libcob's equivalent), and the proof of a later structuring pass is a diff against it.
-- **Claims:** C-1 the dispatcher reproduces IBM PERFORM return semantics: `hypothesis`; the NIST NC
-  and IC modules through the java lane are the trial. C-2 recursive and overlapping PERFORM are
-  findings, not lowered: `verified` (NE-02, NE-03 in `sir/check`).
+- **Claims:** C-1 the dispatcher reproduces IBM PERFORM return semantics: `verified` against
+  `cobc -std=ibm` (J-113: 81 programs equal, the ANSI reading differing on 21), `hypothesis` on IBM
+  itself, whose text says control "must not" pass through another active PERFORM's exit (LR p. 414)
+  and so does not settle the reading; a mainframe run settles it. C-2 recursive and overlapping
+  PERFORM are findings, not lowered: `verified` (NE-02, NE-03 in `sir/check`). C-3 the shape C-1
+  leaves open, control reaching an active PERFORM's exit from outside its range (a GO TO out of an
+  inner range and back), is a finding the lowering raises, as NE-02 and NE-03 are: decided
+  2026-10-06; the code is Opus's to add to `docs/FINDINGS.md` with its check.
 - **Held by:** `rt/Dispatcher`; the NC/IC goldens; the findings.
 - **Source:** the catalogue and the literature note; decided by Fable, 2026-10-05.
 - **Status:** in force
@@ -721,6 +728,11 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   ("valid under hypothesis H-n"). The program collating sequence is not a field; it is read from the
   program. Appendix A (intermediate results) was wholly hypothesis when this was written and blocked
   phase 3.1; it was read on 2026-10-05 and is verified (R-020, amended).
+  Two fields added 2026-10-06: `ibm.dispsign` (`COMPAT` default, or `SEP`; Programming Guide 6.4
+  Table 48, read by Opus, `verified`: COMPAT overpunches a negative value's last digit and shows a
+  zoned item's bytes as they are, SEP shows a leading separate sign; the cobc lane compares under SEP,
+  with cobc's packed and binary departures as findings, J-109) and `ibm.wsclear` (R-057). Each row in
+  `docs/PROFILE.md` is Opus's to add with its code, in this wording.
 - **Why:** The study's container could not reach IBM's manuals at all (F-10). From this session the
   performance-tuning papers, the compiler-option tables, the Customization Guide and eleven APARs
   were reached and quoted: TRUNC, NUMPROC, ARITH, CODEPAGE and ZONEDATA/INVDATA semantics are now
@@ -931,6 +943,32 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Status:** in force
 - **See also:** R-017, R-040, R-050, R-052, P-11
 - **subject:** checks
+
+### R-057: An item without VALUE starts as INITIALIZE would set it, and a program that reads it first is not yet proven
+- **Decision:** The literal gives an item that has no VALUE clause the value INITIALIZE would give it
+  (zeros for numeric, spaces for alphanumeric, by PICTURE), which is what `cobc -std=ibm` does, so
+  the two lanes agree and the oracle holds. IBM leaves such an item's initial value unpredictable
+  (WSCLEAR, where used, clears WORKING-STORAGE to binary zeros, not to INITIALIZE's values), so a
+  program that reads an item before writing it is not proven by the oracle: the finding for that
+  read, "reads of uninitialized storage", is phase 5's (`docs/FINDINGS.md` already says so; it needs
+  the Intent IR's data flow), and until it exists the proof report says in its header that initial
+  values of items without VALUE are assumed, not proven. A profile field `ibm.wsclear` (`NO`
+  default, or `YES`) records what the customer compiles with, so that the finding, when it exists,
+  can say what the original would have seen.
+- **Why:** The alternative, binary zeros as IBM's WSCLEAR gives, breaks the cobc oracle on every
+  program that reads before writing, for no gain: neither value is what an unpredictable item held
+  on the customer's machine. The oracle's agreement is worth keeping; the honesty is in the header
+  until the finding can name the items.
+- **Claims:** C-1 IBM: an item without VALUE has an unpredictable initial value: `hypothesis` until
+  quoted with its page in `docs/research/ibm-options.md`. C-2 WSCLEAR (Enterprise COBOL 6.2 and
+  later) clears WORKING-STORAGE to binary zeros: `hypothesis`, same condition. C-3 `cobc -std=ibm`
+  gives INITIALIZE's values: `verified` (J-114).
+- **Held by:** `lower/`'s data map (the `// Unsure` becomes a `// Decision: R-057`); the proof
+  report's header; `docs/PROFILE.md`'s `ibm.wsclear` row once Opus adds it with its code.
+- **Source:** Opus's default and lean (J-114); decided by Fable, 2026-10-06.
+- **Status:** in force
+- **See also:** R-020, R-049, P-03
+- **subject:** runtime
 
 ---
 
