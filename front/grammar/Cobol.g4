@@ -19,6 +19,11 @@
 
 grammar Cobol;
 
+// Katana (3.3, J-119): whether the program says DECIMAL-POINT IS COMMA; `front/Parse` sets it before lexing.
+@lexer::members {
+    public boolean decimalComma;
+}
+
 startRule : compilationUnit EOF;
 
 compilationUnit
@@ -3232,7 +3237,8 @@ LEVEL_NUMBER_88 : '88';
 
 INTEGERLITERAL : (PLUSCHAR | MINUSCHAR)? [0-9]+;
 
-NUMERICLITERAL : (PLUSCHAR | MINUSCHAR)? [0-9]* (DOT | COMMACHAR) [0-9]+ (('e' | 'E') (PLUSCHAR | MINUSCHAR)? [0-9]+)?;
+// Katana (3.3, J-119): a comma is a decimal point only under DECIMAL-POINT IS COMMA; elsewhere `1,1` is two literals.
+NUMERICLITERAL : (PLUSCHAR | MINUSCHAR)? [0-9]* (DOT | {decimalComma}? COMMACHAR) [0-9]+ (('e' | 'E') (PLUSCHAR | MINUSCHAR)? [0-9]+)?;
 
 IDENTIFIER : [a-zA-Z0-9]+ ([-_]+ [a-zA-Z0-9]+)*;
 

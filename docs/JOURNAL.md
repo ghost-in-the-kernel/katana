@@ -1563,3 +1563,15 @@ taken; closed by a later `decision` entry naming it).
   lowering's `// Unsure` for initial values is `// Decision: R-057`.
 - **Resolved:** the five answers. **Open:** R-057 C-2 (Fable). **Touched:** `profile/`, fixtures and
   goldens (hashes), `findings/`, `sir/check/`, `lower/`, `test/`, PROFILE, FINDINGS, research, HANDOFF.
+
+### J-119 The decimal comma: a bug fix, no golden line changed
+- **Who:** Opus. **Class:** fix.
+- **Found:** The lexer took a comma as a numeric literal's decimal point in every program (J-114).
+  Now only under DECIMAL-POINT IS COMMA (`front/Parse` sets a lexer flag from the program's text; the
+  grammar's NUMERICLITERAL guards the comma with it). Without the clause, `DISPLAY 1,1,1` no longer
+  parses: IBM's separator comma is followed by a space, so the program is not conforming and is refused
+  rather than read as 1.1 (run_misc-23, a GnuCOBOL extension, leaves the lowered set; its hand-lowering
+  and 3.1's 24/19 stand). Fable's condition (J-117) was that every changed golden line be a comma
+  literal: none changed. The front, SIR and NIST goldens are as they were, and NC through the Java lane
+  stays 22 of 95. `DecimalCommaTest` holds both readings.
+- **Resolved:** the bug. **Touched:** `front/`, `test/katana/sir/`.

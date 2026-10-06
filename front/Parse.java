@@ -70,8 +70,12 @@ public final class Parse {
         return new Result(tree, pre.mapped(), errors);
     }
 
+    /** SPECIAL-NAMES' DECIMAL-POINT IS COMMA, which makes a comma in a numeric literal its decimal point. */
+    private static final java.util.regex.Pattern DECIMAL_COMMA = java.util.regex.Pattern.compile("(?i)DECIMAL-POINT\\s+(IS\\s+)?COMMA");
+
     private static ParserRuleContext parse(String text, PredictionMode mode, List<String> errors) {
         CobolLexer lexer = new CobolLexer(CharStreams.fromString(text));
+        lexer.decimalComma = DECIMAL_COMMA.matcher(text).find();
         CobolParser parser = new CobolParser(new CommonTokenStream(lexer));
         parser.getInterpreter().setPredictionMode(mode);
         Errors.listen(lexer, parser, errors, "parsing");
