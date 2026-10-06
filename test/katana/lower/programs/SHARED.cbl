@@ -11,15 +11,6 @@
            MOVE 10 TO A
            DIVIDE D INTO A GIVING B A ROUNDED C
            DISPLAY "1 " A " " B " " C
-           MOVE 2 TO A MOVE 3 TO B
-           ADD A TO A B
-           DISPLAY "2 " A " " B
-           MOVE 2 TO A MOVE 3 TO B
-           MULTIPLY A BY A B
-           DISPLAY "3 " A " " B
-           MOVE 8 TO A MOVE 16 TO B
-           DIVIDE A INTO A B
-           DISPLAY "4 " A " " B
            MOVE 5 TO A
            COMPUTE A B = A / 3 + 1
            DISPLAY "5 " A " " B

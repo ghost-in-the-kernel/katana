@@ -61,9 +61,7 @@ final class ArithVerbs {
      * A result that does not depend on its receiver (GIVING, COMPUTE): computed once, with ROUNDED's place
      * when any receiver is ROUNDED (truncating it again gives the others the same digits), and stored into
      * each receiver in turn, so a receiver that is also an operand does not change what the next receives
-     * (NC172A). IBM calls overlapping operands unpredictable (LR 6.4 p. 297), a finding (NE-08); this is
-     * cobc's reading, and NIST's. The other forms add to, subtract from, multiply or divide each receiver
-     * in turn with the operands' values as they then are, cobc's reading there too.
+     * (NC172A; IBM's multiple-results rule, LR 6.4 pp. 297-298).
      */
     // Decision: R-020
     private void storeOnce(List<Receiver> rs, java.util.function.BiFunction<Receiver, Boolean, String> value, boolean phrase) {
@@ -74,6 +72,21 @@ final class ArithVerbs {
         boolean any = rs.stream().anyMatch(Receiver::rounded);
         f.e.line("Decimal.Term w = " + value.apply(rs.get(0), any) + ";");
         store(rs, (r, rd) -> "w", phrase);
+    }
+
+    /**
+     * The sending operands of a statement with several receivers, evaluated once into a temporary before
+     * any receiver changes (LR 6.4 pp. 297-298: the statement "stores that result in a temporary
+     * location", then combines it "with each single receiving field" in the order written), so `ADD A TO
+     * A B` adds A's first value to B. A receiver's subscript is evaluated when it is stored, after the
+     * receivers before it (IBM's `D(C)`).
+     */
+    // Decision: R-020
+    // Unsure: IBM's example is an ADD; for MULTIPLY and DIVIDE without GIVING the temporary is taken to be the multiplier or divisor (J-141).
+    private String shared(List<Receiver> rs, String term) {
+        if (rs.size() == 1) return term;
+        f.e.line("Decimal.Term v = " + term + ";");
+        return "v";
     }
 
     /** The values added together, as one term that is not the last operation: `a + b + c`. */
@@ -94,7 +107,7 @@ final class ArithVerbs {
         }
         if (giving.isEmpty()) {
             int dmax = f.arith.dmax(items(to), from);
-            String total = sum(from, dmax);
+            String total = shared(to, sum(from, dmax));
             store(to, (r, rd) -> op("add", f.arith.operand(r.field()), total, dmax, rd), phrase);
             return;
         }
@@ -121,7 +134,7 @@ final class ArithVerbs {
         Value minuend = Verbs.operand(s, "subtract-minuend-giving");
         if (minuend != null) all.add(minuend);
         int dmax = f.arith.dmax(items(giving.isEmpty() ? minuends : giving), all);
-        String total = sum(subtrahends, dmax);
+        String total = shared(giving.isEmpty() ? minuends : List.of(), sum(subtrahends, dmax));
         if (giving.isEmpty()) store(minuends, (r, rd) -> op("subtract", f.arith.operand(r.field()), total, dmax, rd), phrase);
         else storeOnce(giving, (r, rd) -> op("subtract", f.arith.operand(minuend), total, dmax, rd), phrase);
     }
@@ -147,8 +160,10 @@ final class ArithVerbs {
         List<Receiver> regular = receivers(s, "multiply-regular-operand"), giving = receivers(s, "multiply-giving-result");
         Value b = Verbs.operand(s, "multiply-giving-operand");
         int dmax = f.arith.dmax(items(giving.isEmpty() ? regular : giving), b == null ? List.of(a) : List.of(a, b));
-        if (giving.isEmpty()) store(regular, (r, rd) -> op("multiply", f.arith.operand(a), f.arith.operand(r.field()), dmax, rd), phrase);
-        else storeOnce(giving, (r, rd) -> op("multiply", f.arith.operand(a), f.arith.operand(b), dmax, rd), phrase);
+        if (giving.isEmpty()) {
+            String multiplier = shared(regular, f.arith.operand(a));
+            store(regular, (r, rd) -> op("multiply", multiplier, f.arith.operand(r.field()), dmax, rd), phrase);
+        } else storeOnce(giving, (r, rd) -> op("multiply", f.arith.operand(a), f.arith.operand(b), dmax, rd), phrase);
     }
 
     /** DIVIDE INTO (each receiver the dividend), INTO GIVING and BY GIVING; REMAINDER is not lowered yet. */
@@ -163,7 +178,8 @@ final class ArithVerbs {
         }
         if (giving.isEmpty()) {
             int dmax = f.arith.dmax(items(into), List.of());
-            store(into, (r, rd) -> op("divide", f.arith.operand(r.field()), f.arith.operand(a), dmax, rd), phrase);
+            String divisor = shared(into, f.arith.operand(a));
+            store(into, (r, rd) -> op("divide", f.arith.operand(r.field()), divisor, dmax, rd), phrase);
             return;
         }
         Value dividend = byValue != null ? a : intoValue, divisor = byValue != null ? byValue : a;

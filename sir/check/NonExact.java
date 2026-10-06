@@ -119,9 +119,9 @@ public final class NonExact {
 
     /**
      * Whether two fields share part of their storage: two items of one record whose bytes meet. The same
-     * item as operand and receiver (`COMPUTE X = X + 1`) is not an overlap but ordinary COBOL.
+     * item named twice (`COMPUTE X = X + 1`, `ADD A TO A B`) is not an overlap: IBM's multiple-results rule
+     * governs it (LR 6.4 pp. 297-298; Fable, J-140).
      */
-    // Unsure: whether IBM's "share part of their storage" covers one item named twice (`ADD A TO A B`) is not settled; cobc's reading is taken there (HANDOFF, J-129).
     private static boolean meet(Program p, Value.Field a, Value.Field b) {
         if (a.item() == b.item()) return false;
         katana.sir.types.Item x = p.items().get(a.item() - 1), y = p.items().get(b.item() - 1);

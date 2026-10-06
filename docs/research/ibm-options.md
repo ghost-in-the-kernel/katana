@@ -392,3 +392,12 @@ them by row. Appendix A's arithmetic is §4; Table 48 (DISPSIGN) is the PG's, qu
   "Each input record is concatenated with the previous input record." D-020.
 - LR p. 770 (Appendix E, Table 83, Reserved words): the words from NEXT run NEXT, NO, NOT, NULL, NULLS;
   NOTHING is not among them. D-021.
+- LR pp. 297-298 (Multiple results): "When an arithmetic statement has multiple results, execution
+  conceptually proceeds as follows: 1. The statement performs all arithmetic operations to find the
+  result to be placed in the receiving items, and stores that result in a temporary location. 2. A
+  sequence of statements transfers or combines the value of this temporary result with each single
+  receiving field. The statements are considered to be written in the same left-to-right order in
+  which the multiple results are listed." Its example, `ADD A, B, C, TO C, D(C), E.`, "is equivalent
+  to" `ADD A, B, C GIVING TEMP.` `ADD TEMP TO C.` `ADD TEMP TO D(C).` `ADD TEMP TO E.`, and "When the
+  addition operation for D(C) is performed, the subscript C contains the new value of C." (p. 297's
+  "Overlapping operands" paragraph comes just before it.) D-022.

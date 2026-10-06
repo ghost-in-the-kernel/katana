@@ -76,14 +76,17 @@ class LowerDifferentialIntegrationTest {
      * "truncated as required" (LR 6.4 pp. 307-308); cobc reads one record into a 100-character item and
      * the next ACCEPT gets the rest of it, D-020 (J-136). NOTRSVD: NOTHING is not in IBM's reserved words
      * (LR 6.4 Appendix E, Table 83, p. 770: NO, NOT, NULL, NULLS); cobc -std=ibm refuses it as a data name,
-     * D-021 (J-138).
+     * D-021 (J-138). MULTRES: a statement with several receivers "performs all arithmetic operations to find
+     * the result", "stores that result in a temporary location", then combines it "with each single
+     * receiving field" left to right, a receiver's subscript taken after the receivers before it (LR 6.4
+     * pp. 297-298): ADD A TO A B with A 2 and B 3 leaves B 5; cobc adds A's new value, B 7, D-022 (J-141).
      */
     static final Map<String, String> IBM_READINGS = Map.of("SEARCHVARY", "DD W\nN 002\n", "ACCEPTEOF", "X KEPT \nX KEPT \n",
             "POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n",
             "ALPHAIBM", "VALUE LOW IS F\nU < N\n",
             "ADDIBM", "SUM 242.4332220110\nSUM 242.4332220110\nSUM 242.4332220110\nEQUAL\nSUB -344777.777443\nSUB P  100\n",
             "ACCEPTREC", "FIRST 10 [ABCDEFGHIJ]\nLAST 20 [*001*002*003*004*005]\nNEXT [NEXT RECORD]\n",
-            "NOTRSVD", "NOTHING ZILC\n");
+            "NOTRSVD", "NOTHING ZILC\n", "MULTRES", "1 040 050\n2 040 060\n3 010 020\n4 2 010\n");
 
     @Test
     void eachProgramPrintsWhatCobcPrints() throws Exception {

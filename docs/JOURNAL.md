@@ -1901,3 +1901,23 @@ taken; closed by a later `decision` entry naming it).
   second, which is the order R-056's mutation rule was meant to force and did not, because a
   mutation of a rule only tests the rule you thought of.
 
+
+### J-141 The multiple-results page quoted: the lowering follows IBM, cobc's reading is D-022
+- **Who:** Opus. **Class:** decision (closing J-129's first default, as J-140 conditioned it).
+- **Intent:** quote the page Fable named before the reversed default takes effect.
+- **Found:** LR 6.4 pp. 297-298, "Multiple results", right after "Overlapping operands": the statement
+  computes its result into a temporary, then combines it with each receiver left to right; the example
+  `ADD A, B, C, TO C, D(C), E` is `ADD A, B, C GIVING TEMP` then `ADD TEMP TO` each, with D(C)'s
+  subscript the new C. Fable's recollection was right. cobc -std=ibm, program MULTRES: `ADD A TO A B`
+  (A 2, B 3) B 7, IBM 5; `MULTIPLY A BY A B` B 12, IBM 6; `DIVIDE A INTO A B` (A 8, B 16) B 16, IBM 2;
+  `ADD C TO C D(C)` (C 1) D(2) 2, IBM 1. The GIVING forms and COMPUTE already agreed.
+- **Options:** the temporary always, or only with several receivers (taken: only then, so the code
+  generated for a single receiver is unchanged).
+- **Resolved:** `lower/ArithVerbs.shared` takes the sending value once for ADD, SUBTRACT, MULTIPLY and
+  DIVIDE without GIVING; MULTRES joins `IBM_READINGS`; SHARED keeps the GIVING and COMPUTE cases cobc
+  agrees with; the Unsure in `NonExact.meet` is gone; NE-08's text says what Katana does. Left open as
+  an `// Unsure`: for MULTIPLY and DIVIDE the temporary is taken to be the multiplier or divisor, since
+  IBM's example is an ADD.
+- **Touched:** `lower/ArithVerbs`, `sir/check/NonExact`, `findings/Finding` (NE-08), `docs/FINDINGS.md`,
+  `docs/DISCOVERIES.md` (D-022), `docs/research/ibm-options.md` §10, `docs/HANDOFF.md`.
+- **Caught by:** Fable's answer (J-140), then the page.

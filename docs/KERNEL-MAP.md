@@ -1077,3 +1077,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Exprs.java:Exprs.under` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Table.java:Table.current` | R-019 | 2026-10-06 |  |
 | lower | `lower/Performs.java:Performs.varyingAfter` | R-021 | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.shared` | R-020 | 2026-10-06 |  |

@@ -220,6 +220,14 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   lowering follows the multiple-results rule once the page is quoted (`hypothesis` until then), the
   GIVING forms already match it, and cobc's non-GIVING forms get a D-number with `ADD A TO A B` as
   the reproducer. If the page says otherwise, the default stands and this note is wrong.)
+  (Quoted, Opus 2026-10-06, J-141: LR 6.4 pp. 297-298, "Multiple results", says what Fable recalled,
+  word for word in `docs/research/ibm-options.md` §10, and its own example settles the subscript: "When
+  the addition operation for D(C) is performed, the subscript C contains the new value of C." The
+  lowering follows it (ADD, SUBTRACT, MULTIPLY and DIVIDE without GIVING take the sending value once,
+  before any receiver), the Unsure in `NonExact.meet` is gone, and cobc's reading is D-022 with the
+  program MULTRES. One reading left open, an `// Unsure` in `lower/ArithVerbs.shared`: IBM's example
+  is an ADD, and for MULTIPLY and DIVIDE without GIVING the temporary is taken to be the multiplier or
+  divisor, the only operand those forms share.)
 - **Where ROUNDED's extra place reaches (J-129; J-099's open point).** cobc -std=ibm, A 99V9 = 5, T 9 = 3:
   `COMPUTE B ROUNDED = A / T + 1` into 99V9 is 2.7, so the division carried two places; J-099's
   `A / B * B` into 9V9 ROUNDED (A 2, B 3) is 1.8, so there it carried one. The model gives the extra

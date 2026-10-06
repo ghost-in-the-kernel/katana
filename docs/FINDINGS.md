@@ -13,7 +13,7 @@ lowering (phase 3) refuses or marks what it covers. `FindingsDocTest` holds this
 | `NE-04` | division without ON SIZE ERROR | a division by zero leaves the receiving field as IBM's code left it, which is not defined |
 | `NE-05` | ODO data beyond the count | bytes of a table past its OCCURS DEPENDING count are undefined, and a move of its record carries them |
 | `NE-06` | COMP-1 or COMP-2 | IBM's hexadecimal floating point has no exact Java equivalent |
-| `NE-08` | overlapping arithmetic operands | IBM calls the result of an arithmetic statement whose operands share storage unpredictable; Katana takes cobc's reading |
+| `NE-08` | overlapping arithmetic operands | IBM calls the result of an arithmetic statement whose operands share storage unpredictable; Katana evaluates the sending operands once, before any receiver changes (LR 6.4 pp. 297-298) |
 
 NE-07 is not used: it was GO TO out of a PERFORM range, now HY-01 (J-120).
 
