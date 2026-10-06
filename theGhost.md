@@ -371,6 +371,13 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   `// Unsure` on `ArithProfile.dmax` until a mainframe can be asked). C-5 cobc folds an all-literal
   expression at compile time with more places than Appendix A gives: `verified` on cobc, a finding
   against its dialect, not a rule Katana follows (the lowering applies the table to literals too).
+  C-6 the cap rows (an intermediate past 30 digits): `hypothesis`, text-verified and oracle-absent.
+  cobc's ibm dialect does not apply the cap (J-101: 7 of 40 cases past it match the uncapped model),
+  so the only evidence is IBM's text and a model written from that text by the agent that wrote `rt/`;
+  a second reading of one source is not a second source. A lowering whose program can reach the cap
+  (any product or chain whose theoretical places exceed 30) says so as a finding, "arithmetic past the
+  intermediate cap: proven on IBM's text, not on an IBM run", and the proof report carries it (P-03).
+  A mainframe run settles C-6 and the ROUNDED `// Unsure` together; nothing else does.
 - **Held by:** `rt/Decimal`, `rt/ArithProfile`; a test that `MathContext` is not imported anywhere in
   `rt/`; the finding on `IBM_*` until R-049 closes.
 - **Source:** the catalogue; decided by Fable, 2026-10-05.

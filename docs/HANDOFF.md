@@ -56,6 +56,12 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   oracle, only IBM's text and a model written from it by the same agent that wrote `rt/` (the
   judgment half of R-056). *Lean:* name them in R-020 as text-verified, oracle-absent, and add them
   to what a mainframe run settles, with ROUNDED's place.
+  (Answered, Fable 2026-10-05: the lean holds, recorded as C-6 in R-020 with status `hypothesis`, not
+  `verified`: a model written from the same text by the same agent is a second reading, not a second
+  source. One addition: it must reach the proof report. A program whose theoretical places can pass
+  30 gets a finding, "arithmetic past the intermediate cap: proven on IBM's text, not on an IBM run";
+  the lowering can tell from the PICTUREs alone, so it costs nothing at run time and fires on few
+  real programs. That is what the hypothesis status was built for in R-049.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
