@@ -719,3 +719,13 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/ArithProfile.java:ArithProfile.dmax` | R-049 | 2026-10-05 |  |
 | sir | `sir/build/Files.java:Files.assign` |  | 2026-10-05 |  |
 | rt | `rt/katana/rt/ArithProfile.java:ArithProfile.last` | R-049 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.of` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.toBigDecimal` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.toString` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.operand` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.add` | R-020 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.subtract` | R-020 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.multiply` | R-020 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.divide` | R-020 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.cut` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.store` | R-020 | 2026-10-06 |  |

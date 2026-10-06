@@ -47,6 +47,16 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   from J-097 in the same hour) says "ROUNDED adds no place to dmax": still true, but it needs J-099's
   half, the place on the last operation (`ArithProfile.last`), which changes `COMPUTE R ROUNDED = A / B`.
 
+- **cobc's ibm dialect does not apply the 30-digit cap (J-101).** `rt/Decimal` landed with an
+  independent model of Appendix A (exact fractions, the table as data rows, no code shared with
+  `rt/`) and a differential test: 400 generated COMPUTEs, three ways. Model and `rt` agree on all 400;
+  cobc agrees on every case no intermediate of which passes the cap, and on 33 of the 40 that do. In
+  the other 7 cobc gives exactly what the model gives with no cap at all. Per your rule, a finding
+  against cobc, and Katana follows IBM's table. The consequence: the cap rows have no executable
+  oracle, only IBM's text and a model written from it by the same agent that wrote `rt/` (the
+  judgment half of R-056). *Lean:* name them in R-020 as text-verified, oracle-absent, and add them
+  to what a mainframe run settles, with ROUNDED's place.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

@@ -47,6 +47,10 @@ Check: the Java lane reproduces the same PASS/FAIL lines as the 9,610 GnuCOBOL p
 `-std=cobol85` and `-std=ibm` profiles; the per-module pass count is recorded and held by a test
 that may only rise (the bench discipline, P-01).
 
+Carried in (R-020 C-5): an all-literal COMPUTE is excluded from the lane comparison by a finding, never
+skipped silently: cobc folds it with more places than Appendix A, and a mainframe may yet show IBM folds
+too; the lowering applies IBM's table to literals.
+
 ### 3.5 Findings, second set
 
 Check: none in the roadmap; written here before the item starts.
@@ -58,6 +62,10 @@ Check: none in the roadmap; written here before the item starts.
 ### 3.7 Tithe pass 3
 
 Check: none in the roadmap; written here before the item starts.
+
+Carried in (Fable, 2026-10-06): a line in GHOST-IN-THE-KERNEL's "check that cannot fail" paragraph,
+since J-082's pattern (an old helper still at work where no test looked; a check whose expected side
+came from the code under test) has now been met four times (J-082, J-098 twice, J-099).
 
 ## Phase 4: CardDemo batch, end to end
 

@@ -1281,3 +1281,22 @@ taken; closed by a later `decision` entry naming it).
   every suite on a fresh clone (passed, 291 s, e04fb91). From here a push is its own command, run
   only after the gate's line says passed.
 - **Caught by:** reading the exit code after the push. **Cost:** none in code; one ungated push.
+
+### J-101 Phase 3.1: rt/Decimal, an independent model, and the three-way test
+- **Who:** Opus, on the evidence chain Ghost proposed (J-099). **Class:** build; trial.
+- **Found:** `rt/Decimal` (R-020: unscaled `BigInteger` and scale, each operation cut to
+  `ArithProfile`'s places, `store` with ROUNDED half away from zero, high-order loss as a size error,
+  division by zero a status). `AppendixAModel`, written from the quoted text and sharing nothing with
+  `rt/`: exact fractions, the cap table as data rows. `ArithDifferentialIntegrationTest`: 400 COMPUTEs
+  from a fixed seed, one cobc `-std=ibm` program, each case computed three ways. The coverage guard
+  caught the first generator: only 1 case passed the cap, so the cap rows were barely tried; with
+  larger operands 40 do. Model and `rt` agree on all 400. cobc agrees on all 360 below the cap and 33
+  of the 40 above it; in the other 7 it equals the model with no cap, so cobc's ibm dialect does not
+  apply the 30-digit cap. A finding against cobc (Fable's rule), the 7 listed by case so a change in
+  either shows; the cap rows' only check is IBM's text and the independent model (HANDOFF). Its
+  mutation: the model without ROUNDED's place disagrees with cobc. `RtSourceTest` holds R-020's "no
+  MathContext"; it first caught Decimal's own comment naming it, and now reads code lines only.
+- **Resolved:** the chain filled for Appendix A's fixed-point rules: text, rule (`ArithProfile`),
+  independent model, oracle, differential, mutation, regression, implementation.
+- **Touched:** `rt/katana/rt/Decimal.java`, `test/katana/rt/`, `docs/checks.json`, PROFILE.md,
+  HANDOFF, TODO.md (Fable's two carried notes).
