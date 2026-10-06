@@ -23,16 +23,26 @@ public enum ArithProfile {
 
     /**
      * A statement's dmax (p. 794): the greatest of the receivers' decimal places and the operands'
-     * (divisors and exponents left out by the caller). ROUNDED adds no place here: cobc -std=ibm prints
-     * 1.8 for `COMPUTE R ROUNDED = A / B * B` into 9V9 with A 2 and B 3, where an extra place would give
-     * 2.0 (ArithTrialIntegrationTest, J-097); IBM's text says only that one more place "might be carried".
+     * (divisors and exponents left out by the caller). ROUNDED adds nothing here; its place is the last
+     * operation's (`last`). On cobc -std=ibm, with A 2 and B 3: `A / B * B` into 9V9 ROUNDED is 1.8, so
+     * the earlier intermediates carry no extra place (J-097, J-099).
      */
-    // Unsure: IBM's "one more decimal place might be carried" under ROUNDED (PG p. 794) is unsettled on IBM itself; cobc -std=ibm carries none (J-097).
     // Decision: R-049
     public static int dmax(int receiverDecimals, int... operandDecimals) {
         int dmax = receiverDecimals;
         for (int d : operandDecimals) dmax = Math.max(dmax, d);
         return dmax;
+    }
+
+    /**
+     * The places a statement's last operation carries: one more decimal place when the receiver is
+     * ROUNDED, so the rounding has a digit to look at. On cobc -std=ibm, `A / B` into 9V9 is 0.6 and
+     * `A / B` into 9V9 ROUNDED is 0.7 (2 and 3; J-099), which no reading without that place gives.
+     */
+    // Unsure: IBM's text says one more place "might be carried" under ROUNDED (PG p. 794) and APAR PH41526 speaks of ROUNDED intermediates over 31 digits; whether IBM carries it in every intermediate, not only the last, is unsettled without a run on IBM (J-099).
+    // Decision: R-049
+    public Places last(Places places, boolean rounded) {
+        return rounded ? new Places(places.integer(), places.decimal() + 1) : places;
     }
 
     /** `op1 + op2` or `op1 - op2`: the greater integer places and one more, the greater decimal places (p. 795). */

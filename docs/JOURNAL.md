@@ -1254,3 +1254,21 @@ taken; closed by a later `decision` entry naming it).
 - **Caught by:** the hunch, then reading each check for where its expected side came from.
 - **Resolved:** `Files.assign`; `BuildTest#anAssignLiteralIsKeptAsWritten`; the data map test's
   `editing` column (sir/datamap.golden). **Touched:** `sir/build/Files.java`, the sir tests, the golden.
+
+### J-099 J-097 was wrong on ROUNDED: the extra place is the last operation's
+- **Who:** Ghost asked whether the ROUNDED claim could be asserted through a full evidence chain;
+  Opus found it could not, and ran the case that showed why. **Class:** trial; correction.
+- **Found:** walking Ghost's chain (IBM text, formal rule, independent model, oracle, differential
+  test, mutation, regression, implementation): the claim "ROUNDED adds no place" did not come from
+  IBM's text (which says a place "might be carried"), had no independent model (the trial's
+  evaluator called `ArithProfile`, the code under test), and rested on one case that could not tell
+  "no place" from "a place on the last operation". The case that could: `COMPUTE R ROUNDED = A / B`
+  into 9V9, 2 and 3, prints 0.7 on cobc `-std=ibm` (without ROUNDED 0.6; `DIVIDE ... GIVING ROUNDED`
+  0.7). With J-097's `A / B * B` ROUNDED at 1.8, only one reading fits: ROUNDED's place on the last
+  operation, none on the earlier ones. `ArithProfile.last` carries it; the trial has seven cases and
+  takes the reading as a parameter, and a test shows each wrong reading (rounded intermediates; no
+  place; the place in dmax) turning it red. On IBM itself the question stays open, with PH41526
+  pointing toward ROUNDED reaching intermediates.
+- **Caught by:** Ghost's "spidey sense", then the evidence chain applied to the newest claim.
+- **Resolved:** `ArithProfile.last`; `ArithTrialIntegrationTest`; `ArithProfileTest#eachWrong...`;
+  PROFILE.md, the research notes; HANDOFF (the chain for Fable). **Touched:** those.

@@ -208,9 +208,11 @@ places (the cap, and which operand of a division is which) and is gone.
 
 What the text leaves open, and the trial against cobc `-std=ibm` that settled it (J-097): an
 intermediate's dropped decimal places are truncated (`A / B * B`, 2 and 3, into 9V99 is 1.98; rounding
-would give 2.01), and ROUNDED's extra place does not enter dmax (into 9V9 ROUNDED it is 1.8; an extra
-place would give 2.0). The second is cobc's behaviour; IBM's "might be carried for accuracy if
-necessary" (p. 794) is not settled on IBM itself. [verbatim, Language Reference 6.4 SC27-8713-03,
+would give 2.01). ROUNDED's extra place goes to the last operation only (J-099, correcting J-097):
+`A / B` into 9V9 is 0.6 and ROUNDED 0.7, so the place exists; `A / B * B` into 9V9 ROUNDED is 1.8, so it
+does not reach the earlier intermediates (with it there, 2.0). That is cobc's behaviour; on IBM itself
+"might be carried for accuracy if necessary" (p. 794) and APAR PH41526 (ROUNDED with intermediates
+over 31 digits, S13) are not settled without a run on IBM. [verbatim, Language Reference 6.4 SC27-8713-03,
 p. 296, S20] "When the size of the fractional result exceeds the number of places provided for its
 storage, truncation occurs unless ROUNDED is specified. When ROUNDED is specified, the least
 significant digit of the resultant identifier is increased by 1 whenever the most significant digit of

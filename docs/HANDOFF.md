@@ -26,6 +26,18 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   such rule, so the lanes may differ on literal-only COMPUTEs. *Lean:* a finding against cobc's
   dialect, and the lowering keeps IBM's table for literals too.
 
+- **J-097 was wrong on ROUNDED, and the chain that would have caught it (J-099).** Ghost's hunch led
+  to an audit: `COMPUTE R ROUNDED = A / B` into 9V9 (2 and 3) is 0.7 on cobc `-std=ibm`, not the 0.6
+  "ROUNDED adds no place" predicts. The rule is now ROUNDED's place on the last operation
+  (`ArithProfile.last`), with an `// Unsure` for IBM itself. Ghost proposed, and the audit supports,
+  an evidence chain for every semantic claim, each arrow justified: IBM's text, then a formal rule
+  (a parameter a mutation can change), then an executable model independent of `rt/`, then the
+  oracle (cobc), then a differential test whose cases separate every competing reading, then a
+  mutation per reading, then the regression test, then the implementation. J-097 skipped the
+  independent model and chose cases that could not separate two readings; R-056 held, and still the
+  claim was wrong. *Lean:* an amendment to R-056 (or a decision of its own) for semantic claims, and
+  an independent model of Appendix A before `rt/Decimal`, which Opus builds next.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

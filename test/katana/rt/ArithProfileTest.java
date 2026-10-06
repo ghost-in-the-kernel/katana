@@ -48,10 +48,16 @@ class ArithProfileTest {
         assertEquals("99.00", ir2.setScale(2, RoundingMode.DOWN).toPlainString());
     }
 
-    /** R-056's mutation for the trial: intermediates rounded instead of truncated, case 1 is 2.01, not cobc's 1.98. */
+    /**
+     * R-056's mutations for the trial: each wrong reading turns it red. Intermediates rounded, case 1 is
+     * 2.01; ROUNDED adding no place, case 5 is 0.6; ROUNDED's place in dmax, case 2 is 2.0.
+     */
     @Test
-    void roundingTheIntermediatesWouldFailTheTrial() {
-        assertEquals("1.98", ArithTrialIntegrationTest.rt(RoundingMode.DOWN).get(0));
-        assertEquals("2.01", ArithTrialIntegrationTest.rt(RoundingMode.HALF_UP).get(0));
+    void eachWrongReadingWouldFailTheTrial() {
+        var truth = ArithTrialIntegrationTest.EXPECTED;
+        assertEquals(truth, ArithTrialIntegrationTest.rt(RoundingMode.DOWN, ArithTrialIntegrationTest.Reading.LAST));
+        assertEquals("2.01", ArithTrialIntegrationTest.rt(RoundingMode.HALF_UP, ArithTrialIntegrationTest.Reading.LAST).get(0));
+        assertEquals("0.6", ArithTrialIntegrationTest.rt(RoundingMode.DOWN, ArithTrialIntegrationTest.Reading.NONE).get(4));
+        assertEquals("2.0", ArithTrialIntegrationTest.rt(RoundingMode.DOWN, ArithTrialIntegrationTest.Reading.DMAX).get(1));
     }
 }
