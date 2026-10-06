@@ -1300,3 +1300,19 @@ taken; closed by a later `decision` entry naming it).
   independent model, oracle, differential, mutation, regression, implementation.
 - **Touched:** `rt/katana/rt/Decimal.java`, `test/katana/rt/`, `docs/checks.json`, PROFILE.md,
   HANDOFF, TODO.md (Fable's two carried notes).
+
+### J-102 Phase 3.1: Record, Field and the codepages, held to cobc's bytes
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** R-019's byte image in `rt/`: `Record` (a `byte[]` and its codepage), `Field` (a view
+  with `rt/`'s own attribute tuple, `Attr`, since `rt/` imports nothing), and `Codepage`. The cobc
+  lane's encoding was observed, not assumed: a negative zoned sign is the digit plus 0x40 (`s` for
+  3), a positive one the plain digit, a separate sign `+` or `-`, packed C/D/F, COMP big-endian and
+  COMP-5 little-endian (x86's order). `CodecDifferentialIntegrationTest`: 300 generated fields MOVEd
+  a value and DISPLAYed raw under cobc -std=ibm; `rt/Field` writes the same bytes and reads them
+  back to the same value on all 289 it compares. The other 11 are COMP-5 of 1 or 2 digits, which
+  cobc stores in 1 byte where IBM gives a halfword: found because the test's byte walk lost its
+  place, a finding against cobc (HANDOFF, TODO 3.4). The EBCDIC codepage has no cobc oracle; IBM's
+  preferred signs hold it in `FieldTest`. Its mutation: the EBCDIC codepage's bytes differ from
+  cobc's on more than 50 cases.
+- **Resolved:** `rt/` Record, Field, Attr, Codepage. **Touched:** `rt/katana/rt/`, `test/katana/rt/`,
+  `docs/checks.json`, HANDOFF, TODO.

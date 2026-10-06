@@ -729,3 +729,21 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Decimal.java:Decimal.divide` | R-020 | 2026-10-06 |  |
 | rt | `rt/katana/rt/Decimal.java:Decimal.cut` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Decimal.java:Decimal.store` | R-020 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Attr.java:Attr.zoned` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Attr.java:Attr.numeric` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Attr.java:Attr.length` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Codepage.java:Codepage.Codepage` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Codepage.java:Codepage.character` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Codepage.java:Codepage.digit` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Codepage.java:Codepage.digitOf` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Codepage.java:Codepage.negative` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Field.java:Field.get` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Field.java:Field.put` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Field.java:Field.digitsAt` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Field.java:Field.zonedGet` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Field.java:Field.zonedPut` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Field.java:Field.packedGet` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Field.java:Field.packedPut` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Field.java:Field.binaryGet` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Field.java:Field.binaryPut` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Record.java:Record.of` |  | 2026-10-06 |  |

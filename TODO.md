@@ -47,6 +47,9 @@ Check: the Java lane reproduces the same PASS/FAIL lines as the 9,610 GnuCOBOL p
 `-std=cobol85` and `-std=ibm` profiles; the per-module pass count is recorded and held by a test
 that may only rise (the bench discipline, P-01).
 
+Carried in (J-102): a COMP-5 of 1 or 2 digits is 1 byte under cobc and a halfword on IBM (`rt/`, the
+data map), so a record holding one has a different length and layout in the two lanes; such a program is
+compared by a finding naming it, until a profile flag or a layout shim reconciles them.
 Carried in (R-020 C-5): an all-literal COMPUTE is excluded from the lane comparison by a finding, never
 skipped silently: cobc folds it with more places than Appendix A, and a mainframe may yet show IBM folds
 too; the lowering applies IBM's table to literals.

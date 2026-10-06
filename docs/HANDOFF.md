@@ -63,6 +63,12 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   the lowering can tell from the PICTUREs alone, so it costs nothing at run time and fires on few
   real programs. That is what the hypothesis status was built for in R-049.)
 
+- **cobc sizes a COMP-5 of 1 or 2 digits as 1 byte; IBM as a halfword (J-102).** Seen while holding
+  `rt/Field`'s byte images to cobc; `-fbinary-size=2-4-8` does not change it, and no corpus program
+  has such an item, which is why the data map's cobc check never met it. `rt/` and the data map keep
+  IBM's size; a record holding one differs in length between the lanes, so 3.4 compares such a
+  program by a finding (TODO 3.4). *Lean:* a finding against cobc's dialect, like C-5 and the cap.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell
