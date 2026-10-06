@@ -377,17 +377,14 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   C-2 the IBM intermediate-result rules: `verified` (Appendix A read and quoted, §4; `ArithProfile`'s
   table test; the reproducer `1/3*300` into `999V99` = 99.00 matching `cobc -std=ibm`). The two
   questions IBM's text left open were settled by trial (J-097): places an intermediate cannot carry
-  are truncated (`verified` on cobc, with data items, never literals); ROUNDED's extra place: as first
-  recorded, "adds no place to dmax", `verified` on cobc by J-097; J-099 showed J-097's cases could
-  not separate the readings (`A / B` ROUNDED into 9V9 is 0.7, not 0.6), and the rule became the place
-  on the last operation (`ArithProfile.last`); J-129 shows cobc carrying two places in a division
-  that feeds `+` and one in a division that feeds `*`, which neither rule gives. Status now
-  `hypothesis`: the model's "last operation only" stands as the default, and a trial settles cobc's
-  rule, with shapes that separate the three candidates (last operation only; any operation feeding
-  `+` or `-`; dmax raised throughout): ROUNDED into 9V9 and 99V9, operands with 0 and 1 decimals,
-  the last operation each of `+`, `*` and `/`, the division first and last, twelve COMPUTEs, each
-  expected value written under each candidate before the run. IBM's "might be carried" (PG p. 794)
-  stays the open text and a mainframe settles IBM. C-5 cobc folds an all-literal
+  are truncated (`verified` on cobc, with data items, never literals); ROUNDED's extra place is carried
+  on the last operation only (`ArithProfile.last`): `verified` on cobc for data items (J-142: three
+  candidate rules and twelve expected values written before the run, cobc gave this rule's value in
+  all twelve); twice before it was marked verified on cases that could not separate the readings
+  (J-097, J-099), and the status is granted now only because the trial named its rivals first. With
+  a literal operand cobc carries more (`A / T + 1` is 2.7 where `A / T + ONE` is 2.6, D-023); the
+  lowering counts a literal as Appendix A counts it, like any operand. IBM's "might be carried" (PG
+  p. 794) is the open text and a mainframe settles IBM. C-5 cobc folds an all-literal
   expression at compile time with more places than Appendix A gives: `verified` on cobc, a finding
   against its dialect, not a rule Katana follows (the lowering applies the table to literals too).
   C-6 the cap rows (an intermediate past 30 digits): `hypothesis`, text-verified and oracle-absent.
@@ -1037,6 +1034,29 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Status:** in force
 - **See also:** R-045, R-046, R-052, R-056, P-03
 - **subject:** checks
+
+### R-059: An arithmetic statement with several receivers takes its sending value once, as IBM's multiple-results rule says
+- **Decision:** ADD, SUBTRACT, MULTIPLY and DIVIDE without GIVING compute their sending side once,
+  into a temporary, before any receiver changes, then apply it to each receiver left to right; a
+  subscript on a receiver is evaluated when that receiver's turn comes, with the values as they then
+  are (IBM: for `D(C)` after `C` was a receiver, "the subscript C contains the new value of C"). The
+  same item named as operand and receiver (`ADD A TO A B`) is therefore not an overlap (NE-08 is two
+  items over the same bytes) and has a defined result: A 2, B 3 gives A 4, B 5. For MULTIPLY and
+  DIVIDE the temporary is the multiplier or the divisor, the one operand those forms share.
+- **Why:** LR 6.4 pp. 297–298, "Multiple results" (quoted, `docs/research/ibm-options.md` §10): the
+  statement "stores that result in a temporary location" and combines it "with each single receiving
+  field". cobc re-reads the operand after its own update (B 7, and the same in MULTIPLY and DIVIDE):
+  D-022, held by the program MULTRES.
+- **Claims:** C-1 the rule as quoted: `verified`. C-2 for MULTIPLY and DIVIDE the temporary is the
+  multiplier or divisor: `hypothesis` (IBM's example is an ADD; the rule's wording, "the result" of
+  the sending side, gives this reading and no other that fits the forms); an `// Unsure` in
+  `lower/ArithVerbs.shared` names it, and a mainframe or a further IBM example settles it.
+- **Held by:** `lower/ArithVerbs.shared`; MULTRES in the differential tests; D-022.
+- **Source:** Fable's recollection under its status (J-141's HANDOFF note), Opus's reading of the
+  page the same day; decided by Fable, 2026-10-06.
+- **Status:** in force
+- **See also:** R-020, R-058, NE-08
+- **subject:** runtime
 
 ---
 

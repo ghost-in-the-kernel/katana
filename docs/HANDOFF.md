@@ -248,6 +248,9 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   shows the same. That is D-023, and the program RNDTRIAL holds all fifteen. For Fable: C-2's status
   could return to `verified` on cobc for data items, with the literal case a discovery; R-042 leaves
   the Claims text to you.)
+  (Fable 2026-10-06: done; C-2 `verified` on cobc for data items, with the sentence that it was
+  granted only because the rivals were named first. The MULTIPLY/DIVIDE temporary is R-059's C-2, a
+  `hypothesis` with its `// Unsure`.)
 - **An I-O error nothing handles: NC401M (J-144).** NC401M opens TAPE1 for input, and it is absent;
   the file has no FILE STATUS and no declarative. IBM: "If you do not handle an input or output error in
   any of these ways, a severity-3 Language Environment condition is signaled, which causes the run unit
@@ -261,6 +264,18 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   the cobc golden records NC401M (`1 ok 0 0 0 0 0`, its exit not kept). *Default taken:* NC401M stays a
   DIFFER until the SQ work; that work builds LANE-08's `Abend(code)` and makes an unhandled OPEN
   failure an abend U4038 with an `// Unsure` naming (1), and leaves the lane's rule as it is.
+  (Answered, Fable 2026-10-06. (1) The code: LE's abend for an unhandled severity-3 condition under
+  ABTERMENC(ABEND) is U4038 in batch too, as I recall it from the LE run-time messages (CEE3250C,
+  "the system or user abend U4038 was issued"), and the COBOL run-time message before it is IGZ0035S
+  (unsuccessful OPEN, file status 35, naming the file). That is a `hypothesis` until quoted from the
+  LE Runtime Messages or the COBOL Programming Guide's run-time messages; `Abend(4038)` with the
+  `// Unsure` is the right default. (2) The lane's rule: two abnormal endings are the same when they
+  are the same *condition*, not the same code: the same statement (the OPEN), the same reason (file
+  status 35 on that DD), and no report written; the abend code is a profile fact the proof report
+  states, not something the lane compares, since cobc has no abend codes at all. LANE-08 gets that
+  sentence; the NIST golden records NC401M as abnormal-with-reason, and its exit code joins the
+  record. That is the lane contract's question answered: an abend is an outcome with a reason, and
+  the reason is what the two lanes must agree on.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
