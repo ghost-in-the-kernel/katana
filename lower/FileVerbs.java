@@ -20,7 +20,7 @@ final class FileVerbs {
     static void declare(Emitter e, katana.sir.types.Program p) {
         for (FileDescriptor d : p.files()) {
             boolean lines = d.organization() == FileDescriptor.Organization.LINE_SEQUENTIAL;
-            e.line("private final SeqFile " + name(d.name()) + " = new SeqFile(" + Emitter.quote(d.assign()) + ", " + lines + ");");
+            e.line("private final SeqFile " + name(d.name()) + " = new SeqFile(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + lines + ", " + (d.status() != 0) + ");");
         }
     }
 

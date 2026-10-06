@@ -1078,3 +1078,8 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Table.java:Table.current` | R-019 | 2026-10-06 |  |
 | lower | `lower/Performs.java:Performs.varyingAfter` | R-021 | 2026-10-06 |  |
 | lower | `lower/ArithVerbs.java:ArithVerbs.shared` | R-020 | 2026-10-06 |  |
+| oracle | `oracle/nist/ModuleRun.java:ModuleRun.Outcome.abnormal` |  | 2026-10-06 |  |
+| oracle | `oracle/nist/ModuleRun.java:ModuleRun.reason` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Abend.java:Abend.Abend` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Abend.java:Abend.code` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Abend.java:Abend.line` |  | 2026-10-06 |  |

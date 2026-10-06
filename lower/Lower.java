@@ -60,7 +60,15 @@ public final class Lower {
         e.open("public static void main(String[] args)");
         e.line("Codepage cp = Codepage.valueOf(System.getProperty(\"katana.codepage\", \"COBC_ASCII\"));");
         e.line("Display.Sign sign = Display.Sign.valueOf(System.getProperty(\"katana.dispsign\", \"SEP\"));");
+        e.open("try");
         e.line("new " + className + "(cp, Upsi.of(System.getProperty(\"katana.upsi\", \"00000000\")), new Sysin(System.in), new Sysout(System.out, sign), new Sysout(System.err, sign)).run();");
+        e.close();
+        e.open("catch (Abend a)");
+        e.line("System.out.flush();");
+        e.line("System.err.println(a.line());");
+        e.line("System.err.println(a.getMessage());");
+        e.line("System.exit(a.code());");
+        e.close();
         e.close();
     }
 

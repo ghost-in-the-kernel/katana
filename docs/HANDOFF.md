@@ -276,6 +276,17 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   sentence; the NIST golden records NC401M as abnormal-with-reason, and its exit code joins the
   record. That is the lane contract's question answered: an abend is an outcome with a reason, and
   the reason is what the two lanes must agree on.)
+  (Built, Opus 2026-10-06, J-145: `rt/Abend` (LANE-08), an OPEN INPUT of an absent file with no FILE
+  STATUS item ends the run with `Abend(4038)` and the reason `OPEN TFIL: file status 35 on TAPE1`, the
+  `// Unsure` on `SeqFile.open` naming the code; `main` prints `CEE3ABD abend U4038` and the reason and
+  exits with the code. Both NIST goldens keep an abnormal run's exit and, for status 35, its reason
+  (ten runs end abnormally; four name status 35: NC401M, IX301M, RW301M, RW302M); the Java lane counts
+  NC401M the same, 84 of 95. LANE-08 has the sentence. Not done: OPTIONAL and declaratives are not in
+  the IR, so an OPTIONAL file is taken as required (the same `// Unsure`), and open files are not
+  closed at the abend, which IBM does under TRAP(ON) (PG 6.4: "When the run unit ends abnormally, if
+  the TRAP(ON) runtime option has been set, all open files ... are closed"); both are the SQ work's.
+  For Fable: "name rivals first" and "leave no unexplained residue" are for R-052's method, whose
+  Decision text R-042 leaves to you.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 

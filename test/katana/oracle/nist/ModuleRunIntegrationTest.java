@@ -33,7 +33,8 @@ class ModuleRunIntegrationTest {
             # Katana's NIST golden (R-047): each run of each program, as its own footer reports it under Katana's
             # profile (cobc 3.1.2, -std=cobol85, oracle/nist/exec85.cards and run-notes). A line is: module, program,
             # run, how it ended (ok: ran to an end; compile: cobc refused it; timeout: stopped at the limit), then
-            # tests in all, passed, failed, deleted, needing inspection. Written by `gradle integration -Dkatana.record=true`.
+            # tests in all, passed, failed, deleted, needing inspection; a run that ended abnormally adds its exit status
+            # and, when libcob names one, the reason (LANE-08). Written by `gradle integration -Dkatana.record=true`.
             """;
 
     @Test
@@ -105,6 +106,7 @@ class ModuleRunIntegrationTest {
     static String line(String module, ModuleRun.Outcome o, int run) {
         String ended = !o.compiled() ? "compile" : o.error() != null ? "timeout" : "ok";
         String counts = o.counts().map(c -> c.total() + " " + c.pass() + " " + c.fail() + " " + c.deleted() + " " + c.inspect()).orElse("0 0 0 0 0");
-        return String.join(" ", module, o.program(), String.valueOf(run), ended, counts);
+        String line = String.join(" ", module, o.program(), String.valueOf(run), ended, counts);
+        return o.abnormal() ? line + " exit=" + o.exit() + (o.reason() == null ? "" : " reason=" + o.reason().replace(' ', '_')) : line;
     }
 }

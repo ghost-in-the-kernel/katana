@@ -29,7 +29,7 @@ class NistJavaLaneIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final String MODULE = "NC";
     /** The NC runs whose counts equal cobc's; raised as the lowering grows, never lowered (the bench discipline, P-01). */
-    static final int FLOOR = 83;
+    static final int FLOOR = 84;
 
     /**
      * The runs where cobc -std=ibm fails tests the Java lane passes, each with why: a discovery against cobc
@@ -60,9 +60,8 @@ class NistJavaLaneIntegrationTest {
         List<String> report = new ArrayList<>();
         Map<String, Integer> missing = new TreeMap<>();
         for (ModuleRun.Outcome o : outcomes) {
-            // A run with no report is `0 0 0 0 0`, as the cobc lane's golden writes it (ModuleRunIntegrationTest); one that ended in an exception is never the same.
-            String java = "1 " + (o.error() == null ? "ok" : "error") + " " + o.counts().map(c -> c.total() + " " + c.pass() + " " + c.fail() + " " + c.deleted() + " " + c.inspect()).orElse("0 0 0 0 0");
-            boolean equal = o.error() == null && !o.note().startsWith("exit") && java.equals(cobc.get(o.program()));
+            String java = rendered(o);
+            boolean equal = same(o, java, cobc.getOrDefault(o.program(), ""));
             if (equal) same++;
             boolean clean = o.error() == null && o.counts().map(c -> c.fail() == 0 && c.total() > 0).orElse(false);
             if (COBC_FINDINGS.containsKey(o.program()) && (equal || !clean)) unexplained.add(o.program() + ": listed as cobc's but " + (equal ? "the same as cobc" : "failing through the Java lane"));
@@ -75,6 +74,23 @@ class NistJavaLaneIntegrationTest {
         System.out.println(report.get(0));
         assertTrue(same >= FLOOR, same + " < floor " + FLOOR);
         org.junit.jupiter.api.Assertions.assertEquals(List.of(), unexplained);
+    }
+
+    /** A run as the cobc lane's golden writes it: a run with no report is `0 0 0 0 0` (ModuleRunIntegrationTest). */
+    private static String rendered(ModuleRun.Outcome o) {
+        return "1 " + (o.error() == null ? "ok" : "error") + " " + o.counts().map(c -> c.total() + " " + c.pass() + " " + c.fail() + " " + c.deleted() + " " + c.inspect()).orElse("0 0 0 0 0");
+    }
+
+    /**
+     * Whether a Java run reports what cobc's golden line does. One that ended in an exception never does;
+     * two abnormal endings do when they are the same condition (LANE-08): the same reason and no report,
+     * never the exit status, which only IBM's abend code fills.
+     */
+    private static boolean same(ModuleRun.Outcome o, String java, String golden) {
+        if (o.error() != null) return false;
+        if (!o.abnormal()) return java.equals(golden);
+        if (o.reason() == null || o.counts().isPresent() || !golden.contains(" exit=")) return false;
+        return golden.replaceFirst(" exit=\\d+", "").equals(java + " reason=" + o.reason().replace(' ', '_'));
     }
 
     /** The lowering's findings for a program, counted by what was not lowered (its first words). */

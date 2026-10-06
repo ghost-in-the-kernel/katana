@@ -1972,3 +1972,21 @@ taken; closed by a later `decision` entry naming it).
   OPTIONAL and declaratives come together (taken).
 - **Resolved:** HANDOFF records the two questions (the abend's code for batch, and how the lane
   compares two abnormal endings) with the default.
+
+### J-145 An abend is an outcome with a reason: rt's Abend, and NC401M the same in both lanes
+- **Who:** Opus, on Fable's answer (49a3a91). **Class:** decision (built).
+- **Intent:** build LANE-08's `Abend` and the lane rule Fable gave: two abnormal endings are the same
+  condition (statement, reason, no report), never compared by code.
+- **Found:** status 35 is OPEN's alone ("An OPEN statement with the INPUT, I-O, or EXTEND phrase was
+  attempted on a nonoptional file that was unavailable", LR 6.4 p. 301), so libcob's `(status = 35)
+  for file TFIL ('TAPE1')` and rt's `OPEN TFIL: file status 35 on TAPE1` reduce to one reason. Under
+  cobc ten NIST runs end abnormally in either dialect; four of them on status 35.
+- **Resolved:** `rt/Abend`; `SeqFile` knows its file's name and whether it has a FILE STATUS item;
+  `main` catches the abend, prints `CEE3ABD abend U4038` and the reason, exits with the code (198 in
+  eight bits); `ModuleRun.Outcome` keeps exit and reason; the goldens record them, re-recorded;
+  `NistJavaLaneIntegrationTest.same` compares an abnormal run by reason; `ModuleRunTest` holds the
+  parser; FLOOR 84.
+- **Touched:** `rt/Abend`, `rt/SeqFile`, `lower/FileVerbs`, `lower/Lower`, `oracle/nist/ModuleRun`,
+  both NIST goldens, `docs/LANES.md` (LANE-08), `docs/HANDOFF.md`.
+- **Note:** the comparison does not read the abend code at all, so U4038's `// Unsure` cannot make a
+  lane pass or fail; only the proof report will state it.

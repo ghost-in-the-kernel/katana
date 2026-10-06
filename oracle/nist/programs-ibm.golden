@@ -1,7 +1,8 @@
 # Katana's NIST golden (R-047): each run of each program, as its own footer reports it under Katana's
 # profile (cobc 3.1.2, -std=ibm, oracle/nist/exec85.cards and run-notes). A line is: module, program,
 # run, how it ended (ok: ran to an end; compile: cobc refused it; timeout: stopped at the limit), then
-# tests in all, passed, failed, deleted, needing inspection. Written by `gradle integration -Dkatana.record=true`.
+# tests in all, passed, failed, deleted, needing inspection; a run that ended abnormally adds its exit status
+# and, when libcob names one, the reason (LANE-08). Written by `gradle integration -Dkatana.record=true`.
 NC NC101A 1 ok 93 93 0 0 0
 NC NC102A 1 ok 42 42 0 0 0
 NC NC103A 1 ok 102 102 0 0 0
@@ -96,7 +97,7 @@ NC NC253A 1 ok 61 61 0 0 0
 NC NC254A 1 ok 9 9 0 0 0
 NC NC302M 1 ok 0 0 0 0 0
 NC NC303M 1 ok 0 0 0 0 0
-NC NC401M 1 ok 0 0 0 0 0
+NC NC401M 1 ok 0 0 0 0 0 exit=1 reason=OPEN_TFIL_status_35_on_TAPE1
 SM SM101A 1 ok 8 8 0 0 0
 SM SM102A 1 ok 4 4 0 0 0
 SM SM103A 1 ok 6 6 0 0 0
@@ -138,7 +139,7 @@ IC IC233A 1 ok 1 1 0 0 0
 IC IC234A 1 ok 1 1 0 0 0
 IC IC235A 1 ok 12 12 0 0 0
 IC IC237A 1 ok 1 1 0 0 0
-IC IC401M 1 ok 0 0 0 0 0
+IC IC401M 1 ok 0 0 0 0 0 exit=1
 SQ SQ101M 1 ok 57 0 0 0 57
 SQ SQ102A 1 ok 11 11 0 0 0
 SQ SQ103A 1 ok 30 30 0 0 0
@@ -223,7 +224,7 @@ SQ SQ229A 1 ok 1 1 0 0 0
 SQ SQ230A 1 ok 1 1 0 0 0
 SQ SQ302M 1 ok 0 0 0 0 0
 SQ SQ303M 1 ok 0 0 0 0 0
-SQ SQ401M 1 ok 0 0 0 0 0
+SQ SQ401M 1 ok 0 0 0 0 0 exit=1
 RL RL101A 1 ok 1 1 0 0 0
 RL RL102A 1 ok 11 11 0 0 0
 RL RL103A 1 ok 11 11 0 0 0
@@ -258,7 +259,7 @@ RL RL212A 1 ok 1 1 0 0 0
 RL RL213A 1 ok 521 521 0 0 0
 RL RL301M 1 ok 0 0 0 0 0
 RL RL302M 1 ok 0 0 0 0 0
-RL RL401M 1 ok 0 0 0 0 0
+RL RL401M 1 ok 0 0 0 0 0 exit=1
 IX IX101A 1 ok 2 2 0 0 0
 IX IX102A 1 ok 11 11 0 0 0
 IX IX103A 1 ok 12 12 0 0 0
@@ -298,9 +299,9 @@ IX IX215A 1 ok 33 33 0 0 0
 IX IX216A 1 ok 15 14 0 1 0
 IX IX217A 1 ok 6 6 0 0 0
 IX IX218A 1 ok 6 6 0 0 0
-IX IX301M 1 ok 0 0 0 0 0
+IX IX301M 1 ok 0 0 0 0 0 exit=1 reason=OPEN_TFIL_status_35_on_INDEX1
 IX IX302M 1 ok 0 0 0 0 0
-IX IX401M 1 ok 0 0 0 0 0
+IX IX401M 1 ok 0 0 0 0 0 exit=1
 ST ST101A 1 ok 9 9 0 0 0
 ST ST102A 1 ok 0 0 0 0 0
 ST ST103A 1 ok 9 9 0 0 0
@@ -340,7 +341,7 @@ ST ST140A 1 compile 0 0 0 0 0
 ST ST144A 1 compile 0 0 0 0 0
 ST ST146A 1 ok 4 4 0 0 0
 ST ST147A 1 compile 0 0 0 0 0
-ST ST301M 1 ok 0 0 0 0 0
+ST ST301M 1 ok 0 0 0 0 0 exit=1
 SG SG101A 1 ok 151 151 0 0 0
 SG SG102A 1 ok 8 7 1 0 0
 SG SG103A 1 ok 7 4 3 0 0
@@ -410,8 +411,8 @@ RW RW101A 1 ok 8 8 0 0 0
 RW RW102A 1 ok 4 4 0 0 0
 RW RW103A 1 ok 14 14 0 0 0
 RW RW104A 1 ok 14 14 0 0 0
-RW RW301M 1 ok 0 0 0 0 0
-RW RW302M 1 ok 0 0 0 0 0
+RW RW301M 1 ok 0 0 0 0 0 exit=1 reason=OPEN_TFIL_status_35_on_TAPE1
+RW RW302M 1 ok 0 0 0 0 0 exit=1 reason=OPEN_TFIL_status_35_on_TAPE1
 DB DB101A 1 ok 34 25 0 0 9
 DB DB102A 1 ok 14 14 0 0 0
 DB DB103M 1 ok 14 14 0 0 0

@@ -20,13 +20,18 @@ public final class SeqFile {
     public enum Mode { INPUT, OUTPUT, EXTEND, IO }
 
     private final String name;
+    private final String file;
     private final boolean lines;
+    private final boolean status;
     private OutputStream out;
     private InputStream in;
 
-    public SeqFile(String name, boolean lineSequential) {
+    /** A file: the name it is ASSIGNed to, the program's name for it, and whether it has a FILE STATUS item. */
+    public SeqFile(String name, String file, boolean lineSequential, boolean status) {
         this.name = name;
+        this.file = file;
         this.lines = lineSequential;
+        this.status = status;
     }
 
     private Path path() {
@@ -34,8 +39,16 @@ public final class SeqFile {
         return Path.of(name);
     }
 
+    /**
+     * OPEN. An input file that is not there, with no FILE STATUS item, ends the run unit: "If you do not
+     * handle an input or output error in any of these ways, a severity-3 Language Environment condition
+     * is signaled, which causes the run unit to end" (PG 6.4 p. 243), by an abend under LE's default
+     * ABTERMENC(ABEND); the reason is file status 35 on the file.
+     */
     // Decision: R-019
+    // Unsure: U4038 is Fable's recollection of LE's abend for an unhandled severity-3 condition in batch, not yet quoted (HANDOFF, J-145); OPTIONAL and declaratives are not in the IR yet, so an OPTIONAL file is taken as required.
     public void open(Mode mode) {
+        if (mode == Mode.INPUT && !status && !Files.exists(path())) throw new Abend(4038, "OPEN " + file + ": file status 35 on " + name);
         try {
             if (mode == Mode.INPUT) in = new BufferedInputStream(Files.newInputStream(path()));
             else out = new BufferedOutputStream(mode == Mode.EXTEND ? Files.newOutputStream(path(), StandardOpenOption.CREATE, StandardOpenOption.APPEND) : Files.newOutputStream(path()));

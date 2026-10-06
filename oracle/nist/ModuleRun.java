@@ -26,11 +26,18 @@ public final class ModuleRun {
      * What happened to one run of one program: it did not compile or was stopped (error), or it ran to
      * an end, normal or not, with the counts its report gave if it printed one; a note says how it
      * ended when that was not a report. As in the published summary, a program that ran to an end is
-     * executed, and its tests are what it reported, none if it reported none.
+     * executed, and its tests are what it reported, none if it reported none. A run that ended
+     * abnormally keeps its exit status and, when its output names one, the reason (`reason`), the
+     * condition two lanes must agree on (LANE-08).
      */
-    public record Outcome(String program, String error, String note, Optional<Report.Counts> counts) {
+    public record Outcome(String program, String error, String note, Optional<Report.Counts> counts, int exit, String reason) {
         static Outcome compileError(String program, String output) {
-            return new Outcome(program, "compile: " + firstLine(output), "", Optional.empty());
+            return new Outcome(program, "compile: " + firstLine(output), "", Optional.empty(), 0, null);
+        }
+
+        /** Whether the run ended abnormally: it ran, and its exit status was not zero. */
+        public boolean abnormal() {
+            return error == null && exit != 0;
         }
 
         public boolean compiled() {
@@ -122,7 +129,7 @@ public final class ModuleRun {
             Optional<Report.Counts> counts = Report.read(printed);
             String error = ran.exit() == -1 ? "timed out" : null;
             String ended = !ran.ok() && error == null ? "exit " + ran.exit() + ": " + firstLine(ran.output()) : counts.isEmpty() ? "no report" : "";
-            outcomes.add(new Outcome(program.name(), error, ended, counts));
+            outcomes.add(new Outcome(program.name(), error, ended, counts, ran.exit(), ran.ok() ? null : reason(ran.output())));
         }
         return outcomes;
     }
@@ -150,6 +157,23 @@ public final class ModuleRun {
         Path copy = dir.resolve(ALTERNATE_LIBRARY.getOrDefault(member.name(), member.name()) + ".CPY");
         Files.createDirectories(copy.getParent());
         Files.write(copy, member.lines(), StandardCharsets.ISO_8859_1);
+    }
+
+    private static final java.util.regex.Pattern COBC_STATUS = java.util.regex.Pattern.compile("\\(status = (\\d\\d)\\) for file (\\S+) \\('([^']*)'\\)");
+    private static final java.util.regex.Pattern RT_STATUS = java.util.regex.Pattern.compile("(OPEN) (\\S+): file status (\\d\\d) on (\\S+)");
+
+    /**
+     * Why a run ended abnormally, in one form for both lanes: `OPEN TFIL status 35 on TAPE1`, from libcob's
+     * `(status = 35) for file TFIL ('TAPE1')` or rt's `OPEN TFIL: file status 35 on TAPE1`; null when the
+     * output names no file status. Status 35 is OPEN's alone: "An OPEN statement with the INPUT, I-O, or
+     * EXTEND phrase was attempted on a nonoptional file that was unavailable" (LR 6.4 p. 301).
+     */
+    public static String reason(String output) {
+        java.util.regex.Matcher rt = RT_STATUS.matcher(output);
+        if (rt.find()) return rt.group(1) + " " + rt.group(2) + " status " + rt.group(3) + " on " + rt.group(4);
+        java.util.regex.Matcher cobc = COBC_STATUS.matcher(output);
+        if (cobc.find() && cobc.group(1).equals("35")) return "OPEN " + cobc.group(2) + " status 35 on " + cobc.group(3);
+        return null;
     }
 
     private static String firstLine(String output) {
