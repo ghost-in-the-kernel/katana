@@ -16,7 +16,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The lowering verb by verb (phase 3.3): small programs written for it (test/katana/lower/programs/), each
- * run by cobc -std=ibm and through the Java lane (`JavaRunner`), their output equal line for line. A
+ * run by cobc -std=ibm and through the Java lane (`JavaRunner`), a `NAME.in` beside one its standard input
+ * in both, their output equal line for line. A
  * program's lowering findings are in the failure, with the IR of what was not lowered. Its mutation: the
  * outputs of two programs swapped differ.
  */
@@ -39,10 +40,12 @@ class LowerDifferentialIntegrationTest {
             String name = source.getFileName().toString().replace(".cbl", "");
             Path dir = Files.createDirectories(ROOT.resolve("build/lower-differential/" + name));
             Files.copy(source, dir.resolve(name + ".cbl"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            Path in = PROGRAMS.resolve(name + ".in");
+            byte[] input = Files.exists(in) ? Files.readAllBytes(in) : new byte[0];
             katana.oracle.nist.Runner.Result c = cobc.compile(dir, name + ".cbl", List.of());
-            String cobcOut = c.ok() ? cobc.execute(dir, name, Map.of()).output() : "cobc: " + c.output();
+            String cobcOut = c.ok() ? cobc.execute(dir, name, Map.of(), input).output() : "cobc: " + c.output();
             katana.oracle.nist.Runner.Result j = lane.program(dir, name + ".cbl");
-            String javaOut = j.ok() ? lane.run(dir, name, Map.of(), new byte[0]).output() : "lower or javac: " + j.output();
+            String javaOut = j.ok() ? lane.run(dir, name, Map.of(), input).output() : "lower or javac: " + j.output();
             String findings = Files.exists(dir.resolve(name + ".class-name")) ? Files.readString(dir.resolve(name + ".class-name"), StandardCharsets.UTF_8) : "";
             out.add(new Ran(name, cobcOut, javaOut + (findings.lines().count() > 1 ? "\nfindings:\n" + findings : "")));
         }
@@ -68,12 +71,16 @@ class LowerDifferentialIntegrationTest {
      * ADD-TEST-F2-11 to -13, seven addends in three orders into S999V9(10), every intermediate within
      * Appendix A's 30 digits, so each sum is exact, 242.4332220110 (PG 6.4 p. 795: "(i1 or i2) + 1, whichever is greater" integer and "d1
      * or d2, whichever is greater" decimal places); cobc -std=ibm gives 242.4332220010, its default dialect the exact sum, D-019
-     * (J-132).
+     * (J-132). ACCEPTREC: "The system input device is read until the receiving area is filled or EOF is
+     * encountered", "Each input record is concatenated with the previous input record", the final one
+     * "truncated as required" (LR 6.4 pp. 307-308); cobc reads one record into a 100-character item and
+     * the next ACCEPT gets the rest of it, D-020 (J-136).
      */
     static final Map<String, String> IBM_READINGS = Map.of("SEARCHVARY", "DD W\nN 002\n", "ACCEPTEOF", "X KEPT \nX KEPT \n",
             "POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n",
             "ALPHAIBM", "VALUE LOW IS F\nU < N\n",
-            "ADDIBM", "SUM 242.4332220110\nSUM 242.4332220110\nSUM 242.4332220110\nEQUAL\nSUB -344777.777443\n");
+            "ADDIBM", "SUM 242.4332220110\nSUM 242.4332220110\nSUM 242.4332220110\nEQUAL\nSUB -344777.777443\n",
+            "ACCEPTREC", "FIRST 10 [ABCDEFGHIJ]\nLAST 20 [*001*002*003*004*005]\nNEXT [NEXT RECORD]\n");
 
     @Test
     void eachProgramPrintsWhatCobcPrints() throws Exception {

@@ -1847,3 +1847,13 @@ taken; closed by a later `decision` entry naming it).
   D-019, the register's row now naming them; ADDIBM holds each to IBM's value, cobc still differing.
   Left to read: NC106A, NC119A's and NC175A's other cases, NC176A (binary truncation, which is the
   profile's TRUNC, not a reading of Appendix A), NC204M, NC205A, NC105A's two, NC211A (a reserved word).
+
+### J-136 cobc's ACCEPT reads one record where IBM fills the item (D-020); the differential test takes input
+- **Who:** Opus. **Class:** discovery; a test fix.
+- **Found:** NC204M passes through the Java lane where cobc fails three tests in both its dialects. Run
+  with its data member, cobc's ACC-TEST-F1-13 ACCEPTs a 200-character item from 80-column cards and
+  leaves its last 120 characters as they were, then every later ACCEPT reads the rest of that card.
+  IBM reads the system input device "until the receiving area is filled", "each input record ...
+  concatenated with the previous", the last cut (LR 6.4 pp. 307-308), which `rt/Sysin` does (J-122) and
+  NIST expects: D-020, held in ACCEPTREC. The differential test gave no program any input; a `NAME.in`
+  beside a program is now its standard input in both lanes.

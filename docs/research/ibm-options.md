@@ -386,3 +386,7 @@ them by row. Appendix A's arithmetic is §4; Table 48 (DISPSIGN) is the PG's, qu
 - LR p. 123 (PROGRAM COLLATING SEQUENCE): it "determines the truth value of the following alphanumeric
   comparisons: Those explicitly specified in relation conditions; Those explicitly specified in
   condition-name conditions". D-018.
+- LR pp. 307-308 (ACCEPT from the system input device): "The system input device is read until the
+  receiving area is filled or EOF is encountered. If the length of the receiving area is not an even
+  multiple of the system input device record length, the final record will be truncated as required."
+  "Each input record is concatenated with the previous input record." D-020.
