@@ -100,7 +100,7 @@ final class Values {
         String head = upper(t.qualifiedDataName().getChild(0).getChild(0).getText());
         if (cics && (head.equals("DFHRESP") || head.equals("DFHVALUE"))) return new Value.Name("cics", upper(t.getText()));
         List<Value> subscripts = new ArrayList<>();
-        for (var s : t.subscript()) subscripts.add(subscript(s));
+        for (var s : t.subscript()) subscripts.addAll(subscript(s));
         Value start = null, length = null;
         if (t.referenceModifier() != null) {
             start = of(t.referenceModifier().characterPosition().arithmeticExpression());
@@ -109,14 +109,18 @@ final class Values {
         return field(t.qualifiedDataName(), subscripts, start, length);
     }
 
-    /** A subscript: ALL, a value, or a name with a relative offset (`I + 1`, `I - 1`) as that sum. */
-    private Value subscript(CobolParser.SubscriptContext s) {
-        if (s.ALL() != null) return new Value.Name("keyword", "ALL");
-        if (s.arithmeticExpression() != null || s.getChildCount() == 1) return of(s.arithmeticExpression() != null ? s.arithmeticExpression() : s.getChild(0));
+    /**
+     * A subscript: ALL, a value, or a name with a relative offset (`I + 1`, `I - 1`) as that sum; the
+     * operator "must be preceded and followed by a space" (LR 6.4 p. 74), so a name followed by a literal
+     * alone is two subscripts (`W-1 10`, `I -1`), which the grammar lets look like an offset.
+     */
+    private List<Value> subscript(CobolParser.SubscriptContext s) {
+        if (s.ALL() != null) return List.of(new Value.Name("keyword", "ALL"));
+        if (s.arithmeticExpression() != null || s.getChildCount() == 1) return List.of(of(s.arithmeticExpression() != null ? s.arithmeticExpression() : s.getChild(0)));
         Value name = of(s.getChild(0));
         String offset = s.integerLiteral().getText();
-        boolean minus = offset.startsWith("-") || DataMap.text(s).replace(s.getChild(0).getText(), "").trim().startsWith("-");
-        return new Value.Expression(minus ? "-" : "+", List.of(name, Literals.of(offset.replaceFirst("^[-+]", ""))));
+        if (s.PLUSCHAR() == null && s.MINUSCHAR() == null) return List.of(name, Literals.of(offset));
+        return List.of(new Value.Expression(s.MINUSCHAR() != null ? "-" : "+", List.of(name, Literals.of(offset))));
     }
 
     /** A data name with its qualifiers, to a Field, to a ConditionName when it names an 88, else a Name and a finding. */
@@ -159,7 +163,7 @@ final class Values {
         String file = c.inFile() == null ? null : upper(c.inFile().fileName().getText());
         int owner = names.condition(name, qualifiers, file);
         List<Value> subscripts = new ArrayList<>();
-        for (var s : c.conditionNameSubscriptReference()) for (var sub : s.subscript()) subscripts.add(of(sub.getChild(0)));
+        for (var s : c.conditionNameSubscriptReference()) for (var sub : s.subscript()) subscripts.addAll(subscript(sub));
         if (owner != 0) return new Value.ConditionName(owner, name, subscripts);
         int item = names.item(name, qualifiers, file, Origins.at(parse, c).toString());
         if (item != 0) return new Value.Field(item, subscripts, null, null);

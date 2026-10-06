@@ -56,8 +56,10 @@ count of what was not lowered:* SEARCH, ACCEPT, switch conditions, MOVE CORRESPO
 *Then (J-122):* SEARCH, NEXT SENTENCE (sentence starts in the IR), ACCEPT; NC 26 of 95. *Then (J-123):*
 MOVE CORRESPONDING, switch-status conditions (UPSI); NC 29. *Then (J-124):* `**` with integral
 exponents, abbreviated relations with a data-item object; NC holds at 29 (those programs stop on
-something else). *Next:* class conditions (CLASS names), SET, INITIALIZE's remaining phrases, then why
-each of NC's 66 other runs differs.
+something else). *Then (J-125):* NC's crashes, one cause at a time: relative subscripts (the grammar
+split `I - 2` and joined `W-1 10`), ALL before a figurative constant, EVALUATE's NOT, REMAINDER after a
+size error, ADD and SUBTRACT CORRESPONDING, subscripted condition-names; NC 47. *Next:* class conditions (CLASS names), SET of a
+switch, INITIALIZE's remaining phrases, NC238A's loop, then the 48 runs that report but differ.
 
 ### 3.4 NIST, module by module, through both lanes
 

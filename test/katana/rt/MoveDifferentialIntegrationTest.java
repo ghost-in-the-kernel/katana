@@ -150,7 +150,7 @@ class MoveDifferentialIntegrationTest {
      * The cases where cobc parts from IBM: a numeric sender longer than a JUSTIFIED alphanumeric
      * receiver. IBM (LR p. 198): "If the sending item is larger than the receiving item, the leftmost
      * character positions are truncated"; cobc keeps the leftmost digits, as if JUSTIFIED were not
-     * there (each checked so below). A finding against cobc's dialect (J-103); listed so a change shows.
+     * there (each checked so below). A finding against cobc's dialect, D-013 (J-103); listed so a change shows.
      */
     static final List<Integer> JUSTIFIED_FINDINGS = List.of(5, 77, 209, 253, 361);
 

@@ -110,7 +110,7 @@ final class Evaluate {
         String test = o.thru() != null
                 ? "(" + f.conditions.compare(subject, o.value()) + " >= 0 && " + f.conditions.compare(subject, o.thru()) + " <= 0)"
                 : plain(subject, o.value());
-        return o.not() ? "!" + test : test;
+        return o.not() ? "!(" + test + ")" : test;
     }
 
     private static Value through(Value.Expression t) {
@@ -119,8 +119,8 @@ final class Evaluate {
 
     /** TRUE or FALSE against a condition, a condition against TRUE or FALSE, else equality. */
     private String plain(Value subject, Value object) {
-        if (bool(subject) != null) return (bool(subject) ? "" : "!") + f.conditions.of(object);
-        if (bool(object) != null) return (bool(object) ? "" : "!") + f.conditions.of(subject);
+        if (bool(subject) != null) return (bool(subject) ? "" : "!") + "(" + f.conditions.of(object) + ")";
+        if (bool(object) != null) return (bool(object) ? "" : "!") + "(" + f.conditions.of(subject) + ")";
         return f.conditions.compare(subject, object) + " == 0";
     }
 

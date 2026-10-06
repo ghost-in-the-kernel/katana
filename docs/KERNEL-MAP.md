@@ -1035,3 +1035,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/ArithProfile.java:ArithProfile.power` | R-049 | 2026-10-06 |  |
 | rt | `rt/katana/rt/Decimal.java:Decimal.power` | R-020 | 2026-10-06 |  |
 | sir | `sir/build/Expressions.java:Expressions.top` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.corresponding` | R-020 | 2026-10-06 |  |

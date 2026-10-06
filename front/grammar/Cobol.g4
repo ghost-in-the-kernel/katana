@@ -2394,8 +2394,11 @@ length
    : arithmeticExpression
    ;
 
+// Katana (J-124): a relative subscript is a name, + or - with a space either side, and an integer (`I - 2`,
+// LR 6.4 p. 74); a literal after a name with no such operator (`W-1 10`, `I -2`) is the next subscript,
+// which the builder splits off.
 subscript
-   : ALL | integerLiteral | qualifiedDataName integerLiteral? | indexName integerLiteral? | arithmeticExpression
+   : ALL | integerLiteral | qualifiedDataName ((PLUSCHAR | MINUSCHAR) integerLiteral | integerLiteral)? | indexName ((PLUSCHAR | MINUSCHAR) integerLiteral | integerLiteral)? | arithmeticExpression
    ;
 
 // Katana (2.1): an intrinsic's keyword argument, FUNCTION TRIM(X, TRAILING).

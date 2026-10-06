@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
  * by `AppendixAModel` (written from IBM's text, no code shared with `rt/`) and by `rt/Decimal`. The model
  * and `rt` must agree on every case, and cobc with them on every case no intermediate of which passes
  * the 30-digit cap; past it, where cobc keeps places IBM's table cuts, the cases are listed as findings
- * against cobc. Its mutation: the model with ROUNDED's place taken away disagrees with cobc.
+ * against cobc (D-001). Its mutation: the model with ROUNDED's place taken away disagrees with cobc.
  */
 @Tag("integration")
 class ArithDifferentialIntegrationTest {
@@ -172,7 +172,7 @@ class ArithDifferentialIntegrationTest {
      * The cases where cobc and IBM's table part, each past the 30-digit cap and each matching what the
      * model gives with no cap at all: cobc keeps the places IBM's table cuts there (first seen as a
      * product of 26 integer and 8 decimal places, which the table carries as 25 and 5 and cobc with at
-     * least 6). A finding against cobc's dialect (Fable: Katana follows IBM's text); listed so that a
+     * least 6). A finding against cobc's dialect, D-001 (Fable: Katana follows IBM's text); listed so that a
      * change in either shows (J-101).
      */
     static final List<Integer> CAP_FINDINGS = List.of(39, 84, 89, 99, 129, 169, 239);

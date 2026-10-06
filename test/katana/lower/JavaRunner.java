@@ -50,7 +50,7 @@ final class JavaRunner implements Runner {
             int status = javac.run(null, null, diagnostics, "-classpath", rtClasses(), "-d", dir.toString(), dir.resolve(name + ".java").toString());
             return new Result(status, diagnostics.toString(StandardCharsets.UTF_8));
         } catch (Exception | StackOverflowError e) {
-            return new Result(1, "lowering: " + e);
+            return new Result(1, "lowering: " + e + " at " + java.util.Arrays.stream(e.getStackTrace()).filter(t -> t.getClassName().startsWith("katana.")).limit(4).map(String::valueOf).collect(java.util.stream.Collectors.joining(" < ")));
         }
     }
 

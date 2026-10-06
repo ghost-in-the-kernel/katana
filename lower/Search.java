@@ -18,6 +18,7 @@ final class Search {
         this.f = f;
     }
 
+    /** A SEARCH as the loop head, its WHENs in order, and the step back to the head. */
     // Decision: R-019
     void statement(Statement s) {
         Value.Field table = (Value.Field) Verbs.operand(s, "search-statement");

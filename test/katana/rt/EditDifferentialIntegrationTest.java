@@ -208,7 +208,7 @@ class EditDifferentialIntegrationTest {
     }
 
     /**
-     * Where cobc parts from IBM's text on editing (J-104), each family with what shows it; Katana follows
+     * Where cobc parts from IBM's text on editing, D-006 (J-104), each family with what shows it; Katana follows
      * IBM (`EditorTest` holds rt to IBM's own examples). A difference no family explains fails the test.
      */
     enum Finding {
@@ -254,7 +254,7 @@ class EditDifferentialIntegrationTest {
         }
     }
 
-    /** The cases of each finding, listed so a change in cobc or rt shows. */
+    /** The cases of each finding (D-006), listed so a change in cobc or rt shows. */
     static final Map<Finding, List<Integer>> FINDINGS = Map.of(
             Finding.SIGN_WITH_CURRENCY, List.of(2, 26, 38, 59, 76, 99, 104, 146, 214, 230, 264, 334, 358, 362, 364, 372, 386),
             Finding.SUPPRESSION_BEFORE_TRUNCATION, List.of(122, 173, 228),

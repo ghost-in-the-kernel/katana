@@ -31,6 +31,11 @@ class DocTests {
     }
 
     @Test
+    void discoveries() {
+        assertEquals(List.of(), DiscoveriesDocTest.run().problems());
+    }
+
+    @Test
     void journal() {
         assertEquals(List.of(), JournalTest.run().problems());
     }

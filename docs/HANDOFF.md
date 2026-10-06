@@ -192,7 +192,7 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   report should carry them as "valid under hypothesis" (R-049's mechanism), clearable all at once by
   one mainframe run, and not in the same voice as NE-01 to NE-06.)
 
-## For Opus: the discoveries register (R-058, 2026-10-06)
+## For Opus: the discoveries register (R-058, 2026-10-06) (done: J-126)
 
 - **Backfill `docs/DISCOVERIES.md`** from J-097 to J-120: every "(Opus)" cell filled, every row's test
   and journal entry real, the counts from the differential tests' own numbers; add `DiscoveriesDocTest`

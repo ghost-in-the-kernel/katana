@@ -38,6 +38,14 @@
        01 ONE.
           05 K PIC 9 VALUE 7.
           05 V PIC X(2) VALUE "VV".
+       01 NA.
+          05 P PIC 9(3) VALUE 5.
+          05 Q PIC X(2) VALUE "QQ".
+          05 R1 PIC 9V9 VALUE 1.5.
+       01 NB.
+          05 P PIC 9(3) VALUE 10.
+          05 Q PIC 9(2) VALUE 7.
+          05 R1 PIC 9 VALUE 2.
        PROCEDURE DIVISION.
        MAIN-PARA.
            MOVE CORRESPONDING SRC TO DST DST2
@@ -45,4 +53,8 @@
            DISPLAY "DST2 " DST2
            MOVE CORR ONE TO ROW (2)
            DISPLAY "TBL " TBL
+           ADD CORR NA TO NB ROUNDED
+           DISPLAY "ADD " NB
+           SUBTRACT CORRESPONDING NA FROM NB
+           DISPLAY "SUB " NB
            STOP RUN.

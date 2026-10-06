@@ -174,10 +174,10 @@ class SizeErrorDifferentialIntegrationTest {
 
     /**
      * The cases where cobc judges a native binary (COMP-5) receiver's size error by its binary field's
-     * capacity, not its PICTURE, and so stores a value IBM's text calls a size error (LR p. 296: "the
+     * capacity, not its PICTURE, and so stores a value IBM's text calls a size error (LR p. 297: "the
      * largest value that the resultant data item can contain is the value implied by the item's decimal
      * PICTURE character-string, regardless of the TRUNC compiler option"). Each checked to be exactly
-     * that reading; a finding against cobc (J-108).
+     * that reading; a finding against cobc, D-009 (J-108).
      */
     static final List<Integer> CAPACITY_FINDINGS = List.of(115, 130, 148, 150, 243, 283);
 

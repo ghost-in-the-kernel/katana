@@ -78,7 +78,7 @@ class CodecDifferentialIntegrationTest {
     /**
      * The bytes cobc gives a field: IBM's size, but a native binary (COMP-5) of 1 or 2 digits takes 1
      * byte under cobc where IBM gives every binary of 1 to 4 digits a halfword (J-102; `-fbinary-size`
-     * does not change it). A finding against cobc's layout; `rt/` keeps IBM's.
+     * does not change it). A finding against cobc's layout, D-012; `rt/` keeps IBM's (LR p. 238).
      */
     static int cobcLength(Attr a) {
         return a.usage() == Attr.Usage.NATIVE_BINARY && a.digits() <= 2 ? 1 : a.length();

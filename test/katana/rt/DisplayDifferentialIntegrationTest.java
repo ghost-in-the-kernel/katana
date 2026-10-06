@@ -105,7 +105,7 @@ class DisplayDifferentialIntegrationTest {
         return sign + String.format("%0" + width + "d", v.unscaled().abs());
     }
 
-    /** How many cases fall in each way cobc parts from Table 48 (each checked against `cobcReading`), so a change shows. */
+    /** How many cases fall in each way cobc parts from Table 48 (each checked against `cobcReading`), so a change shows: D-004 and D-005. */
     static final Map<String, Integer> FINDINGS = Map.of("binary digits by capacity", 150, "zoned sign in place", 5);
 
     @Test
@@ -127,7 +127,7 @@ class DisplayDifferentialIntegrationTest {
         assertEquals(new java.util.TreeMap<>(FINDINGS), counts, "the cases where cobc parts from IBM's Table 48");
     }
 
-    /** R-056's mutation: DISPSIGN(COMPAT) differs from cobc. */
+    /** R-056's mutation: DISPSIGN(COMPAT) differs from cobc, which is D-003: cobc's ibm dialect does not overpunch as IBM's default does. */
     @Test
     void compatDiffers() throws Exception {
         List<Case> cases = cases();

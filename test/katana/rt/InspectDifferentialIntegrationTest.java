@@ -217,7 +217,7 @@ class InspectDifferentialIntegrationTest {
         }
     }
 
-    /** The cases where cobc's phrase-at-a-time INSPECT gives another answer than IBM's comparison cycles, each checked to be exactly that. */
+    /** D-008: the cases where cobc's phrase-at-a-time INSPECT gives another answer than IBM's comparison cycles, each checked to be exactly that. */
     static final List<Integer> CYCLE_FINDINGS = List.of(134, 400, 401);
 
     @Test

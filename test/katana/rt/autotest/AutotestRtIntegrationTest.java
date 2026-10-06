@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
  * run against `rt/` and its output held two ways. Against the testsuite's expected stdout, pass or fail
  * only (R-045: the expected side is never shown; it is cobc's default dialect, not IBM's). Against cobc
  * -std=ibm running the same `prog.cob`, shown in full, where a difference must be a listed finding with
- * its reason. The results are a golden, so the check says how many it reaches and how many pass.
+ * its reason (D-005, D-006, D-007; against the testsuite, D-010). The results are a golden, so the check says how many it reaches and how many pass.
  */
 @Tag("integration")
 class AutotestRtIntegrationTest {
@@ -38,7 +38,7 @@ class AutotestRtIntegrationTest {
 
     private static final String ZONED_SIGN = "cobc's ibm dialect DISPLAYs an overpunched zoned item's sign separate in the overpunch's place; IBM's DISPSIGN(SEP) leads with it (J-109)";
 
-    /** Each case where Katana and cobc -std=ibm differ, and why: IBM's text against cobc's dialect. */
+    /** Each case where Katana and cobc -std=ibm differ, and why: IBM's text against cobc's dialect (D-005, D-006, D-007). */
     static final Map<String, String> FINDINGS = Map.of(
             "run_fundamental-146", ZONED_SIGN,
             "run_misc-2947", ZONED_SIGN,
@@ -52,7 +52,7 @@ class AutotestRtIntegrationTest {
     /**
      * The cases whose output differs from the testsuite's expected stdout because the testsuite expects
      * GnuCOBOL's default dialect where Katana follows IBM: findings against the testsuite's expectation,
-     * not failures (Fable, 2026-10-06). Every other case must pass; each of these must fail.
+     * not failures (Fable, 2026-10-06), D-010. Every other case must pass; each of these must fail.
      */
     static final Map<String, String> TESTSUITE_FINDINGS = Map.of(
             "run_fundamental-146", NO_POINT,

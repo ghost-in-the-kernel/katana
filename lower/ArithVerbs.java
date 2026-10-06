@@ -67,6 +67,10 @@ final class ArithVerbs {
     private void add(Statement s, boolean phrase) {
         List<Value> from = Verbs.operands(s, "add-from");
         List<Receiver> to = receivers(s, "add-to"), giving = receivers(s, "add-giving");
+        if (from.isEmpty()) {
+            corresponding(s, "add", "add-corresponding-statement", to, phrase);
+            return;
+        }
         if (giving.isEmpty()) {
             int dmax = f.arith.dmax(items(to), from);
             String total = sum(from, dmax);
@@ -88,6 +92,10 @@ final class ArithVerbs {
     private void subtract(Statement s, boolean phrase) {
         List<Value> subtrahends = Verbs.operands(s, "subtract-subtrahend");
         List<Receiver> minuends = receivers(s, "subtract-minuend"), giving = receivers(s, "subtract-giving");
+        if (subtrahends.isEmpty()) {
+            corresponding(s, "subtract", "subtract-corresponding-statement", receivers(s, "subtract-minuend-corresponding"), phrase);
+            return;
+        }
         List<Value> all = new ArrayList<>(subtrahends);
         Value minuend = Verbs.operand(s, "subtract-minuend-giving");
         if (minuend != null) all.add(minuend);
@@ -95,6 +103,22 @@ final class ArithVerbs {
         String total = sum(subtrahends, dmax);
         if (giving.isEmpty()) store(minuends, (r, rd) -> op("subtract", f.arith.operand(r.field()), total, dmax, rd), phrase);
         else store(giving, (r, rd) -> op("subtract", f.arith.operand(minuend), total, dmax, rd), phrase);
+    }
+
+    /**
+     * ADD and SUBTRACT CORRESPONDING (LR 6.4 p. 295): each pair of elementary numeric items the two groups
+     * share, the receiver's own ROUNDED on each; SIZE ERROR's statement after all of them (`sz` gathers).
+     */
+    // Decision: R-020
+    private void corresponding(Statement s, String op, String senderRole, List<Receiver> receivers, boolean phrase) {
+        Value.Field group = (Value.Field) Verbs.operand(s, senderRole);
+        for (Receiver r : receivers) {
+            for (Value.Field[] pair : Corresponding.pairs(f.x, group, r.field(), true)) {
+                Receiver into = new Receiver(pair[1], r.rounded());
+                int dmax = f.arith.dmax(items(List.of(into)), List.of(pair[0]));
+                store(List.of(into), (t, rd) -> op(op, f.arith.operand(t.field()), f.arith.operand(pair[0]), dmax, rd), phrase);
+            }
+        }
     }
 
     private void multiply(Statement s, boolean phrase) {
@@ -128,7 +152,8 @@ final class ArithVerbs {
 
     /**
      * DIVIDE ... GIVING q REMAINDER r (LR p. 336): the quotient stored as usual; the remainder the dividend
-     * less the product of the divisor and the quotient as stored without rounding.
+     * less the product of the divisor and the quotient as stored without rounding; after a division by
+     * zero, or a size error in the quotient under the SIZE ERROR phrase, the remainder is unchanged (p. 336).
      */
     // Decision: R-020
     private void remainder(Statement s, Value a, Value byValue, Value intoValue, Receiver q, Receiver r, boolean phrase) {
@@ -138,10 +163,13 @@ final class ArithVerbs {
         String quotient = op("divide", f.arith.operand(dividend), f.arith.operand(divisor), dmax, q.rounded());
         f.e.open("");
         f.e.line("Decimal.Term qt = " + quotient + ";");
-        f.e.line("sz |= Arithmetic.store(" + f.x.field(q.field()) + ", qt, " + q.rounded() + ", " + phrase + ");");
+        f.e.line("boolean qs = Arithmetic.store(" + f.x.field(q.field()) + ", qt, " + q.rounded() + ", " + phrase + ");");
+        f.e.line("sz |= qs;");
+        f.e.open("if (!qt.divisionByZero()" + (phrase ? " && !qs" : "") + ")");
         f.e.line("Decimal.Term tq = Decimal.operand(Decimal.store(qt, " + Lower.stored(qi.attributes()) + ", " + qi.attributes().scale() + ", true, false).value(), " + Arith.integerPlaces(qi) + ");");
         f.e.line("Decimal.Term rt = Decimal.subtract(P, " + f.arith.operand(dividend) + ", Decimal.multiply(P, tq, " + f.arith.operand(divisor) + ", " + dmax + ", false, false), " + dmax + ", true, false);");
         f.e.line("sz |= Arithmetic.store(" + f.x.field(r.field()) + ", rt, false, " + phrase + ");");
+        f.e.close();
         f.e.close();
     }
 

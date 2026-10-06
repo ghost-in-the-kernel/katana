@@ -24,6 +24,7 @@ final class Corresponding {
         return out;
     }
 
+    /** One level of the two groups: a name in both, looked into while both are groups, else a pair when the verb allows it. */
     private static void walk(Exprs x, Value.Field from, Value.Field to, boolean numeric, List<Value.Field[]> out) {
         List<Item> receivers = children(x, to.item());
         for (Item s : children(x, from.item())) {

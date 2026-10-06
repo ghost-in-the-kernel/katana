@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
  * The three readings of ROUNDED each give a different list, so the cases decide between them: NONE (no
  * extra place: case 5 is 0.6), DMAX (one more place in dmax, every intermediate: case 2 is 2.0), and
  * LAST (one more place on the last operation, `ArithProfile.last`), the one cobc prints. Data items, not
- * literals: cobc folds an all-literal expression at compile time with more places.
+ * literals: cobc folds an all-literal expression at compile time with more places (D-002).
  */
 @Tag("integration")
 class ArithTrialIntegrationTest {

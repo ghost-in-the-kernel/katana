@@ -353,3 +353,30 @@ So for a RENT program, WORKING-STORAGE without VALUE holds STORAGE's heap_alloc_
 under the default: `ibm.wsinit` is that value (`NONE`, or the two hex digits). A NORENT program's
 WORKING-STORAGE is not covered by these pages. (A single quoted character is also allowed by LE, the
 character's EBCDIC byte; the field records the byte.)
+
+## 10. The authority behind each discovery (read 2026-10-06, primary; R-058)
+
+Each line verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR, `igy6lr40.pdf`, S20)
+or Programming Guide (PG), checked word for word against the PDF's text; `docs/DISCOVERIES.md` cites
+them by row. Appendix A's arithmetic is §4; Table 48 (DISPSIGN) is the PG's, quoted in `rt/Display`.
+
+- LR p. 198 (MOVE, alphanumeric receivers): "If the sending item is larger than the receiving item, the
+  leftmost character positions are truncated" (a JUSTIFIED receiver). D-013.
+- LR p. 223 (floating insertion editing): "Any simple-insertion symbols (B 0 / ,) within or to the
+  immediate right of the string of floating insertion symbols are considered part of the floating
+  character-string." D-007.
+- LR p. 224 (zero suppression): IBM suppresses "any leading zero in the data that appears in the same
+  character position". D-006.
+- LR p. 238 (USAGE BINARY): "1 through 4 2 bytes (halfword)". D-012.
+- LR p. 297 (SIZE ERROR, COMPUTATIONAL-5): "the largest value that the resultant data item can contain is the value
+  implied by the item's decimal PICTURE character-string, regardless of the TRUNC compiler option". D-009.
+- LR p. 307: "When the FROM phrase is omitted, the system input device is assumed." pp. 307-308: "If EOF
+  is encountered before any data has been moved to the receiving area, padding will not take place and
+  the contents of the receiving area are unchanged." D-015.
+- LR p. 437 (SEARCH VARYING): "the occurrence number represented by index-name-1 is increased by the same
+  amount as the search index-name and at the same time"; for an integer item, "whenever the search index
+  is increased, the specified data item is simultaneously increased by 1". D-014.
+- LR p. 74 (relative subscripting): "The operators + and - must be preceded and followed by a space."
+  (Katana's own grammar bug, J-125; cobc agrees with IBM.)
+- PG pp. 796-797 (exponentiation): "If op2 is equal to 0, the result is 1"; "If op2 is negative, the
+  value of 1 is then divided by the result produced by the preliminary computation". D-016.

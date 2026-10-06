@@ -95,8 +95,9 @@ final class Exprs {
         return "new byte[] {Literal.figurative(" + Emitter.quote(singular(f.name())) + ", cp)}";
     }
 
-    /** A figurative constant's name in the singular: SPACES is SPACE, ZEROES and ZEROS are ZERO. */
-    static String singular(String name) {
+    /** A figurative constant's name in the singular: SPACES is SPACE, ZEROES and ZEROS are ZERO; ALL before one adds nothing (`ALL QUOTE` is QUOTE). */
+    static String singular(String written) {
+        String name = written.replaceFirst("^ALL ", "");
         return name.equals("ZEROES") || name.equals("ZEROS") ? "ZERO" : name.endsWith("S") ? name.substring(0, name.length() - 1) : name;
     }
 

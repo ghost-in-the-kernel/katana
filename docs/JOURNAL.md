@@ -1668,3 +1668,43 @@ taken; closed by a later `decision` entry naming it).
   the same `3 ** -1` ROUNDED printed 5.196152 in one program and 0.333333 in another. Held in POWERIBM
   to the values worked from IBM's rules, cobc still differing. A signed item DISPLAYed raw differs by
   the sign's place (J-109), so the programs show signed results through a numeric-edited item.
+
+### J-125 NC's crashes, one cause at a time; NC 29 to 47
+- **Who:** Opus. **Class:** build (3.4), with a grammar fix.
+- **Found:** Of NC's runs with no report, most crashed; each crash traced to its statement. Relative
+  subscripts: the grammar let `TABLE1-NUM (INDEX1 - 2)` be two subscripts, `INDEX1` and `- 2`, and
+  `YEAR-1 (W-1  10)` one, `W-1` offset by 10. IBM's form is a name, + or - "preceded and followed by a
+  space", and an integer (LR 6.4 p. 74): the grammar now takes that form, and the builder splits a name
+  followed by a bare literal (`W-1 10`, `I -1`) into two subscripts. A first reading took `I -1` as
+  relative too; cobc refused the program, and IBM's page settled it for cobc. ALL before a figurative
+  constant (`ALL QUOTE`) is the constant. EVALUATE wrote `!Compare...(...) == 0` for NOT, so javac
+  refused it; each negation is now parenthesized. DIVIDE ... REMAINDER read the stored quotient after a
+  division by zero; IBM leaves quotient and remainder unchanged after a size error in the quotient
+  (p. 336), and the remainder is now computed only when the quotient stored cleanly (always after a
+  zero divisor). ADD and SUBTRACT CORRESPONDING lowered through `lower/Corresponding`'s numeric pairs.
+  A subscripted condition-name kept only each subscript's first word, so `EQUALS-A OF T (IN1 - 5)` lost
+  its offset (the old grammar's split had hidden it as a second subscript); the token check caught it
+  (NC246A, 10 tokens left) and it now reads subscripts as a data item does.
+  `JavaRunner` now names the lowering's own frames when it fails. NC through the Java lane: 29 to 47
+  (floor raised); cobc agrees on every case of SUBSCRIPTS and the CORRS additions.
+- **Open:** NC238A loops past its table (a step before it differs), NC243A, NC201A; SET of a switch;
+  CLASS conditions; the 48 runs that report but differ from cobc's counts.
+
+### J-126 The discoveries register filled, and its doc test (R-058)
+- **Who:** Opus. **Class:** decision carried out.
+- **Found:** `docs/DISCOVERIES.md` backfilled from J-097 to J-124 and the tests' own case lists: every
+  cell filled, sixteen rows (D-011 withdrawn as seeded). Where Fable's seeds and the tests disagreed,
+  the rows say what the tests prove: DISPLAY's are three, cobc not overpunching as COMPAT does (D-003,
+  the test's mutation), binary items by their field's digits (D-004, 150 of 300, not 5), the zoned sign
+  in place (D-005, 5 of 300 and 3 autotests); editing is 41 of 400 cases in five families (D-006).
+  Five rows are new: the 1- and 2-digit COMP-5 layout (D-012, J-102), JUSTIFIED truncation (D-013,
+  J-103), and this phase's SEARCH VARYING (D-014), ACCEPT at end of input (D-015) and exponentiation
+  (D-016). Each authority is quoted, checked word for word against the PDF's text with its page from
+  the PDF's footers, in `docs/research/ibm-options.md` §10; one test comment cited p. 296 where the
+  sentence is on p. 297, corrected. Every test that lists cobc's departures cites its rows.
+  `DiscoveriesDocTest` (in `DocTests`) holds the register to the code: rows in order, each journal
+  entry real, each live row's test a file that cites it, the lists it names in that test, its mutation
+  a method; every `...FINDINGS` or `...READINGS` list and every comment that says "against cobc" cites
+  a D-number that is a row. It rejects nine broken inputs, one per rule.
+- **Resolved:** HANDOFF's R-058 item. **Touched:** `docs/DISCOVERIES.md`, `docs/research/ibm-options.md`,
+  `test/DiscoveriesDocTest.java`, `test/DocTests.java`, the differential tests' comments.
