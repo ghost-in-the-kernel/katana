@@ -1724,3 +1724,15 @@ taken; closed by a later `decision` entry naming it).
   alphanumeric-edited item filled it raw, where a MOVE edits (` / ` for SPACE into `X/X`). cobc agrees
   on every case of CLASSES, SWITCHES and INITS. NC through the Java lane: 47 to 50 (floor raised);
   of NC's statements only one ALL literal is not lowered. NIST contract facts +14, the new header facts.
+
+### J-128 An 01 that REDEFINES another shares its storage; NC 50 to 65
+- **Who:** Opus. **Class:** build (3.4); a lowering bug since J-114.
+- **Found:** Reading why NC125A's edited moves failed (`run1`, a scratch runner of one program's
+  lowered class): the editing equals cobc's on every value (FLOATS), but its table, an 01 of FILLERs
+  with VALUEs and an 01 that REDEFINES it with an OCCURS, read zeros and spaces. The lowering gave a
+  record its own storage unless it was a second 01 under an FD, so an 01-level REDEFINES in
+  WORKING-STORAGE had bytes of its own: writes through one name never reached the other. IBM: "One or
+  more redefinitions of the same storage area are permitted", the redefining item possibly longer (LR
+  6.4 p. 226). Such a record now takes the redefined record's storage, sized to the longest. Fifteen
+  NC programs build their test tables that way: NC through the Java lane, 50 to 65 (floor raised).
+  Neither the differential programs nor the autotests had an 01-level REDEFINES; FLOATS now does.

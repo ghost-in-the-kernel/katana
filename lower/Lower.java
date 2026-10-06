@@ -93,8 +93,10 @@ public final class Lower {
         }
     }
 
-    /** A record's storage: its own, or, for a second 01 under an FD, the first's (they share the record area). */
+    /** A record's storage: its own; for a second 01 under an FD, the first's (they share the record area); for an 01 that REDEFINES another, that one's (LR 6.4 p. 226: "redefinitions of the same storage area"). */
+    // Decision: R-019
     private static String area(Program p, Item record) {
+        if (record.redefines() != 0) return "r" + p.items().get(record.redefines() - 1).record();
         for (var d : p.files()) {
             if (d.records().contains(record.id()) && d.records().get(0) != record.id()) return "r" + d.records().get(0);
             if (d.records().contains(record.id())) return "Record.of(" + d.records().stream().mapToInt(r -> recordLength(p, p.items().get(r - 1))).max().orElse(record.length()) + ", cp)";
@@ -102,10 +104,13 @@ public final class Lower {
         return "Record.of(" + recordLength(p, record) + ", cp)";
     }
 
-    /** A record's length: its own, or the longest item that REDEFINES it. */
+    /** A record's length: its own, or the longest item that REDEFINES it, an 01 that redefines it included. */
     private static int recordLength(Program p, Item record) {
         int length = record.length();
-        for (Item i : p.items()) if (i.record() == record.id()) length = Math.max(length, i.offset() + i.length());
+        for (Item i : p.items()) {
+            if (i.record() == record.id()) length = Math.max(length, i.offset() + i.length());
+            else if (i.redefines() == record.id() && i.record() == i.id()) length = Math.max(length, recordLength(p, i));
+        }
         return length;
     }
 
