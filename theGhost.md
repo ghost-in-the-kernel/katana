@@ -731,7 +731,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   Two fields added 2026-10-06: `ibm.dispsign` (`COMPAT` default, or `SEP`; Programming Guide 6.4
   Table 48, read by Opus, `verified`: COMPAT overpunches a negative value's last digit and shows a
   zoned item's bytes as they are, SEP shows a leading separate sign; the cobc lane compares under SEP,
-  with cobc's packed and binary departures as findings, J-109) and `ibm.wsclear` (R-057). Each row in
+  with cobc's packed and binary departures as findings, J-109) and `ibm.wsinit` (R-057; first `ibm.wsclear`). Each row in
   `docs/PROFILE.md` is Opus's to add with its code, in this wording.
 - **Why:** The study's container could not reach IBM's manuals at all (F-10). From this session the
   performance-tuning papers, the compiler-option tables, the Customization Guide and eleven APARs
@@ -952,19 +952,27 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   program that reads an item before writing it is not proven by the oracle: the finding for that
   read, "reads of uninitialized storage", is phase 5's (`docs/FINDINGS.md` already says so; it needs
   the Intent IR's data flow), and until it exists the proof report says in its header that initial
-  values of items without VALUE are assumed, not proven. A profile field `ibm.wsclear` (`NO`
-  default, or `YES`) records what the customer compiles with, so that the finding, when it exists,
-  can say what the original would have seen.
+  values of items without VALUE are assumed, not proven. A profile field `ibm.wsinit` (`NONE`
+  default, or the hex byte fresh storage is set to, `00` being the usual) records what the
+  customer's original ran under, so that the finding, when it exists, can say what the original
+  would have seen. (Amended 2026-10-06: first worded as `ibm.wsclear`, `NO`/`YES`, after AIX's
+  WSCLEAR option; on z/OS that option does not exist, J-118, and the thing that sets fresh storage
+  is Language Environment's STORAGE run-time option, whose first value is the byte heap storage is
+  initialized to; one field with a byte covers both, and the lowering reads neither.)
 - **Why:** The alternative, binary zeros as IBM's WSCLEAR gives, breaks the cobc oracle on every
   program that reads before writing, for no gain: neither value is what an unpredictable item held
   on the customer's machine. The oracle's agreement is worth keeping; the honesty is in the header
   until the finding can name the items.
 - **Claims:** C-1 IBM: an item without VALUE has an unpredictable initial value: `verified` (LR 6.4 p. 103
-  "undefined", p. 245 "unpredictable"; quoted in `docs/research/ibm-options.md` §9, J-118). C-2 WSCLEAR (Enterprise COBOL 6.2 and
-  later) clears WORKING-STORAGE to binary zeros: `hypothesis`, same condition. C-3 `cobc -std=ibm`
+  "undefined", p. 245 "unpredictable"; quoted in `docs/research/ibm-options.md` §9, J-118). C-2 (as first stated, "WSCLEAR clears
+  WORKING-STORAGE to binary zeros"): **refuted for z/OS** (J-118: the z/OS Programming Guide 6.4
+  names WSCLEAR once, p. 864, as AIX only). C-2 restated: on z/OS, WORKING-STORAGE without VALUE
+  holds whatever Language Environment's STORAGE option set heap storage to (`STORAGE(00,...)` gives
+  binary zeros; the default leaves it as found): `hypothesis` until quoted from the LE Programming
+  Reference or the Programming Guide's section on initial values. C-3 `cobc -std=ibm`
   gives INITIALIZE's values: `verified` (J-114).
 - **Held by:** `lower/`'s data map (the `// Unsure` becomes a `// Decision: R-057`); the proof
-  report's header; `docs/PROFILE.md`'s `ibm.wsclear` row once Opus adds it with its code.
+  report's header; `docs/PROFILE.md`'s `ibm.wsinit` row (added as `ibm.wsclear`, J-118; renamed).
 - **Source:** Opus's default and lean (J-114); decided by Fable, 2026-10-06.
 - **Status:** in force
 - **See also:** R-020, R-049, P-03

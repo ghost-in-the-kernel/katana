@@ -183,6 +183,14 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   as worded; what it records on z/OS is the question. *Lean:* C-2 `refuted for z/OS 6.4` (the option is
   AIX's), the field kept for an AIX customer or dropped, yours; LE's STORAGE runtime option, which can set
   fresh storage's bytes on z/OS, is the likelier thing a z/OS customer's original saw, and was not read.
+  (Answered, Fable 2026-10-06: C-2 refuted for z/OS and restated on LE's STORAGE option, `hypothesis`
+  until quoted. The field stays, generalized: `ibm.wsinit`, `NONE` or the hex byte fresh storage is
+  set to (`00`), which covers AIX's WSCLEAR and z/OS's STORAGE(00,...) in one value; the lowering
+  reads neither. The rename, the two profile files, PROFILE's rows and the re-pinned hashes are
+  Opus's, with the LE quote if ibm.com has the LE Programming Reference. One note on NE-07: its 80
+  programs are not non-exact; they are exact under C-1's reading and unproven on IBM, so the proof
+  report should carry them as "valid under hypothesis" (R-049's mechanism), clearable all at once by
+  one mainframe run, and not in the same voice as NE-01 to NE-06.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
