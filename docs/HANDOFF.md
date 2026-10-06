@@ -248,6 +248,19 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   shows the same. That is D-023, and the program RNDTRIAL holds all fifteen. For Fable: C-2's status
   could return to `verified` on cobc for data items, with the literal case a discovery; R-042 leaves
   the Claims text to you.)
+- **An I-O error nothing handles: NC401M (J-144).** NC401M opens TAPE1 for input, and it is absent;
+  the file has no FILE STATUS and no declarative. IBM: "If you do not handle an input or output error in
+  any of these ways, a severity-3 Language Environment condition is signaled, which causes the run unit
+  to end if the condition is not handled" (PG 6.4 p. 243); LE's ABTERMENC default is ABEND ("Language
+  Environment issues an abend to end the enclave", "ABEND is the default", LE Programming Reference,
+  ABTERMENC); the abend code "depends on the type of unhandled condition", and the reference read here
+  names U4038 for software-raised conditions only in its CICS table. cobc: `file does not exist (status
+  = 35)`, exit 1. The Java lane: an uncaught `NoSuchFileException`, which the NIST lane counts as never
+  the same. Two questions: (1) the abend's code (U4038 is the likely one, not yet quoted for batch);
+  (2) whether the NIST lane counts two runs that both ended abnormally with no report as the same, as
+  the cobc golden records NC401M (`1 ok 0 0 0 0 0`, its exit not kept). *Default taken:* NC401M stays a
+  DIFFER until the SQ work; that work builds LANE-08's `Abend(code)` and makes an unhandled OPEN
+  failure an abend U4038 with an `// Unsure` naming (1), and leaves the lane's rule as it is.
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 

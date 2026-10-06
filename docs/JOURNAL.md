@@ -1961,3 +1961,14 @@ taken; closed by a later `decision` entry naming it).
 - **Resolved:** D-024; RELDMAX holds nine cases in `IBM_READINGS`; NC205A joins `COBC_FINDINGS`.
 - **Touched:** `docs/DISCOVERIES.md`, the differential and NIST lane tests.
 - **Cost:** five cobc runs.
+
+### J-144 NC401M: an I-O error nothing handles has no Java ending yet
+- **Who:** Opus. **Class:** deferred.
+- **Found:** NC401M opens an absent TAPE1 with no FILE STATUS and no declarative. IBM ends the run unit
+  on a severity-3 condition (PG p. 243), an abend by LE's default (ABTERMENC); cobc exits 1 with
+  status 35; the Java lane throws `NoSuchFileException`. `rt/` has no `Abend` yet (LANE-08 specifies
+  it) and `SeqFile` no FILE STATUS.
+- **Options:** build `Abend` and status 35 now for one run; or with the SQ module, where FILE STATUS,
+  OPTIONAL and declaratives come together (taken).
+- **Resolved:** HANDOFF records the two questions (the abend's code for batch, and how the lane
+  compares two abnormal endings) with the default.
