@@ -65,15 +65,15 @@ class LowerDifferentialIntegrationTest {
      * sequence used" (LR 6.4 p. 16), and the sequence "determines the truth value of" alphanumeric
      * comparisons "explicitly specified in relation conditions" (p. 123); cobc gives a VALUE of LOW-VALUE
      * X'00', D-017, and compares two literals in native order, D-018 (J-131). ADDIBM: NIST NC177A's
-     * ADD-TEST-F2-11, seven addends into S999V9(10), every intermediate within Appendix A's 30 digits, so
-     * the sum is exact, 242.4332220110 (PG 6.4 p. 795: "(i1 or i2) + 1, whichever is greater" integer and "d1
+     * ADD-TEST-F2-11 to -13, seven addends in three orders into S999V9(10), every intermediate within
+     * Appendix A's 30 digits, so each sum is exact, 242.4332220110 (PG 6.4 p. 795: "(i1 or i2) + 1, whichever is greater" integer and "d1
      * or d2, whichever is greater" decimal places); cobc -std=ibm gives 242.4332220010, its default dialect the exact sum, D-019
      * (J-132).
      */
     static final Map<String, String> IBM_READINGS = Map.of("SEARCHVARY", "DD W\nN 002\n", "ACCEPTEOF", "X KEPT \nX KEPT \n",
             "POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n",
             "ALPHAIBM", "VALUE LOW IS F\nU < N\n",
-            "ADDIBM", "SUM 242.4332220110\n");
+            "ADDIBM", "SUM 242.4332220110\nSUM 242.4332220110\nSUM 242.4332220110\nEQUAL\nSUB -344777.777443\n");
 
     @Test
     void eachProgramPrintsWhatCobcPrints() throws Exception {

@@ -1833,3 +1833,17 @@ taken; closed by a later `decision` entry naming it).
   it now writes the golden's form, a run that ended in an exception still differing (NC401M). NC
   through the Java lane: 79 to 83 (floor raised). Twelve differ: ten where only cobc fails, NC401M (a
   TAPE1 the lane does not give it), and NC105A, where cobc fails two.
+
+### J-135 D-019 across NC: three more programs are the same short arithmetic
+- **Who:** Opus. **Class:** discovery.
+- **Found:** Reading the runs where only cobc fails, by hand from Appendix A (PG 6.4 p. 795), each case
+  run under cobc -std=ibm alone (its failing test and values) and reduced to ADDIBM: NC118A's
+  SIG-TEST-GF-16 to -18 are NC177A's three ADDs, the same seven addends in three orders, which cobc
+  sums three ways (242.4332220010, 242.4000000000, 242.4332211100) where every order is exact,
+  242.4332220110; NC250A's IF--TEST-37 compares two exact sums of 123.45, `100 + (TWENTY + 3.4) + .05`
+  and `.05 + (100 + TWENTY) + 3.4`, which cobc finds unequal; NC175A's SUB-TEST-F2-6 (NC119A's
+  SUB-TEST-GF-14) subtracts 11111, .11111, 333333.333333 and 333.333 from zero into S9(6)V9(6), which
+  cobc gives as -333666.777443, dropping the 11111, where the exact -344777.777443 fits. All are
+  D-019, the register's row now naming them; ADDIBM holds each to IBM's value, cobc still differing.
+  Left to read: NC106A, NC119A's and NC175A's other cases, NC176A (binary truncation, which is the
+  profile's TRUNC, not a reading of Appendix A), NC204M, NC205A, NC105A's two, NC211A (a reserved word).
