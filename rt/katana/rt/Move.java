@@ -33,7 +33,8 @@ public final class Move {
 
     /**
      * A figurative constant or ALL literal into a field (LR p. 402): an alphanumeric or group receiver
-     * filled with its characters repeated; a numeric receiver given ZERO's value; any other the bytes.
+     * filled with its characters repeated; a numeric receiver given ZERO's value; an alphanumeric-edited
+     * receiver the characters repeated to its length, MOVEd through its editing; any other the bytes.
      */
     // Decision: R-019
     public static void fill(Field to, byte[] pattern, boolean zero) {
@@ -41,6 +42,16 @@ public final class Move {
             move(Literal.number("0", 0, to.record().codepage()), to);
             return;
         }
+        if (to.attr().category() == Attr.Category.ALPHANUMERIC_EDITED) {
+            move(new Field(new Record(Inspect.repeat(pattern, to.attr().length()), to.record().codepage()), 0, Attr.text(to.attr().length(), false)), to);
+            return;
+        }
+        place(to, pattern);
+    }
+
+    /** Characters placed as written, repeated to the field's length, no editing: a VALUE on an edited item (LR p. 245, "the alphanumeric alignment rules"). */
+    // Decision: R-019
+    public static void place(Field to, byte[] pattern) {
         for (int k = 0; k < to.attr().length(); k++) to.record().bytes()[to.offset() + k] = pattern[k % pattern.length];
     }
 

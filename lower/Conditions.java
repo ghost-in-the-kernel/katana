@@ -25,10 +25,44 @@ final class Conditions {
             case Value.Expression e when List.of("POSITIVE", "NEGATIVE", "ZERO").contains(e.operator()) -> sign(e);
             case Value.Expression e when e.operator().startsWith("NUMERIC") -> "Classes.numeric(" + x.sending(e.operands().get(0)) + ")";
             case Value.Expression e when e.operator().startsWith("ALPHABETIC") -> alphabetic(e);
+            case Value.Expression e when e.operator().startsWith("CLASS ") -> charClass(e.operator().substring(6), e.operands().get(0));
             case Value.ConditionName c -> conditionName(c);
             case Value.Name n when n.kind().equals("switch") -> switchStatus(n.text());
             default -> "(boolean) " + x.unsupported("condition " + v);
         };
+    }
+
+    /**
+     * A class condition on a CLASS name: its members as byte ranges in the program's codepage, an
+     * alphanumeric literal each of its characters, a numeric literal the character at that ordinal
+     * position (from 1) in the native collating sequence, which is the byte one less (LR 6.4 p. 129).
+     */
+    // Decision: R-019
+    private String charClass(String name, Value item) {
+        for (Header.CharClass k : x.p.header().classes()) {
+            if (!k.name().equals(name)) continue;
+            List<String> ranges = new ArrayList<>();
+            for (Value m : k.members()) {
+                boolean thru = m instanceof Value.Expression e && e.operator().equals("THRU");
+                List<Value> bounds = thru ? ((Value.Expression) m).operands() : List.of(m);
+                List<String> codes = new ArrayList<>();
+                for (Value b : bounds) codes.addAll(codes(b));
+                if (thru && codes.size() == 2) ranges.add(codes.get(0) + ", " + codes.get(1));
+                else for (String c : codes) ranges.add(c + ", " + c);
+            }
+            if (ranges.isEmpty() || ranges.stream().anyMatch(r -> r.contains("null"))) return "(boolean) " + x.unsupported("CLASS " + name + " " + k.members());
+            return "Classes.member(" + x.sending(item) + ", " + String.join(", ", ranges) + ")";
+        }
+        return "(boolean) " + x.unsupported("CLASS " + name);
+    }
+
+    /** A CLASS literal's bytes: each character's, or for a numeric literal the ordinal's. */
+    private List<String> codes(Value v) {
+        List<String> out = new ArrayList<>();
+        if (v instanceof Value.Literal l && l.numeric()) out.add(String.valueOf(Integer.parseInt(l.payload()) - 1));
+        else if (v instanceof Value.Literal l && l.kind() == Value.Literal.Kind.ALPHANUMERIC) for (char c : l.payload().toCharArray()) out.add("Classes.code(Literal.text(" + Emitter.quote(String.valueOf(c)) + ", cp))");
+        else out.add("null");
+        return out;
     }
 
     /** A switch-status condition (LR 6.4 p. 283): its UPSI switch has the status the condition-name stands for. */

@@ -29,6 +29,8 @@ public final class Contract {
             new Kind("profile", "the profile the program means what it means under", p -> List.of(p.header().profileHash())),
             new Kind("editing", "the currency sign and decimal point a mask's `$` and `.` stand for", p -> List.of("currency " + p.header().currency() + " point " + (p.header().decimalComma() ? "," : "."))),
             new Kind("switch", "each switch-status condition-name, its switch and status", p -> each(p.header().switches(), s -> s.condition() + " " + s.environment() + " " + (s.on() ? "ON" : "OFF"))),
+            new Kind("mnemonic", "each switch's mnemonic-name", p -> each(p.header().mnemonics(), m -> m.name() + " " + m.environment())),
+            new Kind("class", "each CLASS name and its members", p -> each(p.header().classes(), c -> c.name() + " " + c.members().stream().map(Contract::value).collect(Collectors.joining(" | ")))),
             new Kind("item", "each item's place, attribute tuple, edit mask and flags", p -> each(p.items(), Contract::item)),
             new Kind("redefines", "each item that redefines another", p -> each(p.items().stream().filter(i -> i.redefines() != 0).toList(), i -> i.id() + " " + i.redefines())),
             new Kind("occurs", "each table's bounds, ODO object, keys and indexes", p -> each(p.items().stream().filter(i -> i.occurs() != null).toList(), Contract::occurs)),

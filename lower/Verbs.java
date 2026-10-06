@@ -189,6 +189,10 @@ final class Verbs {
     /** SET: an index or item TO a value, UP or DOWN BY one, or a condition name TO TRUE (its first value into its item). */
     // Decision: R-019
     private void set(Statement s) {
+        if (s.operands().stream().anyMatch(o -> o.value() instanceof Value.Name n && n.kind().equals("mnemonic"))) {
+            setSwitches(s);
+            return;
+        }
         Value value = operand(s, "set-to-value"), by = operand(s, "set-by-value");
         for (Value t : operands(s, "set-to")) {
             if (t instanceof Value.ConditionName c && value instanceof Value.Literal l && l.payload().equals("TRUE")) setTrue(c);
@@ -198,6 +202,21 @@ final class Verbs {
             } else if (t instanceof Value.Field target && value != null && !(value instanceof Value.Literal l && l.kind() == Value.Literal.Kind.BOOLEAN)) {
                 f.e.line(f.x.moveInto(value, f.x.field(target), f.x.item(target.item())) + ";");
             } else f.e.line(f.x.unsupported("SET at " + s.origin() + " " + s.operands()) + ";");
+        }
+    }
+
+    /** SET mnemonic-name ... TO ON or OFF, in groups as written: each mnemonic's UPSI switch set. */
+    // Decision: R-019
+    private void setSwitches(Statement s) {
+        List<String> pending = new ArrayList<>();
+        for (Statement.Operand o : s.operands()) {
+            if (o.value() instanceof Value.Name n && n.kind().equals("mnemonic")) pending.add(n.text());
+            if (!(o.role().equals("set-to-value") && o.value() instanceof Value.Name v && (v.text().equals("ON") || v.text().equals("OFF")))) continue;
+            for (String m : pending) {
+                String env = f.p.header().mnemonics().stream().filter(k -> k.name().equals(m)).map(katana.sir.types.Header.Mnemonic::environment).findFirst().orElse(null);
+                f.e.line(env == null ? f.x.unsupported("SET of switch " + m + " at " + s.origin()) + ";" : "upsi.set(" + env.charAt(5) + ", " + v.text().equals("ON") + ");");
+            }
+            pending.clear();
         }
     }
 

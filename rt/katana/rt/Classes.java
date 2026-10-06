@@ -51,4 +51,21 @@ public final class Classes {
         for (char c : s.toCharArray()) if (c != ' ' && !((upper && c >= 'A' && c <= 'Z') || (lower && c >= 'a' && c <= 'z'))) return false;
         return true;
     }
+
+    /** A class condition on a CLASS name (LR 6.4 pp. 129, 279): every byte of the item within one of `ranges`, pairs of byte values, each pair either way round. */
+    // Decision: R-019
+    public static boolean member(Field f, int... ranges) {
+        for (int k = 0; k < f.attr().length(); k++) {
+            int b = f.record().bytes()[f.offset() + k] & 0xFF;
+            boolean in = false;
+            for (int r = 0; r + 1 < ranges.length && !in; r += 2) in = b >= Math.min(ranges[r], ranges[r + 1]) && b <= Math.max(ranges[r], ranges[r + 1]);
+            if (!in) return false;
+        }
+        return true;
+    }
+
+    /** A one-character item's byte, for a CLASS literal in the program's codepage. */
+    public static int code(Field oneCharacter) {
+        return oneCharacter.record().bytes()[oneCharacter.offset()] & 0xFF;
+    }
 }

@@ -7,17 +7,19 @@ import katana.sir.types.Statement;
 import katana.sir.types.Value;
 
 /**
- * INITIALIZE as IBM's implicit MOVEs (LR 6.4 p. 352): every elementary item of the target, each
- * occurrence, numeric and numeric-edited given ZERO, the others SPACE; FILLER items and those under a
- * REDEFINES left out. REPLACING, WITH FILLER and VALUE are not lowered yet.
+ * INITIALIZE as IBM's implicit MOVEs (LR 6.4 pp. 351-352): every elementary item of the target, each
+ * occurrence, FILLER items and those under a REDEFINES left out; without REPLACING, numeric and
+ * numeric-edited given ZERO and the others SPACE; with it, only the items of the categories it names,
+ * each given its category's sender. WITH FILLER, VALUE and DEFAULT are not in the grammar (COBOL 85's).
  */
 final class Initialize {
     private Initialize() {}
 
     // Decision: R-019
     static void statement(Flow f, Statement s) {
-        if (s.operands().stream().anyMatch(o -> !o.role().equals("initialize-statement"))) {
-            f.e.line(f.x.unsupported("INITIALIZE with REPLACING, FILLER or VALUE at " + s.origin()) + ";");
+        java.util.Map<Attributes.Category, Value> replacing = replacing(s);
+        if (replacing == null) {
+            f.e.line(f.x.unsupported("INITIALIZE REPLACING a category not lowered at " + s.origin()) + ";");
             return;
         }
         for (Value v : Verbs.operands(s, "initialize-statement")) {
@@ -26,8 +28,43 @@ final class Initialize {
                 f.e.line(f.x.unsupported("INITIALIZE of a subscripted or reference-modified item at " + s.origin()) + ";");
                 continue;
             }
-            for (Item i : f.p.items()) if (receives(f, i, target.item())) move(f, i);
+            for (Item i : f.p.items()) {
+                if (!receives(f, i, target.item())) continue;
+                if (replacing.isEmpty()) move(f, i);
+                else if (replacing.containsKey(i.attributes().category())) replace(f, i, replacing.get(i.attributes().category()));
+            }
         }
+    }
+
+    /** REPLACING's categories, each with its sender; empty without the phrase; null for a category the lowering does not hold (DBCS, national). */
+    private static java.util.Map<Attributes.Category, Value> replacing(Statement s) {
+        java.util.Map<Attributes.Category, Value> out = new java.util.LinkedHashMap<>();
+        String category = null;
+        for (Statement.Operand o : s.operands()) {
+            if (!o.role().equals("initialize-replacing-by")) continue;
+            if (o.value() instanceof Value.Name n && n.kind().equals("keyword")) {
+                if (!n.text().equals("BY") && !n.text().equals("DATA")) category = n.text();
+                continue;
+            }
+            Attributes.Category c = switch (category == null ? "" : category) {
+                case "ALPHABETIC" -> Attributes.Category.ALPHABETIC;
+                case "ALPHANUMERIC" -> Attributes.Category.ALPHANUMERIC;
+                case "ALPHANUMERIC-EDITED" -> Attributes.Category.ALPHANUMERIC_EDITED;
+                case "NUMERIC" -> Attributes.Category.NUMERIC;
+                case "NUMERIC-EDITED" -> Attributes.Category.NUMERIC_EDITED;
+                default -> null;
+            };
+            if (c == null) return null;
+            out.put(c, o.value());
+        }
+        return out;
+    }
+
+    /** One receiver given REPLACING's sender for its category, each occurrence. */
+    private static void replace(Flow f, Item i, Value from) {
+        String each = f.x.occurrences(i), target = each == null ? "f" + i.id() : "t";
+        String move = f.x.moveInto(from, target, i);
+        f.e.line(each == null ? move + ";" : each + "t -> " + move + ");");
     }
 
     /** Whether an item is one of the target's receivers: elementary, the target or under it, not FILLER, not under a REDEFINES below the target. */

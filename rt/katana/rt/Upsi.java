@@ -6,10 +6,10 @@ package katana.rt;
  * switch", each 0 (off) or 1 (on); UPSI(00000000) the default.
  */
 public final class Upsi {
-    private final String bits;
+    private final char[] bits;
 
     private Upsi(String bits) {
-        this.bits = bits;
+        this.bits = bits.toCharArray();
     }
 
     /** The switches from the option's value. */
@@ -20,6 +20,11 @@ public final class Upsi {
 
     /** Whether UPSI-n is on. */
     public boolean on(int n) {
-        return bits.charAt(n) == '1';
+        return bits[n] == '1';
+    }
+
+    /** SET mnemonic-name TO ON or OFF: UPSI-n set (LR 6.4, SET for switches); every program of the run shares one copy (PG 6.4). */
+    public void set(int n, boolean on) {
+        bits[n] = on ? '1' : '0';
     }
 }

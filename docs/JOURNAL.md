@@ -1708,3 +1708,19 @@ taken; closed by a later `decision` entry naming it).
   a D-number that is a row. It rejects nine broken inputs, one per rule.
 - **Resolved:** HANDOFF's R-058 item. **Touched:** `docs/DISCOVERIES.md`, `docs/research/ibm-options.md`,
   `test/DiscoveriesDocTest.java`, `test/DocTests.java`, the differential tests' comments.
+
+### J-127 CLASS names, SET of a switch, INITIALIZE REPLACING; NC 47 to 50
+- **Who:** Opus. **Class:** build (3.4), with two IR facts and an rt fix.
+- **Found:** A CLASS name (LR 6.4 p. 129) is a header fact (`Header.CharClass`, contract kind `class`):
+  its literals and THRU ranges, an alphanumeric literal each of its characters, a numeric one the
+  character at that ordinal position from 1 in the native collating sequence, a range either way
+  round; `Classes.member` tests every byte of the item. SET mnemonic-name TO ON or OFF (format 3) sets
+  the switch the header's `Mnemonic` names, `rt/Upsi` now settable. INITIALIZE ... REPLACING (pp.
+  351-352): with the phrase, only the items of its categories, each given its category's sender; the
+  grammar holds only COBOL 85's phrase, so WITH FILLER, VALUE and DEFAULT do not parse rather than
+  being dropped. Its program found two rt bugs, each by cobc and IBM's text agreeing: a VALUE on an
+  edited item was MOVEd through the editing, where IBM aligns the literal "according to the
+  alphanumeric alignment rules" (p. 245), now `Move.place`; and a figurative constant MOVEd into an
+  alphanumeric-edited item filled it raw, where a MOVE edits (` / ` for SPACE into `X/X`). cobc agrees
+  on every case of CLASSES, SWITCHES and INITS. NC through the Java lane: 47 to 50 (floor raised);
+  of NC's statements only one ALL literal is not lowered. NIST contract facts +14, the new header facts.

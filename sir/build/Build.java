@@ -13,6 +13,7 @@ import katana.sir.types.Header;
 import katana.sir.types.Item;
 import katana.sir.types.Procedure;
 import katana.sir.types.Program;
+import katana.sir.types.Value;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -82,7 +83,7 @@ public final class Build {
         for (var inner : unit.programUnit()) nested.add(program(parse, inner, profileHash, findings, inside, insideFiles));
         var id = unit.identificationDivision().programIdParagraph();
         Header header = new Header(Values.upper(id.programName().getText()).replaceAll("[\"']", ""), Origins.at(parse, unit).file(), profileHash,
-                String.valueOf(data.currency()), data.decimalComma(), switches(unit), Origins.at(parse, id));
+                String.valueOf(data.currency()), data.decimalComma(), switches(unit), mnemonics(unit), classes(unit), Origins.at(parse, id));
         return new Program(header, data.items(), files, procedure, paragraphs.calls, nested);
     }
 
@@ -100,6 +101,38 @@ public final class Build {
             }
         }
         return out;
+    }
+
+    /** SPECIAL-NAMES' mnemonic-names for UPSI switches, each with its switch. */
+    private static List<Header.Mnemonic> mnemonics(CobolParser.ProgramUnitContext unit) {
+        List<Header.Mnemonic> out = new ArrayList<>();
+        if (unit.environmentDivision() == null) return out;
+        for (var clause : all(unit.environmentDivision(), CobolParser.EnvironmentSwitchNameClauseContext.class)) {
+            if (clause.environmentName() == null || clause.mnemonicName() == null) continue;
+            String environment = Values.upper(clause.environmentName().getText());
+            if (environment.matches("UPSI-[0-7]")) out.add(new Header.Mnemonic(Values.upper(clause.mnemonicName().getText()), environment));
+        }
+        return out;
+    }
+
+    /** SPECIAL-NAMES' CLASS names, each with its literals and THRU ranges. */
+    private static List<Header.CharClass> classes(CobolParser.ProgramUnitContext unit) {
+        List<Header.CharClass> out = new ArrayList<>();
+        if (unit.environmentDivision() == null) return out;
+        for (var clause : all(unit.environmentDivision(), CobolParser.ClassClauseContext.class)) {
+            List<Value> members = new ArrayList<>();
+            for (var t : clause.classClauseThrough()) {
+                Value from = bound(t.classClauseFrom().literal());
+                members.add(t.classClauseTo() == null ? from : new Value.Expression("THRU", List.of(from, bound(t.classClauseTo().literal()))));
+            }
+            out.add(new Header.CharClass(Values.upper(clause.className().getText()), members));
+        }
+        return out;
+    }
+
+    /** A CLASS literal; an identifier there (the grammar allows one, IBM does not) is a Name. */
+    private static Value bound(CobolParser.LiteralContext l) {
+        return l == null ? new Value.Name("unresolved", "CLASS bound") : Values.literal(l);
     }
 
     private static List<Integer> using(CobolParser.ProcedureDivisionContext pd, Names names) {

@@ -1036,3 +1036,18 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Decimal.java:Decimal.power` | R-020 | 2026-10-06 |  |
 | sir | `sir/build/Expressions.java:Expressions.top` |  | 2026-10-06 |  |
 | lower | `lower/ArithVerbs.java:ArithVerbs.corresponding` | R-020 | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.charClass` | R-019 | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.codes` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Classes.java:Classes.member` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Classes.java:Classes.code` |  | 2026-10-06 |  |
+| sir | `sir/build/Build.java:Build.classes` |  | 2026-10-06 |  |
+| sir | `sir/build/Build.java:Build.bound` |  | 2026-10-06 |  |
+| sir | `sir/types/Header.java:Header.CharClass.CharClass` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.setSwitches` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Upsi.java:Upsi.set` |  | 2026-10-06 |  |
+| sir | `sir/build/Build.java:Build.mnemonics` |  | 2026-10-06 |  |
+| lower | `lower/Initialize.java:Initialize.replacing` |  | 2026-10-06 |  |
+| lower | `lower/Initialize.java:Initialize.replace` |  | 2026-10-06 |  |
+| lower | `lower/Values.java:Values.edited` |  | 2026-10-06 |  |
+| lower | `lower/Values.java:Values.placed` | R-057 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.place#2` |  | 2026-10-06 |  |

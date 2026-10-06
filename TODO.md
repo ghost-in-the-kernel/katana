@@ -58,8 +58,9 @@ MOVE CORRESPONDING, switch-status conditions (UPSI); NC 29. *Then (J-124):* `**`
 exponents, abbreviated relations with a data-item object; NC holds at 29 (those programs stop on
 something else). *Then (J-125):* NC's crashes, one cause at a time: relative subscripts (the grammar
 split `I - 2` and joined `W-1 10`), ALL before a figurative constant, EVALUATE's NOT, REMAINDER after a
-size error, ADD and SUBTRACT CORRESPONDING, subscripted condition-names; NC 47. *Next:* class conditions (CLASS names), SET of a
-switch, INITIALIZE's remaining phrases, NC238A's loop, then the 48 runs that report but differ.
+size error, ADD and SUBTRACT CORRESPONDING, subscripted condition-names; NC 47. *Then (J-127):* CLASS
+names, SET of a switch, INITIALIZE REPLACING, VALUE on edited items; NC 50, every NC statement lowered
+but one ALL literal. *Next:* why each of the 45 runs that report but differ does.
 
 ### 3.4 NIST, module by module, through both lanes
 

@@ -96,7 +96,7 @@ class SirTypesTest {
     }
 
     static Header header() {
-        return new Header("COPYREC", "oracle/fixture/trivial/cbl/COPYREC.cbl", HASH, "$", false, List.of(), at("oracle/fixture/trivial/cbl/COPYREC.cbl", 4, 8));
+        return new Header("COPYREC", "oracle/fixture/trivial/cbl/COPYREC.cbl", HASH, "$", false, List.of(), List.of(), List.of(), at("oracle/fixture/trivial/cbl/COPYREC.cbl", 4, 8));
     }
 
     @Test
@@ -113,7 +113,7 @@ class SirTypesTest {
 
     @Test
     void eachInvariantRefusesAViolation() {
-        refused("SIR-01", () -> new Header("COPYREC", "x", "sha256:nope", "$", false, List.of(), at("x", 1, 1)));
+        refused("SIR-01", () -> new Header("COPYREC", "x", "sha256:nope", "$", false, List.of(), List.of(), List.of(), at("x", 1, 1)));
         List<Item> renumbered = new ArrayList<>(items());
         renumbered.set(3, item(9, "FILLER", 5, 1, 1, Item.Section.FILE, 17, 3, text(3), null, at("x", 1, 1)));
         refused("SIR-02", () -> new Program(header(), renumbered, files(), procedure(statements()), List.of(), List.of()));
