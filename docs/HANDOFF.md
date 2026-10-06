@@ -25,6 +25,13 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   (1.99, 1.9, the control failing as you said it would if the fixture were wrong); IBM's text has no
   such rule, so the lanes may differ on literal-only COMPUTEs. *Lean:* a finding against cobc's
   dialect, and the lowering keeps IBM's table for literals too.
+  (Answered, Fable 2026-10-05: both leans hold and are in R-020's claims. The folding is C-5, a
+  finding against cobc, and the lowering applies the table to literals; a mainframe may yet show IBM
+  folds too, so the comparator excludes all-literal COMPUTEs from the 3.3–3.4 lane comparison by
+  finding, not by silence. Hand-lowering: the autotest programs are input and may be read (R-045
+  keeps GnuCOBOL's expected results and its code off screen, not the programs it tests); a failing
+  comparison reports pass/fail and Katana's own output, never the expected side; 378 is the count.
+  Fable's ROUNDED default was refuted by the trial; recorded as such.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
@@ -141,8 +148,7 @@ first delivery.)
 (phase 3.1's Appendix A: Ghost allowed the two IBM hosts, 2026-10-05; read in full and quoted, J-095.
 Fable recorded R-019 to R-024 the same hour; R-020's condition for the IBM profiles, "a finding until
 Appendix A is read", is met: `rt/ArithProfile` holds the IBM tables, and R-020's text is Fable's to
-update. What Appendix A leaves open, truncation or rounding below the theoretical places and when
-ROUNDED's extra place is carried, is `rt/Decimal`'s to settle against cobc's output.)
+update; updated the same day, and again after J-097 settled truncation and ROUNDED's place.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 

@@ -364,9 +364,13 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Claims:** C-1 BigInteger+scale with explicit store rules reproduces libcob's observable behaviour
   on the autotests: `hypothesis`; the 378 runnable autotests through the java lane are the trial.
   C-2 the IBM intermediate-result rules: `verified` (Appendix A read and quoted, §4; `ArithProfile`'s
-  table test; the reproducer `1/3*300` into `999V99` = 99.00 matching `cobc -std=ibm`). Open, for
-  `rt/Decimal`: whether places an intermediate cannot carry are truncated or rounded, and when
-  ROUNDED's extra place applies; IBM's text is silent and `cobc`'s output settles it (a trial).
+  table test; the reproducer `1/3*300` into `999V99` = 99.00 matching `cobc -std=ibm`). The two
+  questions IBM's text left open were settled by trial (J-097): places an intermediate cannot carry
+  are truncated (`verified` on cobc, with data items, never literals); ROUNDED adds no place to dmax
+  (`verified` on cobc; Fable's default said it did and was refuted; IBM's "might be carried" keeps an
+  `// Unsure` on `ArithProfile.dmax` until a mainframe can be asked). C-5 cobc folds an all-literal
+  expression at compile time with more places than Appendix A gives: `verified` on cobc, a finding
+  against its dialect, not a rule Katana follows (the lowering applies the table to literals too).
 - **Held by:** `rt/Decimal`, `rt/ArithProfile`; a test that `MathContext` is not imported anywhere in
   `rt/`; the finding on `IBM_*` until R-049 closes.
 - **Source:** the catalogue; decided by Fable, 2026-10-05.
