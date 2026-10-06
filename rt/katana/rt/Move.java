@@ -43,7 +43,7 @@ public final class Move {
      * lost; a native binary (COMP-5) is cut at its binary size, not its PICTURE (LR p. 239: "truncation
      * occurs at the binary field size rather than at the COBOL picture size limit").
      */
-    private static void number(Decimal value, Field to) {
+    static void number(Decimal value, Field to) {
         Attr a = to.attr();
         if (a.usage() == Attr.Usage.NATIVE_BINARY) {
             java.math.BigInteger aligned = value.toBigDecimal().setScale(a.scale(), java.math.RoundingMode.DOWN).unscaledValue();

@@ -98,6 +98,16 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   does the same (`// Unsure` in `Inspect.region`). *Lean:* the first a finding compared by finding at
   3.4; the second to the mainframe list.
 
+- **SIZE ERROR: cobc judges a COMP-5 receiver by its binary capacity (J-108).** IBM (LR p. 296): for
+  a resultant identifier of usage BINARY, COMP, COMP-4 or COMP-5, "the largest value that the resultant
+  data item can contain is the value implied by the item's decimal PICTURE character-string, regardless
+  of the TRUNC compiler option". cobc raises no size error on a COMP-5 receiver while the value fits its
+  halfword, fullword or doubleword, and stores it (6 of 300 generated statements, each checked to be
+  exactly that reading). `rt/` follows IBM. One doubt: a division by zero without ON SIZE ERROR leaves
+  the receiver unaltered in `rt/` (an `// Unsure`); IBM's text gives the truncation rules no value to
+  work on, and a mainframe may end the program. *Lean:* the first a finding compared by finding at 3.4;
+  the second to the mainframe list, the generated tests keeping division by zero under the phrase.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

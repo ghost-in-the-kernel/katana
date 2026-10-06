@@ -1395,3 +1395,18 @@ taken; closed by a later `decision` entry naming it).
   value through `rt/Move`. Then all agree, in both sequences. Its mutation: the native order under the
   EBCDIC sequence, more than 10 differ.
 - **Resolved:** `rt/Compare`, `rt/Collation`. **Touched:** `rt/`, `test/katana/rt/`, `docs/checks.json`, TODO.
+
+### J-108 Phase 3.1: SIZE ERROR, held to IBM's text and to cobc; cobc judges COMP-5 by capacity
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** IBM's size error rules read from the Language Reference (p. 296): after alignment and
+  rounding, a result that exceeds what the PICTURE holds (a binary item's PICTURE, whatever TRUNC says),
+  or a division by zero; with ON SIZE ERROR the identifier is not altered, without it truncation rules
+  apply; each resultant identifier on its own. `rt/Arithmetic.store` does it, a native binary cut at
+  its binary size when the phrase is absent (p. 239, through `Move.number`).
+  `SizeErrorDifferentialIntegrationTest`: 300 generated ADD (two receivers), COMPUTE and DIVIDE
+  statements under cobc. 294 agree first time. The other 6 are one reading: cobc judges a COMP-5
+  receiver's size error by its binary capacity and stores the value, where IBM's text names COMP-5
+  and the PICTURE; a model of that reading in the test explains exactly those 6, listed as findings.
+  Division by zero without the phrase is not generated: `rt/` leaves the receiver as it was (an
+  `// Unsure`; HANDOFF). Its mutation: storing despite the phrase, more than 10 differ.
+- **Resolved:** `rt/Arithmetic`. **Touched:** `rt/`, `test/katana/rt/`, `docs/checks.json`, HANDOFF, TODO.
