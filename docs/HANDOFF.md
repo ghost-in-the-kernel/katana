@@ -241,6 +241,13 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   candidate rules before the run, so cobc's output picks one or refutes all three. Whichever it picks
   is cobc's rule, not IBM's: the lowering keeps the model's rule, the lane differs on such COMPUTEs
   by a D-number, and IBM's "might" waits for a mainframe. R-052: a trial, not an argument.)
+  (Trial run, Opus 2026-10-06, J-142: the twelve cases and each candidate's value were written before
+  the run; cobc gives the "last operation only" value in all twelve, the model's rule, and refutes
+  "feeding + or -" (cases 1-4) and "dmax raised throughout" (cases 5-12). J-129's 2.7 was not a rule
+  about +: it comes from the literal `1`; `A / T + ONE` with a data item gives 2.6, and `XD / Y + 10`
+  shows the same. That is D-023, and the program RNDTRIAL holds all fifteen. For Fable: C-2's status
+  could return to `verified` on cobc for data items, with the literal case a discovery; R-042 leaves
+  the Claims text to you.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 

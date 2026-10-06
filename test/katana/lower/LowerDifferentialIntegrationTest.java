@@ -80,13 +80,19 @@ class LowerDifferentialIntegrationTest {
      * the result", "stores that result in a temporary location", then combines it "with each single
      * receiving field" left to right, a receiver's subscript taken after the receivers before it (LR 6.4
      * pp. 297-298): ADD A TO A B with A 2 and B 3 leaves B 5; cobc adds A's new value, B 7, D-022 (J-141).
+     * RNDTRIAL: R-020 C-2's trial, twelve COMPUTE ... ROUNDED with every intermediate cut to dmax and
+     * ROUNDED's extra place on the last operation only (`ArithProfile.last`; IBM's "might be carried",
+     * PG 6.4 p. 794, is the open text), where cobc agrees; then a literal operand, which counts in dmax
+     * like any other (p. 795), and with which cobc keeps a second place in the division before it: A / T
+     * + 1 is 2.7, A / T + ONE 2.6, D-023 (J-142).
      */
     static final Map<String, String> IBM_READINGS = Map.of("SEARCHVARY", "DD W\nN 002\n", "ACCEPTEOF", "X KEPT \nX KEPT \n",
             "POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n",
             "ALPHAIBM", "VALUE LOW IS F\nU < N\n",
             "ADDIBM", "SUM 242.4332220110\nSUM 242.4332220110\nSUM 242.4332220110\nEQUAL\nSUB -344777.777443\nSUB P  100\n",
             "ACCEPTREC", "FIRST 10 [ABCDEFGHIJ]\nLAST 20 [*001*002*003*004*005]\nNEXT [NEXT RECORD]\n",
-            "NOTRSVD", "NOTHING ZILC\n", "MULTRES", "1 040 050\n2 040 060\n3 010 020\n4 2 010\n");
+            "NOTRSVD", "NOTHING ZILC\n", "MULTRES", "1 040 050\n2 040 060\n3 010 020\n4 2 010\n",
+            "RNDTRIAL", "01  1.2\n02  1.5\n03 10.2\n04 10.5\n05  0.6\n06  0.5\n07 10.2\n08 10.0\n09  0.2\n10  0.5\n11 10.6\n12 10.0\n13  2.6\n14  2.6\n15 10.5\n");
 
     @Test
     void eachProgramPrintsWhatCobcPrints() throws Exception {

@@ -1921,3 +1921,26 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `lower/ArithVerbs`, `sir/check/NonExact`, `findings/Finding` (NE-08), `docs/FINDINGS.md`,
   `docs/DISCOVERIES.md` (D-022), `docs/research/ibm-options.md` §10, `docs/HANDOFF.md`.
 - **Caught by:** Fable's answer (J-140), then the page.
+
+### J-142 R-020 C-2's trial: cobc carries ROUNDED's place on the last operation; J-129's case was a literal
+- **Who:** Opus. **Class:** trial.
+- **Intent:** run the twelve-case trial J-140 wrote into R-020 C-2, candidates and values first.
+- **Found:** the candidates (R1 last operation only, the model; R2 also any operation feeding `+` or
+  `-`; R3 dmax raised throughout) and twelve cases (`X/Y+Z`, `X/Y*Z`, `X/Y/Z` into 9V9 and 99V9, X with
+  0 and 1 decimals, values chosen so each case separates two of the three) were written with their
+  expected values at 18:23 UTC, then run: cobc -std=ibm gave R1's value in all twelve. J-129's 2.7
+  (`A / T + 1`) then contradicted R1, so two readings were named before a second run: (a) a literal
+  operand changes cobc's places, (b) not. `A / T + ONE` gave 2.6 and `XD / Y + 10` 10.6 (R1 10.5):
+  (a). With data items only, cobc's rule is the model's.
+- **Options:** report R1 as settled and leave J-129 as noise; or chase the remaining case (taken: two
+  more runs, each with its readings first, as J-140 asked).
+- **Resolved:** RNDTRIAL holds the fifteen to the model's values in `IBM_READINGS` (cobc differs on
+  14 and 15); D-023 records the literal's effect. IBM's "might be carried" (PG p. 794) stays open, so
+  the departure is that a literal and a data item of the same value differ, not the 2.7 itself.
+  C-2's status is Fable's (R-042), proposed in HANDOFF.
+- **Touched:** `docs/DISCOVERIES.md` (D-023), `docs/HANDOFF.md`, the differential test.
+- **Note:** the first trial, as specified, would have closed C-2 with an unexplained case left over:
+  its cases crossed receivers and decimals but held every addend a data item, so the factor that
+  mattered never varied. Naming readings first finds the separating case only among the readings you
+  name; the leftover observation is what named the missing one.
+- **Cost:** three cobc runs, about ten minutes.
