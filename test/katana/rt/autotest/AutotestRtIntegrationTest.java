@@ -31,14 +31,19 @@ class AutotestRtIntegrationTest {
     private static final Path GOLDEN = ROOT.resolve("test/katana/rt/autotest/results.golden");
 
     static final List<Lowered> LOWERED = List.of(new RunFundamental146(), new RunFundamental247(), new RunFundamental296(), new RunFundamental2585(),
-            new RunFundamental2628(), new RunFundamental4521(), new RunMisc2916(), new RunMisc2947(), new RunMisc7348());
+            new RunFundamental2628(), new RunFundamental4521(), new RunMisc2916(), new RunMisc2947(), new RunMisc7348(),
+            new RunFundamental193(), new RunFundamental8846(), new RunFundamental8897(), new RunFundamental2433(), new RunFundamental2513(),
+            new RunMisc156(), new RunMisc190(), new RunMisc2799(), new RunMisc12873());
 
     private static final String ZONED_SIGN = "cobc's ibm dialect DISPLAYs an overpunched zoned item's sign separate in the overpunch's place; IBM's DISPSIGN(SEP) leads with it (J-109)";
 
     /** Each case where Katana and cobc -std=ibm differ, and why: IBM's text against cobc's dialect. */
     static final Map<String, String> FINDINGS = Map.of(
             "run_fundamental-146", ZONED_SIGN,
-            "run_misc-2947", ZONED_SIGN);
+            "run_misc-2947", ZONED_SIGN,
+            "run_fundamental-193", ZONED_SIGN,
+            "run_fundamental-2433", "cobc's ibm dialect judges suppression on a value before its digits are cut (J-104); Katana's output is the testsuite's",
+            "run_fundamental-2513", "cobc's ibm dialect does not take B 0 / , inside a floating string as part of it, as IBM does (LR p. 223); Katana's output is the testsuite's");
 
 
     /** The testsuite's expected stdout for a case: the first check after the program is compiled that runs it and expects output. */

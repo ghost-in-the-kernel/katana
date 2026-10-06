@@ -1442,3 +1442,20 @@ taken; closed by a later `decision` entry naming it).
   case's expected output fails.
 - **Resolved:** the harness and nine cases. **Touched:** `rt/` (Move, Compare, Inspect, Arithmetic),
   `test/katana/rt/autotest/`, `docs/checks.json`, TODO.
+
+### J-111 Phase 3.1's check by hand: eighteen autotests; Appendix A against a real program
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** Nine more autotests hand-lowered (edited moves with floating and simple insertion, sign
+  editing, abbreviated conditions, sign conditions, DECIMAL-POINT IS COMMA arithmetic, CURRENCY SIGN,
+  STRING and UNSTRING overflow, and "Default Arithmetic (1)"): 18 in all, 14 passing the testsuite. Every
+  difference from cobc -std=ibm is a finding already recorded: J-109's zoned sign (3 cases), J-104's
+  suppression judged before truncation (run_fundamental 2433), and one new: cobc's ibm dialect does not
+  take B 0 / , inside a floating string as part of it (run_fundamental 2513, `-//00BB,,-`), where IBM's
+  text does (LR p. 223) and the testsuite's own expected output agrees with Katana. "Default Arithmetic
+  (1)" is the first real program through `rt/Decimal`: its integer divisions truncated by Appendix A
+  (`((399 / 100) - (211 / 100)) * 100` into `9(3)` is 100), dmax raised by an edited receiver (188),
+  literal-only subexpressions, a condition's dmax: every line equals cobc -std=ibm; the testsuite,
+  written for GnuCOBOL's default arithmetic, fails it, as it should. One slip, mine: `MULTIPLY A BY B`
+  stores into B; caught by cobc's output before it was recorded. One reading taken (an `// Unsure` in
+  the test's `Calc`): dmax counts operands inside a divisor expression, only a direct divisor left out.
+- **Resolved:** 18 cases. **Touched:** `test/katana/rt/autotest/`.

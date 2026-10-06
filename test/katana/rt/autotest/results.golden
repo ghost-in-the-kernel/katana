@@ -10,4 +10,13 @@ run_fundamental-4521 PASS SAME
 run_misc-2916 PASS SAME
 run_misc-2947 PASS DIFFER
 run_misc-7348 PASS SAME
-hand-lowered 9 of 378, passing 8
+run_fundamental-193 FAIL DIFFER
+run_fundamental-8846 PASS REJECTED
+run_fundamental-8897 PASS SAME
+run_fundamental-2433 PASS DIFFER
+run_fundamental-2513 PASS DIFFER
+run_misc-156 FAIL SAME
+run_misc-190 PASS SAME
+run_misc-2799 PASS SAME
+run_misc-12873 FAIL SAME
+hand-lowered 18 of 378, passing 14

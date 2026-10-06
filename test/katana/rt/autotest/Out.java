@@ -77,6 +77,11 @@ final class Out {
         return item(Attr.zoned(digits.length(), scale, text.startsWith("-") || text.startsWith("+")), text);
     }
 
+    /** An alphanumeric literal as a sending item. */
+    static Field alphanumeric(String text) {
+        return text(text.length(), false, text);
+    }
+
     /** A field over part of a record (a group's subordinate item). */
     static Field at(Record r, int offset, Attr a) {
         return new Field(r, offset, a);
