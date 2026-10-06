@@ -74,13 +74,16 @@ class LowerDifferentialIntegrationTest {
      * (J-132). ACCEPTREC: "The system input device is read until the receiving area is filled or EOF is
      * encountered", "Each input record is concatenated with the previous input record", the final one
      * "truncated as required" (LR 6.4 pp. 307-308); cobc reads one record into a 100-character item and
-     * the next ACCEPT gets the rest of it, D-020 (J-136).
+     * the next ACCEPT gets the rest of it, D-020 (J-136). NOTRSVD: NOTHING is not in IBM's reserved words
+     * (LR 6.4 Appendix E, Table 83, p. 770: NO, NOT, NULL, NULLS); cobc -std=ibm refuses it as a data name,
+     * D-021 (J-138).
      */
     static final Map<String, String> IBM_READINGS = Map.of("SEARCHVARY", "DD W\nN 002\n", "ACCEPTEOF", "X KEPT \nX KEPT \n",
             "POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n",
             "ALPHAIBM", "VALUE LOW IS F\nU < N\n",
             "ADDIBM", "SUM 242.4332220110\nSUM 242.4332220110\nSUM 242.4332220110\nEQUAL\nSUB -344777.777443\nSUB P  100\n",
-            "ACCEPTREC", "FIRST 10 [ABCDEFGHIJ]\nLAST 20 [*001*002*003*004*005]\nNEXT [NEXT RECORD]\n");
+            "ACCEPTREC", "FIRST 10 [ABCDEFGHIJ]\nLAST 20 [*001*002*003*004*005]\nNEXT [NEXT RECORD]\n",
+            "NOTRSVD", "NOTHING ZILC\n");
 
     @Test
     void eachProgramPrintsWhatCobcPrints() throws Exception {

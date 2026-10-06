@@ -1866,3 +1866,10 @@ taken; closed by a later `decision` entry naming it).
   discovery. Of the 39, SUB-TEST-F1-16 subtracts S9PP 100, -98, -1 (S9V99) and -1 from S999 100: the
   subtrahends total zero, every intermediate exact under Appendix A, 100; cobc -std=ibm gives 102, its
   default dialect 100. Added to ADDIBM and to D-019's row; the other 38 are to be read.
+
+### J-138 cobc's ibm dialect reserves a word IBM does not (D-021)
+- **Who:** Opus. **Class:** discovery.
+- **Found:** NC211A runs through the Java lane and does not compile under cobc -std=ibm, because it
+  declares `77 NOTHING` (IBM-CHANGES: `reserved-word`). IBM's reserved words (LR 6.4 Appendix E,
+  Table 83, p. 770) run NEXT, NO, NOT, NULL, NULLS: NOTHING is not one, so the program is valid on IBM
+  and cobc's dialect refuses it. D-021, held in NOTRSVD; NC211A, the run, is the NIST case.

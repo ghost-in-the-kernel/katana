@@ -390,3 +390,5 @@ them by row. Appendix A's arithmetic is §4; Table 48 (DISPSIGN) is the PG's, qu
   receiving area is filled or EOF is encountered. If the length of the receiving area is not an even
   multiple of the system input device record length, the final record will be truncated as required."
   "Each input record is concatenated with the previous input record." D-020.
+- LR p. 770 (Appendix E, Table 83, Reserved words): the words from NEXT run NEXT, NO, NOT, NULL, NULLS;
+  NOTHING is not among them. D-021.
