@@ -31,6 +31,17 @@ class NistJavaLaneIntegrationTest {
     /** The NC runs whose counts equal cobc's; raised as the lowering grows, never lowered (the bench discipline, P-01). */
     static final int FLOOR = 83;
 
+    /**
+     * The runs where cobc -std=ibm fails tests the Java lane passes, each with why: a discovery against cobc
+     * (D-019 Appendix A's intermediate places, D-020 ACCEPT's records, D-021 a reserved word) or the lane's
+     * known TRUNC setting (the golden recorded without binary truncation, PROFILE-04). Each must pass every
+     * test through the Java lane while cobc's golden differs, so a listed run that fails one is not hidden.
+     */
+    static final Map<String, String> COBC_FINDINGS = Map.of(
+            "NC105A", "PROFILE-04", "NC106A", "D-019, PROFILE-04", "NC118A", "D-019", "NC119A", "D-019",
+            "NC175A", "D-019", "NC176A", "PROFILE-04", "NC177A", "D-019", "NC204M", "D-020",
+            "NC211A", "D-021", "NC250A", "D-019");
+
     @Test
     void ncThroughTheJavaLane() throws Exception {
         Path work = Files.createDirectories(ROOT.resolve("build/nist-java"));
@@ -42,7 +53,8 @@ class NistJavaLaneIntegrationTest {
         List<ModuleRun.Outcome> outcomes = ModuleRun.run(MODULE, extracted, notes, Exec85.switches(cards), dir, new JavaRunner(60));
         Map<String, String> cobc = new LinkedHashMap<>();
         for (String line : Files.readAllLines(ROOT.resolve("oracle/nist/programs-ibm.golden"))) if (line.startsWith(MODULE + " ")) cobc.putIfAbsent(line.split(" ")[1], line.substring(line.indexOf(' ', line.indexOf(' ') + 1) + 1));
-        int same = 0;
+        int same = 0, explained = 0;
+        List<String> unexplained = new ArrayList<>();
         List<String> report = new ArrayList<>();
         Map<String, Integer> missing = new TreeMap<>();
         for (ModuleRun.Outcome o : outcomes) {
@@ -50,13 +62,17 @@ class NistJavaLaneIntegrationTest {
             String java = "1 " + (o.error() == null ? "ok" : "error") + " " + o.counts().map(c -> c.total() + " " + c.pass() + " " + c.fail() + " " + c.deleted() + " " + c.inspect()).orElse("0 0 0 0 0");
             boolean equal = o.error() == null && !o.note().startsWith("exit") && java.equals(cobc.get(o.program()));
             if (equal) same++;
+            boolean clean = o.error() == null && o.counts().map(c -> c.fail() == 0 && c.total() > 0).orElse(false);
+            if (COBC_FINDINGS.containsKey(o.program()) && (equal || !clean)) unexplained.add(o.program() + ": listed as cobc's but " + (equal ? "the same as cobc" : "failing through the Java lane"));
+            if (COBC_FINDINGS.containsKey(o.program()) && !equal && clean) explained++;
             report.add(o.program() + (equal ? " SAME " : " DIFFER ") + java + " | cobc " + cobc.get(o.program()) + (o.error() == null ? "" : " | " + o.error()) + " " + o.note());
             notLowered(dir, o.program(), missing);
         }
-        report.add(0, "NC through the Java lane: " + same + " of " + outcomes.size() + " runs report what cobc -std=ibm reports; not lowered, by kind: " + missing);
+        report.add(0, "NC through the Java lane: " + same + " of " + outcomes.size() + " runs report what cobc -std=ibm reports, " + explained + " more pass every test where cobc departs (COBC_FINDINGS); not lowered, by kind: " + missing);
         Files.write(work.resolve(MODULE + ".txt"), report);
         System.out.println(report.get(0));
         assertTrue(same >= FLOOR, same + " < floor " + FLOOR);
+        org.junit.jupiter.api.Assertions.assertEquals(List.of(), unexplained);
     }
 
     /** The lowering's findings for a program, counted by what was not lowered (its first words). */

@@ -1873,3 +1873,15 @@ taken; closed by a later `decision` entry naming it).
   declares `77 NOTHING` (IBM-CHANGES: `reserved-word`). IBM's reserved words (LR 6.4 Appendix E,
   Table 83, p. 770) run NEXT, NO, NOT, NULL, NULLS: NOTHING is not one, so the program is valid on IBM
   and cobc's dialect refuses it. D-021, held in NOTRSVD; NC211A, the run, is the NIST case.
+
+### J-139 NC through the Java lane: 83 the same as cobc, 10 more explained, 2 open
+- **Who:** Opus. **Class:** build (3.4); a lane check.
+- **Found:** Every run where only cobc fails now has a recorded cause: D-019 (NC106A in part, NC118A,
+  NC119A, NC175A, NC177A, NC250A), D-020 (NC204M), D-021 (NC211A), and PROFILE-04's known TRUNC setting,
+  the golden recorded without binary truncation (NC105A, NC176A, NC106A's three). NC105A's two were
+  read: both `binary-truncation`. `NistJavaLaneIntegrationTest` lists them (`COBC_FINDINGS`, citing
+  each row) and holds each to passing every test through the Java lane while cobc's count differs, so
+  a listed run that starts failing is not hidden. NC: 83 of 95 the same as cobc, 10 more passing every
+  test where cobc departs; open, NC205A (one `arithmetic-osvs` case in a long abbreviated condition,
+  not yet worked by hand) and NC401M (it OPENs a TAPE1 the lane does not give it; cobc reports nothing
+  either, but the golden does not say how cobc's run ended).
