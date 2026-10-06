@@ -1382,3 +1382,16 @@ taken; closed by a later `decision` entry naming it).
   filling its receiver exactly does not overflow; both added as fixed cases. Its mutation: delimiters
   ignored, more than 20 differ.
 - **Resolved:** `rt/Strings`. **Touched:** `rt/`, `test/katana/rt/`, `docs/checks.json`, TODO.
+
+### J-107 Phase 3.1: comparison and collation, held to IBM's text and to cobc
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** IBM's relation rules read from the Language Reference (pp. 274-279): numbers by algebraic
+  value; text character by character in the collating sequence, the shorter extended with spaces; a
+  zoned integer against text as its digits, unsigned under ZWB (IBM's default); a group by its bytes;
+  the program collating sequence from the ALPHABET clause, HIGH-VALUE and LOW-VALUE its ends. `rt/Compare`
+  and `rt/Collation` do them. `CompareDifferentialIntegrationTest`: 400 generated comparisons under
+  cobc, the 300 non-numeric ones again under an EBCDIC program collating sequence. First run: 7
+  differ, all the test's: an operand given a value its PICTURE cuts was stored uncut; it now gets its
+  value through `rt/Move`. Then all agree, in both sequences. Its mutation: the native order under the
+  EBCDIC sequence, more than 10 differ.
+- **Resolved:** `rt/Compare`, `rt/Collation`. **Touched:** `rt/`, `test/katana/rt/`, `docs/checks.json`, TODO.

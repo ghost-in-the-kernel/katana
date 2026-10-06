@@ -790,3 +790,11 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Strings.java:Strings.text` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Strings.java:Strings.startsWith` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Strings.java:Strings.indexOf` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Collation.java:Collation.nativeOrder` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Collation.java:Collation.of` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Collation.java:Collation.weight` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Compare.java:Compare.Compare` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Compare.java:Compare.numbers` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Compare.java:Compare.text` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Compare.java:Compare.all` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Compare.java:Compare.operand` | R-019 | 2026-10-06 |  |
