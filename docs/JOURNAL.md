@@ -1520,3 +1520,17 @@ taken; closed by a later `decision` entry naming it).
   (NC106A, NC118A, NC119A): to examine, not to celebrate.
 - **Resolved:** EVALUATE, files, the Java lane. **Touched:** `lower/`, `rt/`, `test/katana/lower/`,
   `docs/checks.json`, TODO.
+
+### J-116 Phase 3.3: SET, REMAINDER, VARYING AFTER, inline loops; NC 22 of 95
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** A differential of the lowering's own (`LowerDifferentialIntegrationTest`: small programs
+  written for it, each run by cobc -std=ibm and through the Java lane) found what NC's counts hid. An
+  inline PERFORM keeps its loop control (UNTIL, TIMES, VARYING, AFTER) in the inline branch's
+  condition, not in the operands, so every inline loop had been running its body once; `Performs` now
+  reads both places, and VARYING with AFTER is nested loops (LR pp. 420-423). EVALUATE's single WHEN
+  is not wrapped in a phrase, and a THRU follows its value as a separate part; both read now. An
+  ALTER's operands all carry `alter-proceed-to`, so an altered GO TO went where it was written. SET
+  (TO, UP BY, DOWN BY, a condition name TO TRUE), DIVIDE REMAINDER (the dividend less the truncated
+  quotient times the divisor, LR p. 336) and unary signs lowered. NC: 22 of 95 runs equal cobc's, the
+  new floor.
+- **Resolved:** the above. **Touched:** `lower/`, `test/katana/lower/`, `docs/checks.json`, TODO.

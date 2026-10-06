@@ -111,8 +111,9 @@ final class ArithVerbs {
         Value a = Verbs.operand(s, "divide-statement");
         List<Receiver> into = receivers(s, "divide-into"), giving = receivers(s, "divide-giving");
         Value byValue = Verbs.operand(s, "divide-by-giving-statement"), intoValue = Verbs.operand(s, "divide-into-giving-statement");
-        if (!Verbs.operands(s, "divide-remainder").isEmpty()) {
-            f.e.line(f.x.unsupported("DIVIDE REMAINDER at " + s.origin()) + ";");
+        List<Receiver> remainder = receivers(s, "divide-remainder");
+        if (!remainder.isEmpty() && !giving.isEmpty()) {
+            remainder(s, a, byValue, intoValue, giving.get(0), remainder.get(0), phrase);
             return;
         }
         if (giving.isEmpty()) {
@@ -123,6 +124,25 @@ final class ArithVerbs {
         Value dividend = byValue != null ? a : intoValue, divisor = byValue != null ? byValue : a;
         int dmax = f.arith.dmax(items(giving), List.of(dividend));
         store(giving, (r, rd) -> op("divide", f.arith.operand(dividend), f.arith.operand(divisor), dmax, rd), phrase);
+    }
+
+    /**
+     * DIVIDE ... GIVING q REMAINDER r (LR p. 336): the quotient stored as usual; the remainder the dividend
+     * less the product of the divisor and the quotient as stored without rounding.
+     */
+    // Decision: R-020
+    private void remainder(Statement s, Value a, Value byValue, Value intoValue, Receiver q, Receiver r, boolean phrase) {
+        Value dividend = byValue != null ? a : intoValue, divisor = byValue != null ? byValue : a;
+        Item qi = f.x.item(q.field().item());
+        int dmax = f.arith.dmax(List.of(qi, f.x.item(r.field().item())), List.of(dividend));
+        String quotient = op("divide", f.arith.operand(dividend), f.arith.operand(divisor), dmax, q.rounded());
+        f.e.open("");
+        f.e.line("Decimal.Term qt = " + quotient + ";");
+        f.e.line("sz |= Arithmetic.store(" + f.x.field(q.field()) + ", qt, " + q.rounded() + ", " + phrase + ");");
+        f.e.line("Decimal.Term tq = Decimal.operand(Decimal.store(qt, " + Lower.stored(qi.attributes()) + ", " + qi.attributes().scale() + ", true, false).value(), " + Arith.integerPlaces(qi) + ");");
+        f.e.line("Decimal.Term rt = Decimal.subtract(P, " + f.arith.operand(dividend) + ", Decimal.multiply(P, tq, " + f.arith.operand(divisor) + ", " + dmax + ", false, false), " + dmax + ", true, false);");
+        f.e.line("sz |= Arithmetic.store(" + f.x.field(r.field()) + ", rt, false, " + phrase + ");");
+        f.e.close();
     }
 
     private void compute(Statement s, boolean phrase) {

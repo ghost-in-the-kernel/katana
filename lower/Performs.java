@@ -1,13 +1,15 @@
 package katana.lower;
 
+import java.util.ArrayList;
 import java.util.List;
 import katana.sir.types.Statement;
 import katana.sir.types.Value;
 
 /**
  * PERFORM in its forms (LR pp. 412-425): out of line through the dispatcher (R-021), once, TIMES, UNTIL
- * (TEST BEFORE or AFTER), VARYING; inline, the same loops over the statements written in it, as
- * structured Java unless they hold an out-of-line PERFORM.
+ * (TEST BEFORE or AFTER), VARYING with AFTER; inline, the same loops over the statements written in it.
+ * The loop's control is read from the operands (out of line) or the inline branch's condition (inline),
+ * where the IR keeps it as a tree of `perform-*` phrases.
  */
 final class Performs {
     private final Flow f;
@@ -16,19 +18,69 @@ final class Performs {
         this.f = f;
     }
 
+    /** One VARYING or AFTER phrase: the identifier, FROM, BY, UNTIL. */
+    private static final class Phrase {
+        Value.Field id;
+        Value from, by, until;
+    }
+
+    /** A PERFORM's control: TIMES, UNTIL with TEST AFTER, or VARYING phrases. */
+    private static final class Loop {
+        Value times, until;
+        boolean testAfter;
+        final List<Phrase> varying = new ArrayList<>();
+        Phrase current;
+    }
+
+    private static Loop loop(Statement s) {
+        Loop l = new Loop();
+        for (Statement.Operand o : s.operands()) node(l, o.role(), o.value());
+        for (Statement.Branch b : s.branches()) if (b.condition() != null) node(l, b.label(), b.condition());
+        return l;
+    }
+
+    private static void node(Loop l, String role, Value v) {
+        if (v instanceof Value.Expression e && e.operator().startsWith("perform-")) {
+            if (e.operator().equals("perform-varying-phrase")) l.current = null;
+            for (Value c : e.operands()) node(l, e.operator(), c);
+            return;
+        }
+        if (v instanceof Value.Name n && n.kind().equals("keyword")) {
+            if (role.equals("perform-test-clause") && n.text().equals("AFTER")) l.testAfter = true;
+            return;
+        }
+        if (role.equals("perform-varying-phrase") && v instanceof Value.Field id && (l.current == null || l.current.id != null)) {
+            l.current = new Phrase();
+            l.current.id = id;
+            l.varying.add(l.current);
+            return;
+        }
+        Phrase p = l.current;
+        switch (role) {
+            case "perform-times" -> l.times = v;
+            case "perform-from" -> p.from = v;
+            case "perform-by" -> p.by = v;
+            case "perform-until" -> {
+                if (p != null && p.until == null) p.until = v;
+                else l.until = v;
+            }
+            default -> { }
+        }
+    }
+
+    /** Whether a PERFORM varies an identifier: always lowered as stretches. */
+    static boolean varies(Statement s) {
+        return s.verb().equals("PERFORM") && !loop(s).varying.isEmpty();
+    }
+
     // Decision: R-021
     void statement(Statement s) {
         Value.Target target = Flow.target(s);
         List<Statement> body = Verbs.branch(s, "perform-inline-statement");
-        if (!Verbs.operands(s, "perform-varying-clause", "perform-varying-phrase", "perform-after").isEmpty()) {
-            varying(s, target, body);
-            return;
-        }
-        Value times = Verbs.operand(s, "perform-times");
-        Value until = Verbs.operand(s, "perform-until");
-        boolean after = Verbs.keyword(s, "AFTER");
-        if (times != null) loop(target, body, "t[" + count(times) + "]-- <= 0", false);
-        else if (until != null) loop(target, body, f.conditions.of(until), after);
+        Loop l = loop(s);
+        if (!l.varying.isEmpty()) varying(s, l, target, body);
+        else if (l.times != null) repeat(target, body, "t[" + count(l.times) + "]-- <= 0", false);
+        else if (l.until != null) repeat(target, body, f.conditions.of(l.until), l.testAfter);
         else once(target, body);
     }
 
@@ -50,7 +102,7 @@ final class Performs {
     }
 
     /** Repeats the procedures or the body until `done` holds, tested before each time (or after, for TEST AFTER). */
-    private void loop(Value.Target target, List<Statement> body, String done, boolean testAfter) {
+    private void repeat(Value.Target target, List<Statement> body, String done, boolean testAfter) {
         if (target == null && !Flow.splits(body)) {
             f.e.open(testAfter ? "do" : "while (!(" + done + "))");
             f.statements(body);
@@ -61,9 +113,8 @@ final class Performs {
             return;
         }
         int test = f.label(), afterLoop = f.label();
-        if (testAfter) {
-            perform(target, body, test);
-        } else f.e.line("return " + test + ";");
+        if (testAfter) perform(target, body, test);
+        else f.e.line("return " + test + ";");
         f.split(test);
         f.e.line("if (" + done + ") return " + afterLoop + ";");
         perform(target, body, test);
@@ -80,26 +131,47 @@ final class Performs {
         f.e.line("return " + back + ";");
     }
 
-    /** PERFORM VARYING id FROM a BY b UNTIL c: one identifier for now (AFTER is not yet lowered). */
-    private void varying(Statement s, Value.Target target, List<Statement> body) {
-        List<Value> v = Verbs.operands(s, "perform-varying-phrase", "perform-varying-clause");
-        Value from = Verbs.operand(s, "perform-from"), by = Verbs.operand(s, "perform-by"), until = Verbs.operand(s, "perform-until");
-        if (!Verbs.operands(s, "perform-after").isEmpty() || v.isEmpty() || !(v.get(0) instanceof Value.Field id) || from == null || until == null) {
-            f.e.line(f.x.unsupported("PERFORM VARYING at " + s.origin()) + ";");
-            return;
+    /**
+     * VARYING id1 ... AFTER id2 ...: nested loops, outermost first; each identifier set FROM, its
+     * condition tested, the next one in set and tested, the innermost running the procedures, then BY.
+     */
+    private void varying(Statement s, Loop l, Value.Target target, List<Statement> body) {
+        for (Phrase p : l.varying) {
+            if (p.from == null || p.until == null) {
+                f.e.line(f.x.unsupported("PERFORM VARYING at " + s.origin()) + ";");
+                return;
+            }
         }
-        String field = f.x.field(id);
-        f.e.line(f.x.moveInto(from, field, f.x.item(id.item())) + ";");
-        int test = f.label(), step = f.label(), afterLoop = f.label();
-        f.e.line("return " + test + ";");
-        f.split(test);
-        f.e.line("if (" + f.conditions.of(until) + ") return " + afterLoop + ";");
-        perform(target, body, step);
-        f.split(step);
-        Value increment = new Value.Expression("+", List.of(id, by == null ? new Value.Literal("1", Value.Literal.Kind.NUMERIC, "1", 0) : by));
-        int dmax = f.arith.dmax(List.of(f.x.item(id.item())), List.of(increment));
-        f.e.line("Arithmetic.store(" + field + ", " + f.arith.result(increment, dmax, false) + ", false, false);");
-        f.e.line("return " + test + ";");
+        int n = l.varying.size(), afterLoop = f.label();
+        int[] tests = new int[n], steps = new int[n];
+        for (int k = 0; k < n; k++) {
+            tests[k] = f.label();
+            steps[k] = f.label();
+        }
+        start(l.varying.get(0), tests[0]);
+        for (int k = 0; k < n; k++) {
+            f.split(tests[k]);
+            f.e.line("if (" + f.conditions.of(l.varying.get(k).until) + ") return " + (k == 0 ? afterLoop : steps[k - 1]) + ";");
+            if (k + 1 < n) start(l.varying.get(k + 1), tests[k + 1]);
+            else perform(target, body, steps[k]);
+        }
+        for (int k = n - 1; k >= 0; k--) {
+            f.split(steps[k]);
+            step(l.varying.get(k));
+            f.e.line("return " + tests[k] + ";");
+        }
         f.split(afterLoop);
+    }
+
+    private void start(Phrase p, int test) {
+        f.e.line(f.x.moveInto(p.from, f.x.field(p.id), f.x.item(p.id.item())) + ";");
+        f.e.line("return " + test + ";");
+    }
+
+    private void step(Phrase p) {
+        Value by = p.by == null ? new Value.Literal("1", Value.Literal.Kind.NUMERIC, "1", 0) : p.by;
+        Value increment = new Value.Expression("+", List.of(p.id, by));
+        int dmax = f.arith.dmax(List.of(f.x.item(p.id.item())), List.of(increment));
+        f.e.line("Arithmetic.store(" + f.x.field(p.id) + ", " + f.arith.result(increment, dmax, false) + ", false, false);");
     }
 }

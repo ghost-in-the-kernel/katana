@@ -50,10 +50,9 @@ Check: the emitted data map equals the IR's; every statement has its comment; th
 
 *Begun (J-114):* `lower/`, its first increment; `LoweredAutotestsIntegrationTest` lowers the 21 hand-lowered
 autotests that parse, each printing what its hand-lowering prints, javac against `rt/` alone, one
-provenance comment a statement, the data map the IR's. *Then (J-115):* EVALUATE, sequential files, a Java lane for NIST (`JavaRunner`); NC: 15 of 95 runs report
+provenance comment a statement, the data map the IR's. *Then (J-115):* EVALUATE, sequential files, a Java lane for NIST (`JavaRunner`); NC: 22 of 95 runs (J-116) report
 what cobc -std=ibm reports (`NistJavaLaneIntegrationTest`, a floor that only rises). *Next, by NC's
-count of what was not lowered:* SET, SEARCH, unary signs in subscripts, ALSO objects in EVALUATE, DIVIDE
-REMAINDER, ACCEPT, switch conditions, MOVE CORRESPONDING; the decimal comma (HANDOFF).
+count of what was not lowered:* SEARCH, ACCEPT, switch conditions, MOVE CORRESPONDING; the decimal comma (HANDOFF).
 
 ### 3.4 NIST, module by module, through both lanes
 

@@ -71,6 +71,8 @@ final class Exprs {
             case Value.Literal l when l.numeric() -> l.payload() + "L";
             case Value.Field f -> "Table.index(" + field(f) + ")";
             case Value.Expression e when e.operands().size() == 2 && List.of("+", "-").contains(e.operator()) -> "(" + index(e.operands().get(0)) + " " + e.operator() + " " + index(e.operands().get(1)) + ")";
+            case Value.Expression e when e.operator().equals("pos") -> index(e.operands().get(0));
+            case Value.Expression e when e.operator().equals("neg") -> "(-" + index(e.operands().get(0)) + ")";
             default -> unsupported("index " + v) + "";
         };
     }
@@ -112,7 +114,7 @@ final class Exprs {
         return switch (v) {
             case Value.Field f -> List.of(Attributes.Category.NUMERIC, Attributes.Category.INDEX).contains(item(f.item()).attributes().category()) && f.start() == null;
             case Value.Literal l -> l.numeric();
-            case Value.Expression e -> List.of("+", "-", "*", "/", "**", "neg").contains(e.operator());
+            case Value.Expression e -> List.of("+", "-", "*", "/", "**", "neg", "pos").contains(e.operator());
             case Value.Figurative f -> singular(f.name()).equals("ZERO") && f.all() == null;
             default -> false;
         };

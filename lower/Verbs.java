@@ -30,23 +30,31 @@ final class Verbs {
             case "MOVE" -> move(s);
             case "DISPLAY" -> display(s);
             case "ADD", "SUBTRACT", "MULTIPLY", "DIVIDE", "COMPUTE" -> arithmetic.statement(s);
+            case "SET" -> set(s);
+            case "INSPECT" -> text.inspect(s);
+            case "STRING" -> text.string(s);
+            case "UNSTRING" -> text.unstring(s);
+            case "INITIALIZE" -> Initialize.statement(f, s);
+            case "OPEN" -> files.open(s);
+            case "CLOSE" -> files.close(s);
+            case "WRITE" -> files.write(s);
+            case "READ" -> files.read(s);
+            default -> control(s);
+        }
+    }
+
+    /** The verbs that decide where control goes. */
+    private void control(Statement s) {
+        switch (s.verb()) {
             case "IF" -> f.branch(f.conditions.of(operand(s, "if-statement")), branch(s, "if-then"), branch(s, "if-else"));
+            case "EVALUATE" -> evaluate.statement(s);
             case "PERFORM" -> performs.statement(s);
             case "GO TO" -> goTo(s);
             case "STOP", "GOBACK" -> f.jump(String.valueOf(f.end()));
             case "EXIT" -> exit(s);
             case "ALTER" -> alter(s);
-            case "INSPECT" -> text.inspect(s);
-            case "STRING" -> text.string(s);
-            case "UNSTRING" -> text.unstring(s);
-            case "INITIALIZE" -> Initialize.statement(f, s);
-            case "EVALUATE" -> evaluate.statement(s);
-            case "OPEN" -> files.open(s);
-            case "CLOSE" -> files.close(s);
-            case "WRITE" -> files.write(s);
-            case "READ" -> files.read(s);
             case "CONTINUE" -> f.e.line("// CONTINUE");
-            default -> f.e.line(f.x.unsupported(s.verb() + " at " + s.origin()) + ";");
+            default -> f.e.line(f.x.unsupported(s.verb() + " at " + s.origin() + " " + s.operands()) + ";");
         }
     }
 
@@ -125,7 +133,10 @@ final class Verbs {
     }
 
     private static boolean alters(Statement s, int paragraph) {
-        if (s.verb().equals("ALTER") && !operands(s, "alter-statement").isEmpty() && operands(s, "alter-statement").get(0) instanceof Value.Target t && t.paragraph() == paragraph) return true;
+        if (s.verb().equals("ALTER")) {
+            List<Value> targets = operands(s, "alter-statement", "alter-proceed-to");
+            for (int k = 0; k < targets.size(); k += 2) if (targets.get(k) instanceof Value.Target t && t.paragraph() == paragraph) return true;
+        }
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) if (alters(t, paragraph)) return true;
         return false;
     }
@@ -141,6 +152,32 @@ final class Verbs {
     private int paragraphIndex() {
         for (Procedure.Paragraph p : f.p.procedure().paragraphs()) if (p.name().equals(f.paragraph)) return p.index();
         return -1;
+    }
+
+    /** SET: an index or item TO a value, UP or DOWN BY one, or a condition name TO TRUE (its first value into its item). */
+    // Decision: R-019
+    private void set(Statement s) {
+        Value value = operand(s, "set-to-value"), by = operand(s, "set-by-value");
+        for (Value t : operands(s, "set-to")) {
+            if (t instanceof Value.ConditionName c && value instanceof Value.Literal l && l.payload().equals("TRUE")) setTrue(c);
+            else if (t instanceof Value.Field target && by != null) {
+                Value step = keyword(s, "DOWN") ? new Value.Expression("-", List.of(target, by)) : new Value.Expression("+", List.of(target, by));
+                f.e.line("Arithmetic.store(" + f.x.field(target) + ", " + f.arith.result(step, 0, false) + ", false, false);");
+            } else if (t instanceof Value.Field target && value != null && !(value instanceof Value.Literal l && l.kind() == Value.Literal.Kind.BOOLEAN)) {
+                f.e.line(f.x.moveInto(value, f.x.field(target), f.x.item(target.item())) + ";");
+            } else f.e.line(f.x.unsupported("SET at " + s.origin() + " " + s.operands()) + ";");
+        }
+    }
+
+    private void setTrue(Value.ConditionName c) {
+        for (katana.sir.types.Item.Condition k : f.x.item(c.item()).conditions()) {
+            if (!k.name().equals(c.name())) continue;
+            Value first = k.values().get(0);
+            if (first instanceof Value.Expression e && e.operator().equals("THRU")) first = e.operands().get(0);
+            Value.Field item = new Value.Field(c.item(), c.subscripts(), null, null);
+            f.e.line(f.x.moveInto(first, f.x.field(item), f.x.item(c.item())) + ";");
+            return;
+        }
     }
 
     private void exit(Statement s) {

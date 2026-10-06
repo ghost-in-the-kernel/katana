@@ -106,7 +106,7 @@ final class Flow {
 
     /** Whether a statement holds an out-of-line PERFORM or a VARYING loop, here or in a phrase, so it cannot be structured Java. */
     static boolean splits(Statement s) {
-        if (s.verb().equals("PERFORM") && (target(s) != null || !Verbs.operands(s, "perform-varying-clause", "perform-varying-phrase").isEmpty())) return true;
+        if (s.verb().equals("PERFORM") && (target(s) != null || Performs.varies(s))) return true;
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) if (splits(t)) return true;
         return false;
     }

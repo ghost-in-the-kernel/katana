@@ -988,3 +988,14 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.write` | R-019 | 2026-10-06 |  |
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.read` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.close` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.remainder` | R-020 | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.read` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.node` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.varies` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.repeat` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.start` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.step` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.set` | R-019 | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.setTrue` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.condition` | folded into `Evaluate.read` and `Evaluate.pair` (J-116) | 2026-10-06 | superseded-by: `lower/Evaluate.java:Evaluate.pair` |
+| lower | `lower/Verbs.java:Verbs.control` |  | 2026-10-06 |  |

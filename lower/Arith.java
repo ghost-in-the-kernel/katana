@@ -42,6 +42,7 @@ final class Arith {
     private String term(Value v, int dmax, boolean last, boolean rounded) {
         if (!(v instanceof Value.Expression e) || !x.numeric(v)) return operand(v);
         if (e.operator().equals("neg")) return "Decimal.negate(" + term(e.operands().get(0), dmax, last, rounded) + ")";
+        if (e.operator().equals("pos")) return term(e.operands().get(0), dmax, last, rounded);
         String op = switch (e.operator()) {
             case "+" -> "add";
             case "-" -> "subtract";

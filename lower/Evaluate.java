@@ -67,37 +67,50 @@ final class Evaluate {
     /** A WHEN phrase's condition: any of its WHENs. */
     private String phrase(List<Value> subjects, Value condition) {
         List<String> whens = new ArrayList<>();
-        if (condition instanceof Value.Expression e) for (Value w : e.operands()) if (w instanceof Value.Expression when) whens.add(when(subjects, when));
+        if (condition instanceof Value.Expression e && e.operator().equals("evaluate-when")) whens.add(when(subjects, e));
+        else if (condition instanceof Value.Expression e) for (Value w : e.operands()) if (w instanceof Value.Expression when && when.operator().equals("evaluate-when")) whens.add(when(subjects, when));
         return whens.isEmpty() ? f.x.unsupported("EVALUATE phrase " + condition) : "(" + String.join(" || ", whens) + ")";
     }
 
+    /** One object of a WHEN: a value (through `thru`), ANY, or NOT one of these. */
+    private record Obj(Value value, Value thru, boolean any, boolean not) {}
+
     /** One WHEN: each subject against its object, the objects after the first behind ALSO. */
     private String when(List<Value> subjects, Value.Expression when) {
-        List<Value> objects = new ArrayList<>();
-        for (Value v : when.operands()) {
-            if (isKeyword(v, "WHEN")) continue;
-            if (v instanceof Value.Expression a && a.operator().equals("evaluate-also-condition")) objects.add(a.operands().stream().filter(o -> !isKeyword(o, "ALSO")).findFirst().orElse(null));
-            else objects.add(v);
-        }
+        List<Obj> objects = new ArrayList<>();
+        read(when.operands(), objects, false);
         List<String> pairs = new ArrayList<>();
         for (int k = 0; k < Math.min(subjects.size(), objects.size()); k++) pairs.add(pair(subjects.get(k), objects.get(k)));
         return "(" + String.join(" && ", pairs) + ")";
     }
 
-    /** A subject and its object. */
-    private String pair(Value subject, Value object) {
-        if (object instanceof Value.Expression c && c.operator().equals("evaluate-condition")) return condition(subject, c.operands());
-        return plain(subject, object);
+    /** The objects in a WHEN's parts, in order: a THRU joins the value before it, ALSO and evaluate-condition group their parts. */
+    private static void read(List<Value> parts, List<Obj> objects, boolean not) {
+        boolean negate = not;
+        for (Value v : parts) {
+            if (isKeyword(v, "WHEN") || isKeyword(v, "ALSO")) continue;
+            if (isKeyword(v, "NOT")) negate = true;
+            else if (isKeyword(v, "ANY")) objects.add(new Obj(null, null, true, false));
+            else if (v instanceof Value.Expression e && e.operator().equals("evaluate-through") && !objects.isEmpty()) {
+                Obj last = objects.remove(objects.size() - 1);
+                objects.add(new Obj(last.value(), through(e), false, last.not()));
+            } else if (v instanceof Value.Expression e && (e.operator().equals("evaluate-also-condition") || e.operator().equals("evaluate-condition"))) {
+                read(e.operands(), objects, negate);
+                negate = false;
+            } else {
+                objects.add(new Obj(v, null, false, negate));
+                negate = false;
+            }
+        }
     }
 
-    private String condition(Value subject, List<Value> parts) {
-        if (parts.stream().anyMatch(p -> isKeyword(p, "ANY"))) return "true";
-        boolean not = parts.stream().anyMatch(p -> isKeyword(p, "NOT"));
-        List<Value> values = parts.stream().filter(p -> !(p instanceof Value.Name)).toList();
-        String test = values.size() == 2 && values.get(1) instanceof Value.Expression t && t.operator().equals("evaluate-through")
-                ? "(" + f.conditions.compare(subject, values.get(0)) + " >= 0 && " + f.conditions.compare(subject, through(t)) + " <= 0)"
-                : plain(subject, values.get(0));
-        return not ? "!" + test : test;
+    /** A subject and its object. */
+    private String pair(Value subject, Obj o) {
+        if (o.any()) return "true";
+        String test = o.thru() != null
+                ? "(" + f.conditions.compare(subject, o.value()) + " >= 0 && " + f.conditions.compare(subject, o.thru()) + " <= 0)"
+                : plain(subject, o.value());
+        return o.not() ? "!" + test : test;
     }
 
     private static Value through(Value.Expression t) {
