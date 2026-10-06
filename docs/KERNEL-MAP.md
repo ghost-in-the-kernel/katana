@@ -1056,3 +1056,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | sir | `sir/check/NonExact.java:NonExact.fields` |  | 2026-10-06 |  |
 | sir | `sir/check/NonExact.java:NonExact.meet` |  | 2026-10-06 |  |
 | sir | `sir/check/NonExact.java:NonExact.storage` |  | 2026-10-06 |  |
+| lower | `lower/Exprs.java:Exprs.written` |  | 2026-10-06 |  |

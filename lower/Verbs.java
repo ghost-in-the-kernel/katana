@@ -107,7 +107,8 @@ final class Verbs {
         }
     }
 
-    // Unsure: a numeric literal is displayed as its sign and digits, no point, as cobc -std=ibm shows it (J-114).
+    /** DISPLAY: each operand's bytes, a figurative constant's "single occurrence" (LR 6.4 p. 333), ALL "ABCD" its literal once. */
+    // Unsure: a numeric literal is displayed as its sign and digits as written, no point, as cobc -std=ibm shows it (J-114, J-130).
     private void display(Statement s) {
         List<String> parts = new ArrayList<>();
         for (Value v : operands(s, "display-operand")) parts.add(shown(v));
@@ -137,8 +138,8 @@ final class Verbs {
     private String shown(Value v) {
         return switch (v) {
             case Value.Field fld -> f.x.field(fld);
-            case Value.Literal l when l.numeric() -> "Literal.bytes(Literal.text(" + Emitter.quote(l.payload()) + ", cp))";
-            case Value.Figurative g when g.all() == null -> f.x.pattern(g);
+            case Value.Literal l when l.numeric() -> "Literal.bytes(Literal.text(" + Emitter.quote(Exprs.written(l)) + ", cp))";
+            case Value.Figurative g -> f.x.pattern(g);
             default -> "Literal.bytes(" + f.x.sending(v) + ")";
         };
     }

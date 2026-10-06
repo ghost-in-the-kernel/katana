@@ -1671,8 +1671,9 @@ mergeGiving
 
 // move statement
 
+// Katana (J-130): no ALL here; `MOVE ALL "A"` is the figurative constant ALL "A", which `literal` reads.
 moveStatement
-   : MOVE ALL? (moveToStatement | moveCorrespondingToStatement)
+   : MOVE (moveToStatement | moveCorrespondingToStatement)
    ;
 
 moveToStatement

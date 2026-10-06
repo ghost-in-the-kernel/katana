@@ -107,7 +107,14 @@ final class Exprs {
         String pattern = pattern(value);
         if (pattern != null) return "Move.fill(" + target + ", " + pattern + ", " + (value instanceof Value.Figurative f && singular(f.name()).equals("ZERO") && f.all() == null) + ")";
         boolean group = into.attributes().category() == Attributes.Category.GROUP || (value instanceof Value.Field f && item(f.item()).attributes().category() == Attributes.Category.GROUP);
+        if (group && value instanceof Value.Literal l && l.numeric()) return "Move.group(Literal.text(" + Emitter.quote(written(l)) + ", cp), " + target + ")";
         return (group ? "Move.group(" : "Move.move(") + sending(value) + ", " + target + ")";
+    }
+
+    /** A numeric literal's characters as written, its sign kept, its point and a leading + left out (`060820000200`, not its value's digits). */
+    // Unsure: the characters a numeric literal gives a group MOVE or a DISPLAY are taken as written, leading zeros kept; cobc agrees (NC202A), IBM's text speaks of the literal's value (J-130).
+    static String written(Value.Literal l) {
+        return l.text().replace("+", "").replace(".", "").replace(",", "");
     }
 
     /** Whether a value is numeric: a numeric item, a numeric literal, an arithmetic expression. */

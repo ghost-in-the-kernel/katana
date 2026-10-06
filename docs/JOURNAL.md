@@ -1751,3 +1751,19 @@ taken; closed by a later `decision` entry naming it).
   default (HANDOFF). The same probe found cobc carrying ROUNDED's place into a division feeding an
   addition, where J-099 found it not reaching one feeding a multiplication: a second question
   (HANDOFF), SHARED's COMPUTE written without ROUNDED meanwhile. NC through the Java lane: 65 to 67.
+
+### J-130 Four lowering bugs from NC's reports; NC 67 to 73, every NC statement lowered
+- **Who:** Opus. **Class:** build (3.4), with a grammar fix.
+- **Found:** Each from one NC program's first failure, read with a scratch runner of its lowered class
+  in its lane folder (UPSI-0 on, as the ibm cards ask; the newest folder, which a first version did
+  not pick and so disagreed with the lane). NC202A: `MOVE 060820000200 TO` a group moved the literal's
+  value, `60820000200`, one place short; a numeric literal now gives a group MOVE, and DISPLAY, its
+  characters as written (an `// Unsure`: IBM's text speaks of its value; cobc keeps the zeros). NC252A:
+  a 66 RENAMES item without VALUE was given INITIALIZE's zero, over the bytes it renames; a 66 now
+  takes no initial value of its own. NC252A again: `MOVE ALL "A"` moved "A" once, because the grammar
+  (ProLeap's) read `MOVE ALL?` as a word of the statement, so the literal rule never made `ALL "A"`
+  the figurative constant; the statement takes no ALL now. NC109M: `DISPLAY ALL "ABCD"` was not
+  lowered; IBM displays "only a single occurrence of that figurative constant" (LR 6.4 p. 333).
+  CORRS and REDEFS hold each against cobc. NC through the Java lane: 67 to 73 (floor raised), and the
+  list of what NC needs and the lowering lacks is empty. Two NC programs need the program collating
+  sequence (NC215A, NC219A), next.

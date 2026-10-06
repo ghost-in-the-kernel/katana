@@ -53,6 +53,8 @@
            DISPLAY "DST2 " DST2
            MOVE CORR ONE TO ROW (2)
            DISPLAY "TBL " TBL
+           MOVE 0123 TO DST2
+           DISPLAY "LIT " DST2 " " 007 " " -0042
            ADD CORR NA TO NB ROUNDED
            DISPLAY "ADD " NB
            SUBTRACT CORRESPONDING NA FROM NB

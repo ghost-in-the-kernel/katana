@@ -25,8 +25,9 @@ final class Values {
         e.line(each == null ? move + ";" : each + "t -> " + move + ");");
     }
 
-    /** Whether something above sets the item: a group with a VALUE, or a REDEFINES (its bytes are another item's). */
+    /** Whether something else sets the item: a group with a VALUE, a REDEFINES, or a RENAMES (a 66 names bytes other items hold). */
     private static boolean governed(Program p, Item i) {
+        if (i.level() == 66) return true;
         for (Item a = i; a != null; a = a.parent() == 0 ? null : p.items().get(a.parent() - 1)) {
             if (a.redefines() != 0) return true;
             if (a != i && a.value() != null) return true;
