@@ -40,6 +40,8 @@ byte images (J-102), MOVE (J-103), editing and de-editing (J-104), INSPECT (J-10
 ### 3.2 `rt/Dispatcher`
 
 Check: every NIST NC and IC program's PERFORM/GO TO behaviour reproduces its REPORT.
+*Built (J-113):* `rt/Dispatcher`, held to cobc -std=ibm by 81 control-flow programs. The check itself
+runs NIST through the lowering, so it is met at 3.3-3.4.
 
 ### 3.3 `lower/`
 

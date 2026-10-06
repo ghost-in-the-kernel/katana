@@ -129,6 +129,18 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   only, R-045) and with cobc -std=ibm on the same program; the rest go through the lowering at 3.3.
   The count hand-lowered and passing is held by a golden, so the check says how far it reaches.
 
+- **R-021's C-1, PERFORM return: what cobc says, and what IBM leaves open (J-113).** `rt/Dispatcher`
+  returns from the innermost active PERFORM whose range ends at the paragraph reached, dropping those
+  begun inside it. Three readings were probed by hand on one program (an inner PERFORM left by GO TO
+  for the outer range's end, then reached again): the ANSI reading (only the innermost exit returns),
+  this one, and a slot per exit paragraph (an abandoned inner PERFORM stays armed). cobc -std=ibm is
+  this one; cobc's default dialect is ANSI's. IBM's text says such control "must not" pass through
+  another active PERFORM's exit (LR p. 414), so it does not settle the reading; its examples there are
+  figures. `DispatcherDifferentialIntegrationTest`: 81 programs, all equal to cobc -std=ibm; the ANSI
+  reading differs on 21. *Lean:* C-1 recorded as verified against cobc -std=ibm, still a hypothesis on
+  IBM, and the shape (control passing an active PERFORM's exit) a finding the lowering raises, as
+  NE-02 and NE-03 are for recursion and overlap.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

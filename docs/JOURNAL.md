@@ -1472,3 +1472,18 @@ taken; closed by a later `decision` entry naming it).
   a REDEFINES) or compile flags the harness does not pass; they go through the lowering (3.3), as the
   HANDOFF default says.
 - **Resolved:** 24 cases. **Touched:** `test/katana/rt/autotest/`.
+
+### J-113 Phase 3.2: `rt/Dispatcher`, PERFORM's return held to cobc's ibm dialect
+- **Who:** Opus. **Class:** build; trial; question.
+- **Found:** R-021's design built: the lowering's `for (;;) switch (pc)` asks `Dispatcher.end` at every
+  paragraph's end and `perform` at every PERFORM; ALTER is a table. IBM's rule for control reaching an
+  active PERFORM's exit from inside another is "must not" (LR p. 414), so the return reading was probed
+  by hand on one program that separates three: cobc -std=ibm returns from the innermost matching
+  PERFORM and drops those begun inside it, cobc's default checks only the innermost (ANSI). `rt/`
+  follows the ibm dialect. `DispatcherDifferentialIntegrationTest`: 60 generated programs (PERFORM of
+  later ranges, GO TO anywhere, a step limit), 20 generated in the separating shape, and the probe: all
+  81 equal to cobc -std=ibm. The first mutation run showed the generated programs alone never separated
+  the readings (only the probe did), so the family was added; the ANSI reading now differs on 21. A
+  check that could not have failed, caught by its own mutation (R-056 working as meant).
+- **Resolved:** `rt/Dispatcher`. **Open:** R-021 C-1's status (Fable). **Touched:** `rt/`,
+  `test/katana/rt/`, `docs/checks.json`, HANDOFF, TODO.

@@ -804,3 +804,9 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Display.java:Display.of` | R-019 | 2026-10-06 |  |
 | rt | `rt/katana/rt/Inspect.java:Inspect.view` | R-019 | 2026-10-06 |  |
 | rt | `rt/katana/rt/Inspect.java:Inspect.back` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Dispatcher.java:Dispatcher.Dispatcher` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Dispatcher.java:Dispatcher.perform` | R-021 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Dispatcher.java:Dispatcher.end` | R-021 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Dispatcher.java:Dispatcher.depth` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Dispatcher.java:Dispatcher.alter` | R-021 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Dispatcher.java:Dispatcher.goTo` |  | 2026-10-06 |  |
