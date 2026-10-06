@@ -1504,3 +1504,19 @@ taken; closed by a later `decision` entry naming it).
 - **Resolved:** `lower/` (Lower, Emitter, Exprs, Values, Arith, Conditions, Flow, Verbs, ArithVerbs,
   Performs, TextVerbs, Initialize); `rt/` gains Sysout, Literal, Table, Classes, Unsupported.
   **Touched:** `lower/`, `rt/`, `test/katana/rt/autotest/`, `docs/checks.json`, HANDOFF, TODO.
+
+### J-115 Phase 3.3-3.4: NIST NC through the Java lane, 15 of 95 runs equal to cobc's
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** `lower/` gains EVALUATE and sequential files (`rt/SeqFile`: OPEN, WRITE with ADVANCING as
+  cobc writes a print line, READ, CLOSE, names bound as the cobc lane binds them); each program gets a
+  `main`. `JavaRunner` (test code: `oracle/` may not import `lower/`) is ModuleRun's other runner, as
+  LANE-09 planned: parse, IR, lower, javac against `rt/`, run in the program's folder. NC, all 95 runs:
+  15 report exactly what cobc -std=ibm reports, held as a floor. Two bugs found on the way, both mine:
+  `PERFORM A THRU B` arrives as two targets and the lowering read only the first, so NIST's
+  `PERFORM BAIL-OUT THRU BAIL-OUT-EX` leaked control into the main line (found by tracing `pc`); and the
+  runner read a program's output before its time limit started, so a looping program never timed out.
+  The lowering's findings rank what is left: SET (886 uses), SEARCH (141), unary signs in subscripts,
+  ALSO in EVALUATE, DIVIDE REMAINDER, ACCEPT, switches. Three programs pass more tests than cobc does
+  (NC106A, NC118A, NC119A): to examine, not to celebrate.
+- **Resolved:** EVALUATE, files, the Java lane. **Touched:** `lower/`, `rt/`, `test/katana/lower/`,
+  `docs/checks.json`, TODO.

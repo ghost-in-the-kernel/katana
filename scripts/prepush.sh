@@ -17,7 +17,7 @@ suites=""; why=""
 add() { case " $suites " in *" $1 "*) ;; *) suites="$suites $1"; why="$why
   $1: $2";; esac; }
 if [ -n "$ALL" ]; then
-  for s in nist fixture lane front sir autotest rt; do add $s "--all"; done
+  for s in nist fixture lane front sir autotest rt javalane; do add $s "--all"; done
 else
   for f in $CHANGED; do
     case "$f" in
@@ -28,11 +28,11 @@ else
       oracle/*|test/katana/oracle/*) add lane "$f" ;;
       profile/*|test/katana/profile/*) add nist "$f"; add fixture "$f"; add lane "$f" ;;
       front/*|test/katana/front/*) add front "$f"; add sir "$f" ;;
-      sir/*|test/katana/sir/*) add sir "$f"; add quick "$f" ;;
-      rt/*|test/katana/rt/*) add rt "$f"; add quick "$f" ;;
-      lower/*|test/katana/lower/*) add quick "$f" ;;
+      sir/*|test/katana/sir/*) add sir "$f"; add quick "$f"; add javalane "$f" ;;
+      rt/*|test/katana/rt/*) add rt "$f"; add quick "$f"; add javalane "$f" ;;
+      lower/*|test/katana/lower/*) add quick "$f"; add javalane "$f" ;;
       test/*.java|scripts/*) ;;
-      *) for s in nist fixture lane front sir autotest rt; do add $s "$f (the build or the corpus)"; done ;;
+      *) for s in nist fixture lane front sir autotest rt javalane; do add $s "$f (the build or the corpus)"; done ;;
     esac
   done
 fi
@@ -47,6 +47,7 @@ for s in $suites; do
     quick) tests="$tests --tests katana.oracle.nist.ModuleRunIntegrationTest" ;;
     autotest) tests="$tests --tests katana.oracle.autotest.*" ;;
     rt) tests="$tests --tests katana.rt.*" ;;
+    javalane) tests="$tests --tests katana.lower.*" ;;
   esac
 done
 PROPS=""

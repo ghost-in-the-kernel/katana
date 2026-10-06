@@ -960,3 +960,31 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Table.java:Table.index` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Unsupported.java:Unsupported.Unsupported` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Unsupported.java:Unsupported.fail` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.Evaluate` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.isKeyword` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.statement` | R-021 | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.chain` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.phrase` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.when` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.pair` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.condition` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.through` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.plain` |  | 2026-10-06 |  |
+| lower | `lower/Evaluate.java:Evaluate.bool` |  | 2026-10-06 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.FileVerbs` |  | 2026-10-06 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.name` |  | 2026-10-06 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.declare` |  | 2026-10-06 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.open` | R-019 | 2026-10-06 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.close` |  | 2026-10-06 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.write` |  | 2026-10-06 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.read` |  | 2026-10-06 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.owner` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.main` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.className` |  | 2026-10-06 |  |
+| lower | `lower/Lower.java:Lower.area` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.SeqFile` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.path` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.open` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.write` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.read` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.close` |  | 2026-10-06 |  |

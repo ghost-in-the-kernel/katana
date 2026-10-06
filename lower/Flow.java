@@ -41,7 +41,7 @@ final class Flow {
         e.line("private static final ArithProfile P = ArithProfile.IBM_COMPAT;");
         e.line("// Unsure: the native order stands for the program collating sequence until the IR carries it (J-114).");
         e.line("private final Collation co = Collation.nativeOrder();");
-        e.line("private boolean sz, ov;");
+        e.line("private boolean sz, ov, ae;");
         e.open("public void run()");
         e.line("int pc = 0;");
         e.line("while (pc != " + end + ") pc = step(pc);");
@@ -115,10 +115,15 @@ final class Flow {
         return list.stream().anyMatch(Flow::splits);
     }
 
-    /** An out-of-line PERFORM's procedures, null for an inline one. */
+    /** An out-of-line PERFORM's procedures, from the first named through the last (`A THRU B` is two targets), null for an inline one. */
     static Value.Target target(Statement s) {
-        for (Statement.Operand o : s.operands()) if (o.value() instanceof Value.Target t && o.role().equals("perform-procedure-statement")) return t;
-        return null;
+        Value.Target first = null, last = null;
+        for (Statement.Operand o : s.operands()) {
+            if (!(o.value() instanceof Value.Target t) || !o.role().equals("perform-procedure-statement")) continue;
+            if (first == null) first = t;
+            last = t;
+        }
+        return first == null ? null : new Value.Target(first.paragraph(), last.thru());
     }
 
     /** `then` when `condition` holds, else `otherwise`: structured, or as stretches when either holds a PERFORM. */

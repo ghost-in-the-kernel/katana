@@ -35,6 +35,7 @@ public final class Lower {
         e.line("private final Sysout out, err;");
         e.line("private final Dispatcher d = new Dispatcher(" + Math.max(1, p.procedure().paragraphs().size()) + ");");
         declareItems(e, p);
+        FileVerbs.declare(e, p);
         e.open("public " + className + "(Codepage cp, Sysout out, Sysout err)");
         e.line("this.cp = cp;");
         e.line("this.out = out;");
@@ -43,9 +44,25 @@ public final class Lower {
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("values" + c + "();");
         e.close();
         defineItems(e, p, x);
+        main(e, className);
         new Flow(e, p, x).procedure();
         e.close();
         return new Result(e.text(), findings, e.statements());
+    }
+
+    /** A launcher: the lane's codepage and DISPLAY sign form from system properties (R-019; the profile's, J-109). */
+    private static void main(Emitter e, String className) {
+        e.open("public static void main(String[] args)");
+        e.line("Codepage cp = Codepage.valueOf(System.getProperty(\"katana.codepage\", \"COBC_ASCII\"));");
+        e.line("Display.Sign sign = Display.Sign.valueOf(System.getProperty(\"katana.dispsign\", \"SEP\"));");
+        e.line("new " + className + "(cp, new Sysout(System.out, sign), new Sysout(System.err, sign)).run();");
+        e.close();
+    }
+
+    /** A Java class name for a program: its PROGRAM-ID, each character Java does not allow made `_`. */
+    public static String className(Program p) {
+        String name = p.header().program().replaceAll("[^A-Za-z0-9_]", "_");
+        return Character.isJavaIdentifierStart(name.charAt(0)) ? name : "P" + name;
     }
 
     private static void declareItems(Emitter e, Program p) {
@@ -62,7 +79,7 @@ public final class Lower {
             List<Item> chunk = items.subList(c * CHUNK, Math.min(items.size(), (c + 1) * CHUNK));
             e.open("private void items" + c + "()");
             for (Item i : chunk) {
-                if (i.record() == i.id()) e.line("r" + i.id() + " = Record.of(" + recordLength(p, i) + ", cp);");
+                if (i.record() == i.id()) e.line("r" + i.id() + " = " + area(p, i) + ";");
                 e.line("f" + i.id() + " = new Field(r" + i.record() + ", " + i.offset() + ", " + attr(p, i, x) + ");");
             }
             e.close();
@@ -70,6 +87,15 @@ public final class Lower {
             for (Item i : chunk) Values.initial(e, p, i, x);
             e.close();
         }
+    }
+
+    /** A record's storage: its own, or, for a second 01 under an FD, the first's (they share the record area). */
+    private static String area(Program p, Item record) {
+        for (var d : p.files()) {
+            if (d.records().contains(record.id()) && d.records().get(0) != record.id()) return "r" + d.records().get(0);
+            if (d.records().contains(record.id())) return "Record.of(" + d.records().stream().mapToInt(r -> recordLength(p, p.items().get(r - 1))).max().orElse(record.length()) + ", cp)";
+        }
+        return "Record.of(" + recordLength(p, record) + ", cp)";
     }
 
     /** A record's length: its own, or the longest item that REDEFINES it. */

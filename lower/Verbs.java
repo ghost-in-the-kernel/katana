@@ -12,12 +12,16 @@ final class Verbs {
     private final ArithVerbs arithmetic;
     private final Performs performs;
     private final TextVerbs text;
+    private final FileVerbs files;
+    private final Evaluate evaluate;
 
     Verbs(Flow f) {
         this.f = f;
         this.arithmetic = new ArithVerbs(f);
         this.performs = new Performs(f);
         this.text = new TextVerbs(f);
+        this.files = new FileVerbs(f);
+        this.evaluate = new Evaluate(f);
     }
 
     // Decision: R-021
@@ -36,6 +40,11 @@ final class Verbs {
             case "STRING" -> text.string(s);
             case "UNSTRING" -> text.unstring(s);
             case "INITIALIZE" -> Initialize.statement(f, s);
+            case "EVALUATE" -> evaluate.statement(s);
+            case "OPEN" -> files.open(s);
+            case "CLOSE" -> files.close(s);
+            case "WRITE" -> files.write(s);
+            case "READ" -> files.read(s);
             case "CONTINUE" -> f.e.line("// CONTINUE");
             default -> f.e.line(f.x.unsupported(s.verb() + " at " + s.origin()) + ";");
         }
