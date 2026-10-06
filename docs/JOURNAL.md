@@ -1885,3 +1885,19 @@ taken; closed by a later `decision` entry naming it).
   test where cobc departs; open, NC205A (one `arithmetic-osvs` case in a long abbreviated condition,
   not yet worked by hand) and NC401M (it OPENs a TAPE1 the lane does not give it; cobc reports nothing
   either, but the golden does not say how cobc's run ended).
+
+### J-140 Two phase-3 defaults answered: the same item twice is not an overlap; ROUNDED's place is a trial
+- **Who:** Opus's defaults (J-129); Fable decided. **Class:** decision; one claim downgraded.
+- **Found:** (1) IBM's "share part of their storage" (LR p. 297) is about two operands over the same
+  bytes; the same item named twice is governed by the multiple-results rule (sending operands
+  evaluated once into a temporary, receivers in order), under which `ADD A TO A B` gives B 5 where
+  cobc gives 7. (2) ROUNDED's extra place: J-097 said none, J-099 said the last operation, J-129
+  shows cobc doing neither consistently.
+- **Resolved:** (1) default reversed on condition: the lowering follows the multiple-results rule
+  once Opus quotes its page; cobc's reading becomes a discovery. (2) R-020 C-2 downgraded to
+  `hypothesis`; a twelve-case trial written into the claim separates three candidate rules.
+- **Note:** C-2 has now been `verified` twice and wrong twice (J-097, J-099). Both times the cases
+  could not separate the readings. The trial written now names its candidates first and its cases
+  second, which is the order R-056's mutation rule was meant to force and did not, because a
+  mutation of a rule only tests the rule you thought of.
+

@@ -209,6 +209,17 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   result once and store it in each receiver (NIST's NC172A expects that); the other forms take each
   receiver in turn with the operands as they then are (`ADD A TO A B` with A 2, B 3: A 4, B 7). *Default
   taken:* not an overlap, cobc's reading in both, an `// Unsure` in `sir/check/NonExact.meet`.
+  (Answered, Fable 2026-10-06: not an overlap; "share *part* of their storage" is about two operands
+  over the same bytes, and the same item named twice is wholly the same storage, which IBM covers
+  elsewhere: the Language Reference's rule on **multiple results in arithmetic statements** (in the
+  Procedure Division chapter, "Arithmetic statements", near p. 297; Opus quotes the page). As I
+  recall it, `ADD a b TO c d` is executed as `ADD a b GIVING temp` then `ADD temp TO c`, `ADD temp TO
+  d`, each receiver in order, the sending operands evaluated once into a temporary before any
+  receiver changes. Under that rule `ADD A TO A B` with A 2, B 3 gives A 4, B 5, and cobc's B 7
+  (A re-read after its own update) is a discovery. So the default is reversed on condition: the
+  lowering follows the multiple-results rule once the page is quoted (`hypothesis` until then), the
+  GIVING forms already match it, and cobc's non-GIVING forms get a D-number with `ADD A TO A B` as
+  the reproducer. If the page says otherwise, the default stands and this note is wrong.)
 - **Where ROUNDED's extra place reaches (J-129; J-099's open point).** cobc -std=ibm, A 99V9 = 5, T 9 = 3:
   `COMPUTE B ROUNDED = A / T + 1` into 99V9 is 2.7, so the division carried two places; J-099's
   `A / B * B` into 9V9 ROUNDED (A 2, B 3) is 1.8, so there it carried one. The model gives the extra
@@ -216,6 +227,12 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   stands, the lane differs on such a COMPUTE (none of NC's runs needs it yet); a trial with a few
   shapes (the extra place on an operation feeding + or - but not * or /?) would settle cobc's rule,
   and IBM's "might be carried" (PG p. 794) stays the open text.
+  (Answered, Fable 2026-10-06: the default stands and R-020's C-2 is now `hypothesis` with the trial
+  written into it: twelve COMPUTEs crossing receiver 9V9 and 99V9, operand decimals 0 and 1, last
+  operation `+`, `*`, `/`, the division first and last, each expected value written under the three
+  candidate rules before the run, so cobc's output picks one or refutes all three. Whichever it picks
+  is cobc's rule, not IBM's: the lowering keeps the model's rule, the lane differs on such COMPUTEs
+  by a D-number, and IBM's "might" waits for a mainframe. R-052: a trial, not an argument.)
 
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 

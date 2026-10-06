@@ -377,9 +377,17 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   C-2 the IBM intermediate-result rules: `verified` (Appendix A read and quoted, §4; `ArithProfile`'s
   table test; the reproducer `1/3*300` into `999V99` = 99.00 matching `cobc -std=ibm`). The two
   questions IBM's text left open were settled by trial (J-097): places an intermediate cannot carry
-  are truncated (`verified` on cobc, with data items, never literals); ROUNDED adds no place to dmax
-  (`verified` on cobc; Fable's default said it did and was refuted; IBM's "might be carried" keeps an
-  `// Unsure` on `ArithProfile.dmax` until a mainframe can be asked). C-5 cobc folds an all-literal
+  are truncated (`verified` on cobc, with data items, never literals); ROUNDED's extra place: as first
+  recorded, "adds no place to dmax", `verified` on cobc by J-097; J-099 showed J-097's cases could
+  not separate the readings (`A / B` ROUNDED into 9V9 is 0.7, not 0.6), and the rule became the place
+  on the last operation (`ArithProfile.last`); J-129 shows cobc carrying two places in a division
+  that feeds `+` and one in a division that feeds `*`, which neither rule gives. Status now
+  `hypothesis`: the model's "last operation only" stands as the default, and a trial settles cobc's
+  rule, with shapes that separate the three candidates (last operation only; any operation feeding
+  `+` or `-`; dmax raised throughout): ROUNDED into 9V9 and 99V9, operands with 0 and 1 decimals,
+  the last operation each of `+`, `*` and `/`, the division first and last, twelve COMPUTEs, each
+  expected value written under each candidate before the run. IBM's "might be carried" (PG p. 794)
+  stays the open text and a mainframe settles IBM. C-5 cobc folds an all-literal
   expression at compile time with more places than Appendix A gives: `verified` on cobc, a finding
   against its dialect, not a rule Katana follows (the lowering applies the table to literals too).
   C-6 the cap rows (an intermediate past 30 digits): `hypothesis`, text-verified and oracle-absent.
