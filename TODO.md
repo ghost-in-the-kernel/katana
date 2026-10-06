@@ -53,6 +53,11 @@ autotests that parse, each printing what its hand-lowering prints, javac against
 provenance comment a statement, the data map the IR's. *Then (J-115):* EVALUATE, sequential files, a Java lane for NIST (`JavaRunner`); NC: 22 of 95 runs (J-116) report
 what cobc -std=ibm reports (`NistJavaLaneIntegrationTest`, a floor that only rises). *Next, by NC's
 count of what was not lowered:* SEARCH, ACCEPT, switch conditions, MOVE CORRESPONDING. (The decimal comma: fixed, J-119.)
+*Then (J-122):* SEARCH, NEXT SENTENCE (sentence starts in the IR), ACCEPT; NC 26 of 95. *Then (J-123):*
+MOVE CORRESPONDING, switch-status conditions (UPSI); NC 29. *Then (J-124):* `**` with integral
+exponents, abbreviated relations with a data-item object; NC holds at 29 (those programs stop on
+something else). *Next:* class conditions (CLASS names), SET, INITIALIZE's remaining phrases, then why
+each of NC's 66 other runs differs.
 
 ### 3.4 NIST, module by module, through both lanes
 

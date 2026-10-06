@@ -32,12 +32,16 @@ public final class Lower {
         e.line("import java.util.List;");
         e.open("public final class " + className);
         e.line("private final Codepage cp;");
+        e.line("private final Sysin in;");
+        e.line("private final Upsi upsi;");
         e.line("private final Sysout out, err;");
         e.line("private final Dispatcher d = new Dispatcher(" + Math.max(1, p.procedure().paragraphs().size()) + ");");
         declareItems(e, p);
         FileVerbs.declare(e, p);
-        e.open("public " + className + "(Codepage cp, Sysout out, Sysout err)");
+        e.open("public " + className + "(Codepage cp, Upsi upsi, Sysin in, Sysout out, Sysout err)");
         e.line("this.cp = cp;");
+        e.line("this.upsi = upsi;");
+        e.line("this.in = in;");
         e.line("this.out = out;");
         e.line("this.err = err;");
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("items" + c + "();");
@@ -50,12 +54,12 @@ public final class Lower {
         return new Result(e.text(), findings, e.statements());
     }
 
-    /** A launcher: the lane's codepage and DISPLAY sign form from system properties (R-019; the profile's, J-109). */
+    /** A launcher: the lane's codepage and DISPLAY sign form from system properties (R-019; the profile's, J-109), and LE's UPSI option. */
     private static void main(Emitter e, String className) {
         e.open("public static void main(String[] args)");
         e.line("Codepage cp = Codepage.valueOf(System.getProperty(\"katana.codepage\", \"COBC_ASCII\"));");
         e.line("Display.Sign sign = Display.Sign.valueOf(System.getProperty(\"katana.dispsign\", \"SEP\"));");
-        e.line("new " + className + "(cp, new Sysout(System.out, sign), new Sysout(System.err, sign)).run();");
+        e.line("new " + className + "(cp, Upsi.of(System.getProperty(\"katana.upsi\", \"00000000\")), new Sysin(System.in), new Sysout(System.out, sign), new Sysout(System.err, sign)).run();");
         e.close();
     }
 

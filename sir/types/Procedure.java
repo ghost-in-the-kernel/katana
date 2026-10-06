@@ -15,11 +15,20 @@ public record Procedure(List<Integer> using, int returning, List<Section> sectio
         }
     }
 
-    /** A paragraph: its index in textual order, its name, its section ("" for none), its statements. */
-    public record Paragraph(int index, String name, String section, List<Statement> statements, Origin origin) {
+    /**
+     * A paragraph: its index in textual order, its name, its section ("" for none), its statements, and
+     * where each of its sentences starts (the index of its first statement, in increasing order; a
+     * sentence of no statements has none), which is where NEXT SENTENCE goes.
+     */
+    public record Paragraph(int index, String name, String section, List<Statement> statements, List<Integer> sentences, Origin origin) {
         public Paragraph {
             statements = List.copyOf(statements);
+            sentences = List.copyOf(sentences);
             Invalid.origin(origin, "paragraph " + name);
+            for (int k = 0; k < sentences.size(); k++) {
+                boolean ordered = sentences.get(k) >= 0 && sentences.get(k) < statements.size() && (k == 0 || sentences.get(k) > sentences.get(k - 1));
+                if (!ordered) throw new Invalid("SIR-06", "paragraph " + name + "'s sentence " + k + " starts at statement " + sentences.get(k));
+            }
         }
     }
 

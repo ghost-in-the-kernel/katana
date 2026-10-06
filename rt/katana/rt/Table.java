@@ -36,4 +36,10 @@ public final class Table {
     public static long index(Field f) {
         return f.get().toBigDecimal().longValue();
     }
+
+    /** An index or a count set to a whole number (SET, SEARCH's stepping), as the MOVE of that integer. */
+    // Decision: R-019
+    public static void set(Field f, long n) {
+        Move.move(Literal.number(Long.toString(n), 0, f.record().codepage()), f);
+    }
 }

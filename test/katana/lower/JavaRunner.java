@@ -20,7 +20,8 @@ import katana.sir.types.Program;
 /**
  * Phase 3.4's Java lane for NIST (docs/LANES.md LANE-09): a program parsed, built to the Semantic IR,
  * lowered, compiled by javac against `rt/` alone into its folder, and run there in a JVM of its own, the
- * lane's environment added (the files it ASSIGNs through `DD_` names, as the cobc lane binds them).
+ * lane's environment added (the files it ASSIGNs through `DD_` names, as the cobc lane binds them) and
+ * its switches (`COB_SWITCH_n`, n from 0 to 7) as LE's UPSI option, UPSI-n the n-th bit.
  */
 final class JavaRunner implements Runner {
     private final long seconds;
@@ -57,7 +58,7 @@ final class JavaRunner implements Runner {
     public Result run(Path dir, String program, Map<String, String> env, byte[] input) {
         try {
             String name = Files.readString(dir.resolve(stem(program) + ".class-name")).lines().findFirst().orElseThrow();
-            List<String> command = new ArrayList<>(List.of(Path.of(System.getProperty("java.home"), "bin", "java").toString(), "-cp", rtClasses() + java.io.File.pathSeparator + dir, name));
+            List<String> command = new ArrayList<>(List.of(Path.of(System.getProperty("java.home"), "bin", "java").toString(), "-cp", rtClasses() + java.io.File.pathSeparator + dir, "-Dkatana.upsi=" + upsi(env), name));
             Path log = dir.resolve(stem(program) + ".java-out");
             ProcessBuilder pb = new ProcessBuilder(command).directory(dir.toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
             pb.environment().putAll(env);
@@ -82,5 +83,12 @@ final class JavaRunner implements Runner {
     /** `rt/`'s classes and nothing else. */
     static String rtClasses() {
         return Arrays.stream(System.getProperty("java.class.path").split(java.io.File.pathSeparator)).filter(e -> e.replace('\\', '/').endsWith("/classes/java/rt")).findFirst().orElseThrow();
+    }
+
+    /** The lane's switches as UPSI's eight bits. */
+    static String upsi(Map<String, String> env) {
+        StringBuilder bits = new StringBuilder();
+        for (int n = 0; n < 8; n++) bits.append("ON".equals(env.get("COB_SWITCH_" + n)) ? '1' : '0');
+        return bits.toString();
     }
 }

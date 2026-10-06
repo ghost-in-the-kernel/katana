@@ -23,6 +23,7 @@ final class Arith {
             case Value.Field f -> Math.max(0, x.item(f.item()).attributes().scale());
             case Value.Literal l when l.numeric() -> l.scale();
             case Value.Expression e when e.operator().equals("/") -> Math.max(decimals(e.operands().get(0)), e.operands().get(1) instanceof Value.Expression d ? decimals(d) : 0);
+            case Value.Expression e when e.operator().equals("**") -> decimals(e.operands().get(0));
             case Value.Expression e -> e.operands().stream().mapToInt(this::decimals).max().orElse(0);
             default -> 0;
         };
@@ -43,6 +44,7 @@ final class Arith {
         if (!(v instanceof Value.Expression e) || !x.numeric(v)) return operand(v);
         if (e.operator().equals("neg")) return "Decimal.negate(" + term(e.operands().get(0), dmax, last, rounded) + ")";
         if (e.operator().equals("pos")) return term(e.operands().get(0), dmax, last, rounded);
+        if (e.operator().equals("**")) return power(e, dmax, last, rounded);
         String op = switch (e.operator()) {
             case "+" -> "add";
             case "-" -> "subtract";
@@ -53,6 +55,27 @@ final class Arith {
         if (op == null) return x.unsupported("operator " + e.operator());
         String a = term(e.operands().get(0), dmax, false, false), b = term(e.operands().get(1), dmax, false, false);
         return "Decimal." + op + "(P, " + a + ", " + b + ", " + dmax + ", " + last + ", " + rounded + ")";
+    }
+
+    /**
+     * `a ** b` with an integral exponent, a literal or a data-name or variable (PG 6.4 pp. 796-797); an
+     * exponent with decimal places, or an expression holding ** or / when dmax is above zero, is computed
+     * in floating point (p. 800), which is not lowered.
+     */
+    // Decision: R-020
+    private String power(Value.Expression e, int dmax, boolean last, boolean rounded) {
+        Value base = e.operands().get(0), exponent = e.operands().get(1);
+        boolean floating = decimals(exponent) > 0 || (dmax > 0 && exponent instanceof Value.Expression x2 && holds(x2, "**", "/"));
+        if (floating) return x.unsupported("floating-point exponentiation " + e);
+        String literal = exponent instanceof Value.Literal l && l.numeric() ? l.payload() + "L" : "null";
+        String a = term(base, dmax, false, false), b = term(exponent, dmax, false, false);
+        return "Decimal.power(P, " + a + ", " + b + ", " + literal + ", " + (base instanceof Value.Literal) + ", " + dmax + ", " + last + ", " + rounded + ")";
+    }
+
+    private static boolean holds(Value v, String... operators) {
+        if (!(v instanceof Value.Expression e)) return false;
+        if (List.of(operators).contains(e.operator())) return true;
+        return e.operands().stream().anyMatch(o -> holds(o, operators));
     }
 
     /** One operand as a term: a numeric item or literal with its integer places. */

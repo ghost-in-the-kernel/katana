@@ -10,7 +10,14 @@ final class Origins {
     private Origins() {}
 
     static Origin at(Parse.Result parse, ParserRuleContext node) {
-        Mapped.Origin o = parse.origin(node);
+        return of(parse.origin(node));
+    }
+
+    static Origin at(Parse.Result parse, org.antlr.v4.runtime.Token token) {
+        return of(parse.origin(token));
+    }
+
+    private static Origin of(Mapped.Origin o) {
         return new Origin(o.file(), o.line(), o.column(), Origin.Kind.valueOf(o.kind().name()));
     }
 }

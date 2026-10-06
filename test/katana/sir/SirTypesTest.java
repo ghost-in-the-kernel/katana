@@ -70,7 +70,7 @@ class SirTypesTest {
     /** COPYREC's one unnamed paragraph: OPEN, the PERFORM UNTIL with its READ, CLOSE, DISPLAY, STOP RUN. */
     static Procedure procedure(List<Statement> statements) {
         String cbl = "oracle/fixture/trivial/cbl/COPYREC.cbl";
-        return new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(0, "", "", statements, at(cbl, 22, 12))), List.of());
+        return new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(0, "", "", statements, List.of(0), at(cbl, 22, 12))), List.of());
     }
 
     static List<Statement> statements() {
@@ -96,7 +96,7 @@ class SirTypesTest {
     }
 
     static Header header() {
-        return new Header("COPYREC", "oracle/fixture/trivial/cbl/COPYREC.cbl", HASH, "$", false, at("oracle/fixture/trivial/cbl/COPYREC.cbl", 4, 8));
+        return new Header("COPYREC", "oracle/fixture/trivial/cbl/COPYREC.cbl", HASH, "$", false, List.of(), at("oracle/fixture/trivial/cbl/COPYREC.cbl", 4, 8));
     }
 
     @Test
@@ -113,7 +113,7 @@ class SirTypesTest {
 
     @Test
     void eachInvariantRefusesAViolation() {
-        refused("SIR-01", () -> new Header("COPYREC", "x", "sha256:nope", "$", false, at("x", 1, 1)));
+        refused("SIR-01", () -> new Header("COPYREC", "x", "sha256:nope", "$", false, List.of(), at("x", 1, 1)));
         List<Item> renumbered = new ArrayList<>(items());
         renumbered.set(3, item(9, "FILLER", 5, 1, 1, Item.Section.FILE, 17, 3, text(3), null, at("x", 1, 1)));
         refused("SIR-02", () -> new Program(header(), renumbered, files(), procedure(statements()), List.of(), List.of()));
@@ -129,9 +129,10 @@ class SirTypesTest {
         refused("SIR-05", () -> new Program(header(), items(), files(), procedure(stray), List.of(), List.of()));
         List<Statement> noFile = List.of(statement("CLOSE", 1, List.of(operand("file", new Value.File("NOPE"))), List.of()));
         refused("SIR-05", () -> new Program(header(), items(), files(), procedure(noFile), List.of(), List.of()));
-        refused("SIR-06", () -> new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(1, "P", "", List.of(), at("x", 1, 1))), List.of()));
-        refused("SIR-06", () -> new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(0, "P", "", List.of(), at("x", 1, 1))),
+        refused("SIR-06", () -> new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(1, "P", "", List.of(), List.of(), at("x", 1, 1))), List.of()));
+        refused("SIR-06", () -> new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(0, "P", "", List.of(), List.of(), at("x", 1, 1))),
                 List.of(new Procedure.Edge(Procedure.Kind.PERFORM, 0, 3, 3, at("x", 1, 1)))));
+        refused("SIR-06", () -> new Procedure.Paragraph(0, "P", "", List.of(), List.of(0), at("x", 1, 1)));
         refused("SIR-07", () -> new Statement("MOVE", List.of(), List.of(), null));
         refused("SIR-08", () -> new Value.Literal("X'C'", Value.Literal.Kind.HEX, "C", 0));
         refused("SIR-08", () -> new Value.Literal("1.5", Value.Literal.Kind.NUMERIC, "1.5", 0));

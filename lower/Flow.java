@@ -23,6 +23,7 @@ final class Flow {
     private final List<Integer> labels = new ArrayList<>();
     private final int end;
     private int next, counters;
+    private String sentenceEnd = "";
     String paragraph = "";
 
     Flow(Emitter e, Program p, Exprs x) {
@@ -50,7 +51,7 @@ final class Flow {
         for (Procedure.Paragraph para : paragraphs) {
             paragraph = para.name();
             open(para.index());
-            statements(para.statements());
+            sentences(para);
             e.line("return d.end(" + para.index() + ", " + (para.index() + 1) + ");");
             e.close();
         }
@@ -96,6 +97,36 @@ final class Flow {
         e.line(";");
     }
 
+    /** A paragraph's sentences in order; one that holds a NEXT SENTENCE ends its stretch, the next sentence (or the paragraph's end) its target. */
+    // Decision: R-021
+    private void sentences(Procedure.Paragraph para) {
+        List<Integer> starts = new ArrayList<>(para.sentences());
+        starts.add(para.statements().size());
+        for (int k = 0; k + 1 < starts.size(); k++) {
+            List<Statement> sentence = para.statements().subList(starts.get(k), starts.get(k + 1));
+            boolean last = k + 2 == starts.size();
+            int after = !last && holdsNextSentence(sentence) ? label() : -1;
+            sentenceEnd = after >= 0 ? String.valueOf(after) : "d.end(" + para.index() + ", " + (para.index() + 1) + ")";
+            statements(sentence);
+            if (after < 0) continue;
+            e.line("return " + after + ";");
+            split(after);
+        }
+    }
+
+    private static boolean holdsNextSentence(List<Statement> list) {
+        for (Statement s : list) {
+            if (s.verb().equals("NEXT SENTENCE")) return true;
+            for (Statement.Branch b : s.branches()) if (holdsNextSentence(b.statements())) return true;
+        }
+        return false;
+    }
+
+    /** NEXT SENTENCE: to the first statement after the sentence's period (LR 6.4 p. 435). */
+    void nextSentence() {
+        jump(sentenceEnd);
+    }
+
     /** Statements in order, each after its provenance comment. */
     void statements(List<Statement> list) {
         for (Statement s : list) {
@@ -104,9 +135,10 @@ final class Flow {
         }
     }
 
-    /** Whether a statement holds an out-of-line PERFORM or a VARYING loop, here or in a phrase, so it cannot be structured Java. */
+    /** Whether a statement holds an out-of-line PERFORM, a VARYING loop or a SEARCH, here or in a phrase, so it cannot be structured Java. */
     static boolean splits(Statement s) {
         if (s.verb().equals("PERFORM") && (target(s) != null || Performs.varies(s))) return true;
+        if (s.verb().equals("SEARCH")) return true;
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) if (splits(t)) return true;
         return false;
     }

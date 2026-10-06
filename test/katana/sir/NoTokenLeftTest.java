@@ -43,7 +43,7 @@ class NoTokenLeftTest {
         Program p = Build.program(parse, HASH).program();
         List<Procedure.Paragraph> stripped = new ArrayList<>();
         for (Procedure.Paragraph g : p.procedure().paragraphs()) {
-            stripped.add(new Procedure.Paragraph(g.index(), g.name(), g.section(), g.statements().stream().map(NoTokenLeftTest::strip).toList(), g.origin()));
+            stripped.add(new Procedure.Paragraph(g.index(), g.name(), g.section(), g.statements().stream().map(NoTokenLeftTest::strip).toList(), g.sentences(), g.origin()));
         }
         Procedure q = p.procedure();
         Program without = new Program(p.header(), p.items(), p.files(), new Procedure(q.using(), q.returning(), q.sections(), stripped, q.edges()), p.calls(), p.nested());

@@ -12,8 +12,9 @@ Invariants are numbered SIR-01 onward, in this document only, and a number is ne
 ## The header: the profile hash
 
 `Program`: the `Header`, the data map, the files, the `Procedure`, the `Call`s, and the programs
-nested in it. `Header`: the program's name, its source file, and the hash of the profile (R-049) it
-means what it means under.
+nested in it. `Header`: the program's name, its source file, the hash of the profile (R-049) it
+means what it means under, and each `Switch`: a switch-status condition-name from SPECIAL-NAMES, its
+switch's environment-name (`UPSI-0` to `UPSI-7`) and the status it stands for (J-123).
 
 ## The data map
 
@@ -29,8 +30,11 @@ which they are). An item's `Flag`s: JUSTIFIED, BLANK WHEN ZERO, EXTERNAL, GLOBAL
 ## The paragraph graph
 
 `Procedure`: the USING and RETURNING items, each `Section` (a declarative one with what it is USE'd
-for), each `Paragraph` in textual order with its statements, and each `Edge` (`Kind` PERFORM, GO_TO
-or ALTER) from one paragraph to another, through the end of a PERFORM range.
+for), each `Paragraph` in textual order with its statements and where each of its sentences starts
+(the index of its first statement; NEXT SENTENCE goes to the next one, or to the paragraph's end), and
+each `Edge` (`Kind` PERFORM, GO_TO or ALTER) from one paragraph to another, through the end of a
+PERFORM range. A NEXT SENTENCE written in a phrase (IF's, SEARCH's WHEN) is a NEXT SENTENCE statement
+in that phrase's branch, as one written alone is (J-122).
 
 ## Statements
 
@@ -63,6 +67,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | --- | --- |
 | `profile` | the profile the program means what it means under |
 | `editing` | the currency sign and decimal point a mask's `$` and `.` stand for |
+| `switch` | each switch-status condition-name, its switch and status |
 | `item` | each item's place, attribute tuple, edit mask and flags |
 | `redefines` | each item that redefines another |
 | `occurs` | each table's bounds, ODO object, keys and indexes |
@@ -98,7 +103,8 @@ shape: `lower/golden/<PROG>.java`, the generated Java byte for byte, a refactor 
   or a statement names is in the data map, and each file a statement names is one of the program's.
 - **SIR-06 The paragraph graph is closed.** Paragraphs are numbered 0, 1, ... in textual order;
   statements under no paragraph name (at the start of the body or of a section) are a paragraph named
-  ""; every edge joins two of them.
+  ""; every edge joins two of them; a paragraph's sentence starts are its statements' indexes, in
+  increasing order.
 - **SIR-07 Everything has an origin.** Each item, condition, paragraph, section, statement, file, CALL,
   edge and the header carry the place in the COBOL they came from (2.3's source map), as the IR's own
   `Origin` (file, line, column, and its `Kind`: source, replaced or added), so a reader of the IR needs

@@ -228,7 +228,7 @@ defaultDisplaySignClause
    ;
 
 environmentSwitchNameClause
-   : environmentName IS? mnemonicName environmentSwitchNameSpecialNamesStatusPhrase? | environmentSwitchNameSpecialNamesStatusPhrase
+   : environmentName IS? mnemonicName environmentSwitchNameSpecialNamesStatusPhrase? | environmentName environmentSwitchNameSpecialNamesStatusPhrase | environmentSwitchNameSpecialNamesStatusPhrase
    ;
 
 environmentSwitchNameSpecialNamesStatusPhrase

@@ -75,6 +75,27 @@ public record Decimal(BigInteger unscaled, int scale) {
         return cut(quotient, places, a, b);
     }
 
+    /**
+     * `a ** b`, b an integer (PG 6.4 pp. 796-797): its places as the profile gives them (`literal` the
+     * exponent when it is an integral literal, else null; `literalBase` when a is a literal); an exponent
+     * of more than nine digits truncated to nine; b zero gives 1; a negative b then divides 1 by the
+     * result, a zero result a division by zero. The repeated multiplication is exact, then cut.
+     */
+    // Decision: R-020
+    public static Term power(ArithProfile p, Term a, Term b, Long literal, boolean literalBase, int dmax, boolean last, boolean rounded) {
+        BigInteger whole = b.value().toBigDecimal().toBigInteger();
+        int k = whole.abs().remainder(BigInteger.TEN.pow(9)).intValueExact();
+        boolean negative = whole.signum() < 0 && k != 0;
+        BigDecimal exact = k == 0 ? BigDecimal.ONE : a.value().toBigDecimal().pow(k);
+        BigInteger integerPart = exact.setScale(0, RoundingMode.DOWN).abs().toBigInteger();
+        int integers = !literalBase ? -1 : integerPart.signum() == 0 ? 0 : integerPart.toString().length();
+        ArithProfile.Places places = p.power(a.places().integer(), a.places().decimal(), literal, integers, dmax);
+        if (k == 0) places = new ArithProfile.Places(Math.max(1, places.integer()), places.decimal());
+        if (!negative) return cut(exact, last ? p.last(places, rounded) : places, a, b);
+        Term preliminary = cut(exact, places, a, b);
+        return divide(p, operand(Decimal.of("1"), 1), preliminary, dmax, last, rounded);
+    }
+
     /** An exact result cut to the places carried: decimals truncated, high-order integer digits beyond the integer places lost. */
     private static Term cut(BigDecimal exact, ArithProfile.Places places, Term a, Term b) {
         BigInteger unscaled = exact.setScale(places.decimal(), RoundingMode.DOWN).unscaledValue();

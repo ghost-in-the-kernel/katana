@@ -20,7 +20,9 @@ import katana.lower.Lower;
 import katana.rt.Codepage;
 import katana.rt.Display;
 import katana.rt.Field;
+import katana.rt.Sysin;
 import katana.rt.Sysout;
+import katana.rt.Upsi;
 import katana.sir.build.Build;
 import katana.sir.types.Item;
 import katana.sir.types.Procedure;
@@ -64,9 +66,15 @@ class LoweredAutotestsIntegrationTest {
         return Arrays.stream(System.getProperty("java.class.path").split(java.io.File.pathSeparator)).filter(e -> e.replace('\\', '/').endsWith("/classes/java/rt")).findFirst().orElseThrow();
     }
 
+    /** A lowered program as its `main` makes one: the lane's codepage, every UPSI switch off, nothing on its input. */
+    static Object construct(Built b, Sysout out, Sysout err) throws Exception {
+        return b.type().getConstructor(Codepage.class, Upsi.class, Sysin.class, Sysout.class, Sysout.class)
+                .newInstance(Out.CP, Upsi.of("00000000"), new Sysin(new java.io.ByteArrayInputStream(new byte[0])), out, err);
+    }
+
     static byte[] run(Built b) throws Exception {
         ByteArrayOutputStream out = new ByteArrayOutputStream(), err = new ByteArrayOutputStream();
-        Object program = b.type().getConstructor(Codepage.class, Sysout.class, Sysout.class).newInstance(Out.CP, new Sysout(out, Out.SIGN), new Sysout(err, Display.Sign.SEP));
+        Object program = construct(b, new Sysout(out, Out.SIGN), new Sysout(err, Display.Sign.SEP));
         b.type().getMethod("run").invoke(program);
         return out.toByteArray();
     }
@@ -106,7 +114,7 @@ class LoweredAutotestsIntegrationTest {
 
     /** Every item's field where the IR puts it: the same record offset and length. */
     private static void dataMap(Built b) throws Exception {
-        Object program = b.type().getConstructor(Codepage.class, Sysout.class, Sysout.class).newInstance(Out.CP, new Sysout(new ByteArrayOutputStream(), Out.SIGN), new Sysout(new ByteArrayOutputStream(), Out.SIGN));
+        Object program = construct(b, new Sysout(new ByteArrayOutputStream(), Out.SIGN), new Sysout(new ByteArrayOutputStream(), Out.SIGN));
         for (Item i : b.program().items()) {
             java.lang.reflect.Field member = b.type().getDeclaredField("f" + i.id());
             member.setAccessible(true);

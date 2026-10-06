@@ -49,10 +49,30 @@ class LowerDifferentialIntegrationTest {
         return out;
     }
 
+    /**
+     * Programs where cobc's reading is not IBM's, each held instead to its output worked by hand from
+     * IBM's text, and cobc still differing from it (so a change shows). SEARCHVARY: a VARYING item that
+     * is not the table's own index "is increased by the same amount as the search index-name and at the
+     * same time", an integer item "simultaneously increased by 1" (LR 6.4 p. 437): OX from 1 and N from 0,
+     * each stepped twice; cobc sets each to the search index's occurrence number. A finding against
+     * cobc (J-122). ACCEPTEOF: with nothing on the input device, "padding will not take place and the
+     * contents of the receiving area are unchanged" (LR 6.4 p. 308), "the system input device" being
+     * assumed when FROM is omitted (p. 307); cobc fills the item with spaces (J-122). POWERIBM: 10 ** 2
+     * + 12 * 2 is 124, 13 ** 2 is 169 and 3 ** -1 is 0.333333 to six places, each exact and within its
+     * receiver under any of IBM's place rules (PG 6.4 pp. 796-797); cobc -std=ibm prints 100, 0 and
+     * 27 (the last 27 under its default dialect too) (J-124).
+     */
+    static final Map<String, String> IBM_READINGS = Map.of("SEARCHVARY", "DD W\nN 002\n", "ACCEPTEOF", "X KEPT \nX KEPT \n",
+            "POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n");
+
     @Test
     void eachProgramPrintsWhatCobcPrints() throws Exception {
         List<String> differ = new ArrayList<>();
-        for (Ran r : run()) if (!r.cobc().equals(r.java())) differ.add(r.name() + "\ncobc:\n" + r.cobc() + "\njava:\n" + r.java());
+        for (Ran r : run()) {
+            String ibm = IBM_READINGS.get(r.name());
+            if (ibm != null && (!ibm.equals(r.java()) || ibm.equals(r.cobc()))) differ.add(r.name() + " (IBM's reading)\njava:\n" + r.java());
+            else if (ibm == null && !r.cobc().equals(r.java())) differ.add(r.name() + "\ncobc:\n" + r.cobc() + "\njava:\n" + r.java());
+        }
         assertEquals(List.of(), differ);
     }
 

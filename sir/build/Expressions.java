@@ -12,7 +12,9 @@ import org.antlr.v4.runtime.ParserRuleContext;
  * unary minus and plus, which bind before `**`. Conditions: `= <> < <= > >=` (NOT GREATER is `<=`), `NOT`, `AND` over
  * `OR`; `POSITIVE NEGATIVE ZERO` of an expression; `NUMERIC ALPHABETIC ALPHABETIC-LOWER ALPHABETIC-UPPER
  * DBCS KANJI` or `CLASS name` of a field. An abbreviated relation (`A > 1 AND < 5`) is written out
- * whole, its subject and operator the last relation's; a combined one (`A = (1 OR 2)`) likewise.
+ * whole, its subject and operator the last relation's; a combined one (`A = (1 OR 2)`) likewise; and
+ * so is an object that is a data item standing alone (`A = B OR C`, J-124), which the grammar reads as
+ * a condition-name. The last relation is the same condition's, never an earlier statement's.
  */
 final class Expressions {
     private final Values values;
@@ -46,6 +48,13 @@ final class Expressions {
     private Value basis(CobolParser.BasisContext b) {
         if (b.arithmeticExpression() != null) return arithmetic(b.arithmeticExpression());
         return values.of(b.identifier() != null ? b.identifier() : b.literal());
+    }
+
+    /** A statement's condition, with no relation before it to abbreviate. */
+    Value top(CobolParser.ConditionContext c) {
+        subject = null;
+        operator = "=";
+        return condition(c);
     }
 
     /** A condition: its terms joined by AND before OR, as written left to right. */
@@ -89,7 +98,10 @@ final class Expressions {
     private Value simple(CobolParser.SimpleConditionContext s) {
         if (s.condition() != null) return condition(s.condition());
         if (s.classCondition() != null) return classCondition(s.classCondition());
-        if (s.conditionNameReference() != null) return values.of(s.conditionNameReference());
+        if (s.conditionNameReference() != null) {
+            Value v = values.of(s.conditionNameReference());
+            return v instanceof Value.Field && subject != null ? binary(operator, subject, v) : v;
+        }
         return relation(s.relationCondition());
     }
 

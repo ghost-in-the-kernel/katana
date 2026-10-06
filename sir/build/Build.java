@@ -14,6 +14,7 @@ import katana.sir.types.Item;
 import katana.sir.types.Procedure;
 import katana.sir.types.Program;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
  * Tree to IR (docs/ROADMAP.md 2.5), mechanically: nothing is judged, and what the tree does not say
@@ -71,7 +72,7 @@ public final class Build {
         values.cics = first(unit.procedureDivision(), CobolParser.ExecCicsStatementContext.class) != null;
         Paragraphs paragraphs = new Paragraphs(parse, values, findings);
         Procedure procedure = unit.procedureDivision() == null
-                ? new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(0, "", "", List.of(), Origins.at(parse, unit))), List.of())
+                ? new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(0, "", "", List.of(), List.of(), Origins.at(parse, unit))), List.of())
                 : paragraphs.build(unit.procedureDivision(), using(unit.procedureDivision(), names), returning(unit.procedureDivision(), names));
         List<Program> nested = new ArrayList<>();
         List<Names> inside = new ArrayList<>(outer);
@@ -81,8 +82,24 @@ public final class Build {
         for (var inner : unit.programUnit()) nested.add(program(parse, inner, profileHash, findings, inside, insideFiles));
         var id = unit.identificationDivision().programIdParagraph();
         Header header = new Header(Values.upper(id.programName().getText()).replaceAll("[\"']", ""), Origins.at(parse, unit).file(), profileHash,
-                String.valueOf(data.currency()), data.decimalComma(), Origins.at(parse, id));
+                String.valueOf(data.currency()), data.decimalComma(), switches(unit), Origins.at(parse, id));
         return new Program(header, data.items(), files, procedure, paragraphs.calls, nested);
+    }
+
+    /** SPECIAL-NAMES' switch-status condition-names, each with its switch and the status it stands for. */
+    private static List<Header.Switch> switches(CobolParser.ProgramUnitContext unit) {
+        List<Header.Switch> out = new ArrayList<>();
+        if (unit.environmentDivision() == null) return out;
+        for (var clause : all(unit.environmentDivision(), CobolParser.EnvironmentSwitchNameClauseContext.class)) {
+            if (clause.environmentName() == null || clause.environmentSwitchNameSpecialNamesStatusPhrase() == null) continue;
+            String environment = Values.upper(clause.environmentName().getText());
+            boolean on = true;
+            for (ParseTree child : clause.environmentSwitchNameSpecialNamesStatusPhrase().children) {
+                if (child instanceof TerminalNode t && (t.getSymbol().getType() == CobolParser.ON || t.getSymbol().getType() == CobolParser.OFF)) on = t.getSymbol().getType() == CobolParser.ON;
+                if (child instanceof CobolParser.ConditionContext c) out.add(new Header.Switch(Values.upper(c.getText()), environment, on));
+            }
+        }
+        return out;
     }
 
     private static List<Integer> using(CobolParser.ProcedureDivisionContext pd, Names names) {

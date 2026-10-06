@@ -61,7 +61,7 @@ final class Values {
             case CobolParser.MnemonicNameContext m -> new Value.Name("mnemonic", upper(m.getText()));
             case CobolParser.AssignmentNameContext a -> new Value.Name("assignment", upper(a.getText()));
             case CobolParser.ArithmeticExpressionContext a -> expressions.arithmetic(a);
-            case CobolParser.ConditionContext c -> expressions.condition(c);
+            case CobolParser.ConditionContext c -> expressions.top(c);
             case ParserRuleContext r -> expression(r);
             default -> new Value.Name("word", node.getText());
         };

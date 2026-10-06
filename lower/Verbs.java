@@ -14,6 +14,7 @@ final class Verbs {
     private final TextVerbs text;
     private final FileVerbs files;
     private final Evaluate evaluate;
+    private final Search search;
 
     Verbs(Flow f) {
         this.f = f;
@@ -22,6 +23,7 @@ final class Verbs {
         this.text = new TextVerbs(f);
         this.files = new FileVerbs(f);
         this.evaluate = new Evaluate(f);
+        this.search = new Search(f);
     }
 
     // Decision: R-021
@@ -29,6 +31,7 @@ final class Verbs {
         switch (s.verb()) {
             case "MOVE" -> move(s);
             case "DISPLAY" -> display(s);
+            case "ACCEPT" -> accept(s);
             case "ADD", "SUBTRACT", "MULTIPLY", "DIVIDE", "COMPUTE" -> arithmetic.statement(s);
             case "SET" -> set(s);
             case "INSPECT" -> text.inspect(s);
@@ -46,16 +49,24 @@ final class Verbs {
     /** The verbs that decide where control goes. */
     private void control(Statement s) {
         switch (s.verb()) {
-            case "IF" -> f.branch(f.conditions.of(operand(s, "if-statement")), branch(s, "if-then"), branch(s, "if-else"));
+            case "IF" -> ifStatement(s);
             case "EVALUATE" -> evaluate.statement(s);
+            case "SEARCH" -> search.statement(s);
             case "PERFORM" -> performs.statement(s);
             case "GO TO" -> goTo(s);
             case "STOP", "GOBACK" -> f.jump(String.valueOf(f.end()));
             case "EXIT" -> exit(s);
             case "ALTER" -> alter(s);
             case "CONTINUE" -> f.e.line("// CONTINUE");
+            case "NEXT SENTENCE" -> f.nextSentence();
             default -> f.e.line(f.x.unsupported(s.verb() + " at " + s.origin() + " " + s.operands()) + ";");
         }
+    }
+
+    /** IF: its phrases hold statements only; a phrase with words left over (as NEXT SENTENCE once was, J-122) is not lowered, never dropped. */
+    private void ifStatement(Statement s) {
+        if (s.branches().stream().anyMatch(b -> b.condition() != null)) f.e.line(f.x.unsupported("IF with words in a phrase at " + s.origin() + " " + s.branches()) + ";");
+        else f.branch(f.conditions.of(operand(s, "if-statement")), branch(s, "if-then"), branch(s, "if-else"));
     }
 
     /** The first operand of a role, null when none. */
@@ -84,7 +95,10 @@ final class Verbs {
     private void move(Statement s) {
         Value from = operand(s, "move-to-sending-area");
         if (from == null) {
-            f.e.line(f.x.unsupported("MOVE CORRESPONDING at " + s.origin()) + ";");
+            Value.Field group = (Value.Field) operand(s, "move-corresponding-to-sending-area");
+            for (Value to : operands(s, "move-corresponding-to-statement")) {
+                for (Value.Field[] pair : Corresponding.pairs(f.x, group, (Value.Field) to, false)) f.e.line(f.x.moveInto(pair[0], f.x.field(pair[1]), f.x.item(pair[1].item())) + ";");
+            }
             return;
         }
         for (Value to : operands(s, "move-to-statement")) {
@@ -101,6 +115,24 @@ final class Verbs {
         boolean syserr = upon instanceof Value.Name n && n.text().equals("SYSERR");
         f.e.line((syserr ? "err" : "out") + ".display(" + !keyword(s, "ADVANCING") + (parts.isEmpty() ? "" : ", ") + String.join(", ", parts) + ");");
     }
+
+    /** ACCEPT: from the input device (format 1, any mnemonic), or a conceptual item, DATE to TIME (format 2). */
+    // Decision: R-019
+    // Unsure: a mnemonic for the console is read as the input device; the lane has one input (J-122).
+    private void accept(Statement s) {
+        Value.Field into = (Value.Field) operand(s, "accept-statement");
+        List<String> conceptual = new ArrayList<>();
+        for (Statement.Operand o : s.operands()) if (o.role().equals("accept-from-date-statement") && o.value() instanceof Value.Name n && !n.text().equals("FROM")) conceptual.add(n.text());
+        boolean other = s.operands().stream().anyMatch(o -> o.role().equals("accept-message-count-statement") || o.role().equals("accept-from-escape-key-statement"));
+        String from = String.join(" ", conceptual);
+        if (!s.branches().isEmpty() || other || !(conceptual.isEmpty() || IBM_CONCEPTUAL.contains(from))) {
+            f.e.line(f.x.unsupported("ACCEPT at " + s.origin() + " " + s.operands()) + ";");
+        } else if (conceptual.isEmpty()) f.e.line("in.accept(" + f.x.field(into) + ");");
+        else f.e.line("Accept.from(" + f.x.field(into) + ", " + Emitter.quote(from) + ");");
+    }
+
+    /** ACCEPT format 2's conceptual items (LR 6.4 p. 309); the grammar's others are not IBM's. */
+    private static final List<String> IBM_CONCEPTUAL = List.of("DATE", "DATE YYYYMMDD", "DAY", "DAY YYYYDDD", "DAY-OF-WEEK", "TIME");
 
     private String shown(Value v) {
         return switch (v) {

@@ -36,6 +36,34 @@ class ArithProfileTest {
         assertEquals(new ArithProfile.Places(28, 10), ArithProfile.EXACT.carried(28, 10, 4));
     }
 
+    /** Exponentiation's places (PG 6.4 pp. 796-797), each rule as the text words it. */
+    @Test
+    void exponentiationsPlaces() {
+        // an integral literal exponent: d = d1 * |n|, i = i1 * |n| for a data-name op1
+        assertEquals(new ArithProfile.Places(9, 6), COMPAT.power(3, 2, 3L, -1, 4));
+        assertEquals(new ArithProfile.Places(9, 6), COMPAT.power(3, 2, -3L, -1, 4));
+        // a literal op1: i the integers of op1 ** |n| (12 ** 3 = 1728, four)
+        assertEquals(new ArithProfile.Places(4, 0), COMPAT.power(2, 0, 3L, 4, 0));
+        // i + d at 30 with op1 of an odd number of digits: carried; of an even number: as a data-name exponent
+        assertEquals(new ArithProfile.Places(30, 0), COMPAT.power(3, 0, 10L, -1, 2));
+        assertEquals(new ArithProfile.Places(28, 2), COMPAT.power(2, 0, 15L, -1, 2));
+        // a data-name or variable exponent: 30 - dmax integer and dmax decimal places, 31 - dmax under EXTEND
+        assertEquals(new ArithProfile.Places(26, 4), COMPAT.power(3, 2, null, -1, 4));
+        assertEquals(new ArithProfile.Places(27, 4), EXTEND.power(3, 2, null, -1, 4));
+    }
+
+    /** The value: exact repeated multiplication cut to the places; zero gives 1; a negative exponent divides 1 by the result. */
+    @Test
+    void exponentiationsValue() {
+        Decimal.Term twelve = Decimal.operand(Decimal.of("12"), 3), threeHalves = Decimal.operand(Decimal.of("1.5"), 1);
+        assertEquals("1728", Decimal.power(COMPAT, twelve, Decimal.operand(Decimal.of("3"), 1), null, false, 0, true, false).value().toString());
+        assertEquals("3.375", Decimal.power(COMPAT, threeHalves, Decimal.operand(Decimal.of("3"), 1), 3L, false, 0, true, false).value().toString());
+        assertEquals("1", Decimal.power(COMPAT, twelve, Decimal.operand(Decimal.of("0"), 1), 0L, false, 0, true, false).value().toString());
+        assertEquals("0.666666", Decimal.power(COMPAT, threeHalves, Decimal.operand(Decimal.of("-1"), 1), -1L, false, 6, true, false).value().toString());
+        Decimal.Term zero = Decimal.operand(Decimal.of("0"), 1);
+        assertEquals(true, Decimal.power(COMPAT, zero, Decimal.operand(Decimal.of("-1"), 1), -1L, false, 2, true, false).divisionByZero());
+    }
+
     /** 1 / 3 * 300 into 999V99: dmax 2 (the receiver); 1 / 3 carries 2 decimals, 0.33; times 300 is 99.00. */
     @Test
     void theMeasuredReproducer() {

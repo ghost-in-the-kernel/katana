@@ -55,8 +55,12 @@ final class Paragraphs {
             current = i;
             Raw r = raw.get(i);
             List<Statement> statements = new ArrayList<>();
-            for (var sentence : r.sentences()) for (var st : sentence.statement()) statements.add(statement(st));
-            built.add(new Procedure.Paragraph(i, r.name(), r.section(), statements, Origins.at(parse, r.at())));
+            List<Integer> starts = new ArrayList<>();
+            for (var sentence : r.sentences()) {
+                if (!sentence.statement().isEmpty()) starts.add(statements.size());
+                for (var st : sentence.statement()) statements.add(statement(st));
+            }
+            built.add(new Procedure.Paragraph(i, r.name(), r.section(), statements, starts, Origins.at(parse, r.at())));
         }
         return new Procedure(using, returning, sections, built, edges);
     }
@@ -114,12 +118,20 @@ final class Paragraphs {
         }
     }
 
-    /** A rule holding statements as a branch: its label the rule, its condition what else it holds (its own words, but those its label says, such as AT END in `at-end-phrase`). */
+    /**
+     * A rule holding statements as a branch: its label the rule, its condition what else it holds (its own
+     * words, but those its label says, such as AT END in `at-end-phrase`); a phrase's NEXT SENTENCE (IF,
+     * SEARCH's WHEN) is a NEXT SENTENCE statement, as one written alone is.
+     */
     private Statement.Branch branch(ParserRuleContext rule) {
         List<Statement> statements = new ArrayList<>();
         List<Value> parts = new ArrayList<>();
         List<String> label = List.of(role(rule).toUpperCase(java.util.Locale.ROOT).split("-"));
         for (ParseTree child : rule.children == null ? List.<ParseTree>of() : rule.children) {
+            if (child instanceof TerminalNode t && t.getSymbol().getType() == CobolParser.NEXT) {
+                statements.add(new Statement("NEXT SENTENCE", List.of(), List.of(), Origins.at(parse, t.getSymbol())));
+                break;
+            }
             if (child instanceof CobolParser.StatementContext nested) statements.add(statement(nested));
             else if (child instanceof ParserRuleContext r) parts.add(group(r));
             else if (child instanceof TerminalNode t && !noise(t) && !label.contains(Values.upper(t.getText()))) parts.add(new Value.Name("keyword", Values.upper(t.getText())));

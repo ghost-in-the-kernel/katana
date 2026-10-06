@@ -1002,3 +1002,36 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | sir | `sir/check/NonExact.java:NonExact.leaving` | R-021 | 2026-10-06 |  |
 | findings | `findings/Finding.java:Finding.Kind.hypothesis` |  | 2026-10-06 |  |
 | oracle | `oracle/proof/ProofReport.java:ProofReport.findings` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.sentences` | R-021 | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.holdsNextSentence` |  | 2026-10-06 |  |
+| lower | `lower/Flow.java:Flow.nextSentence` |  | 2026-10-06 |  |
+| lower | `lower/Search.java:Search.Search` |  | 2026-10-06 |  |
+| lower | `lower/Search.java:Search.statement` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Table.java:Table.set` | R-019 | 2026-10-06 |  |
+| sir | `sir/build/Origins.java:Origins.at#2` |  | 2026-10-06 |  |
+| sir | `sir/build/Origins.java:Origins.of` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.accept` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Accept.java:Accept.Accept` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Accept.java:Accept.from` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Accept.java:Accept.from#2` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Sysin.java:Sysin.Sysin` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Sysin.java:Sysin.accept` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Sysin.java:Sysin.record` |  | 2026-10-06 |  |
+| lower | `lower/Verbs.java:Verbs.ifStatement` |  | 2026-10-06 |  |
+| lower | `lower/Conditions.java:Conditions.switchStatus` |  | 2026-10-06 |  |
+| lower | `lower/Corresponding.java:Corresponding.Corresponding` |  | 2026-10-06 |  |
+| lower | `lower/Corresponding.java:Corresponding.pairs` | R-019 | 2026-10-06 |  |
+| lower | `lower/Corresponding.java:Corresponding.walk` |  | 2026-10-06 |  |
+| lower | `lower/Corresponding.java:Corresponding.children` |  | 2026-10-06 |  |
+| lower | `lower/Corresponding.java:Corresponding.eligible` |  | 2026-10-06 |  |
+| lower | `lower/Corresponding.java:Corresponding.group` |  | 2026-10-06 |  |
+| lower | `lower/Corresponding.java:Corresponding.number` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Upsi.java:Upsi.Upsi` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Upsi.java:Upsi.of` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Upsi.java:Upsi.on` |  | 2026-10-06 |  |
+| sir | `sir/build/Build.java:Build.switches` |  | 2026-10-06 |  |
+| lower | `lower/Arith.java:Arith.power` | R-020 | 2026-10-06 |  |
+| lower | `lower/Arith.java:Arith.holds` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/ArithProfile.java:ArithProfile.power` | R-049 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.power` | R-020 | 2026-10-06 |  |
+| sir | `sir/build/Expressions.java:Expressions.top` |  | 2026-10-06 |  |

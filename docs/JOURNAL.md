@@ -1603,3 +1603,68 @@ taken; closed by a later `decision` entry naming it).
   of the research, which is what Ghost asked for: "this is what the research project has already
   discovered, and this is why this existing tool sometimes has bad output."
 
+### J-122 SEARCH, NEXT SENTENCE, ACCEPT; NC 22 to 26; two findings against cobc
+- **Who:** Opus. **Class:** build (3.3/3.4), with an IR change and two findings against cobc.
+- **Found:** SEARCH and SEARCH ALL lowered (`lower/Search`) as stretches: the loop head takes AT END
+  once the index passes the last occurrence (the ODO object's value when there is one), each WHEN tried
+  in order, else the index and a VARYING item that is not the table's own index up by one (LR 6.4
+  pp. 436-437); SEARCH ALL as a scan from the first occurrence, which IBM's text allows (its results
+  are "predictable only" for ordered, unique keys, p. 438; an `Unsure` names the temporary of the key's
+  USAGE the argument is moved to). `Flow.splits` counts SEARCH, so a construct holding one is
+  flattened. NC's SEARCH (141) then stopped at `WHEN c NEXT SENTENCE`, and the same probe showed
+  `IF c NEXT SENTENCE ELSE` lowered silently as nothing: the IR folded a phrase's NEXT SENTENCE words
+  into the branch condition, which IF's lowering never read. Fixed in the IR: a `Paragraph` carries
+  where each sentence starts (SIR-06, SEMANTIC-IR), and a phrase's NEXT SENTENCE is a NEXT SENTENCE
+  statement, as one written alone is; the lowering ends a sentence holding one at a label, the last
+  sentence's target the paragraph's end. IF now refuses a phrase with words left over, so such a fold
+  is a finding, never dropped. Contract facts: CardDemo +1, NIST +120, each a phrase's NEXT SENTENCE
+  now a statement (`sir/ir.golden`). ACCEPT lowered: format 1 from the input device (`rt/Sysin`,
+  records read into the item's bytes until filled, concatenated, padded only when EOF follows data,
+  pp. 307-308), format 2's six conceptual items (`rt/Accept`, held to IBM's examples, p. 310).
+  NC through the Java lane: 22 to 26 of 95 (floor raised).
+- **Findings against cobc** (Katana follows IBM; each held in `LowerDifferentialIntegrationTest` to
+  output worked from the page, cobc still differing): SEARCH VARYING an item that is not the table's
+  index, which IBM steps "by the same amount as the search index-name and at the same time" (p. 437)
+  and cobc sets to the search index's occurrence number (SEARCHVARY); ACCEPT at end of input, where
+  IBM leaves the item "unchanged" (p. 308) and cobc fills it with spaces (ACCEPTEOF).
+- **Next, by NC's count:** MOVE CORRESPONDING (16), switch conditions (32), `**` (22), class
+  conditions (14), conditions on a bare field.
+
+### J-123 MOVE CORRESPONDING and UPSI switches; NC 26 to 29
+- **Who:** Opus. **Class:** build (3.3/3.4), with an IR change and a grammar fix.
+- **Found:** MOVE CORRESPONDING lowered from the data map (`lower/Corresponding`, LR 6.4 p. 295): both
+  groups' children walked in step, matched by name, looked into while both are groups, paired once
+  one is elementary; FILLER, 66s, indexes, pointers and items described with REDEFINES or OCCURS left
+  out (an `Unsure`: their subordinates too, which IBM does not name); each pair subscripted as the
+  groups named are. cobc agrees on every pair of CORRS. Switch-status conditions (p. 283): the IR's
+  header now lists each SPECIAL-NAMES condition-name with its switch and status (`Header.Switch`, a
+  contract kind `switch`, SEMANTIC-IR), and the lowering tests its UPSI bit; `rt/Upsi` takes LE's UPSI
+  run-time option as written (z/OS 3.1 LE Programming Reference SA38-0683-60 p. 87: eight bits, "the
+  leftmost n representing the first switch", 00000000 the default), the generated `main` reads it from
+  `katana.upsi`, and `JavaRunner` gives the lane's COB_SWITCH_n as those bits. A switch not UPSI-0 to
+  UPSI-7 is not lowered. The grammar refused IBM's own `UPSI-0 ON STATUS IS ...` (the mnemonic-name is
+  optional, p. 124); it now takes it. An unsupported condition is `(boolean) Unsupported.fail(...)`,
+  so the line it stands in compiles under `!` too. NC through the Java lane: 26 to 29 (floor raised).
+- **Gate:** J-122's own gate failed on `LoweredAutotestsIntegrationTest`, which built each lowered
+  class through the old constructor; J-122 was not pushed, and goes in this commit, the test building
+  the class as `main` does, through one helper.
+
+### J-124 Exponentiation, and an abbreviated relation's data-item object
+- **Who:** Opus. **Class:** build (3.3/3.4), with a builder fix and a finding against cobc.
+- **Found:** `**` lowered for an integral exponent (`Decimal.power`, `ArithProfile.power`, PG 6.4
+  pp. 796-797): an integral literal carries d1 * |n| decimal and i1 * |n| integer places (a literal
+  base, the integers of its power) while under the cap, or at a 30-digit cap with an odd-digit base;
+  a data-name or variable exponent carries cap - dmax and dmax; a zero exponent gives 1, a negative
+  one divides 1 by the preliminary result; exponents left out of dmax (p. 794). An exponent with
+  decimal places, or an expression holding ** or / when dmax is above zero, is floating point
+  (p. 800) and not lowered. `A = B OR C` with C a data item: the grammar reads C as a condition-name,
+  and the builder left it a bare Field; it is now the last relation's subject and operator against C,
+  as a literal object already was, the remembered relation reset at each statement's condition. cobc
+  agrees on every case of ABBREVS. NC holds at 29: `**` (22) and the bare fields (21) are gone from
+  its list, and the programs holding them stop on something else.
+- **Finding against cobc:** exponentiation results no reading of IBM's text gives, each exact and
+  within its receiver: `10 ** 2 + A * 2` with A 12 is 100 under -std=ibm (124 under the default
+  dialect), `(A + 1) ** (N - 1)` with N 3 is 0 (169), and `3 ** -1` into S9(5)V9(6) is 27 under both;
+  the same `3 ** -1` ROUNDED printed 5.196152 in one program and 0.333333 in another. Held in POWERIBM
+  to the values worked from IBM's rules, cobc still differing. A signed item DISPLAYed raw differs by
+  the sign's place (J-109), so the programs show signed results through a numeric-edited item.

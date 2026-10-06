@@ -2,6 +2,7 @@ package katana.lower;
 
 import java.util.ArrayList;
 import java.util.List;
+import katana.sir.types.Header;
 import katana.sir.types.Item;
 import katana.sir.types.Value;
 
@@ -25,8 +26,19 @@ final class Conditions {
             case Value.Expression e when e.operator().startsWith("NUMERIC") -> "Classes.numeric(" + x.sending(e.operands().get(0)) + ")";
             case Value.Expression e when e.operator().startsWith("ALPHABETIC") -> alphabetic(e);
             case Value.ConditionName c -> conditionName(c);
-            default -> x.unsupported("condition " + v);
+            case Value.Name n when n.kind().equals("switch") -> switchStatus(n.text());
+            default -> "(boolean) " + x.unsupported("condition " + v);
         };
+    }
+
+    /** A switch-status condition (LR 6.4 p. 283): its UPSI switch has the status the condition-name stands for. */
+    private String switchStatus(String name) {
+        for (Header.Switch s : x.p.header().switches()) {
+            if (!s.condition().equals(name)) continue;
+            if (!s.environment().matches("UPSI-[0-7]")) return "(boolean) " + x.unsupported("switch " + s.environment() + ", not UPSI-0 to UPSI-7");
+            return (s.on() ? "" : "!") + "upsi.on(" + s.environment().charAt(5) + ")";
+        }
+        return "(boolean) " + x.unsupported("switch condition " + name);
     }
 
     private String join(Value.Expression e, String op) {
@@ -81,7 +93,7 @@ final class Conditions {
                 else alternatives.add(compare(f, v) + " == 0");
             }
         }
-        if (alternatives.isEmpty()) return x.unsupported("condition name " + c.name());
+        if (alternatives.isEmpty()) return "(boolean) " + x.unsupported("condition name " + c.name());
         return "(" + String.join(" || ", alternatives) + ")";
     }
 }

@@ -64,6 +64,24 @@ public enum ArithProfile {
     }
 
     /**
+     * `op1 ** op2`, op2 an integer (p. 796): an integral literal `n` carries d1 * |n| decimal places and
+     * i1 * |n| integer places (for a literal op1, `literalIntegers`, the integers of op1 ** |n|) while
+     * i + d is under the cap, or at a 30-digit cap with op1 of an odd number of digits; any other
+     * integral exponent, a data-name or variable, carries cap - dmax integer and dmax decimal places
+     * (p. 797). `literal` is null for a data-name exponent.
+     */
+    // Decision: R-049
+    // Unsure: IBM's exception at the cap ("a 30-digit integer raised to the power of literal 1") is not modelled; nor is the odd-digit case under EXTEND, which the text gives only for COMPAT (J-124).
+    public Places power(int i1, int d1, Long literal, int literalIntegers, int dmax) {
+        if (literal == null) return this == EXACT ? new Places(i1, d1) : new Places(cap - dmax, dmax);
+        long n = Math.abs(literal);
+        int i = literalIntegers >= 0 ? literalIntegers : (int) (i1 * n), d = (int) (d1 * n);
+        boolean odd = this == IBM_COMPAT && i + d == cap && (i1 + d1) % 2 == 1;
+        if (this == EXACT || i + d < cap || odd) return new Places(i, d);
+        return new Places(cap - dmax, dmax);
+    }
+
+    /**
      * IBM's table of places carried when i + d passes the cap (pp. 795-796): within it, all of them;
      * past it with d no more than dmax, the decimals kept and integer places lost; with d more than
      * dmax, decimals cut to what the integer places leave, but never below dmax.
