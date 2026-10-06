@@ -1426,3 +1426,19 @@ taken; closed by a later `decision` entry naming it).
   holds are hand-lowered now, the rest wait for the lowering. Its mutation: COMPAT, more than 50 differ.
 - **Resolved:** `rt/Display`. **Open:** `ibm.dispsign` (Fable). **Touched:** `rt/`, `test/katana/rt/`,
   `docs/checks.json`, HANDOFF.
+
+### J-110 Phase 3.1's check by hand: the first nine autotests on `rt/`
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** `AutotestRtIntegrationTest` runs each hand-lowered autotest program (Java against `rt/`
+  alone, `test/katana/rt/autotest/`) and holds its output two ways: to the testsuite's expected stdout,
+  pass or fail only (R-045), and to cobc -std=ibm running the same `prog.cob`, in full, a difference a
+  listed finding with its reason; the results are a golden. Nine hand-lowered (moves into JUSTIFIED and
+  edited items, P-scaled senders, separate signs, DISPLAY of zoned items, STRING and INSPECT with
+  sources that must not change, MULTIPLY GIVING into an edited item): 8 pass the testsuite; 7 equal
+  cobc -std=ibm, the other 2 J-109's zoned sign in place. Three things `rt/` lacked, found by the
+  programs: P scaling (a P-scaled integer moved as its digits, each P a zero, LR p. 404), INSPECT's
+  view of a signed zoned item (Table 39: its digits unsigned, copied back with its sign), and an
+  arithmetic result stored into a numeric-edited item (edited). Its mutation: a case held to another
+  case's expected output fails.
+- **Resolved:** the harness and nine cases. **Touched:** `rt/` (Move, Compare, Inspect, Arithmetic),
+  `test/katana/rt/autotest/`, `docs/checks.json`, TODO.

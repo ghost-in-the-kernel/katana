@@ -88,10 +88,11 @@ public final class Move {
         return Arrays.copyOfRange(f.record().bytes(), f.offset(), f.offset() + f.attr().length());
     }
 
-    /** A numeric integer field as the unsigned digits of its PICTURE, in its codepage. */
-    private static byte[] digits(Field f) {
-        String digits = String.format("%0" + f.attr().digits() + "d", f.get().unscaled().abs());
-        byte[] out = new byte[f.attr().digits()];
+    /** A numeric integer field as the unsigned digits of its PICTURE, in its codepage, each P a zero (LR p. 404, usage note 1). */
+    static byte[] digits(Field f) {
+        int width = f.attr().digits() - Math.min(0, f.attr().scale());
+        String digits = String.format("%0" + width + "d", f.get().toBigDecimal().abs().toBigInteger());
+        byte[] out = new byte[width];
         for (int k = 0; k < out.length; k++) out[k] = f.record().codepage().digit(digits.charAt(k) - '0', 0);
         return out;
     }

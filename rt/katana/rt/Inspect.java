@@ -28,6 +28,33 @@ public final class Inspect {
         }
     }
 
+    /** An item as INSPECT reads it (LR Table 39): its bytes; a signed zoned item's digits as unsigned ones, a separate sign left out. */
+    // Decision: R-019
+    public static byte[] view(Field f) {
+        Attr a = f.attr();
+        byte[] raw = Arrays.copyOfRange(f.record().bytes(), f.offset(), f.offset() + a.length());
+        if (a.category() != Attr.Category.NUMERIC || a.usage() != Attr.Usage.DISPLAY || !a.signed()) return raw;
+        Codepage cp = f.record().codepage();
+        int at = a.signSeparate() && a.signLeading() ? 1 : 0;
+        byte[] out = new byte[a.digits()];
+        for (int k = 0; k < out.length; k++) out[k] = cp.digit(cp.digitOf(raw[at + k]), 0);
+        return out;
+    }
+
+    /** The inspected characters copied back to the item (Table 39); a signed zoned item keeps the sign it had. */
+    // Decision: R-019
+    public static void back(Field f, byte[] chars) {
+        Attr a = f.attr();
+        if (a.category() != Attr.Category.NUMERIC || a.usage() != Attr.Usage.DISPLAY || !a.signed()) {
+            System.arraycopy(chars, 0, f.record().bytes(), f.offset(), a.length());
+            return;
+        }
+        boolean negative = f.get().unscaled().signum() < 0;
+        java.math.BigInteger v = java.math.BigInteger.ZERO;
+        for (byte b : chars) v = v.multiply(java.math.BigInteger.TEN).add(java.math.BigInteger.valueOf(f.record().codepage().digitOf(b)));
+        f.put(new Decimal(negative ? v.negate() : v, a.scale()));
+    }
+
     /** A phrase's region: from AFTER's delimiter's end to BEFORE's delimiter, each delimiter the first in the whole item. */
     // Decision: R-019
     // Unsure: with both phrases IBM's text does not say where BEFORE's delimiter is searched from; this is cobc's reading, from the item's start, not from AFTER's (J-105).

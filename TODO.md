@@ -32,8 +32,9 @@ to settle the reader's one open hypothesis (whether `[[x]]` in an expected stdou
 exit status (compile flags the testsuite sets and Katana does not yet know, R-045 forbidding a look
 at its configuration). The hypothesis stays open: the two cases it turns on stop before printing.
 *Built so far, each held to IBM's text and to cobc by a differential:* arithmetic (J-101), field
-byte images (J-102), MOVE (J-103), editing and de-editing (J-104), INSPECT (J-105), STRING and UNSTRING (J-106), comparison and collation (J-107), SIZE ERROR (J-108).
-*Next:* the autotests as `rt/` tests.
+byte images (J-102), MOVE (J-103), editing and de-editing (J-104), INSPECT (J-105), STRING and UNSTRING (J-106), comparison and collation (J-107), SIZE ERROR (J-108), DISPLAY (J-109).
+*The check by hand (J-110):* `AutotestRtIntegrationTest`, its golden `test/katana/rt/autotest/results.golden`
+(hand-lowered and passing counts); the cases `rt/` holds, then the rest through the lowering (HANDOFF).
 
 ### 3.2 `rt/Dispatcher`
 

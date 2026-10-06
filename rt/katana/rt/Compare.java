@@ -41,9 +41,6 @@ public final class Compare {
     public static byte[] operand(Field f) {
         Attr a = f.attr();
         if (a.category() != Attr.Category.NUMERIC) return java.util.Arrays.copyOfRange(f.record().bytes(), f.offset(), f.offset() + a.length());
-        String digits = String.format("%0" + a.digits() + "d", f.get().unscaled().abs());
-        byte[] out = new byte[a.digits()];
-        for (int k = 0; k < out.length; k++) out[k] = f.record().codepage().digit(digits.charAt(k) - '0', 0);
-        return out;
+        return Move.digits(f);
     }
 }

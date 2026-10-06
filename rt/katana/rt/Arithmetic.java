@@ -8,7 +8,8 @@ import java.math.RoundingMode;
  * condition as IBM's Language Reference 6.4 gives it (p. 296): a size error when the result, after
  * decimal point alignment and any rounding, exceeds what the PICTURE can hold (a binary item's PICTURE
  * too, whatever TRUNC says), or on division by zero. With ON SIZE ERROR the identifier is not altered;
- * without it the truncation rules apply (a native binary cut at its binary size, LR p. 239). Each
+ * without it the truncation rules apply (a native binary cut at its binary size, LR p. 239); a
+ * numeric-edited identifier gets the value edited. Each
  * resultant identifier is stored on its own; the lowering runs the phrase after all of them.
  */
 public final class Arithmetic {
@@ -19,7 +20,13 @@ public final class Arithmetic {
     // Unsure: a division by zero without ON SIZE ERROR leaves the identifier unaltered here; IBM's p. 296 gives truncation rules no value to apply to, and a mainframe may end the program (J-108).
     public static boolean store(Field to, Decimal.Term result, boolean rounded, boolean onSizeError) {
         Attr a = to.attr();
-        Decimal.Stored s = Decimal.store(result, a.digits(), a.scale(), a.signed(), rounded);
+        boolean edited = a.category() == Attr.Category.NUMERIC_EDITED;
+        Decimal.Stored s = Decimal.store(result, a.digits(), a.scale(), a.signed() || edited, rounded);
+        if (edited && !result.divisionByZero() && !(s.sizeError() && onSizeError)) {
+            byte[] shown = Editor.number(a.edit(), a.scale(), s.value().toBigDecimal()).getBytes(to.record().codepage().charset);
+            System.arraycopy(shown, 0, to.record().bytes(), to.offset(), a.length());
+            return s.sizeError();
+        }
         if (result.divisionByZero() || (s.sizeError() && onSizeError)) return s.sizeError();
         if (a.usage() == Attr.Usage.NATIVE_BINARY) {
             BigDecimal aligned = result.value().toBigDecimal().setScale(a.scale(), rounded ? RoundingMode.HALF_UP : RoundingMode.DOWN);

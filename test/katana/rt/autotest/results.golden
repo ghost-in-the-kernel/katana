@@ -1,0 +1,13 @@
+# Phase 3.1's check by hand (AutotestRtIntegrationTest): each hand-lowered autotest, whether Katana's
+# output equals the testsuite's expected stdout (PASS or FAIL, never shown, R-045) and cobc -std=ibm's
+# (SAME or DIFFER, a DIFFER a listed finding; REJECTED when its ibm dialect does not compile the program). Written by `gradle integration -Dkatana.record=true`.
+run_fundamental-146 FAIL DIFFER
+run_fundamental-247 PASS SAME
+run_fundamental-296 PASS SAME
+run_fundamental-2585 PASS SAME
+run_fundamental-2628 PASS SAME
+run_fundamental-4521 PASS SAME
+run_misc-2916 PASS SAME
+run_misc-2947 PASS DIFFER
+run_misc-7348 PASS SAME
+hand-lowered 9 of 378, passing 8
