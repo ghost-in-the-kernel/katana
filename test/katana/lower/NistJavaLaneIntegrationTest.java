@@ -33,14 +33,16 @@ class NistJavaLaneIntegrationTest {
 
     /**
      * The runs where cobc -std=ibm fails tests the Java lane passes, each with why: a discovery against cobc
-     * (D-019 Appendix A's intermediate places, D-020 ACCEPT's records, D-021 a reserved word) or the lane's
+     * (D-019 Appendix A's intermediate places, D-020 ACCEPT's records, D-021 a reserved word, D-024 a relation's
+     * dmax taken from the whole condition) or the lane's
      * known TRUNC setting (the golden recorded without binary truncation, PROFILE-04). Each must pass every
      * test through the Java lane while cobc's golden differs, so a listed run that fails one is not hidden.
      */
-    static final Map<String, String> COBC_FINDINGS = Map.of(
-            "NC105A", "PROFILE-04", "NC106A", "D-019, PROFILE-04", "NC118A", "D-019", "NC119A", "D-019",
-            "NC175A", "D-019", "NC176A", "PROFILE-04", "NC177A", "D-019", "NC204M", "D-020",
-            "NC211A", "D-021", "NC250A", "D-019");
+    static final Map<String, String> COBC_FINDINGS = Map.ofEntries(
+            Map.entry("NC105A", "PROFILE-04"), Map.entry("NC106A", "D-019, PROFILE-04"), Map.entry("NC118A", "D-019"),
+            Map.entry("NC119A", "D-019"), Map.entry("NC175A", "D-019"), Map.entry("NC176A", "PROFILE-04"),
+            Map.entry("NC177A", "D-019"), Map.entry("NC204M", "D-020"), Map.entry("NC205A", "D-024"),
+            Map.entry("NC211A", "D-021"), Map.entry("NC250A", "D-019"));
 
     @Test
     void ncThroughTheJavaLane() throws Exception {

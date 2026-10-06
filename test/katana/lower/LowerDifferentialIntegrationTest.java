@@ -84,7 +84,11 @@ class LowerDifferentialIntegrationTest {
      * ROUNDED's extra place on the last operation only (`ArithProfile.last`; IBM's "might be carried",
      * PG 6.4 p. 794, is the open text), where cobc agrees; then a literal operand, which counts in dmax
      * like any other (p. 795), and with which cobc keeps a second place in the division before it: A / T
-     * + 1 is 2.7, A / T + ONE 2.6, D-023 (J-142).
+     * + 1 is 2.7, A / T + ONE 2.6, D-023 (J-142). RELDMAX: "In an explicit relation condition where at least
+     * one of the comparands is an arithmetic expression, dmax is the maximum number of decimal places for
+     * any operand of either comparand" (PG 6.4 p. 801), so D + 0 EQUAL TO 1 (D 1) is true whatever else the
+     * condition holds; cobc -std=ibm finds it false when an item with decimal places is elsewhere in the
+     * same condition (B EQUAL TO C OR D + 0 EQUAL TO 1), NIST NC205A's CON-TEST-GF-3, D-024 (J-143).
      */
     static final Map<String, String> IBM_READINGS = Map.of("SEARCHVARY", "DD W\nN 002\n", "ACCEPTEOF", "X KEPT \nX KEPT \n",
             "POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n",
@@ -92,7 +96,8 @@ class LowerDifferentialIntegrationTest {
             "ADDIBM", "SUM 242.4332220110\nSUM 242.4332220110\nSUM 242.4332220110\nEQUAL\nSUB -344777.777443\nSUB P  100\n",
             "ACCEPTREC", "FIRST 10 [ABCDEFGHIJ]\nLAST 20 [*001*002*003*004*005]\nNEXT [NEXT RECORD]\n",
             "NOTRSVD", "NOTHING ZILC\n", "MULTRES", "1 040 050\n2 040 060\n3 010 020\n4 2 010\n",
-            "RNDTRIAL", "01  1.2\n02  1.5\n03 10.2\n04 10.5\n05  0.6\n06  0.5\n07 10.2\n08 10.0\n09  0.2\n10  0.5\n11 10.6\n12 10.0\n13  2.6\n14  2.6\n15 10.5\n");
+            "RNDTRIAL", "01  1.2\n02  1.5\n03 10.2\n04 10.5\n05  0.6\n06  0.5\n07 10.2\n08 10.0\n09  0.2\n10  0.5\n11 10.6\n12 10.0\n13  2.6\n14  2.6\n15 10.5\n",
+            "RELDMAX", "N F\nO T\nP T\nQ T\nR T\nS T\nT T\nU T\nV T\n");
 
     @Test
     void eachProgramPrintsWhatCobcPrints() throws Exception {

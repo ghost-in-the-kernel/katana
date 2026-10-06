@@ -1944,3 +1944,20 @@ taken; closed by a later `decision` entry naming it).
   mattered never varied. Naming readings first finds the separating case only among the readings you
   name; the leftover observation is what named the missing one.
 - **Cost:** three cobc runs, about ten minutes.
+
+### J-143 NC205A: cobc -std=ibm loses a relation's truth when the condition holds a decimal item (D-024)
+- **Who:** Opus. **Class:** trial.
+- **Intent:** explain NC205A, the one NC run the Java lane passed where cobc failed with no reason.
+- **Found:** CON-TEST-GF-3 is a condition split across continuation lines so that IBM's joining rule
+  (LR 6.4 p. 58: "the first nonblank character of the continuation line immediately follows the last
+  nonblank character of the continued line without an intervening space") makes `GREATERZERO` and
+  `NEGATIVEZERO`, two 88-levels; worked by hand it is true, and the Java lane passes it. Reduced under
+  cobc in four runs, each with its readings named first: (a) continuation joining, (b) the abbreviated
+  object, (c) the parentheses, (iv) `OR (` read as an abbreviation's object, (v) the first relation's
+  operands reaching the second. Only (v) held: `B EQUAL TO C OR D + 0 EQUAL TO 1` is false under
+  `-std=ibm` when B has decimal places (S9(5)V9(5) or 9(5)V9(5)), in either order, with or without
+  parentheses; true with integer items and under cobc's default dialect. IBM's dmax for such a
+  relation is its own comparands' (PG p. 801), and `1 = 1` holds at any dmax.
+- **Resolved:** D-024; RELDMAX holds nine cases in `IBM_READINGS`; NC205A joins `COBC_FINDINGS`.
+- **Touched:** `docs/DISCOVERIES.md`, the differential and NIST lane tests.
+- **Cost:** five cobc runs.
