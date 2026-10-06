@@ -60,10 +60,15 @@ class LowerDifferentialIntegrationTest {
      * assumed when FROM is omitted (p. 307); cobc fills the item with spaces, D-015 (J-122). POWERIBM: 10 ** 2
      * + 12 * 2 is 124, 13 ** 2 is 169 and 3 ** -1 is 0.333333 to six places, each exact and within its
      * receiver under any of IBM's place rules (PG 6.4 pp. 796-797); cobc -std=ibm prints 100, 0 and
-     * 27 (the last 27 under its default dialect too), D-016 (J-124).
+     * 27 (the last 27 under its default dialect too), D-016 (J-124). ALPHAIBM: under a PROGRAM COLLATING
+     * SEQUENCE, LOW-VALUE is "the character that has the lowest ordinal position in the collating
+     * sequence used" (LR 6.4 p. 16), and the sequence "determines the truth value of" alphanumeric
+     * comparisons "explicitly specified in relation conditions" (p. 123); cobc gives a VALUE of LOW-VALUE
+     * X'00', D-017, and compares two literals in native order, D-018 (J-131).
      */
     static final Map<String, String> IBM_READINGS = Map.of("SEARCHVARY", "DD W\nN 002\n", "ACCEPTEOF", "X KEPT \nX KEPT \n",
-            "POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n");
+            "POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n",
+            "ALPHAIBM", "VALUE LOW IS F\nU < N\n");
 
     @Test
     void eachProgramPrintsWhatCobcPrints() throws Exception {

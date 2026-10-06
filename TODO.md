@@ -60,8 +60,8 @@ something else). *Then (J-125):* NC's crashes, one cause at a time: relative sub
 split `I - 2` and joined `W-1 10`), ALL before a figurative constant, EVALUATE's NOT, REMAINDER after a
 size error, ADD and SUBTRACT CORRESPONDING, subscripted condition-names; NC 47. *Then (J-127):* CLASS
 names, SET of a switch, INITIALIZE REPLACING, VALUE on edited items; NC 50, every NC statement lowered
-but one ALL literal. *Then (J-128):* an 01 that REDEFINES another shares its storage; NC 65. *Then (J-129):* GIVING and COMPUTE results stored once; NE-08; NC 67. *Then (J-130):* numeric literals as written, 66s not initialized, MOVE ALL and DISPLAY ALL; NC 73, every NC statement lowered. *Next:* the program collating sequence (ALPHABET, PROGRAM COLLATING SEQUENCE; NC215A, NC219A), then
-why each of the 22 runs that differ does (where Katana fails more, a bug; where cobc fails
+but one ALL literal. *Then (J-128):* an 01 that REDEFINES another shares its storage; NC 65. *Then (J-129):* GIVING and COMPUTE results stored once; NE-08; NC 67. *Then (J-130):* numeric literals as written, 66s not initialized, MOVE ALL and DISPLAY ALL; NC 73, every NC statement lowered. *Then (J-131):* the program collating sequence; NC 75. *Next:*
+why each of the 20 runs that differ does (where Katana fails more, a bug; where cobc fails
 more, read against IBM's text).
 
 ### 3.4 NIST, module by module, through both lanes

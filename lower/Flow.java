@@ -40,8 +40,7 @@ final class Flow {
     // Decision: R-021
     void procedure() {
         e.line("private static final ArithProfile P = ArithProfile.IBM_COMPAT;");
-        e.line("// Unsure: the native order stands for the program collating sequence until the IR carries it (J-114).");
-        e.line("private final Collation co = Collation.nativeOrder();");
+        e.line("private final Collation co;");
         e.line("private boolean sz, ov, ae;");
         e.open("public void run()");
         e.line("int pc = 0;");

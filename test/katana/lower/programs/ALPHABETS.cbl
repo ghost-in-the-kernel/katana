@@ -1,0 +1,32 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. ALPHABETS.
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       OBJECT-COMPUTER. X
+           PROGRAM COLLATING SEQUENCE IS FUNNY.
+       SPECIAL-NAMES.
+           ALPHABET FUNNY IS "F" "U" "N" "Z" THRU "X" "D" ALSO "Q"
+           ALPHABET OTHER-ONE IS "Q".
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 B PIC X.
+       01 C PIC X.
+       PROCEDURE DIVISION.
+       MAIN-PARA.
+           MOVE "F" TO C
+           MOVE LOW-VALUE TO B
+           IF B = C DISPLAY "MOVE LOW IS F"
+               ELSE DISPLAY "MOVE LOW NOT F" END-IF
+           MOVE "U" TO B MOVE "N" TO C
+           IF B < C DISPLAY "U < N" ELSE DISPLAY "U NOT < N" END-IF
+           MOVE "N" TO B MOVE "A" TO C
+           IF B < C DISPLAY "N < A" ELSE DISPLAY "N NOT < A" END-IF
+           MOVE "Z" TO B MOVE "Y" TO C
+           IF B < C DISPLAY "Z < Y" ELSE DISPLAY "Z NOT < Y" END-IF
+           MOVE "D" TO B MOVE "Q" TO C
+           IF B = C DISPLAY "D EQ Q" ELSE DISPLAY "D NE Q" END-IF
+           MOVE "A" TO B MOVE "B" TO C
+           IF B < C DISPLAY "A < B" ELSE DISPLAY "A NOT < B" END-IF
+           MOVE HIGH-VALUE TO B MOVE "Z" TO C
+           IF B > C DISPLAY "HIGH > Z" END-IF
+           STOP RUN.

@@ -92,6 +92,10 @@ final class Exprs {
     String pattern(Value v) {
         if (!(v instanceof Value.Figurative f)) return null;
         if (f.all() != null) return "Literal.bytes(" + sending(f.all()) + ")";
+        String one = singular(f.name());
+        boolean sequenced = !p.header().collating().isEmpty();
+        if (sequenced && one.equals("LOW-VALUE")) return "new byte[] {co.low()}";
+        if (sequenced && one.equals("HIGH-VALUE")) return "new byte[] {co.high()}";
         return "new byte[] {Literal.figurative(" + Emitter.quote(singular(f.name())) + ", cp)}";
     }
 

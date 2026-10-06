@@ -40,6 +40,7 @@ public final class Lower {
         FileVerbs.declare(e, p);
         e.open("public " + className + "(Codepage cp, Upsi upsi, Sysin in, Sysout out, Sysout err)");
         e.line("this.cp = cp;");
+        e.line("this.co = " + Collating.of(x) + ";");
         e.line("this.upsi = upsi;");
         e.line("this.in = in;");
         e.line("this.out = out;");

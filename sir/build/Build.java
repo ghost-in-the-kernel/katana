@@ -83,7 +83,7 @@ public final class Build {
         for (var inner : unit.programUnit()) nested.add(program(parse, inner, profileHash, findings, inside, insideFiles));
         var id = unit.identificationDivision().programIdParagraph();
         Header header = new Header(Values.upper(id.programName().getText()).replaceAll("[\"']", ""), Origins.at(parse, unit).file(), profileHash,
-                String.valueOf(data.currency()), data.decimalComma(), switches(unit), mnemonics(unit), classes(unit), Origins.at(parse, id));
+                String.valueOf(data.currency()), data.decimalComma(), switches(unit), mnemonics(unit), classes(unit), alphabets(unit), collating(unit), Origins.at(parse, id));
         return new Program(header, data.items(), files, procedure, paragraphs.calls, nested);
     }
 
@@ -113,6 +113,42 @@ public final class Build {
             if (environment.matches("UPSI-[0-7]")) out.add(new Header.Mnemonic(Values.upper(clause.mnemonicName().getText()), environment));
         }
         return out;
+    }
+
+    /** SPECIAL-NAMES' alphabet-names: their kind, or for literals their members (a literal, THRU, ALSO). */
+    private static List<Header.Alphabet> alphabets(CobolParser.ProgramUnitContext unit) {
+        List<Header.Alphabet> out = new ArrayList<>();
+        if (unit.environmentDivision() == null) return out;
+        for (var a : all(unit.environmentDivision(), CobolParser.AlphabetClauseFormat1Context.class)) {
+            String name = Values.upper(a.alphabetName().getText());
+            if (a.alphabetLiterals().isEmpty()) {
+                String kind = a.cobolWord() != null ? "WORD " + Values.upper(a.cobolWord().getText()) : Values.upper(a.getChild(a.getChildCount() - 1).getText());
+                out.add(new Header.Alphabet(name, kind, List.of()));
+                continue;
+            }
+            List<Value> members = new ArrayList<>();
+            for (var l : a.alphabetLiterals()) {
+                Value first = bound(l.literal());
+                if (l.alphabetThrough() != null) members.add(new Value.Expression("THRU", List.of(first, bound(l.alphabetThrough().literal()))));
+                else if (!l.alphabetAlso().isEmpty()) {
+                    List<Value> also = new ArrayList<>(List.of(first));
+                    for (var x : l.alphabetAlso()) for (var lit : x.literal()) also.add(bound(lit));
+                    members.add(new Value.Expression("ALSO", also));
+                } else members.add(first);
+            }
+            out.add(new Header.Alphabet(name, "LITERAL", members));
+        }
+        return out;
+    }
+
+    /** OBJECT-COMPUTER's PROGRAM COLLATING SEQUENCE: the alphabet-name for alphanumeric data, "" when none. */
+    private static String collating(CobolParser.ProgramUnitContext unit) {
+        if (unit.environmentDivision() == null) return "";
+        for (var c : all(unit.environmentDivision(), CobolParser.CollatingSequenceClauseContext.class)) {
+            if (c.collatingSequenceClauseAlphanumeric() != null) return Values.upper(c.collatingSequenceClauseAlphanumeric().alphabetName().getText());
+            if (!c.alphabetName().isEmpty()) return Values.upper(c.alphabetName(0).getText());
+        }
+        return "";
     }
 
     /** SPECIAL-NAMES' CLASS names, each with its literals and THRU ranges. */

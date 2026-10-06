@@ -1057,3 +1057,15 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | sir | `sir/check/NonExact.java:NonExact.meet` |  | 2026-10-06 |  |
 | sir | `sir/check/NonExact.java:NonExact.storage` |  | 2026-10-06 |  |
 | lower | `lower/Exprs.java:Exprs.written` |  | 2026-10-06 |  |
+| lower | `lower/Collating.java:Collating.Collating` |  | 2026-10-06 |  |
+| lower | `lower/Collating.java:Collating.of` | R-019 | 2026-10-06 |  |
+| lower | `lower/Collating.java:Collating.literal` |  | 2026-10-06 |  |
+| lower | `lower/Collating.java:Collating.code` |  | 2026-10-06 |  |
+| lower | `lower/Collating.java:Collating.charCode` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Collation.java:Collation.literal` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Collation.java:Collation.thru` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Collation.java:Collation.low` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Collation.java:Collation.high` |  | 2026-10-06 |  |
+| sir | `sir/build/Build.java:Build.alphabets` |  | 2026-10-06 |  |
+| sir | `sir/build/Build.java:Build.collating` |  | 2026-10-06 |  |
+| sir | `sir/types/Header.java:Header.Alphabet.Alphabet` |  | 2026-10-06 |  |

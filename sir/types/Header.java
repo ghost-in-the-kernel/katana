@@ -8,10 +8,22 @@ import java.util.List;
  * (R-007, R-049), and its SPECIAL-NAMES for editing: the CURRENCY SIGN (`$` when none) and whether
  * DECIMAL-POINT IS COMMA, which a mask's `$` and `.` stand for; each switch-status condition-name,
  * with its switch's environment-name and the status it stands for (ON true); each switch's mnemonic-name;
- * and each CLASS name with
- * its members.
+ * each CLASS name with its members; each alphabet-name; and the alphabet the program collating
+ * sequence names ("" for the native one).
  */
-public record Header(String program, String source, String profileHash, String currency, boolean decimalComma, List<Switch> switches, List<Mnemonic> mnemonics, List<CharClass> classes, Origin origin) {
+public record Header(String program, String source, String profileHash, String currency, boolean decimalComma, List<Switch> switches, List<Mnemonic> mnemonics, List<CharClass> classes,
+        List<Alphabet> alphabets, String collating, Origin origin) {
+    /**
+     * An alphabet-name (LR 6.4 pp. 127-129): `kind` EBCDIC, ASCII, STANDARD-1, STANDARD-2, NATIVE or
+     * LITERAL; for LITERAL its members in order, each a literal (each of its characters a position), a
+     * `THRU` range (each character of it, in the native set, a position) or an `ALSO` group (one position).
+     */
+    public record Alphabet(String name, String kind, List<Value> members) {
+        public Alphabet {
+            members = List.copyOf(members);
+        }
+    }
+
     /**
      * A CLASS name and its members (LR 6.4 p. 129), as an 88's values are: each a literal or a `THRU`
      * range; an alphanumeric literal stands for each of its characters, a numeric one for the character at
@@ -33,6 +45,7 @@ public record Header(String program, String source, String profileHash, String c
         switches = List.copyOf(switches);
         mnemonics = List.copyOf(mnemonics);
         classes = List.copyOf(classes);
+        alphabets = List.copyOf(alphabets);
         if (!profileHash.matches("sha256:[0-9a-f]{64}")) throw new Invalid("SIR-01", "the profile hash is not sha256:<64 hex>: " + profileHash);
         Invalid.origin(origin, "the header");
     }

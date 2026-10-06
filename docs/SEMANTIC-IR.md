@@ -15,7 +15,8 @@ Invariants are numbered SIR-01 onward, in this document only, and a number is ne
 nested in it. `Header`: the program's name, its source file, the hash of the profile (R-049) it
 means what it means under, and each `Switch`: a switch-status condition-name from SPECIAL-NAMES, its
 switch's environment-name (`UPSI-0` to `UPSI-7`) and the status it stands for (J-123); each switch's
-`Mnemonic`, which SET sets ON or OFF (J-127); and each
+`Mnemonic`, which SET sets ON or OFF (J-127); each `Alphabet` and the alphabet the program collating
+sequence names (J-131); and each
 `CharClass`: a CLASS name and its members, literals and THRU ranges as an 88's values are (J-127).
 
 ## The data map
@@ -71,6 +72,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | `editing` | the currency sign and decimal point a mask's `$` and `.` stand for |
 | `switch` | each switch-status condition-name, its switch and status |
 | `mnemonic` | each switch's mnemonic-name |
+| `alphabet` | each alphabet-name, its kind and members, and the program collating sequence |
 | `class` | each CLASS name and its members |
 | `item` | each item's place, attribute tuple, edit mask and flags |
 | `redefines` | each item that redefines another |

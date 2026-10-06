@@ -1767,3 +1767,21 @@ taken; closed by a later `decision` entry naming it).
   CORRS and REDEFS hold each against cobc. NC through the Java lane: 67 to 73 (floor raised), and the
   list of what NC needs and the lowering lacks is empty. Two NC programs need the program collating
   sequence (NC215A, NC219A), next.
+
+### J-131 The program collating sequence; NC 73 to 75; two findings against cobc
+- **Who:** Opus. **Class:** build (3.4), with IR facts and discoveries.
+- **Found:** The ALPHABET clause and PROGRAM COLLATING SEQUENCE (LR 6.4 pp. 123, 127-129) are header
+  facts (`Header.Alphabet`, the collating alphabet's name; contract kind `alphabet`). The lowering builds
+  the class's `co` from them (`lower/Collating`), in the constructor after the codepage, so the VALUEs
+  see it: STANDARD-1, STANDARD-2 and ASCII the ASCII order, EBCDIC the EBCDIC order, NATIVE the bytes'
+  own, a literal alphabet each literal's characters a position, THRU each character of the range in the
+  native set either way round, ALSO one shared position, a numeric literal the ordinal's character,
+  figurative members their character, and every unlisted byte after, in native order
+  (`Collation.literal`). LOW-VALUE and HIGH-VALUE come from it (`co.low()`, `co.high()`). J-114's
+  `// Unsure` that the native order stood in for it is gone. cobc agrees on every comparison of
+  ALPHABETS but two, each a finding against cobc held in ALPHAIBM to IBM's reading: a VALUE of
+  LOW-VALUE is X'00' under cobc, where IBM's LOW-VALUE is the sequence's lowest character (p. 16; a MOVE
+  of LOW-VALUE follows the sequence under cobc too), D-017; and cobc compares two literals in native
+  order, where the sequence decides every relation condition (p. 123), D-018. Open: a contained program
+  inherits its container's sequence (p. 123); the IR gives each program its own. NC through the Java
+  lane: 73 to 75 (floor raised). NIST contract facts +26, the alphabet facts.

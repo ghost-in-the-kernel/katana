@@ -380,3 +380,9 @@ them by row. Appendix A's arithmetic is §4; Table 48 (DISPSIGN) is the PG's, qu
   (Katana's own grammar bug, J-125; cobc agrees with IBM.)
 - PG pp. 796-797 (exponentiation): "If op2 is equal to 0, the result is 1"; "If op2 is negative, the
   value of 1 is then divided by the result produced by the preliminary computation". D-016.
+- LR p. 16 (LOW-VALUE): "Represents one or more occurrences of the character that has the lowest ordinal
+  position in the collating sequence used"; "For other alphanumeric data, the value depends on the
+  collating sequence in effect." D-017.
+- LR p. 123 (PROGRAM COLLATING SEQUENCE): it "determines the truth value of the following alphanumeric
+  comparisons: Those explicitly specified in relation conditions; Those explicitly specified in
+  condition-name conditions". D-018.
