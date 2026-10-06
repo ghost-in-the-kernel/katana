@@ -3,6 +3,7 @@ package katana.oracle.proof;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import katana.findings.Finding;
 import katana.oracle.compare.Compare;
 import katana.oracle.fixture.Fixture;
 import katana.oracle.lane.Gate;
@@ -10,7 +11,8 @@ import katana.oracle.lane.Report;
 
 /**
  * The proof report, v0 (docs/ROADMAP.md 1.9, docs/PROOF.md): what was compared, under which fixture and
- * profile, the gate's result, each dataset with its masks and findings, each program's paragraphs the
+ * profile, the gate's result, each dataset with its masks and findings, the programs' findings and what
+ * is valid only under a hypothesis (R-049, R-057), each program's paragraphs the
  * fixture entered and did not, and docs/PROOF.md's "What it never covers" quoted verbatim (PROOF-01).
  */
 public final class ProofReport {
@@ -21,13 +23,14 @@ public final class ProofReport {
 
     /** The report: expected is the original lane's first run, traced the coverage run, against names the other side. */
     public static String write(Fixture fixture, String fixturePath, Report expected, Gate.Result gate, String against,
-                               List<Compared> compared, Report traced, String proofDocument) {
+                               List<Compared> compared, Report traced, String proofDocument, List<Finding> findings) {
         List<String> out = new ArrayList<>();
         out.add("# Proof report v0: " + fixture.first("job").values().get(0));
         out.add("");
         out.add("- Fixture: `" + fixturePath + "`, " + fixture.hash());
         out.add("- Profile: " + profileLine(expected));
         out.add("- Expected: the cobc lane. Actual: " + against + ".");
+        out.add("- Initial values: an item without VALUE is assumed to start as INITIALIZE would set it, not proven (R-057).");
         out.add("");
         out.add("## Gate");
         out.add("");
@@ -40,12 +43,29 @@ public final class ProofReport {
             compared(compared, out);
         }
         out.add("");
+        findings(findings, out);
+        out.add("");
         coverage(traced, out);
         out.add("");
         out.add("## What it never covers (docs/PROOF.md, verbatim)");
         out.add("");
         out.add(neverCovers(proofDocument));
         return String.join("\n", out) + "\n";
+    }
+
+    /**
+     * The job's programs' findings, said apart: what cannot be made exact (`NE-`), and what is exact only
+     * under a reading not yet proven on IBM (`HY-`, R-049), which one mainframe run clears.
+     */
+    private static void findings(List<Finding> findings, List<String> out) {
+        List<Finding> notExact = findings.stream().filter(f -> !f.kind().hypothesis()).toList(), hypotheses = findings.stream().filter(f -> f.kind().hypothesis()).toList();
+        out.add("## Findings");
+        out.add("");
+        out.add(notExact.isEmpty() ? "None." : Finding.report(notExact).stripTrailing());
+        out.add("");
+        out.add("## Valid under hypothesis");
+        out.add("");
+        out.add(hypotheses.isEmpty() ? "None." : Finding.report(hypotheses).stripTrailing());
     }
 
     private static String profileLine(Report expected) {

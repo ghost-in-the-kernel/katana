@@ -1575,3 +1575,19 @@ taken; closed by a later `decision` entry naming it).
   literal: none changed. The front, SIR and NIST goldens are as they were, and NC through the Java lane
   stays 22 of 95. `DecimalCommaTest` holds both readings.
 - **Resolved:** the bug. **Touched:** `front/`, `test/katana/sir/`.
+
+### J-120 ibm.wsinit, LE's STORAGE quoted, and HY-01 said apart from the findings
+- **Who:** Opus. **Class:** decision carried out.
+- **Found:** The field is renamed as Fable worded it (8a5d6de): `ibm.wsinit`, `NONE` or two hex digits,
+  in `profile/`, both profiles, the tests and PROFILE's rows; the hashes change again (ibm `a5298bfd…`
+  to `25d21d9d…`, cobol85 `e13d3580…` to `8f97cfc0…`), fixtures re-pinned, the lane golden and proof
+  reports re-recorded. R-057's restated C-2 is quoted: LE Programming Reference z/OS 3.1 (SA38-0683-60)
+  pp. 69-70, STORAGE's heap_alloc_value initializes "every byte of the allocated heap storage", NONE the
+  default; and the COBOL Programming Guide 6.4 p. 40, a 6.1 or later RENT program's WORKING-STORAGE is
+  "allocated from heap storage". So C-2 is `verified` for RENT programs; NORENT is not covered by those
+  pages and stays `hypothesis`. NE-07 is now HY-01, a class of its own (`Finding.Kind.hypothesis()`):
+  FINDINGS.md has a "Valid under hypothesis" table, the IR golden a `valid-under-hypothesis` line (76 in
+  NIST, 4 in CardDemo, unchanged), and the proof report two sections, Findings and Valid under
+  hypothesis, from its job's programs' IR, plus R-057's line in its header.
+- **Resolved:** Fable's 8a5d6de items. **Touched:** `profile/`, `findings/`, `sir/check/`, `oracle/proof/`,
+  fixtures and goldens, FINDINGS, PROFILE, research, `theGhost.md` (R-057 C-2's status, with its quotes).

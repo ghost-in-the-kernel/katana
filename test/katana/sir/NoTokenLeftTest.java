@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 /** Tithe pass 2, A1, in the fast loop: no token of a statement is left out of the IR, on COPYREC, the probe and the NIST goldens. */
 class NoTokenLeftTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
-    private static final String HASH = "sha256:a5298bfd77c97fd3f26b37103ba2e6ed51a164dbd90b0435ff2d88f27939e77b";
+    private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
 
     static List<String> missing(Path program, Path copybooks) {
         Parse.Result parse = Parse.file(program, new Copybooks(List.of(copybooks), n -> 8), 8);

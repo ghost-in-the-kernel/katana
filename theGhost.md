@@ -979,8 +979,12 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   WORKING-STORAGE to binary zeros"): **refuted for z/OS** (J-118: the z/OS Programming Guide 6.4
   names WSCLEAR once, p. 864, as AIX only). C-2 restated: on z/OS, WORKING-STORAGE without VALUE
   holds whatever Language Environment's STORAGE option set heap storage to (`STORAGE(00,...)` gives
-  binary zeros; the default leaves it as found): `hypothesis` until quoted from the LE Programming
-  Reference or the Programming Guide's section on initial values. C-3 `cobc -std=ibm`
+  binary zeros; the default leaves it as found): `verified` for a program compiled with RENT (PG 6.4
+  p. 40: a COBOL 6.1 or later RENT program has its WORKING-STORAGE "allocated from heap storage"; LE
+  Programming Reference z/OS 3.1, SA38-0683-60, pp. 69-70: STORAGE's heap_alloc_value initializes
+  "every byte of the allocated heap storage", the default NONE leaves it "uninitialized"; quoted in
+  `docs/research/ibm-options.md` §9, J-120); a NORENT program's WORKING-STORAGE is not covered by
+  these pages, `hypothesis`. C-3 `cobc -std=ibm`
   gives INITIALIZE's values: `verified` (J-114).
 - **Held by:** `lower/`'s data map (the `// Unsure` becomes a `// Decision: R-057`); the proof
   report's header; `docs/PROFILE.md`'s `ibm.wsinit` row (added as `ibm.wsclear`, J-118; renamed).

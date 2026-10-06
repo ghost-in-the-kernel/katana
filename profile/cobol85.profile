@@ -11,6 +11,6 @@ ibm.arith COMPAT
 ibm.codepage 1140
 ibm.invdata NO
 ibm.version 6.4
-# DISPLAY's sign form and WORKING-STORAGE clearing (R-049, R-057): NIST states neither, so IBM's defaults.
+# DISPLAY's sign form and the byte fresh WORKING-STORAGE is set to (R-049, R-057): NIST states neither, so IBM's defaults.
 ibm.dispsign COMPAT
-ibm.wsclear NO
+ibm.wsinit NONE

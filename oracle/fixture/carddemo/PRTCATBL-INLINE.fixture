@@ -3,7 +3,7 @@
 # PRTCATBL.fixture, the JCL as written, stops there. Everything else is as PRTCATBL.fixture says.
 job PRTCATBL
 source carddemo:app/jcl/PRTCATBL.jcl
-profile ibm sha256:a5298bfd77c97fd3f26b37103ba2e6ed51a164dbd90b0435ff2d88f27939e77b
+profile ibm sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296
 clock 2024-03-01 12:00:00.00 +00:00
 tz UTC
 # CUSTREC.cpy was written with 4-column tabs: at 8 its PICTUREs run past column 72 and CBSTM03A

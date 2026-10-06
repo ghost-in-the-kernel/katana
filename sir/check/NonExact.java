@@ -76,7 +76,7 @@ public final class NonExact {
             if (g.kind() != Procedure.Kind.GO_TO) continue;
             for (Procedure.Edge x : performs) {
                 if (g.from() >= x.to() && g.from() <= x.thru() && (g.to() < x.to() || g.to() > x.thru())) {
-                    out.add(new Finding(Finding.Kind.NE_07, where(g.origin()), in + name(paragraphs, g.from()) + " goes to " + name(paragraphs, g.to()) + ", out of " + range(paragraphs, x)));
+                    out.add(new Finding(Finding.Kind.HY_01, where(g.origin()), in + name(paragraphs, g.from()) + " goes to " + name(paragraphs, g.to()) + ", out of " + range(paragraphs, x)));
                     break;
                 }
             }

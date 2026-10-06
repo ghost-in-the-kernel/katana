@@ -329,3 +329,27 @@ compiler options the guide describes. R-057's C-2 (WSCLEAR, Enterprise COBOL 6.2
 WORKING-STORAGE to binary zeros) is therefore not supported for z/OS by this manual: a finding for
 Fable (HANDOFF), not a verification. LE's STORAGE runtime option, which can set the bytes of fresh
 storage, is not described in the Programming Guide and was not read.
+
+LE's STORAGE option (read 2026-10-06, primary; R-057 C-2 restated). z/OS Language Environment
+Programming Reference, z/OS 3.1, SA38-0683-60, pp. 69-70:
+
+> "STORAGE controls the initial content of storage when allocated and freed. [...] If you specify one
+> of the parameters in the STORAGE runtime option, all allocated storage that is processed by that
+> parameter is initialized to the specified value. Otherwise, it remains uninitialized."
+>
+> "The default value for non-CICS applications is STORAGE(NONE,NONE,NONE,0K)."
+>
+> heap_alloc_value: "Two hex digits without quotation marks. If you specify two hex digits, every byte
+> of the allocated heap storage is initialized to that value. [...] A heap_alloc_value of 00
+> initializes heap storage to X'0000...00'." "NONE. If you specify NONE, the allocated heap storage is
+> not initialized. NONE is the default."
+
+Enterprise COBOL Programming Guide 6.4, p. 40 (HEAP):
+
+> "COBOL WORKING-STORAGE is allocated from heap storage when the COBOL program is compiled with the RENT
+> option and is in one of the following cases: [...] A COBOL 6.1 or later program"
+
+So for a RENT program, WORKING-STORAGE without VALUE holds STORAGE's heap_alloc_value, or nothing set
+under the default: `ibm.wsinit` is that value (`NONE`, or the two hex digits). A NORENT program's
+WORKING-STORAGE is not covered by these pages. (A single quoted character is also allowed by LE, the
+character's EBCDIC byte; the field records the byte.)

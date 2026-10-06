@@ -1000,3 +1000,5 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Evaluate.java:Evaluate.condition` | folded into `Evaluate.read` and `Evaluate.pair` (J-116) | 2026-10-06 | superseded-by: `lower/Evaluate.java:Evaluate.pair` |
 | lower | `lower/Verbs.java:Verbs.control` |  | 2026-10-06 |  |
 | sir | `sir/check/NonExact.java:NonExact.leaving` | R-021 | 2026-10-06 |  |
+| findings | `findings/Finding.java:Finding.Kind.hypothesis` |  | 2026-10-06 |  |
+| oracle | `oracle/proof/ProofReport.java:ProofReport.findings` |  | 2026-10-06 |  |

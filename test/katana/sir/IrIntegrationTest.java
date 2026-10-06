@@ -36,12 +36,13 @@ import org.junit.jupiter.api.Test;
 class IrIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final Path GOLDEN = ROOT.resolve("sir/ir.golden");
-    private static final String HASH = "sha256:a5298bfd77c97fd3f26b37103ba2e6ed51a164dbd90b0435ff2d88f27939e77b";
+    private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
     private static final Map<String, Roles.Verb> ROLES = Roles.vocabulary();
     private static final String HEADER = """
             # Phase 2.5 (docs/ROADMAP.md): each corpus's programs built to the Semantic IR under the ibm profile, as
             # `corpus NAME programs P built B round-trip R build-findings F check-findings C contract-facts N tokens-left T`, then each program
-            # that did not build or round-trip; then `non-exact NAME` with each F-08 kind found and how often (2.7).
+            # that did not build or round-trip; then `non-exact NAME` with each F-08 kind found and how often (2.7), and
+            # `valid-under-hypothesis NAME` with each HY- kind (R-049's mechanism, J-120).
             # Written by `gradle integration -Dkatana.record=true`.
             """;
 
@@ -128,7 +129,7 @@ class IrIntegrationTest {
         }
         StringBuilder out = new StringBuilder("corpus " + name + " programs " + parsed + " built " + built + " round-trip " + roundTrip
                 + " build-findings " + buildFindings + " check-findings " + checkFindings + " contract-facts " + facts + " tokens-left " + tokensLeft + "\n");
-        out.append("non-exact ").append(name).append(nonExact.isEmpty() ? " none" : nonExact.entrySet().stream().map(e -> " " + e.getKey() + " " + e.getValue()).collect(Collectors.joining())).append('\n');
+        out.append(kinds("non-exact ", name, nonExact, false)).append(kinds("valid-under-hypothesis ", name, nonExact, true));
         failures.forEach(f -> out.append(f).append('\n'));
         return out.toString();
     }
@@ -146,5 +147,11 @@ class IrIntegrationTest {
             folders.add(ROOT.resolve("front/ibm"));
             return folders;
         }
+    }
+
+    /** One line of the IR golden: the kinds found of one class (`NE-` or `HY-`) and how often; `none` when there are none. */
+    private static String kinds(String head, String name, java.util.Map<String, Integer> found, boolean hypothesis) {
+        String listed = found.entrySet().stream().filter(e -> e.getKey().startsWith("HY-") == hypothesis).map(e -> " " + e.getKey() + " " + e.getValue()).collect(Collectors.joining());
+        return head + name + (listed.isEmpty() ? " none" : listed) + "\n";
     }
 }

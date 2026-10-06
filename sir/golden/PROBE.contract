@@ -1,4 +1,4 @@
-profile PROBE sha256:a5298bfd77c97fd3f26b37103ba2e6ed51a164dbd90b0435ff2d88f27939e77b
+profile PROBE sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296
 editing PROBE currency $ point .
 item PROBE 1 REL-REC level 1 parent 0 record 1 FILE offset 0 length 10 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXX"
 item PROBE 2 A level 1 parent 0 record 2 WORKING_STORAGE offset 0 length 7 DISPLAY NUMERIC digits 7 scale 2 signed picture "S99999V99"

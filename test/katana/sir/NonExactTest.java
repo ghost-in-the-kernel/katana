@@ -47,7 +47,7 @@ class NonExactTest {
     void aGoToOutOfAPerformRangeIsAFinding() throws Exception {
         Profile ibm = profile("STD");
         String out = "       MAIN.\n           PERFORM P1 THRU P2\n           STOP RUN.\n" + PARAGRAPHS.replace("DISPLAY 1.", "GO TO P4.");
-        assertEquals(List.of(Finding.Kind.NE_07), kinds(out, "", ibm));
+        assertEquals(List.of(Finding.Kind.HY_01), kinds(out, "", ibm));
         String inside = "       MAIN.\n           PERFORM P1 THRU P3\n           STOP RUN.\n" + PARAGRAPHS.replace("DISPLAY 1.", "GO TO P3.");
         assertEquals(List.of(), kinds(inside, "", ibm));
     }

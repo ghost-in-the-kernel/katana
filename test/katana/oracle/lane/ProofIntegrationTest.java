@@ -52,7 +52,17 @@ class ProofIntegrationTest {
                 Layout.read(Files.readString(TRIVIAL.resolve("cpy/COPYREC.cpy"))), List.of(), Compare.Numproc.NOPFD);
         assertEquals(List.of(), java.findings());
         hold("COPY", ProofReport.write(fixture, "oracle/fixture/trivial/COPY.fixture", a, gate, "the java lane (a hand-written Java copy)",
-                List.of(new ProofReport.Compared(out, List.of(), result)), traced, Files.readString(ROOT.resolve("docs/PROOF.md"))));
+                List.of(new ProofReport.Compared(out, List.of(), result)), traced, Files.readString(ROOT.resolve("docs/PROOF.md")),
+                findings(TRIVIAL.resolve("cbl/COPYREC.cbl"), TRIVIAL.resolve("cpy"))));
+    }
+
+    /** A step program's findings under the ibm profile: what NonExact finds in its IR. */
+    static List<katana.findings.Finding> findings(Path source, Path copybooks) throws Exception {
+        katana.profile.Profile ibm = katana.profile.Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile")));
+        katana.front.Parse.Result parse = katana.front.Parse.file(source, new katana.front.Copybooks(List.of(copybooks), n -> 8), 8);
+        List<katana.findings.Finding> out = new java.util.ArrayList<>();
+        for (var r : katana.sir.build.Build.programs(parse, ibm.hash())) out.addAll(katana.sir.check.NonExact.findings(r.program(), ibm));
+        return out;
     }
 
     @Test
@@ -76,6 +86,7 @@ class ProofIntegrationTest {
         assertTrue(t.same() && r.same(), t.findings() + " " + r.findings());
         assertTrue(traced.coverage().get("CBTRN02C").total() > 0, traced.text());
         hold("POSTTRAN", ProofReport.write(fixture, "oracle/fixture/carddemo/POSTTRAN.fixture", a, gate, "the study's frozen datasets (F-02, oracle/prototypes/carddemo/post1)",
-                List.of(new ProofReport.Compared(tranfile, List.of(), t), new ProofReport.Compared(rejects, List.of(), r)), traced, Files.readString(ROOT.resolve("docs/PROOF.md"))));
+                List.of(new ProofReport.Compared(tranfile, List.of(), t), new ProofReport.Compared(rejects, List.of(), r)), traced, Files.readString(ROOT.resolve("docs/PROOF.md")),
+                findings(carddemo.resolve("app/cbl/CBTRN02C.cbl"), carddemo.resolve("app/cpy"))));
     }
 }

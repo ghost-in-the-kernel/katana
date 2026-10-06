@@ -1,8 +1,9 @@
 # Proof report v0: COPY
 
-- Fixture: `oracle/fixture/trivial/COPY.fixture`, sha256:6c331777f8d6c00b2cf811d092b85fa2012d855b0877494801d09449d1722ada
-- Profile: ibm sha256:a5298bfd77c97fd3f26b37103ba2e6ed51a164dbd90b0435ff2d88f27939e77b
+- Fixture: `oracle/fixture/trivial/COPY.fixture`, sha256:b5da97a51cea180aac0a96cca50b6bf3ebfc45ee71937883e1909a5a27fe9d3c
+- Profile: ibm sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296
 - Expected: the cobc lane. Actual: the java lane (a hand-written Java copy).
+- Initial values: an item without VALUE is assumed to start as INITIALIZE would set it, not proven (R-057).
 
 ## Gate
 
@@ -15,6 +16,14 @@ Passed: the cobc lane's two runs are identical.
 | KATANA.TRIVIAL.OUT | none | the same |
 
 Every dataset compared is the same.
+
+## Findings
+
+None.
+
+## Valid under hypothesis
+
+None.
 
 ## Coverage (from a cobc trace)
 
