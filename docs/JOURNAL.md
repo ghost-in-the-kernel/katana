@@ -1785,3 +1785,16 @@ taken; closed by a later `decision` entry naming it).
   order, where the sequence decides every relation condition (p. 123), D-018. Open: a contained program
   inherits its container's sequence (p. 123); the IR gives each program its own. NC through the Java
   lane: 73 to 75 (floor raised). NIST contract facts +26, the alphabet facts.
+
+### J-132 Where NC passes and cobc does not: cobc's ibm arithmetic drops a place Appendix A keeps (D-019)
+- **Who:** Opus. **Class:** discovery.
+- **Found:** Nine of NC's runs pass every test through the Java lane where cobc -std=ibm fails some;
+  `oracle/nist/IBM-CHANGES.md` puts each down to `-farithmetic-osvs` or `-fno-binary-truncate`, the flags
+  the dialect sets to model IBM. Whether IBM fails them too is a question of IBM's text, not of cobc, so
+  the first was worked by hand: NC177A's ADD-TEST-F2-11 adds S99, S99V9, S999V999, S99V9(6), -1.1111111,
+  +.11111111 and SP(8)9 into S999V9(10); Appendix A carries "(i1 or i2) + 1, whichever is greater"
+  integer and "d1 or d2, whichever is greater" decimal places for + (PG 6.4 p. 795), every intermediate
+  far under 30 digits, so the sum is exact, 242.4332220110, NIST's expected value. cobc -std=ibm gives
+  242.4332220010, its default dialect the exact sum: D-019, held in ADDIBM. The other arithmetic-osvs
+  and binary-truncation runs are to be read one by one the same way (TODO); until each is, the
+  register says "to be read", not a count.
