@@ -7,18 +7,20 @@ import katana.sir.types.Program;
 
 /**
  * Each item's value when the program starts: its VALUE, MOVEd as the clause says, in every occurrence;
- * an elementary item without one as INITIALIZE sets it (zero, or spaces), as cobc's ibm dialect starts it.
+ * an elementary item without one as INITIALIZE sets it (zero, or spaces), as cobc's ibm dialect starts it
+ * (R-057). A VALUE is placed as if the item were not JUSTIFIED (LR 6.4 p. 245: "Initialization is
+ * independent of any BLANK WHEN ZERO or JUSTIFIED clause").
  */
 final class Values {
     private Values() {}
 
-    // Decision: R-019
-    // Unsure: IBM leaves an item without VALUE unpredictable; this starts it as cobc -std=ibm does, zero or spaces (J-114).
+    // Decision: R-057
     static void initial(Emitter e, Program p, Item i, Exprs x) {
         if (governed(p, i)) return;
         boolean group = i.attributes().category() == Attributes.Category.GROUP;
         if (i.value() == null && (group || isText(i))) return;
         String each = x.occurrences(i), target = each == null ? "f" + i.id() : "t";
+        if (i.flags().contains(Item.Flag.JUSTIFIED)) target = "Table.ref(" + target + ", 1, 0)";
         String move = i.value() == null ? "Move.move(Literal.number(\"0\", 0, cp), " + target + ")" : x.moveInto(i.value(), target, i);
         e.line(each == null ? move + ";" : each + "t -> " + move + ");");
     }

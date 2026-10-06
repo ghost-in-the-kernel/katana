@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public record Profile(String compiler, String version, String dialect, Map<String, String> flags, Map<String, String> ibm) {
     /** The fields of a profile file, in canonical order (PROFILE-02). */
     public static final List<String> FIELDS = List.of("compiler", "version", "dialect", "flag",
-            "ibm.trunc", "ibm.numproc", "ibm.arith", "ibm.codepage", "ibm.invdata", "ibm.version");
+            "ibm.trunc", "ibm.numproc", "ibm.arith", "ibm.codepage", "ibm.invdata", "ibm.version", "ibm.dispsign", "ibm.wsclear");
     /** What each IBM field may hold (docs/PROFILE.md's fields table). */
     static final Map<String, Pattern> IBM = ibmValues();
 
@@ -38,6 +38,8 @@ public record Profile(String compiler, String version, String dialect, Map<Strin
         values.put("ibm.codepage", Pattern.compile("\\d{1,5}"));
         values.put("ibm.invdata", Pattern.compile("NO|PFD|NOPFD|MIG|[A-Z]+,[A-Z]+"));
         values.put("ibm.version", Pattern.compile("\\d+\\.\\d+"));
+        values.put("ibm.dispsign", Pattern.compile("COMPAT|SEP"));
+        values.put("ibm.wsclear", Pattern.compile("NO|YES"));
         return values;
     }
 

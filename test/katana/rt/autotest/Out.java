@@ -15,7 +15,7 @@ import katana.rt.Record;
  */
 final class Out {
     static final Codepage CP = Codepage.COBC_ASCII;
-    // Unsure: DISPSIGN(SEP) stands in for a profile field not yet decided (HANDOFF, J-109).
+    // Decision: R-049 (ibm.dispsign; the cobc lane compares under SEP)
     static final Display.Sign SIGN = Display.Sign.SEP;
     private final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 

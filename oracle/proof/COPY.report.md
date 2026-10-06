@@ -1,7 +1,7 @@
 # Proof report v0: COPY
 
-- Fixture: `oracle/fixture/trivial/COPY.fixture`, sha256:0b1516f9118124b84db4828a193891f985cbfb5ec43d3d18dae8c6bf53a80867
-- Profile: ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+- Fixture: `oracle/fixture/trivial/COPY.fixture`, sha256:6c331777f8d6c00b2cf811d092b85fa2012d855b0877494801d09449d1722ada
+- Profile: ibm sha256:a5298bfd77c97fd3f26b37103ba2e6ed51a164dbd90b0435ff2d88f27939e77b
 - Expected: the cobc lane. Actual: the java lane (a hand-written Java copy).
 
 ## Gate

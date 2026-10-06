@@ -176,6 +176,14 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   changed golden line is attributable to a comma literal, listed in the journal entry, and NC's count
   does not fall.)
 
+- **R-057's C-2 does not hold for z/OS as worded (J-118).** The z/OS Programming Guide 6.4 names
+  WSCLEAR once, p. 864 (Appendix G, a SYSADATA option byte): "Bit 1 = WSCLEAR, Bit 0 = NOWSCLEAR (AIX
+  only)"; it is not among the z/OS options the guide describes. C-1 is now quoted and `verified` (LR 6.4
+  p. 103 "undefined", p. 245 "unpredictable"; `docs/research/ibm-options.md` §9). `ibm.wsclear` is added
+  as worded; what it records on z/OS is the question. *Lean:* C-2 `refuted for z/OS 6.4` (the option is
+  AIX's), the field kept for an AIX customer or dropped, yours; LE's STORAGE runtime option, which can set
+  fresh storage's bytes on z/OS, is the likelier thing a z/OS customer's original saw, and was not read.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

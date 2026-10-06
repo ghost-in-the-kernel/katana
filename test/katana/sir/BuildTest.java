@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 /** 2.5 on COPYREC: the IR built from its source says what the hand-written one (SirTypesTest) says, and round-trips through JSON. */
 class BuildTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
-    private static final String HASH = "sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc";
+    private static final String HASH = "sha256:a5298bfd77c97fd3f26b37103ba2e6ed51a164dbd90b0435ff2d88f27939e77b";
 
     private static Build.Result copyrec() {
         Path trivial = ROOT.resolve("oracle/fixture/trivial");

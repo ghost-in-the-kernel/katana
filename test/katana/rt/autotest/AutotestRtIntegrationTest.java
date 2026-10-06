@@ -47,6 +47,20 @@ class AutotestRtIntegrationTest {
             "run_fundamental-2513", "cobc's ibm dialect does not take B 0 / , inside a floating string as part of it, as IBM does (LR p. 223); Katana's output is the testsuite's");
 
 
+    private static final String NO_POINT = "IBM's DISPLAY shows no decimal point and signs by DISPSIGN (LR p. 333, PG Table 48); the testsuite expects GnuCOBOL's default dialect";
+
+    /**
+     * The cases whose output differs from the testsuite's expected stdout because the testsuite expects
+     * GnuCOBOL's default dialect where Katana follows IBM: findings against the testsuite's expectation,
+     * not failures (Fable, 2026-10-06). Every other case must pass; each of these must fail.
+     */
+    static final Map<String, String> TESTSUITE_FINDINGS = Map.of(
+            "run_fundamental-146", NO_POINT,
+            "run_fundamental-193", NO_POINT,
+            "run_misc-156", NO_POINT,
+            "run_initialize-90", NO_POINT,
+            "run_misc-12873", "Appendix A truncates intermediate results (PG 6.4 pp. 793-801); the testsuite expects GnuCOBOL's default arithmetic, as the program's own last line says");
+
     /** The testsuite's expected stdout for a case: the first check after the program is compiled that runs it and expects output. */
     static byte[] expected(String id) throws Exception {
         Path dir = CASES.resolve(id);
@@ -91,6 +105,7 @@ class AutotestRtIntegrationTest {
             boolean passes = Arrays.equals(katana, expected(l.id())), same = cobc == null || Arrays.equals(katana, cobc);
             if (passes) pass++;
             results.append(l.id()).append(passes ? " PASS" : " FAIL").append(cobc == null ? " REJECTED" : same ? " SAME" : " DIFFER").append('\n');
+            if (passes == TESTSUITE_FINDINGS.containsKey(l.id())) unexplained.add(l.id() + (passes ? ": passes the testsuite but is listed as a finding against it" : ": fails the testsuite and is not a listed finding against it"));
             if (same == FINDINGS.containsKey(l.id())) unexplained.add(l.id() + (same ? ": listed as a finding but the same as cobc" : ": Katana\n" + text(katana) + "cobc -std=ibm\n" + text(cobc)));
         }
         results.append("hand-lowered ").append(LOWERED.size()).append(" of 378, passing ").append(pass).append('\n');

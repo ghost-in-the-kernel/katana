@@ -44,6 +44,15 @@ class NonExactTest {
     }
 
     @Test
+    void aGoToOutOfAPerformRangeIsAFinding() throws Exception {
+        Profile ibm = profile("STD");
+        String out = "       MAIN.\n           PERFORM P1 THRU P2\n           STOP RUN.\n" + PARAGRAPHS.replace("DISPLAY 1.", "GO TO P4.");
+        assertEquals(List.of(Finding.Kind.NE_07), kinds(out, "", ibm));
+        String inside = "       MAIN.\n           PERFORM P1 THRU P3\n           STOP RUN.\n" + PARAGRAPHS.replace("DISPLAY 1.", "GO TO P3.");
+        assertEquals(List.of(), kinds(inside, "", ibm));
+    }
+
+    @Test
     void truncOptOverABinaryItemIsAFinding() throws Exception {
         String data = "       01  B        PIC S9(4) COMP.";
         assertEquals(List.of(Finding.Kind.NE_01), kinds("           STOP RUN.", data, profile("OPT")));

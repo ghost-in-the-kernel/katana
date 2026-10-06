@@ -23,7 +23,7 @@ class ContractTest {
     private static Program copyrec() {
         Path trivial = ROOT.resolve("oracle/fixture/trivial");
         Parse.Result parse = Parse.file(trivial.resolve("cbl/COPYREC.cbl"), new Copybooks(List.of(trivial.resolve("cpy")), n -> 8), 8);
-        return Build.program(parse, "sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc").program();
+        return Build.program(parse, "sha256:a5298bfd77c97fd3f26b37103ba2e6ed51a164dbd90b0435ff2d88f27939e77b").program();
     }
 
     @Test

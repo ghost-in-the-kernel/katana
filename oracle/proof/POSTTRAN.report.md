@@ -1,7 +1,7 @@
 # Proof report v0: POSTTRAN
 
-- Fixture: `oracle/fixture/carddemo/POSTTRAN.fixture`, sha256:a1f1395c632a730634013eb0394b8a58b223f0cd103c4a2948ae5f4e2e259906
-- Profile: ibm sha256:feca25654120f84bcd60468e51f9dfe083ab409a44bac92c65771ab6e525fcfc
+- Fixture: `oracle/fixture/carddemo/POSTTRAN.fixture`, sha256:28e093663a9f84406ca41207c36c2edee9db591ae30b5070a118257c6de92b63
+- Profile: ibm sha256:a5298bfd77c97fd3f26b37103ba2e6ed51a164dbd90b0435ff2d88f27939e77b
 - Expected: the cobc lane. Actual: the study's frozen datasets (F-02, oracle/prototypes/carddemo/post1).
 
 ## Gate

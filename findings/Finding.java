@@ -15,7 +15,8 @@ public record Finding(Kind kind, String where, String detail) {
         NE_03("NE-03", "recursive PERFORM", "a range performed from inside itself has no defined return under IBM's rules"),
         NE_04("NE-04", "division without ON SIZE ERROR", "a division by zero leaves the receiving field as IBM's code left it, which is not defined"),
         NE_05("NE-05", "ODO data beyond the count", "bytes of a table past its OCCURS DEPENDING count are undefined, and a move of its record carries them"),
-        NE_06("NE-06", "COMP-1 or COMP-2", "IBM's hexadecimal floating point has no exact Java equivalent");
+        NE_06("NE-06", "COMP-1 or COMP-2", "IBM's hexadecimal floating point has no exact Java equivalent"),
+        NE_07("NE-07", "GO TO out of a PERFORM range", "the PERFORM stays active, and whether reaching its exit later returns is cobc's reading, unsettled on IBM (R-021 C-3)");
 
         public final String code, title, why;
 

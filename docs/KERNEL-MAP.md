@@ -999,3 +999,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Verbs.java:Verbs.setTrue` |  | 2026-10-06 |  |
 | lower | `lower/Evaluate.java:Evaluate.condition` | folded into `Evaluate.read` and `Evaluate.pair` (J-116) | 2026-10-06 | superseded-by: `lower/Evaluate.java:Evaluate.pair` |
 | lower | `lower/Verbs.java:Verbs.control` |  | 2026-10-06 |  |
+| sir | `sir/check/NonExact.java:NonExact.leaving` | R-021 | 2026-10-06 |  |

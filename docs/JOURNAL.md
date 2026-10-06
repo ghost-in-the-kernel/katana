@@ -1548,3 +1548,18 @@ taken; closed by a later `decision` entry naming it).
   right because each was taken to keep the oracle agreeing and the disagreement written down,
   which is the rule the phase runs on.
 
+### J-118 Fable's five answers carried out: profile fields, R-057's quotes, NE-07, 3.1's findings
+- **Who:** Opus. **Class:** build; decision carried out.
+- **Found:** `ibm.dispsign` and `ibm.wsclear` added to `profile/` (both profiles state them, PROFILE-02)
+  and to `docs/PROFILE.md` in R-049's wording; the profiles' hashes change (ibm `feca2565…` to
+  `a5298bfd…`, cobol85 `f9e218d2…` to `e13d3580…`), so the ten fixtures pinning ibm's are re-pinned and
+  the lane golden and proof reports re-recorded: every changed line is a hash. R-057's C-1 quoted with
+  its pages and `verified` (LR 6.4 pp. 103, 245); C-2 is not borne out for z/OS (WSCLEAR is AIX's, PG
+  p. 864; HANDOFF). The same LR page gives a rule the lowering broke: a VALUE is placed independent of
+  JUSTIFIED; `lower/Values` now places it left. R-021's C-3 is `NE-07`, "GO TO out of a PERFORM range",
+  raised from the paragraph graph (`sir/check/NonExact`; 76 in NIST, 4 in CardDemo). 3.1's five
+  testsuite differences are findings against its expectation, by case number, in
+  `AutotestRtIntegrationTest`, which now fails on any other case that fails the testsuite. The
+  lowering's `// Unsure` for initial values is `// Decision: R-057`.
+- **Resolved:** the five answers. **Open:** R-057 C-2 (Fable). **Touched:** `profile/`, fixtures and
+  goldens (hashes), `findings/`, `sir/check/`, `lower/`, `test/`, PROFILE, FINDINGS, research, HANDOFF.

@@ -959,8 +959,8 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   program that reads before writing, for no gain: neither value is what an unpredictable item held
   on the customer's machine. The oracle's agreement is worth keeping; the honesty is in the header
   until the finding can name the items.
-- **Claims:** C-1 IBM: an item without VALUE has an unpredictable initial value: `hypothesis` until
-  quoted with its page in `docs/research/ibm-options.md`. C-2 WSCLEAR (Enterprise COBOL 6.2 and
+- **Claims:** C-1 IBM: an item without VALUE has an unpredictable initial value: `verified` (LR 6.4 p. 103
+  "undefined", p. 245 "unpredictable"; quoted in `docs/research/ibm-options.md` §9, J-118). C-2 WSCLEAR (Enterprise COBOL 6.2 and
   later) clears WORKING-STORAGE to binary zeros: `hypothesis`, same condition. C-3 `cobc -std=ibm`
   gives INITIALIZE's values: `verified` (J-114).
 - **Held by:** `lower/`'s data map (the `// Unsure` becomes a `// Decision: R-057`); the proof

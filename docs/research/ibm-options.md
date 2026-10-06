@@ -304,3 +304,28 @@ to the reformatted (OUTREC/OUTFIL) length when SORTOUT LRECL is specified.
 - S19 https://www.ibm.com/docs/en/SSLTBW_2.2.0/com.ibm.zos.v2r2.icea100/ice2ca_Padding_and_truncation.htm
 - S20 https://www.ibm.com/support/knowledgecenter/SSLTBW_2.2.0/com.ibm.zos.v2r2.icea100/spexec.htm
 
+
+## 9. Initial values without VALUE, and WSCLEAR (read 2026-10-06, primary; R-057)
+
+Language Reference 6.4, p. 103 (PROGRAM-ID paragraph, the initial state of a program):
+
+> "If a VALUE clause is used in the description of the data item, the data item is initialized to the
+> defined value. If a VALUE clause is not associated with a data item, the initial value of the data
+> item is undefined."
+
+Language Reference 6.4, p. 245 (VALUE clause):
+
+> "The data item assumes the specified value at the beginning of program execution. If the initial
+> value is not explicitly specified, the value is unpredictable."
+>
+> "Initialization is independent of any BLANK WHEN ZERO or JUSTIFIED clause that is specified."
+
+R-057's C-1 (an item without VALUE has an unpredictable initial value) is quoted here. The second
+quotation is a rule the lowering must follow: a VALUE is placed without JUSTIFIED (J-118).
+
+WSCLEAR: the z/OS Programming Guide 6.4 names it once, p. 864 (Appendix G, COBOL SYSADATA file
+contents, an option byte): "Bit 1 = WSCLEAR, Bit 0 = NOWSCLEAR (AIX only)". It is not among the z/OS
+compiler options the guide describes. R-057's C-2 (WSCLEAR, Enterprise COBOL 6.2 and later, clears
+WORKING-STORAGE to binary zeros) is therefore not supported for z/OS by this manual: a finding for
+Fable (HANDOFF), not a verification. LE's STORAGE runtime option, which can set the bytes of fresh
+storage, is not described in the Programming Guide and was not read.

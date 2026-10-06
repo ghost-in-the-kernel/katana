@@ -16,7 +16,8 @@ import katana.sir.types.Value;
  * F-08's non-exact classes found in the IR (docs/ROADMAP.md 2.7), before any lowering: TRUNC(OPT) over
  * binary items; PERFORM ranges that overlap without one containing the other; a PERFORM of a range
  * from inside it; DIVIDE, or a COMPUTE that divides, with no ON SIZE ERROR; each OCCURS DEPENDING
- * table; each COMP-1 or COMP-2 item. The profile must be the one the IR was built under.
+ * table; each COMP-1 or COMP-2 item; a GO TO out of a PERFORM range. The profile must be the one the IR
+ * was built under.
  */
 public final class NonExact {
     private NonExact() {}
@@ -62,6 +63,22 @@ public final class NonExact {
                 boolean share = x.to() <= y.thru() && y.to() <= x.thru();
                 boolean nested = (x.to() <= y.to() && y.thru() <= x.thru()) || (y.to() <= x.to() && x.thru() <= y.thru());
                 if (share && !nested) out.add(new Finding(Finding.Kind.NE_02, where(y.origin()), in + range(paragraphs, x) + " and " + range(paragraphs, y) + " overlap"));
+            }
+        }
+        leaving(p, performs, in, out);
+    }
+
+    /** A GO TO from a paragraph inside a PERFORM range to one outside it (R-021 C-3): once for each GO TO. */
+    // Decision: R-021
+    private static void leaving(Program p, List<Procedure.Edge> performs, String in, List<Finding> out) {
+        List<Procedure.Paragraph> paragraphs = p.procedure().paragraphs();
+        for (Procedure.Edge g : p.procedure().edges()) {
+            if (g.kind() != Procedure.Kind.GO_TO) continue;
+            for (Procedure.Edge x : performs) {
+                if (g.from() >= x.to() && g.from() <= x.thru() && (g.to() < x.to() || g.to() > x.thru())) {
+                    out.add(new Finding(Finding.Kind.NE_07, where(g.origin()), in + name(paragraphs, g.from()) + " goes to " + name(paragraphs, g.to()) + ", out of " + range(paragraphs, x)));
+                    break;
+                }
             }
         }
     }
