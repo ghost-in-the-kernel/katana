@@ -87,6 +87,17 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   cobc does for +, CR, DB and floating signs), with an `// Unsure` in `Editor.number`. *Lean:* the five
   families findings against cobc, compared by finding at 3.4; the zero sign to the mainframe list.
 
+- **INSPECT: one cobc finding, one reading taken from cobc (J-105).** `rt/Inspect` is held to IBM's
+  four INSPECT examples (LR pp. 356-360) and to cobc over 402 statements. The finding: cobc runs a
+  REPLACING's phrases one at a time, a position claimed by an earlier phrase barred to later ones;
+  IBM's "Data flow" (p. 360) is comparison cycles, position by position. They part only when a later
+  phrase matches where an earlier one is not yet eligible: `CHARACTERS BY "y" AFTER INITIAL "B"
+  FIRST "BA" BY "zz"` on `BA-ABA` is `zzyyyy` by IBM's text and `Byyyyy` on cobc (3 cases; the
+  phrase-at-a-time reading fits cobc on all 402). The reading: with both BEFORE and AFTER, IBM does
+  not say where BEFORE's delimiter is searched from; cobc searches from the item's start, and `rt/`
+  does the same (`// Unsure` in `Inspect.region`). *Lean:* the first a finding compared by finding at
+  3.4; the second to the mainframe list.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

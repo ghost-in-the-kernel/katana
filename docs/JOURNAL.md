@@ -1351,3 +1351,18 @@ taken; closed by a later `decision` entry naming it).
   value cut to zero. Listed as findings. Its mutation: suppression read as 9s, more than 20 differ.
 - **Resolved:** `rt/Editor`, `rt/Edit`; `Attr` gains the edited categories and its `Edit`.
   **Touched:** `rt/`, `test/katana/rt/`, `docs/checks.json`, HANDOFF.
+
+### J-105 Phase 3.1: INSPECT, held to IBM's examples and to cobc; cobc runs phrases one at a time
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** IBM's INSPECT rules read from the Language Reference (pp. 353-360): comparison cycles
+  from the leftmost position, the phrases compared in written order at each; CHARACTERS, ALL,
+  LEADING, FIRST; BEFORE and AFTER INITIAL; CONVERTING as ALL phrases. `rt/Inspect` does them over an
+  item's bytes. `InspectTest` holds it to IBM's four printed examples (passed first time);
+  `InspectDifferentialIntegrationTest` to cobc over 400 generated statements. First run: 8 differ.
+  7 were a reading IBM leaves open: with both BEFORE and AFTER, `rt/` searched BEFORE's delimiter
+  from AFTER's end, cobc from the item's start; `rt/` now does as cobc (an `// Unsure`; HANDOFF). The
+  8th was a probe's worth: cobc runs a REPLACING's phrases one at a time, positions claimed by an
+  earlier phrase barred to later ones, where IBM's text is cycles. Probed by hand (`BA-ABA`), then two
+  such cases added to the test; a phrase-at-a-time model written in the test fits cobc on all 402 and
+  explains exactly the 3 listed findings. Its mutation: LEADING compared as ALL, more than 10 differ.
+- **Resolved:** `rt/Inspect`. **Touched:** `rt/`, `test/katana/rt/`, `docs/checks.json`, HANDOFF, TODO.

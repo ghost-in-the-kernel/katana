@@ -773,3 +773,12 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Editor.java:Editor.deEdit` | R-019 | 2026-10-06 |  |
 | rt | `rt/katana/rt/Move.java:Move.write` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Move.java:Move.deEdited` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.Inspect` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.Phrase.width` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.region` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.find` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.matches` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.tally` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.replace` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.convert` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Inspect.java:Inspect.cycles` |  | 2026-10-06 |  |
