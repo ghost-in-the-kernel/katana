@@ -41,7 +41,7 @@ class CodecDifferentialIntegrationTest {
             int digits = 1 + r.nextInt(18), scale = r.nextInt(Math.min(digits, 4) + 1);
             boolean signed = r.nextBoolean(), separate = usage == Attr.Usage.DISPLAY && signed && r.nextBoolean(),
                     leading = usage == Attr.Usage.DISPLAY && signed && r.nextBoolean();
-            Attr attr = new Attr(usage, Attr.Category.NUMERIC, digits, scale, signed, separate, leading);
+            Attr attr = new Attr(usage, Attr.Category.NUMERIC, digits, scale, signed, separate, leading, false);
             StringBuilder s = new StringBuilder();
             for (int k = 0; k < digits; k++) s.append((char) ('0' + (n % 7 == 0 ? 0 : r.nextInt(10))));
             BigInteger unscaled = new BigInteger(s.toString());

@@ -747,3 +747,13 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Field.java:Field.binaryGet` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Field.java:Field.binaryPut` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Record.java:Record.of` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Attr.java:Attr.text` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.Move` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.move` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.group` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.number` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.text` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.place` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.bytes` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.digits` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.unsignedInteger` |  | 2026-10-06 |  |

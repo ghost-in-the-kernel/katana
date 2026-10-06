@@ -69,6 +69,12 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   IBM's size; a record holding one differs in length between the lanes, so 3.4 compares such a
   program by a finding (TODO 3.4). *Lean:* a finding against cobc's dialect, like C-5 and the cap.
 
+- **cobc truncates a numeric MOVE into a shorter JUSTIFIED receiver on the right (J-103).** IBM (LR
+  p. 198): with JUSTIFIED "the leftmost character positions are truncated"; cobc keeps the leftmost
+  digits when the sender is numeric (an alphanumeric sender it justifies as IBM says). `rt/` follows
+  IBM; 5 of 400 generated moves are listed findings. *Lean:* a finding against cobc, compared by
+  finding at 3.4 like C-5, the cap and COMP-5's size.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

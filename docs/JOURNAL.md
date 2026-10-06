@@ -1316,3 +1316,20 @@ taken; closed by a later `decision` entry naming it).
   cobc's on more than 50 cases.
 - **Resolved:** `rt/` Record, Field, Attr, Codepage. **Touched:** `rt/katana/rt/`, `test/katana/rt/`,
   `docs/checks.json`, HANDOFF, TODO.
+
+### J-103 Phase 3.1: MOVE, against IBM's rules and cobc's bytes; one rt/ bug, one cobc finding
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** IBM's MOVE rules read from the Language Reference (pp. 174, 198, 239, 402-405):
+  numeric alignment on the decimal point, alphanumeric left alignment with space fill, JUSTIFIED,
+  a numeric integer into text as its unsigned digits, text into a number as an unsigned integer, a
+  group move a byte copy. `rt/Move` does those; `MoveDifferentialIntegrationTest` moves 400
+  generated senders into generated receivers under cobc -std=ibm with binary truncation (the lane
+  profile). First run: 27 differ. 22 were `rt/`'s: a MOVE into COMP-5 was cut to its PICTURE, where
+  IBM says "truncation occurs at the binary field size rather than at the COBOL picture size limit"
+  (p. 239) and cobc agrees; fixed. 5 are cobc's: a numeric sender longer than a JUSTIFIED receiver
+  keeps its leftmost digits, where IBM truncates the leftmost; each checked to equal the move with
+  JUSTIFIED ignored, and listed. Its mutation: JUSTIFIED ignored, more than 10 cases differ. Not yet:
+  edited receivers and de-editing, and a differential of its own for group moves (they share the
+  alphanumeric placement the test holds).
+- **Resolved:** `rt/Move`; `Attr` gains JUSTIFIED. **Touched:** `rt/`, `test/katana/rt/`,
+  `docs/checks.json`, HANDOFF.
