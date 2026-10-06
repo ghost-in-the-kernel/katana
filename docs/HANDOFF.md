@@ -75,6 +75,18 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   IBM; 5 of 400 generated moves are listed findings. *Lean:* a finding against cobc, compared by
   finding at 3.4 like C-5, the cap and COMP-5's size.
 
+- **Editing: five ways cobc parts from IBM's text, and one reading to settle (J-104).** `rt/Editor`
+  is held to every example IBM prints for editing (LR pp. 220-225, `EditorTest`) and to cobc over 400
+  generated edited moves. 37 of them differ from cobc, in five families each checked by what cobc shows:
+  a + or - next to the currency sign (cobc gets IBM's own `-$999.99` example wrong; 17 cases);
+  suppression judged on the value before its digits were cut (3); DB not read as negative when
+  de-editing (19); an inserted 0 read as a digit when de-editing (1); a fixed trailing - shown for a
+  negative value cut to zero (2). The reading: a negative value whose digits are cut to zero (-0.006
+  into `9.9CR`). IBM's sign table has a column "positive or zero"; p. 404 says "the sign of the sending
+  item is placed in the receiving item". *Default taken:* zero shows as positive (the table, and what
+  cobc does for +, CR, DB and floating signs), with an `// Unsure` in `Editor.number`. *Lean:* the five
+  families findings against cobc, compared by finding at 3.4; the zero sign to the mainframe list.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

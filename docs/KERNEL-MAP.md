@@ -757,3 +757,19 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Move.java:Move.bytes` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Move.java:Move.digits` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Move.java:Move.unsignedInteger` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Attr.java:Attr.numericEdited` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Attr.java:Attr.alphanumericEdited` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.Editor` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.layout` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.count` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.number` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.significance` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.suppressed` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.suppressor` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.symbol` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.point` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.floatingSymbol` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.text` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Editor.java:Editor.deEdit` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.write` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Move.java:Move.deEdited` |  | 2026-10-06 |  |

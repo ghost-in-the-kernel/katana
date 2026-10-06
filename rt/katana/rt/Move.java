@@ -9,7 +9,8 @@ import java.util.Arrays;
  * left-aligned and space-filled or truncated on the right (JUSTIFIED: on the left); a numeric integer
  * sender into an alphanumeric receiver as its unsigned digits, a separate sign not moved; an
  * alphanumeric sender into a numeric receiver as an unsigned integer; a group move a byte copy with no
- * conversion. Edited receivers and de-editing are not here yet.
+ * conversion; into an edited item, the value or characters edited by its PICTURE (`Editor`); from a
+ * numeric-edited item into a numeric or numeric-edited one, its value de-edited first (LR p. 404).
  */
 public final class Move {
     private Move() {}
@@ -17,9 +18,17 @@ public final class Move {
     /** An elementary MOVE from one field to another, by their categories. */
     // Decision: R-019
     public static void move(Field from, Field to) {
-        boolean fromNumeric = from.attr().category() == Attr.Category.NUMERIC, toNumeric = to.attr().category() == Attr.Category.NUMERIC;
-        if (toNumeric) number(fromNumeric ? from.get() : unsignedInteger(from), to);
-        else text(fromNumeric ? digits(from) : bytes(from), to);
+        Attr.Category fc = from.attr().category(), tc = to.attr().category();
+        boolean fromNumeric = fc == Attr.Category.NUMERIC, fromEdited = fc == Attr.Category.NUMERIC_EDITED;
+        boolean toNumeric = tc == Attr.Category.NUMERIC || tc == Attr.Category.NUMERIC_EDITED;
+        if (toNumeric) {
+            Decimal value = fromNumeric ? from.get() : fromEdited ? deEdited(from) : unsignedInteger(from);
+            if (tc == Attr.Category.NUMERIC) number(value, to);
+            else write(Editor.number(to.attr().edit(), to.attr().scale(), value.toBigDecimal()), to);
+        } else if (tc == Attr.Category.ALPHANUMERIC_EDITED) {
+            Codepage cp = from.record().codepage();
+            write(Editor.text(to.attr().edit(), new String(fromNumeric ? digits(from) : bytes(from), cp.charset)), to);
+        } else text(fromNumeric ? digits(from) : bytes(from), to);
     }
 
     /** A group MOVE: the sender's bytes into the receiver's, left-aligned, space-filled, with no conversion. */
@@ -59,6 +68,19 @@ public final class Move {
         int n = Math.min(src.length, length);
         if (right) System.arraycopy(src, src.length - n, dst, at + length - n, n);
         else System.arraycopy(src, 0, dst, at, n);
+    }
+
+    /** An edited image into a field, in its codepage. */
+    private static void write(String shown, Field to) {
+        byte[] b = shown.getBytes(to.record().codepage().charset);
+        System.arraycopy(b, 0, to.record().bytes(), to.offset(), to.attr().length());
+    }
+
+    /** A numeric-edited field's value, de-edited. */
+    private static Decimal deEdited(Field f) {
+        String shown = new String(bytes(f), f.record().codepage().charset);
+        java.math.BigDecimal v = Editor.deEdit(f.attr().edit(), f.attr().scale(), shown);
+        return new Decimal(v.unscaledValue(), v.scale());
     }
 
     /** A field's own bytes. */

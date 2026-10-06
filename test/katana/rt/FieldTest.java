@@ -24,7 +24,7 @@ class FieldTest {
         assertEquals("F1F2D3", put(Attr.zoned(3, 0, true), "-123"));
         assertEquals("F1F2C3", put(Attr.zoned(3, 0, true), "123"));
         assertEquals("F1F2F3", put(Attr.zoned(3, 0, false), "123"));
-        assertEquals("60F1F2F3", put(new Attr(Attr.Usage.DISPLAY, Attr.Category.NUMERIC, 3, 0, true, true, true, false), "-123"));
+        assertEquals("60F1F2F3", put(new Attr(Attr.Usage.DISPLAY, Attr.Category.NUMERIC, 3, 0, true, true, true, false, null), "-123"));
         assertEquals("123D", put(Attr.numeric(Attr.Usage.PACKED, 3, 0, true), "-123"));
         assertEquals("123F", put(Attr.numeric(Attr.Usage.PACKED, 3, 0, false), "123"));
         assertEquals("FFFE", put(Attr.numeric(Attr.Usage.BINARY, 4, 0, true), "-2"));

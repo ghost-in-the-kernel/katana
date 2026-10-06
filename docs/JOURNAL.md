@@ -1333,3 +1333,21 @@ taken; closed by a later `decision` entry naming it).
   alphanumeric placement the test holds).
 - **Resolved:** `rt/Move`; `Attr` gains JUSTIFIED. **Touched:** `rt/`, `test/katana/rt/`,
   `docs/checks.json`, HANDOFF.
+
+### J-104 Phase 3.1: editing, held to IBM's printed examples and to cobc; five cobc findings
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** IBM's editing rules read from the Language Reference (pp. 220-225, 404): simple, special,
+  fixed and floating insertion, zero suppression with Z and `*`, BLANK WHEN ZERO, alphanumeric
+  editing, de-editing. `rt/Editor` does them on the expanded picture (`rt/Edit`); `Move` edits into a
+  numeric-edited or alphanumeric-edited receiver and de-edits a numeric-edited sender. Two checks:
+  `EditorTest`, every example IBM prints for editing, which passed first time, and
+  `EditDifferentialIntegrationTest`, 400 generated edited moves (and each moved back, de-edited) under
+  cobc -std=ibm. First run: 59 differ. One rule was `rt/`'s to choose: a negative value cut to zero;
+  the sign of the sender was tried and cobc showed positive for +, CR, DB and floating signs, so
+  zero shows positive, as IBM's "positive or zero" column reads (an `// Unsure`; HANDOFF). The other
+  37 fall into five families, each checked by what cobc's bytes show, not just named: a sign next to
+  the currency sign (cobc gets IBM's own `-$999.99` example wrong), suppression judged before
+  truncation, DB not de-edited as negative, an inserted 0 de-edited as a digit, a trailing - on a
+  value cut to zero. Listed as findings. Its mutation: suppression read as 9s, more than 20 differ.
+- **Resolved:** `rt/Editor`, `rt/Edit`; `Attr` gains the edited categories and its `Edit`.
+  **Touched:** `rt/`, `test/katana/rt/`, `docs/checks.json`, HANDOFF.

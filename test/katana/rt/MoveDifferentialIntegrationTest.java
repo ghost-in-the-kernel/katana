@@ -65,7 +65,7 @@ class MoveDifferentialIntegrationTest {
         int digits = (usage == Attr.Usage.NATIVE_BINARY ? 3 : 1) + r.nextInt(usage == Attr.Usage.NATIVE_BINARY ? 16 : 18);
         int scale = integer ? 0 : r.nextInt(Math.min(digits, 4) + 1);
         boolean signed = r.nextBoolean(), display = usage == Attr.Usage.DISPLAY;
-        return new Attr(usage, Attr.Category.NUMERIC, digits, scale, signed, display && signed && r.nextBoolean(), display && signed && r.nextBoolean(), false);
+        return new Attr(usage, Attr.Category.NUMERIC, digits, scale, signed, display && signed && r.nextBoolean(), display && signed && r.nextBoolean(), false, null);
     }
 
     private static String value(Random r, Attr a) {
@@ -131,7 +131,7 @@ class MoveDifferentialIntegrationTest {
         Field from = new Field(Record.of(c.from().length(), cp), 0, c.from());
         if (c.from().category() == Attr.Category.NUMERIC) from.put(Decimal.of(c.literal()));
         else System.arraycopy(c.literal().getBytes(cp.charset), 0, from.record().bytes(), 0, c.literal().length());
-        Attr to = justify ? c.to() : new Attr(c.to().usage(), c.to().category(), c.to().digits(), c.to().scale(), c.to().signed(), c.to().signSeparate(), c.to().signLeading(), false);
+        Attr to = justify ? c.to() : new Attr(c.to().usage(), c.to().category(), c.to().digits(), c.to().scale(), c.to().signed(), c.to().signSeparate(), c.to().signLeading(), false, null);
         Field into = new Field(Record.of(to.length(), cp), 0, to);
         Move.move(from, into);
         return into.record().bytes();
