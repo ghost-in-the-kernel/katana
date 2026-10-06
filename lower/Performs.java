@@ -132,8 +132,11 @@ final class Performs {
     }
 
     /**
-     * VARYING id1 ... AFTER id2 ...: nested loops, outermost first; each identifier set FROM, its
-     * condition tested, the next one in set and tested, the innermost running the procedures, then BY.
+     * VARYING id1 ... AFTER id2 ... (TEST BEFORE; LR 6.4 pp. 420-422): every identifier set FROM, then
+     * each condition tested outermost first; the innermost's false runs the procedures and steps it; an
+     * inner condition's true steps the one outside it and then sets that identifier FROM again (its FROM
+     * may name the outer one: NC201A's AFTER B FROM A), so at the end each inner identifier holds its
+     * FROM value and the outermost one step past its last use.
      */
     private void varying(Statement s, Loop l, Value.Target target, List<Statement> body) {
         for (Phrase p : l.varying) {
@@ -142,30 +145,63 @@ final class Performs {
                 return;
             }
         }
+        if (l.testAfter) {
+            varyingAfter(l, target, body);
+            return;
+        }
         int n = l.varying.size(), afterLoop = f.label();
         int[] tests = new int[n], steps = new int[n];
         for (int k = 0; k < n; k++) {
             tests[k] = f.label();
             steps[k] = f.label();
         }
-        start(l.varying.get(0), tests[0]);
+        for (Phrase p : l.varying) f.e.line(f.x.moveInto(p.from, f.x.field(p.id), f.x.item(p.id.item())) + ";");
+        f.e.line("return " + tests[0] + ";");
         for (int k = 0; k < n; k++) {
             f.split(tests[k]);
-            f.e.line("if (" + f.conditions.of(l.varying.get(k).until) + ") return " + (k == 0 ? afterLoop : steps[k - 1]) + ";");
-            if (k + 1 < n) start(l.varying.get(k + 1), tests[k + 1]);
+            if (k == 0) f.e.line("if (" + f.conditions.of(l.varying.get(k).until) + ") return " + afterLoop + ";");
+            else {
+                Phrase p = l.varying.get(k);
+                f.e.open("if (" + f.conditions.of(p.until) + ")");
+                step(l.varying.get(k - 1));
+                f.e.line(f.x.moveInto(p.from, f.x.field(p.id), f.x.item(p.id.item())) + ";");
+                f.e.line("return " + tests[k - 1] + ";");
+                f.e.close();
+            }
+            if (k + 1 < n) f.e.line("return " + tests[k + 1] + ";");
             else perform(target, body, steps[k]);
         }
-        for (int k = n - 1; k >= 0; k--) {
-            f.split(steps[k]);
-            step(l.varying.get(k));
-            f.e.line("return " + tests[k] + ";");
-        }
+        f.split(steps[n - 1]);
+        step(l.varying.get(n - 1));
+        f.e.line("return " + tests[n - 1] + ";");
         f.split(afterLoop);
     }
 
-    private void start(Phrase p, int test) {
-        f.e.line(f.x.moveInto(p.from, f.x.field(p.id), f.x.item(p.id.item())) + ";");
-        f.e.line("return " + test + ";");
+    /**
+     * VARYING ... WITH TEST AFTER (LR 6.4 p. 419: "executed at least once, before any condition is
+     * tested"): every identifier set FROM, the procedures run, then the innermost condition tested; while
+     * it is false that identifier steps and the procedures run again; once true the next one out is
+     * tested, and when that is false it steps and every identifier inside it is set FROM again.
+     */
+    // Decision: R-021
+    private void varyingAfter(Loop l, Value.Target target, List<Statement> body) {
+        int n = l.varying.size(), run = f.label(), afterLoop = f.label();
+        int[] checks = new int[n];
+        for (int k = 0; k < n; k++) checks[k] = f.label();
+        for (Phrase p : l.varying) f.e.line(f.x.moveInto(p.from, f.x.field(p.id), f.x.item(p.id.item())) + ";");
+        f.e.line("return " + run + ";");
+        f.split(run);
+        perform(target, body, checks[n - 1]);
+        for (int k = n - 1; k >= 0; k--) {
+            f.split(checks[k]);
+            f.e.open("if (!(" + f.conditions.of(l.varying.get(k).until) + "))");
+            step(l.varying.get(k));
+            for (int j = k + 1; j < n; j++) f.e.line(f.x.moveInto(l.varying.get(j).from, f.x.field(l.varying.get(j).id), f.x.item(l.varying.get(j).id.item())) + ";");
+            f.e.line("return " + run + ";");
+            f.e.close();
+            f.e.line("return " + (k == 0 ? afterLoop : checks[k - 1]) + ";");
+        }
+        f.split(afterLoop);
     }
 
     private void step(Phrase p) {

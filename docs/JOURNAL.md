@@ -1816,3 +1816,20 @@ taken; closed by a later `decision` entry naming it).
   ACCEPT and READ INTO; IBM's complex ODO shapes keep the maximum, an `// Unsure`. CORRS and ODOS hold
   each against cobc. NC through the Java lane: 75 to 79 (floor raised). NC105A now passes every test,
   where cobc fails two: to be read against IBM's text with the other cobc-only failures (J-132).
+
+### J-134 PERFORM VARYING in IBM's order, and WITH TEST AFTER; NC 79 to 83
+- **Who:** Opus. **Class:** build (3.4); a lane fix.
+- **Found:** NC201A crashed on a subscript of 0: its `PERFORM ... WITH TEST AFTER VARYING ... AFTER` ran
+  as TEST BEFORE, because the lowering of VARYING ignored TEST AFTER. Lowered now: every identifier set
+  FROM, the procedures run "at least once, before any condition is tested" (LR 6.4 p. 419), then the
+  innermost condition; while false it steps and the procedures run again; once true the next one out is
+  tested, stepped when false, and every identifier inside it set FROM again. With the crash gone, two of
+  NC201A's TEST BEFORE tests failed on the end state: IBM's inner identifier ends holding its FROM value
+  (p. 422), and the lowering reset it only when the inner loop began again; and a third, `AFTER B FROM
+  A`, showed the outer identifier steps before the inner one is set FROM. Both orders fixed; VARYAFTER
+  holds the TEST AFTER, end-state and FROM-the-outer cases against cobc. `Performs.start` folded into
+  the loops (a closing row). The lane compared a run with no report as `1 ok` against the golden's
+  `1 ok 0 0 0 0 0`, so three runs neither lane reports on (NC110M, NC302M, NC303M) counted as differing;
+  it now writes the golden's form, a run that ended in an exception still differing (NC401M). NC
+  through the Java lane: 79 to 83 (floor raised). Twelve differ: ten where only cobc fails, NC401M (a
+  TAPE1 the lane does not give it), and NC105A, where cobc fails two.

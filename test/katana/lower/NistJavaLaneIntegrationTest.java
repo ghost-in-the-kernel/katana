@@ -29,7 +29,7 @@ class NistJavaLaneIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final String MODULE = "NC";
     /** The NC runs whose counts equal cobc's; raised as the lowering grows, never lowered (the bench discipline, P-01). */
-    static final int FLOOR = 79;
+    static final int FLOOR = 83;
 
     @Test
     void ncThroughTheJavaLane() throws Exception {
@@ -46,8 +46,9 @@ class NistJavaLaneIntegrationTest {
         List<String> report = new ArrayList<>();
         Map<String, Integer> missing = new TreeMap<>();
         for (ModuleRun.Outcome o : outcomes) {
-            String java = "1 " + (o.error() == null ? "ok" : "error") + o.counts().map(c -> " " + c.total() + " " + c.pass() + " " + c.fail() + " " + c.deleted() + " " + c.inspect()).orElse("");
-            boolean equal = o.error() == null && java.equals(cobc.get(o.program()));
+            // A run with no report is `0 0 0 0 0`, as the cobc lane's golden writes it (ModuleRunIntegrationTest); one that ended in an exception is never the same.
+            String java = "1 " + (o.error() == null ? "ok" : "error") + " " + o.counts().map(c -> c.total() + " " + c.pass() + " " + c.fail() + " " + c.deleted() + " " + c.inspect()).orElse("0 0 0 0 0");
+            boolean equal = o.error() == null && !o.note().startsWith("exit") && java.equals(cobc.get(o.program()));
             if (equal) same++;
             report.add(o.program() + (equal ? " SAME " : " DIFFER ") + java + " | cobc " + cobc.get(o.program()) + (o.error() == null ? "" : " | " + o.error()) + " " + o.note());
             notLowered(dir, o.program(), missing);

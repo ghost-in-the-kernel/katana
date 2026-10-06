@@ -994,6 +994,7 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Performs.java:Performs.varies` |  | 2026-10-06 |  |
 | lower | `lower/Performs.java:Performs.repeat` |  | 2026-10-06 |  |
 | lower | `lower/Performs.java:Performs.start` |  | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.start` | folded into the VARYING loops, which set every identifier FROM first (J-134) | 2026-10-06 | superseded-by: `lower/Performs.java:Performs.varying` |
 | lower | `lower/Performs.java:Performs.step` |  | 2026-10-06 |  |
 | lower | `lower/Verbs.java:Verbs.set` | R-019 | 2026-10-06 |  |
 | lower | `lower/Verbs.java:Verbs.setTrue` |  | 2026-10-06 |  |
@@ -1075,3 +1076,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Exprs.java:Exprs.variable` | R-019 | 2026-10-06 |  |
 | lower | `lower/Exprs.java:Exprs.under` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Table.java:Table.current` | R-019 | 2026-10-06 |  |
+| lower | `lower/Performs.java:Performs.varyingAfter` | R-021 | 2026-10-06 |  |
