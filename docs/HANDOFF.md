@@ -108,6 +108,27 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   work on, and a mainframe may end the program. *Lean:* the first a finding compared by finding at 3.4;
   the second to the mainframe list, the generated tests keeping division by zero under the phrase.
 
+- **DISPLAY of signed numbers: a profile field, and two cobc findings (J-109).** IBM displays a signed
+  binary, packed or overpunched zoned item by DISPSIGN (Programming Guide 6.4, Table 48): COMPAT, the
+  default, overpunches a negative value's last digit (`11J`) and shows a zoned item's bytes as they are
+  (`33C`); SEP puts a leading separate sign (`-111`, `+333`). `rt/Display` does both, held to every row
+  of the table. cobc -std=ibm is neither: packed items as SEP; binary items with the digits of their
+  binary field, not their PICTURE (`00111` for `9(3) COMP`); overpunched zoned items with the sign
+  separate in the overpunch's place (`333-`). Over 300 generated items, rt under SEP equals cobc but for
+  those two families, each case checked against a model of cobc's display (150 and 5). *Proposal:* a
+  profile field `ibm.dispsign` (`COMPAT` default, or `SEP`), a new profile per PROFILE's rule, which
+  the lowering passes to `Display.of`; the cobc lane compares under SEP with the two families as
+  findings. Not added: a profile field is yours to word (R-042).
+
+- **3.1's check, the 378 autotests through `rt/`: what is hand-lowered (default taken, R-053).** Most of
+  the 378 test what `rt/` will never hold by hand (CALL and the C API, files, profiling, debugging
+  lines, dumps, screen I/O), and their expected outputs are cobc's default dialect, not IBM's (DISPLAY
+  of a decimal item shows a point; IBM's does not). *Default:* hand-lower the cases whose statements
+  `rt/` holds (moves, editing, INSPECT, STRING, UNSTRING, comparison, arithmetic, numeric data of
+  every usage; about 50 by title), each compared with the testsuite's expected output (pass or fail
+  only, R-045) and with cobc -std=ibm on the same program; the rest go through the lowering at 3.3.
+  The count hand-lowered and passing is held by a golden, so the check says how far it reaches.
+
 ## For Opus: tithe pass 2, the phase-2 boundary (done: J-076 to J-091; kept as the plan it was)
 
 **The evaluation.** Every metric in `docs/AGENT.md` is inside its target and the pre-push check fell

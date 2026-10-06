@@ -1410,3 +1410,19 @@ taken; closed by a later `decision` entry naming it).
   Division by zero without the phrase is not generated: `rt/` leaves the receiver as it was (an
   `// Unsure`; HANDOFF). Its mutation: storing despite the phrase, more than 10 differ.
 - **Resolved:** `rt/Arithmetic`. **Touched:** `rt/`, `test/katana/rt/`, `docs/checks.json`, HANDOFF, TODO.
+
+### J-109 Phase 3.1: DISPLAY of numbers, held to IBM's Table 48 and to cobc
+- **Who:** Opus. **Class:** build; trial; question.
+- **Found:** Starting 3.1's check (the autotests as `rt/` tests), every program DISPLAYs, and `rt/` had no
+  DISPLAY. IBM's rule (LR 6.4 p. 333; Programming Guide 6.4, DISPSIGN and its Table 48): binary and
+  packed items become zoned decimal of their PICTURE's digits, no point shown; under DISPSIGN(COMPAT),
+  the default, a negative value's last digit overpunched and zoned items as their bytes; under SEP a
+  leading separate sign. `rt/Display` does both; `DisplayTest` holds every row of Table 48 in EBCDIC
+  (passed first time). Probed by hand, cobc -std=ibm is neither form; under SEP, `rt` equals cobc on
+  300 generated items but for two families, each checked against a model of cobc's display: binary
+  items with the digits of their binary field (150), overpunched zoned items with the sign where the
+  overpunch was (5). Which DISPSIGN a program has is a compile option, so a profile field is proposed
+  (HANDOFF), not added. The autotest check's scope was taken as a default (HANDOFF): the cases `rt/`
+  holds are hand-lowered now, the rest wait for the lowering. Its mutation: COMPAT, more than 50 differ.
+- **Resolved:** `rt/Display`. **Open:** `ibm.dispsign` (Fable). **Touched:** `rt/`, `test/katana/rt/`,
+  `docs/checks.json`, HANDOFF.

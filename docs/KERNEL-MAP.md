@@ -800,3 +800,5 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Compare.java:Compare.operand` | R-019 | 2026-10-06 |  |
 | rt | `rt/katana/rt/Arithmetic.java:Arithmetic.Arithmetic` |  | 2026-10-06 |  |
 | rt | `rt/katana/rt/Arithmetic.java:Arithmetic.store` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Display.java:Display.Display` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Display.java:Display.of` | R-019 | 2026-10-06 |  |
