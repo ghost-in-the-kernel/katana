@@ -1366,3 +1366,19 @@ taken; closed by a later `decision` entry naming it).
   such cases added to the test; a phrase-at-a-time model written in the test fits cobc on all 402 and
   explains exactly the 3 listed findings. Its mutation: LEADING compared as ALL, more than 10 differ.
 - **Resolved:** `rt/Inspect`. **Touched:** `rt/`, `test/katana/rt/`, `docs/checks.json`, HANDOFF, TODO.
+
+### J-106 Phase 3.1: STRING and UNSTRING, held to IBM's text and to cobc
+- **Who:** Opus. **Class:** build; trial.
+- **Found:** IBM's STRING and UNSTRING rules read from the Language Reference (pp. 457-471): the
+  pointer, transfer up to a delimiter or whole, no space filling, overflow; UNSTRING's examine, move
+  and iterate stages, ALL, OR, DELIMITER IN, COUNT IN, TALLYING IN, the examined size without a
+  delimiter (Table 54). `rt/Strings` does them, each UNSTRING part MOVEd into its receiver by
+  `rt/Move`. IBM's examples are figures, so `StringsTest` holds what its text states in words ("an
+  occurrence of ABC is considered an occurrence of AB"). `StringsDifferentialIntegrationTest`: 400
+  generated statements under cobc. First run: 29 differ, all the test's fault: numeric receivers
+  given `,` or `;`, a MOVE IBM leaves undefined; the generator now makes every non-digit a delimiter
+  for them. Two readings IBM leaves open were probed by hand and agree with `rt/`: ALL takes repeats
+  of the same delimiter as one, not of any (an `// Unsure` naming it cobc's reading), and STRING
+  filling its receiver exactly does not overflow; both added as fixed cases. Its mutation: delimiters
+  ignored, more than 20 differ.
+- **Resolved:** `rt/Strings`. **Touched:** `rt/`, `test/katana/rt/`, `docs/checks.json`, TODO.

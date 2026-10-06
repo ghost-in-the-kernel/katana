@@ -782,3 +782,11 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Inspect.java:Inspect.replace` | R-019 | 2026-10-06 |  |
 | rt | `rt/katana/rt/Inspect.java:Inspect.convert` | R-019 | 2026-10-06 |  |
 | rt | `rt/katana/rt/Inspect.java:Inspect.cycles` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Strings.java:Strings.Strings` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Strings.java:Strings.string` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Strings.java:Strings.unstring` | R-019 | 2026-10-06 |  |
+| rt | `rt/katana/rt/Strings.java:Strings.examined` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Strings.java:Strings.nextDelimiter` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Strings.java:Strings.text` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Strings.java:Strings.startsWith` |  | 2026-10-06 |  |
+| rt | `rt/katana/rt/Strings.java:Strings.indexOf` |  | 2026-10-06 |  |
