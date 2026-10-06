@@ -1857,3 +1857,12 @@ taken; closed by a later `decision` entry naming it).
   concatenated with the previous", the last cut (LR 6.4 pp. 307-308), which `rt/Sysin` does (J-122) and
   NIST expects: D-020, held in ACCEPTREC. The differential test gave no program any input; a `NAME.in`
   beside a program is now its standard input in both lanes.
+
+### J-137 D-019 in NC106A too; its truncation cases are the lane's known setting
+- **Who:** Opus. **Class:** discovery.
+- **Found:** NC106A's 42 cobc-only failures are 39 `arithmetic-osvs` and 3 `binary-truncation` (IBM-CHANGES).
+  The three are PROFILE-04's known setting: the profile's TRUNC(STD) is IBM's default, `-std=ibm` alone
+  does not truncate, and `programs-ibm.golden` was recorded without the flag the lane sets; no
+  discovery. Of the 39, SUB-TEST-F1-16 subtracts S9PP 100, -98, -1 (S9V99) and -1 from S999 100: the
+  subtrahends total zero, every intermediate exact under Appendix A, 100; cobc -std=ibm gives 102, its
+  default dialect 100. Added to ADDIBM and to D-019's row; the other 38 are to be read.

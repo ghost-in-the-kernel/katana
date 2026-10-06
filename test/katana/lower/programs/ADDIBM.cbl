@@ -5,7 +5,8 @@
       * well under 30 digits, so Appendix A carries each sum exactly
       * (PG 6.4 p. 795); NC250A's IF--TEST-37, two exact sums of 123.45;
       * and NC175A's SUB-TEST-F2-6 (NC119A's SUB-TEST-GF-14), an exact
-      * difference within its receiver.
+      * difference within its receiver; NC106A's SUB-TEST-F1-16, whose
+      * subtrahends (one P-scaled) total zero.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        77 A PIC S99 VALUE 99.
@@ -22,6 +23,10 @@
        77 K PIC S999V999 VALUE 333.333.
        77 Q PIC S9(6)V9(6).
        77 QE PIC -9(6).9(6).
+       77 S5 PIC S9PP VALUE 100.
+       77 S3 PIC S9V99 VALUE -1.
+       77 S10 PIC S999 VALUE 100.
+       77 S10E PIC -999.
        PROCEDURE DIVISION.
        MAIN-PARA.
            MOVE ZERO TO R
@@ -40,4 +45,7 @@
            SUBTRACT F G H K FROM ZERO GIVING Q
            MOVE Q TO QE
            DISPLAY "SUB " QE
+           SUBTRACT S5 -98 S3 -1 FROM S10
+           MOVE S10 TO S10E
+           DISPLAY "SUB P " S10E
            STOP RUN.
