@@ -200,8 +200,14 @@ final class DataMap {
     }
 
     /** The context's text as written, its blanks folded to one. */
+    /**
+     * A rule's source text, its spaces collapsed and the comments inside it left out: a comment line
+     * between a clause's words (NIST's "*Message expected" lines, `*>` once preprocessed) is not part of
+     * the clause (SQ401M's ASSIGN took one in as its name, J-151).
+     */
     static String text(ParserRuleContext ctx) {
-        return ctx.getStart().getInputStream().getText(Interval.of(ctx.getStart().getStartIndex(), ctx.getStop().getStopIndex())).replaceAll("\\s+", " ").trim();
+        String raw = ctx.getStart().getInputStream().getText(Interval.of(ctx.getStart().getStartIndex(), ctx.getStop().getStopIndex()));
+        return raw.replaceAll("\\*>[^\n]*", " ").replaceAll("\\s+", " ").trim();
     }
 
     /**

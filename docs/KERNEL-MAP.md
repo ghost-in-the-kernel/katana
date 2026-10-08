@@ -1106,3 +1106,15 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | sir | `sir/contract/Contract.java:Contract.fd` |  | 2026-10-08 |  |
 | sir | `sir/types/FileDescriptor.java:FileDescriptor.Fd.Fd` |  | 2026-10-08 |  |
 | sir | `sir/types/FileDescriptor.java:FileDescriptor.Linage.Linage` |  | 2026-10-08 |  |
+| lower | `lower/Exprs.java:Exprs.counter` |  | 2026-10-08 |  |
+| lower | `lower/Exprs.java:Exprs.counterDigits` |  | 2026-10-08 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.linages` | R-019 | 2026-10-08 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.supplier` |  | 2026-10-08 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.paged` |  | 2026-10-08 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.linage` | R-019 | 2026-10-08 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.counter` |  | 2026-10-08 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.page` | R-019 | 2026-10-08 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.page#2` |  | 2026-10-08 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.count` |  | 2026-10-08 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.blank` |  | 2026-10-08 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.line` |  | 2026-10-08 |  |

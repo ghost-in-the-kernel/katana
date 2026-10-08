@@ -80,6 +80,7 @@ final class Arith {
 
     /** One operand as a term: a numeric item or literal with its integer places. */
     String operand(Value v) {
+        if (x.counter(v) != null) return "Decimal.operand(" + x.counter(v) + ".get(), " + x.counterDigits(v) + ")";
         return switch (v) {
             case Value.Field f -> "Decimal.operand(" + x.field(f) + ".get(), " + integerPlaces(x.item(f.item())) + ")";
             case Value.Literal l when l.numeric() -> "Decimal.operand(new Decimal(new java.math.BigInteger(" + Emitter.quote(l.payload()) + "), " + l.scale() + "), " + Math.max(0, l.payload().replace("-", "").length() - l.scale()) + ")";

@@ -23,7 +23,7 @@ class NameResolutionTest {
     private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
 
     private static Build.Result build(String... lines) {
-        String source = java.util.Arrays.stream(lines).map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
+        String source = java.util.Arrays.stream(lines).map(l -> (l.startsWith("*") ? "      " : "       ") + l).collect(Collectors.joining("\n", "", "\n"));
         return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), HASH);
     }
 
@@ -76,6 +76,15 @@ class NameResolutionTest {
                 "WORKING-STORAGE SECTION.", "01 W PIC 99.", "PROCEDURE DIVISION.", "MAIN-PARA.", "    MOVE LINAGE-COUNTER OF LISTING TO W", "    STOP RUN.");
         Statement move = r.program().procedure().paragraphs().stream().filter(g -> g.name().equals("MAIN-PARA")).findFirst().orElseThrow().statements().get(0);
         assertTrue(move.operands().stream().anyMatch(o -> o.value().equals(new Value.Expression("LINAGE-COUNTER OF", List.of(new Value.File("LISTING"))))), move.toString());
+    }
+
+    /** A comment line between a clause's words is not part of the clause: SQ401M's ASSIGN is TAPE2 (J-151). */
+    @Test
+    void aCommentInsideAClauseIsNotPartOfIt() {
+        Build.Result r = build("IDENTIFICATION DIVISION.", "PROGRAM-ID. ASSIGNS.", "ENVIRONMENT DIVISION.", "INPUT-OUTPUT SECTION.", "FILE-CONTROL.",
+                "    SELECT TFIL ASSIGN", "*Message expected for above statement: NON-CONFORMING STANDARD", "    TAPE2.", "DATA DIVISION.", "FILE SECTION.",
+                "FD TFIL.", "01 TREC PIC X.", "PROCEDURE DIVISION.", "MAIN-PARA.", "    STOP RUN.");
+        assertEquals("TAPE2", r.program().files().get(0).assign());
     }
 
     /**

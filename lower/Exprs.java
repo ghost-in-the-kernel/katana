@@ -102,6 +102,7 @@ final class Exprs {
 
     /** A subscript, a reference modifier, a count: a long. */
     String index(Value v) {
+        if (counter(v) != null) return "Table.index(" + counter(v) + ")";
         return switch (v) {
             case Value.Literal l when l.numeric() -> l.payload() + "L";
             case Value.Field f -> "Table.index(" + field(f) + ")";
@@ -112,8 +113,29 @@ final class Exprs {
         };
     }
 
+    /**
+     * LINAGE-COUNTER as the Field its file keeps (LR 6.4 p. 23): `LINAGE-COUNTER OF file`, or the bare
+     * register when one file has a LINAGE clause; null for any other value.
+     */
+    String counter(Value v) {
+        if (v instanceof Value.Expression e && e.operator().equals("LINAGE-COUNTER OF") && e.operands().get(0) instanceof Value.File f) return FileVerbs.name(f.name()) + ".counter()";
+        if (!(v instanceof Value.Name n && n.kind().equals("register") && n.text().equals("LINAGE-COUNTER"))) return null;
+        List<katana.sir.types.FileDescriptor> paged = p.files().stream().filter(f -> f.fd() != null && f.fd().linage() != null).toList();
+        return paged.size() == 1 ? FileVerbs.name(paged.get(0).name()) + ".counter()" : unsupported("LINAGE-COUNTER unqualified, with " + paged.size() + " LINAGE files");
+    }
+
+    /** The digits of a LINAGE-COUNTER (a binary item of its integer's digits, or its data-name's). */
+    int counterDigits(Value v) {
+        katana.sir.types.FileDescriptor f = v instanceof Value.Expression e && e.operands().get(0) instanceof Value.File file
+                ? p.files().stream().filter(d -> d.name().equals(file.name())).findFirst().orElseThrow()
+                : p.files().stream().filter(d -> d.fd() != null && d.fd().linage() != null).findFirst().orElseThrow();
+        Value body = f.fd().linage().body();
+        return body instanceof Value.Literal l ? l.payload().length() : item(((Value.Field) body).item()).attributes().digits();
+    }
+
     /** A value as a sending item (a Field), for MOVE and comparison. */
     String sending(Value v) {
+        if (counter(v) != null) return counter(v);
         return switch (v) {
             case Value.Field f -> field(f);
             case Value.Literal l when l.numeric() -> "Literal.number(" + Emitter.quote(written(l)) + ", " + l.scale() + ", cp)";
@@ -158,6 +180,7 @@ final class Exprs {
 
     /** Whether a value is numeric: a numeric item, a numeric literal, an arithmetic expression. */
     boolean numeric(Value v) {
+        if (counter(v) != null) return true;
         return switch (v) {
             case Value.Field f -> List.of(Attributes.Category.NUMERIC, Attributes.Category.INDEX).contains(item(f.item()).attributes().category()) && f.start() == null;
             case Value.Literal l -> l.numeric();

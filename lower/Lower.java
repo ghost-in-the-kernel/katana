@@ -47,6 +47,7 @@ public final class Lower {
         e.line("this.err = err;");
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("items" + c + "();");
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("values" + c + "();");
+        FileVerbs.linages(e, p, x);
         e.close();
         defineItems(e, p, x);
         main(e, className);

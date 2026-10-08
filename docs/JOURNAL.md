@@ -2091,3 +2091,31 @@ taken; closed by a later `decision` entry naming it).
 - **Caught by:** the check itself, twice on the way: DOT_FS's text carries its newline (`.\n`), and
   trimming every token instead broke EXEC CICS's, whose IR text keeps its spaces (831 tokens on
   CardDemo); only a period is trimmed now.
+
+### J-151 LINAGE lowered: cobc's print-line form settled by a second trial; a comment inside a clause was the clause
+- **Who:** Opus, on Ghost's go-ahead. **Class:** trial; failure-caught.
+- **Intent:** settle the bytes a LINAGE file holds on disk (cobc's print-line form, the lane's
+  profile, R-019; not IBM semantics), then lower LINAGE as J-149's readings say.
+- **Found:** (1) J-149's 22 lines fit one reading, B1: each record a line of its own, trailing spaces
+  trimmed; ADVANCING n is n - 1 blank lines before (AFTER) or after (BEFORE) it; a new page is the rest
+  of the page body, the bottom margin and the next top margin as blank lines; OPEN writes the top
+  margin. B2 (physical lines) put L8 on line 18, not 19. Still open, named before the second run (3cb19cc):
+  ADVANCING 0 (a line of its own, or joining the one before), CLOSE (nothing, or the rest of the page),
+  trailing spaces (trimmed, or kept). LINFORM's 19 lines under cobc -std=ibm: B1 in every line, with
+  a line of its own, nothing at CLOSE, trailing spaces trimmed and inner ones kept. (2) Running SQ
+  through the lane, SQ401M's Java run opened a file named `*> MESSAGE EXPECTED FOR ABOVE STATEMENT:
+  NON-CONFORMING STANDARD TAPE2`: `DataMap.text`, the raw source of a clause, took in a comment line
+  between ASSIGN and its name. Eight ASSIGN names in seven NIST programs held a comment (IX207A,
+  IX218A twice, IX401M, RL401M, SM104A, SM204A, SQ401M); "no token left behind" cannot see a word too
+  many, only one too few.
+- **Resolved:** `SeqFile.linage` (the counter a field: binary of the body's digits, or the data-name's
+  PICTURE; the four values re-read at each page) and `SeqFile.page` (IBM's counter rules, END-OF-PAGE
+  after the increment, an overflow repositioning to 1, B1's bytes); LINAGE-COUNTER, qualified or
+  alone, lowers as that field wherever a value goes; WRITE on a LINAGE file runs its END-OF-PAGE
+  phrases. `LinageIntegrationTest` holds LINTRIAL and LINFORM, output and files byte for byte, in both
+  lanes; the counter after an overflow made 1 + n (L1(b)) fails it. `DataMap.text` leaves comments
+  out, and `NameResolutionTest` holds SQ401M's ASSIGN; all eight names are clean. SQ through the Java
+  lane 15 to 19 of 85 (SQ201M, SQ208M, SQ209M, SQ210M, the LINAGE programs); SQ401M, the fifth, now
+  ends normally where cobc stops on status 38 (OPEN after CLOSE WITH LOCK), FILE STATUS's work.
+- **Touched:** `rt/SeqFile`, `lower/FileVerbs`, `lower/Exprs`, `lower/Arith`, `lower/Lower`,
+  `sir/build/DataMap`, research §11, the tests.
