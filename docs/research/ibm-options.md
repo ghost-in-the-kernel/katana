@@ -401,3 +401,75 @@ them by row. Appendix A's arithmetic is §4; Table 48 (DISPSIGN) is the PG's, qu
   to" `ADD A, B, C GIVING TEMP.` `ADD TEMP TO C.` `ADD TEMP TO D(C).` `ADD TEMP TO E.`, and "When the
   addition operation for D(C) is performed, the subscript C contains the new value of C." (p. 297's
   "Overlapping operands" paragraph comes just before it.) D-022.
+
+## 11. LINAGE (read 2026-10-08, primary; for the SQ module's 39 LINAGE programs)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference.
+
+- LR p. 189 (LINAGE clause): integer-8 or data-name-5 is "The number of lines that can be written or
+  spaced on this logical page. The area of the page that these lines represent is called the page
+  body." WITH FOOTING AT "specifies the first line number of the footing area within the page body";
+  "If the FOOTING phrase is omitted, its assumed value is equal to that of the page body". LINES AT
+  TOP and LINES AT BOTTOM: the margins, "The value can be zero", zero when omitted. p. 190: "The
+  logical page size specified in the LINAGE clause is the sum of all values specified in each phrase
+  except the FOOTING phrase"; "Each logical page immediately follows the preceding logical page, with
+  no additional spacing provided." The data-names "determine the page body, first footing line, top
+  margin, and bottom margin for the first logical page only" at OPEN OUTPUT; "At the time a WRITE
+  statement with the ADVANCING PAGE phrase is executed or a page overflow condition occurs, the values
+  of data-name-5, data-name-6, data-name-7, and data-name-8 if specified, are used to determine" those
+  of the next logical page. "A LINAGE clause under an SD is syntax checked, but has no effect".
+- LR pp. 23-24 (LINAGE-COUNTER): "A separate LINAGE-COUNTER special register is generated for each FD
+  entry that contains a LINAGE clause. When more than one is generated, you must qualify each
+  reference to a LINAGE-COUNTER with its related file-name." "The value in LINAGE-COUNTER at any given
+  time is the line number at which the device is positioned within the current page"; "it must not be
+  modified by" PROCEDURE DIVISION statements; "initialized to 1 when an OPEN statement for its
+  associated file is executed"; an integer LINAGE makes it "a binary item with the same number of
+  digits as that integer", a data-name one "the same PICTURE and USAGE as that data-name".
+- LR p. 474 (WRITE, LINAGE-COUNTER rules): "1. If ADVANCING PAGE is specified, LINAGE-COUNTER is reset
+  to 1. 2. If ADVANCING identifier-2 or integer is specified, LINAGE-COUNTER is increased by the value
+  in identifier-2 or integer. 3. If the ADVANCING phrase is omitted, LINAGE-COUNTER is increased by 1.
+  4. When the device is repositioned to the first available line of a new page, LINAGE-COUNTER is
+  reset to 1." "When the ADVANCING phrase is omitted, automatic line advancing is provided, as if AFTER
+  ADVANCING 1 LINE had been specified." Rule 6 of ADVANCING: with PAGE and a LINAGE clause, "the
+  repositioning is to the first printable line of the next page, as specified in that clause".
+- LR p. 475 (END-OF-PAGE): "An END-OF-PAGE condition is reached when execution of a WRITE END-OF-PAGE
+  statement causes printing or spacing within the footing area of a page body. This occurs when
+  execution of such a WRITE statement causes the value in the LINAGE-COUNTER special register to equal
+  or exceed the value specified in the WITH FOOTING phrase"; "The WRITE statement is executed, and then
+  the END-OF-PAGE imperative-statement is executed." "An automatic page overflow condition is reached
+  whenever the execution of any given WRITE statement ... cannot be completely executed within the
+  current page body. This occurs when a WRITE statement, if executed, would cause the value in the
+  LINAGE-COUNTER to exceed the number of lines for the page body ... In this case, the line is printed
+  BEFORE or AFTER (depending on the option specified) the device is repositioned to the first
+  printable line on the next logical page ... If the END-OF-PAGE phrase is specified, the END-OF-PAGE
+  imperative-statement is then executed." Both conditions can occur at once.
+
+**Where the text leaves room: the rivals, named before any run (R-052).**
+
+- L1, the counter after an overflow. (a) The repositioning replaces the advance: the line goes on the
+  new page's first printable line, LINAGE-COUNTER 1 ("the line is printed BEFORE or AFTER ... the
+  device is repositioned"; rule 4). (b) The advance is applied on the new page: 1 + n.
+- L2, END-OF-PAGE's comparison. (a) After the write's increment ("causes the value ... to equal or
+  exceed"). (b) Before it.
+- L3, data-name values. (a) Read at OPEN and again at each ADVANCING PAGE or overflow (the text).
+  (b) Read once at OPEN.
+
+**The trial, each case's value under each reading, written before the run.** One file, `LINAGE 5
+WITH FOOTING 4 LINES AT TOP 1 LINES AT BOTTOM 1`, LINAGE-COUNTER displayed after each step and END-OF-
+PAGE marked when its statement runs:
+
+| Step | Statement | (a)(a) | L1(b) | L2(b) |
+| --- | --- | --- | --- | --- |
+| 1 | OPEN OUTPUT | 1 | 1 | 1 |
+| 2 | WRITE (no ADVANCING) | 2 | 2 | 2 |
+| 3 | WRITE BEFORE 1 | 3 | 3 | 3 |
+| 4 | WRITE AFTER 1 AT EOP | 4, EOP | 4, EOP | 4, no EOP |
+| 5 | WRITE AFTER 2 AT EOP (6 > 5, overflow) | 1, EOP | 3, EOP | 1, EOP |
+| 6 | WRITE AFTER PAGE | 1 | 1 | 1 |
+| 7 | WRITE BEFORE 3 | 4 | 4 | 4 |
+| 8 | WRITE BEFORE 2 (6 > 5, overflow) | 1 | 3 | 1 |
+
+L3 on a second file, `LINAGE IS LN` with LN 5 at OPEN, then LN set to 2 and eight WRITEs with no
+ADVANCING: (a) 2, 3, 4, 5, then the overflow opens a 2-line page: 1, 2, then 1, 2; (b) the body stays
+5 lines: 2, 3, 4, 5, 1, 2, 3, 4. cobc is run on the same program; where it differs from
+(a)(a) it is a D-number and the lowering keeps IBM's reading.
