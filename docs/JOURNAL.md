@@ -2051,3 +2051,21 @@ taken; closed by a later `decision` entry naming it).
   then ends in a finding), and the test refuses `.find(` anywhere else in sir/build (a `find` put in
   `Files` by hand fails it).
 - **Touched:** `sir/build` (Build, DataMap, Files, Names, Placement, Tuples, Values), the new test.
+
+### J-149 LINAGE's trial: cobc follows IBM's text in all sixteen steps
+- **Who:** Opus, on Fable's note (LINAGE goes the way the arithmetic went). **Class:** trial.
+- **Intent:** before lowering LINAGE (39 SQ programs), quote IBM's text, name where it leaves room,
+  and run cases that separate the readings.
+- **Found:** research §11 quotes the LINAGE clause, LINAGE-COUNTER and WRITE's LINAGE and END-OF-PAGE
+  rules, and names three rivals: L1 the counter after an overflow (1, the repositioning replacing the
+  advance; or 1 + n), L2 END-OF-PAGE compared after the write's increment or before, L3 a data-name
+  LINAGE read at each new page or once at OPEN. The trial's values under each reading were committed
+  first (9ea3db4, 13:21 UTC); then `test/katana/lower/linage/LINTRIAL.cbl` under cobc -std=ibm: 1, 2,
+  3, EOP and 4, EOP and 1, 1, 4, 1; and 2, 3, 4, 5, 1, 2, 1, 2. Every step is reading (a): the
+  overflow repositions and the counter is 1, END-OF-PAGE is tested after the increment (step 4 fires
+  at 4 = FOOTING), and a data-name page body is re-read at the overflow. No step fits no reading.
+- **Resolved:** the lowering follows the text, cobc agreeing, so LINTRIAL joins the differential
+  programs once LINAGE is lowered; no D-number. Open, and not IBM's semantics: the bytes cobc writes
+  for margins and repositioning (its print-line form, R-019's profile), which a trial of its own
+  settles when the lowering writes LINAGE files. First, LINAGE into the IR as a contract line, with
+  FD entries under "no token left behind".
