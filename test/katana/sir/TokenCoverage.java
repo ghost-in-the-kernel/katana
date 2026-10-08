@@ -23,7 +23,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * copybook copied twice gives two statements of one origin), is found in the IR's statement, as a verb
  * or role word, a keyword, a literal, an operator (a relation's words by its symbol), or the name of an
  * item, an ancestor of one, a condition, a file, a paragraph or a section it names. And every word of
- * each SELECT entry is in its file (SIR-09) and of each declarative's USE in its section (SIR-10).
+ * each SELECT entry is in its file (SIR-09), of each FD or SD entry in its file's `Fd` (SIR-11), and of
+ * each declarative's USE in its section (SIR-10).
  */
 final class TokenCoverage {
     private static final Set<String> NOISE = Set.of("IS", "ARE", "THEN", ".", ",", "(", ")", ":", "<EOF>");
@@ -45,6 +46,7 @@ final class TokenCoverage {
         if (tree.size() != ir.size()) return List.of("the tree has " + tree.size() + " statements, the IR " + ir.size());
         List<String> missing = new ArrayList<>(entries(parse, programs));
         missing.addAll(uses(parse, programs));
+        missing.addAll(fds(parse, programs));
         for (int i = 0; i < tree.size(); i++) {
             var o = parse.origin(tree.get(i));
             Origin at = ir.get(i).origin();
@@ -113,6 +115,71 @@ final class TokenCoverage {
         return words;
     }
 
+    /** Each FD or SD entry's words its file's `Fd` lacks (SIR-11), each entry paired with the first unpaired file of its name. */
+    private static List<String> fds(Parse.Result parse, List<Program> programs) {
+        List<Program> owners = new ArrayList<>();
+        List<FileDescriptor> files = new ArrayList<>();
+        programs.forEach(p -> filesOf(p, files, owners));
+        List<String> missing = new ArrayList<>();
+        for (CobolParser.FileDescriptionEntryContext e : nodes(parse.tree(), CobolParser.FileDescriptionEntryContext.class)) {
+            String name = e.fileName().getText().toUpperCase(Locale.ROOT);
+            var o = parse.origin(e);
+            int at = -1;
+            for (int i = 0; i < files.size() && at < 0; i++) if (files.get(i) != null && files.get(i).name().equals(name)) at = i;
+            if (at < 0 || files.get(at).fd() == null) {
+                missing.add(o.file() + ":" + o.line() + ": FD " + name + " has no file in the IR");
+                continue;
+            }
+            Set<String> words = fd(files.get(at), owners.get(at));
+            files.set(at, null);
+            for (String token : fdTokens(e)) if (!words.contains(token)) missing.add(o.file() + ":" + o.line() + ": " + token + " in FD " + name);
+        }
+        return missing;
+    }
+
+    /** The words a file's `Fd` carries, each clause's keywords only where the `Fd` holds what the clause says. */
+    private static Set<String> fd(FileDescriptor f, Program p) {
+        FileDescriptor.Fd d = f.fd();
+        Set<String> words = new HashSet<>(List.of(d.sort() ? "SD" : "FD", f.name(), "IS"));
+        if (d.external()) words.add("EXTERNAL");
+        if (d.global()) words.add("GLOBAL");
+        if (d.recordFrom() != 0 || d.recordTo() != 0 || d.varying()) {
+            words.addAll(List.of("RECORD", "CONTAINS", "CHARACTERS", String.valueOf(d.recordFrom()), String.valueOf(d.recordTo())));
+            if (d.recordTo() != 0 && d.recordTo() != d.recordFrom()) words.add("TO");
+            if (d.varying()) words.addAll(List.of("VARYING", "IN", "SIZE", "FROM"));
+        }
+        if (d.recordDepending() != 0) {
+            words.addAll(List.of("DEPENDING", "ON", "OF", "IN"));
+            names(d.recordDepending(), p, words);
+        }
+        FileDescriptor.Linage l = d.linage();
+        if (l != null) {
+            words.addAll(List.of("LINAGE", "LINES"));
+            if (l.footing() != null) words.addAll(List.of("WITH", "FOOTING", "AT"));
+            if (l.top() != null) words.addAll(List.of("AT", "TOP"));
+            if (l.bottom() != null) words.addAll(List.of("AT", "BOTTOM"));
+            for (Value v : java.util.Arrays.asList(l.body(), l.footing(), l.top(), l.bottom())) value(v, p, words);
+        }
+        if (!d.codeSet().isEmpty()) words.addAll(List.of("CODE-SET", d.codeSet()));
+        if (!d.recordingMode().isEmpty()) words.addAll(List.of("RECORDING", "MODE", d.recordingMode()));
+        return words;
+    }
+
+    /**
+     * An FD entry's tokens but its record descriptions (the data map's) and the clauses that change
+     * nothing a program does: LABEL RECORDS, VALUE OF, BLOCK CONTAINS ("syntax checked, but has no effect
+     * on the execution of the program"), DATA RECORDS ("only as documentation"), and REPORT (Report
+     * Writer, a build finding).
+     */
+    private static List<String> fdTokens(ParseTree node) {
+        if (node instanceof CobolParser.DataDescriptionEntryContext || node instanceof CobolParser.LabelRecordsClauseContext || node instanceof CobolParser.ValueOfClauseContext
+                || node instanceof CobolParser.BlockContainsClauseContext || node instanceof CobolParser.DataRecordsClauseContext || node instanceof CobolParser.ReportClauseContext) return List.of();
+        if (node instanceof TerminalNode) return tokens(node);
+        List<String> tokens = new ArrayList<>();
+        for (int i = 0; i < node.getChildCount(); i++) tokens.addAll(fdTokens(node.getChild(i)));
+        return tokens;
+    }
+
     /** Each declarative's USE words its section lacks (SIR-10), USE statements and declarative sections paired in textual order. */
     private static List<String> uses(Parse.Result parse, List<Program> programs) {
         List<Procedure.Section> sections = new ArrayList<>();
@@ -169,7 +236,7 @@ final class TokenCoverage {
     private static List<String> tokens(ParseTree node) {
         List<String> tokens = new ArrayList<>();
         if (node instanceof TerminalNode t) {
-            String w = t.getText().toUpperCase(Locale.ROOT);
+            String w = t.getText().trim().equals(".") ? "." : t.getText().toUpperCase(Locale.ROOT);
             if (!NOISE.contains(w) && !w.startsWith("END-")) tokens.add(w);
         }
         for (int i = 0; i < node.getChildCount(); i++) tokens.addAll(tokens(node.getChild(i)));

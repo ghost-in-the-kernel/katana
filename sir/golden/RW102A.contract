@@ -194,6 +194,8 @@ value RW102A 110 "******************************************************"
 value RW102A 111 "RW102A"
 file RW102A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
 file RW102A RW-FS2 assign "RPT1" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [] 0..0
+fd RW102A PRINT-FILE FD
+fd RW102A RW-FS2 FD
 paragraph RW102A 0 "" ""
 paragraph RW102A 1 "OPEN-FILES" "CCVS1"
 paragraph RW102A 2 "CLOSE-FILES" "CCVS1"

@@ -61,6 +61,11 @@ public record Program(Header header, List<Item> items, List<FileDescriptor> file
             optional.accept(f.relativeKey());
             optional.accept(f.status());
             optional.accept(f.vsamStatus());
+            if (f.fd() != null) {
+                optional.accept(f.fd().recordDepending());
+                FileDescriptor.Linage l = f.fd().linage();
+                if (l != null) for (Value v : java.util.Arrays.asList(l.body(), l.footing(), l.top(), l.bottom())) value(v, item);
+            }
             f.alternateKeys().forEach(k -> item.accept(k.item()));
             f.records().forEach(item);
         }

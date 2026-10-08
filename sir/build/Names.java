@@ -22,6 +22,11 @@ final class Names {
         this.findings = findings;
     }
 
+    /** A build finding about a clause, not a name. */
+    void note(String finding) {
+        findings.add(finding);
+    }
+
     /**
      * The item a name names, its qualifiers and file given, or a build finding: never a silent 0 (J-148).
      * `what` says where the name stands, for the finding.

@@ -3,12 +3,12 @@
 # that did not build or round-trip; then `non-exact NAME` with each F-08 kind found and how often (2.7), and
 # `valid-under-hypothesis NAME` with each HY- kind (R-049's mechanism, J-120).
 # Written by `gradle integration -Dkatana.record=true`.
-corpus carddemo programs 31 built 31 round-trip 31 build-findings 17 check-findings 5 contract-facts 23834 tokens-left 0
+corpus carddemo programs 31 built 31 round-trip 31 build-findings 17 check-findings 5 contract-facts 23883 tokens-left 0
 non-exact carddemo NE-04 2 NE-05 2 NE-08 2
 valid-under-hypothesis carddemo HY-01 4
-corpus nist programs 437 built 437 round-trip 437 build-findings 47 check-findings 672 contract-facts 416815 tokens-left 0
+corpus nist programs 437 built 437 round-trip 437 build-findings 53 check-findings 672 contract-facts 417588 tokens-left 0
 non-exact nist NE-02 1 NE-03 1 NE-04 233 NE-05 13
 valid-under-hypothesis nist HY-01 76
-corpus omp programs 29 built 29 round-trip 29 build-findings 36 check-findings 39 contract-facts 2944 tokens-left 0
+corpus omp programs 29 built 29 round-trip 29 build-findings 36 check-findings 39 contract-facts 2983 tokens-left 0
 non-exact omp NE-04 2
 valid-under-hypothesis omp none

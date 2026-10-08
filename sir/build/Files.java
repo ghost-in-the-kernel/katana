@@ -18,6 +18,7 @@ final class Files {
     /** Each SELECT of the program, with its clauses and its FD's records. */
     static List<FileDescriptor> build(Parse.Result parse, CobolParser.ProgramUnitContext unit, Names names, Map<String, List<Integer>> records, Map<Integer, Integer> lengths) {
         List<FileDescriptor> files = new ArrayList<>();
+        Map<String, CobolParser.FileDescriptionEntryContext> fds = fds(unit);
         for (CobolParser.FileControlEntryContext e : entries(unit)) {
             String name = Values.upper(e.selectClause().fileName().getText());
             String assign = "";
@@ -41,9 +42,75 @@ final class Files {
             }
             List<Integer> mine = records.getOrDefault(name, List.of());
             int min = mine.stream().mapToInt(lengths::get).min().orElse(0), max = mine.stream().mapToInt(lengths::get).max().orElse(0);
-            files.add(new FileDescriptor(name, assign, e.selectClause().OPTIONAL() != null, organization, access, key, alternates, relative, status, vsamStatus, mine, min, max, Origins.at(parse, e)));
+            FileDescriptor.Fd fd = fds.containsKey(name) ? fd(parse, names, fds.get(name)) : null;
+            files.add(new FileDescriptor(name, assign, e.selectClause().OPTIONAL() != null, organization, access, key, alternates, relative, status, vsamStatus, fd, mine, min, max, Origins.at(parse, e)));
         }
         return files;
+    }
+
+    /** The program's FD and SD entries by file name. */
+    private static Map<String, CobolParser.FileDescriptionEntryContext> fds(CobolParser.ProgramUnitContext unit) {
+        Map<String, CobolParser.FileDescriptionEntryContext> fds = new java.util.HashMap<>();
+        if (unit.dataDivision() == null) return fds;
+        for (var s : unit.dataDivision().dataDivisionSection()) {
+            if (s.fileSection() != null) for (var fd : s.fileSection().fileDescriptionEntry()) fds.put(Values.upper(fd.fileName().getText()), fd);
+        }
+        return fds;
+    }
+
+    /**
+     * What an FD or SD entry says (SIR-11): EXTERNAL, GLOBAL, the RECORD clause, LINAGE, CODE-SET and
+     * RECORDING MODE as data. LABEL RECORDS, VALUE OF and BLOCK CONTAINS are each "syntax checked, but
+     * has no effect on the execution of the program", DATA RECORDS "serves only as documentation" (LR
+     * 6.4 pp. 186-188); a REPORT clause is Report Writer, not in Enterprise COBOL, and a finding.
+     */
+    // Decision: R-017
+    private static FileDescriptor.Fd fd(Parse.Result parse, Names names, CobolParser.FileDescriptionEntryContext e) {
+        boolean external = false, global = false, varying = false;
+        int from = 0, to = 0, depending = 0;
+        FileDescriptor.Linage linage = null;
+        String codeSet = "", mode = "", where = Origins.at(parse, e).toString();
+        for (CobolParser.FileDescriptionEntryClauseContext c : e.fileDescriptionEntryClause()) {
+            external |= c.externalClause() != null;
+            global |= c.globalClause() != null;
+            if (c.recordContainsClause() != null) {
+                var r = c.recordContainsClause();
+                List<CobolParser.IntegerLiteralContext> sizes = all(r, CobolParser.IntegerLiteralContext.class);
+                if (!sizes.isEmpty()) from = Integer.parseInt(sizes.get(0).getText());
+                to = sizes.size() > 1 ? Integer.parseInt(sizes.get(1).getText()) : r.recordContainsClauseFormat1() != null ? from : 0;
+                varying = r.recordContainsClauseFormat2() != null;
+                if (varying && r.recordContainsClauseFormat2().qualifiedDataName() != null) depending = item(names, r.recordContainsClauseFormat2().qualifiedDataName(), where);
+            }
+            if (c.linageClause() != null) linage = linage(names, c.linageClause(), where);
+            if (c.codeSetClause() != null) codeSet = Values.upper(c.codeSetClause().alphabetName().getText());
+            if (c.recordingModeClause() != null) mode = Values.upper(c.recordingModeClause().modeStatement().getText());
+            if (c.reportClause() != null) names.note("REPORT clause at " + where + ": Report Writer is not in Enterprise COBOL");
+        }
+        return new FileDescriptor.Fd(e.SD() != null, external, global, from, to, varying, depending, linage, codeSet, mode);
+    }
+
+    /** A LINAGE clause's four values, each an integer or an item (null when its phrase is not written). */
+    private static FileDescriptor.Linage linage(Names names, CobolParser.LinageClauseContext l, String where) {
+        katana.sir.types.Value footing = null, top = null, bottom = null;
+        for (var at : l.linageAt()) {
+            if (at.linageFootingAt() != null) footing = value(names, at.linageFootingAt().dataName(), at.linageFootingAt().integerLiteral(), where);
+            if (at.linageLinesAtTop() != null) top = value(names, at.linageLinesAtTop().dataName(), at.linageLinesAtTop().integerLiteral(), where);
+            if (at.linageLinesAtBottom() != null) bottom = value(names, at.linageLinesAtBottom().dataName(), at.linageLinesAtBottom().integerLiteral(), where);
+        }
+        return new FileDescriptor.Linage(value(names, l.dataName(), l.integerLiteral(), where), footing, top, bottom);
+    }
+
+    private static katana.sir.types.Value value(Names names, CobolParser.DataNameContext name, CobolParser.IntegerLiteralContext integer, String where) {
+        if (integer != null) return Literals.of(integer.getText());
+        int item = names.resolve(Values.upper(name.getText()), List.of(), null, where, "LINAGE");
+        return item == 0 ? new katana.sir.types.Value.Name("unresolved", Values.upper(name.getText())) : new katana.sir.types.Value.Field(item, List.of(), null, null);
+    }
+
+    private static <T> List<T> all(org.antlr.v4.runtime.tree.ParseTree node, Class<T> kind) {
+        List<T> found = new ArrayList<>();
+        if (kind.isInstance(node)) found.add(kind.cast(node));
+        for (int i = 0; i < node.getChildCount(); i++) found.addAll(all(node.getChild(i), kind));
+        return found;
     }
 
     /**

@@ -210,6 +210,7 @@ value SQ210M 119 "**************************************************************
 value SQ210M 120 "******************************************************"
 value SQ210M 121 "SQ210M"
 file SQ210M PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
+fd SQ210M PRINT-FILE FD linage #3 footing - top 5 bottom -
 paragraph SQ210M 0 "" ""
 paragraph SQ210M 1 "OPEN-FILES" "CCVS1"
 paragraph SQ210M 2 "CLOSE-FILES" "CCVS1"

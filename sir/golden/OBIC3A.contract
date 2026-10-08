@@ -213,6 +213,7 @@ value OBIC3A 116 "**************************************************************
 value OBIC3A 117 "******************************************************"
 value OBIC3A 118 "OBIC3A"
 file OBIC3A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
+fd OBIC3A PRINT-FILE FD
 paragraph OBIC3A 0 "" ""
 paragraph OBIC3A 1 "BOILER-PLATE" "SECT-IC220-0001"
 paragraph OBIC3A 2 "CLOSE-FILES" "SECT-IC220-0001"

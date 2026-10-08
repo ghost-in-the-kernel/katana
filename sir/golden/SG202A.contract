@@ -204,6 +204,7 @@ value SG202A 119 "**************************************************************
 value SG202A 120 "******************************************************"
 value SG202A 121 "SG202A"
 file SG202A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
+fd SG202A PRINT-FILE FD
 paragraph SG202A 0 "" ""
 paragraph SG202A 1 "PARAGRAPH-NAME-1" "SEC00"
 paragraph SG202A 2 "OPEN-FILES" "CCVS1"

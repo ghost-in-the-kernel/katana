@@ -211,6 +211,7 @@ value IC237A 119 "**************************************************************
 value IC237A 120 "******************************************************"
 value IC237A 121 "IC237A"
 file IC237A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
+fd IC237A PRINT-FILE FD
 paragraph IC237A 0 "" ""
 paragraph IC237A 1 "OPEN-FILES" "CCVS1"
 paragraph IC237A 2 "CLOSE-FILES" "CCVS1"
@@ -459,6 +460,7 @@ item IC237A-1 5 L-B level 1 parent 0 record 5 LINKAGE offset 0 length 1 DISPLAY 
 item IC237A-1 6 L-C level 1 parent 0 record 6 LINKAGE offset 0 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
 redefines IC237A-1 4 3
 file IC237A-1 PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
+fd IC237A-1 PRINT-FILE FD
 paragraph IC237A-1 0 "" ""
 paragraph IC237A-1 1 "CALLED-FROM-NC121A-FUNCTION" "SECT-IC237A-1-001"
 paragraph IC237A-1 2 "IC237A-EXIT" "SECT-IC237A-1-001"

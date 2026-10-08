@@ -225,6 +225,7 @@ condition IF142A 11 CON-HUNDSEC (THRU 00 99)
 condition IF142A 12 CON-GREENW "-" | "+" | "0"
 condition IF142A 13 CON-OFFSET (THRU 00 13)
 file IF142A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
+fd IF142A PRINT-FILE FD
 paragraph IF142A 0 "" ""
 paragraph IF142A 1 "OPEN-FILES" "CCVS1"
 paragraph IF142A 2 "CLOSE-FILES" "CCVS1"

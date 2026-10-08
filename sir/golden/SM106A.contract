@@ -205,6 +205,7 @@ value SM106A 116 "**************************************************************
 value SM106A 117 "******************************************************"
 value SM106A 118 "K6SCA"
 file SM106A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
+fd SM106A PRINT-FILE FD
 paragraph SM106A 0 "" ""
 paragraph SM106A 1 "OPEN-FILES" "CCVS1"
 paragraph SM106A 2 "CLOSE-FILES" "CCVS1"

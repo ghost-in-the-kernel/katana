@@ -42,6 +42,7 @@ public final class Contract {
             new Kind("value", "each item's VALUE", p -> each(p.items().stream().filter(i -> i.value() != null).toList(), i -> i.id() + " " + value(i.value()))),
             new Kind("condition", "each 88 and its values", p -> p.items().stream().flatMap(i -> i.conditions().stream().map(c -> i.id() + " " + c.name() + " " + c.values().stream().map(Contract::value).collect(Collectors.joining(" | ")))).toList()),
             new Kind("file", "each file's organization, access, keys, status and records", p -> each(p.files(), Contract::file)),
+            new Kind("fd", "each file's FD or SD entry: EXTERNAL, GLOBAL, the RECORD clause, LINAGE, CODE-SET, RECORDING MODE", p -> each(p.files().stream().filter(f -> f.fd() != null).toList(), Contract::fd)),
             new Kind("declarative", "each declarative section's USE: what it follows, GLOBAL, and its files or mode, or what it debugs", p -> each(p.procedure().sections().stream().filter(Procedure.Section::declarative).toList(), Contract::declarative)),
             new Kind("paragraph", "each paragraph's place in textual order and its section", p -> each(p.procedure().paragraphs(), g -> g.index() + " " + quoted(g.name()) + " " + quoted(g.section()))),
             new Kind("falls", "control that falls from a paragraph into the next", Contract::falls),
@@ -94,6 +95,21 @@ public final class Contract {
         Item.Occurs o = i.occurs();
         return i.id() + " " + o.min() + ".." + o.max() + " depending " + o.dependingOn() + " keys "
                 + o.keys().stream().map(k -> k.item() + (k.ascending() ? "A" : "D")).toList() + " indexed " + o.indexedBy();
+    }
+
+    private static String fd(FileDescriptor f) {
+        FileDescriptor.Fd d = f.fd();
+        StringBuilder line = new StringBuilder(f.name() + (d.sort() ? " SD" : " FD"));
+        if (d.external()) line.append(" EXTERNAL");
+        if (d.global()) line.append(" GLOBAL");
+        if (d.recordFrom() != 0 || d.recordTo() != 0 || d.varying()) line.append(" record ").append(d.recordFrom()).append("..").append(d.recordTo()).append(d.varying() ? " varying" : "");
+        if (d.recordDepending() != 0) line.append(" depending #").append(d.recordDepending());
+        FileDescriptor.Linage l = d.linage();
+        if (l != null) line.append(" linage ").append(value(l.body())).append(" footing ").append(l.footing() == null ? "-" : value(l.footing()))
+                .append(" top ").append(l.top() == null ? "-" : value(l.top())).append(" bottom ").append(l.bottom() == null ? "-" : value(l.bottom()));
+        if (!d.codeSet().isEmpty()) line.append(" code-set ").append(d.codeSet());
+        if (!d.recordingMode().isEmpty()) line.append(" mode ").append(d.recordingMode());
+        return line.toString();
     }
 
     private static String declarative(Procedure.Section s) {

@@ -1097,3 +1097,12 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | sir | `sir/build/Names.java:Names.unresolved` | folded into resolve (J-148) | 2026-10-08 | superseded-by: `sir/build/Names.java:Names.resolve` |
 | sir | `sir/build/Names.java:Names.item` | split in two by the name sweep (J-148) | 2026-10-08 | superseded-by: `sir/build/Names.java:Names.find` |
 | sir | `sir/build/Names.java:Names.find` |  | 2026-10-08 |  |
+| sir | `sir/build/Files.java:Files.fds` |  | 2026-10-08 |  |
+| sir | `sir/build/Files.java:Files.fd` | R-017 | 2026-10-08 |  |
+| sir | `sir/build/Files.java:Files.linage` |  | 2026-10-08 |  |
+| sir | `sir/build/Files.java:Files.value` |  | 2026-10-08 |  |
+| sir | `sir/build/Files.java:Files.all` |  | 2026-10-08 |  |
+| sir | `sir/build/Names.java:Names.note` |  | 2026-10-08 |  |
+| sir | `sir/contract/Contract.java:Contract.fd` |  | 2026-10-08 |  |
+| sir | `sir/types/FileDescriptor.java:FileDescriptor.Fd.Fd` |  | 2026-10-08 |  |
+| sir | `sir/types/FileDescriptor.java:FileDescriptor.Linage.Linage` |  | 2026-10-08 |  |

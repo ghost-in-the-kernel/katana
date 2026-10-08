@@ -211,6 +211,7 @@ value NC127A 119 "**************************************************************
 value NC127A 120 "******************************************************"
 value NC127A 121 "NC127A"
 file NC127A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
+fd NC127A PRINT-FILE FD
 paragraph NC127A 0 "" ""
 paragraph NC127A 1 "OPEN-FILES" "CCVS1"
 paragraph NC127A 2 "CLOSE-FILES" "CCVS1"

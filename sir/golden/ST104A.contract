@@ -215,6 +215,8 @@ value ST104A 123 "******************************************************"
 value ST104A 124 "ST104A"
 file ST104A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
 file ST104A SORTOUT-1D assign "TAPE1" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [3] 18..18
+fd ST104A PRINT-FILE FD
+fd ST104A SORTOUT-1D FD
 paragraph ST104A 0 "" ""
 paragraph ST104A 1 "OPEN-FILES" "CCVS1"
 paragraph ST104A 2 "CLOSE-FILES" "CCVS1"

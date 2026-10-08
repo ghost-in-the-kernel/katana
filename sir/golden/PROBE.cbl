@@ -1,6 +1,7 @@
       * Tithe pass 2, A1: every keyword-bearing construct the IR once dropped, in one program;
       * A3: each kind of literal, and VALUEs with their spaces; A4: a mask, the flags, a RELATIVE KEY.
       * SIR-09 and SIR-10: OPTIONAL, both FILE STATUS items, a USE.
+      * SIR-11: an FD's clauses, LINAGE by integers and by items.
        IDENTIFICATION DIVISION.
        PROGRAM-ID. PROBE.
        ENVIRONMENT DIVISION.
@@ -10,12 +11,28 @@
                ACCESS RANDOM RELATIVE KEY RK.
            SELECT OPTIONAL SEQ-FILE ASSIGN TO "SEQ"
                FILE STATUS IS FS VS.
+           SELECT LIST-FILE ASSIGN TO "LIST".
+           SELECT VAR-FILE ASSIGN TO "VAR".
        DATA DIVISION.
        FILE SECTION.
        FD  REL-FILE.
        01  REL-REC      PIC X(10).
-       FD  SEQ-FILE.
+       FD  SEQ-FILE IS GLOBAL
+           LABEL RECORDS ARE STANDARD
+           BLOCK CONTAINS 10 RECORDS
+           RECORD CONTAINS 10 CHARACTERS
+           RECORDING MODE IS F
+           DATA RECORD IS SEQ-REC.
        01  SEQ-REC      PIC X(10).
+       FD  LIST-FILE
+           LINAGE IS 60 LINES WITH FOOTING AT 55
+           LINES AT TOP 2 LINES AT BOTTOM 4.
+       01  LIST-REC     PIC X(20).
+       FD  VAR-FILE
+           RECORD IS VARYING IN SIZE FROM 1 TO 30 CHARACTERS
+               DEPENDING ON VLEN
+           LINAGE IS PAGE-LINES LINES WITH FOOTING AT FOOT-LINE.
+       01  VAR-REC      PIC X(30).
        WORKING-STORAGE SECTION.
        01  A            PIC S9(5)V99.
        01  B            PIC S9(5)V99.
@@ -29,6 +46,9 @@
        01  RK           PIC 9(4).
        01  FS           PIC XX.
        01  VS           PIC X(6).
+       01  VLEN         PIC 99.
+       01  PAGE-LINES   PIC 99 VALUE 20.
+       01  FOOT-LINE    PIC 99 VALUE 18.
        01  M            PIC $$,$$9.99CR.
        01  J            PIC X(5) JUSTIFIED RIGHT.
        01  K            PIC 9(4) BLANK WHEN ZERO.

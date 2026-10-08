@@ -11,6 +11,8 @@ value COPYREC 6 'N'
 value COPYREC 7 0
 file COPYREC IN-FILE assign "INFILE" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1] 20..20
 file COPYREC OUT-FILE assign "OUTFILE" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [5] 20..20
+fd COPYREC IN-FILE FD
+fd COPYREC OUT-FILE FD
 paragraph COPYREC 0 "" ""
 statement COPYREC 0.0 OPEN open-input-statement=keyword:INPUT open-input=file:IN-FILE open-output-statement=keyword:OUTPUT open-output=file:OUT-FILE
 statement COPYREC 0.1 PERFORM | perform-inline-statement=(perform-until keyword:UNTIL (= #6 'Y'))

@@ -59,7 +59,7 @@ class NoTokenLeftTest {
         Parse.Result parse = Parse.file(golden.resolve("PROBE.cbl"), new Copybooks(List.of(golden), n -> 8), 8);
         Program p = Build.program(parse, HASH).program();
         List<FileDescriptor> files = p.files().stream().map(f -> new FileDescriptor(f.name(), f.assign(), false, f.organization(), f.access(), f.recordKey(), f.alternateKeys(),
-                f.relativeKey(), 0, 0, f.records(), f.minRecord(), f.maxRecord(), f.origin())).toList();
+                f.relativeKey(), 0, 0, f.fd(), f.records(), f.minRecord(), f.maxRecord(), f.origin())).toList();
         List<Procedure.Section> sections = p.procedure().sections().stream().map(s -> s.use() == null ? s : new Procedure.Section(s.name(), true,
                 new Procedure.Use(s.use().kind(), false, s.use().mode(), s.use().files().isEmpty() ? List.of() : List.of("REL-FILE"), s.use().outerFiles(), s.use().debugging()), s.origin())).toList();
         Procedure q = p.procedure();
@@ -68,6 +68,29 @@ class NoTokenLeftTest {
         for (String word : List.of("OPTIONAL in SELECT SEQ-FILE", "STATUS in SELECT SEQ-FILE", "FS in SELECT SEQ-FILE", "VS in SELECT SEQ-FILE", "SEQ-FILE in USE of SEQ-ERRORS", "GLOBAL in USE of INPUT-ERRORS")) {
             assertTrue(missing.contains(word), word + " in " + missing);
         }
+    }
+
+    /** The same for SIR-11: an FD's GLOBAL, RECORD CONTAINS, RECORDING MODE and LINAGE phrases taken out are left behind. */
+    @Test
+    void theCheckFailsWhenAnFdWordIsDropped() {
+        Path golden = ROOT.resolve("sir/golden");
+        Parse.Result parse = Parse.file(golden.resolve("PROBE.cbl"), new Copybooks(List.of(golden), n -> 8), 8);
+        Program p = Build.program(parse, HASH).program();
+        List<FileDescriptor> files = p.files().stream().map(f -> f.fd() == null ? f : new FileDescriptor(f.name(), f.assign(), f.optional(), f.organization(), f.access(), f.recordKey(),
+                f.alternateKeys(), f.relativeKey(), f.status(), f.vsamStatus(), stripped(f.fd()), f.records(), f.minRecord(), f.maxRecord(), f.origin())).toList();
+        Program without = new Program(p.header(), p.items(), files, p.procedure(), p.calls(), p.nested());
+        String missing = String.join(" ", TokenCoverage.missing(parse, without));
+        for (String word : List.of("GLOBAL in FD SEQ-FILE", "RECORDING in FD SEQ-FILE", "CONTAINS in FD SEQ-FILE", "TOP in FD LIST-FILE", "BOTTOM in FD LIST-FILE",
+                "VLEN in FD VAR-FILE", "VARYING in FD VAR-FILE")) {
+            assertTrue(missing.contains(word), word + " in " + missing);
+        }
+        assertTrue(!missing.contains("LABEL") && !missing.contains("BLOCK") && !missing.contains("SEQ-REC in FD"), "the clauses with no effect are not asked of the IR: " + missing);
+    }
+
+    /** An Fd with only its kind and LINAGE's page body and footing left. */
+    private static FileDescriptor.Fd stripped(FileDescriptor.Fd d) {
+        FileDescriptor.Linage l = d.linage() == null ? null : new FileDescriptor.Linage(d.linage().body(), d.linage().footing(), null, null);
+        return new FileDescriptor.Fd(d.sort(), d.external(), false, 0, 0, false, 0, l, d.codeSet(), "");
     }
 
     private static Statement strip(Statement s) {

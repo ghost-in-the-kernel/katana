@@ -264,6 +264,8 @@ value RL101A 166 "******************************************************"
 value RL101A 167 "RL101A"
 file RL101A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
 file RL101A RL-FS2 assign "REL1" RELATIVE SEQUENTIAL key 0 relative 0 alternate [] status 5 records [3] 120..120
+fd RL101A PRINT-FILE FD
+fd RL101A RL-FS2 FD record 120..120
 paragraph RL101A 0 "" ""
 paragraph RL101A 1 "OPEN-FILES" "CCVS1"
 paragraph RL101A 2 "CCVS-INIT-FILE" "CCVS1"

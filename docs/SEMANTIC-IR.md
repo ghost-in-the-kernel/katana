@@ -52,8 +52,9 @@ labels (tithe pass 2, A6).
 ## Files
 
 `FileDescriptor`: its name, its ASSIGN, whether it is OPTIONAL, `Organization`, `Access`, RECORD
-KEY, each `AlternateKey`, RELATIVE KEY, FILE STATUS item and the VSAM one, its records, and its
-smallest and largest record (SIR-09).
+KEY, each `AlternateKey`, RELATIVE KEY, FILE STATUS item and the VSAM one, its `Fd` (what its FD
+or SD entry says: EXTERNAL, GLOBAL, the RECORD clause with VARYING and DEPENDING ON, its `Linage`,
+CODE-SET, RECORDING MODE; SIR-11), its records, and its smallest and largest record (SIR-09).
 
 ## CALL interfaces
 
@@ -81,6 +82,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | `value` | each item's VALUE |
 | `condition` | each 88 and its values |
 | `file` | each file's organization, access, keys, status and records |
+| `fd` | each file's FD or SD entry: EXTERNAL, GLOBAL, the RECORD clause, LINAGE, CODE-SET, RECORDING MODE |
 | `declarative` | each declarative section's USE: what it follows, GLOBAL, and its files or mode, or what it debugs |
 | `paragraph` | each paragraph's place in textual order and its section |
 | `falls` | control that falls from a paragraph into the next |
@@ -131,3 +133,11 @@ shape: `lower/golden/<PROG>.java`, the generated Java byte for byte, a refactor 
   ERROR (EXCEPTION is the same) with GLOBAL or not and either the files it names (each one of the
   program's, SIR-05, or apart from them a GLOBAL file of a program it is nested in) or an open mode (INPUT, OUTPUT, I-O, EXTEND), never both; or DEBUGGING with what
   it debugs as written. Every word of the USE statement is in it (`NoTokenLeftTest`).
+- **SIR-11 A file carries what its FD says.** EXTERNAL, GLOBAL, the RECORD clause (from and to, no
+  larger from than to; VARYING; its DEPENDING ON item, resolved as SIR-05 says), CODE-SET and
+  RECORDING MODE as data, and LINAGE as its page body, footing line, top and bottom margins, each an
+  unsigned integer or an item: a page body above zero and a literal footing line inside it (LR 6.4 p.
+  189). LABEL RECORDS, VALUE OF and BLOCK CONTAINS ("syntax checked, but has no effect on the
+  execution of the program") and DATA RECORDS ("only as documentation") are not kept, and a REPORT
+  clause is a finding (Report Writer is not Enterprise COBOL's); every other word of an FD or SD entry
+  is in its file (`NoTokenLeftTest`), so LINAGE reaches the lowering whole.

@@ -2069,3 +2069,25 @@ taken; closed by a later `decision` entry naming it).
   for margins and repositioning (its print-line form, R-019's profile), which a trial of its own
   settles when the lowering writes LINAGE files. First, LINAGE into the IR as a contract line, with
   FD entries under "no token left behind".
+
+### J-150 SIR-11: an FD's clauses reach the IR as data, LINAGE whole; FD entries under "no token left behind"
+- **Who:** Opus, on Ghost's go-ahead. **Class:** decision (built).
+- **Intent:** before the lowering reads LINAGE (J-149), make the FD entry a contract line, as OPTIONAL
+  and FILE STATUS were (J-146), with every word of an FD or SD entry checked to reach the IR.
+- **Found:** the IR kept nothing of an FD but its records. IBM on each clause (LR 6.4 pp. 186-191):
+  LABEL RECORDS and VALUE OF are "syntax checked, but has no effect on the execution of the program",
+  BLOCK CONTAINS the same ("the size of the physical records"), DATA RECORDS "serves only as
+  documentation"; EXTERNAL and GLOBAL scope the file connector, the RECORD clause sizes records and
+  may name a DEPENDING ON item, CODE-SET converts characters, RECORDING MODE sets the record format,
+  LINAGE pages the file; REPORT is Report Writer, which Enterprise COBOL does not have.
+- **Resolved:** `FileDescriptor.Fd` (FD or SD, EXTERNAL, GLOBAL, RECORD from and to, VARYING, its
+  DEPENDING ON item, `Linage`, CODE-SET, RECORDING MODE) and `FileDescriptor.Linage` (page body,
+  footing, top, bottom, each an unsigned integer or an item; refused: a page body of 0, a literal
+  footing outside the body, a from above its to); an `fd` contract line; SIR-11 in
+  `docs/SEMANTIC-IR.md`; a REPORT clause is a build finding (six, one per NIST RW program); the token
+  check covers FD and SD entries, their records and the four no-effect clauses and REPORT aside, and
+  PROBE gains an FD with each clause and LINAGE by integers and by items, with a failing case. Corpora:
+  tokens left 0; NIST's build findings 47 to 53, the six REPORT clauses.
+- **Caught by:** the check itself, twice on the way: DOT_FS's text carries its newline (`.\n`), and
+  trimming every token instead broke EXEC CICS's, whose IR text keeps its spaces (831 tokens on
+  CardDemo); only a period is trimmed now.
