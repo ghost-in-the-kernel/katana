@@ -473,3 +473,27 @@ L3 on a second file, `LINAGE IS LN` with LN 5 at OPEN, then LN set to 2 and eigh
 ADVANCING: (a) 2, 3, 4, 5, then the overflow opens a 2-line page: 1, 2, then 1, 2; (b) the body stays
 5 lines: 2, 3, 4, 5, 1, 2, 3, 4. cobc is run on the same program; where it differs from
 (a)(a) it is a D-number and the lowering keeps IBM's reading.
+
+**cobc's print-line form for a LINAGE file (the lane's profile, R-019; not IBM semantics).** What a
+LINAGE file holds on disk is cobc's choice, as R-019's ADVANCING line feeds are. J-149's run gave,
+for its LINAGE file, 22 lines: each record on a line of its own with trailing spaces trimmed, no form
+feed, the same WRITEs on a file without LINAGE giving R-019's form (records adjacent, spaces kept, a
+form feed for PAGE). One reading fits all 22 lines, B1 (stream): OPEN writes the top margin as blank
+lines; every record is a line of its own; AFTER n puts n-1 blank lines before it, BEFORE n n-1 after
+it; a page change (overflow or PAGE) writes the rest of the page body (body - LINAGE-COUNTER), the
+bottom margin and the next top margin as blank lines; CLOSE writes nothing. Its rival B2 (physical
+lines, an overprint pushed down) puts J-149's L8 on line 18, not 19, and is out. What the run did not
+separate, named before the second run:
+
+- Z, ADVANCING 0 (valid, LR p. 473): (z1) a line of its own, as B1; (z2) the record joins the line
+  before it.
+- C, CLOSE: (c1) nothing, as B1; (c2) the rest of the page as blank lines.
+- T, spaces: (t1) trailing spaces trimmed, inner kept, as seen; (t2) all spaces kept.
+
+The trial, `LINAGE 4 WITH FOOTING 3 LINES AT TOP 2 LINES AT BOTTOM 1`, records of four characters:
+OPEN; WRITE "A" AFTER 0; WRITE "B" BEFORE 0; WRITE "C" AFTER 3; WRITE "D" AFTER 2 (overflow); WRITE
+"E" BEFORE PAGE; WRITE "F G " (no ADVANCING); CLOSE. Under B1 with z1, c1, t1 the file's lines are:
+1-2 blank, 3 A, 4 B, 5-6 blank, 7 C, 8-10 blank, 11 D, 12 E, 13-18 blank, 19 `F G`, and no more.
+With z2: A and B join the line before them (line 3 `AB`, every later line one higher). With c2: two
+more blank lines after line 19 (the body's last two lines) and one for the bottom margin. With t2:
+line 19 is `F G ` and lines 3, 4, 7, 11, 12 carry their records' trailing spaces.
