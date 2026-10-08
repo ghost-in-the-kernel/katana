@@ -2012,3 +2012,20 @@ taken; closed by a later `decision` entry naming it).
   status items and two USEs, and `NoTokenLeftTest` a failing case for them. Corpora: tokens left 0;
   NIST's check findings 679 to 672.
 - **Caught by:** the extended token check, on its first run over the corpora.
+
+### J-147 An abend leaves its files closed; the Java lane runs module by module (SQ 15 of 85)
+- **Who:** Opus, on Fable's note. **Class:** decision (built).
+- **Intent:** before more abnormal runs get reasons, compare what an abend leaves behind, not only why
+  it happened; and run the Java lane one module per test, each with its own floor.
+- **Found:** IBM closes every open file at the run unit's end, normal or abnormal under TRAP(ON) (PG
+  6.4 p. 179), TRAP(ON,SPIE) being LE's default for non-CICS applications; libcob does the same
+  (`implicit CLOSE of OUT-FILE`). The Java lane did not: ABENDW, two records then an absent input,
+  left 0 bytes where cobc left 20. R-056's mutation (the close taken out of the abend path) fails
+  `AbendIntegrationTest` with exactly that.
+- **Resolved:** the generated class has `closeFiles()`, which `main` calls at a normal end and on an
+  abend before printing it; `AbendIntegrationTest` holds the reason and the file's bytes in both lanes;
+  the NIST lane's `same` compares an abnormal run's counts as left, not only its reason; LANE-08 says
+  so. `NistJavaLaneIntegrationTest` runs NC (floor 84) and SQ (floor 15, its first measure) through one
+  method. SQ's 70 other runs: REWRITE (14) and LINAGE (39) not lowered, I-O on a file not open, FILE
+  STATUS not yet set by `SeqFile`; the SQ work proper.
+- **Touched:** `lower/Lower`, `lower/FileVerbs`, `docs/LANES.md`, the lane test, the new abend test.

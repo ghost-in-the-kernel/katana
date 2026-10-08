@@ -1088,3 +1088,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | sir | `sir/types/Procedure.java:Procedure.Use.Use` |  | 2026-10-08 |  |
 | sir | `sir/build/Files.java:Files.item` |  | 2026-10-08 |  |
 | sir | `sir/build/Names.java:Names.unresolved` |  | 2026-10-08 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.closer` | R-019 | 2026-10-08 |  |

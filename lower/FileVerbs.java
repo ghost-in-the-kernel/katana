@@ -24,6 +24,19 @@ final class FileVerbs {
         }
     }
 
+    /**
+     * Every file closed at the run unit's end, normal or abnormal: "When the run unit ends normally, the
+     * run time closes all open files", and "If the run unit ends abnormally and the TRAP(ON) runtime
+     * option is in effect, the run time closes all open files" (PG 6.4 p. 179), TRAP(ON,SPIE) being LE's
+     * default for non-CICS applications; a record written before an abend reaches the file.
+     */
+    // Decision: R-019
+    static void closer(Emitter e, katana.sir.types.Program p) {
+        e.open("void closeFiles()");
+        for (FileDescriptor d : p.files()) e.line(name(d.name()) + ".close();");
+        e.close();
+    }
+
     // Decision: R-019
     void open(Statement s) {
         String mode = "OUTPUT";

@@ -19,17 +19,19 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
- * Phase 3.4, the Java lane's first module: NIST NC extracted as the cobc lane extracts it, each program
- * lowered and run by `JavaRunner`, its report's counts set beside the cobc lane's golden under -std=ibm
- * (oracle/nist/programs-ibm.golden). How many runs equal cobc's is written to build/nist-java/NC.txt with
- * each program's line and, for those that do not, what was not lowered. Its floor only rises.
+ * Phase 3.4, the Java lane module by module: NIST extracted as the cobc lane extracts it, each program of
+ * a module lowered and run by `JavaRunner`, its report's counts set beside the cobc lane's golden under
+ * -std=ibm (oracle/nist/programs-ibm.golden). How many runs equal cobc's is written to
+ * build/nist-java/MODULE.txt with each program's line and, for those that do not, what was not lowered.
+ * Each module has its own floor, which only rises.
  */
 @Tag("integration")
 class NistJavaLaneIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
-    private static final String MODULE = "NC";
     /** The NC runs whose counts equal cobc's; raised as the lowering grows, never lowered (the bench discipline, P-01). */
     static final int FLOOR = 84;
+    /** The same for SQ, its own floor (Fable: one module per suite, each with its floor). */
+    static final int SQ_FLOOR = 15;
 
     /**
      * The runs where cobc -std=ibm fails tests the Java lane passes, each with why: a discovery against cobc
@@ -46,15 +48,25 @@ class NistJavaLaneIntegrationTest {
 
     @Test
     void ncThroughTheJavaLane() throws Exception {
+        lane("NC", FLOOR, COBC_FINDINGS);
+    }
+
+    @Test
+    void sqThroughTheJavaLane() throws Exception {
+        lane("SQ", SQ_FLOOR, Map.of());
+    }
+
+    /** One module through the Java lane: at least `floor` runs the same as cobc's, and each listed finding explained. */
+    private static void lane(String module, int floor, Map<String, String> findings) throws Exception {
         Path work = Files.createDirectories(ROOT.resolve("build/nist-java"));
         String base = Files.readString(ROOT.resolve("oracle/nist/exec85.cards")), overlay = Files.readString(ROOT.resolve("oracle/nist/exec85-ibm.cards"));
         List<String> cards = Exec85.cards(base, overlay);
         List<Population.Member> extracted = Exec85.run(ROOT.resolve("corpus/nist-cobol85-test-suite/newcob.val"), cards, Files.createTempDirectory(work, "exec85"), new Cobc(Duration.ofSeconds(30)));
         RunNotes notes = RunNotes.read(Files.readString(ROOT.resolve("oracle/nist/run-notes")));
-        Path dir = Files.createTempDirectory(work, MODULE);
-        List<ModuleRun.Outcome> outcomes = ModuleRun.run(MODULE, extracted, notes, Exec85.switches(cards), dir, new JavaRunner(60));
+        Path dir = Files.createTempDirectory(work, module);
+        List<ModuleRun.Outcome> outcomes = ModuleRun.run(module, extracted, notes, Exec85.switches(cards), dir, new JavaRunner(60));
         Map<String, String> cobc = new LinkedHashMap<>();
-        for (String line : Files.readAllLines(ROOT.resolve("oracle/nist/programs-ibm.golden"))) if (line.startsWith(MODULE + " ")) cobc.putIfAbsent(line.split(" ")[1], line.substring(line.indexOf(' ', line.indexOf(' ') + 1) + 1));
+        for (String line : Files.readAllLines(ROOT.resolve("oracle/nist/programs-ibm.golden"))) if (line.startsWith(module + " ")) cobc.putIfAbsent(line.split(" ")[1], line.substring(line.indexOf(' ', line.indexOf(' ') + 1) + 1));
         int same = 0, explained = 0;
         List<String> unexplained = new ArrayList<>();
         List<String> report = new ArrayList<>();
@@ -64,15 +76,15 @@ class NistJavaLaneIntegrationTest {
             boolean equal = same(o, java, cobc.getOrDefault(o.program(), ""));
             if (equal) same++;
             boolean clean = o.error() == null && o.counts().map(c -> c.fail() == 0 && c.total() > 0).orElse(false);
-            if (COBC_FINDINGS.containsKey(o.program()) && (equal || !clean)) unexplained.add(o.program() + ": listed as cobc's but " + (equal ? "the same as cobc" : "failing through the Java lane"));
-            if (COBC_FINDINGS.containsKey(o.program()) && !equal && clean) explained++;
+            if (findings.containsKey(o.program()) && (equal || !clean)) unexplained.add(o.program() + ": listed as cobc's but " + (equal ? "the same as cobc" : "failing through the Java lane"));
+            if (findings.containsKey(o.program()) && !equal && clean) explained++;
             report.add(o.program() + (equal ? " SAME " : " DIFFER ") + java + " | cobc " + cobc.get(o.program()) + (o.error() == null ? "" : " | " + o.error()) + " " + o.note());
             notLowered(dir, o.program(), missing);
         }
-        report.add(0, "NC through the Java lane: " + same + " of " + outcomes.size() + " runs report what cobc -std=ibm reports, " + explained + " more pass every test where cobc departs (COBC_FINDINGS); not lowered, by kind: " + missing);
-        Files.write(work.resolve(MODULE + ".txt"), report);
+        report.add(0, module + " through the Java lane: " + same + " of " + outcomes.size() + " runs report what cobc -std=ibm reports, " + explained + " more pass every test where cobc departs (COBC_FINDINGS); not lowered, by kind: " + missing);
+        Files.write(work.resolve(module + ".txt"), report);
         System.out.println(report.get(0));
-        assertTrue(same >= FLOOR, same + " < floor " + FLOOR);
+        assertTrue(same >= floor, module + ": " + same + " < floor " + floor);
         org.junit.jupiter.api.Assertions.assertEquals(List.of(), unexplained);
     }
 
@@ -83,13 +95,14 @@ class NistJavaLaneIntegrationTest {
 
     /**
      * Whether a Java run reports what cobc's golden line does. One that ended in an exception never does;
-     * two abnormal endings do when they are the same condition (LANE-08): the same reason and no report,
-     * never the exit status, which only IBM's abend code fills.
+     * two abnormal endings do when they are the same condition (LANE-08), the same reason, and left the
+     * same report (its counts, as the files were closed at the end), never by the exit status, which only
+     * IBM's abend code fills.
      */
     private static boolean same(ModuleRun.Outcome o, String java, String golden) {
         if (o.error() != null) return false;
         if (!o.abnormal()) return java.equals(golden);
-        if (o.reason() == null || o.counts().isPresent() || !golden.contains(" exit=")) return false;
+        if (o.reason() == null || !golden.contains(" exit=")) return false;
         return golden.replaceFirst(" exit=\\d+", "").equals(java + " reason=" + o.reason().replace(' ', '_'));
     }
 

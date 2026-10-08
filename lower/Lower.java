@@ -50,25 +50,32 @@ public final class Lower {
         e.close();
         defineItems(e, p, x);
         main(e, className);
+        FileVerbs.closer(e, p);
         new Flow(e, p, x).procedure();
         e.close();
         return new Result(e.text(), findings, e.statements());
     }
 
-    /** A launcher: the lane's codepage and DISPLAY sign form from system properties (R-019; the profile's, J-109), and LE's UPSI option. */
+    /**
+     * A launcher: the lane's codepage and DISPLAY sign form from system properties (R-019; the profile's,
+     * J-109), and LE's UPSI option; at the end, normal or an abend (LANE-08), the files are closed.
+     */
     private static void main(Emitter e, String className) {
         e.open("public static void main(String[] args)");
         e.line("Codepage cp = Codepage.valueOf(System.getProperty(\"katana.codepage\", \"COBC_ASCII\"));");
         e.line("Display.Sign sign = Display.Sign.valueOf(System.getProperty(\"katana.dispsign\", \"SEP\"));");
+        e.line(className + " program = new " + className + "(cp, Upsi.of(System.getProperty(\"katana.upsi\", \"00000000\")), new Sysin(System.in), new Sysout(System.out, sign), new Sysout(System.err, sign));");
         e.open("try");
-        e.line("new " + className + "(cp, Upsi.of(System.getProperty(\"katana.upsi\", \"00000000\")), new Sysin(System.in), new Sysout(System.out, sign), new Sysout(System.err, sign)).run();");
+        e.line("program.run();");
         e.close();
         e.open("catch (Abend a)");
+        e.line("program.closeFiles();");
         e.line("System.out.flush();");
         e.line("System.err.println(a.line());");
         e.line("System.err.println(a.getMessage());");
         e.line("System.exit(a.code());");
         e.close();
+        e.line("program.closeFiles();");
         e.close();
     }
 

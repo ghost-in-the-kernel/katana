@@ -49,9 +49,11 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
   abnormally; the adapter, or the lane calling `run`, prints `CEE3ABD abend Unnnn` on stderr (with no
   code, `CEE3ABD abend with no code`), as LANE-04 says of the cobc lane; RETURN-CODE at STOP RUN or
   GOBACK is what `run` returns. Two abnormal endings are the same when they are the same condition, not
-  the same code: the same statement, the same reason (a file status on that file), and no report written;
-  the abend code is a profile fact the proof report states, never compared, since cobc has no abend
-  codes (Fable, J-145). The NIST golden keeps an abnormal run's exit status and reason
+  the same code: the same statement, the same reason (a file status on that file), and the files as
+  IBM would have left them, every open file closed at the end ("If the run unit ends abnormally and the
+  TRAP(ON) runtime option is in effect, the run time closes all open files", PG 6.4 p. 179), so a
+  report the program wrote before the abend is compared like any other (Fable, J-147); the abend code
+  is a profile fact the proof report states, never compared, since cobc has no abend codes (J-145). The NIST golden keeps an abnormal run's exit status and reason
   (`exit=1 reason=OPEN_TFIL_status_35_on_TAPE1`).
 - **LANE-09 NIST runs through a runner, not through cobc.** `ModuleRun` takes an
   `oracle/nist/Runner` (build a called module, build a main program, run it); `Cobc` is one, and the
