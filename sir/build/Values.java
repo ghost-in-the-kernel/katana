@@ -68,7 +68,7 @@ final class Values {
     }
 
     /** A file of this program, or a GLOBAL one of a program it is nested in. */
-    private Value file(String name) {
+    Value file(String name) {
         if (files.contains(name) || !outerFiles.contains(name)) return new Value.File(name);
         return new Value.Name("global file", name);
     }

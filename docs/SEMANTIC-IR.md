@@ -32,8 +32,8 @@ which they are). An item's `Flag`s: JUSTIFIED, BLANK WHEN ZERO, EXTERNAL, GLOBAL
 
 ## The paragraph graph
 
-`Procedure`: the USING and RETURNING items, each `Section` (a declarative one with what it is USE'd
-for), each `Paragraph` in textual order with its statements and where each of its sentences starts
+`Procedure`: the USING and RETURNING items, each `Section` (a declarative one with its `Use`:
+ERROR or DEBUGGING, GLOBAL, and the files or open mode it covers, SIR-10), each `Paragraph` in textual order with its statements and where each of its sentences starts
 (the index of its first statement; NEXT SENTENCE goes to the next one, or to the paragraph's end), and
 each `Edge` (`Kind` PERFORM, GO_TO or ALTER) from one paragraph to another, through the end of a
 PERFORM range. A NEXT SENTENCE written in a phrase (IF's, SEARCH's WHEN) is a NEXT SENTENCE statement
@@ -51,8 +51,9 @@ labels (tithe pass 2, A6).
 
 ## Files
 
-`FileDescriptor`: its name, its ASSIGN, `Organization`, `Access`, RECORD KEY, each `AlternateKey`,
-RELATIVE KEY, FILE STATUS item, its records, and its smallest and largest record.
+`FileDescriptor`: its name, its ASSIGN, whether it is OPTIONAL, `Organization`, `Access`, RECORD
+KEY, each `AlternateKey`, RELATIVE KEY, FILE STATUS item and the VSAM one, its records, and its
+smallest and largest record (SIR-09).
 
 ## CALL interfaces
 
@@ -80,6 +81,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | `value` | each item's VALUE |
 | `condition` | each 88 and its values |
 | `file` | each file's organization, access, keys, status and records |
+| `declarative` | each declarative section's USE: what it follows, GLOBAL, and its files or mode, or what it debugs |
 | `paragraph` | each paragraph's place in textual order and its section |
 | `falls` | control that falls from a paragraph into the next |
 | `edge` | each PERFORM, GO TO and ALTER between paragraphs |
@@ -120,3 +122,12 @@ shape: `lower/golden/<PROG>.java`, the generated Java byte for byte, a refactor 
   the bytes as pairs of hex digits, or a signed unscaled integer with its scale (value = payload ×
   10^-scale; only a number has a scale), so the lowering decodes nothing. cobc is its oracle
   (`LiteralIntegrationTest`).
+- **SIR-09 A file carries what its SELECT says.** Whether it is OPTIONAL, its organization and access,
+  its keys, and its FILE STATUS item with the second, VSAM one when named (0 for none), each as data;
+  every word of a SELECT entry is in its file (`NoTokenLeftTest`), so a keyword the lowering will read
+  is never dropped on the way (R-017's lesson: OPTIONAL decides whether an absent file is status 05 or
+  35).
+- **SIR-10 A declarative carries its USE as data.** A declarative section, and only one, has a USE:
+  ERROR (EXCEPTION is the same) with GLOBAL or not and either the files it names (each one of the
+  program's, SIR-05, or apart from them a GLOBAL file of a program it is nested in) or an open mode (INPUT, OUTPUT, I-O, EXTEND), never both; or DEBUGGING with what
+  it debugs as written. Every word of the USE statement is in it (`NoTokenLeftTest`).

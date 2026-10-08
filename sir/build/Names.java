@@ -22,6 +22,11 @@ final class Names {
         this.findings = findings;
     }
 
+    /** A name a clause gives that resolves to nothing: a build finding. */
+    void unresolved(String what) {
+        findings.add(what);
+    }
+
     /** The item a qualified name names, or 0. */
     int item(String name, List<String> qualifiers, String file, String where) {
         List<Item> found = new ArrayList<>();

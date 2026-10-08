@@ -42,6 +42,7 @@ public final class Contract {
             new Kind("value", "each item's VALUE", p -> each(p.items().stream().filter(i -> i.value() != null).toList(), i -> i.id() + " " + value(i.value()))),
             new Kind("condition", "each 88 and its values", p -> p.items().stream().flatMap(i -> i.conditions().stream().map(c -> i.id() + " " + c.name() + " " + c.values().stream().map(Contract::value).collect(Collectors.joining(" | ")))).toList()),
             new Kind("file", "each file's organization, access, keys, status and records", p -> each(p.files(), Contract::file)),
+            new Kind("declarative", "each declarative section's USE: what it follows, GLOBAL, and its files or mode, or what it debugs", p -> each(p.procedure().sections().stream().filter(Procedure.Section::declarative).toList(), Contract::declarative)),
             new Kind("paragraph", "each paragraph's place in textual order and its section", p -> each(p.procedure().paragraphs(), g -> g.index() + " " + quoted(g.name()) + " " + quoted(g.section()))),
             new Kind("falls", "control that falls from a paragraph into the next", Contract::falls),
             new Kind("edge", "each PERFORM, GO TO and ALTER between paragraphs", p -> each(p.procedure().edges(), e -> e.kind() + " " + e.from() + " " + e.to() + " " + e.thru())),
@@ -95,9 +96,15 @@ public final class Contract {
                 + o.keys().stream().map(k -> k.item() + (k.ascending() ? "A" : "D")).toList() + " indexed " + o.indexedBy();
     }
 
+    private static String declarative(Procedure.Section s) {
+        Procedure.Use u = s.use();
+        String scope = u.kind() == Procedure.Use.Kind.DEBUGGING ? "on " + u.debugging() : !u.mode().isEmpty() ? "mode " + u.mode() : "files " + u.files() + (u.outerFiles().isEmpty() ? "" : " outer " + u.outerFiles());
+        return s.name() + " " + u.kind() + (u.global() ? " GLOBAL " : " ") + scope;
+    }
+
     private static String file(FileDescriptor f) {
-        return f.name() + " assign " + quoted(f.assign()) + " " + f.organization() + " " + f.access() + " key " + f.recordKey() + " relative " + f.relativeKey() + " alternate "
-                + f.alternateKeys().stream().map(k -> k.item() + (k.duplicates() ? "D" : "")).toList() + " status " + f.status() + " records " + f.records()
+        return f.name() + " assign " + quoted(f.assign()) + (f.optional() ? " OPTIONAL" : "") + " " + f.organization() + " " + f.access() + " key " + f.recordKey() + " relative " + f.relativeKey() + " alternate "
+                + f.alternateKeys().stream().map(k -> k.item() + (k.duplicates() ? "D" : "")).toList() + " status " + f.status() + (f.vsamStatus() == 0 ? "" : " vsam-status " + f.vsamStatus()) + " records " + f.records()
                 + " " + f.minRecord() + ".." + f.maxRecord();
     }
 

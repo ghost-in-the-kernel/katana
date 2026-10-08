@@ -8,10 +8,30 @@ import java.util.List;
  * body or of a section, are a paragraph named ""), and the edges PERFORM, GO TO and ALTER make.
  */
 public record Procedure(List<Integer> using, int returning, List<Section> sections, List<Paragraph> paragraphs, List<Edge> edges) {
-    /** A section; a declarative one says what it is USE'd for. */
-    public record Section(String name, boolean declarative, String use, Origin origin) {
+    /** A section; a declarative one, and only one, says what it is USE'd for (SIR-10). */
+    public record Section(String name, boolean declarative, Use use, Origin origin) {
         public Section {
             Invalid.origin(origin, "section " + name);
+            if (declarative != (use != null)) throw new Invalid("SIR-10", "section " + name + (declarative ? " is declarative with no USE" : " has a USE and is not declarative"));
+        }
+    }
+
+    /**
+     * A declarative's USE as data (SIR-10): after an ERROR (or EXCEPTION, the same) on the files it names
+     * (the program's own, and apart from them a GLOBAL file of a program it is nested in, as a statement
+     * keeps one apart) or on every file opened in a mode (INPUT, OUTPUT, I-O, EXTEND; "" when it names
+     * files), GLOBAL or not; or FOR DEBUGGING, with what it debugs, each as written (`ALL PROCEDURES`, a
+     * procedure name, `ALL REFERENCES OF X`, a file).
+     */
+    public record Use(Kind kind, boolean global, String mode, List<String> files, List<String> outerFiles, List<String> debugging) {
+        public enum Kind { ERROR, DEBUGGING }
+
+        public Use {
+            files = List.copyOf(files);
+            outerFiles = List.copyOf(outerFiles);
+            debugging = List.copyOf(debugging);
+            boolean named = !files.isEmpty() || !outerFiles.isEmpty();
+            if (kind == Kind.ERROR && mode.isEmpty() != named) throw new Invalid("SIR-10", "a USE AFTER ERROR names files or a mode, one of the two");
         }
     }
 

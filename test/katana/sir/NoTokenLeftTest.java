@@ -9,6 +9,7 @@ import java.util.List;
 import katana.front.Copybooks;
 import katana.front.Parse;
 import katana.sir.build.Build;
+import katana.sir.types.FileDescriptor;
 import katana.sir.types.Procedure;
 import katana.sir.types.Program;
 import katana.sir.types.Statement;
@@ -49,6 +50,24 @@ class NoTokenLeftTest {
         Program without = new Program(p.header(), p.items(), p.files(), new Procedure(q.using(), q.returning(), q.sections(), stripped, q.edges()), p.calls(), p.nested());
         String missing = String.join(" ", TokenCoverage.missing(parse, without));
         for (String word : List.of("ROUNDED in COMPUTE", "TALLYING in INSPECT", "RUN in STOP", "ANY in EVALUATE", "AFTER in PERFORM")) assertTrue(missing.contains(word), word + " in " + missing);
+    }
+
+    /** The same for SIR-09 and SIR-10: OPTIONAL, both FILE STATUS items, GLOBAL and a USE's file taken out are left behind. */
+    @Test
+    void theCheckFailsWhenAFileOrUseWordIsDropped() {
+        Path golden = ROOT.resolve("sir/golden");
+        Parse.Result parse = Parse.file(golden.resolve("PROBE.cbl"), new Copybooks(List.of(golden), n -> 8), 8);
+        Program p = Build.program(parse, HASH).program();
+        List<FileDescriptor> files = p.files().stream().map(f -> new FileDescriptor(f.name(), f.assign(), false, f.organization(), f.access(), f.recordKey(), f.alternateKeys(),
+                f.relativeKey(), 0, 0, f.records(), f.minRecord(), f.maxRecord(), f.origin())).toList();
+        List<Procedure.Section> sections = p.procedure().sections().stream().map(s -> s.use() == null ? s : new Procedure.Section(s.name(), true,
+                new Procedure.Use(s.use().kind(), false, s.use().mode(), s.use().files().isEmpty() ? List.of() : List.of("REL-FILE"), s.use().outerFiles(), s.use().debugging()), s.origin())).toList();
+        Procedure q = p.procedure();
+        Program without = new Program(p.header(), p.items(), files, new Procedure(q.using(), q.returning(), sections, q.paragraphs(), q.edges()), p.calls(), p.nested());
+        String missing = String.join(" ", TokenCoverage.missing(parse, without));
+        for (String word : List.of("OPTIONAL in SELECT SEQ-FILE", "STATUS in SELECT SEQ-FILE", "FS in SELECT SEQ-FILE", "VS in SELECT SEQ-FILE", "SEQ-FILE in USE of SEQ-ERRORS", "GLOBAL in USE of INPUT-ERRORS")) {
+            assertTrue(missing.contains(word), word + " in " + missing);
+        }
     }
 
     private static Statement strip(Statement s) {

@@ -257,6 +257,7 @@ file DB204A SQ-FS1 assign "MASS1" SEQUENTIAL SEQUENTIAL key 0 relative 0 alterna
 file DB204A SQ-FS2 assign "MASS2" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [4] 120..120
 file DB204A SQ-FS3 assign "MASS3" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [5] 120..120
 file DB204A ST-FS4 assign "SORT1" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [6] 120..120
+declarative DB204A MERGE-PROC DEBUGGING on [MERGE-OUTPUT-PROC]
 paragraph DB204A 0 "MERGE-1" "MERGE-PROC"
 paragraph DB204A 1 "OPEN-FILES" "CCVS1"
 paragraph DB204A 2 "CLOSE-FILES" "CCVS1"

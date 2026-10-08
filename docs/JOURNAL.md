@@ -1990,3 +1990,25 @@ taken; closed by a later `decision` entry naming it).
   both NIST goldens, `docs/LANES.md` (LANE-08), `docs/HANDOFF.md`.
 - **Note:** the comparison does not read the abend code at all, so U4038's `// Unsure` cannot make a
   lane pass or fail; only the proof report will state it.
+
+### J-146 OPTIONAL, FILE STATUS and USE reach the IR as data (SIR-09, SIR-10); the check found a qualified status dropped
+- **Who:** Opus, on Fable's note (the SQ pass goes through the IR first). **Class:** failure-caught.
+- **Intent:** before the lowering reads OPTIONAL, FILE STATUS or a declarative, make each a contract
+  line with its SIR number and extend "no token left behind" to SELECT entries and USE statements.
+- **Found:** the extended check, run over the corpora, left words behind in 25 NIST programs. Three
+  causes: (1) a qualified FILE STATUS (`STATUS SQ-FS4-STATUS OF STATUS-GROUP`, SQ124A, SQ133A, ...)
+  was looked up as one word and became 0, silently, so `sir/check` reported seven files as having no
+  FILE STATUS that had one, and the lowering would have abended where IBM sets a status: R-017's
+  failure again, a keyword semantics depends on, dropped; (2) a nested program's USE naming a
+  containing program's GLOBAL file (IC234A); (3) RESERVE, PADDING CHARACTER and RECORD DELIMITER,
+  which the IR does not carry.
+- **Options:** for (3), carry them in the IR, or skip them in the check by rule with IBM's reason
+  (taken: PADDING and RECORD DELIMITER are each "syntax checked, but has no effect on the execution of
+  the program", LR 6.4; RESERVE sets the buffer count; PASSWORD, which has an effect, is not skipped).
+- **Resolved:** `FileDescriptor` carries `optional` and `vsamStatus`; `Procedure.Use` replaces the USE
+  text (ERROR or DEBUGGING, GLOBAL, files, a containing program's GLOBAL files apart, or a mode);
+  SELECT names resolve with their qualifiers and one that names no item is a build finding; SIR-09 and
+  SIR-10 in `docs/SEMANTIC-IR.md`; a `declarative` contract line; PROBE gains an OPTIONAL file, both
+  status items and two USEs, and `NoTokenLeftTest` a failing case for them. Corpora: tokens left 0;
+  NIST's check findings 679 to 672.
+- **Caught by:** the extended token check, on its first run over the corpora.

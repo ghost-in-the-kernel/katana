@@ -10,7 +10,7 @@ import katana.sir.types.FileDescriptor;
 /**
  * FILE-CONTROL and the FDs to FileDescriptors: each SELECT's name, ASSIGN, organization (SEQUENTIAL
  * unless stated; LINE SEQUENTIAL kept apart), access (SEQUENTIAL unless stated), RECORD KEY, ALTERNATE
- * keys, FILE STATUS item, and the 01s under its FD with the smallest and largest of their lengths.
+ * keys, OPTIONAL, FILE STATUS items, and the 01s under its FD with the smallest and largest of their lengths.
  */
 final class Files {
     private Files() {}
@@ -23,26 +23,42 @@ final class Files {
             String assign = "";
             FileDescriptor.Organization organization = FileDescriptor.Organization.SEQUENTIAL;
             FileDescriptor.Access access = FileDescriptor.Access.SEQUENTIAL;
-            int key = 0, relative = 0, status = 0;
+            int key = 0, relative = 0, status = 0, vsamStatus = 0;
             List<FileDescriptor.AlternateKey> alternates = new ArrayList<>();
             String where = Origins.at(parse, e).toString();
             for (CobolParser.FileControlClauseContext c : e.fileControlClause()) {
                 if (c.assignClause() != null) assign = assign(c.assignClause());
                 if (c.organizationClause() != null) organization = organization(c.organizationClause());
                 if (c.accessModeClause() != null) access = access(c.accessModeClause());
-                if (c.recordKeyClause() != null) key = names.item(Values.upper(c.recordKeyClause().qualifiedDataName().getText()), List.of(), null, where);
+                if (c.recordKeyClause() != null) key = item(names, c.recordKeyClause().qualifiedDataName(), where);
                 if (c.alternateRecordKeyClause() != null) {
-                    int item = names.item(Values.upper(c.alternateRecordKeyClause().qualifiedDataName().getText()), List.of(), null, where);
+                    int item = item(names, c.alternateRecordKeyClause().qualifiedDataName(), where);
                     if (item != 0) alternates.add(new FileDescriptor.AlternateKey(item, c.alternateRecordKeyClause().DUPLICATES() != null));
                 }
-                if (c.relativeKeyClause() != null) relative = names.item(Values.upper(c.relativeKeyClause().qualifiedDataName().getText()), List.of(), null, where);
-                if (c.fileStatusClause() != null) status = names.item(Values.upper(c.fileStatusClause().qualifiedDataName(0).getText()), List.of(), null, where);
+                if (c.relativeKeyClause() != null) relative = item(names, c.relativeKeyClause().qualifiedDataName(), where);
+                if (c.fileStatusClause() != null) status = item(names, c.fileStatusClause().qualifiedDataName(0), where);
+                if (c.fileStatusClause() != null && c.fileStatusClause().qualifiedDataName(1) != null) vsamStatus = item(names, c.fileStatusClause().qualifiedDataName(1), where);
             }
             List<Integer> mine = records.getOrDefault(name, List.of());
             int min = mine.stream().mapToInt(lengths::get).min().orElse(0), max = mine.stream().mapToInt(lengths::get).max().orElse(0);
-            files.add(new FileDescriptor(name, assign, organization, access, key, alternates, relative, status, mine, min, max, Origins.at(parse, e)));
+            files.add(new FileDescriptor(name, assign, e.selectClause().OPTIONAL() != null, organization, access, key, alternates, relative, status, vsamStatus, mine, min, max, Origins.at(parse, e)));
         }
         return files;
+    }
+
+    /**
+     * The item a SELECT clause names, with its qualifiers (`SQ-FS4-STATUS OF STATUS-GROUP`); one that
+     * names no item is a finding, never a silent 0 (SIR-09).
+     */
+    private static int item(Names names, CobolParser.QualifiedDataNameContext q, String where) {
+        CobolParser.QualifiedDataNameFormat1Context f = q.qualifiedDataNameFormat1();
+        String name = Values.upper(f == null ? q.getText() : f.getChild(0).getText());
+        List<String> qualifiers = new ArrayList<>();
+        if (f != null) for (var in : f.qualifiedInData()) qualifiers.add(Values.upper(in.inData() != null ? in.inData().dataName().getText() : in.inTable().tableCall().qualifiedDataName().getText()));
+        String file = f == null || f.inFile() == null ? null : Values.upper(f.inFile().fileName().getText());
+        int item = names.item(name, qualifiers, file, where);
+        if (item == 0) names.unresolved(name + " at " + where + " names no item");
+        return item;
     }
 
     /**

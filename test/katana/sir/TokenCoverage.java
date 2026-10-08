@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Set;
 import katana.front.Parse;
 import katana.front.grammar.CobolParser;
+import katana.sir.types.FileDescriptor;
 import katana.sir.types.Item;
 import katana.sir.types.Origin;
 import katana.sir.types.Procedure;
@@ -21,7 +22,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * the parse tree (IS, ARE, THEN, END-x and punctuation aside), paired with the IR's by textual order (a
  * copybook copied twice gives two statements of one origin), is found in the IR's statement, as a verb
  * or role word, a keyword, a literal, an operator (a relation's words by its symbol), or the name of an
- * item, an ancestor of one, a condition, a file, a paragraph or a section it names.
+ * item, an ancestor of one, a condition, a file, a paragraph or a section it names. And every word of
+ * each SELECT entry is in its file (SIR-09) and of each declarative's USE in its section (SIR-10).
  */
 final class TokenCoverage {
     private static final Set<String> NOISE = Set.of("IS", "ARE", "THEN", ".", ",", "(", ")", ":", "<EOF>");
@@ -41,7 +43,8 @@ final class TokenCoverage {
         programs.forEach(p -> index(p, ir, owners));
         List<CobolParser.StatementContext> tree = statements(parse.tree());
         if (tree.size() != ir.size()) return List.of("the tree has " + tree.size() + " statements, the IR " + ir.size());
-        List<String> missing = new ArrayList<>();
+        List<String> missing = new ArrayList<>(entries(parse, programs));
+        missing.addAll(uses(parse, programs));
         for (int i = 0; i < tree.size(); i++) {
             var o = parse.origin(tree.get(i));
             Origin at = ir.get(i).origin();
@@ -51,6 +54,99 @@ final class TokenCoverage {
             for (String token : tokens(tree.get(i))) if (!covered(token, words)) missing.add(o.file() + ":" + o.line() + ": " + token + " in " + ir.get(i).verb());
         }
         return missing;
+    }
+
+    /** Each SELECT entry's words its file lacks (SIR-09), entries and files paired in textual order. */
+    private static List<String> entries(Parse.Result parse, List<Program> programs) {
+        List<Program> owners = new ArrayList<>();
+        List<FileDescriptor> files = new ArrayList<>();
+        programs.forEach(p -> filesOf(p, files, owners));
+        List<CobolParser.FileControlEntryContext> tree = nodes(parse.tree(), CobolParser.FileControlEntryContext.class);
+        if (tree.size() != files.size()) return List.of("the tree has " + tree.size() + " SELECT entries, the IR " + files.size() + " files");
+        List<String> missing = new ArrayList<>();
+        for (int i = 0; i < tree.size(); i++) {
+            Set<String> words = file(files.get(i), owners.get(i));
+            var o = parse.origin(tree.get(i));
+            for (String token : selectTokens(tree.get(i))) if (!words.contains(token)) missing.add(o.file() + ":" + o.line() + ": " + token + " in SELECT " + files.get(i).name());
+        }
+        return missing;
+    }
+
+    /**
+     * A SELECT entry's tokens but those of the clauses that change nothing a program computes or writes:
+     * PADDING CHARACTER and RECORD DELIMITER, each "syntax checked, but has no effect on the execution of
+     * the program" (LR 6.4, FILE-CONTROL), and RESERVE, the number of I/O buffers.
+     */
+    private static List<String> selectTokens(ParseTree node) {
+        if (node instanceof CobolParser.PaddingCharacterClauseContext || node instanceof CobolParser.RecordDelimiterClauseContext || node instanceof CobolParser.ReserveClauseContext) return List.of();
+        if (node instanceof TerminalNode) return tokens(node);
+        List<String> tokens = new ArrayList<>();
+        for (int i = 0; i < node.getChildCount(); i++) tokens.addAll(selectTokens(node.getChild(i)));
+        return tokens;
+    }
+
+    private static void filesOf(Program p, List<FileDescriptor> files, List<Program> owners) {
+        for (FileDescriptor f : p.files()) {
+            files.add(f);
+            owners.add(p);
+        }
+        p.nested().forEach(n -> filesOf(n, files, owners));
+    }
+
+    /** The words a file carries: each clause's keywords only where the file holds what the clause says. */
+    private static Set<String> file(FileDescriptor f, Program p) {
+        Set<String> words = new HashSet<>(List.of("SELECT", "ASSIGN", "TO", "ORGANIZATION", "ACCESS", "MODE", f.name()));
+        words.addAll(List.of(f.organization().name().split("_")));
+        words.add(f.access().name());
+        for (String w : f.assign().toUpperCase(Locale.ROOT).split("[^A-Z0-9$#@-]+")) words.add(w);
+        words.add("\"" + f.assign() + "\"");
+        words.add("'" + f.assign() + "'");
+        if (f.optional()) words.add("OPTIONAL");
+        if (f.recordKey() != 0) words.addAll(List.of("RECORD", "KEY"));
+        if (!f.alternateKeys().isEmpty()) words.addAll(List.of("ALTERNATE", "RECORD", "KEY", "WITH"));
+        if (f.alternateKeys().stream().anyMatch(FileDescriptor.AlternateKey::duplicates)) words.add("DUPLICATES");
+        if (f.relativeKey() != 0) words.addAll(List.of("RELATIVE", "KEY"));
+        if (f.status() != 0) words.addAll(List.of("FILE", "STATUS"));
+        for (int item : new int[] {f.recordKey(), f.relativeKey(), f.status(), f.vsamStatus()}) if (item != 0) names(item, p, words);
+        f.alternateKeys().forEach(k -> names(k.item(), p, words));
+        if (!f.alternateKeys().isEmpty() || f.recordKey() != 0 || f.relativeKey() != 0 || f.status() != 0) words.addAll(List.of("OF", "IN"));
+        return words;
+    }
+
+    /** Each declarative's USE words its section lacks (SIR-10), USE statements and declarative sections paired in textual order. */
+    private static List<String> uses(Parse.Result parse, List<Program> programs) {
+        List<Procedure.Section> sections = new ArrayList<>();
+        programs.forEach(p -> declaratives(p, sections));
+        List<CobolParser.UseStatementContext> tree = nodes(parse.tree(), CobolParser.UseStatementContext.class);
+        if (tree.size() != sections.size()) return List.of("the tree has " + tree.size() + " USE statements, the IR " + sections.size() + " declaratives");
+        List<String> missing = new ArrayList<>();
+        for (int i = 0; i < tree.size(); i++) {
+            Procedure.Use u = sections.get(i).use();
+            Set<String> words = new HashSet<>(List.of("USE"));
+            if (u.kind() == Procedure.Use.Kind.ERROR) words.addAll(List.of("AFTER", "STANDARD", "ERROR", "EXCEPTION", "PROCEDURE", "ON"));
+            else words.addAll(List.of("FOR", "DEBUGGING", "ON"));
+            if (u.global()) words.add("GLOBAL");
+            if (!u.mode().isEmpty()) words.add(u.mode());
+            words.addAll(u.files());
+            words.addAll(u.outerFiles());
+            for (String d : u.debugging()) words.addAll(List.of(d.split(" ")));
+            var o = parse.origin(tree.get(i));
+            for (String token : tokens(tree.get(i))) if (!words.contains(token)) missing.add(o.file() + ":" + o.line() + ": " + token + " in USE of " + sections.get(i).name());
+        }
+        return missing;
+    }
+
+    private static void declaratives(Program p, List<Procedure.Section> sections) {
+        p.procedure().sections().stream().filter(Procedure.Section::declarative).forEach(sections::add);
+        p.nested().forEach(n -> declaratives(n, sections));
+    }
+
+    /** Every node of a type in the tree, in textual order. */
+    private static <T extends ParseTree> List<T> nodes(ParseTree node, Class<T> type) {
+        List<T> found = new ArrayList<>();
+        if (type.isInstance(node)) found.add(type.cast(node));
+        for (int i = 0; i < node.getChildCount(); i++) found.addAll(nodes(node.getChild(i), type));
+        return found;
     }
 
     /** The IR's statements in textual order (a program's, then its nested programs'), each with the program it is in. */

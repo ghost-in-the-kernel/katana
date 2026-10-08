@@ -1,5 +1,6 @@
       * Tithe pass 2, A1: every keyword-bearing construct the IR once dropped, in one program;
       * A3: each kind of literal, and VALUEs with their spaces; A4: a mask, the flags, a RELATIVE KEY.
+      * SIR-09 and SIR-10: OPTIONAL, both FILE STATUS items, a USE.
        IDENTIFICATION DIVISION.
        PROGRAM-ID. PROBE.
        ENVIRONMENT DIVISION.
@@ -7,10 +8,14 @@
        FILE-CONTROL.
            SELECT REL-FILE ASSIGN TO "REL" ORGANIZATION RELATIVE
                ACCESS RANDOM RELATIVE KEY RK.
+           SELECT OPTIONAL SEQ-FILE ASSIGN TO "SEQ"
+               FILE STATUS IS FS VS.
        DATA DIVISION.
        FILE SECTION.
        FD  REL-FILE.
        01  REL-REC      PIC X(10).
+       FD  SEQ-FILE.
+       01  SEQ-REC      PIC X(10).
        WORKING-STORAGE SECTION.
        01  A            PIC S9(5)V99.
        01  B            PIC S9(5)V99.
@@ -22,6 +27,8 @@
        01  Z            PIC S9(3)V99 VALUE -1.50.
            88  Z-LOW    VALUE -999.99 THRU 0, 1.
        01  RK           PIC 9(4).
+       01  FS           PIC XX.
+       01  VS           PIC X(6).
        01  M            PIC $$,$$9.99CR.
        01  J            PIC X(5) JUSTIFIED RIGHT.
        01  K            PIC 9(4) BLANK WHEN ZERO.
@@ -34,6 +41,15 @@
            05  F1       PIC X.
            05  F2       PIC 9.
        PROCEDURE DIVISION.
+       DECLARATIVES.
+       SEQ-ERRORS SECTION.
+           USE AFTER STANDARD ERROR PROCEDURE ON SEQ-FILE.
+       SEQ-SAID.
+           DISPLAY FS.
+       INPUT-ERRORS SECTION.
+           USE GLOBAL AFTER EXCEPTION PROCEDURE INPUT.
+       END DECLARATIVES.
+       MAIN-SECTION SECTION.
        MAIN.
            COMPUTE A ROUNDED = B * (C + 1) ** 2 / - D
                ON SIZE ERROR DISPLAY 'SIZE'

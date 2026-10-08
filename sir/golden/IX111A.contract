@@ -215,6 +215,7 @@ value IX111A 126 "******************************************************"
 value IX111A 127 "IX111A"
 file IX111A PRINT-FILE assign "PRINTOUT" SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 0 records [1, 2] 120..120
 file IX111A IX-NOP assign "INDEX2" INDEXED SEQUENTIAL key 7 relative 0 alternate [] status 11 records [3] 240..240
+declarative IX111A SECT-IX111-0001 ERROR files [IX-NOP]
 paragraph IX111A 0 "INPUT-PROCESS" "SECT-IX111-0001"
 paragraph IX111A 1 "PASS-DECL" "SECT-IX111-0001"
 paragraph IX111A 2 "FAIL-DECL" "SECT-IX111-0001"

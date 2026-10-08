@@ -46,10 +46,10 @@ final class Paragraphs {
     /** The paragraph graph of a PROCEDURE DIVISION, its USING and RETURNING items given. */
     Procedure build(CobolParser.ProcedureDivisionContext pd, List<Integer> using, int returning) {
         if (pd.procedureDeclaratives() != null) {
-            for (var d : pd.procedureDeclaratives().procedureDeclarative()) section(d.procedureSectionHeader(), d.paragraphs(), true, DataMap.text(d.useStatement()));
+            for (var d : pd.procedureDeclaratives().procedureDeclarative()) section(d.procedureSectionHeader(), d.paragraphs(), true, use(d.useStatement()));
         }
         paragraphs("", pd.procedureDivisionBody().paragraphs(), pd);
-        for (var s : pd.procedureDivisionBody().procedureSection()) section(s.procedureSectionHeader(), s.paragraphs(), false, "");
+        for (var s : pd.procedureDivisionBody().procedureSection()) section(s.procedureSectionHeader(), s.paragraphs(), false, null);
         List<Procedure.Paragraph> built = new ArrayList<>();
         for (int i = 0; i < raw.size(); i++) {
             current = i;
@@ -65,7 +65,22 @@ final class Paragraphs {
         return new Procedure(using, returning, sections, built, edges);
     }
 
-    private void section(CobolParser.ProcedureSectionHeaderContext header, CobolParser.ParagraphsContext body, boolean declarative, String use) {
+    /** A USE statement as data (SIR-10): what it follows, GLOBAL, and the files or the mode, or what it debugs. */
+    private Procedure.Use use(CobolParser.UseStatementContext u) {
+        if (u.useDebugClause() != null) {
+            List<String> on = u.useDebugClause().useDebugOn().stream().map(d -> Values.upper(DataMap.text(d))).toList();
+            return new Procedure.Use(Procedure.Use.Kind.DEBUGGING, false, "", List.of(), List.of(), on);
+        }
+        CobolParser.UseAfterClauseContext a = u.useAfterClause();
+        CobolParser.UseAfterOnContext on = a.useAfterOn();
+        List<String> named = on.fileName().stream().map(f -> Values.upper(f.getText())).toList();
+        List<String> files = named.stream().filter(f -> !(values.file(f) instanceof Value.Name)).toList();
+        List<String> outer = named.stream().filter(f -> values.file(f) instanceof Value.Name).toList();
+        String mode = named.isEmpty() ? Values.upper(on.getText()).replace("I_O", "I-O") : "";
+        return new Procedure.Use(Procedure.Use.Kind.ERROR, a.GLOBAL() != null, mode, files, outer, List.of());
+    }
+
+    private void section(CobolParser.ProcedureSectionHeaderContext header, CobolParser.ParagraphsContext body, boolean declarative, Procedure.Use use) {
         String name = Values.upper(header.sectionName().getText());
         sections.add(new Procedure.Section(name, declarative, use, Origins.at(parse, header)));
         int first = raw.size();

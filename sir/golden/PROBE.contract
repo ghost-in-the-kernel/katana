@@ -1,48 +1,55 @@
 profile PROBE sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296
 editing PROBE currency $ point .
 item PROBE 1 REL-REC level 1 parent 0 record 1 FILE offset 0 length 10 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXX"
-item PROBE 2 A level 1 parent 0 record 2 WORKING_STORAGE offset 0 length 7 DISPLAY NUMERIC digits 7 scale 2 signed picture "S99999V99"
-item PROBE 3 B level 1 parent 0 record 3 WORKING_STORAGE offset 0 length 7 DISPLAY NUMERIC digits 7 scale 2 signed picture "S99999V99"
-item PROBE 4 C level 1 parent 0 record 4 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
-item PROBE 5 D level 1 parent 0 record 5 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
-item PROBE 6 N level 1 parent 0 record 6 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
-item PROBE 7 X level 1 parent 0 record 7 WORKING_STORAGE offset 0 length 10 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXX"
-item PROBE 8 Y level 1 parent 0 record 8 WORKING_STORAGE offset 0 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
-item PROBE 9 Z level 1 parent 0 record 9 WORKING_STORAGE offset 0 length 5 DISPLAY NUMERIC digits 5 scale 2 signed picture "S999V99"
-item PROBE 10 RK level 1 parent 0 record 10 WORKING_STORAGE offset 0 length 4 DISPLAY NUMERIC digits 4 scale 0 picture "9999"
-item PROBE 11 M level 1 parent 0 record 11 WORKING_STORAGE offset 0 length 11 DISPLAY NUMERIC_EDITED digits 6 scale 2 signed picture "$$,$$9.99CR" mask "$$,$$9.99CR"
-item PROBE 12 J level 1 parent 0 record 12 WORKING_STORAGE offset 0 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX" justified
-item PROBE 13 K level 1 parent 0 record 13 WORKING_STORAGE offset 0 length 4 DISPLAY NUMERIC_EDITED digits 4 scale 0 picture "9999" mask "9999" blank-when-zero
-item PROBE 14 EXT level 1 parent 0 record 14 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X" external
-item PROBE 15 GLB level 1 parent 0 record 15 WORKING_STORAGE offset 0 length 6 DISPLAY ALPHANUMERIC_EDITED digits 0 scale 0 picture "XXBX/0" mask "XXBX/0" global
-item PROBE 16 G1 level 1 parent 0 record 16 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
-item PROBE 17 F1 level 5 parent 16 record 16 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
-item PROBE 18 F2 level 5 parent 16 record 16 WORKING_STORAGE offset 1 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
-item PROBE 19 G2 level 1 parent 0 record 19 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
+item PROBE 2 SEQ-REC level 1 parent 0 record 2 FILE offset 0 length 10 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXX"
+item PROBE 3 A level 1 parent 0 record 3 WORKING_STORAGE offset 0 length 7 DISPLAY NUMERIC digits 7 scale 2 signed picture "S99999V99"
+item PROBE 4 B level 1 parent 0 record 4 WORKING_STORAGE offset 0 length 7 DISPLAY NUMERIC digits 7 scale 2 signed picture "S99999V99"
+item PROBE 5 C level 1 parent 0 record 5 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item PROBE 6 D level 1 parent 0 record 6 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item PROBE 7 N level 1 parent 0 record 7 WORKING_STORAGE offset 0 length 3 DISPLAY NUMERIC digits 3 scale 0 picture "999"
+item PROBE 8 X level 1 parent 0 record 8 WORKING_STORAGE offset 0 length 10 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXX"
+item PROBE 9 Y level 1 parent 0 record 9 WORKING_STORAGE offset 0 length 20 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXX"
+item PROBE 10 Z level 1 parent 0 record 10 WORKING_STORAGE offset 0 length 5 DISPLAY NUMERIC digits 5 scale 2 signed picture "S999V99"
+item PROBE 11 RK level 1 parent 0 record 11 WORKING_STORAGE offset 0 length 4 DISPLAY NUMERIC digits 4 scale 0 picture "9999"
+item PROBE 12 FS level 1 parent 0 record 12 WORKING_STORAGE offset 0 length 2 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XX"
+item PROBE 13 VS level 1 parent 0 record 13 WORKING_STORAGE offset 0 length 6 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXX"
+item PROBE 14 M level 1 parent 0 record 14 WORKING_STORAGE offset 0 length 11 DISPLAY NUMERIC_EDITED digits 6 scale 2 signed picture "$$,$$9.99CR" mask "$$,$$9.99CR"
+item PROBE 15 J level 1 parent 0 record 15 WORKING_STORAGE offset 0 length 5 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXX" justified
+item PROBE 16 K level 1 parent 0 record 16 WORKING_STORAGE offset 0 length 4 DISPLAY NUMERIC_EDITED digits 4 scale 0 picture "9999" mask "9999" blank-when-zero
+item PROBE 17 EXT level 1 parent 0 record 17 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X" external
+item PROBE 18 GLB level 1 parent 0 record 18 WORKING_STORAGE offset 0 length 6 DISPLAY ALPHANUMERIC_EDITED digits 0 scale 0 picture "XXBX/0" mask "XXBX/0" global
+item PROBE 19 G1 level 1 parent 0 record 19 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
 item PROBE 20 F1 level 5 parent 19 record 19 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
 item PROBE 21 F2 level 5 parent 19 record 19 WORKING_STORAGE offset 1 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
-value PROBE 8 'A  ''B''  C'
-value PROBE 9 -1.50
-condition PROBE 9 Z-LOW (THRU -999.99 0) | 1
-file PROBE REL-FILE assign "REL" RELATIVE RANDOM key 0 relative 10 alternate [] status 0 records [1] 10..10
-paragraph PROBE 0 "" ""
-paragraph PROBE 1 "MAIN" ""
-paragraph PROBE 2 "P1" ""
+item PROBE 22 G2 level 1 parent 0 record 22 WORKING_STORAGE offset 0 length 2 DISPLAY GROUP digits 0 scale 0 picture ""
+item PROBE 23 F1 level 5 parent 22 record 22 WORKING_STORAGE offset 0 length 1 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "X"
+item PROBE 24 F2 level 5 parent 22 record 22 WORKING_STORAGE offset 1 length 1 DISPLAY NUMERIC digits 1 scale 0 picture "9"
+value PROBE 9 'A  ''B''  C'
+value PROBE 10 -1.50
+condition PROBE 10 Z-LOW (THRU -999.99 0) | 1
+file PROBE REL-FILE assign "REL" RELATIVE RANDOM key 0 relative 11 alternate [] status 0 records [1] 10..10
+file PROBE SEQ-FILE assign "SEQ" OPTIONAL SEQUENTIAL SEQUENTIAL key 0 relative 0 alternate [] status 12 vsam-status 13 records [2] 10..10
+declarative PROBE SEQ-ERRORS ERROR files [SEQ-FILE]
+declarative PROBE INPUT-ERRORS ERROR GLOBAL mode INPUT
+paragraph PROBE 0 "SEQ-SAID" "SEQ-ERRORS"
+paragraph PROBE 1 "MAIN" "MAIN-SECTION"
+paragraph PROBE 2 "P1" "MAIN-SECTION"
 falls PROBE 0 1
 edge PROBE PERFORM 1 2 2
-statement PROBE 1.0 COMPUTE compute-store=#2 compute-store=keyword:ROUNDED compute-statement=keyword:= compute-statement=(/ (* #3 (** (+ #4 1) 2)) (neg #5)) | on-size-error-phrase
+statement PROBE 0.0 DISPLAY display-operand=#12
+statement PROBE 1.0 COMPUTE compute-store=#3 compute-store=keyword:ROUNDED compute-statement=keyword:= compute-statement=(/ (* #4 (** (+ #5 1) 2)) (neg #6)) | on-size-error-phrase
 statement PROBE 1.0.on-size-error-phrase.0 DISPLAY display-operand='SIZE'
-statement PROBE 1.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#2 add-to=keyword:ROUNDED
-statement PROBE 1.2 EVALUATE evaluate-select=#2 evaluate-also-select=keyword:ALSO evaluate-select=TRUE{boolean TRUE} | evaluate-when-phrase=(evaluate-when-phrase (evaluate-when keyword:WHEN 1 (evaluate-also-condition keyword:ALSO (evaluate-condition keyword:ANY))) (evaluate-when keyword:WHEN (evaluate-condition 2 (evaluate-through keyword:THRU 5)) (evaluate-also-condition keyword:ALSO (> #3 0)))) | evaluate-when-other
+statement PROBE 1.1 ADD add-from=1 add-to-statement=keyword:TO add-to=#3 add-to=keyword:ROUNDED
+statement PROBE 1.2 EVALUATE evaluate-select=#3 evaluate-also-select=keyword:ALSO evaluate-select=TRUE{boolean TRUE} | evaluate-when-phrase=(evaluate-when-phrase (evaluate-when keyword:WHEN 1 (evaluate-also-condition keyword:ALSO (evaluate-condition keyword:ANY))) (evaluate-when keyword:WHEN (evaluate-condition 2 (evaluate-through keyword:THRU 5)) (evaluate-also-condition keyword:ALSO (> #4 0)))) | evaluate-when-other
 statement PROBE 1.2.evaluate-when-phrase.0 DISPLAY display-operand='ONE'
 statement PROBE 1.2.evaluate-when-other.0 DISPLAY display-operand='OTHER'
-statement PROBE 1.3 INSPECT inspect-statement=#7 inspect-tallying-phrase=keyword:TALLYING inspect-for=#6 inspect-for=keyword:FOR inspect-all-leadings=keyword:ALL inspect-all-leading='A' inspect-all-leadings=keyword:LEADING inspect-all-leading='B'
-statement PROBE 1.4 STRING string-sending=#7 string-delimited-by-phrase=keyword:DELIMITED string-delimited-by-phrase=keyword:BY string-delimited-by-phrase=keyword:SIZE string-into-phrase=keyword:INTO string-into-phrase=#8
-statement PROBE 1.5 PERFORM perform-procedure-statement=@2..2 perform-test-clause=keyword:WITH perform-test-clause=keyword:TEST perform-test-clause=keyword:AFTER perform-until=keyword:UNTIL perform-until=(AND (> #2 1) (< #2 5))
-statement PROBE 1.6 IF if-statement=(AND (<> #2 #3) (NUMERIC #4)) | if-then | if-else
-statement PROBE 1.6.if-then.0 MOVE move-corresponding-to-statement=keyword:CORRESPONDING move-corresponding-to-sending-area=#16 move-corresponding-to-statement=keyword:TO move-corresponding-to-statement=#19
-statement PROBE 1.6.if-else.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#7
+statement PROBE 1.3 INSPECT inspect-statement=#8 inspect-tallying-phrase=keyword:TALLYING inspect-for=#7 inspect-for=keyword:FOR inspect-all-leadings=keyword:ALL inspect-all-leading='A' inspect-all-leadings=keyword:LEADING inspect-all-leading='B'
+statement PROBE 1.4 STRING string-sending=#8 string-delimited-by-phrase=keyword:DELIMITED string-delimited-by-phrase=keyword:BY string-delimited-by-phrase=keyword:SIZE string-into-phrase=keyword:INTO string-into-phrase=#9
+statement PROBE 1.5 PERFORM perform-procedure-statement=@2..2 perform-test-clause=keyword:WITH perform-test-clause=keyword:TEST perform-test-clause=keyword:AFTER perform-until=keyword:UNTIL perform-until=(AND (> #3 1) (< #3 5))
+statement PROBE 1.6 IF if-statement=(AND (<> #3 #4) (NUMERIC #5)) | if-then | if-else
+statement PROBE 1.6.if-then.0 MOVE move-corresponding-to-statement=keyword:CORRESPONDING move-corresponding-to-sending-area=#19 move-corresponding-to-statement=keyword:TO move-corresponding-to-statement=#22
+statement PROBE 1.6.if-else.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#8
 statement PROBE 1.7 DISPLAY display-operand=X'C1F0'{hex C1F0} display-operand=Z'AB'{null_terminated AB} display-operand=N'NX'{national NX} display-operand="Q""Q" display-operand=+.5 display-operand=-12.250 display-operand=1.5E+3{float 15 -2} display-operand=.25E-2{float 25 4}
 statement PROBE 1.8 STOP stop-statement=keyword:RUN
-statement PROBE 2.0 SUBTRACT subtract-subtrahend=1 subtract-from-statement=keyword:FROM subtract-minuend=#2
+statement PROBE 2.0 SUBTRACT subtract-subtrahend=1 subtract-from-statement=keyword:FROM subtract-minuend=#3
 using PROBE [] 0

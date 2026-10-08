@@ -60,6 +60,7 @@ public record Program(Header header, List<Item> items, List<FileDescriptor> file
             optional.accept(f.recordKey());
             optional.accept(f.relativeKey());
             optional.accept(f.status());
+            optional.accept(f.vsamStatus());
             f.alternateKeys().forEach(k -> item.accept(k.item()));
             f.records().forEach(item);
         }
@@ -69,6 +70,10 @@ public record Program(Header header, List<Item> items, List<FileDescriptor> file
         files.forEach(f -> names.add(f.name()));
         Consumer<Integer> any = item;
         for (Procedure.Paragraph p : procedure.paragraphs()) p.statements().forEach(s -> statement(s, any, names));
+        for (Procedure.Section s : procedure.sections()) {
+            if (s.use() == null) continue;
+            for (String f : s.use().files()) if (!names.contains(f)) throw new Invalid("SIR-05", "declarative " + s.name() + " is USE'd for file " + f + ", not a file of the program");
+        }
         for (Call c : calls) {
             value(c.target(), item);
             c.using().forEach(a -> value(a.value(), item));
