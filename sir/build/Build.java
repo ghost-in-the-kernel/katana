@@ -74,7 +74,7 @@ public final class Build {
         Paragraphs paragraphs = new Paragraphs(parse, values, findings);
         Procedure procedure = unit.procedureDivision() == null
                 ? new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(0, "", "", List.of(), List.of(), Origins.at(parse, unit))), List.of())
-                : paragraphs.build(unit.procedureDivision(), using(unit.procedureDivision(), names), returning(unit.procedureDivision(), names));
+                : paragraphs.build(unit.procedureDivision(), using(parse, unit.procedureDivision(), names), returning(parse, unit.procedureDivision(), names));
         List<Program> nested = new ArrayList<>();
         List<Names> inside = new ArrayList<>(outer);
         inside.add(names);
@@ -171,19 +171,20 @@ public final class Build {
         return l == null ? new Value.Name("unresolved", "CLASS bound") : Values.literal(l);
     }
 
-    private static List<Integer> using(CobolParser.ProcedureDivisionContext pd, Names names) {
+    private static List<Integer> using(Parse.Result parse, CobolParser.ProcedureDivisionContext pd, Names names) {
         List<Integer> using = new ArrayList<>();
         if (pd.procedureDivisionUsingClause() == null) return using;
         for (var p : all(pd.procedureDivisionUsingClause(), CobolParser.DataNameContext.class)) {
-            int item = names.item(Values.upper(p.getText()), List.of(), null, "PROCEDURE DIVISION USING");
+            int item = names.resolve(Values.upper(p.getText()), List.of(), null, Origins.at(parse, p).toString(), "PROCEDURE DIVISION USING");
             if (item != 0) using.add(item);
         }
         return using;
     }
 
-    private static int returning(CobolParser.ProcedureDivisionContext pd, Names names) {
+    private static int returning(Parse.Result parse, CobolParser.ProcedureDivisionContext pd, Names names) {
         var giving = pd.procedureDivisionGivingClause();
-        return giving == null ? 0 : names.item(Values.upper(giving.dataName().getText()), List.of(), null, "PROCEDURE DIVISION RETURNING");
+        if (giving == null) return 0;
+        return names.resolve(Values.upper(giving.dataName().getText()), List.of(), null, Origins.at(parse, giving).toString(), "PROCEDURE DIVISION RETURNING");
     }
 
     /** Every node of a kind under a node, in order. */

@@ -1,5 +1,6 @@
 package katana.sir.build;
 
+import java.util.ArrayList;
 import java.util.List;
 import katana.front.Parse;
 import katana.sir.build.DataMap.Node;
@@ -40,11 +41,38 @@ final class Placement {
         return 0;
     }
 
-    /** The first item of a name (its qualifiers were dropped where it was read). */
-    int named(String name) {
-        for (Node m : nodes) if (m.name.equals(name)) return m.id;
-        findings.add(name + " names no item");
-        return 0;
+    /**
+     * The item a reference names (`NAME OF Q1 OF Q2`, DataMap.ref): an item of that name whose ancestors
+     * include each qualifier in order; none is a finding, never a silent 0, and more than one a finding
+     * too (J-148).
+     */
+    int named(String ref) {
+        List<Node> found = matching(ref, null);
+        if (found.isEmpty()) findings.add(ref + " names no item");
+        if (found.size() > 1) findings.add(ref + " is ambiguous: " + found.size() + " items");
+        return found.isEmpty() ? 0 : found.get(0).id;
+    }
+
+    /** The items a reference can name, in one record when `record` is given; 66s are never named. */
+    private List<Node> matching(String ref, Integer record) {
+        String[] words = ref.split(" OF ");
+        List<Node> found = new ArrayList<>();
+        for (Node m : nodes) {
+            if (!m.name.equals(words[0]) || m.level == 66 || record != null && m.record != record) continue;
+            int parent = m.parent, k = 1;
+            while (k < words.length && parent != 0) {
+                Node p = nodes.get(parent - 1);
+                if (p.name.equals(words[k])) k++;
+                parent = p.parent;
+            }
+            if (k == words.length) found.add(m);
+        }
+        return found;
+    }
+
+    /** A name a clause gives that resolves to nothing: a build finding (J-148). */
+    void unresolved(String what) {
+        findings.add(what);
     }
 
     /** Each record laid out from offset 0; then each 66 over its record. */
@@ -83,10 +111,11 @@ final class Placement {
     }
 
     /** The item of a name in a record, or 0 and a finding. */
-    private int inRecord(String name, int record) {
-        for (Node m : nodes) if (m.record == record && m.level != 66 && m.name.equals(name)) return m.id;
-        findings.add("RENAMES " + name + " names no item of its record");
-        return 0;
+    private int inRecord(String ref, int record) {
+        List<Node> found = matching(ref, record);
+        if (found.isEmpty()) findings.add("RENAMES " + ref + " names no item of its record");
+        if (found.size() > 1) findings.add("RENAMES " + ref + " is ambiguous: " + found.size() + " items of its record");
+        return found.isEmpty() ? 0 : found.get(0).id;
     }
 
     private void renamed(Node n) {

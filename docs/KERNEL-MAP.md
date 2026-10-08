@@ -1089,3 +1089,11 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | sir | `sir/build/Files.java:Files.item` |  | 2026-10-08 |  |
 | sir | `sir/build/Names.java:Names.unresolved` |  | 2026-10-08 |  |
 | lower | `lower/FileVerbs.java:FileVerbs.closer` | R-019 | 2026-10-08 |  |
+| sir | `sir/build/DataMap.java:DataMap.ref` |  | 2026-10-08 |  |
+| sir | `sir/build/DataMap.java:DataMap.first` | kept a qualified name's first word only (J-148) | 2026-10-08 | superseded-by: `sir/build/DataMap.java:DataMap.ref` |
+| sir | `sir/build/Placement.java:Placement.matching` |  | 2026-10-08 |  |
+| sir | `sir/build/Placement.java:Placement.unresolved` |  | 2026-10-08 |  |
+| sir | `sir/build/Names.java:Names.resolve` |  | 2026-10-08 |  |
+| sir | `sir/build/Names.java:Names.unresolved` | folded into resolve (J-148) | 2026-10-08 | superseded-by: `sir/build/Names.java:Names.resolve` |
+| sir | `sir/build/Names.java:Names.item` | split in two by the name sweep (J-148) | 2026-10-08 | superseded-by: `sir/build/Names.java:Names.find` |
+| sir | `sir/build/Names.java:Names.find` |  | 2026-10-08 |  |

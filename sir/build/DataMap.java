@@ -140,8 +140,8 @@ final class DataMap {
             n.occursMin = first;
             n.occursMax = first;
         }
-        if (o.dataOccursDepending() != null) n.dependingName = first(o.dataOccursDepending().qualifiedDataName());
-        for (var sort : o.dataOccursSort()) for (var key : sort.qualifiedDataName()) n.keyNames.add(new String[] {first(key), sort.ASCENDING() != null ? "A" : "D"});
+        if (o.dataOccursDepending() != null) n.dependingName = ref(o.dataOccursDepending().qualifiedDataName());
+        for (var sort : o.dataOccursSort()) for (var key : sort.qualifiedDataName()) n.keyNames.add(new String[] {ref(key), sort.ASCENDING() != null ? "A" : "D"});
         for (var indexed : o.dataOccursIndexed()) for (var name : indexed.indexName()) n.indexNames.add(name.getText().toUpperCase(Locale.ROOT));
     }
 
@@ -172,8 +172,8 @@ final class DataMap {
         n.name = r.dataName().getText().toUpperCase(Locale.ROOT);
         n.section = section;
         n.ctx = r;
-        n.redefinesName = first(r.dataRenamesClause().qualifiedDataName(0));
-        n.dependingName = r.dataRenamesClause().qualifiedDataName().size() > 1 ? first(r.dataRenamesClause().qualifiedDataName(1)) : n.redefinesName;
+        n.redefinesName = ref(r.dataRenamesClause().qualifiedDataName(0));
+        n.dependingName = r.dataRenamesClause().qualifiedDataName().size() > 1 ? ref(r.dataRenamesClause().qualifiedDataName(1)) : n.redefinesName;
         Node record = nodes.get(open.get(0).record - 1);
         n.id = nodes.size() + 1;
         n.parent = record.id;
@@ -204,9 +204,18 @@ final class DataMap {
         return ctx.getStart().getInputStream().getText(Interval.of(ctx.getStart().getStartIndex(), ctx.getStop().getStopIndex())).replaceAll("\\s+", " ").trim();
     }
 
-    /** A qualified name's first word: an ODO object, a key, or what a 66 renames inside its own record. */
-    private static String first(CobolParser.QualifiedDataNameContext q) {
-        return q.getChild(0).getChild(0).getText().toUpperCase(Locale.ROOT);
+    /**
+     * A qualified name as written, `NAME OF Q1 OF Q2` (an ODO object, a key, or what a 66 renames inside its
+     * own record): its qualifiers kept, to resolve it with them (J-148).
+     */
+    private static String ref(CobolParser.QualifiedDataNameContext q) {
+        StringBuilder ref = new StringBuilder(q.getChild(0).getChild(0).getText().toUpperCase(Locale.ROOT));
+        CobolParser.QualifiedDataNameFormat1Context f = q.qualifiedDataNameFormat1();
+        if (f != null) for (var in : f.qualifiedInData()) {
+            String qualifier = in.inData() != null ? in.inData().dataName().getText() : in.inTable().tableCall().qualifiedDataName().getChild(0).getChild(0).getText();
+            ref.append(" OF ").append(qualifier.toUpperCase(Locale.ROOT));
+        }
+        return ref.toString();
     }
 
 }

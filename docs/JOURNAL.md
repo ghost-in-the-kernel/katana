@@ -2029,3 +2029,25 @@ taken; closed by a later `decision` entry naming it).
   method. SQ's 70 other runs: REWRITE (14) and LINAGE (39) not lowered, I-O on a file not open, FILE
   STATUS not yet set by `SeqFile`; the SQ work proper.
 - **Touched:** `lower/Lower`, `lower/FileVerbs`, `docs/LANES.md`, the lane test, the new abend test.
+
+### J-148 The name sweep: every place sir/build turns a name into an item, qualified and never a silent 0
+- **Who:** Opus, on Fable's note (J-146's bug is a class, not a case). **Class:** failure-caught.
+- **Intent:** in the style of J-098, ask of every name-to-item site in sir/build whether `X OF Y`
+  reaches it as two words or one, and whether "not found" is a finding or a 0.
+- **Found:** five sites beyond J-146's FILE STATUS. (1) DataMap kept only a name's first word for ODO
+  DEPENDING ON, OCCURS KEY and RENAMES, then took the first item of that name: `DEPENDING ON N OF G2`
+  resolved to G1's N, silently, a wrong item rather than a 0. (2) PROCEDURE DIVISION USING and
+  RETURNING dropped an unresolved name with no finding. (3) An INDEXED BY name with no index was
+  dropped silently. (4) A qualified name not of the data form became one word: `LINAGE-COUNTER OF
+  LISTING` was the word `LINAGE-COUNTEROFLISTING`, which LINAGE would have read as nothing. (5) A bare
+  data name reaching `Values.of` became an operator with no operands. Sound already: statements'
+  fields and condition names (qualified, a finding when unresolved), procedure names, files (SIR-05).
+  The corpora change nowhere: they hold two qualified OCCURS keys, one qualified RENAMES and no
+  qualified DEPENDING ON or LINAGE-COUNTER, so "no change" there meant untested, not proven.
+- **Resolved:** each site keeps its qualifiers and resolves with them; none and more than one are
+  findings. `NameResolutionTest` holds each case, and each failed on the code before the sweep. The
+  rule left behind is mechanical: `Names.resolve` records a finding when a name names nothing;
+  `Names.find`, which does not, is for `Values` alone (it tries a mnemonic, a GLOBAL item, a CICS name,
+  then ends in a finding), and the test refuses `.find(` anywhere else in sir/build (a `find` put in
+  `Files` by hand fails it).
+- **Touched:** `sir/build` (Build, DataMap, Files, Names, Placement, Tuples, Values), the new test.

@@ -58,6 +58,7 @@ final class Values {
             case CobolParser.FileNameContext f -> file(upper(f.getText()));
             case CobolParser.ConditionNameReferenceContext c -> conditionName(c);
             case CobolParser.IndexNameContext x -> named(x.getText(), List.of(), x);
+            case CobolParser.DataNameContext d -> named(d.getText(), List.of(), d);
             case CobolParser.MnemonicNameContext m -> new Value.Name("mnemonic", upper(m.getText()));
             case CobolParser.AssignmentNameContext a -> new Value.Name("assignment", upper(a.getText()));
             case CobolParser.ArithmeticExpressionContext a -> expressions.arithmetic(a);
@@ -126,12 +127,16 @@ final class Values {
     /** A data name with its qualifiers, to a Field, to a ConditionName when it names an 88, else a Name and a finding. */
     private Value field(CobolParser.QualifiedDataNameContext q, List<Value> subscripts, Value start, Value length) {
         CobolParser.QualifiedDataNameFormat1Context f = q.qualifiedDataNameFormat1();
-        if (f == null) return new Value.Name("word", upper(q.getText()));
+        if (q.qualifiedDataNameFormat4() != null) return new Value.Expression("LINAGE-COUNTER OF", List.of(file(upper(q.qualifiedDataNameFormat4().inFile().fileName().getText()))));
+        if (f == null) {
+            findings.add(upper(q.getText()) + " at " + Origins.at(parse, q) + " names no data item");
+            return new Value.Name("unresolved", upper(q.getText()));
+        }
         String name = upper(f.getChild(0).getText());
         List<String> qualifiers = new ArrayList<>();
         String file = f.inFile() == null ? null : upper(f.inFile().fileName().getText());
-        for (var in : f.qualifiedInData()) qualifiers.add(upper(in.inData() != null ? in.inData().dataName().getText() : in.inTable().tableCall().qualifiedDataName().getText()));
-        int item = names.item(name, qualifiers, file, Origins.at(parse, q).toString());
+        for (var in : f.qualifiedInData()) qualifiers.add(upper(in.inData() != null ? in.inData().dataName().getText() : in.inTable().tableCall().qualifiedDataName().getChild(0).getChild(0).getText()));
+        int item = names.find(name, qualifiers, file, Origins.at(parse, q).toString());
         if (item != 0) return new Value.Field(item, subscripts, start, length);
         int owner = names.condition(name, qualifiers, file);
         if (owner != 0) return new Value.ConditionName(owner, name, subscripts);
@@ -146,10 +151,10 @@ final class Values {
      */
     private Value named(String text, List<String> qualifiers, ParserRuleContext where) {
         String name = upper(text);
-        int item = names.item(name, qualifiers, null, Origins.at(parse, where).toString());
+        int item = names.find(name, qualifiers, null, Origins.at(parse, where).toString());
         if (item != 0) return new Value.Field(item, List.of(), null, null);
         if (mnemonics.contains(name)) return new Value.Name("mnemonic", name);
-        for (Names o : outer) if (o.item(name, qualifiers, null, "") != 0) return new Value.Name("global", name);
+        for (Names o : outer) if (o.find(name, qualifiers, null, "") != 0) return new Value.Name("global", name);
         if (cics && (name.startsWith("EIB") || name.equals("DFHRESP") || name.equals("DFHVALUE"))) return new Value.Name("cics", name);
         findings.add(upper(text) + " at " + Origins.at(parse, where) + " names no item");
         return new Value.Name("unresolved", upper(text));
@@ -165,7 +170,7 @@ final class Values {
         List<Value> subscripts = new ArrayList<>();
         for (var s : c.conditionNameSubscriptReference()) for (var sub : s.subscript()) subscripts.addAll(subscript(sub));
         if (owner != 0) return new Value.ConditionName(owner, name, subscripts);
-        int item = names.item(name, qualifiers, file, Origins.at(parse, c).toString());
+        int item = names.find(name, qualifiers, file, Origins.at(parse, c).toString());
         if (item != 0) return new Value.Field(item, subscripts, null, null);
         if (!c.inMnemonic().isEmpty() || mnemonics.contains(name)) return new Value.Name("switch", name);
         for (Names o : outer) if (o.condition(name, qualifiers, file) != 0) return new Value.Name("global", name);

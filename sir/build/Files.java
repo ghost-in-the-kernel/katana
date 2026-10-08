@@ -56,9 +56,7 @@ final class Files {
         List<String> qualifiers = new ArrayList<>();
         if (f != null) for (var in : f.qualifiedInData()) qualifiers.add(Values.upper(in.inData() != null ? in.inData().dataName().getText() : in.inTable().tableCall().qualifiedDataName().getText()));
         String file = f == null || f.inFile() == null ? null : Values.upper(f.inFile().fileName().getText());
-        int item = names.item(name, qualifiers, file, where);
-        if (item == 0) names.unresolved(name + " at " + where + " names no item");
-        return item;
+        return names.resolve(name, qualifiers, file, where, "SELECT clause");
     }
 
     /**

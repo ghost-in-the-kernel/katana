@@ -48,12 +48,11 @@ final class Tuples {
     private List<Integer> indexes(Node n) {
         List<Integer> ids = new ArrayList<>();
         for (String name : n.indexNames) {
-            for (int i = n.id; i < nodes.size(); i++) {
-                if (nodes.get(i).name.equals(name) && nodes.get(i).usage == Usage.INDEX) {
-                    ids.add(nodes.get(i).id);
-                    break;
-                }
+            int before = ids.size();
+            for (int i = n.id; i < nodes.size() && ids.size() == before; i++) {
+                if (nodes.get(i).name.equals(name) && nodes.get(i).usage == Usage.INDEX) ids.add(nodes.get(i).id);
             }
+            if (ids.size() == before) placement.unresolved("INDEXED BY " + name + " of " + n.name + " names no index");
         }
         return ids;
     }

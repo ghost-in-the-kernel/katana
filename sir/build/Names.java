@@ -22,13 +22,21 @@ final class Names {
         this.findings = findings;
     }
 
-    /** A name a clause gives that resolves to nothing: a build finding. */
-    void unresolved(String what) {
-        findings.add(what);
+    /**
+     * The item a name names, its qualifiers and file given, or a build finding: never a silent 0 (J-148).
+     * `what` says where the name stands, for the finding.
+     */
+    int resolve(String name, List<String> qualifiers, String file, String where, String what) {
+        int item = find(name, qualifiers, file, where);
+        if (item == 0) findings.add(what + " " + name + (qualifiers.isEmpty() ? "" : " OF " + String.join(" OF ", qualifiers)) + " at " + where + " names no item");
+        return item;
     }
 
-    /** The item a qualified name names, or 0. */
-    int item(String name, List<String> qualifiers, String file, String where) {
+    /**
+     * The item a qualified name names, or 0 with no finding: only for a caller that tries what else the
+     * name can be and ends in a finding itself (`Values`); every other caller resolves (NameRulesTest).
+     */
+    int find(String name, List<String> qualifiers, String file, String where) {
         List<Item> found = new ArrayList<>();
         for (Item i : items) if (i.name().equals(name) && qualified(i, qualifiers) && inFile(i, file)) found.add(i);
         if (found.size() > 1) findings.add(name + " at " + where + " is ambiguous: " + found.size() + " items");
