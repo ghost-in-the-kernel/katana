@@ -49,8 +49,9 @@ final class Varying {
     /**
      * The next record into the record area, its length returned, -1 at the end. Only the bytes read are
      * replaced; past a short record the area is kept (p. 426's "undefined", the lane's choice with cobc,
-     * VARTRIAL V3); a longer one is cut to the area. DEPENDING ON takes the length (p. 188).
+     * R-060, a hypothesis); a longer one is cut to the area. DEPENDING ON takes the length (p. 188).
      */
+    // Decision: R-060
     int read(DataInput in, Field area) throws IOException {
         int length;
         try {

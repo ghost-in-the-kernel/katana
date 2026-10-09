@@ -1127,6 +1127,24 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-020, R-058, NE-08
 - **subject:** runtime
 
+### R-060: Past a short variable-length record, the record area keeps what it held
+- **Decision:** a READ of a variable-length record replaces only the bytes of the record read; the
+  rest of the record area keeps what it held before the READ. A longer record is cut to the area.
+- **Why:** IBM leaves it open: "data items stored beyond that range are undefined", and "the portion of
+  the record area which is to the right of the last valid character read is undefined" (LR 6.4 p. 426,
+  research §13). cobc 3.1.2 `-std=ibm` keeps the area (VARTRIAL steps 7 and 8: "BBBBBAAAAA",
+  "CCCBBAAAAA"), and the lane shares that reading so the two lanes agree. A mainframe may leave the
+  area otherwise (QSAM's buffer in locate mode holds what follows the record), and a program that reads
+  past its record would differ there; the reading is a hypothesis, not IBM's.
+- **Claims:** C-1 IBM leaves the area undefined: `verified` (the text). C-2 on a mainframe the area keeps
+  what it held: `hypothesis`; VARTRIAL steps 7 and 8 run under Enterprise COBOL settle it.
+- **Held by:** `rt/Varying.read`; VARTRIAL in the differential tests (`IBM_READINGS`).
+- **Source:** Fable's note on J-164 (2026-10-09): a decision or a hypothesis claim rather than
+  nothing; drafted by Opus.
+- **Status:** in force
+- **See also:** R-019, R-052, R-057
+- **subject:** runtime
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018

@@ -592,6 +592,8 @@ unchanged, R-042):
   the java lane.
 - R-020 C-6 (the cap rows past 30 digits): a mainframe run, which settles C-6 and the ROUNDED `// Unsure`
   together.
+- R-060 C-2 (past a short variable-length record the area keeps what it held): VARTRIAL steps 7 and 8
+  run under Enterprise COBOL, with the IBM-run `// Unsure` lines (Waiting on a run).
 - R-022 C-2 (STD is what most OPT programs mean): a customer's mainframe gold on an OPT program.
 - R-023 C-2 (IEEE close enough for NIST's float tests): NIST's float cases through the java lane.
 - R-024 C-2 (passes as transformations the emitter prints): phase 6's first pass.
@@ -642,7 +644,8 @@ unchanged, R-042):
   different delimiters (`rt/Strings`); a negative value edited to zero (`rt/Editor`); INSPECT with
   BEFORE and AFTER (`rt/Inspect`); a division by zero without SIZE ERROR (`rt/Arithmetic`); ROUNDED's
   place and the cap (`rt/ArithProfile`, R-020 C-2 and C-6); LOW-VALUE under a shared lowest position
-  (`rt/Collation`). The others wait on a source or a fixture, as their lines say.
+  (`rt/Collation`). The others wait on a source or a fixture, as their lines say. The same session
+  takes R-060 C-2: VARTRIAL steps 7 and 8, the record area past a short variable-length record.
 
 - **CI is out of GitHub Actions minutes until 2026-11-02** (R-050). Until then a step's gate is the CI
   image and commands on a fresh clone before the push: `scripts/prepush.sh` (the suites the change

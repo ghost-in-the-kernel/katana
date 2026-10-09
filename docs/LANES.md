@@ -58,6 +58,15 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
 - **LANE-09 NIST runs through a runner, not through cobc.** `ModuleRun` takes an
   `oracle/nist/Runner` (build a called module, build a main program, run it); `Cobc` is one, and the
   java lane's is the other, so phase 3.4 runs NIST through both lanes without a change to `ModuleRun`.
+- **LANE-10 A variable-length record on disk is Katana's own format.** Each record of a sequential
+  file whose records vary (research §13) is written after 4 bytes: its length plus 4, big-endian, in
+  two, then two zero bytes; `rt/Varying` writes and reads it, and nothing else does. It resembles
+  IBM's format-V record descriptor (PG 6.4 p. 171), but it is the java lane's choice, not a claim
+  about IBM's datasets: no program sees it, and no lane compares it, cobc writing its own (J-164).
+- **LANE-11 A LINAGE file's page on disk is cobc's print-line form.** Each record a line of its own,
+  trailing spaces trimmed; ADVANCING n is n - 1 blank lines; a new page is the rest of the page body,
+  the bottom margin and the next top margin as blank lines (`rt/Linage`, J-151): the lane's choice, so
+  a LINAGE report compares line for line with cobc's, not a claim about a printer's.
 
 ## The check
 

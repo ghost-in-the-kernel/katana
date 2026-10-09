@@ -2342,3 +2342,16 @@ taken; closed by a later `decision` entry naming it).
   SQ214A (times out).
 - **Touched:** `rt/katana/rt/Varying.java`, `rt/katana/rt/SeqFile.java`, `lower/FileVerbs.java`,
   `lower/Lower.java`, `docs/DISCOVERIES.md`, research §13, the tests.
+
+### J-165 Fable's two notes on J-164: the lane's formats as LANE lines, the undefined area as R-060
+- **Who:** Opus, on Fable's notes (2026-10-09). **Class:** decision.
+- **Intent:** the on-disk forms the java lane chose stated as its own, and the reading of an area IBM
+  leaves undefined recorded rather than left in the code.
+- **Resolved:** LANE-10, a variable-length record after 4 bytes of length, Katana's format and not a
+  claim about IBM's record descriptor; LANE-11, LINAGE's print-line form (J-151), which had no line.
+  R-060: past a short variable-length record the record area keeps what it held, C-1 IBM leaves it
+  undefined (`verified`, LR p. 426), C-2 a mainframe keeps it (`hypothesis`, VARTRIAL steps 7 and 8
+  under Enterprise COBOL, in HANDOFF's Trials and with the IBM-run doubts); `rt/Varying.read` cites
+  it. Also said in answer: tithe pass 3a was paid before the feature (2451562 to 0dd8d19), its gate
+  first among them, and passed this push at two non-tithe commits.
+- **Touched:** `docs/LANES.md`, `theGhost.md`, `docs/HANDOFF.md`, `rt/katana/rt/Varying.java`.
