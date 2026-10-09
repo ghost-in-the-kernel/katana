@@ -109,6 +109,26 @@ class FixtureTest {
         assertThrows(IllegalArgumentException.class, () -> Content.records("ABC".getBytes(StandardCharsets.US_ASCII), "fixed", 2, null));
     }
 
+    /**
+     * One changed byte changes the records' hash under every framing, a KSDS's included: the killer
+     * mutation for FixtureSourcesIntegrationTest (a source changed under a kept sha256=) and for the
+     * CardDemo lane's dataset lines (R-056, tithe 3a.7).
+     */
+    @Test
+    void oneChangedByteChangesTheRecordsHash() {
+        byte[] source = "B2xx\nA1zz\nC3yy\n".getBytes(StandardCharsets.US_ASCII);
+        for (int i = 0; i < source.length; i++) {
+            if (source[i] == '\n') continue;
+            byte[] changed = source.clone();
+            changed[i] = (byte) (changed[i] ^ 0x01);
+            for (String keys : new String[] {null, "2,0"}) {
+                assertNotEquals(Content.sha256(Content.records(source, "lines", 4, keys)), Content.sha256(Content.records(changed, "lines", 4, keys)), "byte " + i + " keys " + keys);
+            }
+            byte[] fixed = java.util.Arrays.copyOf(changed, 12), kept = java.util.Arrays.copyOf(source, 12);
+            if (i < 12) assertNotEquals(Content.sha256(Content.records(kept, "fixed", 4, null)), Content.sha256(Content.records(fixed, "fixed", 4, null)), "fixed byte " + i);
+        }
+    }
+
     private static void assertRefused(String text, String expected) {
         List<String> refusals = refusals(text);
         assertTrue(refusals.stream().anyMatch(r -> r.contains(expected)), "expected a refusal containing '" + expected + "', got " + refusals);

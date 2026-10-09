@@ -2267,3 +2267,23 @@ taken; closed by a later `decision` entry naming it).
   .linageNamesAreQualified` failed before (item 3, not 5). No golden moved.
 - **Touched:** `front/grammar/Cobol.g4`, `sir/build/Files.java`, `test/katana/lower/JavaRunner.java`,
   `test/katana/sir/NameResolutionTest.java`.
+
+### J-161 Tithe 3a.7: R-056's six checks without a failing case, each closed
+- **Who:** Opus, on Fable's list. **Class:** decision (tithe).
+- **Intent:** item 7: the six checks `docs/checks.json` listed with "no test shows it failing", closed
+  or recorded why not.
+- **Found:** four of the six already had their killer in the fast loop and no entry naming it:
+  ParseTest's malformed programs (the over-accepting parser FrontCorpus's ratchet cannot see),
+  CompareTest's changed field (Proof's comparisons), PopulationTest's refused member and the literal
+  counts (Exec85). Two needed one: nothing showed the Java lane's per-run verdict refusing a
+  differing run, and nothing showed a changed byte changing a records hash, which both
+  FixtureSources and the CardDemo lane's dataset lines rest on.
+- **Resolved:** `LaneVerdictTest` (a differing report, a run that ended in an exception, an abnormal
+  ending for another reason are never the same; so a lowering that broke every program counts 0,
+  below both floors) and `FixtureTest.oneChangedByteChangesTheRecordsHash` (every byte, each framing,
+  a KSDS's included). Each of the six entries names its mutation; Proof's report shape stays a self
+  golden and says so. LinageIntegrationTest's and AbendIntegrationTest's mutations stay hand-run
+  (J-147, J-151), as their entries say: each needs the lowering changed, which no test method does.
+- **Touched:** `docs/checks.json`, `test/katana/lower/LaneVerdictTest.java`,
+  `test/katana/lower/NistJavaLaneIntegrationTest.java` (two methods package-private),
+  `test/katana/oracle/fixture/FixtureTest.java`.

@@ -89,7 +89,7 @@ class NistJavaLaneIntegrationTest {
     }
 
     /** A run as the cobc lane's golden writes it: a run with no report is `0 0 0 0 0` (ModuleRunIntegrationTest). */
-    private static String rendered(ModuleRun.Outcome o) {
+    static String rendered(ModuleRun.Outcome o) {
         return "1 " + (o.error() == null ? "ok" : "error") + " " + o.counts().map(c -> c.total() + " " + c.pass() + " " + c.fail() + " " + c.deleted() + " " + c.inspect()).orElse("0 0 0 0 0");
     }
 
@@ -99,7 +99,7 @@ class NistJavaLaneIntegrationTest {
      * same report (its counts, as the files were closed at the end), never by the exit status, which only
      * IBM's abend code fills.
      */
-    private static boolean same(ModuleRun.Outcome o, String java, String golden) {
+    static boolean same(ModuleRun.Outcome o, String java, String golden) {
         if (o.error() != null) return false;
         if (!o.abnormal()) return java.equals(golden);
         if (o.reason() == null || !golden.contains(" exit=")) return false;
