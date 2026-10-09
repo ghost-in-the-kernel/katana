@@ -570,3 +570,27 @@ declarative of its own. Each step then shows its file's status. Values under (a)
 Under S1(b), step 6 is 10 or AE and no D2. Under S2(b), step 14 shows DI before 42. Under S3(b), step 3
 shows AE and 10, no DI. Step 3 under (a): a READ attempted after at end is error 46, not an at-end
 condition, so the AT END phrase does not run and the INPUT declarative does.
+
+**REWRITE on a sequential file (read 2026-10-09, LR 6.4 pp. 300-302, 411, 432-433).** "When the
+REWRITE statement is executed, the associated direct-access file must be open in I-O mode"; "For files
+in the sequential access mode, the last prior input/output statement executed for this file must be a
+successfully executed READ statement. When the REWRITE statement is executed, the record retrieved by
+that READ statement is logically replaced." "The number of character positions in record-name-1 must
+equal the number of character positions in the record being replaced." "The file position indicator is
+not affected by execution of the REWRITE statement." Table 49 (p. 411): REWRITE only in I-O open mode.
+Table 34: 43 "the last input-output statement executed for the associated file prior to the execution
+of a REWRITE statement was not a successfully executed READ statement"; 44 a record not the size of
+the one replaced; 49 "a DELETE or REWRITE statement was attempted on a file not open in the I-O mode";
+05 for OPEN I-O of an absent OPTIONAL file, which "had been created".
+
+Rivals, named before the run: W1, a second REWRITE after one READ: (a) 43, its last prior statement
+being a REWRITE; (b) allowed. W2, a REWRITE after a READ at end (10): (a) 43, status 10 not being a
+successful READ; (b) the last record replaced. W3, the READ after a REWRITE: (a) the next record, the
+position untouched; (b) the rewritten one again.
+
+The trial, REWTRIAL: a file of three 2-character records R1, R2, R3, then OPEN I-O and, showing the
+status (and the record, after a READ): 1 REWRITE "X0" with no READ: 43; 2 READ: 00 R1; 3 REWRITE "N1":
+00; 4 REWRITE "M1": 43; 5 READ: 00 R2; 6 READ: 00 R3; 7 READ: 10; 8 REWRITE "N3": 43; 9 CLOSE: 00; then
+OPEN INPUT and the three records read back: N1, R2, R3; 10 a READ and a REWRITE on the INPUT file: 00
+then 49. Under W1(b): step 4 is 00 and the first record reads back M1. Under W2(b): step 8 is 00 and
+the third reads back N3. Under W3(b): step 5 shows N1 (and 6 R2, 7 R3).
