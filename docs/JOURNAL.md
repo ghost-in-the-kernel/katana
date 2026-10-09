@@ -2297,3 +2297,22 @@ taken; closed by a later `decision` entry naming it).
   the fourth way where no one looked, since J-154's own note says R-056's one unreached verdict was
   the one about its own discipline. No code changed.
 - **Touched:** `docs/GHOST-IN-THE-KERNEL.md`.
+
+### J-163 Tithe 3a.9: the metrics re-measured; the fast loop was 35 s, now 22
+- **Who:** Opus, on Fable's list. **Class:** failure-caught; decision (tithe).
+- **Intent:** item 9: `docs/AGENT.md` re-measured at the close (`gradle metrics --args=--time`), any
+  metric the pass moved ratcheted.
+- **Found:** every held metric within its target (largest file 327, TokenCoverage, since SeqFile's
+  split; docs ratio 0.26; no function over 20 paths). The fast loop was not: 35 s warm against
+  "under 20", 14 at pass 2, and nothing said so, because the fast loop is reported, not held, and
+  was last measured at pass 2. Its classes' own time was 27 s, two thirds of it the IR, roles and
+  token goldens, each parsing and building the same thirteen golden programs (roles twice).
+- **Resolved:** `GoldenPrograms` builds each once per run, shared by the three (read only); the
+  classes' time 27 s to 14, the loop 22 s warm, 31 cold. Still over by 2 s: the three ways under
+  20 are Fable's or Ghost's (HANDOFF), and the table records 22 with the reason. The table gains a
+  "Pass 2" column. The pre-push check over every suite is 10.5 min (3.5 at pass 2; three suites
+  added since), also over its target, also recorded and put to Fable. No golden moved.
+- **Note:** a metric that is reported and not held was not measured between passes, and it doubled.
+  It is the fifth way of J-162 at a smaller scale: the number existed, no verdict read it.
+- **Touched:** `docs/AGENT.md`, `docs/HANDOFF.md`, `test/katana/sir/GoldenPrograms.java`, the three
+  golden tests.

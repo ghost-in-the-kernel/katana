@@ -6,8 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import katana.front.Copybooks;
-import katana.front.Parse;
 import katana.sir.build.Build;
 import katana.sir.contract.Contract;
 import org.junit.jupiter.api.Test;
@@ -21,15 +19,14 @@ import org.junit.jupiter.api.Test;
 class IrGoldenTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final Path GOLDEN = ROOT.resolve("sir/golden");
-    private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
     static final List<String> NIST = List.of("DB204A", "IC237A", "IF142A", "IX111A", "NC127A", "OBIC3A", "RL101A", "RW102A", "SG202A", "SM106A", "SQ210M", "ST104A");
 
     /** A program's contract under the ibm profile. */
     static List<String> contract(Path program, Path copybooks) {
-        Parse.Result parse = Parse.file(program, new Copybooks(List.of(copybooks), n -> 8), 8);
-        if (!parse.clean()) throw new IllegalStateException(program + ": " + parse.errors().get(0));
+        GoldenPrograms.Built built = GoldenPrograms.of(program, copybooks);
+        if (!built.parse().clean()) throw new IllegalStateException(program + ": " + built.parse().errors().get(0));
         List<String> lines = new ArrayList<>();
-        for (Build.Result r : Build.programs(parse, HASH)) lines.addAll(Contract.lines(r.program()));
+        for (Build.Result r : built.results()) lines.addAll(Contract.lines(r.program()));
         return lines;
     }
 

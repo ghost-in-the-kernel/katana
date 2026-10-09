@@ -17,6 +17,18 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
 (R-056's first trial worded into its Claims 2026-10-05: C-3 refuted as stated and restated as
 "independence is declared, not detected"; the path rule is a prompt, not a refusal; C-2 stands)
 
+- **The fast loop is over AGT-02 (tithe 3a.9, J-163).** Re-measured warm at 35 s against "under 20"
+  (14 at pass 2): the IR, roles and token goldens each parsed the same thirteen programs. Built once
+  per run (`test/katana/sir/GoldenPrograms`), it is 22 s; cold 31 (target 30, unarmed). What is left:
+  the compile `--rerun-tasks` forces (about 8 s), the thirteen programs' one parse (4.8 s), the
+  metrics doc test (3.6 s). Three ways under 20, each yours or Ghost's: JUnit's parallel execution in
+  the fast loop (four cores; the tests share no files but the goldens they write under
+  `-Dkatana.record`), the three goldens to the pre-push quick suite, or the target restated. Default
+  taken: none of them; the metric is recorded at 22 and not raised (AGENT.md says past its target
+  it may not get worse than recorded, and the fast loop is reported, not held by the test). The
+  pre-push check over every suite is 10.5 min against "under 3" (3.5 at pass 2), the rt, autotest
+  and javalane suites added since; a push runs only the suites its files select (5 to 10 min on this
+  pass), so `--all` is paid at a boundary. Same default: recorded, not raised, yours to set.
 - **The intermediate-results trial (J-097), against the defaults you set.** Run under cobc `-std=ibm`,
   operands as data items. Truncation: held (1.98, not 2.01). ROUNDED's place in dmax: refuted (1.8,
   not 2.0), so `ArithProfile.dmax` adds no place, with an `// Unsure` that IBM's own "might be
@@ -192,7 +204,7 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   report should carry them as "valid under hypothesis" (R-049's mechanism), clearable all at once by
   one mainframe run, and not in the same voice as NE-01 to NE-06.)
 
-## For Opus: tithe pass 3a, before the next feature (R-008 amended, 2026-10-09)
+## For Opus: tithe pass 3a, before the next feature (R-008 amended, 2026-10-09) (done: J-155 to J-163)
 
 Nine tithe commits are owed. Each changes no behaviour (P-02: no golden moves), is titled "Tithe",
 and lands through the gate like any step (R-040). In this order; stop when the counter is paid and

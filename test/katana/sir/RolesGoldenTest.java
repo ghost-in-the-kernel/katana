@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import katana.front.Copybooks;
-import katana.front.Parse;
 import katana.sir.build.Build;
 import katana.sir.build.Roles;
 import katana.sir.types.Procedure;
@@ -102,10 +100,7 @@ class RolesGoldenTest {
         List<Path> sources = new ArrayList<>(List.of(golden.resolve("PROBE.cbl")));
         for (String p : IrGoldenTest.NIST) sources.add(golden.resolve(p + ".cbl"));
         List<Program> out = new ArrayList<>();
-        for (Path source : sources) {
-            Parse.Result parse = Parse.file(source, new Copybooks(List.of(golden), n -> 8), 8);
-            for (Build.Result r : Build.programs(parse, "sha256:" + "0".repeat(64))) out.add(r.program());
-        }
+        for (Path source : sources) for (Build.Result r : GoldenPrograms.of(source, golden).results()) out.add(r.program());
         return out;
     }
 

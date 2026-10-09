@@ -31,17 +31,17 @@ code at its value there (R-042, R-054); until then it is "not armed" and not com
 Measured by `gradle metrics --args=--time` in the image at every tithe pass; the fast loop (warm, and
 cold beside it) and the skipped tests are measured after a run, so the test does not hold them.
 
-| Metric | Phase 0 target | Measured (tithe pass 2, 2026-10-05) | Why it matters to the agent | Pass 2a | Pass 1 | Pass 0 |
-| --- | --- | --- | --- | --- | --- | --- |
-| Mandatory context (words) | < 1,500 | 804 | every task pays it | 795 | 872 | 636 |
-| Fast loop (s) | < 20 | 14 (warm: R-054; 121 tests, the IR goldens built in it) | the agent runs it after every edit | 11 | 9 | 12 |
-| Fast loop, cold (s) | < 30 | 22 (reported, not held: R-054) | a fresh session pays it once | 20 | 24 | — |
-| Pre-push check, every suite (min) | < 3 | 3.5 (A3's literal oracle took it to 4.1, one corpus pass for two checks back; sir 2.1, sir and the quick NIST 3.0, docs 0.4) | paid before every push while CI has no minutes (R-050) | 3.4 | — | — |
-| Largest source file (lines) | < 400 | 258 (sir/build/Paragraphs.java; DataMap split, C3) | fits a read without paging | 344 | 241 | 179 |
-| Files a routing row opens | ≤ 5 | 4 | first five reads decide the task | 4 | 4 | 4 |
-| Functions over 20 paths | 0 new | 0 | branching is where agents misread | 0 | 0 | 0 |
-| Duplicate helpers (same body, two names) | 0 | 0 (and one zoned decoder, one PICTURE expander: B1) | the agent edits one and misses the other | 0 | 0 | 0 |
-| Decisions without `See also` | 0 | 0 (and none held by a test that does not exist: C4) | grep misses what links find (T-18) | 0 | 0 | 0 |
-| Docs lines per source line | < 0.35 | 0.32 | Suite Builder reached 0.37 and it hurt | 0.33 | 0.45 | 1.13 |
-| Stale generated artifacts | 0 | 0 | detected by test | 0 | 0 | 0 |
-| Skipped tests reported on the fast loop | 0 | 0 | a real skip hides among 119 (T-15) | 0 | 0 | 0 |
+| Metric | Phase 0 target | Measured (tithe pass 3a, 2026-10-09) | Why it matters to the agent | Pass 2 | Pass 2a | Pass 1 | Pass 0 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Mandatory context (words) | < 1,500 | 804 | every task pays it | 804 | 795 | 872 | 636 |
+| Fast loop (s) | < 20 | 22 (warm: R-054; 35 at the start of the pass, 22 once the golden programs are built once per run, 3a.9; over its target, HANDOFF) | the agent runs it after every edit | 14 | 11 | 9 | 12 |
+| Fast loop, cold (s) | < 30 | 31 (reported, not held: R-054) | a fresh session pays it once | 22 | 20 | 24 | — |
+| Pre-push check, every suite (min) | < 3 | 10.5 (every suite on a fresh clone, 631 s at f2d0895: nist, fixture, lane, front, sir, autotest, rt, javalane; the rt, autotest and javalane suites came after pass 2; over its target, HANDOFF) | paid before every push while CI has no minutes (R-050) | 3.5 | 3.4 | — | — |
+| Largest source file (lines) | < 400 | 327 (test/katana/sir/TokenCoverage.java; rt/SeqFile split at 343, 3a.5) | fits a read without paging | 258 | 344 | 241 | 179 |
+| Files a routing row opens | ≤ 5 | 4 | first five reads decide the task | 4 | 4 | 4 | 4 |
+| Functions over 20 paths | 0 new | 0 | branching is where agents misread | 0 | 0 | 0 | 0 |
+| Duplicate helpers (same body, two names) | 0 | 0 | the agent edits one and misses the other | 0 | 0 | 0 | 0 |
+| Decisions without `See also` | 0 | 0 | grep misses what links find (T-18) | 0 | 0 | 0 | 0 |
+| Docs lines per source line | < 0.35 | 0.26 | Suite Builder reached 0.37 and it hurt | 0.32 | 0.33 | 0.45 | 1.13 |
+| Stale generated artifacts | 0 | 0 | detected by test | 0 | 0 | 0 | 0 |
+| Skipped tests reported on the fast loop | 0 | 0 | a real skip hides among 119 (T-15) | 0 | 0 | 0 | 0 |
