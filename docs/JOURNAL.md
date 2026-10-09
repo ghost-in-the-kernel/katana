@@ -2234,3 +2234,17 @@ taken; closed by a later `decision` entry naming it).
   `// Unsure:` line without it, with its failing case; HANDOFF's "Waiting on a run" lists the fourteen
   an IBM session would take together. No code changed, no golden.
 - **Touched:** the twenty source lines, `test/WayBackTest.java`, `docs/HANDOFF.md`.
+
+### J-159 Tithe 3a.5: `rt/SeqFile` split, the LINAGE page into `rt/Linage`
+- **Who:** Opus, on Fable's list. **Class:** decision (tithe).
+- **Intent:** item 5: `rt/SeqFile` split before it reaches 400 lines, by mode or by verb, with no golden
+  moving.
+- **Found:** 343 lines. The seam that leaves each side whole is the LINAGE WRITE (J-149 to J-151): the
+  page values, the counter, the blank lines and the trimmed line touch nothing of the status but the
+  WRITE's own check. A split by mode would have cut OPEN, CLOSE and the status across two files.
+- **Resolved:** `rt/Linage`, package-private (94 lines), holds the counter, the page values read at
+  OPEN and at each new page, and the WRITE on a page (R-019's `// Decision` moved with it);
+  `SeqFile` (276 lines) keeps its public `linage`, `counter` and `page`, now one line each, so the
+  lowering and every golden are unchanged. Four kernel-map rows superseded. LinageIntegrationTest and
+  AbendIntegrationTest pass unchanged.
+- **Touched:** `rt/katana/rt/SeqFile.java`, `rt/katana/rt/Linage.java`, `docs/KERNEL-MAP.md`.

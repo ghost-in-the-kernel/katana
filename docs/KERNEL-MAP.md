@@ -1136,3 +1136,15 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.close#2` |  | 2026-10-09 |  |
 | lower | `lower/FileVerbs.java:FileVerbs.rewrite` |  | 2026-10-09 |  |
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.rewrite` | R-019 | 2026-10-09 |  |
+| rt | `rt/katana/rt/Linage.java:Linage.Linage` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Linage.java:Linage.counter` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Linage.java:Linage.open` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Linage.java:Linage.write` | R-019 | 2026-10-09 |  |
+| rt | `rt/katana/rt/Linage.java:Linage.page` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Linage.java:Linage.count` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Linage.java:Linage.blank` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Linage.java:Linage.line` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.page#2` | moved to Linage by the split (tithe 3a.5, J-159) | 2026-10-09 | superseded-by: `rt/katana/rt/Linage.java:Linage.page` |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.count` | moved to Linage by the split (tithe 3a.5, J-159) | 2026-10-09 | superseded-by: `rt/katana/rt/Linage.java:Linage.count` |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.blank` | moved to Linage by the split (tithe 3a.5, J-159) | 2026-10-09 | superseded-by: `rt/katana/rt/Linage.java:Linage.blank` |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.line` | moved to Linage by the split (tithe 3a.5, J-159) | 2026-10-09 | superseded-by: `rt/katana/rt/Linage.java:Linage.line` |
