@@ -14,6 +14,7 @@ import katana.sir.types.Program;
 final class Values {
     private Values() {}
 
+    /** An item's initial value: its VALUE (placed as written in an edited item), else zero for a numeric elementary item, nothing for text or a group (R-057). */
     // Decision: R-057
     static void initial(Emitter e, Program p, Item i, Exprs x) {
         if (governed(p, i)) return;

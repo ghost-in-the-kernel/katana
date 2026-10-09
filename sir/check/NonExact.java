@@ -31,6 +31,7 @@ public final class NonExact {
         return out;
     }
 
+    /** Each place a program's meaning is not exact under its profile, as an NE- finding (binary under TRUNC(OPT), overlapping operands, and the other NE kinds). */
     private static void check(Program p, Profile profile, List<Finding> out) {
         String in = p.header().program() + ": ";
         boolean opt = "OPT".equals(profile.ibm().get("ibm.trunc"));

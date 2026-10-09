@@ -17,6 +17,7 @@ public final class Accept {
         from(into, conceptual, LocalDateTime.now());
     }
 
+    /** ACCEPT FROM DATE, DAY, DAY-OF-WEEK or TIME: the digits each form gives, at the moment given, into the receiver. */
     // Decision: R-019
     static void from(Field into, String conceptual, LocalDateTime now) {
         String digits = switch (conceptual) {

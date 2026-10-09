@@ -23,6 +23,7 @@ public final class Classes {
         return true;
     }
 
+    /** Whether a zoned item's bytes are NUMERIC: digits, and a sign where its SIGN clause puts it, separate or overpunched. */
     private static boolean zoned(Attr a, byte[] b, Codepage cp) {
         if (!a.signed()) return allDigits(b, 0, b.length, cp);
         if (a.signSeparate()) {
@@ -36,6 +37,7 @@ public final class Classes {
         return signOk && allDigits(b, a.signLeading() ? 1 : 0, a.signLeading() ? b.length : b.length - 1, cp);
     }
 
+    /** Whether a packed item's bytes are NUMERIC: a digit in every nibble but the last, and a sign nibble its usage allows. */
     private static boolean packed(Attr a, byte[] b) {
         for (int k = 0; k < b.length; k++) {
             int hi = (b[k] >> 4) & 0xF, lo = b[k] & 0xF;

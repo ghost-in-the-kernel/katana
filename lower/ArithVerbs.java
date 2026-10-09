@@ -98,6 +98,7 @@ final class ArithVerbs {
         return "Decimal." + name + "(P, " + a + ", " + b + ", " + dmax + ", true, " + rounded + ")";
     }
 
+    /** ADD: CORRESPONDING by its pairs; TO with the sending sum taken once before any receiver (R-059); GIVING computed once into every receiver. */
     private void add(Statement s, boolean phrase) {
         List<Value> from = Verbs.operands(s, "add-from");
         List<Receiver> to = receivers(s, "add-to"), giving = receivers(s, "add-giving");

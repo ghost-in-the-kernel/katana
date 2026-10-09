@@ -105,6 +105,7 @@ final class Expressions {
         return relation(s.relationCondition());
     }
 
+    /** A relation condition into the IR: a sign condition, a class condition, or a comparison whose operator is written as its symbol. */
     private Value relation(CobolParser.RelationConditionContext r) {
         if (r.relationSignCondition() != null) {
             var s = r.relationSignCondition();

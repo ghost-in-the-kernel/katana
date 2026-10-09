@@ -41,6 +41,7 @@ public record Field(Record record, int offset, Attr attr) {
         return offset + (attr.signed() && attr.signSeparate() && attr.signLeading() ? 1 : 0);
     }
 
+    /** A zoned item's value: its digits, signed by the separate sign byte or the overpunched digit, as its SIGN clause places them. */
     private BigInteger zonedGet(byte[] b) {
         Codepage cp = record.codepage();
         int at = digitsAt();
@@ -52,6 +53,7 @@ public record Field(Record record, int offset, Attr attr) {
         return negative ? v.negate() : v;
     }
 
+    /** A value stored as zoned digits, its sign separate or overpunched on the leading or trailing digit, as the item's SIGN clause says. */
     private void zonedPut(BigInteger unscaled) {
         Codepage cp = record.codepage();
         byte[] b = record.bytes();

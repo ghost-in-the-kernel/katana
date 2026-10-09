@@ -21,6 +21,7 @@ public final class Lower {
     /** Items are set up in methods of this many, so no method passes the JVM's size limit. */
     static final int CHUNK = 150;
 
+    /** A program as one Java class through the one emitter (R-024): its records and fields, the constructor that builds and initializes them, main, and its procedure. */
     // Decision: R-024
     public static Result java(Program p, String className) {
         Emitter e = new Emitter();

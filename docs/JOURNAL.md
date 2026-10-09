@@ -2210,3 +2210,13 @@ taken; closed by a later `decision` entry naming it).
   the three rows name `rt/Display`; HANDOFF's Trials lists the seventeen trials as their claims name
   them (the claims unchanged, R-042), and for R-057 C-2's NORENT part proposes one, marked as Opus's.
 - **Touched:** `test/WayBackTest.java`, `test/DocTests.java`, `docs/DISCOVERIES.md`, `docs/HANDOFF.md`.
+
+### J-157 Tithe 3a.3: the 28 branchy shipped functions say what they decide
+- **Who:** Opus, on Fable's list. **Class:** decision (tithe).
+- **Intent:** item 3: each function of `lower/`, `rt/` and `sir/` the metrics name as over 15 lines or 6
+  paths with no comment gets one line saying what it decides and what it stands on.
+- **Found:** 28, not 27: `FileDescriptor.Linage`'s checks were added (J-150) after the count. The
+  warning list also names 61 test functions; they are not the item and are left, counted here.
+- **Resolved:** a one-line javadoc above each (and above its `// Decision:` line), the decision or IBM
+  page cited only where read (LR 6.4 p. 123 for the collating sequence); no code changed, no golden.
+  The warnings now list no function of a shipped module.

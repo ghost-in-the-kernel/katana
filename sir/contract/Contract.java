@@ -97,6 +97,7 @@ public final class Contract {
                 + o.keys().stream().map(k -> k.item() + (k.ascending() ? "A" : "D")).toList() + " indexed " + o.indexedBy();
     }
 
+    /** An FD's contract line (SIR-11): FD or SD, EXTERNAL, GLOBAL, the RECORD clause, LINAGE's four values, CODE-SET and RECORDING MODE, each only as written. */
     private static String fd(FileDescriptor f) {
         FileDescriptor.Fd d = f.fd();
         StringBuilder line = new StringBuilder(f.name() + (d.sort() ? " SD" : " FD"));

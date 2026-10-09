@@ -26,6 +26,7 @@ final class Verbs {
         this.search = new Search(f);
     }
 
+    /** Each statement to its verb's lowering; a verb not lowered is a finding, and stops the program where it runs. */
     // Decision: R-021
     void statement(Statement s) {
         switch (s.verb()) {
@@ -166,6 +167,7 @@ final class Verbs {
         return String.valueOf(target);
     }
 
+    /** Whether a statement or one in its branches ALTERs a paragraph's GO TO, so that GO TO is read from the dispatcher's table (R-021). */
     private static boolean alters(Statement s, int paragraph) {
         if (s.verb().equals("ALTER")) {
             List<Value> targets = operands(s, "alter-statement", "alter-proceed-to");

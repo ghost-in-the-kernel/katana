@@ -15,6 +15,7 @@ import katana.sir.types.Value;
 final class Initialize {
     private Initialize() {}
 
+    /** INITIALIZE: each elementary item set to its category's value, or REPLACING's; a REPLACING category not lowered stops the program where it runs. */
     // Decision: R-019
     static void statement(Flow f, Statement s) {
         java.util.Map<Attributes.Category, Value> replacing = replacing(s);

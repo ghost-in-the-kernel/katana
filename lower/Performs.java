@@ -39,6 +39,7 @@ final class Performs {
         return l;
     }
 
+    /** A PERFORM's IR read into a Loop: TIMES, UNTIL, TEST AFTER, and each VARYING phrase's identifier, FROM, BY and UNTIL. */
     private static void node(Loop l, String role, Value v) {
         if (v instanceof Value.Expression e && e.operator().startsWith("perform-")) {
             if (e.operator().equals("perform-varying-phrase")) l.current = null;

@@ -74,6 +74,7 @@ final class Values {
         return new Value.Name("global file", name);
     }
 
+    /** An identifier into the IR: a table reference, a FUNCTION call with its arguments, a special register, or a qualified name. */
     private Value identifier(CobolParser.IdentifierContext i) {
         if (i.tableCall() != null) return table(i.tableCall());
         if (i.functionCall() != null) {

@@ -35,6 +35,7 @@ final class TextVerbs {
         Value subject, by;
     }
 
+    /** INSPECT over the item's bytes: TALLYING, REPLACING and CONVERTING, each phrase with its BEFORE and AFTER delimiters (rt/Inspect). */
     // Decision: R-019
     void inspect(Statement s) {
         Value target = Verbs.operand(s, "inspect-statement");
@@ -72,6 +73,7 @@ final class TextVerbs {
             this.replacing = replacing;
         }
 
+        /** One INSPECT operand in order: REPLACING turns to replacing phrases, ALL/LEADING/FIRST set the kind, CHARACTERS is a phrase of its own, BEFORE/AFTER the delimiter. */
         void take(Statement.Operand o) {
             Value v = o.value();
             if (isKeyword(v, "REPLACING")) replace = true;
@@ -81,6 +83,7 @@ final class TextVerbs {
             else if (!(v instanceof Value.Name)) value(o.role(), v);
         }
 
+        /** An INSPECT value by its role: the tally counter, a BY replacement, a BEFORE or AFTER delimiter, or the pattern. */
         private void value(String role, Value v) {
             switch (role) {
                 case "inspect-for" -> counter = f.x.field((Value.Field) v);
@@ -138,6 +141,7 @@ final class TextVerbs {
         return pattern != null ? pattern : "Literal.bytes(" + f.x.sending(v) + ")";
     }
 
+    /** STRING: each sender with the delimiter after it (SIZE for none), into the receiver from its POINTER, ON OVERFLOW as rt/Strings reports it. */
     // Decision: R-019
     void string(Statement s) {
         List<String> senders = new ArrayList<>(), pending = new ArrayList<>();
@@ -166,6 +170,7 @@ final class TextVerbs {
         if (!on.isEmpty() || !not.isEmpty()) f.branch("ov", on, not);
     }
 
+    /** UNSTRING: its delimiters (ALL takes a run as one), each receiver with DELIMITER IN and COUNT IN, POINTER, TALLYING and ON OVERFLOW (rt/Strings). */
     // Decision: R-019
     void unstring(Statement s) {
         List<String> delimiters = new ArrayList<>(), receivers = new ArrayList<>(), counts = new ArrayList<>();

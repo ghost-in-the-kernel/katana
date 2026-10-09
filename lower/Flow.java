@@ -37,6 +37,7 @@ final class Flow {
         this.verbs = new Verbs(this);
     }
 
+    /** The control flow (R-021): run() from the first paragraph after the declaratives, a stretch method per label, and the step switch over them all. */
     // Decision: R-021
     void procedure() {
         e.line("private static final ArithProfile P = ArithProfile.IBM_COMPAT;");

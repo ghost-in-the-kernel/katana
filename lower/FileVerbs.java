@@ -38,6 +38,7 @@ final class FileVerbs {
         e.close();
     }
 
+    /** OPEN: each file in the mode written before it, NO REWIND kept (07), the status handled after each file (J-152). */
     // Decision: R-019
     void open(Statement s) {
         String mode = "OUTPUT";

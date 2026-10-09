@@ -45,6 +45,7 @@ final class Tuples {
         return keys;
     }
 
+    /** An OCCURS's INDEXED BY names to the index items declared with it; a name with none is a finding (J-148). */
     private List<Integer> indexes(Node n) {
         List<Integer> ids = new ArrayList<>();
         for (String name : n.indexNames) {

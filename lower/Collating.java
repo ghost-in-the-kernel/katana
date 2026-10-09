@@ -15,6 +15,7 @@ import katana.sir.types.Value;
 final class Collating {
     private Collating() {}
 
+    /** The program collating sequence as an rt Collation: native order unless the alphabet it names says otherwise (LR 6.4 p. 123). */
     // Decision: R-019
     static String of(Exprs x) {
         String name = x.p.header().collating();
@@ -32,6 +33,7 @@ final class Collating {
         return x.unsupported("PROGRAM COLLATING SEQUENCE " + name + ", no such alphabet");
     }
 
+    /** An alphabet written as literals: its members in the order written, a THRU range or ALSO characters of one rank each as they appear. */
     private static String literal(Exprs x, Header.Alphabet a) {
         List<String> parts = new ArrayList<>();
         for (Value m : a.members()) {

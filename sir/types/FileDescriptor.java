@@ -36,6 +36,7 @@ public record FileDescriptor(String name, String assign, boolean optional, Organ
      * the margins zero, LR 6.4 p. 190).
      */
     public record Linage(Value body, Value footing, Value top, Value bottom) {
+        /** SIR-11's checks: each value an unsigned integer or an item, a page body above zero, a literal footing inside the body. */
         public Linage {
             for (Value v : java.util.Arrays.asList(body, footing, top, bottom)) {
                 if (v != null && !(v instanceof Value.Field) && !(v instanceof Value.Literal l && l.kind() == Value.Literal.Kind.NUMERIC && l.scale() == 0 && !l.payload().startsWith("-"))) {

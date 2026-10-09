@@ -16,6 +16,7 @@ final class Conditions {
         this.arith = arith;
     }
 
+    /** A condition as a Java boolean: AND, OR, NOT, relations (alphanumeric ones in the collating sequence), sign, class, switch and condition-name tests. */
     // Decision: R-019
     String of(Value v) {
         return switch (v) {
