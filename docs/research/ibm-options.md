@@ -497,3 +497,73 @@ OPEN; WRITE "A" AFTER 0; WRITE "B" BEFORE 0; WRITE "C" AFTER 3; WRITE "D" AFTER 
 With z2: A and B join the line before them (line 3 `AB`, every later line one higher). With c2: two
 more blank lines after line 19 (the body's last two lines) and one for the bottom margin. With t2:
 line 19 is `F G ` and lines 3, 4, 7, 11, 12 carry their records' trailing spaces.
+
+## 12. FILE STATUS and EXCEPTION/ERROR declaratives (read 2026-10-09, primary; the SQ module)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference.
+
+- LR p. 299 (File status key): "a value is placed in the specified file status key ... during
+  execution of any request on that file; the value indicates the status of that request. The value is
+  placed in the file status key before execution of any EXCEPTION/ERROR declarative, INVALID KEY
+  phrase, or AT END phrase associated with the request."
+- LR pp. 300-302 (Table 34), for sequential files: 00 success; 04 a READ whose record length is outside
+  the FD's; 05 "An OPEN statement was successfully executed, but the referenced optional file was
+  unavailable"; 10 "no next logical record existed ... Or the first READ was attempted on an optional
+  input file that was unavailable"; 30 no further information; 34 a boundary violation; 35 OPEN INPUT,
+  I-O or EXTEND "on a nonoptional file that was unavailable"; 37 the open mode not supported; 38 "An
+  OPEN statement was attempted on a file previously closed with lock"; 39 attributes in conflict; 41
+  "An OPEN statement was attempted for a file in the open mode"; 42 "A CLOSE statement was attempted
+  for a file not in the open mode"; 46 "A sequential READ statement was attempted on a file open in the
+  input or I-O mode and no valid next record had been established because ... The preceding READ
+  statement caused an at-end condition"; 47 "a READ statement was attempted on a file not open in the
+  input or I-O mode"; 48 "a WRITE statement was attempted on a file not open in the I-O, output, or
+  extend mode".
+- LR p. 57: "The USE statement itself is never executed"; "After the procedure is executed, control is
+  returned to the routine that activated it." (p. 57, PROCEDURE DIVISION structure: execution begins
+  after the declaratives.)
+- LR pp. 705-706 (EXCEPTION/ERROR declarative): file-name-1, "the procedure is executed only for the
+  files named"; it "takes precedence over a declarative statement specifying the open mode of the
+  file"; INPUT, OUTPUT, I-O, EXTEND: "executed for all files opened in INPUT mode or in the process of
+  being opened in INPUT mode that get an error" (and so for each mode). "The EXCEPTION/ERROR procedure
+  is executed: Either after completing the system-defined input/output error routine, or Upon
+  recognition of an INVALID KEY or AT END condition when an INVALID KEY or AT END phrase has not been
+  specified in the input/output statement". "After execution of the EXCEPTION/ERROR procedure ... the
+  input/output control system returns control to the next executable statement following the
+  input/output statement whose execution caused the exception."
+- PG 6.4 p. 179 (QSAM): with no FILE STATUS key and no declarative, serious errors end the run (J-144);
+  with either, the program continues.
+
+**Where the text leaves room: the rivals, named before the run.**
+
+- S1, an unsuccessful OPEN: (a) the file stays not open, so a READ is 47; (b) it counts as open.
+- S2, a mode declarative after a failed OPEN: (a) "in the process of being opened in INPUT mode" covers
+  an OPEN INPUT that fails (38), but a later CLOSE of the still-closed file is no INPUT-mode error; (b)
+  the mode of the last OPEN attempt stays with the file, so that CLOSE runs the INPUT declarative too.
+- S3, a READ after AT END: (a) 46 and, as an error, the INPUT declarative; (b) 10 again.
+
+**The trial, STATRIAL.** OPTF is `SELECT OPTIONAL` of an absent file, NOPT a non-optional absent file,
+WF a file to write; each has its FILE STATUS item. Declaratives: one USE AFTER ERROR ON NOPT, which
+shows `D2` and NOPT's status, and one ON INPUT, which shows `DI` and the three statuses. WF has no
+declarative of its own. Each step then shows its file's status. Values under (a)(a)(a), the text:
+
+| Step | Statement | Lines shown |
+| --- | --- | --- |
+| 1 | OPEN INPUT OPTF | 05 |
+| 2 | READ OPTF AT END (shows AE) | AE, 10 |
+| 3 | READ OPTF AT END (shows AE) | AE? no: 46 is not at end; DI, 46 |
+| 4 | CLOSE OPTF | 00 |
+| 5 | OPEN INPUT NOPT | D2 35, 35 |
+| 6 | READ NOPT AT END | D2 47, 47 |
+| 7 | CLOSE NOPT | D2 42, 42 |
+| 8 | OPEN OUTPUT WF | 00 |
+| 9 | OPEN OUTPUT WF | 41 (no declarative: the run goes on) |
+| 10 | WRITE WF | 00 |
+| 11 | READ WF AT END | 47 (no declarative for OUTPUT) |
+| 12 | CLOSE WF WITH LOCK | 00 |
+| 13 | OPEN INPUT WF | DI, 38 |
+| 14 | CLOSE WF | 42 |
+| 15 | WRITE WF | 48 |
+
+Under S1(b), step 6 is 10 or AE and no D2. Under S2(b), step 14 shows DI before 42. Under S3(b), step 3
+shows AE and 10, no DI. Step 3 under (a): a READ attempted after at end is error 46, not an at-end
+condition, so the AT END phrase does not run and the INPUT declarative does.
