@@ -192,6 +192,36 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   report should carry them as "valid under hypothesis" (R-049's mechanism), clearable all at once by
   one mainframe run, and not in the same voice as NE-01 to NE-06.)
 
+## For Opus: tithe pass 3a, before the next feature (R-008 amended, 2026-10-09)
+
+Nine tithe commits are owed. Each changes no behaviour (P-02: no golden moves), is titled "Tithe",
+and lands through the gate like any step (R-040). In this order; stop when the counter is paid and
+the list is empty, whichever is later:
+
+1. **The gate itself.** `scripts/prepush.sh` refuses a non-tithe push past sixteen commits since the
+   last "Tithe" commit, unless `theGhost.md` records a deferral naming the commit it runs to. Its
+   killer mutation: seventeen feature commits and no deferral must be refused. Register it in
+   `docs/checks.json`.
+2. **The way back.** One test that, for every discovery, walks to its test, its journal entry and its
+   IBM quote with a page; for every `hypothesis` claim, to a trial that exists in `Trials` or a
+   journal entry with class `trial`; for every `// Decision: R-nnn`, to a decision in force. It fails
+   on the first missing link. (Ghost, 2026-10-06: "a solid track of truth back to the surface".)
+3. **The 27 branchy undocumented functions**, mostly `lower/`: a one-line comment each saying what
+   the function decides and which decision or IBM page it stands on; `Performs.node`,
+   `TextVerbs.unstring`, `Verbs.statement`, `Contract.fd` first.
+4. **The 21 `// Unsure` lines**: each either becomes a `// Decision`, a `hypothesis` claim with its
+   trial, or stays with the reason it cannot yet be settled written on the same line.
+5. **`rt/SeqFile`** split before it reaches 400 lines, by mode or by verb, with no golden moving.
+6. **The name-resolution sweep** (Fable, 2026-10-08): every place `sir/build` resolves a name,
+   checked for `X OF Y` reaching it whole, and "not found" a finding rather than a zero.
+7. **R-056's six checks without a failing case** (`docs/checks.json`), closed or recorded why not.
+8. **`docs/GHOST-IN-THE-KERNEL.md`**: the "check that cannot fail" paragraph gains the line that the
+   four ways have each been met more than once (J-098, J-100, J-101), and the fifth, a verdict that
+   warns and stops nothing seventy-three times (J-154).
+9. **`docs/AGENT.md`** re-measured at the close; any metric the pass moved, ratcheted.
+
+Then variable-length records, with IBM's text and its trial first, as REWRITE was done.
+
 ## For Opus: the discoveries register (R-058, 2026-10-06) (done: J-126)
 
 - **Backfill `docs/DISCOVERIES.md`** from J-097 to J-120: every "(Opus)" cell filled, every row's test

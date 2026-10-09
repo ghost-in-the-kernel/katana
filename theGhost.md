@@ -145,10 +145,18 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   to find, read and change code with little context was treated as work; about a tenth of effort
   went there. Katana is larger, has two languages in the tree, a runtime that ships and a mounted
   corpus, so the share rises.
-- **Held by:** `docs/AGENT.md` and `test/MetricsTest.java`; the kernel map (`docs/KERNEL-MAP.md`).
-- **Source:** Ghost, 2026-10-04.
+- **Held by:** `docs/AGENT.md` and `test/MetricsTest.java`; the kernel map (`docs/KERNEL-MAP.md`);
+  from 2026-10-09, `scripts/prepush.sh`: when more than sixteen commits have landed since the last
+  commit titled "Tithe" (two cycles' grace), the gate refuses a non-tithe push, and says so; a deferral
+  is a decision recorded here with the commit it runs to, which the gate reads. (Amended 2026-10-09,
+  J-154: the metrics tool had said "one is due" on every commit since tithe pass 2, seventy-three
+  times, and stopped nothing, R-056's fourth case in the one place R-056 did not reach; a cadence that
+  only warns is a cadence that is kept while there is slack and dropped exactly when it is needed.
+  Nine tithe commits were owed at the amendment; they are paid as tithe pass 3a before the next
+  feature, and the counter restarts at its close.)
+- **Source:** Ghost, 2026-10-04; the gate on Opus's report, decided by Fable, 2026-10-09.
 - **Status:** in force
-- **See also:** R-040 (a tithe lands like any step), R-042 (when a metric arms)
+- **See also:** R-040 (a tithe lands like any step), R-042 (when a metric arms), R-056
 - **subject:** process
 
 ### R-009: The fixture schema

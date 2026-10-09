@@ -2165,3 +2165,20 @@ taken; closed by a later `decision` entry naming it).
   write variable-length records, as do most of the 18 runs that still differ (SQ106A, SQ107A,
   SQ218A-SQ224A): the next piece, with its own text and trial, since how a variable record lies on
   disk is cobc's choice (the lane's profile).
+
+### J-154 The tithe cadence was dropped for seventy-three commits, and the warning that said so stopped nothing
+- **Who:** Opus found it on Ghost's question ("how soon are we to the next tithe"); Fable decided.
+  **Class:** failure caught (late); decision.
+- **Found:** R-008's one-in-eight had no tithe commit since tithe pass 2 (4ff26b6, J-091). The
+  metrics tool printed "commits since the last tithe: one is due" on every commit, and nothing read
+  it as a verdict. The ratcheted metrics all held (largest file 343, paths 20, docs ratio 0.26), so
+  the dashboard was green while the debt grew: 27 branchy functions with no comment, 21 `// Unsure`
+  lines, `rt/SeqFile` near the limit.
+- **Resolved:** R-008 amended: the pre-push gate refuses a non-tithe push past sixteen commits since
+  the last tithe, unless a deferral is recorded with its end. Tithe pass 3a (HANDOFF, nine items) is
+  paid before the next feature.
+- **Note:** R-056 said a verdict must stop an action, and the one verdict it did not reach was the
+  one about keeping R-056's own kind of discipline. A warning kept nobody honest for two phases; a
+  refusal would have cost one commit on the ninth day. Ghost's rule from Suite Builder, that the tithe
+  is work and not advice, now has a mechanism, which it should have had on 2026-10-04.
+
