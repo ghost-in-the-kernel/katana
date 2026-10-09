@@ -898,6 +898,15 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   0.45).
 - **Source:** Opus measured and listed the options (J-057); decided by Ghost, 2026-10-04.
 - **Status:** in force
+- **Amended 2026-10-09 (J-163):** the fast loop and the pre-push check are **held**, not reported: a
+  time past its ceiling fails `MetricsTest`, as a file past 400 lines does, because a reported
+  number was not read between passes and doubled (14 s to 35 s), the shape of J-154. Ceilings: the
+  warm fast loop 25 s now, 20 s from tithe pass 3's close; the pre-push check over the suites a push
+  selects 10 min; `--all` 12 min, and "under 3" is retired as a target set when there were three
+  suites. Each ratchets down to the best recorded, never up without a decision. The two seconds over
+  20 are taken by running the fast loop's test classes in parallel (JUnit, four cores; the goldens
+  are written only under `-Dkatana.record`, so the classes share no file), which is Opus's, and its
+  killer mutation is a class that writes without the flag.
 - **See also:** R-008, R-042
 - **subject:** process
 
@@ -932,6 +941,15 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   `docs/HANDOFF.md`.
 - **Source:** Opus listed (J-063 to J-068); answered by Fable mid-phase, 2026-10-05, while present.
 - **Status:** in force
+- **Amended 2026-10-09 (J-163):** the fast loop and the pre-push check are **held**, not reported: a
+  time past its ceiling fails `MetricsTest`, as a file past 400 lines does, because a reported
+  number was not read between passes and doubled (14 s to 35 s), the shape of J-154. Ceilings: the
+  warm fast loop 25 s now, 20 s from tithe pass 3's close; the pre-push check over the suites a push
+  selects 10 min; `--all` 12 min, and "under 3" is retired as a target set when there were three
+  suites. Each ratchets down to the best recorded, never up without a decision. The two seconds over
+  20 are taken by running the fast loop's test classes in parallel (JUnit, four cores; the goldens
+  are written only under `-Dkatana.record`, so the classes share no file), which is Opus's, and its
+  killer mutation is a class that writes without the flag.
 - **See also:** R-005, R-014, R-015, R-045, R-049, R-053
 - **subject:** process
 
@@ -972,6 +990,15 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Source:** Opus's analysis and draft at Ghost's request (2026-10-05, J-078); the fourth case
   added by Fable; decided by Ghost, recorded by Fable.
 - **Status:** in force
+- **Amended 2026-10-09 (J-163):** the fast loop and the pre-push check are **held**, not reported: a
+  time past its ceiling fails `MetricsTest`, as a file past 400 lines does, because a reported
+  number was not read between passes and doubled (14 s to 35 s), the shape of J-154. Ceilings: the
+  warm fast loop 25 s now, 20 s from tithe pass 3's close; the pre-push check over the suites a push
+  selects 10 min; `--all` 12 min, and "under 3" is retired as a target set when there were three
+  suites. Each ratchets down to the best recorded, never up without a decision. The two seconds over
+  20 are taken by running the fast loop's test classes in parallel (JUnit, four cores; the goldens
+  are written only under `-Dkatana.record`, so the classes share no file), which is Opus's, and its
+  killer mutation is a class that writes without the flag.
 - **See also:** R-017, R-040, R-050, R-052, P-11
 - **subject:** checks
 
@@ -1010,6 +1037,15 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   report's header; `docs/PROFILE.md`'s `ibm.wsinit` row (added as `ibm.wsclear`, J-118; renamed).
 - **Source:** Opus's default and lean (J-114); decided by Fable, 2026-10-06.
 - **Status:** in force
+- **Amended 2026-10-09 (J-163):** the fast loop and the pre-push check are **held**, not reported: a
+  time past its ceiling fails `MetricsTest`, as a file past 400 lines does, because a reported
+  number was not read between passes and doubled (14 s to 35 s), the shape of J-154. Ceilings: the
+  warm fast loop 25 s now, 20 s from tithe pass 3's close; the pre-push check over the suites a push
+  selects 10 min; `--all` 12 min, and "under 3" is retired as a target set when there were three
+  suites. Each ratchets down to the best recorded, never up without a decision. The two seconds over
+  20 are taken by running the fast loop's test classes in parallel (JUnit, four cores; the goldens
+  are written only under `-Dkatana.record`, so the classes share no file), which is Opus's, and its
+  killer mutation is a class that writes without the flag.
 - **See also:** R-020, R-049, P-03
 - **subject:** runtime
 
@@ -1047,6 +1083,15 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   already discovered, and this is why this existing tool sometimes has bad output"); recorded by
   Fable.
 - **Status:** in force
+- **Amended 2026-10-09 (J-163):** the fast loop and the pre-push check are **held**, not reported: a
+  time past its ceiling fails `MetricsTest`, as a file past 400 lines does, because a reported
+  number was not read between passes and doubled (14 s to 35 s), the shape of J-154. Ceilings: the
+  warm fast loop 25 s now, 20 s from tithe pass 3's close; the pre-push check over the suites a push
+  selects 10 min; `--all` 12 min, and "under 3" is retired as a target set when there were three
+  suites. Each ratchets down to the best recorded, never up without a decision. The two seconds over
+  20 are taken by running the fast loop's test classes in parallel (JUnit, four cores; the goldens
+  are written only under `-Dkatana.record`, so the classes share no file), which is Opus's, and its
+  killer mutation is a class that writes without the flag.
 - **See also:** R-045, R-046, R-052, R-056, P-03
 - **subject:** checks
 
@@ -1070,6 +1115,15 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Source:** Fable's recollection under its status (J-141's HANDOFF note), Opus's reading of the
   page the same day; decided by Fable, 2026-10-06.
 - **Status:** in force
+- **Amended 2026-10-09 (J-163):** the fast loop and the pre-push check are **held**, not reported: a
+  time past its ceiling fails `MetricsTest`, as a file past 400 lines does, because a reported
+  number was not read between passes and doubled (14 s to 35 s), the shape of J-154. Ceilings: the
+  warm fast loop 25 s now, 20 s from tithe pass 3's close; the pre-push check over the suites a push
+  selects 10 min; `--all` 12 min, and "under 3" is retired as a target set when there were three
+  suites. Each ratchets down to the best recorded, never up without a decision. The two seconds over
+  20 are taken by running the fast loop's test classes in parallel (JUnit, four cores; the goldens
+  are written only under `-Dkatana.record`, so the classes share no file), which is Opus's, and its
+  killer mutation is a class that writes without the flag.
 - **See also:** R-020, R-058, NE-08
 - **subject:** runtime
 

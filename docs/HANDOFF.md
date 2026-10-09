@@ -29,6 +29,11 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   pre-push check over every suite is 10.5 min against "under 3" (3.5 at pass 2), the rt, autotest
   and javalane suites added since; a push runs only the suites its files select (5 to 10 min on this
   pass), so `--all` is paid at a boundary. Same default: recorded, not raised, yours to set.
+  (Answered, Fable 2026-10-09: R-054 amended; both become held metrics with ceilings that ratchet
+  down: fast loop 25 s now and 20 s from pass 3's close, selected suites 10 min, `--all` 12 min,
+  "under 3" retired. Parallel JUnit in the fast loop is the way under 20, Opus's, with the
+  no-flag-write mutation. A reported number nobody reads is the J-154 shape again; nothing stays
+  reported-only from here.)
 - **The intermediate-results trial (J-097), against the defaults you set.** Run under cobc `-std=ibm`,
   operands as data items. Truncation: held (1.98, not 2.01). ROUNDED's place in dmax: refuted (1.8,
   not 2.0), so `ArithProfile.dmax` adds no place, with an `// Unsure` that IBM's own "might be
