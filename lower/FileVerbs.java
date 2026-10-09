@@ -139,6 +139,44 @@ final class FileVerbs {
         }
     }
 
+    /** Each variable-length sequential file given its record sizes and its DEPENDING ON item (research §13). */
+    static void varyings(Emitter e, katana.sir.types.Program p, Exprs x) {
+        for (FileDescriptor d : p.files()) {
+            int[] s = sizes(p, d, x);
+            if (s == null) continue;
+            String depending = d.fd().recordDepending() == 0 ? "null" : "f" + d.fd().recordDepending();
+            e.line(name(d.name()) + ".varying(" + s[0] + ", " + s[1] + ", " + d.fd().varying() + ", " + s[2] + ", " + s[3] + ", " + depending + ");");
+        }
+    }
+
+    /**
+     * A sequential file's least and greatest 01 sizes and its bounds, or null for fixed-length records:
+     * variable for RECORD IS VARYING, or, unless RECORD CONTAINS gives one size (format 1, PG 6.4 p. 169),
+     * for 01 records of different sizes or one holding an ODO table (PG p. 170). The least size counts
+     * an ODO table at its fewest occurrences (LR p. 188); VARYING's FROM and TO are its bounds when written.
+     */
+    // Decision: R-019
+    static int[] sizes(katana.sir.types.Program p, FileDescriptor d, Exprs x) {
+        if (d.organization() != FileDescriptor.Organization.SEQUENTIAL || d.fd() == null || d.records().isEmpty()) return null;
+        FileDescriptor.Fd fd = d.fd();
+        int least = Integer.MAX_VALUE, greatest = 0;
+        boolean odo = false;
+        for (int r : d.records()) {
+            katana.sir.types.Item record = x.item(r);
+            int fewest = record.length();
+            for (katana.sir.types.Item t : p.items()) {
+                if (t.record() != r || t.occurs() == null || t.occurs().dependingOn() == 0) continue;
+                odo = true;
+                fewest = Math.min(fewest, t.offset() - record.offset() + t.occurs().min() * t.length());
+            }
+            least = Math.min(least, fewest);
+            greatest = Math.max(greatest, record.length());
+        }
+        boolean format1 = !fd.varying() && fd.recordFrom() > 0 && fd.recordTo() == fd.recordFrom();
+        if (!fd.varying() && (format1 || (least == greatest && !odo))) return null;
+        return new int[] {least, greatest, fd.recordFrom() > 0 ? fd.recordFrom() : least, fd.recordTo() > 0 ? fd.recordTo() : greatest};
+    }
+
     private static String supplier(Value v, Exprs x) {
         return v == null ? "null" : "() -> (int) " + x.index(v);
     }
@@ -182,7 +220,9 @@ final class FileVerbs {
         f.e.line(fileVar + ".read(" + record + ");");
         f.e.line("ae = " + fileVar + ".status().equals(\"10\");");
         Value into = Verbs.operand(s, "read-into");
-        if (into != null) f.e.line("if (" + fileVar + ".successful()) " + f.x.moveInto(new Value.Field(d.records().get(0), java.util.List.of(), null, null), f.x.receiving((Value.Field) into), f.x.item(((Value.Field) into).item())) + ";");
+        // A variable file's record moves at the length read, a group move (LR 6.4 pp. 188, 425).
+        if (into != null && sizes(f.p, d, f.x) != null) f.e.line("if (" + fileVar + ".successful()) Move.group(" + fileVar + ".current(" + record + "), " + f.x.receiving((Value.Field) into) + ");");
+        else if (into != null) f.e.line("if (" + fileVar + ".successful()) " + f.x.moveInto(new Value.Field(d.records().get(0), java.util.List.of(), null, null), f.x.receiving((Value.Field) into), f.x.item(((Value.Field) into).item())) + ";");
         List<Statement> atEnd = Verbs.branch(s, "at-end-phrase");
         after("READ", file.name(), !atEnd.isEmpty() || s.branches().stream().anyMatch(b -> b.label().equals("at-end-phrase")));
         f.branch("ae", atEnd, List.of());

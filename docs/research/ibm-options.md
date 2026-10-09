@@ -677,3 +677,9 @@ records read back. Under V6(b): 11 shows ten bytes of R10. Under V7(b): 19 is 00
 
 On disk, a variable file in the Java lane is IBM's format-V unblocked: each record after its 4-byte
 "cc", ll big-endian and bb zero (PG p. 171). No program can see it; it is the lane's choice, from IBM.
+
+The run (J-164), under cobc 3.1.2 `-std=ibm`: V1, V2, V6 and V7 the text's (a) at every step; V3, the
+area past a short record, kept from before ("BBBBBAAAAA", "CCCBBAAAAA"), which the Java lane follows,
+the text leaving it undefined; V5 (a) below the minimum (44 for L 1) and neither reading above it: L
+11 is 00 and a 10-byte record written, D-027; V4 (b), 00 for the 3-byte record, VLR(COMPAT)'s, where
+the default VLR(STANDARD) gives 04, D-028. VARTRIAL is an IBM reading (the text's (a), V3 kept).

@@ -36,6 +36,7 @@ public final class SeqFile {
     private boolean locked, atEnd, absent;
     private String last = "00";
     private Linage linage;
+    private Varying varying;
 
     /** A file: the name it is ASSIGNed to, the program's name for it, whether it has a FILE STATUS item, whether it is OPTIONAL. */
     public SeqFile(String name, String file, boolean lineSequential, boolean status, boolean optional) {
@@ -129,6 +130,17 @@ public final class SeqFile {
         return this;
     }
 
+    /** A variable-length file (LR 6.4 pp. 186-188, research §13): the 01 records' least and greatest sizes, VARYING's bounds when `bounded`, its DEPENDING ON item or null; `Varying` frames the records. */
+    public SeqFile varying(int least, int greatest, boolean bounded, int min, int max, Field depending) {
+        this.varying = new Varying(least, greatest, bounded, min, max, depending);
+        return this;
+    }
+
+    /** The record just read as a sending item, its own length: READ INTO's group move from a variable file (pp. 188, 425). */
+    public Field current(Field record) {
+        return new Field(record.record(), record.offset(), Attr.text(Math.min(readLength, record.record().bytes().length - record.offset()), false));
+    }
+
     /** LINAGE-COUNTER (LR p. 23). */
     public Field counter() {
         return linage.counter();
@@ -144,6 +156,13 @@ public final class SeqFile {
     public void write(Field record, int before, int after) {
         if (!writable()) return;
         try {
+            if (varying != null) {
+                int length = varying.length(record);
+                String outside = varying.outside(length);
+                if (outside != null) last = outside;
+                else varying.write(out, record, length);
+                return;
+            }
             if (after < 0) out.write('\f');
             for (int k = 0; k < after; k++) out.write('\n');
             out.write(Literal.bytes(record));
@@ -155,11 +174,11 @@ public final class SeqFile {
         }
     }
 
-    /** A WRITE's check: 48 on a file not open for output (LR p. 302), else 00. */
+    /** A WRITE's check: 48 on a file not open for output or extend (LR p. 302; Table 49, p. 411: not I-O), else 00. */
     private boolean writable() {
         opening = null;
         readAt = -1;
-        last = mode == Mode.OUTPUT || mode == Mode.EXTEND || mode == Mode.IO ? "00" : "48";
+        last = mode == Mode.OUTPUT || mode == Mode.EXTEND ? "00" : "48";
         return last.equals("00");
     }
 
@@ -178,6 +197,7 @@ public final class SeqFile {
             last = "46";
             return true;
         }
+        if (varying != null) return readVarying(record);
         try {
             byte[] dst = record.record().bytes();
             int n = record.attr().length(), k = 0, c;
@@ -202,6 +222,23 @@ public final class SeqFile {
         }
     }
 
+    /** READ of a variable-length record (`Varying.read`): 10 at the end, else 00 or 04 by its length (research §13). */
+    private boolean readVarying(Field record) {
+        try {
+            long at = io == null ? -1 : io.getFilePointer();
+            int length = varying.read(io != null ? io : new java.io.DataInputStream(in), record);
+            atEnd = length < 0;
+            last = atEnd ? "10" : varying.status(length);
+            if (!atEnd) {
+                readAt = at;
+                readLength = length;
+            }
+            return !atEnd;
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
     /**
      * REWRITE (LR 6.4 pp. 432-433): on a file open I-O (else 49) whose last statement was a successful
      * READ (else 43), the record that READ retrieved replaced by one of the same size (else 44); the
@@ -220,7 +257,8 @@ public final class SeqFile {
             last = "43";
             return;
         }
-        byte[] bytes = Literal.bytes(record);
+        if (varying != null) at += 4;
+        byte[] bytes = varying == null ? Literal.bytes(record) : java.util.Arrays.copyOfRange(record.record().bytes(), record.offset(), record.offset() + varying.length(record));
         if (bytes.length != readLength) {
             last = "44";
             return;

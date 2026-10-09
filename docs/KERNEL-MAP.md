@@ -1148,3 +1148,14 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.count` | moved to Linage by the split (tithe 3a.5, J-159) | 2026-10-09 | superseded-by: `rt/katana/rt/Linage.java:Linage.count` |
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.blank` | moved to Linage by the split (tithe 3a.5, J-159) | 2026-10-09 | superseded-by: `rt/katana/rt/Linage.java:Linage.blank` |
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.line` | moved to Linage by the split (tithe 3a.5, J-159) | 2026-10-09 | superseded-by: `rt/katana/rt/Linage.java:Linage.line` |
+| lower | `lower/FileVerbs.java:FileVerbs.varyings` |  | 2026-10-09 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.sizes` | R-019 | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.varying` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.current` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Varying.java:Varying.Varying` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Varying.java:Varying.length` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Varying.java:Varying.outside` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Varying.java:Varying.write` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Varying.java:Varying.read` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/Varying.java:Varying.status` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.readVarying` |  | 2026-10-09 |  |

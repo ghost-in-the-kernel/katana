@@ -2316,3 +2316,29 @@ taken; closed by a later `decision` entry naming it).
   It is the fifth way of J-162 at a smaller scale: the number existed, no verdict read it.
 - **Touched:** `docs/AGENT.md`, `docs/HANDOFF.md`, `test/katana/sir/GoldenPrograms.java`, the three
   golden tests.
+
+### J-164 Variable-length records lowered; cobc follows IBM's text but for two statuses
+- **Who:** Opus, on Ghost's go-ahead. **Class:** trial; build.
+- **Intent:** sequential files whose records vary, with IBM's text and a trial first (research §13,
+  predictions committed c4d5c44 before the run), then the lowering.
+- **Found:** (1) the text, LR 6.4 pp. 186-188, 300-302, 425-426 and PG pp. 168-171, 422-423: a file is
+  variable for RECORD IS VARYING, for RECORD CONTAINS n TO m, or for 01s of different sizes or holding
+  an ODO table, never for RECORD CONTAINS n; a WRITE writes DEPENDING ON's value, else the record-name's
+  bytes; a READ sets DEPENDING ON; READ INTO is a group move of the record's length. (2) VARTRIAL,
+  twenty steps, seven questions: cobc gives the text's reading at every step but two, a WRITE past
+  VARYING's maximum (00 and written, where IBM gives 44: D-027) and a READ shorter than every 01 (00,
+  VLR(COMPAT)'s, where the default VLR(STANDARD) gives 04: D-028); the area past a short record, the
+  text's "undefined", cobc keeps, and so does the lane. (3) SeqFile read a variable file as a stream
+  of the first 01's length, so a file of 120- and 151-byte records was read misaligned after the first
+  long one: SQ106A, SQ107A, SQ134A, SQ212A, SQ218A-SQ224A, SQ227A, SQ228A. (4) SQ153A and SQ156A ended
+  on a null stream: WRITE was let through on a file open I-O, where Table 49 (LR p. 411) allows WRITE
+  in output and extend modes only; it is 48 now.
+- **Resolved:** `rt/Varying` (package-private) frames each record as IBM's format-V does (a 4-byte
+  "cc", PG p. 171), bounds a WRITE by VARYING (44), sets DEPENDING ON, keeps the area past a short
+  record, and gives 04 by the 01s' sizes; `SeqFile.varying` and `current` (READ INTO's sending item);
+  `FileVerbs.sizes` decides from the IR which files vary (SIR-11's RECORD clause, the records, their ODO
+  tables). VARTRIAL joins the differential programs as an IBM reading. SQ through the Java lane 67 to
+  82 of 85 (floor 82); left: SQ101M and SQ207M (an index named by ZERO and by a mnemonic, not lowered),
+  SQ214A (times out).
+- **Touched:** `rt/katana/rt/Varying.java`, `rt/katana/rt/SeqFile.java`, `lower/FileVerbs.java`,
+  `lower/Lower.java`, `docs/DISCOVERIES.md`, research §13, the tests.

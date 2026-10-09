@@ -31,7 +31,7 @@ class NistJavaLaneIntegrationTest {
     /** The NC runs whose counts equal cobc's; raised as the lowering grows, never lowered (the bench discipline, P-01). */
     static final int FLOOR = 84;
     /** The same for SQ, its own floor (Fable: one module per suite, each with its floor). */
-    static final int SQ_FLOOR = 67;
+    static final int SQ_FLOOR = 82;
 
     /**
      * The runs where cobc -std=ibm fails tests the Java lane passes, each with why: a discovery against cobc

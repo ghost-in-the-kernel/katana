@@ -93,7 +93,10 @@ class LowerDifferentialIntegrationTest {
      * an OPEN INPUT that fails runs the INPUT declarative, the file being "in the process of being opened
      * in INPUT mode" (LR 6.4 p. 706), where cobc runs none, D-025; a CLOSE of a file whose OPEN failed is
      * 42, "a CLOSE statement was attempted for a file not in the open mode" (p. 302), where cobc gives 00
-     * after a CLOSE WITH LOCK, D-026 (J-152).
+     * after a CLOSE WITH LOCK, D-026 (J-152). VARTRIAL: variable-length records (research §13): a WRITE
+     * "larger than the largest ... record allowed by the RECORD IS VARYING clause" is 44 (LR 6.4 p. 302),
+     * where cobc writes it with 00, D-027; a READ of a record shorter than every 01 is 04 under
+     * VLR(STANDARD), the default (PG 6.4 pp. 422-423), where cobc gives 00, D-028 (J-164).
      */
     static final Map<String, String> IBM_READINGS = Map.ofEntries(
             Map.entry("SEARCHVARY", "DD W\nN 002\n"),
@@ -106,6 +109,8 @@ class LowerDifferentialIntegrationTest {
             Map.entry("MULTRES", "1 040 050\n2 040 060\n3 010 020\n4 2 010\n"),
             Map.entry("RNDTRIAL", "01  1.2\n02  1.5\n03 10.2\n04 10.5\n05  0.6\n06  0.5\n07 10.2\n08 10.0\n09  0.2\n10  0.5\n11 10.6\n12 10.0\n13  2.6\n14  2.6\n15 10.5\n"),
             Map.entry("RELDMAX", "N F\nO T\nP T\nQ T\nR T\nS T\nT T\nU T\nV T\n"),
+            Map.entry("VARTRIAL", " 1 00 10\n 2 00 05\n 3 00 03\n 4 44 11\n 5 44 01\n 6 00 10 [AAAAAAAAAA]\n 7 00 05 [BBBBBAAAAA]\n 8 04 03 [CCCBBAAAAA]\n   AE\n 9 10 03\n"
+                    + "10 00 [AAAAAAAAAA  ]\n11 00 [BBBBB       ]\n12 00 [1111....]\n13 00 [22222222]\n14 00 [3333....]\n   AE\n15 10\n16 00 2 [2ab         ]\n17 00 5 [5vwxyz      ]\n   AE\n18 10\n19 44\n20 43\n"),
             Map.entry("STATRIAL", " 1 05\n   AE\n 2 10\n   DI 46      \n 3 46\n 4 00\n   D2 35\n 5 35\n   D2 47\n 6 47\n   D2 42\n 7 42\n 8 00\n 9 41\n10 00\n11 47\n12 00\n   DI 00 42 38\n13 38\n14 42\n15 48\n"));
 
     @Test
