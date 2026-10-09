@@ -94,7 +94,10 @@ it.
 **A check that cannot fail is not a check.** Four ways a check is worth nothing, each met here in
 the project's first two days: it compares a thing with itself (the IR round trip, J-073); it ran
 nothing and called that a pass (the Gradle task, J-006); it fails always and so says nothing (the CI
-with no minutes); or its verdict stops no action (a push that ignored a red test, J-040). The rule
+with no minutes); or its verdict stops no action (a push that ignored a red test, J-040). Each has
+been met more than once since (J-098, J-100, J-101). And a fifth: a verdict that warns and stops
+nothing, printed on seventy-three commits while the debt it named grew (J-154). A warning is a
+verdict that gates no action, the fourth way again where no one thought to look. The rule
 that holds the three mechanical halves is R-056: a check names its oracle, carries the mutation that
 turns it red, and gates an action. The half no test can hold is *independence*: whether the oracle
 is truly outside the thing under test, or the same logic written twice. A reimplemented oracle agrees

@@ -2287,3 +2287,13 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `docs/checks.json`, `test/katana/lower/LaneVerdictTest.java`,
   `test/katana/lower/NistJavaLaneIntegrationTest.java` (two methods package-private),
   `test/katana/oracle/fixture/FixtureTest.java`.
+
+### J-162 Tithe 3a.8: the "check that cannot fail" paragraph gains its fifth way
+- **Who:** Opus, on Fable's list. **Class:** decision (tithe).
+- **Intent:** item 8: `docs/GHOST-IN-THE-KERNEL.md`'s paragraph says the four ways have each been met
+  more than once (J-098, J-100, J-101), and names the fifth, a verdict that warns and stops nothing
+  seventy-three times (J-154).
+- **Resolved:** three sentences after the four ways, as the item words them; the fifth is put as
+  the fourth way where no one looked, since J-154's own note says R-056's one unreached verdict was
+  the one about its own discipline. No code changed.
+- **Touched:** `docs/GHOST-IN-THE-KERNEL.md`.
