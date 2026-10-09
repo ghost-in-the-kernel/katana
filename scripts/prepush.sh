@@ -7,6 +7,8 @@
 # C2); a change to oracle/nist/ or the profile runs all of it, which then covers the quick one.
 # The corpus is copied from this checkout's verified clones (hard links), not fetched; fetch.sh then
 # checks each pinned one is at its commit. One container runs `gradle build` and every chosen suite.
+# First, R-008's gate (J-154): past sixteen commits since the last "Tithe" commit, a non-tithe head is
+# refused unless theGhost.md records `Tithe deferred through <commit>` (scripts/TitheGate.java).
 set -e
 cd "$(dirname "$0")/.."
 ROOT=$(pwd)
@@ -52,6 +54,7 @@ for s in $suites; do
 done
 PROPS=""
 case " $suites " in *" nist "*) ;; *" quick "*) PROPS="-Dkatana.nist.modules=NC,IF" ;; esac
+docker run --rm --network none -u "$(id -u)" -v "$ROOT":/katana -w /katana katana java scripts/TitheGate.java /katana
 echo "suites:${suites:- none (the fast loop and the doc tests only)}$why"
 WORK=$(mktemp -d /tmp/claude-0/prepush.XXXXXX)
 start=$(date +%s)

@@ -2182,3 +2182,17 @@ taken; closed by a later `decision` entry naming it).
   refusal would have cost one commit on the ninth day. Ghost's rule from Suite Builder, that the tithe
   is work and not advice, now has a mechanism, which it should have had on 2026-10-04.
 
+
+### J-155 Tithe 3a.1: R-008's cadence becomes a verdict that stops a push
+- **Who:** Opus, on Fable's amendment (J-154). **Class:** decision (built).
+- **Intent:** the first of tithe pass 3a's nine items: the gate itself.
+- **Resolved:** `scripts/TitheGate.java` reads the log and theGhost.md: past sixteen commits since the
+  last commit titled "Tithe", a head that is not a tithe is refused, unless a line `Tithe deferred
+  through <commit>` names a commit, which restarts the count. `scripts/prepush.sh` runs it first, in the
+  pinned image, before any build. On the repository at 6968016 it refuses (74 commits since the last
+  tithe). `TitheGateTest` holds the verdict on histories made here; its killer case, seventeen feature
+  commits and no deferral, fails when the grace is raised to seventeen (run by hand). `ChecksTest` now
+  reads the default-package tests beside test/katana/ for the entries that name them, so a check of
+  `scripts/` can be registered; its scan for unlisted goldens stays in test/katana/.
+- **Touched:** `scripts/TitheGate.java`, `scripts/prepush.sh`, `test/TitheGateTest.java`,
+  `test/ChecksTest.java`, `docs/checks.json`.

@@ -62,6 +62,7 @@ final class ChecksTest {
         List<Map<String, Object>> checks = (List<Map<String, Object>>) root.get("checks");
         List<String> listed = checks.stream().map(c -> (String) c.get("test")).toList();
         for (var t : tests.entrySet()) {
+            if (!t.getKey().startsWith("test/katana/")) continue;
             boolean integration = t.getValue().contains("@Tag(\"integration\")");
             if ((integration || GOLDEN.matcher(t.getValue()).find()) && t.getValue().contains("@Test") && !listed.contains(name(t.getKey()))) {
                 failures.add(name(t.getKey()) + " is " + (integration ? "an integration test" : "a golden test") + " with no entry in docs/checks.json (R-056)");
@@ -153,10 +154,11 @@ final class ChecksTest {
     }
 
     /** Every test source under test/katana, by path from the root. */
+    /** The module tests (test/katana/), and the doc and script tests beside them (test/*.java), which entries may name but the scan for unlisted goldens skips. */
     private static Map<String, String> tests() {
         Map<String, String> files = new TreeMap<>();
-        try (Stream<Path> walk = Files.walk(Check.ROOT.resolve("test/katana"))) {
-            for (Path p : walk.filter(p -> p.toString().endsWith(".java")).toList()) {
+        try (Stream<Path> walk = Files.walk(Check.ROOT.resolve("test/katana")); Stream<Path> top = Files.list(Check.ROOT.resolve("test"))) {
+            for (Path p : Stream.concat(walk, top.filter(Files::isRegularFile)).filter(p -> p.toString().endsWith(".java")).toList()) {
                 files.put(Check.ROOT.relativize(p).toString().replace('\\', '/'), Files.readString(p));
             }
         } catch (IOException e) {
