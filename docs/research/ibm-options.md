@@ -594,3 +594,86 @@ status (and the record, after a READ): 1 REWRITE "X0" with no READ: 43; 2 READ: 
 OPEN INPUT and the three records read back: N1, R2, R3; 10 a READ and a REWRITE on the INPUT file: 00
 then 49. Under W1(b): step 4 is 00 and the first record reads back M1. Under W2(b): step 8 is 00 and
 the third reads back N3. Under W3(b): step 5 shows N1 (and 6 R2, 7 R3).
+
+## 13. Variable-length records (read 2026-10-09, primary; SQ106A, SQ107A, SQ134A, SQ212A, SQ218A-SQ224A, SQ227A, SQ228A)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR) and Programming Guide (PG).
+
+- LR p. 186 (RECORD clause): "When the RECORD clause is omitted, the compiler determines the record
+  lengths from the record descriptions. When one of the entries within a record description contains
+  an OCCURS DEPENDING ON clause, the compiler uses the maximum value of the variable-length item to
+  calculate the number of bytes needed to store the record internally."
+- LR pp. 186-187: Format 1 "specifies the number of bytes for fixed-length records"; Format 2 (RECORD
+  CONTAINS integer-4 TO integer-5) "for either fixed-length or variable-length records. Fixed-length
+  records are obtained when all 01 record description entry lengths are the same"; Format 3 (RECORD IS
+  VARYING ... DEPENDING ON data-name-1) "is used to specify variable-length records". Without
+  integer-6 the minimum "is equal to the least number of bytes described for a record in that file";
+  without integer-7 the maximum is "the greatest".
+- LR p. 188: "After the successful execution of a READ or RETURN statement for the file, the contents
+  of the data item referenced by data-name-1 indicate the number of bytes in the record just read." "The
+  execution of a DELETE, RELEASE, REWRITE, START, or WRITE statement or the unsuccessful execution of a
+  READ or RETURN statement does not alter the content of the data item referenced by data-name-1."
+  "During the execution of a RELEASE, REWRITE, or WRITE statement, the number of bytes in the record is
+  determined by the following conditions: If data-name-1 is specified, by the content of the data item
+  referenced by data-name-1; If data-name-1 is not specified and the record does not contain a variable
+  occurrence data item, by the number of bytes positions in the record; If data-name-1 is not specified
+  and the record contains a variable occurrence data item, by the sum of the fixed position and that
+  portion of the table described by the number of occurrences at the time of execution of the output
+  statement." For READ ... INTO the bytes moved are "If data-name-1 is specified, by the content of the
+  data item referenced by data-name-1; If data-name-1 is not specified, by the value that would have
+  been moved into the data item referenced by data-name-1 had data-name-1 been specified."
+- LR p. 425 (READ INTO): "If the file description entry contains a RECORD IS VARYING clause, the
+  implied move is a group move."
+- LR p. 426 (Processing files with variable-length records): "After a READ statement is executed, only
+  those data items within the range of the current record are replaced; data items stored beyond that
+  range are undefined." "If the length of the current record that is read is less than the minimum
+  size specified by the record description entries for file-name-1, the portion of the record area
+  which is to the right of the last valid character read is undefined. If the length of the current
+  record exceeds the record description entries for file-name-1, the record is truncated on the right
+  to the maximum record definition size." "In either of the previous cases, the READ statement is
+  successful, and the I-O status is set to either 00 ... or 04 ..., depending on the VLR compiler
+  option setting."
+- LR p. 300 (Table 34): 04, a READ was successful "but the length of the record being processed did
+  not conform to the fixed file attributes for that file", the character positions read "less than the
+  minimum size or ... greater than the maximum size specified by the record description entries"; p.
+  302: 44 "an attempt was made to write or rewrite a record that was larger than the largest or smaller
+  than the smallest record allowed by the RECORD IS VARYING clause of the associated file-name".
+- PG pp. 422-423 (VLR): "Default is: VLR(STANDARD)". "VLR(STANDARD) checks the size of the read record
+  against the declaration of the FD level 01 clause"; Table 52: a record of length 15 under "varying in
+  size from 10 to 80" with level-01 records of 20 and 50 is FS=04 under VLR(STANDARD), FS=00 under
+  VLR(COMPAT).
+- PG p. 169: with "the RECORD CONTAINS integer clause (format-1 RECORD clause) ... the file is always
+  fixed format with record length integer even if there are multiple level-01 record description
+  entries with different lengths". PG p. 170: the recording mode is V for RECORD IS VARYING, for RECORD
+  CONTAINS integer-1 TO integer-2, or with no RECORD clause and "multiple level-01 records ... that are
+  of different sizes or contain an OCCURS DEPENDING ON clause".
+- PG p. 171 (Layout of format-V records): each logical record is preceded by "cc", 4 bytes: "ll
+  Represents 2 bytes designating the logical record length (including the cc field). bb Represents 2
+  bytes reserved for system use." "Files in the z/OS UNIX file system are never blocked."
+
+What a program can see, and the rivals named before the run (V3 is the text's "undefined"):
+
+| | Question | (a), the text | (b) |
+| --- | --- | --- | --- |
+| V1 | the length a WRITE writes | DEPENDING ON's value, else the record-name's bytes, else the fixed part and the current occurrences (p. 188) | always the maximum |
+| V2 | DEPENDING ON after a READ | the length read; unchanged after an unsuccessful READ or a WRITE (p. 188) | unchanged |
+| V3 | the record area past a short record | undefined (p. 426): kept from before, or spaces, or else | |
+| V4 | READ of a record shorter than every 01 but within VARYING | 04, VLR(STANDARD) the default (PG Table 52) | 00 (VLR(COMPAT)) |
+| V5 | WRITE outside VARYING's bounds | 44, nothing written (p. 302) | written |
+| V6 | READ INTO from a variable file | a group move of the record's length (pp. 188, 425) | of the 01 record's length |
+| V7 | REWRITE of a variable record | 44 for another length; the next REWRITE 43, its last prior statement not a READ (§12) | allowed |
+
+The trial, VARTRIAL (test/katana/lower/programs): VF varying 2 to 10 depending on L, records R5 and R10;
+F2 "RECORD CONTAINS 4 TO 8" with S4 and S8; F3 with no RECORD clause and one record, N and an ODO
+table of N. Predicted under (a), status then L (or the record shown): 1 WRITE L=10: 00 10; 2 L=5: 00
+05; 3 L=3: 00 03; 4 L=11: 44 11; 5 L=1: 44 01; 6 READ: 00 10 AAAAAAAAAA; 7 READ: 00 05 BBBBB and five
+undefined; 8 READ: 04 03 CCC and seven undefined; 9 READ: at end, 10 03; 10 READ INTO W(12): 00
+"AAAAAAAAAA  "; 11: 00 "BBBBB       "; 12-14 F2 read back with S8 filled with dots first: 1111 then
+four undefined, 22222222, 3333 then four undefined; 15 at end, 10; 16 F3 READ INTO W: 00 2 "2ab" and
+nine spaces; 17: 00 5 "5vwxyz" and six spaces; 18 at end, 10; 19 OPEN I-O, READ, REWRITE with L=5: 44;
+20 REWRITE with L=10: 43. Under V1(b): 7 reads B's to ten, 13-14 show F2's whole area, 16 shows
+"2ab###". Under V2(b): 6-8 show L 00. Under V4(b): 8 is 00. Under V5(b): 4 and 5 are 00 and two more
+records read back. Under V6(b): 11 shows ten bytes of R10. Under V7(b): 19 is 00.
+
+On disk, a variable file in the Java lane is IBM's format-V unblocked: each record after its 4-byte
+"cc", ll big-endian and bb zero (PG p. 171). No program can see it; it is the lane's choice, from IBM.
