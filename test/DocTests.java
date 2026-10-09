@@ -56,6 +56,11 @@ class DocTests {
     }
 
     @Test
+    void wayBack() {
+        assertEquals(List.of(), WayBackTest.run().problems());
+    }
+
+    @Test
     void metrics() {
         assertEquals(List.of(), MetricsTest.run().problems());
     }

@@ -565,6 +565,36 @@ R-015)
 - **The recalled DFHAID values** (R-055 C-2): compare DFHPF13–24 and DFHPA1–3 against IBM's CICS
   documentation when reachable, or a second independent copybook; until then `hypothesis`.
 
+Each `hypothesis` claim's trial, as its claim names it (tithe 3a.2, `WayBackTest`; the claims are
+unchanged, R-042):
+
+- R-015 C-1 (IBM's CICS and SQL syntax documented well enough to parse from): phase 7.2's first step.
+- R-017 C-3 (the no-token test suffices for completeness): phase 3.3's lowering of NIST without
+  consulting the tree.
+- R-020 C-1 (BigInteger and scale reproduce libcob on the autotests): the 378 runnable autotests through
+  the java lane.
+- R-020 C-6 (the cap rows past 30 digits): a mainframe run, which settles C-6 and the ROUNDED `// Unsure`
+  together.
+- R-022 C-2 (STD is what most OPT programs mean): a customer's mainframe gold on an OPT program.
+- R-023 C-2 (IEEE close enough for NIST's float tests): NIST's float cases through the java lane.
+- R-024 C-2 (passes as transformations the emitter prints): phase 6's first pass.
+- R-027 C-2 (`rt/` answers them from the fixture): phase 3's CREASTMT end to end.
+- R-052 C-2 (a trial is cheaper than a debate): trials per phase against Fable minutes per phase, from
+  the journal.
+- R-053 C-1 (most deferred questions decided the way the agent leaned): the boundary tithe's count of
+  held and reversed defaults.
+- R-053 C-2 (a reversible default exists for most class (c) and (d) questions): the same count, with
+  the stops recorded.
+- R-053 C-3 (switching a default under goldens is cheap): commits and minutes per reversal, journaled.
+- R-054 C-2 (the docs ratio falls as phase 2 lands code): measured at the phase-2 boundary (J-091).
+- R-056 C-2 (one declared mutation per check is enough): the meta-test's first run over the checks
+  (tithe pass 2, A7, J-088).
+- R-057 C-2, its NORENT part (a NORENT program's WORKING-STORAGE): the claim names no trial; an IBM page
+  covering NORENT storage, or a mainframe run of a NORENT program, would settle it (Opus, tithe 3a.2).
+- R-058 C-2 (the register matters to an evaluator more than pass counts): the NSF study's reviewers.
+- R-059 C-2 (for MULTIPLY and DIVIDE the temporary is the multiplier or divisor): a mainframe run, or a
+  further IBM example.
+
 (run: RECFM=V J-062, stderr J-059, NC124A J-072)
 
 ## Waiting on Ghost

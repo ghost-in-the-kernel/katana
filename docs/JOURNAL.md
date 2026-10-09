@@ -2196,3 +2196,17 @@ taken; closed by a later `decision` entry naming it).
   `scripts/` can be registered; its scan for unlisted goldens stays in test/katana/.
 - **Touched:** `scripts/TitheGate.java`, `scripts/prepush.sh`, `test/TitheGateTest.java`,
   `test/ChecksTest.java`, `docs/checks.json`.
+
+### J-156 Tithe 3a.2: the way back, each link from a claim to its source held by a test
+- **Who:** Opus, on Ghost's ask (2026-10-06) and Fable's list. **Class:** failure-caught.
+- **Intent:** one test that walks every open discovery to its IBM quote, every `hypothesis` claim to
+  its trial, every `// Decision: R-nnn` to a decision in force, and fails on the first missing link.
+- **Found:** on its first run, 20 missing links. Three discovery rows (D-003, D-005, D-010) cited PG
+  Table 48 or LR p. 333 without naming where it is quoted (`rt/Display` quotes both). Seventeen
+  `hypothesis` claims each named its trial in its own text, and none was listed where the work would
+  find it: in HANDOFF's Trials or as a journal entry of class trial; one of them, R-057 C-2's NORENT
+  part, names no trial at all. All 16 decisions cited by `// Decision:` are in force.
+- **Resolved:** `WayBackTest` (a doc test, run in the fast loop) with a failing case for each link;
+  the three rows name `rt/Display`; HANDOFF's Trials lists the seventeen trials as their claims name
+  them (the claims unchanged, R-042), and for R-057 C-2's NORENT part proposes one, marked as Opus's.
+- **Touched:** `test/WayBackTest.java`, `test/DocTests.java`, `docs/DISCOVERIES.md`, `docs/HANDOFF.md`.
