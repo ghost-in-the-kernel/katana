@@ -1,0 +1,19 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. IXVARY.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  T.
+           05 E PIC X OCCURS 9 TIMES INDEXED BY IX.
+       01  N PIC 9(5) VALUE 0.
+       01  K PIC 9(5) VALUE 0.
+       PROCEDURE DIVISION.
+       MAIN-PARA.
+           PERFORM COUNT-PARA VARYING IX FROM 3 BY 1 UNTIL IX > 150
+           SET K TO IX
+           DISPLAY "N " N " IX " K
+           PERFORM COUNT-PARA VARYING IX FROM 1 BY 50 UNTIL IX > 1000
+           SET K TO IX
+           DISPLAY "N " N " IX " K
+           STOP RUN.
+       COUNT-PARA.
+           ADD 1 TO N.

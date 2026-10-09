@@ -2370,3 +2370,21 @@ taken; closed by a later `decision` entry naming it).
   said so in one line with the commit. That is R-043 held under provocation: the fix was obvious,
   and it still proposed rather than acted.
 
+
+### J-167 SQ214A's timeout: an index in arithmetic had no integer places
+- **Who:** Opus, on Ghost's go-ahead. **Class:** failure-caught.
+- **Intent:** SQ214A ran past the lane's 60 s with no report; find why.
+- **Found:** `PERFORM WRITE-SQ-FS1-PARA2 VARYING ODO-IX FROM 3 BY 1 UNTIL ODO-IX IS GREATER THAN 4000`
+  never ended: ODO-IX counted 3 to 99 and then 0, over and over (a thread dump, then the loop's
+  index printed). An index has no PICTURE, so the lowering gave it 0 integer places as an operand,
+  and Appendix A's places for `ODO-IX + 1` were two digits; the sum was cut at 100. `rt` holds an
+  index as a nine-digit fullword (`Lower.index`), and IBM's VARYING augments an index-name as any
+  identifier (LR 6.4 p. 420, "every reference to identifier-n refers equally to index-name-n"). The
+  same holds wherever an index is an arithmetic operand.
+- **Resolved:** `Arith.integerPlaces` gives an index nine. IXVARY (a VARYING index past 150, and by 50
+  past 1000) joins the differential programs; on the old code it timed out where cobc gives N 148 and
+  IX 151. SQ through the Java lane 82 to 83 of 85 (floor 83); left SQ101M and SQ207M, an index named
+  by ZERO and by a mnemonic, not lowered.
+- **Note:** J-166 (R-054 held: the parallel fast loop and the ceilings) is set aside on a local branch:
+  its own gate, every suite as `--all`, took 14.4 min against the 12-min ceiling, and was refused.
+- **Touched:** `lower/Arith.java`, `test/katana/lower/programs/IXVARY.cbl`, the SQ floor.

@@ -89,7 +89,9 @@ final class Arith {
         };
     }
 
+    /** An operand's integer places: its PICTURE's; an index, which has none, the fullword's nine (`Lower.index`; SQ214A's VARYING past 99, J-167). */
     static int integerPlaces(Item i) {
+        if (i.attributes().category() == katana.sir.types.Attributes.Category.INDEX) return 9;
         return Math.max(0, Lower.stored(i.attributes()) - i.attributes().scale());
     }
 
