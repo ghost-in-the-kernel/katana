@@ -1134,3 +1134,5 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.writable` |  | 2026-10-09 |  |
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.noRewind` |  | 2026-10-09 |  |
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.close#2` |  | 2026-10-09 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.rewrite` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.rewrite` | R-019 | 2026-10-09 |  |

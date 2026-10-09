@@ -41,6 +41,7 @@ final class Verbs {
             case "OPEN" -> files.open(s);
             case "CLOSE" -> files.close(s);
             case "WRITE" -> files.write(s);
+            case "REWRITE" -> files.rewrite(s);
             case "READ" -> files.read(s);
             default -> control(s);
         }

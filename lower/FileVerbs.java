@@ -163,6 +163,15 @@ final class FileVerbs {
         after("WRITE", fileOf(record.item()), false);
     }
 
+    /** REWRITE record [FROM x] (LR 6.4 p. 432): the FROM item MOVEd into the record first. */
+    void rewrite(Statement s) {
+        Value.Field record = (Value.Field) Verbs.operand(s, "record-name");
+        Value from = Verbs.operand(s, "rewrite-from");
+        if (from != null) f.e.line(f.x.moveInto(from, f.x.field(record), f.x.item(record.item())) + ";");
+        f.e.line(owner(record.item()) + ".rewrite(" + f.x.field(record) + ");");
+        after("REWRITE", fileOf(record.item()), false);
+    }
+
     /** READ file [INTO x] [AT END ... NOT AT END ...]. */
     void read(Statement s) {
         Value.File file = (Value.File) Verbs.operand(s, "read-statement");

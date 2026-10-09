@@ -2146,3 +2146,22 @@ taken; closed by a later `decision` entry naming it).
   stays 84. Left: REWRITE (nine programs), the record-length tests SQ218A-SQ224A, and a few others.
 - **Touched:** `rt/SeqFile`, `lower/FileVerbs`, `lower/Flow`, `oracle/nist/ModuleRun`, both NIST
   goldens, `docs/DISCOVERIES.md`, research §10 and §12, the tests.
+
+### J-153 REWRITE lowered; cobc follows IBM's text in all ten steps
+- **Who:** Opus, on Ghost's go-ahead. **Class:** trial.
+- **Intent:** REWRITE on a sequential file, text first (research §12), the rivals named and the
+  trial's values committed before the run (22f42d0).
+- **Found:** IBM (LR 6.4 pp. 411, 432-433): the file open I-O, the last prior statement a successful
+  READ, whose record is replaced by one of the same size, the file position untouched; else 49, 43, 44.
+  Rivals: a second REWRITE after one READ (43, or allowed), one after a READ at end (43, or the last
+  record replaced), the READ after a REWRITE (the next record, or the same one). REWTRIAL under cobc
+  -std=ibm: the text's reading in every step, each rival's (a): 43, R1, 00, 43, R2, R3, 10, 43, 00, the
+  file read back N1 R2 R3, and 49 on a file open INPUT. No D-number.
+- **Resolved:** `SeqFile` opens I-O through a RandomAccessFile, remembers where its last successful
+  READ began, and `rewrite` puts the record back there (43, 44, 49 as the text says); OPEN I-O of an
+  absent OPTIONAL file creates it (05). REWRITE lowers with its FROM phrase and the status handling of
+  J-152. REWTRIAL joins the differential programs. SQ through the Java lane 62 to 67 of 85 (SQ115A,
+  SQ116A, SQ121A, SQ133A, SQ144A); the four REWRITE programs left (SQ134A, SQ212A, SQ227A, SQ228A)
+  write variable-length records, as do most of the 18 runs that still differ (SQ106A, SQ107A,
+  SQ218A-SQ224A): the next piece, with its own text and trial, since how a variable record lies on
+  disk is cobc's choice (the lane's profile).

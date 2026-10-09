@@ -29,6 +29,9 @@ public final class SeqFile {
     private final boolean optional;
     private OutputStream out;
     private InputStream in;
+    private java.io.RandomAccessFile io;
+    private long readAt = -1;
+    private int readLength;
     private Mode mode, opening;
     private boolean locked, atEnd, absent;
     private String last = "00";
@@ -109,7 +112,9 @@ public final class SeqFile {
         try {
             absent = !exists && mode == Mode.INPUT;
             atEnd = false;
-            if (mode == Mode.INPUT || mode == Mode.IO) in = absent ? InputStream.nullInputStream() : new BufferedInputStream(Files.newInputStream(path()));
+            readAt = -1;
+            if (mode == Mode.IO) io = new java.io.RandomAccessFile(path().toFile(), "rw");
+            else if (mode == Mode.INPUT) in = absent ? InputStream.nullInputStream() : new BufferedInputStream(Files.newInputStream(path()));
             else out = new BufferedOutputStream(mode == Mode.EXTEND ? Files.newOutputStream(path(), StandardOpenOption.CREATE, StandardOpenOption.APPEND) : Files.newOutputStream(path()));
             this.mode = mode;
             opening = null;
@@ -220,6 +225,7 @@ public final class SeqFile {
     /** A WRITE's check: 48 on a file not open for output (LR p. 302), else 00. */
     private boolean writable() {
         opening = null;
+        readAt = -1;
         last = mode == Mode.OUTPUT || mode == Mode.EXTEND || mode == Mode.IO ? "00" : "48";
         return last.equals("00");
     }
@@ -230,6 +236,7 @@ public final class SeqFile {
      */
     public boolean read(Field record) {
         opening = null;
+        readAt = -1;
         if (mode != Mode.INPUT && mode != Mode.IO) {
             last = "47";
             return true;
@@ -243,7 +250,8 @@ public final class SeqFile {
             int n = record.attr().length(), k = 0, c;
             java.util.Arrays.fill(dst, record.offset(), record.offset() + n, record.record().codepage().character(' '));
             boolean got = false;
-            while (k < n && (c = in.read()) >= 0) {
+            long at = io == null ? -1 : io.getFilePointer();
+            while (k < n && (c = io == null ? in.read() : io.read()) >= 0) {
                 got = true;
                 if (lines && c == '\n') break;
                 dst[record.offset() + k++] = (byte) c;
@@ -251,7 +259,45 @@ public final class SeqFile {
             if (lines && k == n) while ((c = in.read()) >= 0 && c != '\n') k++;
             atEnd = !got;
             last = atEnd ? "10" : "00";
+            if (got) {
+                readAt = at;
+                readLength = k;
+            }
             return got;
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * REWRITE (LR 6.4 pp. 432-433): on a file open I-O (else 49) whose last statement was a successful
+     * READ (else 43), the record that READ retrieved replaced by one of the same size (else 44); the
+     * file position untouched (research §12, W1-W3 (a)).
+     */
+    // Decision: R-019
+    public void rewrite(Field record) {
+        opening = null;
+        long at = readAt;
+        readAt = -1;
+        if (mode != Mode.IO) {
+            last = "49";
+            return;
+        }
+        if (at < 0) {
+            last = "43";
+            return;
+        }
+        byte[] bytes = Literal.bytes(record);
+        if (bytes.length != readLength) {
+            last = "44";
+            return;
+        }
+        try {
+            long position = io.getFilePointer();
+            io.seek(at);
+            io.write(bytes);
+            io.seek(position);
+            last = "00";
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -264,6 +310,7 @@ public final class SeqFile {
      */
     public void close(boolean lock, boolean reel, boolean noRewind) {
         opening = null;
+        readAt = -1;
         if (mode == null) {
             last = "42";
             return;
@@ -284,8 +331,10 @@ public final class SeqFile {
         try {
             if (out != null) out.close();
             if (in != null) in.close();
+            if (io != null) io.close();
             out = null;
             in = null;
+            io = null;
             mode = null;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
