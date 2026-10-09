@@ -445,8 +445,9 @@ dataRecordsClause
    : DATA (RECORD IS? | RECORDS ARE?) dataName+
    ;
 
+// Katana (J-160): LINAGE's data-names can be qualified, as any name but in REDEFINES (LR 6.4 p. 67).
 linageClause
-   : LINAGE IS? (dataName | integerLiteral) LINES? linageAt*
+   : LINAGE IS? (qualifiedDataName | integerLiteral) LINES? linageAt*
    ;
 
 linageAt
@@ -454,15 +455,15 @@ linageAt
    ;
 
 linageFootingAt
-   : WITH? FOOTING AT? (dataName | integerLiteral)
+   : WITH? FOOTING AT? (qualifiedDataName | integerLiteral)
    ;
 
 linageLinesAtTop
-   : LINES? AT? TOP (dataName | integerLiteral)
+   : LINES? AT? TOP (qualifiedDataName | integerLiteral)
    ;
 
 linageLinesAtBottom
-   : LINES? AT? BOTTOM (dataName | integerLiteral)
+   : LINES? AT? BOTTOM (qualifiedDataName | integerLiteral)
    ;
 
 recordingModeClause

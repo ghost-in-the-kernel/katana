@@ -78,6 +78,20 @@ class NameResolutionTest {
         assertTrue(move.operands().stream().anyMatch(o -> o.value().equals(new Value.Expression("LINAGE-COUNTER OF", List.of(new Value.File("LISTING"))))), move.toString());
     }
 
+    /** LINAGE's data-names can be qualified, as any name but in REDEFINES (LR 6.4 p. 67; J-160). */
+    @Test
+    void linageNamesAreQualified() {
+        Build.Result r = build("IDENTIFICATION DIVISION.", "PROGRAM-ID. PAGES.", "ENVIRONMENT DIVISION.", "INPUT-OUTPUT SECTION.", "FILE-CONTROL.",
+                "    SELECT LISTING ASSIGN TO \"LST\".", "DATA DIVISION.", "FILE SECTION.", "FD LISTING LINAGE IS L OF G2 LINES WITH FOOTING AT L OF G1.",
+                "01 PR PIC X(10).", "WORKING-STORAGE SECTION.", "01 G1.", "   05 L PIC 99 VALUE 8.", "01 G2.", "   05 L PIC 99 VALUE 10.",
+                "PROCEDURE DIVISION.", "MAIN-PARA.", "    STOP RUN.");
+        Program p = r.program();
+        var linage = p.files().get(0).fd().linage();
+        assertEquals(new Value.Field(id(p, "L", "G2"), List.of(), null, null), linage.body(), "L OF G2, not G1's L");
+        assertEquals(new Value.Field(id(p, "L", "G1"), List.of(), null, null), linage.footing());
+        assertEquals(List.of(), r.findings());
+    }
+
     /** A comment line between a clause's words is not part of the clause: SQ401M's ASSIGN is TAPE2 (J-151). */
     @Test
     void aCommentInsideAClauseIsNotPartOfIt() {

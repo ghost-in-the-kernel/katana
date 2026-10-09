@@ -2248,3 +2248,22 @@ taken; closed by a later `decision` entry naming it).
   lowering and every golden are unchanged. Four kernel-map rows superseded. LinageIntegrationTest and
   AbendIntegrationTest pass unchanged.
 - **Touched:** `rt/katana/rt/SeqFile.java`, `rt/katana/rt/Linage.java`, `docs/KERNEL-MAP.md`.
+
+### J-160 Tithe 3a.6: the name sweep again, over what came after it
+- **Who:** Opus, on Fable's list. **Class:** failure-caught.
+- **Intent:** item 6: every place `sir/build` resolves a name, checked for `X OF Y` reaching it whole,
+  and "not found" a finding rather than a zero. J-148 swept it on 2026-10-08; this pass audits what
+  came after (SIR-10's USE, SIR-11's FD and LINAGE, J-150 and J-151) and asks who reads the findings.
+- **Found:** three things. (1) LINAGE's four values took `dataName`, so `LINAGE IS L OF G2` resolved to
+  G1's L with an "ambiguous" finding; IBM: "A name can be qualified even though it does not need
+  qualification except in a REDEFINES clause" (LR 6.4 p. 67). (2) The NIST lane's runner took
+  `Build.Result.program()` and dropped `findings()`: a build finding reached no report, so in the lane
+  "ambiguous" was as silent as a 0. No NC or SQ program has a build finding today (probed over all
+  437), so nothing was hidden yet. (3) An unresolved LINAGE name and a USE on a file the program does
+  not have are refused by the contract (SIR-11, SIR-05) with an `Invalid`, loud, never a 0; left so.
+- **Resolved:** the grammar's four LINAGE values take `qualifiedDataName` and `Files.item` resolves
+  them with their qualifiers ("LINAGE" in the finding; RECORD DEPENDING ON now says so too, not
+  "SELECT clause"). `JavaRunner` writes the build's findings with the lowering's. `NameResolutionTest
+  .linageNamesAreQualified` failed before (item 3, not 5). No golden moved.
+- **Touched:** `front/grammar/Cobol.g4`, `sir/build/Files.java`, `test/katana/lower/JavaRunner.java`,
+  `test/katana/sir/NameResolutionTest.java`.

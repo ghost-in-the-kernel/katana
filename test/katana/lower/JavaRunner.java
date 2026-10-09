@@ -40,11 +40,15 @@ final class JavaRunner implements Runner {
         try {
             Parse.Result parse = Parse.file(dir.resolve(source), new Copybooks(List.of(dir), n -> 8), 8);
             if (!parse.clean()) return new Result(1, "does not parse: " + parse.errors().get(0));
-            Program program = Build.programs(parse, "sha256:" + "0".repeat(64)).get(0).program();
+            Build.Result built = Build.programs(parse, "sha256:" + "0".repeat(64)).get(0);
+            Program program = built.program();
             String name = Lower.className(program);
             Lower.Result lowered = Lower.java(program, name);
             Files.writeString(dir.resolve(name + ".java"), lowered.java());
-            Files.writeString(dir.resolve(stem(source) + ".class-name"), name + "\n" + String.join("\n", lowered.findings()));
+            // The build's findings (a name that names nothing, or two items) are reported with the lowering's (J-160).
+            List<String> findings = new ArrayList<>(built.findings());
+            findings.addAll(lowered.findings());
+            Files.writeString(dir.resolve(stem(source) + ".class-name"), name + "\n" + String.join("\n", findings));
             ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
             JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
             int status = javac.run(null, null, diagnostics, "-classpath", rtClasses(), "-d", dir.toString(), dir.resolve(name + ".java").toString());

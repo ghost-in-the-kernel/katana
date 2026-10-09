@@ -31,14 +31,14 @@ final class Files {
                 if (c.assignClause() != null) assign = assign(c.assignClause());
                 if (c.organizationClause() != null) organization = organization(c.organizationClause());
                 if (c.accessModeClause() != null) access = access(c.accessModeClause());
-                if (c.recordKeyClause() != null) key = item(names, c.recordKeyClause().qualifiedDataName(), where);
+                if (c.recordKeyClause() != null) key = item(names, c.recordKeyClause().qualifiedDataName(), where, "SELECT clause");
                 if (c.alternateRecordKeyClause() != null) {
-                    int item = item(names, c.alternateRecordKeyClause().qualifiedDataName(), where);
+                    int item = item(names, c.alternateRecordKeyClause().qualifiedDataName(), where, "SELECT clause");
                     if (item != 0) alternates.add(new FileDescriptor.AlternateKey(item, c.alternateRecordKeyClause().DUPLICATES() != null));
                 }
-                if (c.relativeKeyClause() != null) relative = item(names, c.relativeKeyClause().qualifiedDataName(), where);
-                if (c.fileStatusClause() != null) status = item(names, c.fileStatusClause().qualifiedDataName(0), where);
-                if (c.fileStatusClause() != null && c.fileStatusClause().qualifiedDataName(1) != null) vsamStatus = item(names, c.fileStatusClause().qualifiedDataName(1), where);
+                if (c.relativeKeyClause() != null) relative = item(names, c.relativeKeyClause().qualifiedDataName(), where, "SELECT clause");
+                if (c.fileStatusClause() != null) status = item(names, c.fileStatusClause().qualifiedDataName(0), where, "SELECT clause");
+                if (c.fileStatusClause() != null && c.fileStatusClause().qualifiedDataName(1) != null) vsamStatus = item(names, c.fileStatusClause().qualifiedDataName(1), where, "SELECT clause");
             }
             List<Integer> mine = records.getOrDefault(name, List.of());
             int min = mine.stream().mapToInt(lengths::get).min().orElse(0), max = mine.stream().mapToInt(lengths::get).max().orElse(0);
@@ -79,7 +79,7 @@ final class Files {
                 if (!sizes.isEmpty()) from = Integer.parseInt(sizes.get(0).getText());
                 to = sizes.size() > 1 ? Integer.parseInt(sizes.get(1).getText()) : r.recordContainsClauseFormat1() != null ? from : 0;
                 varying = r.recordContainsClauseFormat2() != null;
-                if (varying && r.recordContainsClauseFormat2().qualifiedDataName() != null) depending = item(names, r.recordContainsClauseFormat2().qualifiedDataName(), where);
+                if (varying && r.recordContainsClauseFormat2().qualifiedDataName() != null) depending = item(names, r.recordContainsClauseFormat2().qualifiedDataName(), where, "RECORD DEPENDING ON");
             }
             if (c.linageClause() != null) linage = linage(names, c.linageClause(), where);
             if (c.codeSetClause() != null) codeSet = Values.upper(c.codeSetClause().alphabetName().getText());
@@ -93,16 +93,16 @@ final class Files {
     private static FileDescriptor.Linage linage(Names names, CobolParser.LinageClauseContext l, String where) {
         katana.sir.types.Value footing = null, top = null, bottom = null;
         for (var at : l.linageAt()) {
-            if (at.linageFootingAt() != null) footing = value(names, at.linageFootingAt().dataName(), at.linageFootingAt().integerLiteral(), where);
-            if (at.linageLinesAtTop() != null) top = value(names, at.linageLinesAtTop().dataName(), at.linageLinesAtTop().integerLiteral(), where);
-            if (at.linageLinesAtBottom() != null) bottom = value(names, at.linageLinesAtBottom().dataName(), at.linageLinesAtBottom().integerLiteral(), where);
+            if (at.linageFootingAt() != null) footing = value(names, at.linageFootingAt().qualifiedDataName(), at.linageFootingAt().integerLiteral(), where);
+            if (at.linageLinesAtTop() != null) top = value(names, at.linageLinesAtTop().qualifiedDataName(), at.linageLinesAtTop().integerLiteral(), where);
+            if (at.linageLinesAtBottom() != null) bottom = value(names, at.linageLinesAtBottom().qualifiedDataName(), at.linageLinesAtBottom().integerLiteral(), where);
         }
-        return new FileDescriptor.Linage(value(names, l.dataName(), l.integerLiteral(), where), footing, top, bottom);
+        return new FileDescriptor.Linage(value(names, l.qualifiedDataName(), l.integerLiteral(), where), footing, top, bottom);
     }
 
-    private static katana.sir.types.Value value(Names names, CobolParser.DataNameContext name, CobolParser.IntegerLiteralContext integer, String where) {
+    private static katana.sir.types.Value value(Names names, CobolParser.QualifiedDataNameContext name, CobolParser.IntegerLiteralContext integer, String where) {
         if (integer != null) return Literals.of(integer.getText());
-        int item = names.resolve(Values.upper(name.getText()), List.of(), null, where, "LINAGE");
+        int item = item(names, name, where, "LINAGE");
         return item == 0 ? new katana.sir.types.Value.Name("unresolved", Values.upper(name.getText())) : new katana.sir.types.Value.Field(item, List.of(), null, null);
     }
 
@@ -114,16 +114,16 @@ final class Files {
     }
 
     /**
-     * The item a SELECT clause names, with its qualifiers (`SQ-FS4-STATUS OF STATUS-GROUP`); one that
-     * names no item is a finding, never a silent 0 (SIR-09).
+     * The item a SELECT or FD clause names, with its qualifiers (`SQ-FS4-STATUS OF STATUS-GROUP`); one
+     * that names no item is a finding, never a silent 0 (SIR-09). `what` names the clause in the finding.
      */
-    private static int item(Names names, CobolParser.QualifiedDataNameContext q, String where) {
+    private static int item(Names names, CobolParser.QualifiedDataNameContext q, String where, String what) {
         CobolParser.QualifiedDataNameFormat1Context f = q.qualifiedDataNameFormat1();
         String name = Values.upper(f == null ? q.getText() : f.getChild(0).getText());
         List<String> qualifiers = new ArrayList<>();
         if (f != null) for (var in : f.qualifiedInData()) qualifiers.add(Values.upper(in.inData() != null ? in.inData().dataName().getText() : in.inTable().tableCall().qualifiedDataName().getText()));
         String file = f == null || f.inFile() == null ? null : Values.upper(f.inFile().fileName().getText());
-        return names.resolve(name, qualifiers, file, where, "SELECT clause");
+        return names.resolve(name, qualifiers, file, where, what);
     }
 
     /**
