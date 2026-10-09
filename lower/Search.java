@@ -32,7 +32,7 @@ final class Search {
         int index = varying instanceof Value.Field v && occurs.indexedBy().contains(v.item()) ? v.item() : occurs.indexedBy().get(0);
         String ix = f.x.field(new Value.Field(index, List.of(), null, null));
         String count = occurs.dependingOn() == 0 ? occurs.max() + "L" : "Table.index(f" + occurs.dependingOn() + ")";
-        // Unsure: SEARCH ALL as a scan from the first occurrence; IBM leaves which of equal keys is found, and unordered keys, unpredictable (LR p. 431), and cobc halves the table, so only those cases can differ.
+        // Unsure: SEARCH ALL as a scan from the first occurrence; IBM leaves which of equal keys is found, and unordered keys, unpredictable (LR p. 431), and cobc halves the table, so only those cases can differ. Stays: IBM calls them unpredictable, so no run settles them; only a program's own data shows one.
         if (all) f.e.line("Table.set(" + ix + ", 1);");
         int head = f.label(), after = f.label();
         f.e.line("return " + head + ";");

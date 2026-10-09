@@ -21,7 +21,7 @@ public final class Sysin {
 
     /** ACCEPT identifier, from the input device. */
     // Decision: R-019
-    // Unsure: a line is a record of its own length (IBM's variable-length format); a fixed-length input device would keep each record's trailing spaces when records are concatenated, which only a receiver longer than a line shows (J-122).
+    // Unsure: a line is a record of its own length (IBM's variable-length format); a fixed-length input device would keep each record's trailing spaces when records are concatenated, which only a receiver longer than a line shows (J-122). Stays: a fixture whose DD declares fixed-length input records settles it.
     public void accept(Field into) {
         int length = into.attr().length();
         ByteArrayOutputStream got = new ByteArrayOutputStream();

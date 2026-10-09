@@ -89,7 +89,7 @@ public final class Strings {
      * (-1 at the end of the sender). The delimiters are tried in the order written at each position; ALL
      * takes further contiguous occurrences of the same delimiter as one.
      */
-    // Unsure: IBM's "multiple contiguous occurrences of any delimiters" could read as any of the delimiters; this is cobc's reading, the same one (J-106).
+    // Unsure: IBM's "multiple contiguous occurrences of any delimiters" could read as any of the delimiters; this is cobc's reading, the same one (J-106). Stays: an IBM run of UNSTRING over adjacent different delimiters settles it.
     private static int[] nextDelimiter(byte[] from, int at, int end, List<Delimiter> delimiters) {
         for (int p = at; p < end; p++) {
             for (int k = 0; k < delimiters.size(); k++) {

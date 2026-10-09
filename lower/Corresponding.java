@@ -17,7 +17,7 @@ final class Corresponding {
     private Corresponding() {}
 
     // Decision: R-019
-    // Unsure: an item under one with REDEFINES or OCCURS is left out with it; IBM names only the items described with those clauses, and such an item could not be referred to without that item's subscript anyway (J-123).
+    // Unsure: an item under one with REDEFINES or OCCURS is left out with it; IBM names only the items described with those clauses, and such an item could not be referred to without that item's subscript anyway (J-123). Stays: IBM's text names no such item; an IBM run of CORRESPONDING over one settles it.
     static List<Value.Field[]> pairs(Exprs x, Value.Field from, Value.Field to, boolean numeric) {
         List<Value.Field[]> out = new ArrayList<>();
         walk(x, from, to, numeric, out);

@@ -56,7 +56,7 @@ public final class Editor {
         int nd = l.digitAt().length;
         BigInteger unscaled = value.setScale(scale, RoundingMode.DOWN).unscaledValue().abs().mod(BigInteger.TEN.pow(nd));
         String digits = nd == 0 ? "" : String.format("%0" + nd + "d", unscaled);
-        // Unsure: a negative value cut to zero shows as positive, by the table's "positive or zero" column (LR p. 222); IBM's p. 404 "the sign of the sending item" could read the other way (J-104).
+        // Unsure: a negative value cut to zero shows as positive, by the table's "positive or zero" column (LR p. 222); IBM's p. 404 "the sign of the sending item" could read the other way (J-104). Stays: an IBM run editing a negative value cut to zero settles it.
         boolean zero = unscaled.signum() == 0, negative = !zero && value.signum() < 0;
         int length = e.mask().length();
         if ((e.blankWhenZero() && zero) || (zero && l.allSuppressing() && suppressor(l) != '*')) return " ".repeat(length);

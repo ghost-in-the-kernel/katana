@@ -2220,3 +2220,17 @@ taken; closed by a later `decision` entry naming it).
 - **Resolved:** a one-line javadoc above each (and above its `// Decision:` line), the decision or IBM
   page cited only where read (LR 6.4 p. 123 for the collating sequence); no code changed, no golden.
   The warnings now list no function of a shipped module.
+
+### J-158 Tithe 3a.4: every `// Unsure` says why it stays and what settles it
+- **Who:** Opus, on Fable's list. **Class:** decision (tithe).
+- **Intent:** item 4: each of the `// Unsure:` lines becomes a `// Decision`, a `hypothesis` claim
+  with its trial, or stays with the reason it cannot yet be settled on the same line.
+- **Found:** 20 in the source; the list counted 21. None could become a `// Decision` without
+  a run or a source not in hand, and none was claim-shaped enough to add as a `hypothesis` without
+  Ghost or Fable (R-042); all twenty stay. Fourteen wait on an IBM or mainframe run; the rest on a fixture, a
+  program that needs them, or a source. Writing the reasons caught one that leaned on cobc for an IBM
+  question (`lower/Exprs`, complex ODO); the R-058 check stopped it, and it was reworded.
+- **Resolved:** " Stays: <what settles it>" on each line; `WayBackTest.doubts` fails on an
+  `// Unsure:` line without it, with its failing case; HANDOFF's "Waiting on a run" lists the fourteen
+  an IBM session would take together. No code changed, no golden.
+- **Touched:** the twenty source lines, `test/WayBackTest.java`, `docs/HANDOFF.md`.

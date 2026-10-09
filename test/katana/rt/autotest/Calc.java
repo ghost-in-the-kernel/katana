@@ -12,7 +12,7 @@ final class Calc {
     private static final ArithProfile P = ArithProfile.IBM_COMPAT;
     private final int dmax;
 
-    // Unsure: dmax counts every operand but a direct divisor, those inside a divisor expression too; IBM's "except divisors" (PG Appendix A) does not say which (J-111).
+    // Unsure: dmax counts every operand but a direct divisor, those inside a divisor expression too; IBM's "except divisors" (PG Appendix A) does not say which (J-111). Stays: as lower/Arith's, an IBM run settles it.
     Calc(int dmax) {
         this.dmax = dmax;
     }

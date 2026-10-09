@@ -617,6 +617,16 @@ unchanged, R-042):
 
 ## Waiting on a run
 
+- **The `// Unsure:` lines an IBM run settles** (tithe 3a.4, J-158): each line says so after "Stays:".
+  A mainframe session would take them together: ADD/MULTIPLY/DIVIDE's temporary (`lower/ArithVerbs`,
+  R-059 C-2); CORRESPONDING under REDEFINES or OCCURS (`lower/Corresponding`); an index's bytes
+  (`lower/Lower`); a numeric literal into a group MOVE and in DISPLAY (`lower/Exprs`, `lower/Verbs`);
+  an operand inside a divisor and dmax (`lower/Arith`, `test/.../Calc`); UNSTRING over adjacent
+  different delimiters (`rt/Strings`); a negative value edited to zero (`rt/Editor`); INSPECT with
+  BEFORE and AFTER (`rt/Inspect`); a division by zero without SIZE ERROR (`rt/Arithmetic`); ROUNDED's
+  place and the cap (`rt/ArithProfile`, R-020 C-2 and C-6); LOW-VALUE under a shared lowest position
+  (`rt/Collation`). The others wait on a source or a fixture, as their lines say.
+
 - **CI is out of GitHub Actions minutes until 2026-11-02** (R-050). Until then a step's gate is the CI
   image and commands on a fresh clone before the push: `scripts/prepush.sh` (the suites the change
   touches, and why; `--all` at a phase boundary), its result and suites quoted in the commit message. The first commit only checked that way is

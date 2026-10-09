@@ -39,7 +39,7 @@ public enum ArithProfile {
      * ROUNDED, so the rounding has a digit to look at. On cobc -std=ibm, `A / B` into 9V9 is 0.6 and
      * `A / B` into 9V9 ROUNDED is 0.7 (2 and 3; J-099), which no reading without that place gives.
      */
-    // Unsure: IBM's text says one more place "might be carried" under ROUNDED (PG p. 794) and APAR PH41526 speaks of ROUNDED intermediates over 31 digits; whether IBM carries it in every intermediate, not only the last, is unsettled without a run on IBM (J-099).
+    // Unsure: IBM's text says one more place "might be carried" under ROUNDED (PG p. 794) and APAR PH41526 speaks of ROUNDED intermediates over 31 digits; whether IBM carries it in every intermediate, not only the last, is unsettled without a run on IBM (J-099). Stays: R-020 C-2 holds the model on cobc for data items (J-142); IBM's "might" waits for a mainframe run.
     // Decision: R-049
     public Places last(Places places, boolean rounded) {
         return rounded ? new Places(places.integer(), places.decimal() + 1) : places;
@@ -71,7 +71,7 @@ public enum ArithProfile {
      * (p. 797). `literal` is null for a data-name exponent.
      */
     // Decision: R-049
-    // Unsure: IBM's exception at the cap ("a 30-digit integer raised to the power of literal 1") is not modelled; nor is the odd-digit case under EXTEND, which the text gives only for COMPAT (J-124).
+    // Unsure: IBM's exception at the cap ("a 30-digit integer raised to the power of literal 1") is not modelled; nor is the odd-digit case under EXTEND, which the text gives only for COMPAT (J-124). Stays: R-020 C-6, a hypothesis; a mainframe run settles it.
     public Places power(int i1, int d1, Long literal, int literalIntegers, int dmax) {
         if (literal == null) return this == EXACT ? new Places(i1, d1) : new Places(cap - dmax, dmax);
         long n = Math.abs(literal);

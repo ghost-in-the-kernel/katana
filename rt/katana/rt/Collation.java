@@ -62,7 +62,7 @@ public record Collation(int[] weights) {
     }
 
     /** LOW-VALUE: the byte of the lowest position (LR p. 129). */
-    // Unsure: when ALSO shares the lowest position IBM's LOW-VALUE is the first character named; the weights do not keep that order, and the lowest byte of the position is taken (J-131).
+    // Unsure: when ALSO shares the lowest position IBM's LOW-VALUE is the first character named; the weights do not keep that order, and the lowest byte of the position is taken (J-131). Stays: an IBM run of LOW-VALUE under an alphabet whose lowest position is shared settles it.
     public byte low() {
         int best = 0;
         for (int b = 1; b < 256; b++) if (weights[b] < weights[best]) best = b;

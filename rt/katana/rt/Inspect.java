@@ -71,7 +71,7 @@ public final class Inspect {
 
     /** A phrase's region: from AFTER's delimiter's end to BEFORE's delimiter, each delimiter the first in the whole item. */
     // Decision: R-019
-    // Unsure: with both phrases IBM's text does not say where BEFORE's delimiter is searched from; this is cobc's reading, from the item's start, not from AFTER's (J-105).
+    // Unsure: with both phrases IBM's text does not say where BEFORE's delimiter is searched from; this is cobc's reading, from the item's start, not from AFTER's (J-105). Stays: an IBM run of INSPECT with both BEFORE and AFTER settles it.
     static int[] region(byte[] data, int off, int len, Phrase p) {
         int start = off, end = off + len;
         if (p.after() != null) {

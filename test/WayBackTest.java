@@ -13,7 +13,8 @@ import java.util.regex.Pattern;
  * surface"): every open discovery to its IBM quote, a page or table cited and found where the row says
  * it is quoted (DiscoveriesDocTest holds its test and journal entry); every `hypothesis` claim to its
  * trial, listed in HANDOFF's Trials or a journal entry of class `trial`; every `// Decision: R-nnn` to a
- * decision in force. It fails on each missing link.
+ * decision in force; every `// Unsure:` line to what settles it, after "Stays:" (tithe 3a.4). It fails
+ * on each missing link.
  */
 // Decision: R-058
 final class WayBackTest {
@@ -33,6 +34,9 @@ final class WayBackTest {
                 .repository(discoveries(Check.read("docs/DISCOVERIES.md"), sections(Check.read("docs/research/ibm-options.md")), WayBackTest::source))
                 .repository(hypotheses(ghost, trials(Check.read("docs/HANDOFF.md")), Check.read("docs/JOURNAL.md")))
                 .repository(decisions(ghost, sources()))
+                .repository(doubts(sources()))
+                .rejects("a doubt that says nothing of what settles it", () -> doubts(Map.of("x.java", "    // Unsure: which reading.\n")))
+                .accepts("a doubt that says why it stays", () -> doubts(Map.of("x.java", "    // Unsure: which reading. Stays: an IBM run settles it.\n")))
                 .accepts("a discovery whose page is quoted where it says", () -> discoveries(row, Map.of("1", "- LR p. 12: \"x\". D-001."), f -> null))
                 .rejects("a discovery whose section does not hold its page", () -> discoveries(row, Map.of("1", "- LR p. 13: \"x\"."), f -> null))
                 .rejects("a discovery that names no quote", () -> discoveries(row.replace(" (§1)", ""), Map.of("1", "p. 12"), f -> null))
@@ -117,6 +121,18 @@ final class WayBackTest {
                 String st = status.get(c.group(1));
                 if (st == null) failures.add(path + " cites " + c.group(1) + ", which is not in theGhost.md");
                 else if (!st.startsWith("in force")) failures.add(path + " cites " + c.group(1) + ", which is " + st);
+            }
+        });
+        return failures;
+    }
+
+    /** Every `// Unsure:` line says why it stays and what settles it ("Stays:"), so a doubt is never left bare. */
+    static List<String> doubts(Map<String, String> sources) {
+        List<String> failures = new ArrayList<>();
+        sources.forEach((path, text) -> {
+            String[] lines = text.split("\n", -1);
+            for (int i = 0; i < lines.length; i++) {
+                if (lines[i].trim().startsWith("// Unsure:") && !lines[i].contains("Stays:")) failures.add(path + ":" + (i + 1) + ": an `// Unsure:` line with no \"Stays:\" saying what settles it");
             }
         });
         return failures;

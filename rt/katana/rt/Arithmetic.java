@@ -17,7 +17,7 @@ public final class Arithmetic {
 
     /** Stores `result` into `to`; true when a size error occurred. `onSizeError` whether the statement has the phrase. */
     // Decision: R-019
-    // Unsure: a division by zero without ON SIZE ERROR leaves the identifier unaltered here; IBM's p. 296 gives truncation rules no value to apply to, and a mainframe may end the program (J-108).
+    // Unsure: a division by zero without ON SIZE ERROR leaves the identifier unaltered here; IBM's p. 296 gives truncation rules no value to apply to, and a mainframe may end the program (J-108). Stays: an IBM run of a division by zero without SIZE ERROR settles it.
     public static boolean store(Field to, Decimal.Term result, boolean rounded, boolean onSizeError) {
         Attr a = to.attr();
         boolean edited = a.category() == Attr.Category.NUMERIC_EDITED;

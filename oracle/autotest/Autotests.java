@@ -146,7 +146,7 @@ public final class Autotests {
     }
 
     /** A quoted string at `[`: its text with the outer quotes removed and inner ones kept. */
-    // Unsure: whether Autotest strips a second level from an expected stdout written `[[x]]`; two runnable cases bear on it (run_misc.at:1762, run_ml.at:856) and both stop before printing under 3.1's trial (exit 127, a command not mapped; J-093); AutotestCorpusIntegrationTest names them.
+    // Unsure: whether Autotest strips a second level from an expected stdout written `[[x]]`; two runnable cases bear on it (run_misc.at:1762, run_ml.at:856) and both stop before printing under 3.1's trial (exit 127, a command not mapped; J-093); AutotestCorpusIntegrationTest names them. Stays: the two cases settle it once their commands are mapped.
     private String quoted() {
         int line = line(at), depth = 0;
         StringBuilder out = new StringBuilder();

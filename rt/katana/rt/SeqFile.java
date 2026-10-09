@@ -78,7 +78,7 @@ public final class SeqFile {
     }
 
     /** The abend that ends the run when an error has neither a FILE STATUS item nor a declarative (PG 6.4 p. 243; J-144). */
-    // Unsure: U4038 is Fable's recollection of LE's abend for an unhandled severity-3 condition in batch, not yet quoted (HANDOFF, J-145).
+    // Unsure: U4038 is Fable's recollection of LE's abend for an unhandled severity-3 condition in batch, not yet quoted (HANDOFF, J-145). Stays: a hypothesis until LE's run-time messages (CEE3250C, IGZ0035S) are quoted.
     public Abend abend(String verb) {
         return new Abend(4038, verb + " " + file + ": file status " + last + " on " + name);
     }

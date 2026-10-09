@@ -82,7 +82,7 @@ final class ArithVerbs {
      * receivers before it (IBM's `D(C)`).
      */
     // Decision: R-020
-    // Unsure: IBM's example is an ADD; for MULTIPLY and DIVIDE without GIVING the temporary is taken to be the multiplier or divisor (J-141).
+    // Unsure: IBM's example is an ADD; for MULTIPLY and DIVIDE without GIVING the temporary is taken to be the multiplier or divisor (J-141). Stays: R-059 C-2, a hypothesis; a mainframe run or a further IBM example settles it.
     private String shared(List<Receiver> rs, String term) {
         if (rs.size() == 1) return term;
         f.e.line("Decimal.Term v = " + term + ";");

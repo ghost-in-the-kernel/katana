@@ -17,7 +17,7 @@ final class Arith {
 
     /** The most decimal places among an expression's operands, a divisor's left out (dmax's operand part). */
     // Decision: R-020
-    // Unsure: an operand inside a divisor expression is counted, only a direct divisor left out; IBM's "except divisors" does not say which (J-111).
+    // Unsure: an operand inside a divisor expression is counted, only a direct divisor left out; IBM's "except divisors" does not say which (J-111). Stays: an IBM run of a divisor expression whose operands carry more places settles it.
     int decimals(Value v) {
         return switch (v) {
             case Value.Field f -> Math.max(0, x.item(f.item()).attributes().scale());

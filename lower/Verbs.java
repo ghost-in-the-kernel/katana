@@ -110,7 +110,7 @@ final class Verbs {
     }
 
     /** DISPLAY: each operand's bytes, a figurative constant's "single occurrence" (LR 6.4 p. 333), ALL "ABCD" its literal once. */
-    // Unsure: a numeric literal is displayed as its sign and digits as written, no point, as cobc -std=ibm shows it (J-114, J-130).
+    // Unsure: a numeric literal is displayed as its sign and digits as written, no point, as cobc -std=ibm shows it (J-114, J-130). Stays: an IBM run of DISPLAY of a numeric literal settles it.
     private void display(Statement s) {
         List<String> parts = new ArrayList<>();
         for (Value v : operands(s, "display-operand")) parts.add(shown(v));
@@ -121,7 +121,7 @@ final class Verbs {
 
     /** ACCEPT: from the input device (format 1, any mnemonic), or a conceptual item, DATE to TIME (format 2). */
     // Decision: R-019
-    // Unsure: a mnemonic for the console is read as the input device; the lane has one input (J-122).
+    // Unsure: a mnemonic for the console is read as the input device; the lane has one input (J-122). Stays: a fixture with a console mnemonic and an input of its own settles it.
     private void accept(Statement s) {
         Value.Field into = (Value.Field) operand(s, "accept-statement");
         List<String> conceptual = new ArrayList<>();

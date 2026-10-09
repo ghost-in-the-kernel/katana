@@ -81,7 +81,7 @@ final class Exprs {
      * group, its maximum length. One table at the group's end; any other shape at its maximum.
      */
     // Decision: R-019
-    // Unsure: a group whose ODO table is followed by other items, holds two, or nests one in an OCCURS (IBM's complex ODO) keeps its maximum length here (J-133).
+    // Unsure: a group whose ODO table is followed by other items, holds two, or nests one in an OCCURS (IBM's complex ODO) keeps its maximum length here (J-133). Stays: IBM's complex-ODO rules read, and a program that needs them, settle it.
     private String variable(Item group, String f, boolean receiving) {
         if (group.attributes().category() != Attributes.Category.GROUP) return f;
         List<Item> tables = new ArrayList<>();
@@ -173,7 +173,7 @@ final class Exprs {
     }
 
     /** A numeric literal's characters as written, its sign kept, its point and a leading + left out (`060820000200`, not its value's digits). */
-    // Unsure: the characters a numeric literal gives a group MOVE or a DISPLAY are taken as written, leading zeros kept; cobc agrees (NC202A), IBM's text speaks of the literal's value (J-130).
+    // Unsure: the characters a numeric literal gives a group MOVE or a DISPLAY are taken as written, leading zeros kept; cobc agrees (NC202A), IBM's text speaks of the literal's value (J-130). Stays: an IBM run of a group MOVE of a literal with leading zeros settles it.
     static String written(Value.Literal l) {
         return l.text().replace("+", "").replace(".", "").replace(",", "");
     }

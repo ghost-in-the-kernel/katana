@@ -154,7 +154,7 @@ public final class Lower {
     }
 
     /** An index item, or an index-name: a fullword holding the occurrence number. */
-    // Unsure: IBM keeps an index as a displacement (LR p. 236); its occurrence number is what every use of it reads, so the lowering holds that (J-114).
+    // Unsure: IBM keeps an index as a displacement (LR p. 236); its occurrence number is what every use of it reads, so the lowering holds that (J-114). Stays: only a program that reads an index's own bytes can tell; an IBM run of one settles it.
     private static String index(Item i, Exprs x) {
         return i.length() == 4 ? "Attr.numeric(Attr.Usage.NATIVE_BINARY, 9, 0, true)" : x.unsupported(i, "an index of " + i.length() + " bytes");
     }
