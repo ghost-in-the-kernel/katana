@@ -92,6 +92,13 @@ tasks.named('test') {
     systemProperty 'katana.root', rootDir.absolutePath
     // `-Dkatana.record=true` rewrites the fast loop's goldens too (sir/contract/COPYREC.contract).
     systemProperty 'katana.record', System.getProperty('katana.record', 'false')
+    // The test classes run in parallel, four at once, each class's methods in turn (R-054 amended,
+    // 2026-10-09): no two classes write the same file (`test/ParallelTest.java`).
+    systemProperty 'junit.jupiter.execution.parallel.enabled', 'true'
+    systemProperty 'junit.jupiter.execution.parallel.mode.default', 'same_thread'
+    systemProperty 'junit.jupiter.execution.parallel.mode.classes.default', 'concurrent'
+    systemProperty 'junit.jupiter.execution.parallel.config.strategy', 'fixed'
+    systemProperty 'junit.jupiter.execution.parallel.config.fixed.parallelism', '4'
     // The tests read the whole repository, not just their classes: never skip them as up to date.
     outputs.upToDateWhen { false }
     testLogging {

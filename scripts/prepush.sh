@@ -9,6 +9,8 @@
 # checks each pinned one is at its commit. One container runs `gradle build` and every chosen suite.
 # First, R-008's gate (J-154): past sixteen commits since the last "Tithe" commit, a non-tithe head is
 # refused unless theGhost.md records `Tithe deferred through <commit>` (scripts/TitheGate.java).
+# Last, R-054's ceilings (J-163): the fast loop is run again warm in the same container and timed, and
+# it and the check's own time are held to docs/AGENT.md's ceilings (scripts/Ceilings.java).
 set -e
 cd "$(dirname "$0")/.."
 ROOT=$(pwd)
@@ -38,6 +40,9 @@ else
     esac
   done
 fi
+# Every suite selected is --all in substance, and is held to --all's ceiling (R-054, J-168).
+every=yes; for s in nist fixture lane front sir autotest rt javalane; do case " $suites " in *" $s "*) ;; *) every= ;; esac; done
+[ -n "$every" ] && ALL=yes
 tests=""
 for s in $suites; do
   case $s in
@@ -64,8 +69,14 @@ sh "$WORK/katana/corpus/fetch.sh" nist-cobol85-test-suite carddemo omp-cobol-cou
 cd "$WORK/katana"
 TASKS="build"; [ -n "$tests" ] && TASKS="build integration $tests"
 status=0
-docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana gradle $TASKS $PROPS --offline --warning-mode fail >"$WORK/gate.log" 2>&1 || status=$?
+docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana sh -c \
+  "gradle $TASKS $PROPS --offline --warning-mode fail && s=\$(date +%s) && gradle test --offline --rerun-tasks -q && echo warm-fast-loop=\$((\$(date +%s) - s))" >"$WORK/gate.log" 2>&1 || status=$?
 end=$(date +%s)
+if [ $status -eq 0 ]; then
+  warm=$(sed -n 's/^warm-fast-loop=//p' "$WORK/gate.log")
+  echo "warm fast loop: ${warm} s"
+  docker run --rm --network none -u "$(id -u)" -v "$ROOT":/katana -w /katana katana java scripts/Ceilings.java /katana "$warm" "$((end - start))" ${ALL:+--all} || status=$?
+fi
 echo "pre-push check: $( [ $status -eq 0 ] && echo passed || echo FAILED ) in $((end - start)) s on $(git rev-parse --short HEAD) (log: $WORK/gate.log)"
 [ $status -eq 0 ] && rm -rf "$WORK"
 exit $status

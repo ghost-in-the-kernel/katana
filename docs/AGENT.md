@@ -28,15 +28,18 @@ code at its value there (R-042, R-054); until then it is "not armed" and not com
 
 ## The metrics
 
-Measured by `gradle metrics --args=--time` in the image at every tithe pass; the fast loop (warm, and
-cold beside it) and the skipped tests are measured after a run, so the test does not hold them.
+Measured by `gradle metrics --args=--time` in the image at every tithe pass. The warm fast loop and
+the pre-push check are held on every push (R-054 amended, J-163): `scripts/prepush.sh` times both and
+`scripts/Ceilings.java` refuses a push past the ceiling in the target column; `MetricsTest` refuses a
+recorded time past it. The cold fast loop and the skipped tests are reported, not held.
 
 | Metric | Phase 0 target | Measured (tithe pass 3a, 2026-10-09) | Why it matters to the agent | Pass 2 | Pass 2a | Pass 1 | Pass 0 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Mandatory context (words) | < 1,500 | 804 | every task pays it | 804 | 795 | 872 | 636 |
-| Fast loop (s) | < 20 | 22 (warm: R-054; 35 at the start of the pass, 22 once the golden programs are built once per run, 3a.9; over its target, HANDOFF) | the agent runs it after every edit | 14 | 11 | 9 | 12 |
-| Fast loop, cold (s) | < 30 | 31 (reported, not held: R-054) | a fresh session pays it once | 22 | 20 | 24 | — |
-| Pre-push check, every suite (min) | < 3 | 10.5 (every suite on a fresh clone, 631 s at f2d0895: nist, fixture, lane, front, sir, autotest, rt, javalane; the rt, autotest and javalane suites came after pass 2; over its target, HANDOFF) | paid before every push while CI has no minutes (R-050) | 3.5 | 3.4 | — | — |
+| Fast loop (s) | ≤ 25 (20 from tithe pass 3's close; held, R-054 amended) | 17 (warm: R-054; the test classes in parallel since 2026-10-10, J-168; 22 at pass 3a's close) | the agent runs it after every edit | 14 | 11 | 9 | 12 |
+| Fast loop, cold (s) | < 30 | 26 (reported, not held: R-054) | a fresh session pays it once | 22 | 20 | 24 | — |
+| Pre-push check, every suite (min) | ≤ 15 (held; "under 3" retired; 12 corrected to 15, R-054 amended) | 10.5 (every suite on a fresh clone, 631 s at f2d0895: nist, fixture, lane, front, sir, autotest, rt, javalane; the rt, autotest and javalane suites came after pass 2; over its target, HANDOFF) | paid before every push while CI has no minutes (R-050) | 3.5 | 3.4 | — | — |
+| Pre-push check, the suites a push selects (min) | ≤ 10 (held, R-054 amended) | 5.7 (341 s at 9ffbc65: rt, quick, javalane) | what each push waits | — | — | — | — |
 | Largest source file (lines) | < 400 | 327 (test/katana/sir/TokenCoverage.java; rt/SeqFile split at 343, 3a.5) | fits a read without paging | 258 | 344 | 241 | 179 |
 | Files a routing row opens | ≤ 5 | 4 | first five reads decide the task | 4 | 4 | 4 | 4 |
 | Functions over 20 paths | 0 new | 0 | branching is where agents misread | 0 | 0 | 0 | 0 |

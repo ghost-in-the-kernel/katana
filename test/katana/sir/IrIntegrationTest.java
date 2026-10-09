@@ -91,41 +91,67 @@ class IrIntegrationTest {
         return IrIntegrationTest.report;
     }
 
-    /** One corpus: each program that parses built, checked, and round-tripped; the counts, and what failed. */
+    /** One program's part of a corpus's counts, its failures, and the literals it holds. */
+    private record One(boolean parsed, boolean built, boolean trips, int buildFindings, int checkFindings, int facts, int tokensLeft,
+            Map<String, Integer> nonExact, List<String> failures, Set<Value.Literal> literals) {}
+
+    /** One program parsed, built, checked and round-tripped; independent of every other, so a corpus runs them in parallel. */
+    private static One one(String key, Path source, Copybooks books, String name, Profile ibm) {
+        Parse.Result parse = Parse.file(source, books, 8);
+        Map<String, Integer> nonExact = new TreeMap<>();
+        List<String> failures = new ArrayList<>();
+        Set<Value.Literal> literals = new java.util.LinkedHashSet<>();
+        if (!parse.clean()) return new One(false, false, false, 0, 0, 0, 0, nonExact, failures, literals);
+        int buildFindings = 0, checkFindings = 0, facts = 0, tokensLeft = 0;
+        try {
+            List<Build.Result> results = Build.programs(parse, HASH);
+            boolean trips = true;
+            for (Build.Result result : results) {
+                buildFindings += result.findings().size();
+                checkFindings += Check.findings(result.program()).size();
+                NonExact.findings(result.program(), ibm).forEach(f -> nonExact.merge(f.kind().code, 1, Integer::sum));
+                String json = IrJson.write(result.program());
+                Program back = IrJson.read(json, Program.class);
+                List<String> contract = Contract.lines(result.program());
+                facts += contract.size();
+                if (!name.equals("bankdemo")) LiteralIntegrationTest.literals(result.program(), literals);
+                trips &= back.equals(result.program()) && json.equals(IrJson.write(back)) && contract.equals(Contract.lines(back));
+            }
+            if (!trips) failures.add(key + ": the JSON or the contract does not round-trip");
+            List<String> left = TokenCoverage.missing(parse, results.stream().map(Build.Result::program).toList());
+            tokensLeft += left.size();
+            if (!left.isEmpty()) failures.add(key + ": " + left.size() + " tokens left behind, first " + left.get(0).replaceAll("^.*?:\\d+: ", ""));
+            Set<String> outside = RolesGoldenTest.outside(results.stream().map(Build.Result::program).toList(), ROLES, new java.util.HashSet<>());
+            if (!outside.isEmpty()) failures.add(key + ": outside sir/roles.golden: " + outside);
+            return new One(true, true, trips, buildFindings, checkFindings, facts, tokensLeft, nonExact, failures, literals);
+        } catch (RuntimeException e) {
+            failures.add(key + ": " + e.getMessage());
+            return new One(true, false, false, buildFindings, checkFindings, facts, tokensLeft, nonExact, failures, literals);
+        }
+    }
+
+    /**
+     * One corpus: each program that parses built, checked, and round-tripped; the counts, and what failed.
+     * The programs run in parallel and are summed in their order, so the report is the same as one by one.
+     */
     private static String corpus(String name, Map<String, Path> programs, Copybooks books) throws Exception {
         int parsed = 0, built = 0, roundTrip = 0, buildFindings = 0, checkFindings = 0, facts = 0, tokensLeft = 0;
         Map<String, Integer> nonExact = new TreeMap<>();
         Profile ibm = Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile")));
         List<String> failures = new ArrayList<>();
-        for (var entry : programs.entrySet()) {
-            Parse.Result parse = Parse.file(entry.getValue(), books, 8);
-            if (!parse.clean()) continue;
+        List<One> ones = programs.entrySet().parallelStream().map(e -> one(e.getKey(), e.getValue(), books, name, ibm)).toList();
+        for (One o : ones) {
+            if (!o.parsed()) continue;
             parsed++;
-            try {
-                List<Build.Result> results = Build.programs(parse, HASH);
-                built++;
-                boolean trips = true;
-                for (Build.Result result : results) {
-                    buildFindings += result.findings().size();
-                    checkFindings += Check.findings(result.program()).size();
-                    NonExact.findings(result.program(), ibm).forEach(f -> nonExact.merge(f.kind().code, 1, Integer::sum));
-                    String json = IrJson.write(result.program());
-                    Program back = IrJson.read(json, Program.class);
-                    List<String> contract = Contract.lines(result.program());
-                    facts += contract.size();
-                    if (!name.equals("bankdemo")) LiteralIntegrationTest.literals(result.program(), LITERALS);
-                    trips &= back.equals(result.program()) && json.equals(IrJson.write(back)) && contract.equals(Contract.lines(back));
-                }
-                if (trips) roundTrip++;
-                else failures.add(entry.getKey() + ": the JSON or the contract does not round-trip");
-                List<String> left = TokenCoverage.missing(parse, results.stream().map(Build.Result::program).toList());
-                tokensLeft += left.size();
-                if (!left.isEmpty()) failures.add(entry.getKey() + ": " + left.size() + " tokens left behind, first " + left.get(0).replaceAll("^.*?:\\d+: ", ""));
-                Set<String> outside = RolesGoldenTest.outside(results.stream().map(Build.Result::program).toList(), ROLES, new java.util.HashSet<>());
-                if (!outside.isEmpty()) failures.add(entry.getKey() + ": outside sir/roles.golden: " + outside);
-            } catch (RuntimeException e) {
-                failures.add(entry.getKey() + ": " + e.getMessage());
-            }
+            if (o.built()) built++;
+            if (o.trips()) roundTrip++;
+            buildFindings += o.buildFindings();
+            checkFindings += o.checkFindings();
+            facts += o.facts();
+            tokensLeft += o.tokensLeft();
+            o.nonExact().forEach((k, v) -> nonExact.merge(k, v, Integer::sum));
+            failures.addAll(o.failures());
+            LITERALS.addAll(o.literals());
         }
         StringBuilder out = new StringBuilder("corpus " + name + " programs " + parsed + " built " + built + " round-trip " + roundTrip
                 + " build-findings " + buildFindings + " check-findings " + checkFindings + " contract-facts " + facts + " tokens-left " + tokensLeft + "\n");

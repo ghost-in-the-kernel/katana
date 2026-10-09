@@ -2385,6 +2385,33 @@ taken; closed by a later `decision` entry naming it).
   past 1000) joins the differential programs; on the old code it timed out where cobc gives N 148 and
   IX 151. SQ through the Java lane 82 to 83 of 85 (floor 83); left SQ101M and SQ207M, an index named
   by ZERO and by a mnemonic, not lowered.
-- **Note:** J-166 (R-054 held: the parallel fast loop and the ceilings) is set aside on a local branch:
+- **Note:** J-168 (R-054 held: the parallel fast loop and the ceilings; written as J-166 on its branch) is set aside on a local branch:
   its own gate, every suite as `--all`, took 14.4 min against the 12-min ceiling, and was refused.
 - **Touched:** `lower/Arith.java`, `test/katana/lower/programs/IXVARY.cbl`, the SQ floor.
+
+### J-168 R-054 amended, held: the fast loop in parallel (17 s) and both times refused past their ceilings
+- **Who:** Opus, on R-054's amendment (Fable, 4811e81). **Class:** decision; build.
+- **Intent:** the fast loop under 20 s by running its test classes in parallel, with the killer
+  mutation the amendment names, and the fast loop and the pre-push check held with ceilings.
+- **Found:** every fast-loop class writes only into a temporary directory of its own or a golden under
+  `-Dkatana.record`, so the classes can share the JVM's four workers; three runs in a row green. The
+  warm loop 22 s to 17 (16 to 21 over three runs, compile included), cold 31 to 26. `MetricsTest` runs
+  inside the loop it would time, so the live times are held where they are measured, on every push.
+- **Resolved:** `build.gradle` runs the fast loop's classes concurrently, four at once, each class's
+  methods in turn; `ParallelTest` (a doc test) fails on a write in a fast-loop class that is neither
+  under the flag nor in its own temporary directory, the amendment's mutation as its failing case.
+  `scripts/prepush.sh` runs the fast loop again warm in its container, and `scripts/Ceilings.java`
+  (with `CeilingsTest`) refuses a push whose warm fast loop or own time is past `docs/AGENT.md`'s
+  ceiling: 25 s, 10 min for the selected suites, 12 for `--all`. `MetricsTest` refuses a recorded time
+  past its ceiling. AGENT.md gains the selected-suites row (5.7 min at 9ffbc65). Ratcheting a ceiling
+  down to the best recorded stays a step at each tithe pass, not automatic, so noise cannot refuse a push.
+- **Then:** its first gate selected every suite (it touches `build.gradle`) and took 14.4 min; the
+  ceilings refused it, rightly under the rule as written, and it waited on a branch while J-167 landed.
+  Fable corrected the `--all` ceiling to 15 (74cf705: a ceiling below the measured value is red on
+  every push), wrote "every suite selected counts as `--all`" into R-054, and listed the parse-once
+  refactor for the tithe. `prepush.sh` applies that rule; `IrIntegrationTest` runs its programs in
+  parallel, summed in order (380 s to 317 alone). Written as J-166 on the branch; Fable's own entry
+  took that number on main first, so this is J-168, and R-054's and HANDOFF's "J-166" for the 14.4-min
+  run and the parse-once item mean this entry.
+- **Touched:** `build.gradle`, `scripts/prepush.sh`, `scripts/Ceilings.java`, `test/CeilingsTest.java`,
+  `test/ParallelTest.java`, `test/DocTests.java`, `test/MetricsTest.java`, `docs/AGENT.md`.

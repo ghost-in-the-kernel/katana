@@ -61,6 +61,11 @@ class DocTests {
     }
 
     @Test
+    void parallel() {
+        assertEquals(List.of(), ParallelTest.run().problems());
+    }
+
+    @Test
     void metrics() {
         assertEquals(List.of(), MetricsTest.run().problems());
     }

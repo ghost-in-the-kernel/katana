@@ -8,12 +8,14 @@ import java.util.regex.Pattern;
  * Holds docs/AGENT.md's metrics (docs/ROADMAP.md 5, R-008): a metric may improve and may grow within
  * its target, but past its target it may not get worse than the value recorded. A metric marked "not
  * armed" is reported, not compared, until it is first met or a phase boundary arms it at its value
- * (R-042, R-054). The fast loop (warm, and cold beside it) and the skipped tests are measured after a
- * run (`gradle metrics --args=--time`), so they are recorded at each tithe pass and not held here.
+ * (R-042, R-054). The warm fast loop and the pre-push check are measured on every push, where
+ * `scripts/Ceilings.java` holds them (R-054 amended, J-163); here their recorded value is held to its
+ * ceiling. The cold fast loop and the skipped tests are measured after a run and only reported.
  */
 final class MetricsTest {
     private static final Pattern NUMBER = Pattern.compile("\\d[\\d,]*(?:\\.\\d+)?");
-    private static final List<String> AFTER_A_RUN = List.of("Fast loop (s)", "Fast loop, cold (s)", "Pre-push check, every suite (min)", "Skipped tests reported on the fast loop");
+    private static final List<String> REPORTED = List.of("Fast loop, cold (s)", "Skipped tests reported on the fast loop");
+    private static final List<String> HELD_TIMES = List.of("Fast loop (s)", "Pre-push check, the suites a push selects (min)", "Pre-push check, every suite (min)");
 
     public static void main(String[] args) {
         run().exit();
@@ -37,7 +39,9 @@ final class MetricsTest {
                 .rejects("past the target, never recorded", () -> check(table("< 400", ""), Map.of("M", "401")))
                 .rejects("a metric the script does not measure", () -> check(table("0", "0"), Map.of()))
                 .accepts("an unarmed metric worse than recorded", () -> check(table("< 0.35", "1.13 (not armed)"), Map.of("M", "1.50")))
-                .rejects("an unarmed metric now within its target", () -> check(table("< 0.35", "1.13 (not armed)"), Map.of("M", "0.30")));
+                .rejects("an unarmed metric now within its target", () -> check(table("< 0.35", "1.13 (not armed)"), Map.of("M", "0.30")))
+                .rejects("a recorded time past its ceiling", () -> check(table("≤ 25", "35").replace("| M |", "| Fast loop (s) |"), Map.of()))
+                .accepts("a recorded time within its ceiling", () -> check(table("≤ 25", "17").replace("| M |", "| Fast loop (s) |"), Map.of()));
     }
 
     static List<String> check(String agent, Map<String, String> now) {
@@ -52,7 +56,12 @@ final class MetricsTest {
             String[] cells = line.split("\\|");
             if (cells.length < 5 || line.startsWith("| Metric") || line.startsWith("| ---")) continue;
             String name = cells[1].trim();
-            if (AFTER_A_RUN.contains(name)) continue;
+            if (REPORTED.contains(name)) continue;
+            if (HELD_TIMES.contains(name)) {
+                Double recorded = number(cells[3]);
+                if (recorded == null || !withinTarget(cells[2].trim(), recorded)) failures.add("`" + name + "` is recorded at " + cells[3].trim() + ", past its ceiling " + cells[2].trim() + " (R-054 amended)");
+                continue;
+            }
             if (!now.containsKey(name)) {
                 failures.add("`" + name + "` is not measured by scripts/Metrics.java");
                 continue;
