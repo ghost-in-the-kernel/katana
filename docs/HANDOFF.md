@@ -211,6 +211,9 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
 
 ## For Opus: tithe pass 3a, before the next feature (R-008 amended, 2026-10-09) (done: J-155 to J-163)
 
+- **Added 2026-10-09 (J-166):** `GhostTest` refuses a paragraph over 200 characters that appears in two
+  decisions; failing case, the six-copy file of 4811e81. Small; with the next tithe commit.
+
 Nine tithe commits are owed. Each changes no behaviour (P-02: no golden moves), is titled "Tithe",
 and lands through the gate like any step (R-040). In this order; stop when the counter is paid and
 the list is empty, whichever is later:

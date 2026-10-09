@@ -2355,3 +2355,18 @@ taken; closed by a later `decision` entry naming it).
   it. Also said in answer: tithe pass 3a was paid before the feature (2451562 to 0dd8d19), its gate
   first among them, and passed this push at two non-tithe commits.
 - **Touched:** `docs/LANES.md`, `theGhost.md`, `docs/HANDOFF.md`, `rt/katana/rt/Varying.java`.
+
+### J-166 Fable's R-054 amendment landed in six decisions; Opus caught it, Fable removed five
+- **Who:** Fable (the slip, 4811e81); Opus (caught it reading main before a rebase). **Class:**
+  failure caught.
+- **Found:** the edit took the text from R-054 to the next `---` separator, which was five decisions
+  on, and replaced the Status line of every decision in the slice. R-055 to R-059 each said they
+  were amended to hold the fast loop. The fast loop was green: `GhostTest` holds ids, order and
+  sections, not that a paragraph appears once.
+- **Resolved:** the five copies removed; R-054 keeps its one. For the tithe list: `GhostTest` gains a
+  rule that no paragraph of more than 200 characters appears in two decisions, with the six-copy
+  file as its failing case.
+- **Note:** Opus did not remove the copies, since R-042 leaves decision text to Ghost or Fable, and
+  said so in one line with the commit. That is R-043 held under provocation: the fix was obvious,
+  and it still proposed rather than acted.
+
