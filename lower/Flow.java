@@ -43,9 +43,16 @@ final class Flow {
         e.line("private final Collation co;");
         e.line("private boolean sz, ov, ae;");
         e.open("public void run()");
-        e.line("int pc = 0;");
+        e.line("int pc = " + entry() + ";");
+        boolean declaratives = p.procedure().sections().stream().anyMatch(Procedure.Section::declarative);
+        if (declaratives) e.open("try");
         e.line("while (pc != " + end + ") pc = step(pc);");
+        if (declaratives) {
+            e.close();
+            e.line("catch (Halt h) { }");
+        }
         e.close();
+        declaratives();
         List<Procedure.Paragraph> paragraphs = p.procedure().paragraphs();
         for (Procedure.Paragraph para : paragraphs) {
             paragraph = para.name();
@@ -57,6 +64,36 @@ final class Flow {
         if (paragraphs.isEmpty()) labels.add(0);
         step();
         if (counters > 0) e.line("private final long[] t = new long[" + counters + "];");
+    }
+
+    /**
+     * Where the run begins: the first paragraph after the declaratives, whose procedures run only when
+     * their USE condition does ("The USE statement itself is never executed", LR 6.4 p. 57).
+     */
+    // Decision: R-021
+    private int entry() {
+        java.util.Set<String> declarative = new java.util.HashSet<>();
+        for (Procedure.Section sec : p.procedure().sections()) if (sec.declarative()) declarative.add(sec.name());
+        for (Procedure.Paragraph g : p.procedure().paragraphs()) if (!declarative.contains(g.section())) return g.index();
+        return end;
+    }
+
+    /**
+     * A declarative's procedures run as a PERFORM from the I-O statement that called for them, control
+     * then "returned to the next executable statement following the input/output statement" (LR p.
+     * 706); a STOP RUN inside them ends the run (`Halt`).
+     */
+    // Decision: R-021
+    private void declaratives() {
+        if (p.procedure().sections().stream().noneMatch(Procedure.Section::declarative)) return;
+        e.line("private static final class Halt extends RuntimeException { Halt() { super(null, null, false, false); } }");
+        e.open("private void use(int first, int last)");
+        e.line("int pc = d.perform(first, last, -2);");
+        e.open("while (pc != -2)");
+        e.line("if (pc == " + end + ") throw new Halt();");
+        e.line("pc = step(pc);");
+        e.close();
+        e.close();
     }
 
     private void open(int label) {

@@ -392,6 +392,9 @@ them by row. Appendix A's arithmetic is §4; Table 48 (DISPSIGN) is the PG's, qu
   "Each input record is concatenated with the previous input record." D-020.
 - LR p. 770 (Appendix E, Table 83, Reserved words): the words from NEXT run NEXT, NO, NOT, NULL, NULLS;
   NOTHING is not among them. D-021.
+- LR p. 706 (EXCEPTION/ERROR declarative, INPUT): "the procedure is executed for all files opened in
+  INPUT mode or in the process of being opened in INPUT mode that get an error". D-025.
+- LR p. 302 (Table 34, 42): "A CLOSE statement was attempted for a file not in the open mode." D-026.
 - LR pp. 297-298 (Multiple results): "When an arithmetic statement has multiple results, execution
   conceptually proceeds as follows: 1. The statement performs all arithmetic operations to find the
   result to be placed in the receiving items, and stores that result in a temporary location. 2. A
@@ -550,7 +553,7 @@ declarative of its own. Each step then shows its file's status. Values under (a)
 | --- | --- | --- |
 | 1 | OPEN INPUT OPTF | 05 |
 | 2 | READ OPTF AT END (shows AE) | AE, 10 |
-| 3 | READ OPTF AT END (shows AE) | AE? no: 46 is not at end; DI, 46 |
+| 3 | READ OPTF AT END (shows AE) | DI, 46 |
 | 4 | CLOSE OPTF | 00 |
 | 5 | OPEN INPUT NOPT | D2 35, 35 |
 | 6 | READ NOPT AT END | D2 47, 47 |

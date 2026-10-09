@@ -89,15 +89,24 @@ class LowerDifferentialIntegrationTest {
      * any operand of either comparand" (PG 6.4 p. 801), so D + 0 EQUAL TO 1 (D 1) is true whatever else the
      * condition holds; cobc -std=ibm finds it false when an item with decimal places is elsewhere in the
      * same condition (B EQUAL TO C OR D + 0 EQUAL TO 1), NIST NC205A's CON-TEST-GF-3, D-024 (J-143).
+     * STATRIAL: FILE STATUS and EXCEPTION/ERROR declaratives through fifteen statements (research §12):
+     * an OPEN INPUT that fails runs the INPUT declarative, the file being "in the process of being opened
+     * in INPUT mode" (LR 6.4 p. 706), where cobc runs none, D-025; a CLOSE of a file whose OPEN failed is
+     * 42, "a CLOSE statement was attempted for a file not in the open mode" (p. 302), where cobc gives 00
+     * after a CLOSE WITH LOCK, D-026 (J-152).
      */
-    static final Map<String, String> IBM_READINGS = Map.of("SEARCHVARY", "DD W\nN 002\n", "ACCEPTEOF", "X KEPT \nX KEPT \n",
-            "POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n",
-            "ALPHAIBM", "VALUE LOW IS F\nU < N\n",
-            "ADDIBM", "SUM 242.4332220110\nSUM 242.4332220110\nSUM 242.4332220110\nEQUAL\nSUB -344777.777443\nSUB P  100\n",
-            "ACCEPTREC", "FIRST 10 [ABCDEFGHIJ]\nLAST 20 [*001*002*003*004*005]\nNEXT [NEXT RECORD]\n",
-            "NOTRSVD", "NOTHING ZILC\n", "MULTRES", "1 040 050\n2 040 060\n3 010 020\n4 2 010\n",
-            "RNDTRIAL", "01  1.2\n02  1.5\n03 10.2\n04 10.5\n05  0.6\n06  0.5\n07 10.2\n08 10.0\n09  0.2\n10  0.5\n11 10.6\n12 10.0\n13  2.6\n14  2.6\n15 10.5\n",
-            "RELDMAX", "N F\nO T\nP T\nQ T\nR T\nS T\nT T\nU T\nV T\n");
+    static final Map<String, String> IBM_READINGS = Map.ofEntries(
+            Map.entry("SEARCHVARY", "DD W\nN 002\n"),
+            Map.entry("ACCEPTEOF", "X KEPT \nX KEPT \n"),
+            Map.entry("POWERIBM", "SUM 0000001240000\nEXPR 0000001690000\nNEG      0.333333\n"),
+            Map.entry("ALPHAIBM", "VALUE LOW IS F\nU < N\n"),
+            Map.entry("ADDIBM", "SUM 242.4332220110\nSUM 242.4332220110\nSUM 242.4332220110\nEQUAL\nSUB -344777.777443\nSUB P  100\n"),
+            Map.entry("ACCEPTREC", "FIRST 10 [ABCDEFGHIJ]\nLAST 20 [*001*002*003*004*005]\nNEXT [NEXT RECORD]\n"),
+            Map.entry("NOTRSVD", "NOTHING ZILC\n"),
+            Map.entry("MULTRES", "1 040 050\n2 040 060\n3 010 020\n4 2 010\n"),
+            Map.entry("RNDTRIAL", "01  1.2\n02  1.5\n03 10.2\n04 10.5\n05  0.6\n06  0.5\n07 10.2\n08 10.0\n09  0.2\n10  0.5\n11 10.6\n12 10.0\n13  2.6\n14  2.6\n15 10.5\n"),
+            Map.entry("RELDMAX", "N F\nO T\nP T\nQ T\nR T\nS T\nT T\nU T\nV T\n"),
+            Map.entry("STATRIAL", " 1 05\n   AE\n 2 10\n   DI 46      \n 3 46\n 4 00\n   D2 35\n 5 35\n   D2 47\n 6 47\n   D2 42\n 7 42\n 8 00\n 9 41\n10 00\n11 47\n12 00\n   DI 00 42 38\n13 38\n14 42\n15 48\n"));
 
     @Test
     void eachProgramPrintsWhatCobcPrints() throws Exception {

@@ -2119,3 +2119,30 @@ taken; closed by a later `decision` entry naming it).
   ends normally where cobc stops on status 38 (OPEN after CLOSE WITH LOCK), FILE STATUS's work.
 - **Touched:** `rt/SeqFile`, `lower/FileVerbs`, `lower/Exprs`, `lower/Arith`, `lower/Lower`,
   `sir/build/DataMap`, research §11, the tests.
+
+### J-152 FILE STATUS, CLOSE WITH LOCK and declaratives lowered; the run had begun inside the declaratives
+- **Who:** Opus, on Ghost's go-ahead. **Class:** trial; failure-caught.
+- **Intent:** set each I-O statement's file status as IBM's Table 34 says, CLOSE WITH LOCK included,
+  with the text and a trial first (research §12, committed f903e28 before the run).
+- **Found:** (1) SQ's failures were mostly a null stream: the run began at paragraph 0, a DECLARATIVES
+  paragraph, and ran its USE procedure (a WRITE to the report) before anything was open. IBM: "The USE
+  statement itself is never executed" (LR p. 57); a declarative runs when its condition does and
+  control returns after the I-O statement (p. 706). (2) STATRIAL, fifteen statements with the text's
+  readings and three rivals named (a failed OPEN leaves the file closed; a mode declarative covers an
+  OPEN in progress and not a later CLOSE of the still-closed file; a READ after at end is 46): cobc
+  gives the text's reading in thirteen steps and every rival's (a) side; in two it gives what no reading
+  does: no INPUT declarative for an OPEN INPUT failing with 38 (D-025), and 00 for a CLOSE of that
+  never-opened file, where IBM gives 42 and cobc itself gives 42 after a 35 (D-026). (3) Through the
+  lane, SQ401M's CLOSE REEL FOR REMOVAL: on a disk file IBM gives 07 and REEL/UNIT closes only the
+  current reel, so the next OPEN is 41, which is cobc's ending; the Java lane had closed the file.
+- **Resolved:** the run begins after the declaratives; an I-O statement's status goes to its FILE
+  STATUS item, and on an error (3x, 4x, or at end with no AT END phrase) the declarative for the file,
+  else for its mode (open, or being opened), runs as a PERFORM that comes back (`use`); with neither a
+  declarative nor a FILE STATUS item the run abends (J-145), with a FILE STATUS item it goes on.
+  `SeqFile` sets 00, 05, 07, 10, 35, 38, 41, 42, 46, 47, 48 and never throws for one; OPTIONAL comes
+  from the IR (SIR-09). STATRIAL is an IBM reading (D-025, D-026). The abnormal-ending reason now covers
+  any status (libcob names no statement, so only 35 keeps OPEN); the NIST goldens gain four reasons per
+  dialect (SQ401M 41, RL401M 38, IX401M 39, ST301M 30). SQ through the Java lane 19 to 62 of 85; NC
+  stays 84. Left: REWRITE (nine programs), the record-length tests SQ218A-SQ224A, and a few others.
+- **Touched:** `rt/SeqFile`, `lower/FileVerbs`, `lower/Flow`, `oracle/nist/ModuleRun`, both NIST
+  goldens, `docs/DISCOVERIES.md`, research §10 and §12, the tests.

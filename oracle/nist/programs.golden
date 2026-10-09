@@ -224,7 +224,7 @@ SQ SQ229A 1 ok 1 1 0 0 0
 SQ SQ230A 1 ok 1 1 0 0 0
 SQ SQ302M 1 ok 0 0 0 0 0
 SQ SQ303M 1 ok 0 0 0 0 0
-SQ SQ401M 1 ok 0 0 0 0 0 exit=1
+SQ SQ401M 1 ok 0 0 0 0 0 exit=1 reason=TFIL_status_41_on_TAPE2
 RL RL101A 1 ok 1 1 0 0 0
 RL RL102A 1 ok 11 11 0 0 0
 RL RL103A 1 ok 11 11 0 0 0
@@ -259,7 +259,7 @@ RL RL212A 1 ok 1 1 0 0 0
 RL RL213A 1 ok 521 521 0 0 0
 RL RL301M 1 ok 0 0 0 0 0
 RL RL302M 1 ok 0 0 0 0 0
-RL RL401M 1 ok 0 0 0 0 0 exit=1
+RL RL401M 1 ok 0 0 0 0 0 exit=1 reason=TFIL_status_38_on_REL1
 IX IX101A 1 ok 2 2 0 0 0
 IX IX102A 1 ok 11 11 0 0 0
 IX IX103A 1 ok 12 12 0 0 0
@@ -301,7 +301,7 @@ IX IX217A 1 ok 6 6 0 0 0
 IX IX218A 1 ok 6 6 0 0 0
 IX IX301M 1 ok 0 0 0 0 0 exit=1 reason=OPEN_TFIL_status_35_on_INDEX1
 IX IX302M 1 ok 0 0 0 0 0
-IX IX401M 1 ok 0 0 0 0 0 exit=1
+IX IX401M 1 ok 0 0 0 0 0 exit=1 reason=TFIL2_status_39_on_INDEX3
 ST ST101A 1 ok 9 9 0 0 0
 ST ST102A 1 ok 0 0 0 0 0
 ST ST103A 1 ok 9 9 0 0 0
@@ -341,7 +341,7 @@ ST ST140A 1 ok 11 11 0 0 0
 ST ST144A 1 ok 11 11 0 0 0
 ST ST146A 1 ok 4 4 0 0 0
 ST ST147A 1 ok 26 26 0 0 0
-ST ST301M 1 ok 0 0 0 0 0 exit=1
+ST ST301M 1 ok 0 0 0 0 0 exit=1 reason=TFIL_status_30_on_SORT1
 SG SG101A 1 ok 151 151 0 0 0
 SG SG102A 1 ok 8 8 0 0 0
 SG SG103A 1 ok 7 7 0 0 0

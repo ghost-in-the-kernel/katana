@@ -1118,3 +1118,19 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.count` |  | 2026-10-08 |  |
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.blank` |  | 2026-10-08 |  |
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.line` |  | 2026-10-08 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.noRewind` |  | 2026-10-09 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.after` | R-019 | 2026-10-09 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.range` |  | 2026-10-09 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.fileOf` |  | 2026-10-09 |  |
+| lower | `lower/Flow.java:Flow.entry` | R-021 | 2026-10-09 |  |
+| lower | `lower/Flow.java:Flow.declaratives` | R-021 | 2026-10-09 |  |
+| oracle | `oracle/nist/ModuleRun.java:ModuleRun.reason#2` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.status` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.successful` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.failed` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.mode` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.hasStatus` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.abend` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.writable` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.noRewind` |  | 2026-10-09 |  |
+| rt | `rt/katana/rt/SeqFile.java:SeqFile.close#2` |  | 2026-10-09 |  |

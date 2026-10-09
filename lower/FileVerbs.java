@@ -1,5 +1,6 @@
 package katana.lower;
 
+import java.util.List;
 import katana.sir.types.FileDescriptor;
 import katana.sir.types.Statement;
 import katana.sir.types.Value;
@@ -20,7 +21,7 @@ final class FileVerbs {
     static void declare(Emitter e, katana.sir.types.Program p) {
         for (FileDescriptor d : p.files()) {
             boolean lines = d.organization() == FileDescriptor.Organization.LINE_SEQUENTIAL;
-            e.line("private final SeqFile " + name(d.name()) + " = new SeqFile(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + lines + ", " + (d.status() != 0) + ");");
+            e.line("private final SeqFile " + name(d.name()) + " = new SeqFile(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + lines + ", " + (d.status() != 0) + ", " + d.optional() + ");");
         }
     }
 
@@ -48,12 +49,71 @@ final class FileVerbs {
                 case "OUTPUT" -> "OUTPUT";
                 default -> mode;
             };
-            else if (o.value() instanceof Value.File file) f.e.line(name(file.name()) + ".open(SeqFile.Mode." + mode + ");");
+            else if (o.value() instanceof Value.File file) {
+                f.e.line(name(file.name()) + ".open(SeqFile.Mode." + mode + ");");
+                if (noRewind(s, file)) f.e.line(name(file.name()) + ".noRewind();");
+                after("OPEN", file.name(), false);
+            }
         }
     }
 
+    /** CLOSE file [WITH LOCK] ...: each file closed, locked when LOCK follows it before the next file. */
     void close(Statement s) {
-        for (Statement.Operand o : s.operands()) if (o.value() instanceof Value.File file) f.e.line(name(file.name()) + ".close();");
+        List<Statement.Operand> ops = s.operands();
+        for (int k = 0; k < ops.size(); k++) {
+            if (!(ops.get(k).value() instanceof Value.File file)) continue;
+            java.util.Set<String> words = new java.util.HashSet<>();
+            for (int j = k + 1; j < ops.size() && !(ops.get(j).value() instanceof Value.File); j++) if (ops.get(j).value() instanceof Value.Name n) words.add(n.text());
+            boolean reel = words.contains("REEL") || words.contains("UNIT");
+            f.e.line(name(file.name()) + ".close(" + words.contains("LOCK") + ", " + reel + ", " + (words.contains("REWIND") || words.contains("REMOVAL")) + ");");
+            after("CLOSE", file.name(), false);
+        }
+    }
+
+    /** Whether NO REWIND follows a file in an OPEN, before the next file. */
+    private static boolean noRewind(Statement s, Value.File file) {
+        List<Statement.Operand> ops = s.operands();
+        int at = -1;
+        for (int k = 0; k < ops.size() && at < 0; k++) if (ops.get(k).value().equals(file)) at = k;
+        for (int j = at + 1; j < ops.size() && !(ops.get(j).value() instanceof Value.File); j++) if (ops.get(j).value() instanceof Value.Name n && n.text().equals("REWIND")) return true;
+        return false;
+    }
+
+    /**
+     * After an I-O statement (LR pp. 299, 705-706): the status into the FILE STATUS item, then, on an
+     * error (3x, 4x, or at end with no AT END phrase), the declarative USE'd for the file by name, else
+     * the one for the mode it is open in or being opened in, run as a PERFORM that comes back here; with
+     * none and no FILE STATUS item, the run ends (PG p. 243); with a FILE STATUS item, it goes on.
+     */
+    // Decision: R-019
+    private void after(String verb, String fileName, boolean atEndPhrase) {
+        FileDescriptor d = f.p.files().stream().filter(x -> x.name().equals(fileName)).findFirst().orElseThrow();
+        String file = name(fileName);
+        if (d.status() != 0) f.e.line("Move.move(Literal.text(" + file + ".status(), cp), " + f.x.field(new Value.Field(d.status(), List.of(), null, null)) + ");");
+        String named = null;
+        java.util.Map<String, String> modes = new java.util.LinkedHashMap<>();
+        for (katana.sir.types.Procedure.Section sec : f.p.procedure().sections()) {
+            if (sec.use() == null || sec.use().kind() != katana.sir.types.Procedure.Use.Kind.ERROR) continue;
+            String range = range(sec.name());
+            if (sec.use().files().contains(fileName) && named == null) named = range;
+            if (!sec.use().mode().isEmpty()) modes.putIfAbsent(sec.use().mode().equals("I-O") ? "IO" : sec.use().mode(), range);
+        }
+        String fallback = d.status() != 0 ? "" : "throw " + file + ".abend(" + Emitter.quote(verb) + ");";
+        if (named == null && modes.isEmpty() && fallback.isEmpty()) return;
+        f.e.open("if (" + file + ".failed(" + atEndPhrase + "))");
+        if (named != null) f.e.line("use(" + named + ");");
+        else {
+            StringBuilder chain = new StringBuilder();
+            for (var m : modes.entrySet()) chain.append("if (" + file + ".mode() == SeqFile.Mode." + m.getKey() + ") use(" + m.getValue() + "); else ");
+            f.e.line(chain + (fallback.isEmpty() ? "{ }" : "{ " + fallback + " }"));
+        }
+        f.e.close();
+    }
+
+    /** A declarative section's paragraphs, first and last, for `use`. */
+    private String range(String section) {
+        List<katana.sir.types.Procedure.Paragraph> ps = f.p.procedure().paragraphs().stream().filter(g -> g.section().equals(section)).toList();
+        return ps.get(0).index() + ", " + ps.get(ps.size() - 1).index();
     }
 
     /**
@@ -93,11 +153,14 @@ final class FileVerbs {
         if (paged(record.item())) {
             String n = Verbs.keyword(s, "PAGE") ? "-1" : lines != null ? "(int) " + f.x.index(lines) : "1";
             f.e.line("ae = " + file + ".page(" + f.x.field(record) + ", " + before + ", " + n + ");");
-            f.branch("ae", Verbs.branch(s, "write-at-end-of-page-phrase"), Verbs.branch(s, "write-not-at-end-of-page-phrase"));
+            after("WRITE", fileOf(record.item()), false);
+            f.branch("ae", Verbs.branch(s, "write-at-end-of-page-phrase"), List.of());
+            f.branch(file + ".successful() && !ae", Verbs.branch(s, "write-not-at-end-of-page-phrase"), List.of());
             return;
         }
         String count = Verbs.keyword(s, "PAGE") ? "-1" : lines != null ? "(int) " + f.x.index(lines) : (Verbs.keyword(s, "ADVANCING") || before || Verbs.keyword(s, "AFTER")) ? "1" : "0";
         f.e.line(file + ".write(" + f.x.field(record) + ", " + (before ? count : "0") + ", " + (before ? "0" : count) + ");");
+        after("WRITE", fileOf(record.item()), false);
     }
 
     /** READ file [INTO x] [AT END ... NOT AT END ...]. */
@@ -105,16 +168,27 @@ final class FileVerbs {
         Value.File file = (Value.File) Verbs.operand(s, "read-statement");
         FileDescriptor d = f.p.files().stream().filter(x -> x.name().equals(file.name())).findFirst().orElseThrow();
         String record = "f" + d.records().get(0);
-        f.e.line("ae = !" + name(file.name()) + ".read(" + record + ");");
+        String fileVar = name(file.name());
+        f.e.line(fileVar + ".read(" + record + ");");
+        f.e.line("ae = " + fileVar + ".status().equals(\"10\");");
         Value into = Verbs.operand(s, "read-into");
-        if (into != null) f.e.line("if (!ae) " + f.x.moveInto(new Value.Field(d.records().get(0), java.util.List.of(), null, null), f.x.receiving((Value.Field) into), f.x.item(((Value.Field) into).item())) + ";");
-        f.branch("ae", Verbs.branch(s, "at-end-phrase"), Verbs.branch(s, "not-at-end-phrase"));
+        if (into != null) f.e.line("if (" + fileVar + ".successful()) " + f.x.moveInto(new Value.Field(d.records().get(0), java.util.List.of(), null, null), f.x.receiving((Value.Field) into), f.x.item(((Value.Field) into).item())) + ";");
+        List<Statement> atEnd = Verbs.branch(s, "at-end-phrase");
+        after("READ", file.name(), !atEnd.isEmpty() || s.branches().stream().anyMatch(b -> b.label().equals("at-end-phrase")));
+        f.branch("ae", atEnd, List.of());
+        f.branch(fileVar + ".successful()", Verbs.branch(s, "not-at-end-phrase"), List.of());
     }
 
     /** Whether a record's file has a LINAGE clause. */
     private boolean paged(int item) {
         int record = f.x.item(item).record();
         return f.p.files().stream().anyMatch(d -> d.records().contains(record) && d.fd() != null && d.fd().linage() != null);
+    }
+
+    /** The name of the file whose FD holds a record. */
+    private String fileOf(int item) {
+        int record = f.x.item(item).record();
+        return f.p.files().stream().filter(d -> d.records().contains(record)).findFirst().orElseThrow().name();
     }
 
     /** The file whose FD holds a record. */

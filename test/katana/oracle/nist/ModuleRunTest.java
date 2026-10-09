@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-/** An abnormal ending's reason (LANE-08): libcob's message and rt's give one form, and only a file status 35 is OPEN's. */
+/** An abnormal ending's reason (LANE-08): libcob's message and rt's give one form; only a file status 35 keeps its statement, OPEN. */
 class ModuleRunTest {
     @Test
     void bothLanesStateTheSameReason() {
@@ -15,8 +15,9 @@ class ModuleRunTest {
     }
 
     @Test
-    void anotherStatusOrNoStatusIsNoReason() {
-        assertNull(ModuleRun.reason("libcob: error: permanent error (status = 30) for file TFIL ('TAPE1')\n"));
+    void anotherStatusNamesNoStatementAndNoStatusIsNoReason() {
+        assertEquals("TFIL status 38 on TAPE2", ModuleRun.reason("libcob: error: unknown file error (status = 38) for file TFIL ('TAPE2')\n"));
+        assertEquals("TFIL status 38 on TAPE2", ModuleRun.reason("CEE3ABD abend U4038\nOPEN TFIL: file status 38 on TAPE2\n"));
         assertNull(ModuleRun.reason("libcob: error: subscript of 'T' out of bounds: 4\n"));
     }
 }

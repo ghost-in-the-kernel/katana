@@ -160,20 +160,25 @@ public final class ModuleRun {
     }
 
     private static final java.util.regex.Pattern COBC_STATUS = java.util.regex.Pattern.compile("\\(status = (\\d\\d)\\) for file (\\S+) \\('([^']*)'\\)");
-    private static final java.util.regex.Pattern RT_STATUS = java.util.regex.Pattern.compile("(OPEN) (\\S+): file status (\\d\\d) on (\\S+)");
+    private static final java.util.regex.Pattern RT_STATUS = java.util.regex.Pattern.compile("[A-Z]+ (\\S+): file status (\\d\\d) on (\\S+)");
 
     /**
-     * Why a run ended abnormally, in one form for both lanes: `OPEN TFIL status 35 on TAPE1`, from libcob's
-     * `(status = 35) for file TFIL ('TAPE1')` or rt's `OPEN TFIL: file status 35 on TAPE1`; null when the
-     * output names no file status. Status 35 is OPEN's alone: "An OPEN statement with the INPUT, I-O, or
-     * EXTEND phrase was attempted on a nonoptional file that was unavailable" (LR 6.4 p. 301).
+     * Why a run ended abnormally, in one form for both lanes: `OPEN TFIL status 35 on TAPE1`, or
+     * `TFIL status 38 on TAPE2`, from libcob's `(status = 35) for file TFIL ('TAPE1')` or rt's `OPEN
+     * TFIL: file status 35 on TAPE1`; null when the output names no file status. Status 35 is OPEN's
+     * alone ("An OPEN statement with the INPUT, I-O, or EXTEND phrase was attempted on a nonoptional file
+     * that was unavailable", LR 6.4 p. 301), so it keeps its statement; libcob names no statement for the
+     * others, and neither does the reason.
      */
     public static String reason(String output) {
-        java.util.regex.Matcher rt = RT_STATUS.matcher(output);
-        if (rt.find()) return rt.group(1) + " " + rt.group(2) + " status " + rt.group(3) + " on " + rt.group(4);
-        java.util.regex.Matcher cobc = COBC_STATUS.matcher(output);
-        if (cobc.find() && cobc.group(1).equals("35")) return "OPEN " + cobc.group(2) + " status 35 on " + cobc.group(3);
+        java.util.regex.Matcher rt = RT_STATUS.matcher(output), cobc = COBC_STATUS.matcher(output);
+        if (rt.find()) return reason(rt.group(1), rt.group(2), rt.group(3));
+        if (cobc.find()) return reason(cobc.group(2), cobc.group(1), cobc.group(3));
         return null;
+    }
+
+    private static String reason(String file, String status, String assign) {
+        return (status.equals("35") ? "OPEN " : "") + file + " status " + status + " on " + assign;
     }
 
     private static String firstLine(String output) {
