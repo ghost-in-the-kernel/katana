@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  * print their payloads: the characters, the bytes, the characters and X'00', or, moved to an
  * `S9(18)V9(18)` field, the unscaled value at its scale. National, DBCS, boolean and CICS literals cobc
  * does not print as Katana means them, and are counted, not compared. Every literal of the corpora is
- * run through it by `IrIntegrationTest`, which builds them once (tithe pass 2, C4); here, the
+ * run through it by `CorpusIntegrationTest` (`IrCorpus`), which builds them once (tithe pass 2, C4); here, the
  * mutations that show the comparison failing.
  */
 @Tag("integration")

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import katana.front.Copybooks;
 import katana.front.Parse;
-import katana.oracle.nist.NistSources;
 import katana.sir.build.Build;
 import katana.sir.build.Roles;
 import katana.profile.Profile;
@@ -23,17 +22,16 @@ import katana.sir.contract.Contract;
 import katana.sir.json.IrJson;
 import katana.sir.types.Program;
 import katana.sir.types.Value;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 
 /**
  * Phase 2.5's check, its other half: every program of the corpus that parses builds to an IR that
  * holds its invariants (SIR-01 to SIR-07, checked as it is built), and serializes to JSON and back to
  * an equal IR with the same contract (2.6). sir/ir.golden holds, per corpus, the programs built and round-tripped, and how many
  * findings building and sir/check made; BankDemo, when fetched, is counted privately and not held.
+ * Run by `katana.front.CorpusIntegrationTest`, which parses each program once for this, the data map and
+ * the front end's checks (J-169); this assembles the IR's half from each program's parse.
  */
-@Tag("integration")
-class IrIntegrationTest {
+public final class IrCorpus {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final Path GOLDEN = ROOT.resolve("sir/ir.golden");
     private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
@@ -46,22 +44,19 @@ class IrIntegrationTest {
             # Written by `gradle integration -Dkatana.record=true`.
             """;
 
-    /** Every literal of CardDemo, NIST and OMP, gathered while they are built once for both tests (C4). */
+    /** Every literal of CardDemo, NIST and OMP, gathered while they are built once for both checks (C4). */
     private static final Set<Value.Literal> LITERALS = new java.util.LinkedHashSet<>();
-    private static String report;
 
-    @Test
-    void everyProgramBuildsAndRoundTrips() throws Exception {
+    /** The IR golden held against the corpora's report. */
+    public static void hold(String report) throws Exception {
         String recorded = Files.exists(GOLDEN) ? Files.readString(GOLDEN) : HEADER;
-        if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, report());
-        System.out.print(report());
-        assertEquals(recorded, report());
+        if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, report);
+        System.out.print(report);
+        assertEquals(recorded, report);
     }
 
     /** SIR-08 on the corpora: cobc prints each literal as its payload (LiteralIntegrationTest's comparison; the golden programs' too). */
-    @Test
-    void cobcPrintsEachLiteralOfTheCorporaAsItsPayload() throws Exception {
-        report();
+    public static void literals() throws Exception {
         Set<Value.Literal> literals = new java.util.LinkedHashSet<>(LITERALS);
         Path golden = ROOT.resolve("sir/golden");
         for (Build.Result r : Build.programs(Parse.file(golden.resolve("PROBE.cbl"), new Copybooks(List.of(golden), n -> 8), 8), HASH)) LiteralIntegrationTest.literals(r.program(), literals);
@@ -74,30 +69,28 @@ class IrIntegrationTest {
         assertEquals(List.of(), LiteralIntegrationTest.mismatches(compared, Files.createDirectories(ROOT.resolve("build/sir-literals/corpora"))));
     }
 
-    /** The corpora built once: the golden's report, and the literals gathered on the way. */
-    private static synchronized String report() throws Exception {
-        if (report != null) return report;
-        StringBuilder report = new StringBuilder(HEADER);
-        Path carddemo = ROOT.resolve("corpus/carddemo/app");
-        report.append(corpus("carddemo", programs(carddemo.resolve("cbl")), new Copybooks(List.of(carddemo.resolve("cpy"), carddemo.resolve("cpy-bms"), ROOT.resolve("front/ibm")),
-                n -> n.equalsIgnoreCase("CUSTREC.cpy") ? 4 : 8)));
-        Map<String, Path> nist = NistSources.write(ROOT, Files.createDirectories(ROOT.resolve("build/sir-ir-nist")));
-        report.append(corpus("nist", nist, new Copybooks(List.of(nist.values().iterator().next().getParent()), n -> 8)));
-        Path omp = ROOT.resolve("corpus/omp-cobol-course");
-        report.append(corpus("omp", programs(omp), new Copybooks(folders(omp), n -> 8)));
-        Path bankdemo = ROOT.resolve("corpus/bankdemo");
-        if (Files.isDirectory(bankdemo)) System.out.print("privately: " + corpus("bankdemo", programs(bankdemo), new Copybooks(folders(bankdemo), n -> 8)).lines().findFirst().orElse(""));
-        IrIntegrationTest.report = report.toString();
-        return IrIntegrationTest.report;
+    /** The golden's header, before the corpora. */
+    public static String header() {
+        return HEADER;
     }
 
     /** One program's part of a corpus's counts, its failures, and the literals it holds. */
-    private record One(boolean parsed, boolean built, boolean trips, int buildFindings, int checkFindings, int facts, int tokensLeft,
+    public record One(boolean parsed, boolean built, boolean trips, int buildFindings, int checkFindings, int facts, int tokensLeft,
             Map<String, Integer> nonExact, List<String> failures, Set<Value.Literal> literals) {}
 
-    /** One program parsed, built, checked and round-tripped; independent of every other, so a corpus runs them in parallel. */
-    private static One one(String key, Path source, Copybooks books, String name, Profile ibm) {
-        Parse.Result parse = Parse.file(source, books, 8);
+    private static final Profile IBM = profile();
+
+    private static Profile profile() {
+        try {
+            return Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile")));
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
+    }
+
+    /** One program, from its parse: built, checked and round-tripped; independent of every other. */
+    public static One one(String key, Parse.Result parse, String name) {
+        Profile ibm = IBM;
         Map<String, Integer> nonExact = new TreeMap<>();
         List<String> failures = new ArrayList<>();
         Set<Value.Literal> literals = new java.util.LinkedHashSet<>();
@@ -130,16 +123,11 @@ class IrIntegrationTest {
         }
     }
 
-    /**
-     * One corpus: each program that parses built, checked, and round-tripped; the counts, and what failed.
-     * The programs run in parallel and are summed in their order, so the report is the same as one by one.
-     */
-    private static String corpus(String name, Map<String, Path> programs, Copybooks books) throws Exception {
+    /** One corpus's lines of the golden from its programs' parts, in their order; its literals gathered. */
+    public static String corpus(String name, List<One> ones) {
         int parsed = 0, built = 0, roundTrip = 0, buildFindings = 0, checkFindings = 0, facts = 0, tokensLeft = 0;
         Map<String, Integer> nonExact = new TreeMap<>();
-        Profile ibm = Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile")));
         List<String> failures = new ArrayList<>();
-        List<One> ones = programs.entrySet().parallelStream().map(e -> one(e.getKey(), e.getValue(), books, name, ibm)).toList();
         for (One o : ones) {
             if (!o.parsed()) continue;
             parsed++;
@@ -160,14 +148,14 @@ class IrIntegrationTest {
         return out.toString();
     }
 
-    static Map<String, Path> programs(Path root) throws Exception {
+    public static Map<String, Path> programs(Path root) throws Exception {
         try (Stream<Path> files = Files.walk(root)) {
             return files.filter(Files::isRegularFile).filter(p -> p.getFileName().toString().toLowerCase().matches(".*\\.(cbl|cob|cobol)"))
                     .collect(Collectors.toMap(p -> root.relativize(p).toString(), p -> p, (a, b) -> a, TreeMap::new));
         }
     }
 
-    static List<Path> folders(Path root) throws Exception {
+    public static List<Path> folders(Path root) throws Exception {
         try (Stream<Path> files = Files.walk(root)) {
             List<Path> folders = new ArrayList<>(files.filter(p -> p.getFileName().toString().toLowerCase().matches(".*\\.(cpy|copy)")).map(Path::getParent).distinct().sorted().toList());
             folders.add(ROOT.resolve("front/ibm"));

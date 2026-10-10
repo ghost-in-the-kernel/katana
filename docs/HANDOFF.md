@@ -215,6 +215,8 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
   `DataMapIntegrationTest` and `IrIntegrationTest` share one parse of NIST (a corpus fixture built once
   per JVM, or one class with three checks), no golden moving; `--all` from 14.4 min toward 10, then the
   ceiling ratchets. Land J-166 first with the ceiling at 15 (R-054, corrected), the refactor after.
+  (Done: J-168 landed first, then J-169, `katana.front.CorpusIntegrationTest`; the `--all` time it
+  makes is measured by the next `--all` gate, and the ceiling ratchets from there.)
 - **Added 2026-10-09 (J-167):** an index with no PICTURE sized at 0 integer places made SQ214A loop
   for ever (3 to 99, then 0). The class: every operand kind that has no PICTURE (index, LENGTH OF,
   ADDRESS OF, pointer, intrinsic results, LINAGE-COUNTER) needs its arithmetic size stated once in

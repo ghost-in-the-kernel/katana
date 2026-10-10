@@ -50,7 +50,7 @@ for s in $suites; do
     fixture) tests="$tests --tests katana.oracle.fixture.*" ;;
     lane) tests="$tests --tests katana.oracle.lane.* --tests katana.oracle.compare.*" ;;
     front) tests="$tests --tests katana.front.*" ;;
-    sir) tests="$tests --tests katana.sir.*" ;;
+    sir) tests="$tests --tests katana.sir.* --tests katana.front.CorpusIntegrationTest" ;;
     quick) tests="$tests --tests katana.oracle.nist.ModuleRunIntegrationTest" ;;
     autotest) tests="$tests --tests katana.oracle.autotest.*" ;;
     rt) tests="$tests --tests katana.rt.*" ;;

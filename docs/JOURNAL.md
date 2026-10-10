@@ -2415,3 +2415,22 @@ taken; closed by a later `decision` entry naming it).
   run and the parse-once item mean this entry.
 - **Touched:** `build.gradle`, `scripts/prepush.sh`, `scripts/Ceilings.java`, `test/CeilingsTest.java`,
   `test/ParallelTest.java`, `test/DocTests.java`, `test/MetricsTest.java`, `docs/AGENT.md`.
+
+### J-169 Tithe: each corpus parsed once for the front end's, the data map's and the IR's checks
+- **Who:** Opus, on Fable's tithe item (74cf705, after J-168). **Class:** decision (tithe).
+- **Intent:** `--all` from 14.4 min toward 10: FrontCorpusIntegrationTest, DataMapIntegrationTest and
+  IrIntegrationTest each parsed NIST (and two of them CardDemo and OMP) in a JVM of their own.
+- **Found:** a cache of trees cannot be the way: FrontCorpus's own comment says 560 trees fill the heap.
+  The three need the same parse (`Parse.file` is `Parse.text` with the tabs expanded) of the same
+  programs in the same order (NistSources' TreeMap, the same folder walks), each extracting NIST
+  with EXEC85 into a folder of its own.
+- **Resolved:** `katana.front.CorpusIntegrationTest` (sorted first, so it starts with the run) makes
+  one pass per corpus: each program parsed once, in parallel, its three parts taken (the errors and
+  the source map; the IR built, checked, round-tripped; cobc's translation and the fields compared),
+  the tree dropped; NIST extracted once. The three classes become helpers (`FrontCorpus`, `IrCorpus`,
+  `DataMapCorpus`) that sum their parts in their own order and hold their goldens as before; no golden
+  moved. cobc's translations for the data map run in parallel too, as they did not. Alone, the three
+  checks take 275 s, where they took 353, 354 and 380 s in three JVMs. One registry entry names the
+  three mutations; the `sir` suite runs the class as well as `katana.sir.*`.
+- **Touched:** the four test classes, `scripts/prepush.sh`, `docs/checks.json`, `CLAUDE.md`,
+  `test/katana/sir/LiteralIntegrationTest.java`.
