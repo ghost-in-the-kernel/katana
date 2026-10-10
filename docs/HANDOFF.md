@@ -211,6 +211,15 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
 
 ## For Opus: tithe pass 3a, before the next feature (R-008 amended, 2026-10-09) (done: J-155 to J-163)
 
+- **Added 2026-10-09 (J-166):** parse each corpus once: `FrontCorpusIntegrationTest`,
+  `DataMapIntegrationTest` and `IrIntegrationTest` share one parse of NIST (a corpus fixture built once
+  per JVM, or one class with three checks), no golden moving; `--all` from 14.4 min toward 10, then the
+  ceiling ratchets. Land J-166 first with the ceiling at 15 (R-054, corrected), the refactor after.
+- **Added 2026-10-09 (J-167):** an index with no PICTURE sized at 0 integer places made SQ214A loop
+  for ever (3 to 99, then 0). The class: every operand kind that has no PICTURE (index, LENGTH OF,
+  ADDRESS OF, pointer, intrinsic results, LINAGE-COUNTER) needs its arithmetic size stated once in
+  one place and a test per kind; the sweep is a tithe item, the way the name sweep was.
+
 - **Added 2026-10-09 (J-166):** `GhostTest` refuses a paragraph over 200 characters that appears in two
   decisions; failing case, the six-copy file of 4811e81. Small; with the next tithe commit.
 

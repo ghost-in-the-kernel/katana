@@ -902,8 +902,13 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   time past its ceiling fails `MetricsTest`, as a file past 400 lines does, because a reported
   number was not read between passes and doubled (14 s to 35 s), the shape of J-154. Ceilings: the
   warm fast loop 25 s now, 20 s from tithe pass 3's close; the pre-push check over the suites a push
-  selects 10 min; `--all` 12 min, and "under 3" is retired as a target set when there were three
-  suites. Each ratchets down to the best recorded, never up without a decision. The two seconds over
+  selects 10 min; `--all` 15 min (corrected the same day from 12: the first gated run measured 14.4,
+  and a ceiling below the measured value is red on every push and says nothing, R-056's third shape;
+  a held metric arms at a value it meets, R-042), and "under 3" is retired as a target set when there
+  were three suites. A commit that selects every suite is judged as `--all`. Each ceiling ratchets
+  down to the best recorded, never up without a decision; the way `--all` comes down is a tithe item,
+  parsing each corpus once (three integration classes each parse NIST at 0.7 s a program in their own
+  JVM, J-166), worth about two whole-corpus parses. The two seconds over
   20 are taken by running the fast loop's test classes in parallel (JUnit, four cores; the goldens
   are written only under `-Dkatana.record`, so the classes share no file), which is Opus's, and its
   killer mutation is a class that writes without the flag.
