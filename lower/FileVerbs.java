@@ -189,17 +189,39 @@ final class FileVerbs {
         if (from != null) f.e.line(f.x.moveInto(from, f.x.field(record), f.x.item(record.item())) + ";");
         boolean before = Verbs.keyword(s, "BEFORE");
         Value lines = Verbs.operand(s, "write-advancing-lines");
+        String channel = channel(s);
         if (paged(record.item())) {
-            String n = Verbs.keyword(s, "PAGE") ? "-1" : lines != null ? "(int) " + f.x.index(lines) : "1";
+            String n = Verbs.keyword(s, "PAGE") ? "-1" : channel != null ? channel : lines != null ? "(int) " + f.x.index(lines) : "1";
             f.e.line("ae = " + file + ".page(" + f.x.field(record) + ", " + before + ", " + n + ");");
             after("WRITE", fileOf(record.item()), false);
             f.branch("ae", Verbs.branch(s, "write-at-end-of-page-phrase"), List.of());
             f.branch(file + ".successful() && !ae", Verbs.branch(s, "write-not-at-end-of-page-phrase"), List.of());
             return;
         }
-        String count = Verbs.keyword(s, "PAGE") ? "-1" : lines != null ? "(int) " + f.x.index(lines) : (Verbs.keyword(s, "ADVANCING") || before || Verbs.keyword(s, "AFTER")) ? "1" : "0";
+        String count = Verbs.keyword(s, "PAGE") ? "-1" : channel != null ? channel : lines != null ? "(int) " + f.x.index(lines) : (Verbs.keyword(s, "ADVANCING") || before || Verbs.keyword(s, "AFTER")) ? "1" : "0";
         f.e.line(file + ".write(" + f.x.field(record) + ", " + (before ? count : "0") + ", " + (before ? "0" : count) + ");");
         after("WRITE", fileOf(record.item()), false);
+    }
+
+    /**
+     * WRITE ... ADVANCING mnemonic-name (LR 6.4 p. 473: "a skip to channels 1 through 12, or space
+     * suppression"), by its environment-name in SPECIAL-NAMES: C01, channel 1, a new page (-1); CSP, no
+     * line advanced (0), as the lane reads them (LANE-12). Where channels 2 to 12 stop is the printer's
+     * carriage-control tape, and stacker selection a card punch's, so they are not lowered. Null with no
+     * mnemonic-name.
+     */
+    // Decision: R-019
+    private String channel(Statement s) {
+        for (Statement.Operand o : s.operands()) {
+            if (!(o.value() instanceof Value.Name n && n.kind().equals("mnemonic"))) continue;
+            String env = f.p.header().mnemonics().stream().filter(m -> m.name().equals(n.text())).map(katana.sir.types.Header.Mnemonic::environment).findFirst().orElse("");
+            return switch (env) {
+                case "C01" -> "-1";
+                case "CSP" -> "0";
+                default -> f.x.unsupported("WRITE ADVANCING " + n.text() + (env.isEmpty() ? "" : " (" + env + ")") + ": where it stops is the device's");
+            };
+        }
+        return null;
     }
 
     /** REWRITE record [FROM x] (LR 6.4 p. 432): the FROM item MOVEd into the record first. */

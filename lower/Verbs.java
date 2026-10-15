@@ -217,7 +217,7 @@ final class Verbs {
             if (o.value() instanceof Value.Name n && n.kind().equals("mnemonic")) pending.add(n.text());
             if (!(o.role().equals("set-to-value") && o.value() instanceof Value.Name v && (v.text().equals("ON") || v.text().equals("OFF")))) continue;
             for (String m : pending) {
-                String env = f.p.header().mnemonics().stream().filter(k -> k.name().equals(m)).map(katana.sir.types.Header.Mnemonic::environment).findFirst().orElse(null);
+                String env = f.p.header().mnemonics().stream().filter(k -> k.name().equals(m)).map(katana.sir.types.Header.Mnemonic::environment).filter(x -> x.matches("UPSI-[0-7]")).findFirst().orElse(null);
                 f.e.line(env == null ? f.x.unsupported("SET of switch " + m + " at " + s.origin()) + ";" : "upsi.set(" + env.charAt(5) + ", " + v.text().equals("ON") + ");");
             }
             pending.clear();

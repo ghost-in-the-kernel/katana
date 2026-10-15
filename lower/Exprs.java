@@ -105,6 +105,8 @@ final class Exprs {
         if (counter(v) != null) return "Table.index(" + counter(v) + ")";
         return switch (v) {
             case Value.Literal l when l.numeric() -> l.payload() + "L";
+            // ZERO where an integer goes: WRITE ... ADVANCING ZERO, whose "integer ... can be zero" (LR 6.4 p. 473; SQ101M, J-172).
+            case Value.Figurative f when numeric(f) -> "0L";
             case Value.Field f -> "Table.index(" + field(f) + ")";
             case Value.Expression e when e.operands().size() == 2 && List.of("+", "-").contains(e.operator()) -> "(" + index(e.operands().get(0)) + " " + e.operator() + " " + index(e.operands().get(1)) + ")";
             case Value.Expression e when e.operator().equals("pos") -> index(e.operands().get(0));

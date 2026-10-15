@@ -73,7 +73,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | `profile` | the profile the program means what it means under |
 | `editing` | the currency sign and decimal point a mask's `$` and `.` stand for |
 | `switch` | each switch-status condition-name, its switch and status |
-| `mnemonic` | each switch's mnemonic-name |
+| `mnemonic` | each mnemonic-name with its environment-name |
 | `alphabet` | each alphabet-name, its kind and members, and the program collating sequence |
 | `class` | each CLASS name and its members |
 | `item` | each item's place, attribute tuple, edit mask and flags |

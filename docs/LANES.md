@@ -67,6 +67,10 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
   trailing spaces trimmed; ADVANCING n is n - 1 blank lines; a new page is the rest of the page body,
   the bottom margin and the next top margin as blank lines (`rt/Linage`, J-151): the lane's choice, so
   a LINAGE report compares line for line with cobc's, not a claim about a printer's.
+- **LANE-12 A channel skip is a new page.** WRITE ... ADVANCING a mnemonic-name is "a skip to channels 1
+  through 12, or space suppression" (LR 6.4 p. 473); where a channel stops is the printer's
+  carriage-control tape, not the program's. The java lane reads C01, channel 1, as a new page, as PAGE
+  writes it, and CSP as no line advanced; C02 to C12 and stacker selection are not lowered (J-172).
 
 ## The check
 

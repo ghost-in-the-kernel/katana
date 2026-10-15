@@ -35,7 +35,11 @@ public record Header(String program, String source, String profileHash, String c
         }
     }
 
-    /** A mnemonic-name for a switch (`UPSI-0 IS SW-1`), which SET mnemonic-name TO ON or OFF sets (LR 6.4 p. 126). */
+    /**
+     * A mnemonic-name and its environment-name: a switch (`UPSI-0 IS SW-1`), which SET mnemonic-name TO ON
+     * or OFF sets (LR 6.4 p. 126); a channel or space suppression (`C01 IS TOP-OF-PAGE`), which WRITE ...
+     * ADVANCING names (p. 473); the console or another device (J-172).
+     */
     public record Mnemonic(String name, String environment) {}
 
     /** A switch-status condition-name: true when the switch (`UPSI-0` to `UPSI-7`) has this status (LR 6.4 pp. 126, 283). */

@@ -2471,3 +2471,21 @@ taken; closed by a later `decision` entry naming it).
   is the file itself: `test/ghost-4811e81.md`, R-054 to R-059 as 4811e81 left them, the paragraph in six;
   a short line two decisions share passes. theGhost.md holds none.
 - **Touched:** `test/GhostTest.java`, `test/ghost-4811e81.md`, `docs/HANDOFF.md`.
+
+### J-172 SQ101M and SQ207M: WRITE ADVANCING ZERO and a channel mnemonic; SQ 85 of 85
+- **Who:** Opus, on Ghost's go-ahead. **Class:** build.
+- **Intent:** the last two SQ runs, each stopped at "not lowered: index ...".
+- **Found:** SQ101M writes `BEFORE ADVANCING ZERO`, SQ207M `AFTER ADVANCING MNEMONIC-NAME` with `C01 IS
+  MNEMONIC-NAME` in SPECIAL-NAMES. IBM, WRITE (LR 6.4 p. 473): "Integer or the value in identifier-2
+  can be zero"; "When mnemonic-name is specified, a skip to channels 1 through 12, or space
+  suppression, takes place. mnemonic-name must be equated with environment-name-1 in the SPECIAL-NAMES
+  paragraph." The IR kept a mnemonic-name only for an UPSI switch, so C01 never reached the lowering.
+- **Resolved:** the IR's header keeps every mnemonic-name with its environment-name (the contract's
+  `mnemonic` facts; NIST's contract facts 417588 to 417602, nothing else moved in `sir/ir.golden`);
+  SET mnemonic-name TO ON or OFF still takes only an UPSI one. ZERO is an integer 0 where one goes
+  (`Exprs.index`). WRITE ... ADVANCING mnemonic-name: C01 a new page, CSP no line, the lane's reading
+  of the printer's channels (LANE-12, `FileVerbs.channel`); C02 to C12 and stacker selection are not
+  lowered, as where they stop is the device's. SQ through the Java lane 83 to 85 of 85 (floor 85).
+- **Touched:** `sir/build/Build.java`, `sir/types/Header.java`, `sir/contract/Contract.java`,
+  `docs/SEMANTIC-IR.md`, `sir/ir.golden`, `lower/FileVerbs.java`, `lower/Exprs.java`, `lower/Verbs.java`,
+  `docs/LANES.md`, the SQ floor.

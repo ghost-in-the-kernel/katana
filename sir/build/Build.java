@@ -103,14 +103,14 @@ public final class Build {
         return out;
     }
 
-    /** SPECIAL-NAMES' mnemonic-names for UPSI switches, each with its switch. */
+    /** SPECIAL-NAMES' mnemonic-names, each with its environment-name: a switch (`UPSI-0`), a channel (`C01`), space suppression (`CSP`) (J-172). */
     private static List<Header.Mnemonic> mnemonics(CobolParser.ProgramUnitContext unit) {
         List<Header.Mnemonic> out = new ArrayList<>();
         if (unit.environmentDivision() == null) return out;
         for (var clause : all(unit.environmentDivision(), CobolParser.EnvironmentSwitchNameClauseContext.class)) {
             if (clause.environmentName() == null || clause.mnemonicName() == null) continue;
             String environment = Values.upper(clause.environmentName().getText());
-            if (environment.matches("UPSI-[0-7]")) out.add(new Header.Mnemonic(Values.upper(clause.mnemonicName().getText()), environment));
+            out.add(new Header.Mnemonic(Values.upper(clause.mnemonicName().getText()), environment));
         }
         return out;
     }
