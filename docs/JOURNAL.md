@@ -2461,3 +2461,13 @@ taken; closed by a later `decision` entry naming it).
   numeric-edited item has its PICTURE's places now, with its case in `PlacesTest`; NC is 84 again.
 - **Touched:** `lower/Places.java`, `lower/Arith.java`, `lower/Exprs.java`, `test/katana/lower/PlacesTest.java`,
   `docs/KERNEL-MAP.md`.
+
+### J-171 Tithe: GhostTest refuses a paragraph in two decisions
+- **Who:** Opus, on Fable's tithe item (0e00741). **Class:** decision (tithe).
+- **Intent:** the slip of 4811e81 (R-054's amendment written into R-055 to R-059 too) passed every check,
+  as GhostTest held ids, order and fields, not that a paragraph appears once.
+- **Resolved:** `GhostTest.repeated`: each `- ` item of a decision, with its indented lines, whitespace
+  folded, of over 200 characters, in two decisions or more, is a failure naming them. Its failing case
+  is the file itself: `test/ghost-4811e81.md`, R-054 to R-059 as 4811e81 left them, the paragraph in six;
+  a short line two decisions share passes. theGhost.md holds none.
+- **Touched:** `test/GhostTest.java`, `test/ghost-4811e81.md`, `docs/HANDOFF.md`.

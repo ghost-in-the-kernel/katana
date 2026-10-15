@@ -224,6 +224,7 @@ consequence clause added: a verdict must stop an action; the meta-test is tithe 
 
 - **Added 2026-10-09 (J-166):** `GhostTest` refuses a paragraph over 200 characters that appears in two
   decisions; failing case, the six-copy file of 4811e81. Small; with the next tithe commit.
+  (Done: J-171; the failing case is `test/ghost-4811e81.md`, R-054 to R-059 as 4811e81 left them.)
 
 Nine tithe commits are owed. Each changes no behaviour (P-02: no golden moves), is titled "Tithe",
 and lands through the gate like any step (R-040). In this order; stop when the counter is paid and

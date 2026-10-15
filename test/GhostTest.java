@@ -11,7 +11,8 @@ import java.util.regex.Pattern;
  * Holds theGhost.md (docs/ROADMAP.md 4.1, P-05): ids unique, in order, and with no gap that the
  * reserved list does not name; every decision has its fields and a known status; supersession named
  * on both sides (`superseded by R-n` and `Supersedes: R-m`); and no in-force decision carries a
- * `conflicts-with:` line naming another in-force decision.
+ * `conflicts-with:` line naming another in-force decision; and no paragraph of over 200 characters in
+ * two decisions (4811e81 put R-054's amendment in six; the ids, order and fields all held, J-166).
  */
 final class GhostTest {
     private static final Pattern HEADING = Pattern.compile("(?m)^### R-(\\d{3}): ");
@@ -47,7 +48,9 @@ final class GhostTest {
                 .accepts("the same pair once one is superseded", () -> check(PAIR_SUPERSEDED))
                 .rejects("supersession named on one side only", () -> check(ONE_SIDED))
                 .rejects("a duplicate id", () -> check(DUPLICATE))
-                .rejects("a gap the reserved list does not name", () -> check(GAP));
+                .rejects("a gap the reserved list does not name", () -> check(GAP))
+                .rejects("4811e81's file, R-054's amendment in six decisions", () -> repeated(Check.read("test/ghost-4811e81.md")))
+                .accepts("a short line two decisions share", () -> repeated("### R-001: a\n- **Status:** in force\n### R-002: b\n- **Status:** in force\n"));
     }
 
     /** What theGhost.md gets wrong: a number twice or out of order, a field or status, a gap not reserved, a supersession or a conflict. */
@@ -65,6 +68,33 @@ final class GhostTest {
         gaps(byId.keySet(), reserved(text), failures);
         for (Decision d : byId.values()) supersession(d, byId, failures);
         for (Decision d : byId.values()) conflicts(d, byId, failures);
+        failures.addAll(repeated(text));
+        return failures;
+    }
+
+    /** Each paragraph (a `- ` item with its indented lines) of over 200 characters that appears in two decisions or more. */
+    static List<String> repeated(String text) {
+        Map<String, List<String>> where = new LinkedHashMap<>();
+        Matcher h = HEADING.matcher(text);
+        List<Integer> starts = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        while (h.find()) {
+            starts.add(h.start());
+            ids.add("R-" + h.group(1));
+        }
+        for (int k = 0; k < starts.size(); k++) {
+            String section = text.substring(starts.get(k), k + 1 < starts.size() ? starts.get(k + 1) : text.length());
+            for (String item : section.split("\n(?=- )")) {
+                String paragraph = item.replaceAll("\\s+", " ").trim();
+                if (!paragraph.startsWith("- ") || paragraph.length() <= 200) continue;
+                List<String> in = where.computeIfAbsent(paragraph, x -> new ArrayList<>());
+                if (!in.contains(ids.get(k))) in.add(ids.get(k));
+            }
+        }
+        List<String> failures = new ArrayList<>();
+        where.forEach((paragraph, in) -> {
+            if (in.size() > 1) failures.add("a paragraph is in " + in.size() + " decisions, " + String.join(", ", in) + ": \"" + paragraph.substring(0, 80) + "...\"");
+        });
         return failures;
     }
 
