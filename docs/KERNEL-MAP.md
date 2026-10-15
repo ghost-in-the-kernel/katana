@@ -1159,3 +1159,10 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Varying.java:Varying.read` |  | 2026-10-09 |  |
 | rt | `rt/katana/rt/Varying.java:Varying.status` |  | 2026-10-09 |  |
 | rt | `rt/katana/rt/SeqFile.java:SeqFile.readVarying` |  | 2026-10-09 |  |
+| lower | `lower/Places.java:Places.Places` |  | 2026-10-15 |  |
+| lower | `lower/Places.java:Places.Size.of` |  | 2026-10-15 |  |
+| lower | `lower/Places.java:Places.Size.refused` |  | 2026-10-15 |  |
+| lower | `lower/Places.java:Places.of` | R-020 | 2026-10-15 |  |
+| lower | `lower/Places.java:Places.item` |  | 2026-10-15 |  |
+| lower | `lower/Places.java:Places.counter` |  | 2026-10-15 |  |
+| lower | `lower/Exprs.java:Exprs.counterDigits` | moved to Places, where every operand's places are stated (J-170) | 2026-10-15 | superseded-by: `lower/Places.java:Places.counter` |

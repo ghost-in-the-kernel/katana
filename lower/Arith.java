@@ -78,21 +78,22 @@ final class Arith {
         return e.operands().stream().anyMatch(o -> holds(o, operators));
     }
 
-    /** One operand as a term: a numeric item or literal with its integer places. */
+    /** One operand as a term: its value with the integer places `Places` states for it. */
     String operand(Value v) {
-        if (x.counter(v) != null) return "Decimal.operand(" + x.counter(v) + ".get(), " + x.counterDigits(v) + ")";
+        Places.Size size = Places.of(v, x);
+        if (size.refused() != null) return x.unsupported("arithmetic operand " + size.refused());
+        if (x.counter(v) != null) return "Decimal.operand(" + x.counter(v) + ".get(), " + size.places() + ")";
         return switch (v) {
-            case Value.Field f -> "Decimal.operand(" + x.field(f) + ".get(), " + integerPlaces(x.item(f.item())) + ")";
-            case Value.Literal l when l.numeric() -> "Decimal.operand(new Decimal(new java.math.BigInteger(" + Emitter.quote(l.payload()) + "), " + l.scale() + "), " + Math.max(0, l.payload().replace("-", "").length() - l.scale()) + ")";
-            case Value.Figurative f when x.numeric(f) -> "Decimal.operand(new Decimal(java.math.BigInteger.ZERO, 0), 1)";
-            default -> x.unsupported("arithmetic operand " + v);
+            case Value.Field f -> "Decimal.operand(" + x.field(f) + ".get(), " + size.places() + ")";
+            case Value.Literal l when l.numeric() -> "Decimal.operand(new Decimal(new java.math.BigInteger(" + Emitter.quote(l.payload()) + "), " + l.scale() + "), " + size.places() + ")";
+            case Value.Figurative f when x.numeric(f) -> "Decimal.operand(new Decimal(java.math.BigInteger.ZERO, 0), " + size.places() + ")";
+            default -> x.unsupported("arithmetic operand " + v + ", not held (its places would be " + size.places() + ")");
         };
     }
 
-    /** An operand's integer places: its PICTURE's; an index, which has none, the fullword's nine (`Lower.index`; SQ214A's VARYING past 99, J-167). */
+    /** An item's integer places, as `Places` states them. */
     static int integerPlaces(Item i) {
-        if (i.attributes().category() == katana.sir.types.Attributes.Category.INDEX) return 9;
-        return Math.max(0, Lower.stored(i.attributes()) - i.attributes().scale());
+        return Places.item(i).places();
     }
 
     /** dmax for a statement: its receivers' decimal places and its operands'. */

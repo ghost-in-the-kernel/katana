@@ -124,15 +124,6 @@ final class Exprs {
         return paged.size() == 1 ? FileVerbs.name(paged.get(0).name()) + ".counter()" : unsupported("LINAGE-COUNTER unqualified, with " + paged.size() + " LINAGE files");
     }
 
-    /** The digits of a LINAGE-COUNTER (a binary item of its integer's digits, or its data-name's). */
-    int counterDigits(Value v) {
-        katana.sir.types.FileDescriptor f = v instanceof Value.Expression e && e.operands().get(0) instanceof Value.File file
-                ? p.files().stream().filter(d -> d.name().equals(file.name())).findFirst().orElseThrow()
-                : p.files().stream().filter(d -> d.fd() != null && d.fd().linage() != null).findFirst().orElseThrow();
-        Value body = f.fd().linage().body();
-        return body instanceof Value.Literal l ? l.payload().length() : item(((Value.Field) body).item()).attributes().digits();
-    }
-
     /** A value as a sending item (a Field), for MOVE and comparison. */
     String sending(Value v) {
         if (counter(v) != null) return counter(v);

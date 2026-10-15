@@ -2434,3 +2434,30 @@ taken; closed by a later `decision` entry naming it).
   three mutations; the `sir` suite runs the class as well as `katana.sir.*`.
 - **Touched:** the four test classes, `scripts/prepush.sh`, `docs/checks.json`, `CLAUDE.md`,
   `test/katana/sir/LiteralIntegrationTest.java`.
+
+### J-170 Tithe: the operands with no PICTURE, each sized once in `lower/Places`
+- **Who:** Opus, on Fable's tithe item (74cf705, after J-167). **Class:** decision (tithe).
+- **Intent:** everything that enters arithmetic without a PICTURE (an index, LENGTH OF, ADDRESS OF, a
+  pointer, an intrinsic function's result, LINAGE-COUNTER) gets its size stated once, in one place,
+  with a test per kind.
+- **Found:** the index was the only kind sized silently (J-167). Arithmetic takes four kinds of
+  operand: an item, a numeric literal, ZERO and LINAGE-COUNTER; everything else, every special register
+  but LINAGE-COUNTER, LENGTH OF, ADDRESS OF and FUNCTION calls, was already refused as not lowered, in
+  arithmetic and as a sending item, by a default that said nothing of its size. A pointer and a
+  floating-point item reach no arithmetic: `rt` holds neither, and IBM allows a pointer "only" in
+  ALLOCATE, FREE, SET, a relation condition and USING (LR 6.4 p. 243). The sizes were in three places
+  (`Arith.integerPlaces`, `Arith.operand`'s literal and ZERO, `Exprs.counterDigits`).
+- **Resolved:** `lower/Places` states each kind: an item's PICTURE's integer places (P counted, as
+  9(3)PP holds 99900); an index nine, the fullword `rt` holds; LINAGE-COUNTER its integer's digits or
+  its data-name's (LR p. 23); LENGTH OF nine under LP(32), the default (LR p. 22, PG p. 422); RETURN-CODE,
+  SORT-RETURN, TALLY, SORT-CORE-SIZE, SORT-FILE-SIZE, JSON-CODE and XML-CODE their implicit PICTUREs
+  (LR pp. 22-28), for the day `rt` holds them; ADDRESS OF, a pointer, a float and a FUNCTION call refused
+  with why. `Arith.operand` reads every size from it; `PlacesTest` holds each kind, the index's case
+  failing on J-167's zero. No golden moved.
+- **Caught by the gate:** the first draft gave places only to NUMERIC and INDEX items; a numeric-edited
+  item fell to "not numeric" and 0. A DIVIDE GIVING a numeric-edited quotient with REMAINDER sizes the
+  remainder from the quotient (`ArithVerbs`), so NIST NC203A's DIV-TEST-F4-8-1 computed 101 for 1 and NC
+  fell to 83 of 95 against its floor of 84; the fast loop, holding no such case, was green. A
+  numeric-edited item has its PICTURE's places now, with its case in `PlacesTest`; NC is 84 again.
+- **Touched:** `lower/Places.java`, `lower/Arith.java`, `lower/Exprs.java`, `test/katana/lower/PlacesTest.java`,
+  `docs/KERNEL-MAP.md`.
