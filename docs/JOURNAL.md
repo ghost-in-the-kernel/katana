@@ -2655,3 +2655,39 @@ taken; closed by a later `decision` entry naming it).
   `test/katana/oracle/nist/ModuleRunIntegrationTest.java`, `test/katana/oracle/nist/NistSources.java`,
   `test/katana/lower/AbendIntegrationTest.java`, `test/katana/lower/LinageIntegrationTest.java`,
   `scripts/prepush.sh`.
+
+### J-180 RL through the Java lane: relative files in `rt/RelFile`; RL 35 of 35
+- **Who:** Opus, on Ghost's go-ahead ("the phase 4 modules"; RL first, as 4.1 names it). **Class:** build;
+  trial.
+- **Intent:** phase 4.1's relative files, checked by NIST's RL module through the Java lane, its own floor;
+  IBM's text and the prediction committed before the run (research §20, 3ccd629).
+- **Found:** before any change, 13 of 35: every file was lowered as a `SeqFile`, START and DELETE were not
+  lowered, and three programs with random or dynamic access passed because they read their keys in
+  ascending order, refuting the prediction's bound on the baseline. With a relative file, 34 of 35;
+  RL206A's records vary (FROM 120 TO 140 DEPENDING ON WRK-SIZE) and were written at the 01's 140 bytes.
+  A probe of the IR found the front end reads `RF` as Report Writer's word, not a file name: the
+  reserved word working as IBM's Appendix E says, not a bug.
+- **Resolved:** `rt/RelFile`: record areas by relative record number, kept in memory while open and
+  written back at CLOSE (LANE-15); READ NEXT, random READ, WRITE, REWRITE, DELETE and START with the
+  statuses of Table 34 (14, 22, 23, 24, 43, 46-49) and Table 50's open modes; the position indicator at a
+  record after OPEN or START, past one after READ; variable records through `rt/Varying`. `lower/FileVerbs`
+  lowers a relative file through it, the read by access mode and NEXT, START and DELETE, and the INVALID
+  KEY phrases (a phrase present keeps the declarative from running, LR pp. 303-304), with `ik` and `ok`
+  declared only in a program with a relative file, so no other program's Java changed. `RelFileTest`
+  holds the rules; three mutations turn it red (the position always past a record, an INVALID KEY phrase
+  ignored, a sequential DELETE without its READ). RL 35 of 35 (floor 35).
+- **Touched:** `rt/katana/rt/RelFile.java`, `rt/katana/rt/Varying.java`, `lower/FileVerbs.java`,
+  `lower/Verbs.java`, `test/katana/rt/RelFileTest.java`, `test/katana/lower/NistJavaLaneIntegrationTest.java`,
+  `docs/LANES.md` (LANE-15), research §20, `TODO.md`, `docs/KERNEL-MAP.md`.
+
+### J-181 The Java lane's modules run at once: the pre-push check back under its ceiling
+- **Who:** Opus. **Class:** failure-caught; measurement.
+- **Intent:** push J-180 (RL), which the pre-push check refused.
+- **Found:** every test passed, but the check took 11.1 min against R-054's 10 for the selected suites.
+  `NistJavaLaneIntegrationTest` was its longest path, 456 s: nine modules one after another (NC 209 s,
+  SQ 95, IF 50, RL 41, the rest under 17 each), on one of the image's four cores once the other classes
+  had finished. Each module already ran in folders of its own and wrote its own report.
+- **Resolved:** the class is `@Execution(CONCURRENT)`, and the `integration` task turns on JUnit's
+  parallel execution with every other class's methods in turn, as before. The class alone: 263 s, every
+  module's count unchanged. The ceiling is not raised (R-054 ratchets down); the room is made.
+- **Touched:** `test/katana/lower/NistJavaLaneIntegrationTest.java`, `build.gradle`.

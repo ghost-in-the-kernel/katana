@@ -126,6 +126,12 @@ tasks.register('integration', Test) {
     // under build/ (the pre-push check, tithe pass 2a).
     maxParallelForks = Math.min(4, Runtime.runtime.availableProcessors())
     forkEvery = 1
+    // Within a class, methods run in turn, unless the class says `@Execution(CONCURRENT)`: the Java lane's
+    // modules do, as its longest path held the pre-push check past its ceiling (R-054, J-181).
+    systemProperty 'junit.jupiter.execution.parallel.enabled', 'true'
+    systemProperty 'junit.jupiter.execution.parallel.mode.default', 'same_thread'
+    systemProperty 'junit.jupiter.execution.parallel.config.strategy', 'fixed'
+    systemProperty 'junit.jupiter.execution.parallel.config.fixed.parallelism', '4'
     outputs.upToDateWhen { false }
     testLogging {
         events = ['passed', 'failed', 'skipped']

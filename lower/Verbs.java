@@ -44,6 +44,8 @@ final class Verbs {
             case "WRITE" -> files.write(s);
             case "REWRITE" -> files.rewrite(s);
             case "READ" -> files.read(s);
+            case "START" -> files.start(s);
+            case "DELETE" -> files.delete(s);
             default -> control(s);
         }
     }

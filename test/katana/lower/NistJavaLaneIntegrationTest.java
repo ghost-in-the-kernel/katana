@@ -18,15 +18,20 @@ import katana.oracle.nist.Population;
 import katana.oracle.nist.RunNotes;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * Phase 3.4, the Java lane module by module: NIST extracted as the cobc lane extracts it, each program of
  * a module lowered and run by `JavaRunner`, its report's counts set beside the cobc lane's golden under
  * -std=ibm (oracle/nist/programs-ibm.golden). How many runs equal cobc's is written to
  * build/nist-java/MODULE.txt with each program's line and, for those that do not, what was not lowered.
- * Each module has its own floor, which only rises.
+ * Each module has its own floor, which only rises. The modules run at once, each in folders of its own
+ * and writing its own report: run one after another they were the pre-push check's longest path, past
+ * its ceiling once RL joined (R-054, J-181).
  */
 @Tag("integration")
+@Execution(ExecutionMode.CONCURRENT)
 class NistJavaLaneIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     /** The NC runs whose counts equal cobc's; raised as the lowering grows, never lowered (the bench discipline, P-01). */
@@ -42,6 +47,8 @@ class NistJavaLaneIntegrationTest {
             Map.entry("IF137A", "D-030"), Map.entry("IF138A", "D-030"), Map.entry("IF141A", "D-030"));
     /** The same for OB. */
     static final int OB_FLOOR = 6;
+    /** The same for RL. */
+    static final int RL_FLOOR = 35;
     /** The same for RW: the two runs that end at an OPEN before any Report Writer statement, which is not in Enterprise COBOL (research §19). */
     static final int RW_FLOOR = 2;
     /** The same for DB. */
@@ -81,6 +88,11 @@ class NistJavaLaneIntegrationTest {
     @Test
     void obThroughTheJavaLane() throws Exception {
         lane("OB", OB_FLOOR, Map.of());
+    }
+
+    @Test
+    void rlThroughTheJavaLane() throws Exception {
+        lane("RL", RL_FLOOR, Map.of());
     }
 
     @Test
