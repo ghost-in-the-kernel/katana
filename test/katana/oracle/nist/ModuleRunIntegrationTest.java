@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import katana.oracle.Runs;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -50,15 +51,19 @@ class ModuleRunIntegrationTest {
         Path overlay = ROOT.resolve("oracle/nist/exec85-" + dialect + ".cards");
         String base = Files.readString(ROOT.resolve("oracle/nist/exec85.cards"));
         List<String> cards = Files.exists(overlay) ? Exec85.cards(base, Files.readString(overlay)) : Exec85.cards(base);
+        Path exec85 = Files.createTempDirectory(work, "exec85");
         List<Population.Member> extracted = Exec85.run(ROOT.resolve("corpus/nist-cobol85-test-suite/newcob.val"),
-                cards, Files.createTempDirectory(work, "exec85"), new Cobc(Duration.ofSeconds(30)));
+                cards, exec85, new Cobc(Duration.ofSeconds(30)));
+        Runs.passed(exec85);
         Map<String, String> switches = Exec85.switches(cards);
         RunNotes notes = RunNotes.read(Files.readString(ROOT.resolve("oracle/nist/run-notes")));
         Map<String, Future<List<ModuleRun.Outcome>>> runs = new LinkedHashMap<>();
+        List<Path> dirs = new ArrayList<>();
         List<String> lines = new ArrayList<>();
         try (ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
             for (String module : MODULES) {
                 Path dir = Files.createTempDirectory(work, module);
+                dirs.add(dir);
                 runs.put(module, pool.submit(() -> ModuleRun.run(module, extracted, notes, switches, dir, cobc)));
             }
             for (var run : runs.entrySet()) {
@@ -75,6 +80,7 @@ class ModuleRunIntegrationTest {
         if (Boolean.getBoolean("katana.record") && !MODULES.equals(ALL)) throw new IllegalStateException("record from a full run, not from -Dkatana.nist.modules=" + ONLY);
         if (Boolean.getBoolean("katana.record")) Files.writeString(golden, got);
         assertEquals(Files.exists(golden) ? only(Files.readString(golden)) : "(no golden for -std=" + dialect + ")", got);
+        Runs.passed(dirs.toArray(Path[]::new));
     }
 
     /** A golden's header and the lines of the modules this run runs (all of them, unless -Dkatana.nist.modules says). */
