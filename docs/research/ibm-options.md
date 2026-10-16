@@ -1157,3 +1157,45 @@ LRECL was not met. TRANREPT-STUDY's stdout differs only as D-005 says (cobc's se
 where DISPSIGN(COMPAT) shows the bytes), held line by line. With those: POSTTRAN, INTCALC, TRANREPT,
 TRANREPT-STUDY, PRTCATBL, PRTCATBL-INLINE, COMBTRAN and SORTTEST report in the Java lane what the cobc
 lane's golden holds; CREASTMT is refused for CBSTM03B.
+
+## 23. SORT and MERGE (read 2026-10-16, primary; NIST ST)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR).
+
+- LR p. 451 (SORT, DUPLICATES): "If the DUPLICATES phrase is specified, and the contents of all the key
+  elements associated with one record are equal ... the order of return of these records is ... The order
+  of the associated input files as specified in the SORT statement. Within a given file the order is that
+  in which the records are accessed from that file. The order in which these records are released by an
+  input procedure ... If the DUPLICATES phrase is not specified, the order of these records is undefined."
+- LR pp. 450-452 (keys and sequence): the keys' significance is their order in the statement; ASCENDING
+  "from the lowest key value to the highest", DESCENDING the reverse; alphanumeric keys by the COLLATING
+  SEQUENCE phrase, else "the PROGRAM COLLATING SEQUENCE clause (if specified) ... When both ... are
+  omitted, the EBCDIC collating sequence is used"; other keys "according to the rules for comparison of
+  operands in a relation condition".
+- LR p. 452 (USING): "all the records in file-name-2, ... are transferred automatically to file-name-1. At
+  the time the SORT statement is executed, these files must not be open. The compiler opens, reads, makes
+  records available, and closes these files automatically." (GIVING): "all the sorted records in
+  file-name-1 are automatically transferred to the output files"; p. 453, each output file is opened as
+  OUTPUT, written "as if a WRITE statement without any optional phrases had been executed", and closed.
+  (INPUT PROCEDURE): "control is passed to the input procedure before the file referenced by file-name-1 is
+  sequenced ... When control passes the last statement in the input procedure, the records that have been
+  released ... are sorted."
+- LR p. 429 (RELEASE): "the current contents of record-name-1 are placed in the sort file"; FROM is
+  "MOVE identifier-1 to record-name-1. RELEASE record-name-1." LR p. 430 (RETURN): "the next record from
+  file-name-1 is made available for processing by the OUTPUT PROCEDURE"; AT END when there is none.
+- LR p. 396 (MERGE): it "combines two or more identically sequenced files ... and makes records available
+  in merged order to an output procedure or output file", by the same keys and COLLATING SEQUENCE rules.
+
+The lane's reading: alphanumeric keys compare in the codepage's own order unless a COLLATING SEQUENCE
+phrase or PROGRAM COLLATING SEQUENCE says otherwise, as relation conditions do (`rt/Collation`); under IBM's
+codepage that is EBCDIC's, IBM's default. Katana's sort is stable (R-026), which is the DUPLICATES order
+whether or not the phrase is written; MERGE takes equal keys in the order of the USING files.
+
+Predicted, before the run. As lowered today SORT, MERGE, RELEASE and RETURN are not lowered and an SD is
+declared as a sequential file, so no ST program with a SORT or MERGE reports what cobc does. With a sort
+file in `rt` (records collected by USING or RELEASE, sorted stably by the keys, given to GIVING files or to
+RETURN), every ST run that cobc compiles reports what cobc -std=ibm reports, ST301M's abnormal end (status
+30 on SORT1) included: 34 of 40. The six cobc refuses (ST115A, ST137A, ST139A, ST140A, ST144A, ST147A)
+cannot be the same. The rivals: a key compared differently from cobc (a numeric key of another usage, a
+signed key, a COLLATING SEQUENCE alphabet), and the order of equal keys where a program relies on it
+without DUPLICATES, which IBM leaves undefined.
