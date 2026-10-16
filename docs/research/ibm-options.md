@@ -765,3 +765,46 @@ Result (J-174): C-2 held. Every IF program cobc compiles reports what cobc repor
 test in the Java lane (IF402M reports no tests). One reading was refuted on the way: a floating-point
 value cut, not rounded, into its receiver gave .42899 for NUMVAL(".429") (IF125A); rounding, as above,
 gives .429.
+
+## 16. Segmentation (read 2026-10-16, primary; NIST SG)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR).
+
+- LR p. 264 (Section-header): "A section-name followed by the keyword SECTION, optionally followed by a
+  priority-number, followed by a separator period." Priority-number: "An integer or a positive signed
+  numeric literal ranging in value from 0 through 99. Priority-number identifies a fixed segment or an
+  independent segment that is to contain the section."
+- LR p. 265 (Segments): "A segment consists of all sections in a program that have the same
+  priority-number." "Segments with a priority-number of 0 through 49 are fixed segments. Segments with a
+  priority-number of 50 through 99 are independent segments." "In fixed segments, procedures are always
+  in last-used state. In independent segments, procedures are in initial state each time the segment
+  receives control from a segment with a different priority-number, except when the transfer of control
+  results from the execution of a GOBACK or EXIT PROGRAM statement." "Enterprise COBOL does not support
+  the overlay feature of the 85 COBOL Standard segmentation module."
+- LR p. 318 (ALTER, Segmentation considerations): "Altered GO TO statements in independent segments are
+  returned to their initial state when control is transferred to the independent segment that contains
+  the ALTERED GO TO from another independent segment with a different priority-number. This transfer of
+  control can take place because of: The effect of previous statements; An explicit transfer of control
+  with a PERFORM or GO TO statement; A sort or merge statement with the INPUT or OUTPUT phrase specified".
+- LR p. 123 (SEGMENT-LIMIT): "The SEGMENT-LIMIT clause is syntax checked but has no effect on the
+  execution of the program."
+
+What a procedure's state is: in Katana's lowering, only an altered GO TO has one (a PERFORM's return is
+the dispatcher's, not the segment's). So segmentation is: when does an independent segment's ALTERs
+reset. IBM names no segment for a section without a priority-number, nor for paragraphs outside any
+section; Katana reads them as in no independent segment, as only 50 through 99 name one.
+
+The two pages differ, and neither says whether the end of a PERFORM, returning to an independent
+segment, is a transfer into it. The rivals, before the run:
+
+- R1, p. 265: an independent segment resets when it receives control from any segment with a different
+  priority-number, fixed or independent (falling into it, GO TO, PERFORM).
+- R2, p. 318: only when control comes from another independent segment.
+- P1: the return at a PERFORM's end, to a statement in an independent segment, from a range in another
+  segment, is such a transfer and resets it. P2: it is not (the segment never gave up control; the
+  "explicit transfer ... with a PERFORM" is the entry into the range).
+
+Predicted: R1 and P2. Under them, the Java lane passes every SG test of the programs it can run (SORT,
+in SG104A, SG105A, SG106A and SG204A, waits for phase 4.2), including those cobc -std=ibm fails (in
+SG102A, SG103A, SG201A, SG203A), where a failure that R1 and P2 explain is a cobc departure. A test that
+fails under R1 and passes under R2, or needs P1, refutes the prediction, and is recorded as such.
