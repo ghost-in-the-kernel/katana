@@ -706,3 +706,45 @@ So a replacement is never matched again (SM206A's REPLACING ==1== BY ==5== ==5==
 replaceables are tried in the order written, and a debugging line's words take part in a match whether
 or not WITH DEBUGGING MODE is written. cobc -std=ibm fails SM206A's PST-TEST-009, a debugging line inside
 the copied text that the pseudo-text names: D-029.
+
+## 15. Intrinsic functions (read 2026-10-16, primary; NIST IF)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR) and Programming Guide (PG).
+
+- LR p. 498 (Types of functions): "Numeric functions are of class and category numeric. The returned
+  value is always considered to have an operational sign and is a numeric intermediate result."
+  "Integer functions are of class and category numeric. The returned value is always considered to
+  have an operational sign and is an integer intermediate result." "Alphanumeric functions are of class
+  and category alphanumeric. The value returned has an implicit usage of DISPLAY."
+- LR p. 499: "A numeric function can be used only where an arithmetic expression can be specified."
+  "An integer function can be used only where an arithmetic expression can be specified."
+- LR pp. 509-514 (Table 59, Table of functions): each function's arguments and type (I integer, N
+  numeric, X alphanumeric); MAX, MIN, RANGE and SUM "the type of function depends on the arguments".
+- PG pp. 798-799 (Intrinsic functions evaluated in fixed-point arithmetic): "Integer intrinsic functions
+  return an integer; thus their outer-dmax is always zero"; digit precision DATE-OF-INTEGER 8,
+  DAY-OF-INTEGER 7, FACTORIAL "30 in compatibility mode", INTEGER-OF-DATE 7, INTEGER-OF-DAY 7, LENGTH 9,
+  MOD "min(i1 i2)", ORD 3, ORD-MAX 9, ORD-MIN 9; INTEGER "For a fixed-point argument: one more digit
+  than in the argument", INTEGER-PART "same number of digits as in the argument". "A mixed intrinsic
+  function is a function whose result type depends on the type of its arguments. A mixed function is
+  fixed point if all of its arguments are numeric and none of its arguments is floating point"; MAX,
+  MIN, RANGE, REM and SUM by "the rules for fixed-point arithmetic and intermediate results ... to each
+  step in the algorithm" (REM: "Divide argument one by argument two. Remove all noninteger digits from
+  the result ... Multiply ... by argument two. Subtract ... from argument one").
+- PG p. 800: "If any operation in an arithmetic expression is computed in floating-point arithmetic, the
+  entire expression is computed as if all operands were converted to floating point"; floating point is
+  used when "An intrinsic function is a floating-point function". PG p. 801: "In compatibility mode,
+  floating-point intrinsic functions always return a long (64-bit) floating-point value." PG p. 57:
+  floating-point functions "return a long (64-bit) or extended-precision (128-bit) floating-point value
+  (depending on whether you compile using the default option ARITH(COMPAT) or using ARITH(EXTEND))".
+
+The floating-point functions, read by elimination: every numeric (N) function of Table 59 that PG pp.
+798-799 does not list as integer or mixed: ACOS, ANNUITY, ASIN, ATAN, COS, LOG, LOG10, MEAN, MEDIAN,
+MIDRANGE, NUMVAL, NUMVAL-C, PRESENT-VALUE, RANDOM, SIN, SQRT, STANDARD-DEVIATION, TAN, VARIANCE. An
+expression holding one is computed in Java `double`, IEEE binary64, where IBM's long is hexadecimal
+(a 56-bit fraction): R-023's approximation, with its finding NE-06.
+
+The trial is R-023 C-2's, named there before this pass: NIST IF through the Java lane. Predicted, under
+C-2 (IEEE is close enough): every IF test cobc passes passes in the Java lane, apart from what cobc's own
+departures explain. Under its rival (the hexadecimal fraction matters): some float test fails in the
+Java lane where cobc passes, at its last digit. RANDOM's sequence is IBM's own and named nowhere; a test
+that prints or compares its values is a reading of the lane, recorded when met.
