@@ -33,8 +33,10 @@ which they are). An item's `Flag`s: JUSTIFIED, BLANK WHEN ZERO, EXTERNAL, GLOBAL
 ## The paragraph graph
 
 `Procedure`: the USING and RETURNING items, each `Section` (a declarative one with its `Use`:
-ERROR or DEBUGGING, GLOBAL, and the files or open mode it covers, SIR-10), each `Paragraph` in textual order with its statements and where each of its sentences starts
-(the index of its first statement; NEXT SENTENCE goes to the next one, or to the paragraph's end), and
+ERROR or DEBUGGING, GLOBAL, and the files or open mode it covers, SIR-10; its priority-number, 50
+through 99 an independent segment, research §16), each `Paragraph` in textual order with its statements and where each of its sentences starts
+(the index of its first statement; NEXT SENTENCE goes to the next one, or to the paragraph's end; an
+altered GO TO, `name. GO TO.`, is a GO TO with no operands), and
 each `Edge` (`Kind` PERFORM, GO_TO or ALTER) from one paragraph to another, through the end of a
 PERFORM range. A NEXT SENTENCE written in a phrase (IF's, SEARCH's WHEN) is a NEXT SENTENCE statement
 in that phrase's branch, as one written alone is (J-122).
@@ -84,6 +86,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | `file` | each file's organization, access, keys, status and records |
 | `fd` | each file's FD or SD entry: EXTERNAL, GLOBAL, the RECORD clause, LINAGE, CODE-SET, RECORDING MODE |
 | `declarative` | each declarative section's USE: what it follows, GLOBAL, and its files or mode, or what it debugs |
+| `segment` | each section's priority-number, where one is written |
 | `paragraph` | each paragraph's place in textual order and its section |
 | `falls` | control that falls from a paragraph into the next |
 | `edge` | each PERFORM, GO TO and ALTER between paragraphs |

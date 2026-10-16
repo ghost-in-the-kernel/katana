@@ -2538,3 +2538,30 @@ taken; closed by a later `decision` entry naming it).
   `front/grammar/Cobol.g4`, `test/katana/lower/FuncsTest.java`,
   `test/katana/lower/NistJavaLaneIntegrationTest.java`, `docs/DISCOVERIES.md`, research §15,
   `docs/KERNEL-MAP.md`.
+
+### J-175 SG through the Java lane: segments' initial state and the altered GO TO; SG 5 of 13 and 4 more where cobc departs
+- **Who:** Opus, on Ghost's go-ahead. **Class:** build; trial; discovery.
+- **Intent:** NIST's SG module (segmentation) through the Java lane, its own floor; the rivals named before
+  the run (research §16, cab7c0f): R1 (LR p. 265, entry from any other segment resets an independent one)
+  or R2 (p. 318, only from another independent one), and whether a PERFORM's return is an entry (P1, P2).
+- **Found:** before any segmentation, the lane failed what cobc fails (SG102A, SG103A, SG201A, SG203A) and
+  one test more, SG203A's SEGM-TEST-18: the IR dropped `PARA-05. GO TO.`, IBM's altered GO TO (LR p. 347),
+  leaving an empty paragraph that fell through. With it built and R1 and P2 lowered, all four pass every
+  test. R2 gives back exactly cobc's failures in SG102A, SG201A and SG203A (2 of SG103A's 3): R1 held, R2
+  refuted, and cobc's behaviour is close to R2's (D-031). P1 passes as P2 does: no SG test tells them
+  apart, so P2 stays a reading (`// Unsure:` on `Dispatcher.resume`). SORT keeps SG104A, SG105A, SG106A
+  and SG204A for phase 4.2.
+- **Resolved:** `Procedure.Section.priority` (the priority-number as written, -1 for none; a `segment`
+  contract fact, NIST's contract facts 417601 to 417875, 267 sections and 7 altered GO TOs); an altered GO
+  TO is a GO TO with no operands, continuing until an ALTER sends it, and the `falls` fact keeps it
+  falling; `Dispatcher` takes each paragraph's segment, `enter` resets an independent segment's ALTERs
+  when it is entered from another, `resume` does not; `Flow` emits them only in a program with an
+  independent segment and an ALTER, so no other program's Java changes. `DispatcherTest` and
+  `SegmentsTest` hold them. SG 5 of 13 (floor 5) and 4 explained by D-031 (`SG_FINDINGS`); NC, SQ, SM and
+  IF unchanged.
+- **Touched:** `sir/types/Procedure.java`, `sir/build/Paragraphs.java`, `sir/contract/Contract.java`,
+  `rt/katana/rt/Dispatcher.java`, `lower/Flow.java`, `lower/Lower.java`, `lower/Verbs.java`,
+  `test/katana/rt/DispatcherTest.java`, `test/katana/lower/SegmentsTest.java`, `test/katana/sir/TokenCoverage.java`,
+  `test/katana/sir/SirTypesTest.java`, `test/katana/sir/NoTokenLeftTest.java`,
+  `test/katana/lower/NistJavaLaneIntegrationTest.java`, `sir/ir.golden`, `sir/golden/SG202A.contract`,
+  `docs/SEMANTIC-IR.md`, `docs/DISCOVERIES.md`, research §16, `docs/KERNEL-MAP.md`.

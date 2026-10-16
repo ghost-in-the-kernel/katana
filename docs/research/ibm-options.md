@@ -808,3 +808,15 @@ Predicted: R1 and P2. Under them, the Java lane passes every SG test of the prog
 in SG104A, SG105A, SG106A and SG204A, waits for phase 4.2), including those cobc -std=ibm fails (in
 SG102A, SG103A, SG201A, SG203A), where a failure that R1 and P2 explain is a cobc departure. A test that
 fails under R1 and passes under R2, or needs P1, refutes the prediction, and is recorded as such.
+
+- LR p. 347 (Altered GO TO): "The altered GO TO statement transfers control to the first statement of
+  the paragraph named in the ALTER statement." "An ALTER statement referring to the paragraph that
+  contains the altered GO TO statement should be executed before the GO TO statement is executed.
+  Otherwise, the GO TO statement acts like a CONTINUE statement." Format 3: `paragraph-name. GO TO.`
+
+Result (J-175): R1 held, R2 refuted; P1 and P2 not told apart. Under R1 and P2 the Java lane passes
+every test of SG102A, SG103A, SG201A and SG203A, 31 of which cobc fails (D-031); under R2 it fails
+exactly what cobc fails in SG102A, SG201A and SG203A, and 2 of SG103A's 3. Under P1 it passes them all as
+under P2, so no SG test returns from a PERFORM into an independent segment whose ALTERs it changed: P2
+stays a reading. SG203A's SEGM-TEST-18 failed under every reading until the altered GO TO (p. 347), which
+the IR had dropped, was built as a GO TO naming no procedure.

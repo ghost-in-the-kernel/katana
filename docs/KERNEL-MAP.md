@@ -1240,3 +1240,9 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Functions.java:Functions.ordMaxText` |  | 2026-10-16 |  |
 | rt | `rt/katana/rt/Functions.java:Functions.ordMinText` |  | 2026-10-16 |  |
 | lower | `lower/Funcs.java:Funcs.expand` | R-019 | 2026-10-16 |  |
+| lower | `lower/Flow.java:Flow.segmented` |  | 2026-10-16 |  |
+| lower | `lower/Flow.java:Flow.segments` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Dispatcher.java:Dispatcher.Dispatcher#2` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Dispatcher.java:Dispatcher.enter` | R-021 | 2026-10-16 |  |
+| rt | `rt/katana/rt/Dispatcher.java:Dispatcher.resume` |  | 2026-10-16 |  |
+| lower | `lower/Verbs.java:Verbs.alteredOnly` |  | 2026-10-16 |  |

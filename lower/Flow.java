@@ -22,7 +22,8 @@ final class Flow {
     private final Verbs verbs;
     private final List<Integer> labels = new ArrayList<>();
     private final int end;
-    private int next, counters;
+    private int next, counters, at;
+    private final boolean segmented;
     private String sentenceEnd = "";
     String paragraph = "";
 
@@ -35,6 +36,25 @@ final class Flow {
         this.end = p.procedure().paragraphs().size();
         this.next = end + 1;
         this.verbs = new Verbs(this);
+        this.segmented = segmented(p);
+    }
+
+    /**
+     * Whether the program's control depends on its segments: an independent segment (priority 50
+     * through 99) and an ALTER, the one state a segment's initial state restores here (research §16).
+     */
+    static boolean segmented(Program p) {
+        return p.procedure().sections().stream().anyMatch(s -> s.priority() >= 50)
+                && p.procedure().edges().stream().anyMatch(g -> g.kind() == Procedure.Kind.ALTER);
+    }
+
+    /** Each paragraph's section's priority-number, as the `Dispatcher` takes them. */
+    static String segments(Program p) {
+        java.util.Map<String, Integer> priority = new java.util.HashMap<>();
+        for (Procedure.Section s : p.procedure().sections()) priority.put(s.name(), s.priority());
+        List<String> out = new ArrayList<>();
+        for (Procedure.Paragraph g : p.procedure().paragraphs()) out.add(String.valueOf(priority.getOrDefault(g.section(), -1)));
+        return "new int[] {" + String.join(", ", out) + "}";
     }
 
     /** The control flow (R-021): run() from the first paragraph after the declaratives, a stretch method per label, and the step switch over them all. */
@@ -57,6 +77,7 @@ final class Flow {
         List<Procedure.Paragraph> paragraphs = p.procedure().paragraphs();
         for (Procedure.Paragraph para : paragraphs) {
             paragraph = para.name();
+            at = para.index();
             open(para.index());
             sentences(para);
             e.line("return d.end(" + para.index() + ", " + (para.index() + 1) + ");");
@@ -100,6 +121,7 @@ final class Flow {
     private void open(int label) {
         labels.add(label);
         e.open("private int s" + label + "()");
+        if (segmented) e.line(label == at ? "d.enter(" + at + ");" : "d.resume(" + at + ");");
     }
 
     /** Ends this stretch and opens the one at `label`. */

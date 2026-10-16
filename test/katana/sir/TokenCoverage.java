@@ -42,7 +42,7 @@ final class TokenCoverage {
         List<Statement> ir = new ArrayList<>();
         List<Program> owners = new ArrayList<>();
         programs.forEach(p -> index(p, ir, owners));
-        List<CobolParser.StatementContext> tree = statements(parse.tree());
+        List<org.antlr.v4.runtime.ParserRuleContext> tree = statements(parse.tree());
         if (tree.size() != ir.size()) return List.of("the tree has " + tree.size() + " statements, the IR " + ir.size());
         List<String> missing = new ArrayList<>(entries(parse, programs));
         missing.addAll(uses(parse, programs));
@@ -225,10 +225,11 @@ final class TokenCoverage {
         p.nested().forEach(n -> index(n, ir, owners));
     }
 
-    /** The statements a sentence holds directly (nested ones are inside their parent's tokens). */
-    private static List<CobolParser.StatementContext> statements(ParseTree node) {
-        List<CobolParser.StatementContext> found = new ArrayList<>();
+    /** The statements a sentence holds directly (nested ones are inside their parent's tokens), and each altered GO TO, a paragraph's only statement. */
+    private static List<org.antlr.v4.runtime.ParserRuleContext> statements(ParseTree node) {
+        List<org.antlr.v4.runtime.ParserRuleContext> found = new ArrayList<>();
         if (node instanceof CobolParser.SentenceContext sentence) return new ArrayList<>(sentence.statement());
+        if (node instanceof CobolParser.AlteredGoToContext altered) return new ArrayList<>(List.of(altered));
         for (int i = 0; i < node.getChildCount(); i++) found.addAll(statements(node.getChild(i)));
         return found;
     }

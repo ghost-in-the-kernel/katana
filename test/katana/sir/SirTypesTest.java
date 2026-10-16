@@ -130,15 +130,15 @@ class SirTypesTest {
         List<Statement> noFile = List.of(statement("CLOSE", 1, List.of(operand("file", new Value.File("NOPE"))), List.of()));
         refused("SIR-05", () -> new Program(header(), items(), files(), procedure(noFile), List.of(), List.of()));
         Procedure plain = procedure(statements());
-        Procedure.Section useNope = new Procedure.Section("ERRS", true, new Procedure.Use(Procedure.Use.Kind.ERROR, false, "", List.of("NOPE"), List.of(), List.of()), at("x", 1, 1));
+        Procedure.Section useNope = new Procedure.Section("ERRS", true, new Procedure.Use(Procedure.Use.Kind.ERROR, false, "", List.of("NOPE"), List.of(), List.of()), -1, at("x", 1, 1));
         refused("SIR-05", () -> new Program(header(), items(), files(), new Procedure(plain.using(), plain.returning(), List.of(useNope), plain.paragraphs(), plain.edges()), List.of(), List.of()));
-        refused("SIR-10", () -> new Procedure.Section("ERRS", true, null, at("x", 1, 1)));
+        refused("SIR-10", () -> new Procedure.Section("ERRS", true, null, -1, at("x", 1, 1)));
         Value five = new Value.Literal("5", Value.Literal.Kind.NUMERIC, "5", 0), zero = new Value.Literal("0", Value.Literal.Kind.NUMERIC, "0", 0);
         refused("SIR-11", () -> new FileDescriptor.Linage(zero, null, null, null));
         refused("SIR-11", () -> new FileDescriptor.Linage(five, new Value.Literal("6", Value.Literal.Kind.NUMERIC, "6", 0), null, null));
         refused("SIR-11", () -> new FileDescriptor.Linage(five, null, new Value.Literal("-1", Value.Literal.Kind.NUMERIC, "-1", 0), null));
         refused("SIR-11", () -> new FileDescriptor.Fd(false, false, false, 30, 10, false, 0, null, "", ""));
-        refused("SIR-10", () -> new Procedure.Section("MAIN", false, useNope.use(), at("x", 1, 1)));
+        refused("SIR-10", () -> new Procedure.Section("MAIN", false, useNope.use(), -1, at("x", 1, 1)));
         refused("SIR-10", () -> new Procedure.Use(Procedure.Use.Kind.ERROR, false, "", List.of(), List.of(), List.of()));
         refused("SIR-10", () -> new Procedure.Use(Procedure.Use.Kind.ERROR, false, "INPUT", List.of("IN-FILE"), List.of(), List.of()));
         refused("SIR-06", () -> new Procedure(List.of(), 0, List.of(), List.of(new Procedure.Paragraph(1, "P", "", List.of(), List.of(), at("x", 1, 1))), List.of()));

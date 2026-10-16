@@ -61,7 +61,7 @@ class NoTokenLeftTest {
         List<FileDescriptor> files = p.files().stream().map(f -> new FileDescriptor(f.name(), f.assign(), false, f.organization(), f.access(), f.recordKey(), f.alternateKeys(),
                 f.relativeKey(), 0, 0, f.fd(), f.records(), f.minRecord(), f.maxRecord(), f.origin())).toList();
         List<Procedure.Section> sections = p.procedure().sections().stream().map(s -> s.use() == null ? s : new Procedure.Section(s.name(), true,
-                new Procedure.Use(s.use().kind(), false, s.use().mode(), s.use().files().isEmpty() ? List.of() : List.of("REL-FILE"), s.use().outerFiles(), s.use().debugging()), s.origin())).toList();
+                new Procedure.Use(s.use().kind(), false, s.use().mode(), s.use().files().isEmpty() ? List.of() : List.of("REL-FILE"), s.use().outerFiles(), s.use().debugging()), s.priority(), s.origin())).toList();
         Procedure q = p.procedure();
         Program without = new Program(p.header(), p.items(), files, new Procedure(q.using(), q.returning(), sections, q.paragraphs(), q.edges()), p.calls(), p.nested());
         String missing = String.join(" ", TokenCoverage.missing(parse, without));

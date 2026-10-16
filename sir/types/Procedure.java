@@ -8,8 +8,11 @@ import java.util.List;
  * body or of a section, are a paragraph named ""), and the edges PERFORM, GO TO and ALTER make.
  */
 public record Procedure(List<Integer> using, int returning, List<Section> sections, List<Paragraph> paragraphs, List<Edge> edges) {
-    /** A section; a declarative one, and only one, says what it is USE'd for (SIR-10). */
-    public record Section(String name, boolean declarative, Use use, Origin origin) {
+    /**
+     * A section; a declarative one, and only one, says what it is USE'd for (SIR-10). Its priority-number
+     * as written, 0 through 99, or -1 for none: 50 through 99 name an independent segment (LR 6.4 p. 265).
+     */
+    public record Section(String name, boolean declarative, Use use, int priority, Origin origin) {
         public Section {
             Invalid.origin(origin, "section " + name);
             if (declarative != (use != null)) throw new Invalid("SIR-10", "section " + name + (declarative ? " is declarative with no USE" : " has a USE and is not declarative"));

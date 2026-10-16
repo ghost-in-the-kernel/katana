@@ -25,7 +25,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * and a finding, for sir/check.
  */
 final class Paragraphs {
-    private record Raw(String name, String section, List<CobolParser.SentenceContext> sentences, ParserRuleContext at) {}
+    private record Raw(String name, String section, List<CobolParser.SentenceContext> sentences, CobolParser.AlteredGoToContext altered, ParserRuleContext at) {}
 
     private final Parse.Result parse;
     private final Values values;
@@ -56,6 +56,11 @@ final class Paragraphs {
             Raw r = raw.get(i);
             List<Statement> statements = new ArrayList<>();
             List<Integer> starts = new ArrayList<>();
+            // An altered GO TO, alone in its paragraph (LR 6.4 p. 347): a GO TO that names no procedure.
+            if (r.altered() != null) {
+                starts.add(0);
+                statements.add(new Statement("GO TO", List.of(), List.of(), Origins.at(parse, r.altered())));
+            }
             for (var sentence : r.sentences()) {
                 if (!sentence.statement().isEmpty()) starts.add(statements.size());
                 for (var st : sentence.statement()) statements.add(statement(st));
@@ -82,7 +87,8 @@ final class Paragraphs {
 
     private void section(CobolParser.ProcedureSectionHeaderContext header, CobolParser.ParagraphsContext body, boolean declarative, Procedure.Use use) {
         String name = Values.upper(header.sectionName().getText());
-        sections.add(new Procedure.Section(name, declarative, use, Origins.at(parse, header)));
+        int priority = header.integerLiteral() == null ? -1 : Integer.parseInt(header.integerLiteral().getText().replace("+", ""));
+        sections.add(new Procedure.Section(name, declarative, use, priority, Origins.at(parse, header)));
         int first = raw.size();
         paragraphs(name, body, header);
         sectionRanges.put(name, new int[] {first, raw.size() - 1});
@@ -90,8 +96,8 @@ final class Paragraphs {
 
     /** Statements under no paragraph name make a paragraph named ""; the body's always does, even empty. */
     private void paragraphs(String section, CobolParser.ParagraphsContext body, ParserRuleContext at) {
-        if (!body.sentence().isEmpty() || (section.isEmpty() && raw.isEmpty())) raw.add(new Raw("", section, body.sentence(), at));
-        for (var p : body.paragraph()) raw.add(new Raw(Values.upper(p.paragraphName().getText()), section, p.sentence(), p));
+        if (!body.sentence().isEmpty() || (section.isEmpty() && raw.isEmpty())) raw.add(new Raw("", section, body.sentence(), null, at));
+        for (var p : body.paragraph()) raw.add(new Raw(Values.upper(p.paragraphName().getText()), section, p.sentence(), p.alteredGoTo(), p));
     }
 
     /** One statement: its verb, operands and branches; PERFORM, GO TO and ALTER also make edges, CALL a Call. */

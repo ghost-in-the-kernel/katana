@@ -39,6 +39,10 @@ class NistJavaLaneIntegrationTest {
             Map.entry("IF119A", "D-030"), Map.entry("IF120A", "D-030"), Map.entry("IF121A", "D-030"), Map.entry("IF122A", "D-030"),
             Map.entry("IF123A", "D-030"), Map.entry("IF128A", "D-030"), Map.entry("IF129A", "D-030"), Map.entry("IF132A", "D-030"),
             Map.entry("IF137A", "D-030"), Map.entry("IF138A", "D-030"), Map.entry("IF141A", "D-030"));
+    /** The same for SG. */
+    static final int SG_FLOOR = 5;
+    /** SG's runs where cobc departs: an independent segment entered from a fixed one keeps its ALTERs, D-031. */
+    static final Map<String, String> SG_FINDINGS = Map.of("SG102A", "D-031", "SG103A", "D-031", "SG201A", "D-031", "SG203A", "D-031");
     /** The same for SM. */
     static final int SM_FLOOR = 14;
     /** SM's runs where cobc departs: SM206A's debugging line in copied text, D-029. */
@@ -65,6 +69,11 @@ class NistJavaLaneIntegrationTest {
     @Test
     void ifThroughTheJavaLane() throws Exception {
         lane("IF", IF_FLOOR, IF_FINDINGS);
+    }
+
+    @Test
+    void sgThroughTheJavaLane() throws Exception {
+        lane("SG", SG_FLOOR, SG_FINDINGS);
     }
 
     @Test

@@ -36,7 +36,7 @@ public final class Lower {
         e.line("private final Sysin in;");
         e.line("private final Upsi upsi;");
         e.line("private final Sysout out, err;");
-        e.line("private final Dispatcher d = new Dispatcher(" + Math.max(1, p.procedure().paragraphs().size()) + ");");
+        e.line("private final Dispatcher d = new Dispatcher(" + (Flow.segmented(p) ? Flow.segments(p) : String.valueOf(Math.max(1, p.procedure().paragraphs().size()))) + ");");
         declareItems(e, p);
         FileVerbs.declare(e, p);
         e.open("public " + className + "(Codepage cp, Upsi upsi, Sysin in, Sysout out, Sysout err)");

@@ -15,10 +15,19 @@ public final class Dispatcher {
     private int[] ends = new int[16], backs = new int[16];
     private int depth;
     private final int[] altered;
+    private final int[] segments;
+    private int current = -1;
 
     /** A dispatcher for a program of `paragraphs` paragraphs. */
     public Dispatcher(int paragraphs) {
-        altered = new int[paragraphs];
+        this(new int[paragraphs]);
+        Arrays.fill(segments, -1);
+    }
+
+    /** A dispatcher for a segmented program: each paragraph's section's priority-number, -1 for none. */
+    public Dispatcher(int[] segments) {
+        this.segments = segments;
+        altered = new int[segments.length];
         Arrays.fill(altered, -1);
     }
 
@@ -60,5 +69,25 @@ public final class Dispatcher {
     /** Where the GO TO in an alterable paragraph goes: its altered target, or the one written. */
     public int goTo(int paragraph, int written) {
         return altered[paragraph] < 0 ? written : altered[paragraph];
+    }
+
+    /**
+     * Control enters paragraph `paragraph` at its start (falling into it, GO TO, PERFORM): an independent
+     * segment, 50 through 99, entered from a segment with a different priority-number is in its initial
+     * state, its altered GO TOs as written (LR 6.4 p. 265, read as R1 in research §16).
+     */
+    // Decision: R-021
+    public void enter(int paragraph) {
+        int segment = segments[paragraph];
+        if (segment >= 50 && segment != current) {
+            for (int i = 0; i < segments.length; i++) if (segments[i] == segment) altered[i] = -1;
+        }
+        current = segment;
+    }
+
+    /** Control comes back to paragraph `paragraph` after a PERFORM or within it: its segment is current, unchanged in state (P2, research §16). */
+    // Unsure: P2 is a reading; NIST SG passes under P1 too (J-175). Stays: an independent section that alters its own GO TO, PERFORMs a range in another segment and then runs that GO TO, on a mainframe.
+    public void resume(int paragraph) {
+        current = segments[paragraph];
     }
 }

@@ -44,6 +44,7 @@ public final class Contract {
             new Kind("file", "each file's organization, access, keys, status and records", p -> each(p.files(), Contract::file)),
             new Kind("fd", "each file's FD or SD entry: EXTERNAL, GLOBAL, the RECORD clause, LINAGE, CODE-SET, RECORDING MODE", p -> each(p.files().stream().filter(f -> f.fd() != null).toList(), Contract::fd)),
             new Kind("declarative", "each declarative section's USE: what it follows, GLOBAL, and its files or mode, or what it debugs", p -> each(p.procedure().sections().stream().filter(Procedure.Section::declarative).toList(), Contract::declarative)),
+            new Kind("segment", "each section's priority-number, where one is written", p -> each(p.procedure().sections().stream().filter(s -> s.priority() >= 0).toList(), s -> quoted(s.name()) + " " + s.priority())),
             new Kind("paragraph", "each paragraph's place in textual order and its section", p -> each(p.procedure().paragraphs(), g -> g.index() + " " + quoted(g.name()) + " " + quoted(g.section()))),
             new Kind("falls", "control that falls from a paragraph into the next", Contract::falls),
             new Kind("edge", "each PERFORM, GO TO and ALTER between paragraphs", p -> each(p.procedure().edges(), e -> e.kind() + " " + e.from() + " " + e.to() + " " + e.thru())),
@@ -125,13 +126,14 @@ public final class Contract {
                 + " " + f.minRecord() + ".." + f.maxRecord();
     }
 
-    /** A paragraph falls into the next unless its last statement leaves (GO TO, STOP, GOBACK, EXIT PROGRAM). */
+    /** A paragraph falls into the next unless its last statement leaves (GO TO, STOP, GOBACK, EXIT PROGRAM); an altered GO TO, naming no procedure, falls until an ALTER sends it (LR 6.4 p. 347). */
     private static List<String> falls(Program p) {
         List<Procedure.Paragraph> all = p.procedure().paragraphs();
         List<String> lines = new ArrayList<>();
         for (int i = 0; i + 1 < all.size(); i++) {
             List<Statement> s = all.get(i).statements();
-            String last = s.isEmpty() ? "" : s.get(s.size() - 1).verb();
+            Statement end = s.isEmpty() ? null : s.get(s.size() - 1);
+            String last = end == null || (end.verb().equals("GO TO") && end.operands().isEmpty()) ? "" : end.verb();
             if (!List.of("GO TO", "STOP", "GOBACK", "EXIT PROGRAM").contains(last)) lines.add(i + " " + (i + 1));
         }
         return lines;

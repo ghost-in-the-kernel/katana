@@ -150,13 +150,30 @@ final class Verbs {
         List<Value> targets = operands(s, "go-to-statement-simple", "go-to-depending-on-statement", "go-to-statement");
         Value depending = targets.stream().filter(v -> v instanceof Value.Field).findFirst().orElse(null);
         List<Value.Target> to = targets.stream().filter(v -> v instanceof Value.Target).map(v -> (Value.Target) v).toList();
+        if (depending == null && to.isEmpty()) {
+            alteredOnly();
+            return;
+        }
         if (depending == null) {
-            f.jump(altered(to.isEmpty() ? -1 : to.get(0).paragraph()));
+            f.jump(altered(to.get(0).paragraph()));
             return;
         }
         f.e.open("");
         f.e.line("long g = Table.index(" + f.x.field((Value.Field) depending) + ");");
         for (int k = 0; k < to.size(); k++) f.e.line("if (g == " + (k + 1) + ") return " + to.get(k).paragraph() + ";");
+        f.e.close();
+    }
+
+    /**
+     * An altered GO TO, naming no procedure: where the last ALTER sent it; before any, "the GO TO
+     * statement acts like a CONTINUE statement" (LR 6.4 p. 347).
+     */
+    private void alteredOnly() {
+        String target = altered(-1);
+        if (target.equals("-1")) return;
+        f.e.open("");
+        f.e.line("int g = " + target + ";");
+        f.e.line("if (g >= 0) return g;");
         f.e.close();
     }
 
