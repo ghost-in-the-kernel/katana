@@ -10,6 +10,14 @@ import katana.sir.types.Value;
 /** Operands as Java: a field (subscripted, reference-modified), a literal or figurative constant as a sending item, a move into a field. */
 final class Exprs {
     final Program p;
+    final Funcs funcs = new Funcs(this);
+    private Arith arith;
+
+    /** The arithmetic a function's arguments are computed with. */
+    Arith arith() {
+        if (arith == null) arith = new Arith(this);
+        return arith;
+    }
     private final List<String> findings;
 
     Exprs(Program p, List<String> findings) {
@@ -134,6 +142,10 @@ final class Exprs {
             case Value.Literal l when l.numeric() -> "Literal.number(" + Emitter.quote(written(l)) + ", " + l.scale() + ", cp)";
             case Value.Literal l when l.kind() == Value.Literal.Kind.ALPHANUMERIC -> "Literal.text(" + Emitter.quote(l.payload()) + ", cp)";
             case Value.Literal l when l.kind() == Value.Literal.Kind.HEX -> "Literal.hex(" + Emitter.quote(l.payload()) + ", cp)";
+            // An alphanumeric function is a new item; a numeric one is used "only where an arithmetic expression can be specified" (LR 6.4 p. 499).
+            case Value.Expression e when Funcs.name(e) != null && !numeric(e) -> funcs.alphanumeric(e, arith());
+            // A function reference-modified: "the function's returned value is reference-modified" (LR 6.4 p. 498).
+            case Value.Expression e when e.operator().equals("slice") -> "Table.ref(" + sending(e.operands().get(0)) + ", " + index(e.operands().get(1)) + ", " + (e.operands().size() > 2 ? index(e.operands().get(2)) : "0") + ")";
             default -> unsupported("sending " + v);
         };
     }
@@ -177,6 +189,7 @@ final class Exprs {
         return switch (v) {
             case Value.Field f -> List.of(Attributes.Category.NUMERIC, Attributes.Category.INDEX).contains(item(f.item()).attributes().category()) && f.start() == null;
             case Value.Literal l -> l.numeric();
+            case Value.Expression e when Funcs.name(e) != null -> funcs.numeric(e);
             case Value.Expression e -> List.of("+", "-", "*", "/", "**", "neg", "pos").contains(e.operator());
             case Value.Figurative f -> singular(f.name()).equals("ZERO") && f.all() == null;
             default -> false;

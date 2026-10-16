@@ -2509,3 +2509,32 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `front/Preprocessor.java`, `front/Mapped.java`, `test/katana/front/ParseTest.java`,
   `test/katana/lower/NistJavaLaneIntegrationTest.java`, `sir/ir.golden`, `docs/DISCOVERIES.md`, research §14,
   `docs/KERNEL-MAP.md`.
+
+### J-174 IF through the Java lane: intrinsic functions; R-023 C-2 held; IF 33 of 45 and 11 more where cobc departs
+- **Who:** Opus, on Ghost's go-ahead. **Class:** build; trial; discovery.
+- **Intent:** NIST's IF module (intrinsic functions) through the Java lane, its own floor; R-023 C-2's trial,
+  predicted before the run (research §15, 69d6ff2).
+- **Found:** C-2 held: every IF program cobc compiles reports what cobc reports, IEEE double standing for
+  IBM's hexadecimal long float. On the way: a function argument list split at each operator, as
+  `argument` tried `literal` and `identifier` before `arithmeticExpression` (`ACOS(1 - 1.01)` two
+  arguments); then, with the expression first, a separator comma (", ", on the hidden channel) let
+  `MAX(A * B, (C + 1) / 2)` read B subscripted by C + 1, an out-of-bounds `Table.at` in IF119A and IF123A.
+  A floating value cut into its receiver gave .42899 for NUMVAL(".429") (IF125A), refuted; rounded, as PG
+  p. 52 says of a move from floating point, it gives .429 (a reading of R-023, §15). REM and SUM lost
+  decimals until each argument was computed at the function's inner-dmax (PG p. 798). An ALL subscript was
+  expanded in one position only (IF402M's `MAX(WS-TABLE(ALL, ALL, ALL))`). The 12 programs that differ are
+  those cobc refuses, "syntax error, unexpected ALL", where LR pp. 501-502 allow it: D-030.
+- **Resolved:** `rt/Functions` (integer and mixed functions in `Decimal`, alphanumeric ones, the dates
+  from 1600-12-31) and `rt/Floats` (floating-point ones in `double`, a `Term` cut to 40 places); `lower
+  /Funcs` decides which and expands every ALL, the rightmost fastest; `Arith` and `Places` take a
+  function as an operand, `ArithVerbs.store` rounds a floating value. The grammar's `argument` tries
+  `arithmeticExpression` first, and `tableCall` takes no subscript after a separator comma
+  (`separated()`). `FuncsTest` holds both; the first fails with the predicate removed. IF 33 of 45 (floor
+  33) and 11 of D-030's 12 pass every test (`IF_FINDINGS`; IF402M reports no tests). No golden moved.
+- **Left:** whether a floating-point function call is NE-06 (today NE-06 is a COMP-1 or COMP-2 item):
+  Ghost's or Fable's to say, as it changes what the finding names.
+- **Touched:** `rt/katana/rt/Functions.java`, `rt/katana/rt/Floats.java`, `lower/Funcs.java`,
+  `lower/Arith.java`, `lower/ArithVerbs.java`, `lower/Exprs.java`, `lower/Places.java`, `lower/Lower.java`,
+  `front/grammar/Cobol.g4`, `test/katana/lower/FuncsTest.java`,
+  `test/katana/lower/NistJavaLaneIntegrationTest.java`, `docs/DISCOVERIES.md`, research §15,
+  `docs/KERNEL-MAP.md`.

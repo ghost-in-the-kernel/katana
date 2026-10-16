@@ -22,6 +22,8 @@ final class Arith {
         return switch (v) {
             case Value.Field f -> Math.max(0, x.item(f.item()).attributes().scale());
             case Value.Literal l when l.numeric() -> l.scale();
+            // An integer function's outer-dmax "is always zero"; a mixed one's is its arguments' (PG 6.4 pp. 798-799).
+            case Value.Expression e when Funcs.name(e) != null -> Funcs.MIXED.contains(Funcs.name(e)) ? e.operands().stream().mapToInt(this::decimals).max().orElse(0) : 0;
             case Value.Expression e when e.operator().equals("/") -> Math.max(decimals(e.operands().get(0)), e.operands().get(1) instanceof Value.Expression d ? decimals(d) : 0);
             case Value.Expression e when e.operator().equals("**") -> decimals(e.operands().get(0));
             case Value.Expression e -> e.operands().stream().mapToInt(this::decimals).max().orElse(0);
@@ -41,6 +43,9 @@ final class Arith {
 
     /** An operand, or an operation over two terms (`neg` over one), as `rt/Decimal` computes it. */
     private String term(Value v, int dmax, boolean last, boolean rounded) {
+        // An expression holding a floating-point function is computed whole in floating point (PG 6.4 p. 800).
+        if (x.funcs.floating(v)) return "Floats.term(" + x.funcs.dbl(v, this) + ")";
+        if (Funcs.name(v) != null && x.numeric(v)) return "Functions.term(" + x.funcs.fixed((Value.Expression) v, this) + ", " + Places.of(v, x).places() + ")";
         if (!(v instanceof Value.Expression e) || !x.numeric(v)) return operand(v);
         if (e.operator().equals("neg")) return "Decimal.negate(" + term(e.operands().get(0), dmax, last, rounded) + ")";
         if (e.operator().equals("pos")) return term(e.operands().get(0), dmax, last, rounded);

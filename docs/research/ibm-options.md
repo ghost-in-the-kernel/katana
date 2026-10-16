@@ -748,3 +748,20 @@ C-2 (IEEE is close enough): every IF test cobc passes passes in the Java lane, a
 departures explain. Under its rival (the hexadecimal fraction matters): some float test fails in the
 Java lane where cobc passes, at its last digit. RANDOM's sequence is IBM's own and named nowhere; a test
 that prints or compares its values is a reading of the lane, recorded when met.
+
+- LR pp. 501-502 (Arguments): "Specifying ALL as a subscript is equivalent to specifying all table
+  elements possible using every valid subscript in that subscript position." "If there are multiple ALL
+  subscripts, Table-name(ALL, ALL, ALL), the first implicit argument is Table-name(1, 1, 1), where each
+  ALL has been replaced by 1. The next argument is Table-name(1, 1, 2), where the rightmost subscript has
+  been incremented by 1." cobc 3.1.2 refuses an ALL subscript in a function argument: D-030.
+- PG p. 52 (Conversions that result in rounding): "If a USAGE COMP-1 data item, a USAGE COMP-2 data item,
+  an external floating-point data item, or a floating-point literal is moved to a fixed-point data item,
+  rounding occurs in the low-order position of the target data item." IBM's text names moves; Katana
+  reads the store of a floating-point expression's value into a fixed-point receiver the same way (the
+  value is a long floating-point one, p. 801), a reading of R-023, not IBM's words.
+
+Result (J-174): C-2 held. Every IF program cobc compiles reports what cobc reports through the Java lane
+(33 of 45); the other 12 are those cobc refuses at an ALL subscript (D-030), and 11 of them pass every
+test in the Java lane (IF402M reports no tests). One reading was refuted on the way: a floating-point
+value cut, not rounded, into its receiver gave .42899 for NUMVAL(".429") (IF125A); rounding, as above,
+gives .429.

@@ -160,6 +160,12 @@ public final class Lower {
         return i.length() == 4 ? "Attr.numeric(Attr.Usage.NATIVE_BINARY, 9, 0, true)" : x.unsupported(i, "an index of " + i.length() + " bytes");
     }
 
+    /** FUNCTION WHEN-COMPILED's value: the moment of lowering, the program's compilation, as CURRENT-DATE writes one (21 characters). */
+    static String compiled() {
+        java.time.ZonedDateTime t = java.time.ZonedDateTime.now(java.time.ZoneOffset.UTC);
+        return String.format("%04d%02d%02d%02d%02d%02d%02d+0000", t.getYear(), t.getMonthValue(), t.getDayOfMonth(), t.getHour(), t.getMinute(), t.getSecond(), t.getNano() / 10_000_000);
+    }
+
     /** The digits an item stores: the IR counts each P as a digit (sir/build/Pictures), `rt/` only those it holds. */
     static int stored(Attributes a) {
         return a.digits() - (int) a.picture().chars().filter(c -> c == 'P').count();

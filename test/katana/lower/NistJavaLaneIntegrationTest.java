@@ -32,6 +32,13 @@ class NistJavaLaneIntegrationTest {
     static final int FLOOR = 84;
     /** The same for SQ, its own floor (Fable: one module per suite, each with its floor). */
     static final int SQ_FLOOR = 85;
+    /** The same for IF. */
+    static final int IF_FLOOR = 33;
+    /** IF's runs where cobc departs: each refused at an ALL subscript in a function argument, D-030 (IF402M reports no tests, so is not listed). */
+    static final Map<String, String> IF_FINDINGS = Map.ofEntries(
+            Map.entry("IF119A", "D-030"), Map.entry("IF120A", "D-030"), Map.entry("IF121A", "D-030"), Map.entry("IF122A", "D-030"),
+            Map.entry("IF123A", "D-030"), Map.entry("IF128A", "D-030"), Map.entry("IF129A", "D-030"), Map.entry("IF132A", "D-030"),
+            Map.entry("IF137A", "D-030"), Map.entry("IF138A", "D-030"), Map.entry("IF141A", "D-030"));
     /** The same for SM. */
     static final int SM_FLOOR = 14;
     /** SM's runs where cobc departs: SM206A's debugging line in copied text, D-029. */
@@ -53,6 +60,11 @@ class NistJavaLaneIntegrationTest {
     @Test
     void ncThroughTheJavaLane() throws Exception {
         lane("NC", FLOOR, COBC_FINDINGS);
+    }
+
+    @Test
+    void ifThroughTheJavaLane() throws Exception {
+        lane("IF", IF_FLOOR, IF_FINDINGS);
     }
 
     @Test

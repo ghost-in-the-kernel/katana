@@ -24,6 +24,19 @@ grammar Cobol;
     public boolean decimalComma;
 }
 
+// Katana (J-174): a separator comma (", ", hidden) ends an operand, so a parenthesis after one opens the
+// next function argument, never a subscript of the name before it: MAX(A * B, (C + 1) / 2) is three arguments.
+@parser::members {
+    boolean separated() {
+        for (int i = _input.LT(1).getTokenIndex() - 1; i >= 0; i--) {
+            Token t = _input.get(i);
+            if (t.getChannel() == Token.DEFAULT_CHANNEL) return false;
+            if (t.getType() == SEPARATOR) return true;
+        }
+        return false;
+    }
+}
+
 startRule : compilationUnit EOF;
 
 compilationUnit
@@ -2377,7 +2390,7 @@ identifier
    ;
 
 tableCall
-   : qualifiedDataName (LPARENCHAR subscript (COMMACHAR? subscript)* RPARENCHAR)* referenceModifier?
+   : qualifiedDataName ({!separated()}? LPARENCHAR subscript (COMMACHAR? subscript)* RPARENCHAR)* referenceModifier?
    ;
 
 functionCall
@@ -2404,8 +2417,11 @@ subscript
    ;
 
 // Katana (2.1): an intrinsic's keyword argument, FUNCTION TRIM(X, TRAILING).
+// Katana (J-174): an arithmetic expression first, so `ACOS(IND(5) / 9)` and `INTEGER(6.3 - 4.2 / 2)` are one
+// argument each, not a name or a literal and the rest; an operator "must be preceded and followed by a
+// space" (LR 6.4 p. 267), and an expression takes all the operators it can.
 argument
-   : literal | identifier | qualifiedDataName integerLiteral? | indexName integerLiteral? | arithmeticExpression | LEADING | TRAILING
+   : arithmeticExpression | literal | identifier | qualifiedDataName integerLiteral? | indexName integerLiteral? | LEADING | TRAILING
    ;
 
 // qualified data name ----------------------------------

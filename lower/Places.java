@@ -1,5 +1,6 @@
 package katana.lower;
 
+import java.util.List;
 import java.util.Map;
 import katana.sir.types.Attributes;
 import katana.sir.types.FileDescriptor;
@@ -48,7 +49,9 @@ final class Places {
             // LR 6.4 p. 22: "If LP(32) is in effect, the LENGTH OF special register has the implicit definition: PICTURE 9(9) USAGE IS BINARY"; LP(32) is the default (PG p. 422).
             case Value.Expression e when e.operator().equals("LENGTH OF") -> Size.of(9);
             case Value.Expression e when e.operator().equals("ADDRESS OF") -> Size.refused("ADDRESS OF, a pointer (LR 6.4 p. 18), which no arithmetic takes (p. 243)");
-            case Value.Expression e when e.operator().startsWith("FUNCTION ") -> Size.refused(e.operator() + ": each intrinsic function's result is its own type and size (LR 6.4 ch. 30), stated when that function is lowered");
+            case Value.Expression e when Funcs.name(e) != null && Funcs.FLOATING.contains(Funcs.name(e)) -> Size.refused(e.operator() + ", a floating-point function: its whole expression is computed in floating point (PG 6.4 p. 800, `rt/Floats`)");
+            case Value.Expression e when Funcs.name(e) != null && Funcs.FIXED.contains(Funcs.name(e)) -> Size.of(function(e, x));
+            case Value.Expression e when e.operator().startsWith("FUNCTION ") -> Size.refused(e.operator() + ": not a numeric function lowered");
             default -> Size.refused(v + ": not a numeric operand");
         };
     }
@@ -71,6 +74,35 @@ final class Places {
             // A numeric-edited item has its PICTURE's digits too: a DIVIDE's quotient GIVING one sizes the REMAINDER's (NC203A, J-170).
             case NUMERIC_EDITED -> Size.of(Math.max(0, Lower.stored(a) - a.scale()));
             default -> Size.refused(i.name() + ": not a numeric item");
+        };
+    }
+
+    /**
+     * An integer or mixed function's digit precision (PG 6.4 pp. 798-799): DATE-OF-INTEGER 8, DAY-OF-INTEGER
+     * 7, FACTORIAL 30 "in compatibility mode", INTEGER-OF-DATE and INTEGER-OF-DAY 7, LENGTH 9, ORD 3, ORD-MAX
+     * and ORD-MIN 9, MOD "min(i1 i2)"; INTEGER "one more digit than in the argument", INTEGER-PART "same
+     * number of digits"; MAX, MIN and REM their widest argument's, RANGE and SUM one more for each step, as
+     * a subtraction or addition carries one. A term is never given fewer places than its own value has
+     * (`Functions.term`).
+     */
+    private static int function(Value.Expression e, Exprs x) {
+        List<Integer> args = new java.util.ArrayList<>();
+        for (Value a : e.operands()) {
+            Size s = of(a, x);
+            args.add(s.refused() == null ? s.places() : 0);
+        }
+        int widest = args.stream().mapToInt(Integer::intValue).max().orElse(0);
+        return switch (Funcs.name(e)) {
+            case "DATE-OF-INTEGER" -> 8;
+            case "DAY-OF-INTEGER", "INTEGER-OF-DATE", "INTEGER-OF-DAY" -> 7;
+            case "FACTORIAL" -> 30;
+            case "LENGTH", "ORD-MAX", "ORD-MIN" -> 9;
+            case "ORD" -> 3;
+            case "MOD" -> args.stream().mapToInt(Integer::intValue).min().orElse(0);
+            case "INTEGER" -> widest + 1;
+            case "RANGE" -> widest + 1;
+            case "SUM" -> widest + Math.max(0, args.size() - 1);
+            default -> widest;
         };
     }
 

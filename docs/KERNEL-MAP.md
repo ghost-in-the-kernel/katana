@@ -1169,3 +1169,74 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/FileVerbs.java:FileVerbs.channel` | R-019 | 2026-10-15 |  |
 | front | `front/Mapped.java:Mapped.replaceAll` | REPLACING made one pass of IBM's comparison rules (J-173) | 2026-10-16 | superseded-by: `front/Mapped.java:Mapped.replacement` |
 | front | `front/Mapped.java:Mapped.replacement` |  | 2026-10-16 |  |
+| lower | `lower/Exprs.java:Exprs.arith` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.Funcs` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.name` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.numeric` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.floating` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.dbl` | R-023 | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.fixed` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.alphanumeric` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.point` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.camel` |  | 2026-10-16 |  |
+| lower | `lower/Lower.java:Lower.compiled` |  | 2026-10-16 |  |
+| lower | `lower/Places.java:Places.function` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.Floats` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.of` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.term` | R-023 | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.acos` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.asin` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.atan` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.cos` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.sin` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.tan` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.log` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.log10` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.sqrt` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.power` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.annuity` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.presentValue` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.mean` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.median` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.midrange` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.variance` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.standardDeviation` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.random` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Floats.java:Floats.numval` | R-023 | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.Functions` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.term` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.of` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.of#2` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.integer` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.integerPart` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.mod` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.rem` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.factorial` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.max` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.min` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.range` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.sum` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.ordMax` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.ordMin` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.ord` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.chr` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.length` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.upperCase` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.lowerCase` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.reverse` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.text` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.integerOfDate` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.integerOfDay` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.dateOfInteger` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.dayOfInteger` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.currentDate` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.operation` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.call` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.arguments` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.texts` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.textAt` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.maxText` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.minText` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.ordMaxText` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Functions.java:Functions.ordMinText` |  | 2026-10-16 |  |
+| lower | `lower/Funcs.java:Funcs.expand` | R-019 | 2026-10-16 |  |

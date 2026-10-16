@@ -52,9 +52,19 @@ final class ArithVerbs {
         return rs.stream().map(r -> f.x.item(r.field().item())).toList();
     }
 
-    /** Each receiver given `value(receiver)`, the expression built as last for its ROUNDED. */
+    /**
+     * Each receiver given `value(receiver)`, the expression built as last for its ROUNDED. A floating-point
+     * result (`Floats.term`) is rounded into a fixed-point receiver whether or not ROUNDED is written: "If a
+     * USAGE COMP-1 data item, a USAGE COMP-2 data item, an external floating-point data item, or a
+     * floating-point literal is moved to a fixed-point data item, rounding occurs in the low-order position of
+     * the target data item" (PG 6.4 p. 52; NIST IF125A's NUMVAL of .429, J-174).
+     */
+    // Decision: R-023
     private void store(List<Receiver> rs, java.util.function.BiFunction<Receiver, Boolean, String> value, boolean phrase) {
-        for (Receiver r : rs) f.e.line("sz |= Arithmetic.store(" + f.x.field(r.field()) + ", " + value.apply(r, r.rounded()) + ", " + r.rounded() + ", " + phrase + ");");
+        for (Receiver r : rs) {
+            String v = value.apply(r, r.rounded());
+            f.e.line("sz |= Arithmetic.store(" + f.x.field(r.field()) + ", " + v + ", " + (r.rounded() || v.startsWith("Floats.term(")) + ", " + phrase + ");");
+        }
     }
 
     /**
