@@ -18,7 +18,12 @@ final class Collating {
     /** The program collating sequence as an rt Collation: native order unless the alphabet it names says otherwise (LR 6.4 p. 123). */
     // Decision: R-019
     static String of(Exprs x) {
-        String name = x.p.header().collating();
+        return named(x, x.p.header().collating());
+    }
+
+    /** An alphabet's collating sequence by its name, as `of` reads the program's; native order for no name (SORT's COLLATING SEQUENCE phrase, LR 6.4 p. 452). */
+    // Decision: R-019
+    static String named(Exprs x, String name) {
         if (name.isEmpty()) return "Collation.nativeOrder()";
         for (Header.Alphabet a : x.p.header().alphabets()) {
             if (!a.name().equals(name)) continue;

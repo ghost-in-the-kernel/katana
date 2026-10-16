@@ -108,7 +108,11 @@ translated EBCDIC signs loaded in the lane's form (R-061).
 
 ### 4.2 `rt/sort`
 
-Check: none in the roadmap; written here before the item starts.
+Check: none in the roadmap; written here before the item starts. NIST ST through the Java lane (J-184).
+
+*Done (J-184):* SORT, MERGE, RELEASE and RETURN through `rt/SortFile`; ST 32 of 40 the same as cobc and 6
+more where cobc refuses a valid program (D-032). The finding R-026 names for an output that could depend on
+the order of equal keys without DUPLICATES is not built: no ST or CardDemo program has needed it.
 
 ### 4.3 `rt/call`
 

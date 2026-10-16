@@ -2756,3 +2756,44 @@ taken; closed by a later `decision` entry naming it).
   fixture-source tests,
   `docs/LANES.md` (LANE-05, 15-18), `docs/FIXTURE.md` (FIXTURE-10), `docs/checks.json`, `theGhost.md`
   (R-025, R-061), research §22, `TODO.md`, `docs/KERNEL-MAP.md`.
+
+### J-184 ST through the Java lane: SORT and MERGE in `rt/SortFile`; ST 32 of 40 and 6 where cobc departs (D-032)
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with ST next"). **Class:** build; trial; failure-caught.
+- **Intent:** phase 4.2, SORT and MERGE, checked by NIST's ST module through the Java lane, its own floor;
+  IBM's text and the prediction committed before the run (research §23, 33b64a8).
+- **Found:** 4 of 40 before: SORT, MERGE, RELEASE and RETURN were not lowered and an SD was declared a
+  sequential file. With them, 29; ST131A threw at a SAME RECORD AREA group aliasing a record not yet built
+  (J-182's lowering took the group's first file's record, not the one declared first); ST111A and ST124A
+  failed four tests each, a variable-length record (50 to 100) losing its last 50 bytes, moved from the
+  USING file into the SD's first 01 rather than its whole area, and the SD's length taken from that 01. The
+  six programs cobc does not compile each name an item CHAR, which IBM does not reserve (D-032).
+- **Resolved:** `rt/SortFile`: records released with their keys taken at release, a stable sort (R-026) by
+  numeric value or by collating weights, RETURN and GIVING at each record's own length. `lower/SortVerbs`:
+  USING and GIVING as the files' own OPEN, READ, WRITE and CLOSE, an OPEN's error handled as an OPEN's,
+  INPUT and OUTPUT PROCEDUREs as PERFORMs (`Flow.splits` counts them), `Collating.named` for the COLLATING
+  SEQUENCE phrase; the SD skipped where files are declared, closed and sized; `Verbs.io` takes the
+  input-output verbs, `Verbs.statement` being over 20 paths with them. `SortFileTest` (red under four
+  mutations: equal keys reversed, DESCENDING ignored, a numeric key by its bytes, the collating sequence
+  ignored), `SortVerbsTest`. ST 32 of 40 (floor 32), 6 more in `ST_FINDINGS` (D-032); ST115A writes no
+  report and ST301M's run is cobc's own (research §23). No golden moved.
+- **Touched:** `rt/katana/rt/SortFile.java`, `lower/SortVerbs.java`, `lower/Verbs.java`, `lower/FileVerbs.java`,
+  `lower/Flow.java`, `lower/Collating.java`, `lower/Lower.java`, `rt/katana/rt/Ksds.java`,
+  `test/katana/rt/SortFileTest.java`, `test/katana/lower/SortVerbsTest.java`,
+  `test/katana/lower/NistJavaLaneIntegrationTest.java`, `docs/DISCOVERIES.md` (D-032), research §23, `TODO.md`,
+  `docs/KERNEL-MAP.md`.
+
+### J-185 Tithe: the COBOL parser built once per grammar, so the fast loop has room under its ceiling
+- **Who:** Opus; decided by Ghost ("prebuild the parser"). **Class:** decision (tithe); measurement.
+- **Intent:** land J-184, which the pre-push check refused on the warm fast loop (27 s against R-054's 25)
+  with every test passing.
+- **Found:** main without J-184 measured the same, 23 to 25 s and 33 on a first warm run: the loop sat at its
+  ceiling and one measurement fell either side by chance. Of a warm run's 26 s, 16 were compiling, as
+  `--rerun-tasks` forces: `generateGrammar` 2.8 s, `compileJava` 8.9 s (the generated parser most of it),
+  `compileTestJava` 3.4 s. Parsing the thirteen golden programs on parallel threads gained nothing: the four
+  cores were already busy with the test classes (tried, reverted).
+- **Resolved:** `build.gradle`'s `grammarJar` generates and compiles the parser into
+  `build/grammar-cache/grammar-<hash>.jar`, the hash of the two grammars and the ANTLR tool's name, and does
+  nothing when that jar exists, `--rerun-tasks` or not; main compiles against it, not its sources. A changed
+  grammar builds a new jar and removes the old (checked with a comment added to `Cobol.g4`). Warm fast loop:
+  20 to 22 s; a fresh clone pays the parser once, 52 s cold. The ceiling is not raised (R-054).
+- **Touched:** `build.gradle`.

@@ -140,8 +140,8 @@ public final class Lower {
 
     /**
      * A record's storage: its own; for a second 01 under an FD, the first's (they share the record area); for
-     * the records of files that share a record area (SIR-09, SAME RECORD AREA), the first such file's first
-     * record's, as long as the longest of them; for an 01 that REDEFINES another, that one's (LR 6.4 p. 226:
+     * the records of files that share a record area (SIR-09, SAME RECORD AREA), the one of their first records
+     * declared first, as long as the longest of them; for an 01 that REDEFINES another, that one's (LR 6.4 p. 226:
      * "redefinitions of the same storage area").
      */
     // Decision: R-019
@@ -150,7 +150,8 @@ public final class Lower {
         for (var d : p.files()) {
             if (!d.records().contains(record.id())) continue;
             List<katana.sir.types.FileDescriptor> group = p.files().stream().filter(o -> o == d || d.sharesRecordArea().contains(o.name())).filter(o -> !o.records().isEmpty()).toList();
-            int first = group.get(0).records().get(0);
+            // The group's record declared first owns the area, so it exists before the others refer to it.
+            int first = group.stream().mapToInt(o -> o.records().get(0)).min().orElseThrow();
             if (first != record.id()) return "r" + first;
             return "Record.of(" + group.stream().flatMap(o -> o.records().stream()).mapToInt(r -> recordLength(p, p.items().get(r - 1))).max().orElse(record.length()) + ", cp)";
         }

@@ -47,6 +47,14 @@ class NistJavaLaneIntegrationTest {
             Map.entry("IF137A", "D-030"), Map.entry("IF138A", "D-030"), Map.entry("IF141A", "D-030"));
     /** The same for OB. */
     static final int OB_FLOOR = 6;
+    /** The same for ST. */
+    static final int ST_FLOOR = 32;
+    /**
+     * ST's runs where cobc departs: cobc -std=ibm refuses a data item named CHAR, which IBM does not reserve,
+     * D-032; ST117A checks the file ST115A, refused so, would have written.
+     */
+    static final Map<String, String> ST_FINDINGS = Map.of("ST137A", "D-032", "ST139A", "D-032", "ST140A", "D-032", "ST144A", "D-032",
+            "ST147A", "D-032", "ST117A", "D-032");
     /** The same for IX. */
     static final int IX_FLOOR = 42;
     /** The same for RL. */
@@ -90,6 +98,11 @@ class NistJavaLaneIntegrationTest {
     @Test
     void obThroughTheJavaLane() throws Exception {
         lane("OB", OB_FLOOR, Map.of());
+    }
+
+    @Test
+    void stThroughTheJavaLane() throws Exception {
+        lane("ST", ST_FLOOR, ST_FINDINGS);
     }
 
     @Test

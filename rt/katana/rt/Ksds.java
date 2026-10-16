@@ -28,6 +28,7 @@ public final class Ksds {
         }
     }
 
+    /** One load or unload: the record area and its keys as fields, the `IdxFile` over the indexed file, the records in or out in key order. */
     // Decision: R-025
     static void run(String mode, int lrecl, String prime, String alternates, Path sequential, Path indexed) {
         Record area = Record.of(lrecl, Codepage.COBC_ASCII);
