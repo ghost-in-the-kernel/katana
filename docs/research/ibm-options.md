@@ -950,3 +950,74 @@ does without trying Report Writer at all (the rival's first form). The other fou
 INITIATE, which is not lowered. All six programs' findings name the REPORT SECTION and the REPORT clause as
 Report Writer, not in Enterprise COBOL; `NistJavaLaneIntegrationTest` holds that line for each. cobc
 accepting Report Writer is not counted a discovery: a site with the precompiler gets the report too.
+
+## 20. Relative files (read 2026-10-16, primary; NIST RL)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR).
+
+- LR p. 147 (Relative organization): "Think of the file as a string of record areas, each of which contains
+  a single record. Each record area is identified by a relative record number ... the first record area is
+  addressed by relative record number 1 and the 10th is addressed by relative record number 10."
+- LR p. 150 (ACCESS MODE): "In the sequential access mode, the sequence in which records are accessed is
+  the ascending order of the relative record numbers of all records that exist within the file. In the
+  random access mode ... A specific record is accessed by placing its relative record number in the
+  RELATIVE KEY data item ... In the dynamic access mode, you can change as needed from sequential access
+  to random access."
+- LR p. 152 (RELATIVE KEY): "If a value is placed in data-name-4, and a START statement is not executed,
+  the value is ignored and processing begins with the first record in the file."
+- LR pp. 300-302 (Table 34): 14, "A sequential READ statement was attempted for a relative file, and the
+  number of significant digits in the relative record number was larger than the size of the relative key
+  data item"; 22, "An attempt was made to write a record that would create a duplicate key in a relative
+  file"; 23, "An attempt was made to randomly access a record that does not exist in the file. Or a START or
+  random READ statement was attempted on an optional input file that was unavailable"; 24, "An attempt was
+  made to write beyond the externally defined boundaries of a relative or indexed file. Or a sequential
+  WRITE statement was attempted for a relative file and the number of significant digits in the relative
+  record number was larger than the size of the relative key data item"; 43, "For relative and indexed
+  files in the sequential access mode, the last input-output statement executed for the file prior to the
+  execution of a DELETE or REWRITE statement was not a successfully executed READ statement."
+- LR pp. 303-304 (Invalid key condition): the status is set; "If the INVALID KEY phrase is specified ...
+  Any EXCEPTION/ERROR declarative procedure specified for this file is not executed"; without it, "an
+  applicable EXCEPTION/ERROR procedure ... is executed. The NOT INVALID KEY phrase, if specified, is
+  ignored."
+- LR p. 332 (DELETE): "the associated file must be open in I-O mode"; sequential access: "the previous
+  input/output statement must be a successfully executed READ statement ... the system removes the record
+  that was retrieved by that READ statement"; random or dynamic: the record "identified by the contents of
+  ... the RELATIVE KEY data item ... If the file does not contain such a record, an INVALID KEY condition
+  exists." "The file position indicator is not affected by execution of the DELETE statement."
+- LR p. 410 (OPEN): "Execution of an OPEN INPUT or OPEN I-O statement sets the file position indicator ...
+  For sequential and relative files, to 1." EXTEND "positions the file immediately after the last record
+  ... (The record with the highest ... relative key value for relative files is considered the last
+  record.)" LR p. 412, Table 50: which statement each access mode allows in each open mode (WRITE in I-O
+  only for random and dynamic; START only in INPUT and I-O; DELETE and REWRITE only in I-O).
+- LR pp. 427-428 (READ): sequential, "the next logical record in the key sequence ... ascending values of
+  relative record numbers for records that exist in the file"; "If the RELATIVE KEY clause is specified
+  for this file, READ statement execution updates the RELATIVE KEY data item"; random, "sets the file
+  position indicator pointer to the record whose relative record number is contained in the RELATIVE KEY
+  data item, and makes that record available. If the file does not contain such a record, the INVALID KEY
+  condition exists"; dynamic, "the NEXT phrase must be specified for sequential record retrieval".
+- LR p. 434 (REWRITE, relative): "The number of character positions in record-name-1 can be different from
+  the number of character positions in the record being replaced"; random or dynamic, "the record to be
+  replaced is specified in the RELATIVE KEY data item. If the file does not contain the record specified,
+  an invalid key condition exists".
+- LR p. 456 (START, relative): "the key data item used in the comparison is the RELATIVE KEY data item.
+  Numeric comparison rules apply. The file position indicator points to the logical record in the file
+  whose key satisfies the specified comparison."
+- LR p. 478 (WRITE for relative files): sequential access, "The first record released has relative record
+  number 1, the second ... 2 ... the relative record number of the record just released is placed in the
+  RELATIVE KEY"; random or dynamic, "the RELATIVE KEY must contain the required relative record number ...
+  this record is placed at the specified relative record number position in the file"; p. 475, an invalid
+  key on WRITE when "the RELATIVE KEY data item specifies a record that already exists in the file".
+
+What IBM's text leaves open, and the 85 Standard settles: where a sequential READ goes after a random READ
+or a START. The Standard's file position indicator points *at* a record after OPEN or START (the next READ
+returns that record) and *past* a record after a READ (the next READ returns the one after); the text above
+is read that way.
+
+Predicted, before the run. As lowered today, every file is a sequential file, so a relative file's random
+READ, WRITE at a key, DELETE and START are not lowered or wrong: at most the programs that use sequential
+access alone and neither DELETE nor START can report what cobc does. With a relative file in `rt` (record
+areas by relative record number, the statuses above, the INVALID KEY phrases and the position indicator as
+the Standard reads it), every one of the 35 RL programs reports what cobc -std=ibm reports, RL401M's
+abnormal end (status 38 on REL1) included. The rivals: a program where cobc's position indicator after an
+unsuccessful READ or START departs from the Standard's (both lanes then fail tests, differently); and the
+key-size statuses 14 and 24, where cobc may not check the RELATIVE KEY's digits as IBM does.
