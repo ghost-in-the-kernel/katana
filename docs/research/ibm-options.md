@@ -1199,3 +1199,17 @@ RETURN), every ST run that cobc compiles reports what cobc -std=ibm reports, ST3
 cannot be the same. The rivals: a key compared differently from cobc (a numeric key of another usage, a
 signed key, a COLLATING SEQUENCE alphabet), and the order of equal keys where a program relies on it
 without DUPLICATES, which IBM leaves undefined.
+
+Result (J-184): the prediction's count was refuted upward, and one rival was met where it was not named.
+Before the runtime, ST was 4 of 40 (the four never reach a SORT). With `rt/SortFile` and `lower/SortVerbs`,
+29 at once; then 32, with three faults of the lowering's own: a SAME RECORD AREA group took its storage from
+a record declared later (J-182's, ST131A's NullPointerException); a USING record was moved into the SD's first
+01, shorter than its record area, so a 100-byte record lost its last 50 bytes; and the SD's length was its
+first 01's. The six "cobc refuses" were not cobc's to refuse: each names an item CHAR, which cobc -std=ibm
+calls "a reserved word, but isn't supported", where IBM's reserved words (LR 6.4 Appendix E, Table 83, pp.
+762-763) have CH, CHARACTER and CHARACTERS and not CHAR: D-032. Five of them pass every test in the Java
+lane, and ST117A, which checks the file ST115A writes, passes the test cobc fails for want of that file:
+32 the same and 6 more where cobc departs, 38 of 40. ST115A writes a file and no report, so the lane cannot
+count it; ST301M, a flagging test whose PERFORM runs a RELEASE and a RETURN outside any SORT, ends in cobc
+on status 30 for its own sort work file, which IBM's text leaves undefined. No key was compared differently
+from cobc, and no program relied on the order of equal keys without DUPLICATES.

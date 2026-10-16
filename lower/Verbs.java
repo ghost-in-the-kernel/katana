@@ -13,6 +13,7 @@ final class Verbs {
     private final Performs performs;
     private final TextVerbs text;
     private final FileVerbs files;
+    private final SortVerbs sorts;
     private final Evaluate evaluate;
     private final Search search;
 
@@ -22,6 +23,7 @@ final class Verbs {
         this.performs = new Performs(f);
         this.text = new TextVerbs(f);
         this.files = new FileVerbs(f);
+        this.sorts = new SortVerbs(f, files);
         this.evaluate = new Evaluate(f);
         this.search = new Search(f);
     }
@@ -39,6 +41,14 @@ final class Verbs {
             case "STRING" -> text.string(s);
             case "UNSTRING" -> text.unstring(s);
             case "INITIALIZE" -> Initialize.statement(f, s);
+            case "OPEN", "CLOSE", "WRITE", "REWRITE", "READ", "START", "DELETE", "SORT", "MERGE", "RELEASE", "RETURN" -> io(s);
+            default -> control(s);
+        }
+    }
+
+    /** The input-output verbs: a file's (`FileVerbs`) or a sort file's (`SortVerbs`). */
+    private void io(Statement s) {
+        switch (s.verb()) {
             case "OPEN" -> files.open(s);
             case "CLOSE" -> files.close(s);
             case "WRITE" -> files.write(s);
@@ -46,7 +56,10 @@ final class Verbs {
             case "READ" -> files.read(s);
             case "START" -> files.start(s);
             case "DELETE" -> files.delete(s);
-            default -> control(s);
+            case "SORT" -> sorts.statement(s, "sort");
+            case "MERGE" -> sorts.statement(s, "merge");
+            case "RELEASE" -> sorts.release(s);
+            default -> sorts.returnStatement(s);
         }
     }
 

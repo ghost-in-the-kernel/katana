@@ -21,6 +21,10 @@ final class FileVerbs {
     static void declare(Emitter e, katana.sir.types.Program p) {
         if (p.files().stream().anyMatch(FileVerbs::keyed)) e.line("private boolean ik, ok;");
         for (FileDescriptor d : p.files()) {
+            if (SortVerbs.sd(d)) {
+                e.line("private final SortFile " + name(d.name()) + " = new SortFile();");
+                continue;
+            }
             if (keyed(d)) {
                 String type = relative(d) ? "RelFile" : "IdxFile";
                 e.line("private final " + type + " " + name(d.name()) + " = new " + type + "(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + (d.status() != 0) + ", " + d.optional() + ", KeyedFile.Access." + d.access() + ");");
@@ -40,7 +44,7 @@ final class FileVerbs {
     // Decision: R-019
     static void closer(Emitter e, katana.sir.types.Program p) {
         e.open("void closeFiles()");
-        for (FileDescriptor d : p.files()) e.line(name(d.name()) + ".close();");
+        for (FileDescriptor d : p.files()) if (!SortVerbs.sd(d)) e.line(name(d.name()) + ".close();");
         e.close();
     }
 
@@ -173,7 +177,7 @@ final class FileVerbs {
      * none and no FILE STATUS item, the run ends (PG p. 243); with a FILE STATUS item, it goes on.
      */
     // Decision: R-019
-    private void after(String verb, String fileName, boolean atEndPhrase) {
+    void after(String verb, String fileName, boolean atEndPhrase) {
         FileDescriptor d = f.p.files().stream().filter(x -> x.name().equals(fileName)).findFirst().orElseThrow();
         String file = name(fileName);
         if (d.status() != 0) f.e.line("Move.move(Literal.text(" + file + ".status(), cp), " + f.x.field(new Value.Field(d.status(), List.of(), null, null)) + ");");
@@ -243,7 +247,7 @@ final class FileVerbs {
      */
     // Decision: R-019
     static int[] sizes(katana.sir.types.Program p, FileDescriptor d, Exprs x) {
-        if (d.organization() == FileDescriptor.Organization.LINE_SEQUENTIAL || d.fd() == null || d.records().isEmpty()) return null;
+        if (d.organization() == FileDescriptor.Organization.LINE_SEQUENTIAL || d.fd() == null || d.fd().sort() || d.records().isEmpty()) return null;
         FileDescriptor.Fd fd = d.fd();
         int least = Integer.MAX_VALUE, greatest = 0;
         boolean odo = false;

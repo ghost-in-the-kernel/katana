@@ -218,10 +218,12 @@ final class Flow {
         }
     }
 
-    /** Whether a statement holds an out-of-line PERFORM, a VARYING loop or a SEARCH, here or in a phrase, so it cannot be structured Java. */
+    /** Whether a statement holds an out-of-line PERFORM, a VARYING loop, a SEARCH or a SORT's procedure, here or in a phrase, so it cannot be structured Java. */
     static boolean splits(Statement s) {
         if (s.verb().equals("PERFORM") && (target(s) != null || Performs.varies(s))) return true;
         if (s.verb().equals("SEARCH")) return true;
+        // A SORT or MERGE with an INPUT or OUTPUT PROCEDURE performs it (SortVerbs).
+        if ((s.verb().equals("SORT") || s.verb().equals("MERGE")) && s.operands().stream().anyMatch(o -> o.value() instanceof Value.Target)) return true;
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) if (splits(t)) return true;
         return false;
     }

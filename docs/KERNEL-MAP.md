@@ -1405,3 +1405,26 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Now.java:Now.Now` |  | 2026-10-16 |  |
 | rt | `rt/katana/rt/Now.java:Now.now` | R-009 | 2026-10-16 |  |
 | lower | `lower/Lower.java:Lower.parm` | R-019 | 2026-10-16 |  |
+| lower | `lower/Collating.java:Collating.named` | R-019 | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.SortVerbs` |  | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.sd` |  | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.descriptor` |  | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.area` |  | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.length` |  | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.statement` | R-026 | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.files` |  | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.target` |  | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.read` |  | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.write` |  | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.release` |  | 2026-10-16 |  |
+| lower | `lower/SortVerbs.java:SortVerbs.returnStatement` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/SortFile.java:SortFile.begin` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/SortFile.java:SortFile.release` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/SortFile.java:SortFile.weights` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/SortFile.java:SortFile.sort` | R-026 | 2026-10-16 |  |
+| rt | `rt/katana/rt/SortFile.java:SortFile.compare` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/SortFile.java:SortFile.compareDecimal` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/SortFile.java:SortFile.current` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/SortFile.java:SortFile.rewind` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/SortFile.java:SortFile.returnNext` | R-060 | 2026-10-16 |  |
+| lower | `lower/Verbs.java:Verbs.io` |  | 2026-10-16 |  |
