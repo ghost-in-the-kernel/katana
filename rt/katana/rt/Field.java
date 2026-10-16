@@ -53,8 +53,14 @@ public record Field(Record record, int offset, Attr attr) {
         return negative ? v.negate() : v;
     }
 
-    /** A value stored as zoned digits, its sign separate or overpunched on the leading or trailing digit, as the item's SIGN clause says. */
+    /**
+     * A value stored as zoned digits, its sign separate or overpunched on the leading or trailing digit, as the
+     * item's SIGN clause says. An item whose PICTURE is P alone has no digit stored, its value always zero
+     * (LR 6.4 p. 210: "zero in place of the digit position specified by the symbol P"), so nothing is written
+     * (NIST IX110A's STATUS-TEST-10).
+     */
     private void zonedPut(BigInteger unscaled) {
+        if (attr.digits() == 0) return;
         Codepage cp = record.codepage();
         byte[] b = record.bytes();
         String digits = String.format("%0" + attr.digits() + "d", unscaled.abs());

@@ -79,11 +79,14 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
   to the operator; it resumes "only after operator intervention ... at the next executable statement"
   (LR 6.4 p. 457). A lane has no operator: the java lane writes the literal to its console (stderr) and
   goes on, as cobc does with nothing to answer it (J-177).
-- **LANE-15 A relative file on disk is Katana's own format.** `rt/RelFile` holds a relative file's record
-  areas in memory while it is open and writes them back when it closes: for each record that exists, its
-  relative record number (8 bytes), its length (4 bytes), big-endian, then its bytes. Like LANE-10 it is
-  the java lane's choice, not IBM's VSAM RRDS nor cobc's form: no program sees it, and no lane compares
-  it; only the java lane reads what the java lane wrote (J-180).
+- **LANE-15 A relative or indexed file on disk is Katana's own format.** `rt/RelFile` and `rt/IdxFile`
+  hold the file's records in memory while it is open and write them back when it closes (`rt/KeyedFile`).
+  A relative file: for each record that exists, its relative record number (8 bytes), its length (4
+  bytes), big-endian, then its bytes. An indexed file: its keys (count, then each one's offset, length
+  and DUPLICATES), its largest record, which an OPEN compares with the program's for status 39; then each
+  record's length, bytes and, for each alternate key, its place among equal values. Like LANE-10 it is
+  the java lane's choice, not IBM's VSAM nor cobc's form: no program sees it, and no lane compares it;
+  only the java lane reads what the java lane wrote (J-180, J-182).
 
 ## The check
 

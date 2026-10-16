@@ -124,7 +124,7 @@ public final class Contract {
     private static String file(FileDescriptor f) {
         return f.name() + " assign " + quoted(f.assign()) + (f.optional() ? " OPTIONAL" : "") + " " + f.organization() + " " + f.access() + " key " + f.recordKey() + " relative " + f.relativeKey() + " alternate "
                 + f.alternateKeys().stream().map(k -> k.item() + (k.duplicates() ? "D" : "")).toList() + " status " + f.status() + (f.vsamStatus() == 0 ? "" : " vsam-status " + f.vsamStatus()) + " records " + f.records()
-                + " " + f.minRecord() + ".." + f.maxRecord();
+                + " " + f.minRecord() + ".." + f.maxRecord() + (f.sharesRecordArea().isEmpty() ? "" : " shares-record-area " + f.sharesRecordArea());
     }
 
     /** A paragraph falls into the next unless its last statement leaves (GO TO, STOP RUN, GOBACK, EXIT PROGRAM); an altered GO TO, naming no procedure, falls until an ALTER sends it (LR 6.4 p. 347), and STOP literal resumes at the next statement (p. 457). */

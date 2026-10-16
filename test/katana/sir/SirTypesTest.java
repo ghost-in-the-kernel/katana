@@ -91,8 +91,8 @@ class SirTypesTest {
     static List<FileDescriptor> files() {
         String cbl = "oracle/fixture/trivial/cbl/COPYREC.cbl";
         return List.of(
-                new FileDescriptor("IN-FILE", "INFILE", false, FileDescriptor.Organization.SEQUENTIAL, FileDescriptor.Access.SEQUENTIAL, 0, List.of(), 0, 0, 0, null, List.of(1), 20, 20, at(cbl, 8, 12)),
-                new FileDescriptor("OUT-FILE", "OUTFILE", false, FileDescriptor.Organization.SEQUENTIAL, FileDescriptor.Access.SEQUENTIAL, 0, List.of(), 0, 0, 0, null, List.of(5), 20, 20, at(cbl, 10, 12)));
+                new FileDescriptor("IN-FILE", "INFILE", false, FileDescriptor.Organization.SEQUENTIAL, FileDescriptor.Access.SEQUENTIAL, 0, List.of(), 0, 0, 0, null, List.of(1), 20, 20, List.of(), at(cbl, 8, 12)),
+                new FileDescriptor("OUT-FILE", "OUTFILE", false, FileDescriptor.Organization.SEQUENTIAL, FileDescriptor.Access.SEQUENTIAL, 0, List.of(), 0, 0, 0, null, List.of(5), 20, 20, List.of(), at(cbl, 10, 12)));
     }
 
     static Header header() {

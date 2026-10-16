@@ -100,8 +100,9 @@ came from the code under test) has now been met four times (J-082, J-098 twice, 
 Check: NIST SQ, RL and IX modules through the Java lane; CardDemo's five KSDS files load, read and
 unload identically to the cobc lane.
 
-*Done (J-172):* SQ 85 of 85. *Done (J-180):* RL 35 of 35, relative files in `rt/RelFile`. *Next:* IX
-(indexed files: RECORD KEY, ALTERNATE keys with duplicates, START on a key), then CardDemo's KSDS files.
+*Done (J-172):* SQ 85 of 85. *Done (J-180):* RL 35 of 35, relative files in `rt/RelFile`. *Done
+(J-182):* IX 42 of 42, indexed files in `rt/IdxFile`. *Next:* CardDemo's five KSDS files through both
+lanes, which compares the datasets themselves (R-025, logical unload), not a NIST report.
 
 ### 4.2 `rt/sort`
 

@@ -19,6 +19,11 @@ final class Files {
     static List<FileDescriptor> build(Parse.Result parse, CobolParser.ProgramUnitContext unit, Names names, Map<String, List<Integer>> records, Map<Integer, Integer> lengths) {
         List<FileDescriptor> files = new ArrayList<>();
         Map<String, CobolParser.FileDescriptionEntryContext> fds = fds(unit);
+        Map<String, FileDescriptor.Organization> organizations = new java.util.HashMap<>();
+        for (CobolParser.FileControlEntryContext e : entries(unit)) {
+            for (CobolParser.FileControlClauseContext c : e.fileControlClause()) if (c.organizationClause() != null) organizations.put(Values.upper(e.selectClause().fileName().getText()), organization(c.organizationClause()));
+        }
+        Map<String, List<String>> shared = shared(unit, organizations);
         for (CobolParser.FileControlEntryContext e : entries(unit)) {
             String name = Values.upper(e.selectClause().fileName().getText());
             String assign = "";
@@ -43,9 +48,35 @@ final class Files {
             List<Integer> mine = records.getOrDefault(name, List.of());
             int min = mine.stream().mapToInt(lengths::get).min().orElse(0), max = mine.stream().mapToInt(lengths::get).max().orElse(0);
             FileDescriptor.Fd fd = fds.containsKey(name) ? fd(parse, names, fds.get(name)) : null;
-            files.add(new FileDescriptor(name, assign, e.selectClause().OPTIONAL() != null, organization, access, key, alternates, relative, status, vsamStatus, fd, mine, min, max, Origins.at(parse, e)));
+            files.add(new FileDescriptor(name, assign, e.selectClause().OPTIONAL() != null, organization, access, key, alternates, relative, status, vsamStatus, fd, mine, min, max, shared.getOrDefault(name, List.of()), Origins.at(parse, e)));
         }
         return files;
+    }
+
+    /**
+     * The files each file shares its record area with: those of its SAME RECORD AREA clause ("the same main
+     * storage area for processing the current logical record", LR 6.4 p. 157), and those of a SAME AREA
+     * clause when both are relative or indexed, VSAM files, for which IBM treats SAME AREA as SAME RECORD
+     * AREA (p. 156); SAME AREA between QSAM files is documentation, and SAME SORT AREA has no effect.
+     */
+    // Decision: R-019
+    private static Map<String, List<String>> shared(CobolParser.ProgramUnitContext unit, Map<String, FileDescriptor.Organization> organizations) {
+        Map<String, List<String>> shared = new java.util.HashMap<>();
+        if (unit.environmentDivision() == null) return shared;
+        java.util.function.Predicate<String> vsam = n -> organizations.get(n) == FileDescriptor.Organization.RELATIVE || organizations.get(n) == FileDescriptor.Organization.INDEXED;
+        for (var body : unit.environmentDivision().environmentDivisionBody()) {
+            if (body.inputOutputSection() == null) continue;
+            for (var paragraph : body.inputOutputSection().inputOutputSectionParagraph()) {
+                if (paragraph.ioControlParagraph() == null) continue;
+                for (var clause : paragraph.ioControlParagraph().ioControlClause()) {
+                    var same = clause.sameClause();
+                    if (same == null || same.SORT() != null || same.SORT_MERGE() != null) continue;
+                    List<String> names = same.fileName().stream().map(n -> Values.upper(n.getText())).filter(n -> same.RECORD() != null || vsam.test(n)).toList();
+                    for (String n : names) for (String other : names) if (!other.equals(n)) shared.computeIfAbsent(n, k -> new ArrayList<>()).add(other);
+                }
+            }
+        }
+        return shared;
     }
 
     /** The program's FD and SD entries by file name. */

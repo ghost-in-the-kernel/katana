@@ -5,7 +5,7 @@ import katana.sir.types.FileDescriptor;
 import katana.sir.types.Statement;
 import katana.sir.types.Value;
 
-/** OPEN, CLOSE, WRITE, REWRITE and READ on sequential files, through `rt/SeqFile`; on relative files with START and DELETE, through `rt/RelFile` (research §20); indexed files wait for phase 4.1. */
+/** OPEN, CLOSE, WRITE, REWRITE and READ on sequential files, through `rt/SeqFile`; on relative and indexed files with START and DELETE, through `rt/RelFile` and `rt/IdxFile` (research §20, §21). */
 final class FileVerbs {
     private final Flow f;
 
@@ -17,12 +17,13 @@ final class FileVerbs {
         return "file_" + file.replaceAll("[^A-Za-z0-9]", "_");
     }
 
-    /** Each file's object, by the name it is ASSIGNed to; with a relative file, the flags its INVALID KEY phrases read. */
+    /** Each file's object, by the name it is ASSIGNed to; with a relative or indexed file, the flags its INVALID KEY phrases read. */
     static void declare(Emitter e, katana.sir.types.Program p) {
-        if (p.files().stream().anyMatch(FileVerbs::relative)) e.line("private boolean ik, ok;");
+        if (p.files().stream().anyMatch(FileVerbs::keyed)) e.line("private boolean ik, ok;");
         for (FileDescriptor d : p.files()) {
-            if (relative(d)) {
-                e.line("private final RelFile " + name(d.name()) + " = new RelFile(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + (d.status() != 0) + ", " + d.optional() + ", RelFile.Access." + d.access() + ");");
+            if (keyed(d)) {
+                String type = relative(d) ? "RelFile" : "IdxFile";
+                e.line("private final " + type + " " + name(d.name()) + " = new " + type + "(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + (d.status() != 0) + ", " + d.optional() + ", KeyedFile.Access." + d.access() + ");");
                 continue;
             }
             boolean lines = d.organization() == FileDescriptor.Organization.LINE_SEQUENTIAL;
@@ -80,6 +81,33 @@ final class FileVerbs {
         return d.organization() == FileDescriptor.Organization.RELATIVE;
     }
 
+    static boolean indexed(FileDescriptor d) {
+        return d.organization() == FileDescriptor.Organization.INDEXED;
+    }
+
+    static boolean keyed(FileDescriptor d) {
+        return relative(d) || indexed(d);
+    }
+
+    /** Each indexed file given its record area, its largest record and its keys, prime first, each alternate with DUPLICATES or not (LR pp. 150-152). */
+    static void keys(Emitter e, katana.sir.types.Program p, Exprs x) {
+        for (FileDescriptor d : p.files()) {
+            if (!indexed(d) || d.records().isEmpty()) continue;
+            StringBuilder fields = new StringBuilder("f" + d.recordKey()), dups = new StringBuilder("false");
+            for (FileDescriptor.AlternateKey a : d.alternateKeys()) {
+                fields.append(", f").append(a.item());
+                dups.append(", ").append(a.duplicates());
+            }
+            e.line(name(d.name()) + ".keys(f" + d.records().get(0) + ", " + d.maxRecord() + ", new Field[] {" + fields + "}, new boolean[] {" + dups + "});");
+        }
+    }
+
+    /** A data-name the statement names after KEY (`role`), as a field, or null with none. */
+    private String keyItem(Statement s, String role) {
+        for (Statement.Operand o : s.operands()) if (o.role().equals(role) && o.value() instanceof Value.Field v) return f.x.field(v);
+        return "null";
+    }
+
     private FileDescriptor descriptor(String file) {
         return f.p.files().stream().filter(x -> x.name().equals(file)).findFirst().orElseThrow();
     }
@@ -116,7 +144,8 @@ final class FileVerbs {
         boolean greater = words.contains("GREATER") || words.contains(">"), orEqual = words.contains("OR") || words.contains(">=");
         String relation = words.contains("NOT") || greater && orEqual || words.contains(">=") ? "NOT_LESS" : greater ? "GREATER" : "EQUAL";
         FileDescriptor d = descriptor(file.name());
-        f.e.line(name(file.name()) + ".start(" + key(d) + ", RelFile.Relation." + relation + ");");
+        String item = indexed(d) ? keyItem(s, "start-key") : key(d);
+        f.e.line(name(file.name()) + ".start(" + item + ", KeyedFile.Relation." + relation + ");");
         invalidKey(s, "START", file.name());
     }
 
@@ -124,7 +153,7 @@ final class FileVerbs {
     void delete(Statement s) {
         Value.File file = (Value.File) Verbs.operand(s, "delete-statement");
         FileDescriptor d = descriptor(file.name());
-        f.e.line(name(file.name()) + ".delete(" + key(d) + ");");
+        f.e.line(name(file.name()) + ".delete(" + (indexed(d) ? "" : key(d)) + ");");
         invalidKey(s, "DELETE", file.name());
     }
 
@@ -196,7 +225,7 @@ final class FileVerbs {
         }
     }
 
-    /** Each variable-length sequential or relative file given its record sizes and its DEPENDING ON item (research §13). */
+    /** Each variable-length sequential, relative or indexed file given its record sizes and its DEPENDING ON item (research §13). */
     static void varyings(Emitter e, katana.sir.types.Program p, Exprs x) {
         for (FileDescriptor d : p.files()) {
             int[] s = sizes(p, d, x);
@@ -207,14 +236,14 @@ final class FileVerbs {
     }
 
     /**
-     * A sequential or relative file's least and greatest 01 sizes and its bounds, or null for fixed-length records:
+     * A sequential, relative or indexed file's least and greatest 01 sizes and its bounds, or null for fixed-length records:
      * variable for RECORD IS VARYING, or, unless RECORD CONTAINS gives one size (format 1, PG 6.4 p. 169),
      * for 01 records of different sizes or one holding an ODO table (PG p. 170). The least size counts
      * an ODO table at its fewest occurrences (LR p. 188); VARYING's FROM and TO are its bounds when written.
      */
     // Decision: R-019
     static int[] sizes(katana.sir.types.Program p, FileDescriptor d, Exprs x) {
-        if (d.organization() != FileDescriptor.Organization.SEQUENTIAL && !relative(d) || d.fd() == null || d.records().isEmpty()) return null;
+        if (d.organization() == FileDescriptor.Organization.LINE_SEQUENTIAL || d.fd() == null || d.records().isEmpty()) return null;
         FileDescriptor.Fd fd = d.fd();
         int least = Integer.MAX_VALUE, greatest = 0;
         boolean odo = false;
@@ -245,8 +274,8 @@ final class FileVerbs {
         Value from = Verbs.operand(s, "write-from-phrase");
         if (from != null) f.e.line(f.x.moveInto(from, f.x.field(record), f.x.item(record.item())) + ";");
         FileDescriptor owner = descriptor(fileOf(record.item()));
-        if (relative(owner)) {
-            f.e.line(file + ".write(" + f.x.field(record) + ", " + key(owner) + ");");
+        if (keyed(owner)) {
+            f.e.line(file + ".write(" + f.x.field(record) + (indexed(owner) ? "" : ", " + key(owner)) + ");");
             invalidKey(s, "WRITE", owner.name());
             return;
         }
@@ -293,8 +322,8 @@ final class FileVerbs {
         Value from = Verbs.operand(s, "rewrite-from");
         if (from != null) f.e.line(f.x.moveInto(from, f.x.field(record), f.x.item(record.item())) + ";");
         FileDescriptor owner = descriptor(fileOf(record.item()));
-        if (relative(owner)) {
-            f.e.line(name(owner.name()) + ".rewrite(" + f.x.field(record) + ", " + key(owner) + ");");
+        if (keyed(owner)) {
+            f.e.line(name(owner.name()) + ".rewrite(" + f.x.field(record) + (indexed(owner) ? "" : ", " + key(owner)) + ");");
             invalidKey(s, "REWRITE", owner.name());
             return;
         }
@@ -308,13 +337,13 @@ final class FileVerbs {
         FileDescriptor d = f.p.files().stream().filter(x -> x.name().equals(file.name())).findFirst().orElseThrow();
         String record = "f" + d.records().get(0);
         String fileVar = name(file.name());
-        // A relative file is read at its RELATIVE KEY with random access, and with dynamic access without NEXT (LR pp. 427-428).
-        boolean random = relative(d) && (d.access() == FileDescriptor.Access.RANDOM || d.access() == FileDescriptor.Access.DYNAMIC && !Verbs.keyword(s, "NEXT"));
-        if (random) f.e.line(fileVar + ".read(" + record + ", " + key(d) + ");");
-        else if (relative(d)) f.e.line(fileVar + ".readNext(" + record + ", " + key(d) + ");");
+        // A relative or indexed file is read by its key with random access, and with dynamic access without NEXT (LR pp. 427-428).
+        boolean random = keyed(d) && (d.access() == FileDescriptor.Access.RANDOM || d.access() == FileDescriptor.Access.DYNAMIC && !Verbs.keyword(s, "NEXT"));
+        if (random) f.e.line(fileVar + ".read(" + record + ", " + (indexed(d) ? keyItem(s, "read-key") : key(d)) + ");");
+        else if (keyed(d)) f.e.line(fileVar + ".readNext(" + record + (indexed(d) ? "" : ", " + key(d)) + ");");
         else f.e.line(fileVar + ".read(" + record + ");");
         if (random) f.e.line("ik = " + fileVar + ".invalid(); ok = " + fileVar + ".successful();");
-        f.e.line("ae = " + fileVar + (relative(d) ? ".atEnd();" : ".status().equals(\"10\");"));
+        f.e.line("ae = " + fileVar + (keyed(d) ? ".atEnd();" : ".status().equals(\"10\");"));
         Value into = Verbs.operand(s, "read-into");
         // A variable file's record moves at the length read, a group move (LR 6.4 pp. 188, 425).
         if (into != null && sizes(f.p, d, f.x) != null) f.e.line("if (" + fileVar + ".successful()) Move.group(" + fileVar + ".current(" + record + "), " + f.x.receiving((Value.Field) into) + ");");

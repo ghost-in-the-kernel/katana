@@ -130,6 +130,8 @@ shape: `lower/golden/<PROG>.java`, the generated Java byte for byte, a refactor 
   (`LiteralIntegrationTest`).
 - **SIR-09 A file carries what its SELECT says.** Whether it is OPTIONAL, its organization and access,
   its keys, and its FILE STATUS item with the second, VSAM one when named (0 for none), each as data;
+  and, from I-O-CONTROL, the files whose record area it shares: SAME RECORD AREA's, and SAME AREA's
+  between relative and indexed files, which IBM treats as SAME RECORD AREA (LR 6.4 pp. 156-157; J-182);
   every word of a SELECT entry is in its file (`NoTokenLeftTest`), so a keyword the lowering will read
   is never dropped on the way (R-017's lesson: OPTIONAL decides whether an absent file is status 05 or
   35).

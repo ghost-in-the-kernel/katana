@@ -52,6 +52,7 @@ public final class Lower {
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("values" + c + "();");
         FileVerbs.linages(e, p, x);
         FileVerbs.varyings(e, p, x);
+        FileVerbs.keys(e, p, x);
         e.close();
         defineItems(e, p, x);
         main(e, className);
@@ -114,13 +115,21 @@ public final class Lower {
         }
     }
 
-    /** A record's storage: its own; for a second 01 under an FD, the first's (they share the record area); for an 01 that REDEFINES another, that one's (LR 6.4 p. 226: "redefinitions of the same storage area"). */
+    /**
+     * A record's storage: its own; for a second 01 under an FD, the first's (they share the record area); for
+     * the records of files that share a record area (SIR-09, SAME RECORD AREA), the first such file's first
+     * record's, as long as the longest of them; for an 01 that REDEFINES another, that one's (LR 6.4 p. 226:
+     * "redefinitions of the same storage area").
+     */
     // Decision: R-019
     private static String area(Program p, Item record) {
         if (record.redefines() != 0) return "r" + p.items().get(record.redefines() - 1).record();
         for (var d : p.files()) {
-            if (d.records().contains(record.id()) && d.records().get(0) != record.id()) return "r" + d.records().get(0);
-            if (d.records().contains(record.id())) return "Record.of(" + d.records().stream().mapToInt(r -> recordLength(p, p.items().get(r - 1))).max().orElse(record.length()) + ", cp)";
+            if (!d.records().contains(record.id())) continue;
+            List<katana.sir.types.FileDescriptor> group = p.files().stream().filter(o -> o == d || d.sharesRecordArea().contains(o.name())).filter(o -> !o.records().isEmpty()).toList();
+            int first = group.get(0).records().get(0);
+            if (first != record.id()) return "r" + first;
+            return "Record.of(" + group.stream().flatMap(o -> o.records().stream()).mapToInt(r -> recordLength(p, p.items().get(r - 1))).max().orElse(record.length()) + ", cp)";
         }
         return "Record.of(" + recordLength(p, record) + ", cp)";
     }

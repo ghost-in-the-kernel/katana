@@ -30,4 +30,12 @@ class FieldTest {
         assertEquals("FFFE", put(Attr.numeric(Attr.Usage.BINARY, 4, 0, true), "-2"));
         assertEquals("0102", put(Attr.numeric(Attr.Usage.NATIVE_BINARY, 4, 0, false), "258"));
     }
+
+    /** A PICTURE of P alone stores no digit and its value is zero (LR 6.4 p. 210; NIST IX110A's `PIC P VALUE ZERO`). */
+    @Test
+    void anItemOfScalingPositionsAloneStoresNothingAndIsZero() {
+        Field f = new Field(Record.of(0, Codepage.EBCDIC_1140), 0, new Attr(Attr.Usage.DISPLAY, Attr.Category.NUMERIC, 0, 1, false, false, false, false, null));
+        f.put(Decimal.of("0"));
+        assertEquals(0, f.get().unscaled().signum());
+    }
 }

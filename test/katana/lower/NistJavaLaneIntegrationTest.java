@@ -47,6 +47,8 @@ class NistJavaLaneIntegrationTest {
             Map.entry("IF137A", "D-030"), Map.entry("IF138A", "D-030"), Map.entry("IF141A", "D-030"));
     /** The same for OB. */
     static final int OB_FLOOR = 6;
+    /** The same for IX. */
+    static final int IX_FLOOR = 42;
     /** The same for RL. */
     static final int RL_FLOOR = 35;
     /** The same for RW: the two runs that end at an OPEN before any Report Writer statement, which is not in Enterprise COBOL (research §19). */
@@ -91,6 +93,11 @@ class NistJavaLaneIntegrationTest {
     }
 
     @Test
+    void ixThroughTheJavaLane() throws Exception {
+        lane("IX", IX_FLOOR, Map.of());
+    }
+
+    @Test
     void rlThroughTheJavaLane() throws Exception {
         lane("RL", RL_FLOOR, Map.of());
     }
@@ -131,6 +138,26 @@ class NistJavaLaneIntegrationTest {
         void check(Path dir) throws Exception;
     }
 
+    private static List<Population.Member> extracted;
+
+    /** EXEC85's cards under the ibm overlay, as the cobc lane's golden was run. */
+    private static List<String> cards() throws Exception {
+        String base = Files.readString(ROOT.resolve("oracle/nist/exec85.cards")), overlay = Files.readString(ROOT.resolve("oracle/nist/exec85-ibm.cards"));
+        return Exec85.cards(base, overlay);
+    }
+
+    /**
+     * NIST extracted once for the class: the modules run at once, and each holding its own copy of the
+     * suite ran the test JVM out of heap when IX joined (J-182).
+     */
+    private static synchronized List<Population.Member> extracted(Path work) throws Exception {
+        if (extracted != null) return extracted;
+        Path exec85 = Files.createTempDirectory(work, "exec85");
+        extracted = List.copyOf(Exec85.run(ROOT.resolve("corpus/nist-cobol85-test-suite/newcob.val"), cards(), exec85, new Cobc(Duration.ofSeconds(30))));
+        Runs.passed(exec85);
+        return extracted;
+    }
+
     /** One module through the Java lane: at least `floor` runs the same as cobc's, and each listed finding explained. */
     private static void lane(String module, int floor, Map<String, String> findings) throws Exception {
         lane(module, floor, findings, dir -> {});
@@ -139,11 +166,8 @@ class NistJavaLaneIntegrationTest {
     /** The same, with a check on the lowered folder; the folders are removed when every check passes (`Runs`). */
     private static void lane(String module, int floor, Map<String, String> findings, Lowered lowered) throws Exception {
         Path work = Files.createDirectories(ROOT.resolve("build/nist-java"));
-        String base = Files.readString(ROOT.resolve("oracle/nist/exec85.cards")), overlay = Files.readString(ROOT.resolve("oracle/nist/exec85-ibm.cards"));
-        List<String> cards = Exec85.cards(base, overlay);
-        Path exec85 = Files.createTempDirectory(work, "exec85");
-        List<Population.Member> extracted = Exec85.run(ROOT.resolve("corpus/nist-cobol85-test-suite/newcob.val"), cards, exec85, new Cobc(Duration.ofSeconds(30)));
-        Runs.passed(exec85);
+        List<String> cards = cards();
+        List<Population.Member> extracted = extracted(work);
         RunNotes notes = RunNotes.read(Files.readString(ROOT.resolve("oracle/nist/run-notes")));
         Path dir = Files.createTempDirectory(work, module);
         List<ModuleRun.Outcome> outcomes = ModuleRun.run(module, extracted, notes, Exec85.switches(cards), dir, new JavaRunner(60));
