@@ -75,6 +75,10 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
   default, activates USE FOR DEBUGGING sections (LR 6.4 p. 760). The java lane reads it as the system
   property `katana.debug`, Y or N, N when absent (`rt/Debug`); NIST's run notes set it for each run, as
   COB_SET_DEBUG does for cobc (J-176).
+- **LANE-14 STOP literal is answered at once.** IBM suspends the program and communicates the literal
+  to the operator; it resumes "only after operator intervention ... at the next executable statement"
+  (LR 6.4 p. 457). A lane has no operator: the java lane writes the literal to its console (stderr) and
+  goes on, as cobc does with nothing to answer it (J-177).
 
 ## The check
 

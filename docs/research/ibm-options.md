@@ -908,3 +908,9 @@ Predicted, before the run: every OB program reports what cobc reports, the eleme
 effect or the effect already lowered (ALTER and the altered GO TO, J-175), OBNC1M's STOP-GF-9-TEST
 failing in both lanes as RECONCILIATION records ("EXECUTION DID NOT HALT"). The rival: a program that
 the Java lane cannot run for a reason no OB element holds (a CALL, OBIC1A).
+
+Result (J-177): the prediction held where it could be tried. OBNC1M, OBNC2M and the four OBSQ programs
+report what cobc reports: OB 6 of 7. OBIC1A, the rival, CALLs OBIC2A (phase 4.3). Two failures on the way
+held no obsolete element: STOP literal was lowered as STOP RUN, which left OBNC1M's report unwritten; and
+a GO TO in OBNC2M's QUAL-SECTION-2 PARA-6B, which an ALTER qualified IN that section changes, was not
+read from the ALTER table, the lowering finding its paragraph by name and taking QUAL-SECTION-1's.

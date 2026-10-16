@@ -1282,3 +1282,6 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | front | `front/Mapped.java:Mapped.debugging` |  | 2026-10-16 |  |
 | front | `front/Mapped.java:Mapped.debugging#2` |  | 2026-10-16 |  |
 | front | `front/Lines.java:Lines.marked` |  | 2026-10-16 |  |
+| lower | `lower/Verbs.java:Verbs.stop` | R-019 | 2026-10-16 |  |
+| sir | `sir/contract/Contract.java:Contract.stopLiteral` |  | 2026-10-16 |  |
+| lower | `lower/Flow.java:Flow.paragraphIndex` |  | 2026-10-16 |  |

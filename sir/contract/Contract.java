@@ -127,14 +127,18 @@ public final class Contract {
                 + " " + f.minRecord() + ".." + f.maxRecord();
     }
 
-    /** A paragraph falls into the next unless its last statement leaves (GO TO, STOP, GOBACK, EXIT PROGRAM); an altered GO TO, naming no procedure, falls until an ALTER sends it (LR 6.4 p. 347). */
+    /** A paragraph falls into the next unless its last statement leaves (GO TO, STOP RUN, GOBACK, EXIT PROGRAM); an altered GO TO, naming no procedure, falls until an ALTER sends it (LR 6.4 p. 347), and STOP literal resumes at the next statement (p. 457). */
+    private static boolean stopLiteral(Statement s) {
+        return s.verb().equals("STOP") && s.operands().stream().noneMatch(o -> o.value() instanceof Value.Name n && n.text().equals("RUN"));
+    }
+
     private static List<String> falls(Program p) {
         List<Procedure.Paragraph> all = p.procedure().paragraphs();
         List<String> lines = new ArrayList<>();
         for (int i = 0; i + 1 < all.size(); i++) {
             List<Statement> s = all.get(i).statements();
             Statement end = s.isEmpty() ? null : s.get(s.size() - 1);
-            String last = end == null || (end.verb().equals("GO TO") && end.operands().isEmpty()) ? "" : end.verb();
+            String last = end == null || (end.verb().equals("GO TO") && end.operands().isEmpty()) || stopLiteral(end) ? "" : end.verb();
             if (!List.of("GO TO", "STOP", "GOBACK", "EXIT PROGRAM").contains(last)) lines.add(i + " " + (i + 1));
         }
         return lines;

@@ -2597,3 +2597,22 @@ taken; closed by a later `decision` entry naming it).
   tests, `test/katana/sir/BuildTest.java`, `test/katana/sir/SirTypesTest.java`,
   `test/katana/lower/NistJavaLaneIntegrationTest.java`, `sir/ir.golden`, three contracts in `sir/golden/`,
   `docs/SEMANTIC-IR.md`, `docs/LANES.md`, research §17, `docs/KERNEL-MAP.md`.
+
+### J-177 OB through the Java lane: STOP literal, and a paragraph found by its index; OB 6 of 7
+- **Who:** Opus, on Ghost's go-ahead. **Class:** build; trial; failure-caught.
+- **Intent:** NIST's OB module (the 85 Standard's obsolete elements) through the Java lane, its own floor;
+  the prediction committed before the run (research §18, 9e2f291).
+- **Found:** 4 of 7 at first. The obsolete clauses IBM keeps without effect (ENTER, MULTIPLE FILE TAPE,
+  LABEL RECORDS, VALUE OF, DATA RECORDS) already had none. OBNC1M printed no report: STOP literal was
+  lowered as STOP RUN, where IBM suspends for the operator and goes on at the next statement (LR p. 457).
+  OBNC2M failed one test with no FAIL line: its PARA-TEST-6 ALTERs PARA-6B IN QUAL-SECTION-2, and the
+  GO TO there was not read from the ALTER table, as `Verbs.paragraphIndex` found the paragraph being
+  lowered by its name and took QUAL-SECTION-1's PARA-6B. Found by logging each PERFORM FAIL's caller in
+  a copy of the generated Java. OBIC1A CALLs a subprogram, phase 4.3: the rival named.
+- **Resolved:** STOP literal displays its literal on the console and goes on (LANE-14: a lane has no
+  operator, so the reply is at once, as cobc's run does); the contract's `falls` fact lets it fall.
+  `Verbs.paragraphIndex` is the index `Flow` tracks. `ObsoleteTest` holds both. OB 6 of 7 (floor 6); NC,
+  SQ, SM, SG, IF and DB unchanged; no golden moved.
+- **Touched:** `lower/Verbs.java`, `lower/Flow.java`, `sir/contract/Contract.java`,
+  `test/katana/lower/ObsoleteTest.java`, `test/katana/lower/NistJavaLaneIntegrationTest.java`,
+  `docs/LANES.md`, research §18, `docs/KERNEL-MAP.md`.
