@@ -2781,3 +2781,19 @@ taken; closed by a later `decision` entry naming it).
   `test/katana/rt/SortFileTest.java`, `test/katana/lower/SortVerbsTest.java`,
   `test/katana/lower/NistJavaLaneIntegrationTest.java`, `docs/DISCOVERIES.md` (D-032), research §23, `TODO.md`,
   `docs/KERNEL-MAP.md`.
+
+### J-185 Tithe: the COBOL parser built once per grammar, so the fast loop has room under its ceiling
+- **Who:** Opus; decided by Ghost ("prebuild the parser"). **Class:** decision (tithe); measurement.
+- **Intent:** land J-184, which the pre-push check refused on the warm fast loop (27 s against R-054's 25)
+  with every test passing.
+- **Found:** main without J-184 measured the same, 23 to 25 s and 33 on a first warm run: the loop sat at its
+  ceiling and one measurement fell either side by chance. Of a warm run's 26 s, 16 were compiling, as
+  `--rerun-tasks` forces: `generateGrammar` 2.8 s, `compileJava` 8.9 s (the generated parser most of it),
+  `compileTestJava` 3.4 s. Parsing the thirteen golden programs on parallel threads gained nothing: the four
+  cores were already busy with the test classes (tried, reverted).
+- **Resolved:** `build.gradle`'s `grammarJar` generates and compiles the parser into
+  `build/grammar-cache/grammar-<hash>.jar`, the hash of the two grammars and the ANTLR tool's name, and does
+  nothing when that jar exists, `--rerun-tasks` or not; main compiles against it, not its sources. A changed
+  grammar builds a new jar and removes the old (checked with a comment added to `Cobol.g4`). Warm fast loop:
+  20 to 22 s; a fresh clone pays the parser once, 52 s cold. The ceiling is not raised (R-054).
+- **Touched:** `build.gradle`.

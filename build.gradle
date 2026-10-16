@@ -19,13 +19,23 @@ tasks.withType(JavaCompile).configureEach {
 def modules = new groovy.json.JsonSlurper().parse(file('docs/modules.json')).modules.keySet()
 
 // front/'s parser, generated from the forked ProLeap grammars (front/grammar/, MIT) by the vendored
-// ANTLR tool into build/, never committed (phase 2.1).
-def grammarOut = layout.buildDirectory.dir('generated/grammar')
+// ANTLR tool and compiled into a jar under build/, never committed (phase 2.1). The jar is named by the
+// grammars' and the tool's hash and built only when no jar of that hash exists: `--rerun-tasks`, the fast
+// loop's measure, re-ran the generation and the parser's compile every time, 11 s of its 25 (R-054, J-185).
+def antlrJar = file('third_party/antlr/antlr4-4.13.2-complete.jar')
+def grammarFiles = ['CobolPreprocessor.g4', 'Cobol.g4'].collect { file("front/grammar/$it") }
+def grammarHash = {
+    def digest = java.security.MessageDigest.getInstance('SHA-256')
+    grammarFiles.each { digest.update(it.bytes) }
+    digest.update(antlrJar.name.bytes)
+    digest.digest().encodeHex().toString().take(16)
+}()
+def grammarJarFile = layout.buildDirectory.file("grammar-cache/grammar-${grammarHash}.jar").get().asFile
 
 sourceSets {
     main {
         java {
-            srcDirs = modules.findAll { it != 'rt' }.collect { it } + [grammarOut]
+            srcDirs = modules.findAll { it != 'rt' }.collect { it }
             exclude '**/prototypes/**'
         }
     }
@@ -53,21 +63,67 @@ configurations {
 dependencies {
     antlrTool files('third_party/antlr/antlr4-4.13.2-complete.jar')
     implementation files('third_party/antlr/antlr4-runtime-4.13.2.jar')
+    implementation files(grammarJarFile) { builtBy 'grammarJar' }
     scriptsImplementation files('third_party/gson/gson-2.11.0.jar')
     testImplementation files('third_party/gson/gson-2.11.0.jar')
     testImplementation fileTree(dir: 'third_party/junit', include: '*.jar')
 }
 
-def generateGrammar = tasks.register('generateGrammar', JavaExec) {
-    description = 'Generates front/\'s lexers and parsers from front/grammar/*.g4.'
-    classpath = configurations.antlrTool
-    mainClass = 'org.antlr.v4.Tool'
-    inputs.dir('front/grammar')
-    outputs.dir(grammarOut)
-    args = ['-o', grammarOut.get().dir('katana/front/grammar').asFile.path, '-Xexact-output-dir', '-package', 'katana.front.grammar',
-            '-no-visitor', '-listener', file('front/grammar/CobolPreprocessor.g4').path, file('front/grammar/Cobol.g4').path]
+// Generates front/'s lexers and parsers from the grammars and compiles them into `jar`, unless it exists; it
+// names no project at execution time, so it is fit for Gradle's configuration cache.
+abstract class GrammarJar extends DefaultTask {
+    @javax.inject.Inject abstract org.gradle.process.ExecOperations getExecOperations()
+    @org.gradle.api.tasks.Internal File jar, work, runtime
+    @org.gradle.api.tasks.Internal List<File> grammars
+    @org.gradle.api.tasks.Internal FileCollection tool
+
+    @org.gradle.api.tasks.TaskAction
+    void build() {
+        if (jar.exists()) return
+        deleteTree(work.toPath())
+        def sources = new File(work, 'src/katana/front/grammar'), classes = new File(work, 'classes')
+        sources.mkdirs()
+        classes.mkdirs()
+        execOperations.javaexec {
+            classpath = tool
+            mainClass = 'org.antlr.v4.Tool'
+            args = ['-o', sources.path, '-Xexact-output-dir', '-package', 'katana.front.grammar', '-no-visitor', '-listener'] + grammars.collect { it.path }
+        }
+        def files = java.nio.file.Files.walk(sources.toPath()).withCloseable { s -> s.filter { it.toString().endsWith('.java') }.collect { it.toString() }.toList() }
+        def javac = javax.tools.ToolProvider.systemJavaCompiler
+        if (javac.run(null, null, null, (['--release', '21', '-encoding', 'UTF-8', '-nowarn', '-classpath', runtime.path, '-d', classes.path] + files) as String[]) != 0) {
+            throw new GradleException('the generated parser did not compile')
+        }
+        def partial = new File(work, 'grammar.jar')
+        new java.util.jar.JarOutputStream(new FileOutputStream(partial)).withCloseable { out ->
+            java.nio.file.Files.walk(classes.toPath()).withCloseable { s ->
+                s.filter { java.nio.file.Files.isRegularFile(it) }.sorted().forEach { f ->
+                    out.putNextEntry(new java.util.jar.JarEntry(classes.toPath().relativize(f).toString().replace(File.separatorChar, '/' as char)))
+                    out.write(java.nio.file.Files.readAllBytes(f))
+                    out.closeEntry()
+                }
+            }
+        }
+        jar.parentFile.mkdirs()
+        jar.parentFile.listFiles().findAll { it.name.startsWith('grammar-') && it.name.endsWith('.jar') }.each { it.delete() }
+        java.nio.file.Files.move(partial.toPath(), jar.toPath(), java.nio.file.StandardCopyOption.ATOMIC_MOVE)
+        deleteTree(work.toPath())
+    }
+
+    private static void deleteTree(java.nio.file.Path root) {
+        if (!java.nio.file.Files.exists(root)) return
+        java.nio.file.Files.walk(root).withCloseable { s -> s.sorted(Comparator.reverseOrder()).forEach { java.nio.file.Files.delete(it) } }
+    }
 }
-tasks.named('compileJava') { dependsOn generateGrammar }
+tasks.register('grammarJar', GrammarJar) {
+    description = 'Generates front/\'s lexers and parsers from front/grammar/*.g4 and compiles them into a jar named by their hash, unless it exists.'
+    jar = grammarJarFile
+    work = layout.buildDirectory.dir('grammar-cache/work').get().asFile
+    runtime = file('third_party/antlr/antlr4-runtime-4.13.2.jar')
+    grammars = grammarFiles
+    tool = configurations.antlrTool
+}
+tasks.named('compileJava') { dependsOn 'grammarJar' }
 
 tasks.register('metrics', JavaExec) {
     description = 'Prints the metrics of docs/AGENT.md and the warnings of docs/ROADMAP.md 4.2.'
