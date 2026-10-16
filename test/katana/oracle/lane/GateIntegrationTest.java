@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
  */
 @Tag("integration")
 class GateIntegrationTest {
-    private static final List<String> JOBS = List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST");
+    private static final List<String> JOBS = List.of("POSTTRAN", "POSTTRAN-STUDY", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST");
 
     private static Gate.Result twice(String job, LaneRuns first, LaneRuns second) throws Exception {
         Fixture fixture = Fixture.read(Files.readString(LaneRuns.ROOT.resolve("oracle/fixture/carddemo/" + job + ".fixture")));
@@ -49,7 +49,7 @@ class GateIntegrationTest {
         System.out.println("gate POSTTRAN, clock to the second: " + result.differences());
         assertFalse(result.identical());
         assertEquals(1, result.differences().size(), result.differences().toString());
-        assertTrue(result.differences().get(0).matches("dataset AWS\\.M2\\.CARDDEMO\\.TRANSACT\\.VSAM\\.KSDS \\(DD TRANFILE in STEP15\\): \\d+ of 257 records differ, in (column 325|column 326|columns 325-326)"),
+        assertTrue(result.differences().get(0).matches("dataset AWS\\.M2\\.CARDDEMO\\.TRANSACT\\.VSAM\\.KSDS \\(DD TRANFILE in STEP15\\): \\d+ of 262 records differ, in (column 325|column 326|columns 325-326)"),
                 result.differences().get(0));
     }
 }

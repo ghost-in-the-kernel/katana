@@ -10,7 +10,8 @@ tz UTC
 # does not compile, at 4 it does (R-016, J-044); the evidence and the hypothesis.
 tabs 4 CUSTREC.cpy
 
-dataset AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS org=KSDS lrecl=50 keys=17,0 from=carddemo:app/data/ASCII/tcatbal.txt framing=lines sha256=edaaf7202b8ddd35053db4ac59b992bc3eb5ef64aac22bab9b2aeb6bf6aadd68
+# FIXTURE-10 (R-061): its signed fields hold EBCDIC overpunch translated to ASCII; loaded in the lane's form.
+dataset AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS org=KSDS lrecl=50 keys=17,0 from=carddemo:app/data/ASCII/tcatbal.txt framing=lines sha256=edaaf7202b8ddd35053db4ac59b992bc3eb5ef64aac22bab9b2aeb6bf6aadd68 signs=CVTRA01Y
 dataset AWS.M2.CARDDEMO.TCATBALF.BKUP org=GDG
 
 # THEFILE has no DCB in the JCL; it is the report's dataset, so its record format is the report's.

@@ -27,7 +27,7 @@ class FixtureTest {
 
     @Test
     void theFourCardDemoJobsAreExpressible() throws Exception {
-        for (String job : List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST")) assertEquals(List.of(), refusals(carddemo(job)), job);
+        for (String job : List.of("POSTTRAN", "POSTTRAN-STUDY", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST")) assertEquals(List.of(), refusals(carddemo(job)), job);
     }
 
     @Test

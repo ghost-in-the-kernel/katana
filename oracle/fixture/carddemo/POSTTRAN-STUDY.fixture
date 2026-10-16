@@ -1,0 +1,35 @@
+# POSTTRAN as the study read its data (F-02): the daily transactions' and accounts' EBCDIC signs,
+# translated to ASCII byte for byte, loaded as they are, which cobc reads as +0 (R-061). It is the
+# lane's one run against an external oracle, the study's frozen unloads; POSTTRAN.fixture reads IBM's
+# values. CardDemo's POSTTRAN (carddemo:app/jcl/POSTTRAN.jcl): CBTRN02C posts the 300 daily transactions to
+# the transaction KSDS and writes the rejects to a new generation. The study's run (F-02); its
+# frozen hashes are phase 1.4's check. STEPLIB is the library path, so it is not a DD here.
+job POSTTRAN
+source carddemo:app/jcl/POSTTRAN.jcl
+profile ibm sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296
+clock 2024-03-01 12:00:00.00 +00:00
+tz UTC
+# CUSTREC.cpy was written with 4-column tabs: at 8 its PICTUREs run past column 72 and CBSTM03A
+# does not compile, at 4 it does (R-016, J-044); the evidence and the hypothesis.
+tabs 4 CUSTREC.cpy
+stub CEE3ABD
+
+# The catalog when the job starts. The transaction KSDS starts empty, as in the study: the file
+# TRANFILE.jcl loads it from (DALYTRAN.PS.INIT) is not in CardDemo.
+dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS org=KSDS lrecl=350 keys=16,0 empty
+dataset AWS.M2.CARDDEMO.DALYTRAN.PS org=PS lrecl=350 from=carddemo:app/data/ASCII/dailytran.txt framing=lines sha256=5b25c7ccc8a5b4716f3a7989342edd9b02b2ff617ce2a6ddc24c1531de4bb317
+dataset AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS org=KSDS lrecl=50 keys=16,0 from=carddemo:app/data/ASCII/cardxref.txt framing=lines sha256=d49145cf821e7aae049706569b8bf90f6fb52e0fcc53e8099e39beb55e5c7056
+dataset AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS org=KSDS lrecl=300 keys=11,0 from=carddemo:app/data/ASCII/acctdata.txt framing=lines sha256=00a9fd689c9e572a60101afa688ab210f2f012f70040d219617d6134bb708649
+dataset AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS org=KSDS lrecl=50 keys=17,0 from=carddemo:app/data/ASCII/tcatbal.txt framing=lines sha256=edaaf7202b8ddd35053db4ac59b992bc3eb5ef64aac22bab9b2aeb6bf6aadd68
+dataset AWS.M2.CARDDEMO.DALYREJS org=GDG
+
+step STEP15 pgm=CBTRN02C
+dd SYSPRINT sysout
+dd SYSOUT sysout
+dd TRANFILE dsn=AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS disp=SHR recfm=F lrecl=350 copybook=CVTRA05Y encoding=ascii
+dd DALYTRAN dsn=AWS.M2.CARDDEMO.DALYTRAN.PS disp=SHR recfm=F lrecl=350 copybook=CVTRA06Y encoding=ascii
+dd XREFFILE dsn=AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS disp=SHR recfm=F lrecl=50 copybook=CVACT03Y encoding=ascii
+# A reject is the 350-byte transaction and an 80-byte reason, laid out in CBTRN02C's own storage.
+dd DALYREJS dsn=AWS.M2.CARDDEMO.DALYREJS(+1) disp=NEW,CATLG,DELETE recfm=F lrecl=430 copybook=- encoding=ascii
+dd ACCTFILE dsn=AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS disp=SHR recfm=F lrecl=300 copybook=CVACT01Y encoding=ascii
+dd TCATBALF dsn=AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS disp=SHR recfm=F lrecl=50 copybook=CVTRA01Y encoding=ascii

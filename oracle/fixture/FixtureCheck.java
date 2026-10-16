@@ -29,7 +29,7 @@ public final class FixtureCheck {
     static final Pattern CLOCK = Pattern.compile("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{2} [+-]\\d{2}:\\d{2}");
     private static final Pattern GENERATION = Pattern.compile("(.+)\\(([+-]?\\d+)\\)");
     private static final List<String> ONCE = List.of("job", "profile", "clock", "tz", "dfsort.pad", "dfsort.trunc");
-    private static final Set<String> CONTENT = Set.of("from", "sha256", "framing", "over", "unique");
+    private static final Set<String> CONTENT = Set.of("from", "sha256", "framing", "signs", "over", "unique");
 
     private FixtureCheck() {}
 
@@ -171,6 +171,7 @@ public final class FixtureCheck {
         if (empty == from) refusals.add(where + ": starts either empty or from= a source with its sha256=");
         if (from && !a.containsKey("sha256")) refusals.add(where + ": from= needs the sha256= of its records");
         if (from && !a.get("from").startsWith("job:") && !a.containsKey("framing")) refusals.add(where + ": a file source needs framing=");
+        if (a.containsKey("signs") && (!from || a.get("from").startsWith("job:"))) refusals.add(where + ": signs= translates a file source's signs, and a job's dataset is in the lane's form already (FIXTURE-10)");
     }
 
     private static boolean keysFit(Map<String, String> a) {

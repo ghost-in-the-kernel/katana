@@ -34,7 +34,7 @@ is one card of the inline DD above it, kept as written (a lane pads it to 80 byt
 | `tabs` | 2 | | | the tab width (1 to 16) a source or copybook was written at, and a file-name pattern (`4 CUSTREC.cpy`); the default is 8 (R-016) |
 | `dfsort.pad` | 1 | | | DFSORT's PAD: `RC0` (the default), `RC4` or `RC16`, for a record shorter than SORTOUT's LRECL (R-051); once |
 | `dfsort.trunc` | 1 | | | DFSORT's TRUNC, the same for a record longer than SORTOUT's LRECL; once |
-| `dataset` | 1 | `org`, `lrecl`, `keys`, `over`, `unique`, `from`, `framing`, `sha256`, `defined-by` | `empty` | a dataset in the catalog and how it starts |
+| `dataset` | 1 | `org`, `lrecl`, `keys`, `over`, `unique`, `from`, `framing`, `sha256`, `signs`, `defined-by` | `empty` | a dataset in the catalog and how it starts |
 | `gold` | 1 | `sha256` | | a dataset's records as the mainframe wrote them |
 | `step` | 1 | `pgm`, `parm`, `cond` | | a step, in order; its DDs follow it |
 | `dd` | 1 | `dsn`, `disp`, `recfm`, `lrecl`, `copybook`, `encoding` | `sysout`, `dummy`, `inline`, `concat` | a DD of the step above; `concat` adds a dataset to the DD of the same name just above it |
@@ -49,6 +49,7 @@ is one card of the inline DD above it, kept as written (a lane pads it to 80 byt
 | `from` | where the records come from: `carddemo:<path>`, `repo:<path>`, or `job:<fixture>` (what that fixture's job leaves of this dataset) or `job:<fixture>:<dsn>` (of another dataset) |
 | `framing` | how a file source holds records: `lines` (one a line, padded to lrecl) or `fixed` |
 | `sha256` | the hex SHA-256 of the records |
+| `signs` | the copybook whose signed zoned fields hold EBCDIC overpunch translated to ASCII byte for byte; the lane loads them in its ASCII form (FIXTURE-10) |
 | `defined-by` | the step that defines the dataset (IDCAMS DEFINE); it does not exist before |
 | `pgm` | the program or utility |
 | `parm` | the PARM string |
@@ -99,3 +100,10 @@ index file's pages are never hashed (F-02: BDB pages differ between identical ru
 - **FIXTURE-09 The lane's options are stated, or the documented default holds.** `dfsort.pad` and
   `dfsort.trunc` are `RC0`, `RC4` or `RC16` (`RC0` when absent, R-051); `tabs` is a width of 1 to 16
   and a file-name pattern (8 when no pattern matches, R-016).
+- **FIXTURE-10 A file source's translated signs are stated, and loaded in the lane's form.** A file
+  written from EBCDIC data byte for byte holds a signed zoned field's sign as `{`, `A`-`I` (X'C0'-X'C9')
+  or `}`, `J`-`R` (X'D0'-X'D9'), which the cobc lane's ASCII form does not read as IBM does (research
+  §22). `signs=` names the copybook that lays out its records; each signed zoned field's last byte is
+  loaded as the plain digit (positive) or `p`-`y` (negative), so both lanes read IBM's values. The
+  `sha256=` is of the file's records as they are, before the translation. Only a file source has it
+  (R-061).

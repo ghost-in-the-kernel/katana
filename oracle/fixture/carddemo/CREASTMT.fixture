@@ -17,10 +17,11 @@ tabs 4 CUSTREC.cpy
 module CBSTM03B
 stub CEE3ABD
 
-dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS org=KSDS lrecl=350 keys=16,0 from=job:POSTTRAN sha256=aed617444207a7ebd2684e589c8569f766fb5d1d8323a25a658f8c4c03020b48
+dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS org=KSDS lrecl=350 keys=16,0 from=job:POSTTRAN sha256=f0bba3690bac767f905467aba771852e345763530f284cdd723daef43620f96b
 dataset AWS.M2.CARDDEMO.TRXFL.VSAM.KSDS org=KSDS lrecl=350 keys=32,0 defined-by=DELDEF01
 dataset AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS org=KSDS lrecl=50 keys=16,0 from=carddemo:app/data/ASCII/cardxref.txt framing=lines sha256=d49145cf821e7aae049706569b8bf90f6fb52e0fcc53e8099e39beb55e5c7056
-dataset AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS org=KSDS lrecl=300 keys=11,0 from=carddemo:app/data/ASCII/acctdata.txt framing=lines sha256=00a9fd689c9e572a60101afa688ab210f2f012f70040d219617d6134bb708649
+# FIXTURE-10 (R-061): its signed fields hold EBCDIC overpunch translated to ASCII; loaded in the lane's form.
+dataset AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS org=KSDS lrecl=300 keys=11,0 from=carddemo:app/data/ASCII/acctdata.txt framing=lines sha256=00a9fd689c9e572a60101afa688ab210f2f012f70040d219617d6134bb708649 signs=CVACT01Y
 dataset AWS.M2.CARDDEMO.CUSTDATA.VSAM.KSDS org=KSDS lrecl=500 keys=9,0 from=carddemo:app/data/ASCII/custdata.txt framing=lines sha256=173e9d1a43884190ce674613a5bedff90b95f863edec857a31671764c3c27d10
 
 step DELDEF01 pgm=IDCAMS

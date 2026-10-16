@@ -54,6 +54,10 @@ public final class CobcLane {
     }
 
     private static final Map<String, String> STUBS = Map.of("CEE3ABD", Generated.cee3abd());
+    /** The key of the java lane's setup whose command runs `rt/Ksds`, which loads and unloads its indexed datasets (LANE-16). */
+    public static final String KSDS = "*KSDS";
+    /** The stubs the lowering calls as the services they stand for (CEE3ABD as LE's, research §22), so the java lane runs a fixture that names them. */
+    private static final java.util.Set<String> LOWERED_STUBS = java.util.Set.of("CEE3ABD");
     private final Fixture fixture;
     private final Setup setup;
     private final Report report = new Report();
@@ -113,18 +117,24 @@ public final class CobcLane {
         Files.createDirectories(setup.work().resolve("inline"));
         List<Path> shadows = Tabs.shadow(setup.copybooks(), setup.work().resolve("shadow"), widths, tabbedCopybooks);
         Compiler compiler = new Compiler(profile, shadows, setup.cache(), setup.limit(), setup.trace() ? List.of("-ftrace") : List.of());
-        datasets = new Datasets(setup.work(), compiler, setup.limit());
+        datasets = new Datasets(setup.work(), compiler, setup.limit(), setup.java() == null ? null : setup.java().get(KSDS));
         programs = new Programs(setup.programs(), compiler, setup.work(), setup.limit(), widths, setup.trace());
     }
 
-    /** What the java lane's stub does not run yet (docs/LANES.md): indexed datasets, stubs and called modules, which wait for rt/ (phase 3). */
+    /**
+     * What the java lane does not run yet (LANE-05): a called module (phase 4.3), a stub the lowering does
+     * not call as its service, and an indexed dataset with no `rt/Ksds` command. A PATH needs nothing of its
+     * own: its key is an alternate key of the KSDS it is over, which `rt/Ksds` loads with it (`Start.catalog`).
+     */
     private String javaLimits() {
         for (Schema.Line line : fixture.header()) {
-            if (line.keyword().equals("stub") || line.keyword().equals("module")) return "the java lane's stub has no " + line.keyword() + " " + line.values().get(0) + " yet (rt/, phase 3)";
+            String name = line.values().get(0);
+            if (line.keyword().equals("module")) return "the java lane has no called module " + name + " yet (CALL, phase 4.3)";
+            if (line.keyword().equals("stub") && !LOWERED_STUBS.contains(name)) return "the java lane has no stub " + name + " yet (the stub facade, phase 4.4)";
         }
         for (Schema.Line d : fixture.datasets()) {
             String org = d.attributes().get("org");
-            if ("KSDS".equals(org) || "PATH".equals(org)) return "the java lane's stub has no indexed dataset (" + d.values().get(0) + ") yet (rt/, phase 3)";
+            if ("KSDS".equals(org) && !setup.java().containsKey(KSDS)) return "the java lane's setup has no " + KSDS + " command for the indexed dataset " + d.values().get(0) + " (LANE-16)";
         }
         return null;
     }

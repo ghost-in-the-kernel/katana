@@ -14,7 +14,7 @@ public final class Accept {
     /** ACCEPT identifier FROM the conceptual item named (its words joined by a space), now. */
     // Decision: R-019
     public static void from(Field into, String conceptual) {
-        from(into, conceptual, LocalDateTime.now());
+        from(into, conceptual, Now.now().toLocalDateTime());
     }
 
     /** ACCEPT FROM DATE, DAY, DAY-OF-WEEK or TIME: the digits each form gives, at the moment given, into the receiver. */

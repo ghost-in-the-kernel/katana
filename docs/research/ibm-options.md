@@ -1107,3 +1107,53 @@ the P); IX205A and IX206A test I-O-CONTROL's SAME RECORD AREA and SAME AREA, whi
 clause"). With both, 42 of 42, IX301M's and IX401M's abnormal ends (35 and 39) included. Of the rivals,
 none was met where cobc and the lane could differ: status 02 on READ and on WRITE agreed with cobc's
 reports, no test reads after an unsuccessful START, and none rewrites a duplicate's alternate key.
+
+## 22. CardDemo's KSDS jobs through the Java lane, and CEE3ABD (read 2026-10-16, primary; phase 4.1)
+
+Verbatim from z/OS 3.1 Language Environment Programming Reference, p. 111 (CEE3ABD):
+
+- "CEE3ABD requests that Language Environment terminate the enclave with an abend ... There is no return
+  from this service, nor is there any condition associated with it." `CEE3ABD (abcode, clean-up)`:
+  abcode "A fullword integer, no greater than 4095, specifying the abend code that is issued".
+- clean-up 0: "Issue the abend without clean-up ... termination activities are not performed"; 1: "Issue
+  the abend with normal enclave termination processing"; "If an illegal value for clean-up is passed, the
+  abend is issued without clean-up." Usage note 2: "When TRAP(OFF) is specified, CEE3ABD behaves in a
+  similar manner to clean-up 0."
+
+CardDemo's batch programs call it in one place each, their abend paragraph, with clean-up (TIMING) 0 and
+ABCODE 999 (CBTRN02C lines 709-711). The cobc lane's stub (`oracle/lane/Generated.cee3abd`) prints
+`CEE3ABD abend U0999` and ends the run with the code; the Java lane's `rt/Abend` prints the same line
+(LANE-08). Without clean-up IBM closes no file: what a program wrote to a QSAM file before the abend may be
+in a buffer never written. No CardDemo run in the goldens reaches the paragraph.
+
+The KSDS semantics are §21's (an indexed file); what is new is the dataset: the cobc lane loads each KSDS
+from its records in key order and unloads it to its records in key order (R-025, logical unload), through
+GnuCOBOL's own indexed file. The Java lane's dataset is `rt/IdxFile`'s (LANE-15), loaded and unloaded the
+same way, by the same records.
+
+Predicted, before the run. With the Java lane taking indexed datasets through `rt/IdxFile` and CALL
+'CEE3ABD' lowered as LE's service, POSTTRAN (CBTRN02C), INTCALC (CBACT04C) and TRANREPT-STUDY (IDCAMS,
+SORT, CBTRN03C) report in the Java lane what the cobc lane's golden holds: every step's return code, every
+stdout's lines and hash, every dataset's records and hash, the KSDS files unloaded byte for byte. So do the
+fixtures with no program step (COMBTRAN, PRTCATBL, PRTCATBL-INLINE, SORTTEST) and TRANREPT, which stops at
+its IDCAMS card in both lanes. CREASTMT stays refused: CBSTM03A CALLs the module CBSTM03B (phase 4.3). The
+rivals: a program's FD record shorter or longer than its dataset's LRECL, which `IdxFile` reads as a
+conflict of attributes (39) where GnuCOBOL may not; and a numeric edit, a DISPLAY or a date in the three
+programs that the NIST modules never exercised.
+
+Result (J-183): the prediction held for the jobs and was refuted on the way in three places, each a gap the
+NIST modules never showed. (1) The rival named last was met, and larger than named: CardDemo's ASCII data
+holds its signs as EBCDIC overpunch translated byte for byte (`0000009303L`, X'D3', -930.33), which cobc
+-std=ibm reads as the digit 0, positive, measured over every printable byte, rewriting the byte as `0` in
+the record when it reads it. The cobc goldens had posted five returns as purchases over their limit. On
+Ghost's decision the fixtures say so (`signs=`, FIXTURE-10, R-061) and the lane loads those bytes in its own
+form; both lanes then read IBM's values: POSTTRAN posts 262, not 257, the study's frozen unloads (F-02) no
+longer the oracle. (2) The Java runtime read the machine's clock, not the lane's (LANE-03), returned no
+RETURN-CODE (it started as the spaces of a new record, 8224, exit 32), and gave a PROCEDURE DIVISION USING
+no PARM; LANE-17. (3) CBACT04C declares its cross-reference's alternate key without DUPLICATES over an
+index defined NONUNIQUEKEY, which `IdxFile` read as 39; IBM's list of 39's attributes does not say
+DUPLICATES is one, and CardDemo opens it on z/OS, so it is not (an `// Unsure`). The rival of the FD's
+LRECL was not met. TRANREPT-STUDY's stdout differs only as D-005 says (cobc's separate trailing sign
+where DISPSIGN(COMPAT) shows the bytes), held line by line. With those: POSTTRAN, INTCALC, TRANREPT,
+TRANREPT-STUDY, PRTCATBL, PRTCATBL-INLINE, COMBTRAN and SORTTEST report in the Java lane what the cobc
+lane's golden holds; CREASTMT is refused for CBSTM03B.

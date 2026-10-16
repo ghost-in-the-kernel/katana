@@ -13,13 +13,16 @@ tz UTC
 tabs 4 CUSTREC.cpy
 stub CEE3ABD
 
-dataset AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS org=KSDS lrecl=50 keys=17,0 from=carddemo:app/data/ASCII/tcatbal.txt framing=lines sha256=edaaf7202b8ddd35053db4ac59b992bc3eb5ef64aac22bab9b2aeb6bf6aadd68
+# FIXTURE-10 (R-061): its signed fields hold EBCDIC overpunch translated to ASCII; loaded in the lane's form.
+dataset AWS.M2.CARDDEMO.TCATBALF.VSAM.KSDS org=KSDS lrecl=50 keys=17,0 from=carddemo:app/data/ASCII/tcatbal.txt framing=lines sha256=edaaf7202b8ddd35053db4ac59b992bc3eb5ef64aac22bab9b2aeb6bf6aadd68 signs=CVTRA01Y
 dataset AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS org=KSDS lrecl=50 keys=16,0 from=carddemo:app/data/ASCII/cardxref.txt framing=lines sha256=d49145cf821e7aae049706569b8bf90f6fb52e0fcc53e8099e39beb55e5c7056
 dataset AWS.M2.CARDDEMO.CARDXREF.VSAM.AIX.PATH org=PATH over=AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS keys=11,25 unique=no
-dataset AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS org=KSDS lrecl=300 keys=11,0 from=carddemo:app/data/ASCII/acctdata.txt framing=lines sha256=00a9fd689c9e572a60101afa688ab210f2f012f70040d219617d6134bb708649
+# FIXTURE-10 (R-061): its signed fields hold EBCDIC overpunch translated to ASCII; loaded in the lane's form.
+dataset AWS.M2.CARDDEMO.ACCTDATA.VSAM.KSDS org=KSDS lrecl=300 keys=11,0 from=carddemo:app/data/ASCII/acctdata.txt framing=lines sha256=00a9fd689c9e572a60101afa688ab210f2f012f70040d219617d6134bb708649 signs=CVACT01Y
 # Not in key order as CardDemo ships it (the study: file status 21 loading it unsorted); a KSDS's
 # records are its records in key order, whatever order they came in.
-dataset AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS org=KSDS lrecl=50 keys=16,0 from=carddemo:app/data/ASCII/discgrp.txt framing=lines sha256=57595cd33cb90c6c419db764056bbb4060a1ac48a8832d81c938b044a54af5c5
+# FIXTURE-10 (R-061): its signed fields hold EBCDIC overpunch translated to ASCII; loaded in the lane's form.
+dataset AWS.M2.CARDDEMO.DISCGRP.VSAM.KSDS org=KSDS lrecl=50 keys=16,0 from=carddemo:app/data/ASCII/discgrp.txt framing=lines sha256=57595cd33cb90c6c419db764056bbb4060a1ac48a8832d81c938b044a54af5c5 signs=CVTRA02Y
 dataset AWS.M2.CARDDEMO.SYSTRAN org=GDG
 
 step STEP15 pgm=CBACT04C parm=2022071800

@@ -2720,3 +2720,39 @@ taken; closed by a later `decision` entry naming it).
   `test/katana/rt/FieldTest.java`, `test/katana/sir/SirTypesTest.java`, `test/katana/sir/NoTokenLeftTest.java`,
   `test/katana/lower/NistJavaLaneIntegrationTest.java`, `docs/SEMANTIC-IR.md` (SIR-09), `docs/LANES.md`
   (LANE-15), research §21, `TODO.md`, `docs/KERNEL-MAP.md`.
+
+### J-183 CardDemo's KSDS jobs through the Java lane; the data's EBCDIC signs loaded as IBM reads them
+- **Who:** Opus, on Ghost's go-ahead ("go through the card demos"); R-061 and D-005's use decided by Ghost.
+  **Class:** build; trial; decision; failure-caught.
+- **Intent:** phase 4.1's CardDemo check: the KSDS files load, read and unload identically in both lanes,
+  through the jobs that use them; the prediction committed before the run (research §22, e5c6145).
+- **Found:** the Java lane refused every CardDemo job (an indexed dataset, the CEE3ABD stub). Lifted, with
+  `rt/Ksds` loading the KSDS files and CALL 'CEE3ABD' lowered, it ran them and departed in turn: a MOVE to
+  RETURN-CODE was a ClassCastException in the lowering; the Java runtime read the machine's clock; RETURN-CODE
+  started as spaces, exit 32; the PARM never reached PROCEDURE DIVISION USING; an alternate key declared
+  without DUPLICATES over a NONUNIQUEKEY index was a 39. And the data: CardDemo's ASCII files hold EBCDIC
+  overpunch translated byte for byte. Measured, cobc -std=ibm reads all twenty such bytes as the digit 0,
+  positive, and rewrites them as `0` when it reads the field; the cobc goldens had posted returns as
+  purchases (POSTTRAN 257 posted where IBM's values post 262). Ghost chose to convert at load.
+- **Resolved:** `rt/Ksds` and `Datasets` (LANE-16), `rt/IdxFile` comparing keys' places and lengths for 39
+  (DUPLICATES the file's), `rt/Now` (the lane's clock), RETURN-CODE as each program's field and its exit
+  (LANE-17), the PARM into USING, `lower/Verbs.call` for CEE3ABD (LANE-18, R-027), a MOVE to a name that is
+  not a field a finding, not an exception; `signs=` (FIXTURE-10, R-061) on nine CardDemo dataset lines, the
+  `job:` sources' hashes after it, `carddemo.golden` re-recorded and the study's frozen assertions restated;
+  R-025 recorded. `CardDemoJavaLaneIntegrationTest`: eight jobs the same as the golden, TRANREPT-STUDY's
+  stdout through D-005 line by line (red when the mapping is dropped), CREASTMT refused (CBSTM03B, 4.3).
+  The first pre-push check failed three tests that held POSTTRAN's study numbers: the proof against the
+  study's frozen datasets (F-02), the frozen check of the `job:POSTTRAN` sources, and the gate's 257 records.
+  The study's reading is kept as `POSTTRAN-STUDY.fixture` (POSTTRAN without `signs=`, its content hash the old
+  POSTTRAN's), which the proof and the frozen check now run: it still reproduces the study byte for byte,
+  so the lane's one external oracle stands, beside POSTTRAN's IBM reading.
+- **Touched:** `rt/katana/rt/Ksds.java`, `rt/katana/rt/Now.java`, `rt/katana/rt/IdxFile.java`,
+  `rt/katana/rt/Codepage.java`, `rt/katana/rt/Functions.java`, `rt/katana/rt/Accept.java`, `lower/Lower.java`,
+  `lower/Verbs.java`, `lower/Exprs.java`, `oracle/lane/CobcLane.java`, `oracle/lane/Datasets.java`,
+  `oracle/lane/Start.java`, `oracle/fixture/Schema.java`, `oracle/fixture/FixtureCheck.java`, six CardDemo
+  fixtures, `oracle/lane/carddemo.golden`, `test/katana/oracle/lane/CardDemoJavaLaneIntegrationTest.java`,
+  `test/katana/oracle/lane/CardDemoLaneIntegrationTest.java`, `test/katana/oracle/lane/TrivialLanesIntegrationTest.java`,
+  `oracle/fixture/carddemo/POSTTRAN-STUDY.fixture`, `oracle/proof/POSTTRAN.report.md`, the proof, gate, fixture and
+  fixture-source tests,
+  `docs/LANES.md` (LANE-05, 15-18), `docs/FIXTURE.md` (FIXTURE-10), `docs/checks.json`, `theGhost.md`
+  (R-025, R-061), research §22, `TODO.md`, `docs/KERNEL-MAP.md`.
