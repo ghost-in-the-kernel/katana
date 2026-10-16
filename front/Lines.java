@@ -67,7 +67,7 @@ public final class Lines {
                     }
                     entry = starts || (entry && areaA.isBlank());
                     logical = out.size();
-                    out.add(built);
+                    out.add(marked(built, indicator));
                 }
             }
         }
@@ -77,6 +77,11 @@ public final class Lines {
             result.append(trailing(out.get(i)));
         }
         return result;
+    }
+
+    /** A debugging line (LR 6.4 p. 122) marked: code only WITH DEBUGGING MODE, which `Preprocessor.run` decides. */
+    private static Mapped marked(Mapped line, char indicator) {
+        return indicator == 'D' || indicator == 'd' ? line.debugging() : line;
     }
 
     /** A logical line continued: an open literal resumes after the continuation's quote, a word directly. */

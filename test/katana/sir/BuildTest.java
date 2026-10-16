@@ -74,7 +74,7 @@ class BuildTest {
     /** A Name has a component `kind`; the codec's own key must not be one (it was, and every CICS program failed to round-trip). */
     @Test
     void everyValueKindRoundTrips() {
-        List<Value> values = List.of(new Value.Name("cics", "EIBCALEN"), new Value.Target(3, 4), new Value.File("F"),
+        List<Value> values = List.of(new Value.Name("cics", "EIBCALEN"), new Value.Target(3, 4, true), new Value.File("F"),
                 new Value.Figurative("ALL", new Value.Literal("'*'", Value.Literal.Kind.ALPHANUMERIC, "*", 0)), new Value.Expression("+", List.of(new Value.Literal("1", Value.Literal.Kind.NUMERIC, "1", 0))));
         for (Value v : values) assertEquals(v, IrJson.read(IrJson.write(v), Value.class), IrJson.write(v));
     }

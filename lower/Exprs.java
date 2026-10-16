@@ -137,6 +137,7 @@ final class Exprs {
     /** A value as a sending item (a Field), for MOVE and comparison. */
     String sending(Value v) {
         if (counter(v) != null) return counter(v);
+        if (v instanceof Value.Name n && n.kind().equals("register") && Debugging.held(p) && Debugging.register(n.text()) != null) return Debugging.register(n.text());
         return switch (v) {
             case Value.Field f -> field(f);
             case Value.Literal l when l.numeric() -> "Literal.number(" + Emitter.quote(written(l)) + ", " + l.scale() + ", cp)";

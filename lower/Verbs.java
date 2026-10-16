@@ -146,21 +146,29 @@ final class Verbs {
         };
     }
 
+    /** GO TO: one procedure (through the ALTER table when altered), none (an altered GO TO), or DEPENDING ON's list; each told to the debugging sections. */
     private void goTo(Statement s) {
         List<Value> targets = operands(s, "go-to-statement-simple", "go-to-depending-on-statement", "go-to-statement");
         Value depending = targets.stream().filter(v -> v instanceof Value.Field).findFirst().orElse(null);
         List<Value.Target> to = targets.stream().filter(v -> v instanceof Value.Target).map(v -> (Value.Target) v).toList();
         if (depending == null && to.isEmpty()) {
+            f.debugging.goTo(f.e, f.line, false);
             alteredOnly();
             return;
         }
         if (depending == null) {
+            f.debugging.goTo(f.e, f.line, to.get(0).section());
             f.jump(altered(to.get(0).paragraph()));
             return;
         }
         f.e.open("");
         f.e.line("long g = Table.index(" + f.x.field((Value.Field) depending) + ");");
-        for (int k = 0; k < to.size(); k++) f.e.line("if (g == " + (k + 1) + ") return " + to.get(k).paragraph() + ";");
+        for (int k = 0; k < to.size(); k++) {
+            f.e.open("if (g == " + (k + 1) + ")");
+            f.debugging.goTo(f.e, f.line, to.get(k).section());
+            f.e.line("return " + to.get(k).paragraph() + ";");
+            f.e.close();
+        }
         f.e.close();
     }
 
@@ -198,7 +206,9 @@ final class Verbs {
     private void alter(Statement s) {
         List<Value> targets = operands(s, "alter-statement", "alter-proceed-to");
         for (int k = 0; k + 1 < targets.size(); k += 2) {
-            if (targets.get(k) instanceof Value.Target from && targets.get(k + 1) instanceof Value.Target to) f.e.line("d.alter(" + from.paragraph() + ", " + to.paragraph() + ");");
+            if (!(targets.get(k) instanceof Value.Target from && targets.get(k + 1) instanceof Value.Target to)) continue;
+            f.e.line("d.alter(" + from.paragraph() + ", " + to.paragraph() + ");");
+            f.debugging.alter(f.e, from.paragraph(), to.paragraph(), f.line, f.paragraph);
         }
     }
 
@@ -256,7 +266,7 @@ final class Verbs {
         if (keyword(s, "PROGRAM")) f.jump(String.valueOf(f.end()));
         else if (keyword(s, "PARAGRAPH") || keyword(s, "SECTION")) {
             int last = keyword(s, "SECTION") ? lastOfSection() : paragraphIndex();
-            f.jump("d.end(" + last + ", " + (last + 1) + ")");
+            f.jump(f.end(last));
         }
         else f.e.line("// EXIT");
     }

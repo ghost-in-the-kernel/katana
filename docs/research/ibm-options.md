@@ -866,3 +866,16 @@ for IBM's DEBUG runtime option; debugging lines code only with WITH DEBUGGING MO
 DB103M (both runs) and DB105A report what cobc reports. The rival for DEBUG-NAME: a paragraph named in a
 section is its name alone (predicted: the name as the program's reference wrote it, qualified only when
 the reference was), against the name with OF and its section always.
+- LR p. 760 (Usage note): "If you include a COPY statement as a debugging line, the letter "D" must
+  appear on the first line of the COPY statement. The compiler treats the copied text as the debugging
+  line or lines. The COPY statement is executed, regardless of whether WITH DEBUGGING MODE is specified
+  or not."
+
+Result (J-176): the prediction held. DB101A, DB102A, DB103M (both runs) and DB105A report what cobc
+reports, and DB301M to DB305M with them: DB 10 of 16. DEBUG-NAME is the procedure's name alone; no test
+reads a qualifier. One reading was refuted on the way: a section's debugging section run whenever its
+first paragraph is entered from outside it failed 6 of DB105A's tests, which PERFORM a section's only
+paragraph by its own name and expect the paragraph's entry alone. A section is executed when a PERFORM
+or GO TO names it, when control falls through its header, or at the run's start (`Debug.section`).
+DB103M, without WITH DEBUGGING MODE, ran its debugging lines as code until they were comments; SM101A's
+`D` line `COPY K1SEA.` copies debugging text, the usage note above.

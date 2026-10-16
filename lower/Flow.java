@@ -24,6 +24,10 @@ final class Flow {
     private final int end;
     private int next, counters, at;
     private final boolean segmented;
+    final Debugging debugging;
+    private Procedure.Paragraph current;
+    /** The line of the statement being lowered, for DEBUG-LINE. */
+    int line;
     private String sentenceEnd = "";
     String paragraph = "";
 
@@ -37,6 +41,7 @@ final class Flow {
         this.next = end + 1;
         this.verbs = new Verbs(this);
         this.segmented = segmented(p);
+        this.debugging = new Debugging(p, x);
     }
 
     /**
@@ -65,6 +70,7 @@ final class Flow {
         e.line("private boolean sz, ov, ae;");
         e.open("public void run()");
         e.line("int pc = " + entry() + ";");
+        debugging.start(e, entry());
         boolean declaratives = p.procedure().sections().stream().anyMatch(Procedure.Section::declarative);
         if (declaratives) e.open("try");
         e.line("while (pc != " + end + ") pc = step(pc);");
@@ -78,9 +84,10 @@ final class Flow {
         for (Procedure.Paragraph para : paragraphs) {
             paragraph = para.name();
             at = para.index();
+            current = para;
             open(para.index());
             sentences(para);
-            e.line("return d.end(" + para.index() + ", " + (para.index() + 1) + ");");
+            e.line("return " + end(para.index()) + ";");
             e.close();
         }
         if (paragraphs.isEmpty()) labels.add(0);
@@ -122,6 +129,7 @@ final class Flow {
         labels.add(label);
         e.open("private int s" + label + "()");
         if (segmented) e.line(label == at ? "d.enter(" + at + ");" : "d.resume(" + at + ");");
+        if (label == at && current != null) debugging.entry(e, current);
     }
 
     /** Ends this stretch and opens the one at `label`. */
@@ -165,7 +173,7 @@ final class Flow {
             List<Statement> sentence = para.statements().subList(starts.get(k), starts.get(k + 1));
             boolean last = k + 2 == starts.size();
             int after = !last && holdsNextSentence(sentence) ? label() : -1;
-            sentenceEnd = after >= 0 ? String.valueOf(after) : "d.end(" + para.index() + ", " + (para.index() + 1) + ")";
+            sentenceEnd = after >= 0 ? String.valueOf(after) : end(para.index());
             statements(sentence);
             if (after < 0) continue;
             e.line("return " + after + ";");
@@ -186,9 +194,20 @@ final class Flow {
         jump(sentenceEnd);
     }
 
+    /** The end of paragraph `paragraph`: back from a PERFORM whose range ends here, else on to the next (`Dispatcher.end`). */
+    String end(int paragraph) {
+        return debugging.end(paragraph, "d.end(" + paragraph + ", " + (paragraph + 1) + ")");
+    }
+
+    /** An out-of-line PERFORM of `target`, coming back to `back`. */
+    String perform(Value.Target target, int back) {
+        return debugging.perform("d.perform(" + target.paragraph() + ", " + target.thru() + ", " + back + ")", line, target.section());
+    }
+
     /** Statements in order, each after its provenance comment. */
     void statements(List<Statement> list) {
         for (Statement s : list) {
+            line = s.origin().line();
             e.provenance(s.origin(), paragraph, s.verb());
             verbs.statement(s);
         }
@@ -214,7 +233,7 @@ final class Flow {
             if (first == null) first = t;
             last = t;
         }
-        return first == null ? null : new Value.Target(first.paragraph(), last.thru());
+        return first == null ? null : new Value.Target(first.paragraph(), last.thru(), first.section());
     }
 
     /** `then` when `condition` holds, else `otherwise`: structured, or as stretches when either holds a PERFORM. */

@@ -36,11 +36,13 @@ public final class Lower {
         e.line("private final Sysin in;");
         e.line("private final Upsi upsi;");
         e.line("private final Sysout out, err;");
+        if (Debugging.held(p)) e.line("private final Debug dbg;");
         e.line("private final Dispatcher d = new Dispatcher(" + (Flow.segmented(p) ? Flow.segments(p) : String.valueOf(Math.max(1, p.procedure().paragraphs().size()))) + ");");
         declareItems(e, p);
         FileVerbs.declare(e, p);
         e.open("public " + className + "(Codepage cp, Upsi upsi, Sysin in, Sysout out, Sysout err)");
         e.line("this.cp = cp;");
+        if (Debugging.held(p)) e.line("this.dbg = new Debug(cp, true);");
         e.line("this.co = " + Collating.of(x) + ";");
         e.line("this.upsi = upsi;");
         e.line("this.in = in;");

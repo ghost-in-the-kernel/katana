@@ -1,5 +1,6 @@
 profile DB204A sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296
 editing DB204A currency $ point .
+debugging DB204A mode
 item DB204A 1 PRINT-REC level 1 parent 0 record 1 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item DB204A 2 DUMMY-RECORD level 1 parent 0 record 2 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 item DB204A 3 REC-1 level 1 parent 0 record 3 FILE offset 0 length 120 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -541,7 +542,7 @@ statement DB204A 27.0 MOVE move-to-sending-area=1 move-to-statement=keyword:TO m
 statement DB204A 27.1 MOVE move-to-sending-area=2 move-to-statement=keyword:TO move-to-statement=#34(2)
 statement DB204A 27.2 PERFORM perform-procedure-statement=@28..28 perform-times=10 perform-times=keyword:TIMES
 statement DB204A 27.3 CLOSE close-file=file:SQ-FS1 close-file=file:SQ-FS2
-statement DB204A 27.4 GO TO go-to-statement-simple=@29..35
+statement DB204A 27.4 GO TO go-to-statement-simple=@29..35 section
 statement DB204A 28.0 MOVE move-to-sending-area=#25(1) move-to-statement=keyword:TO move-to-statement=#3
 statement DB204A 28.1 WRITE record-name=#3
 statement DB204A 28.2 ADD add-from=2 add-to-statement=keyword:TO add-to=#34(1)
@@ -552,7 +553,7 @@ statement DB204A 29.0 MOVE move-to-sending-area="MERGE-TEST" move-to-statement=k
 statement DB204A 29.1 MOVE move-to-sending-area="MERGE OUTPUT PROC" move-to-statement=keyword:TO move-to-statement=#63
 statement DB204A 29.2 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#10
 statement DB204A 29.3 MOVE move-to-sending-area=0 move-to-statement=keyword:TO move-to-statement=#11
-statement DB204A 30.0 MERGE merge-statement=file:ST-FS4 merge-on-key-clause=keyword:ON merge-on-key-clause=keyword:ASCENDING merge-on-key-clause=keyword:KEY merge-on-key-clause=#8 merge-using=keyword:USING merge-using=file:SQ-FS1 merge-using=file:SQ-FS2 merge-output-procedure-phrase=keyword:OUTPUT merge-output-procedure-phrase=keyword:PROCEDURE merge-output-procedure-phrase=@36..38
+statement DB204A 30.0 MERGE merge-statement=file:ST-FS4 merge-on-key-clause=keyword:ON merge-on-key-clause=keyword:ASCENDING merge-on-key-clause=keyword:KEY merge-on-key-clause=#8 merge-using=keyword:USING merge-using=file:SQ-FS1 merge-using=file:SQ-FS2 merge-output-procedure-phrase=keyword:OUTPUT merge-output-procedure-phrase=keyword:PROCEDURE merge-output-procedure-phrase=@36..38 section
 statement DB204A 30.1 IF if-statement=(= #11 1) | if-then | if-else
 statement DB204A 30.1.if-then.0 PERFORM perform-procedure-statement=@5..5
 statement DB204A 30.1.if-then.1 MOVE move-to-sending-area="DEBUG PROC WAS EXECUTED" move-to-statement=keyword:TO move-to-statement=#73
@@ -563,12 +564,12 @@ statement DB204A 30.1.if-else.3 MOVE move-to-sending-area=#11 move-to-statement=
 statement DB204A 30.2 PERFORM perform-procedure-statement=@8..8
 statement DB204A 30.3 IF if-statement=(= #11 0) | if-then | if-else
 statement DB204A 30.3.if-then.0 PERFORM perform-procedure-statement=@32..32
-statement DB204A 30.3.if-then.1 GO TO go-to-statement-simple=@39..39
+statement DB204A 30.3.if-then.1 GO TO go-to-statement-simple=@39..39 section
 statement DB204A 30.3.if-else.0 GO TO go-to-statement-simple=@33..33
 statement DB204A 31.0 PERFORM perform-procedure-statement=@7..7
 statement DB204A 31.1 PERFORM perform-procedure-statement=@8..8
 statement DB204A 31.2 PERFORM perform-procedure-statement=@32..32
-statement DB204A 31.3 GO TO go-to-statement-simple=@39..39
+statement DB204A 31.3 GO TO go-to-statement-simple=@39..39 section
 statement DB204A 32.0 MOVE move-to-sending-area="MERGE-TEST-A" move-to-statement=keyword:TO move-to-statement=#67
 statement DB204A 32.1 PERFORM perform-procedure-statement=@7..7
 statement DB204A 32.2 PERFORM perform-procedure-statement=@8..8
@@ -600,7 +601,7 @@ statement DB204A 35.1.if-else.1 MOVE move-to-sending-area="MERGE OUTPUT" move-to
 statement DB204A 35.1.if-else.2 MOVE move-to-sending-area=#15 move-to-statement=keyword:TO move-to-statement=#78
 statement DB204A 35.2 MOVE move-to-sending-area="DEBUG-CONTENTS" move-to-statement=keyword:TO move-to-statement=#73
 statement DB204A 35.3 PERFORM perform-procedure-statement=@8..8
-statement DB204A 35.4 GO TO go-to-statement-simple=@39..39
+statement DB204A 35.4 GO TO go-to-statement-simple=@39..39 section
 statement DB204A 36.0 OPEN open-output-statement=keyword:OUTPUT open-output=file:SQ-FS3
 statement DB204A 37.0 RETURN return-statement=file:ST-FS4 return-statement=keyword:RECORD return-into=keyword:INTO return-into=#5 | at-end-phrase
 statement DB204A 37.0.at-end-phrase.0 GO TO go-to-statement-simple=@38..38

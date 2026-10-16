@@ -2565,3 +2565,35 @@ taken; closed by a later `decision` entry naming it).
   `test/katana/sir/SirTypesTest.java`, `test/katana/sir/NoTokenLeftTest.java`,
   `test/katana/lower/NistJavaLaneIntegrationTest.java`, `sir/ir.golden`, `sir/golden/SG202A.contract`,
   `docs/SEMANTIC-IR.md`, `docs/DISCOVERIES.md`, research §16, `docs/KERNEL-MAP.md`.
+
+### J-176 DB through the Java lane: procedure debugging and debugging lines; DB 10 of 16
+- **Who:** Opus, on Ghost's go-ahead. **Class:** build; trial.
+- **Intent:** NIST's DB module (debugging) through the Java lane, its own floor; the prediction committed
+  before the run (research §17, 73862c9).
+- **Found:** 6 of 16 at first. Debugging lines were always code: DB103M, which has no WITH DEBUGGING
+  MODE, ran its ten and counted 16 tests to cobc's 14. DEBUG-ITEM and USE FOR DEBUGGING were not
+  lowered. With them, DB101A, DB102A and DB103M matched; DB105A (ALL PROCEDURES) failed 6, which refuted
+  the first reading of when a section is executed (entered from outside it): its tests PERFORM a
+  section's only paragraph by the paragraph's name and expect that paragraph's entry alone. The IR's
+  target held only paragraph numbers, so it now says whether the name was a section's. A COPY on a
+  debugging line (SM101A's `COPY K1SEA.`, after the same COPY on an ordinary line) copies debugging text
+  (LR p. 760), which a mark on each character holds where the source's place cannot. DB201A, DB202A,
+  DB203A, DB303M and DB304M debug data and file names, the 85 Standard's and not IBM's: refused, with that
+  reason. SORT and MERGE keep DB104A and DB204A for phase 4.2; DB205A is the Communications module's.
+- **Resolved:** `Header.debuggingMode` (a `debugging` contract fact) and `Value.Target.section` (a
+  `section` mark on a target in the contract's statements); `front/Lines` marks a debugging line,
+  `Preprocessor` marks what a COPY on one copies and blanks both without WITH DEBUGGING MODE; `rt/Debug`
+  holds DEBUG-ITEM (DEBUG-CONTENTS 30 characters and DEBUG-LINE the statement's source line, Katana's
+  readings, NIST reading DEBUG-LINE only by inspection) and each entry's cause; `lower/Debugging` tells
+  it at each PERFORM, GO TO, paragraph end and the run's start, and runs a watched procedure's section
+  before its entry and after an ALTER of it. The object-time switch is the property `katana.debug`
+  (LANE-13). `DebuggingLinesTest`, `DebugTest` and `DebuggingTest` hold them. DB 10 of 16 (floor 10); NC,
+  SQ, SM, SG and IF unchanged; NIST's contract facts 417875 to 417859, SM101A's and DB103M's debugging
+  lines now comments and 14 programs' `debugging mode`.
+- **Touched:** `front/Lines.java`, `front/Mapped.java`, `front/Preprocessor.java`, `sir/types/Header.java`,
+  `sir/types/Value.java`, `sir/build/Build.java`, `sir/build/Paragraphs.java`, `sir/contract/Contract.java`,
+  `rt/katana/rt/Debug.java`, `lower/Debugging.java`, `lower/Flow.java`, `lower/Performs.java`,
+  `lower/Verbs.java`, `lower/Lower.java`, `lower/Exprs.java`, `test/katana/lower/JavaRunner.java`, the three
+  tests, `test/katana/sir/BuildTest.java`, `test/katana/sir/SirTypesTest.java`,
+  `test/katana/lower/NistJavaLaneIntegrationTest.java`, `sir/ir.golden`, three contracts in `sir/golden/`,
+  `docs/SEMANTIC-IR.md`, `docs/LANES.md`, research §17, `docs/KERNEL-MAP.md`.

@@ -513,11 +513,11 @@ statement SG202A 26.0 EXIT
 statement SG202A 28.0 MOVE move-to-sending-area="B" move-to-statement=keyword:TO move-to-statement=#9
 statement SG202A 29.0 MOVE move-to-sending-area="X" move-to-statement=keyword:TO move-to-statement=#11
 statement SG202A 29.1 GO TO go-to-statement-simple=@58..58
-statement SG202A 30.0 PERFORM perform-procedure-statement=@2..26
+statement SG202A 30.0 PERFORM perform-procedure-statement=@2..26 section
 statement SG202A 31.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#46
-statement SG202A 31.1 PERFORM perform-procedure-statement=@48..51
+statement SG202A 31.1 PERFORM perform-procedure-statement=@48..51 section
 statement SG202A 31.2 PERFORM perform-procedure-statement=@48..48 perform-procedure-statement=keyword:THRU perform-procedure-statement=@51..51
-statement SG202A 31.3 PERFORM perform-procedure-statement=@48..51
+statement SG202A 31.3 PERFORM perform-procedure-statement=@48..51 section
 statement SG202A 31.4 IF if-statement=(= #3 "23") | if-then | if-else
 statement SG202A 31.4.if-then.0 PERFORM perform-procedure-statement=@6..6
 statement SG202A 31.4.if-else.0 MOVE move-to-sending-area=#3 move-to-statement=keyword:TO move-to-statement=#33
@@ -530,7 +530,7 @@ statement SG202A 33.1 MOVE move-to-sending-area="LAST USED STATE" move-to-statem
 statement SG202A 33.2 PERFORM perform-procedure-statement=@9..9
 statement SG202A 34.0 MOVE move-to-sending-area=SPACE move-to-statement=keyword:TO move-to-statement=#46
 statement SG202A 34.1 ALTER alter-proceed-to=@52..52 alter-proceed-to=keyword:TO alter-proceed-to=keyword:PROCEED alter-proceed-to=keyword:TO alter-proceed-to=@54..54
-statement SG202A 34.2 PERFORM perform-procedure-statement=@52..55
+statement SG202A 34.2 PERFORM perform-procedure-statement=@52..55 section
 statement SG202A 34.3 IF if-statement=(= #6 "B") | if-then | if-else
 statement SG202A 34.3.if-then.0 PERFORM perform-procedure-statement=@6..6
 statement SG202A 34.3.if-else.0 MOVE move-to-sending-area=#6 move-to-statement=keyword:TO move-to-statement=#33
