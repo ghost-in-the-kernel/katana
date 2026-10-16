@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 /** 2.4's check: COPYREC (oracle/fixture/trivial) written as IR by hand constructs, and each construction-checked invariant refuses a violation. */
 class SirTypesTest {
-    private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
+    private static final String HASH = "sha256:cc4bbf084793b6f5280da870d1aa7b6fb58d535dcfaf091d8436a36a66c4dae1";
 
     private static Origin at(String file, int line, int column) {
         return new Origin(file, line, column, Origin.Kind.SOURCE);
@@ -96,12 +96,12 @@ class SirTypesTest {
     }
 
     static Header header() {
-        return new Header("COPYREC", "oracle/fixture/trivial/cbl/COPYREC.cbl", HASH, "$", false, false, List.of(), List.of(), List.of(), List.of(), "", at("oracle/fixture/trivial/cbl/COPYREC.cbl", 4, 8));
+        return new Header("COPYREC", "oracle/fixture/trivial/cbl/COPYREC.cbl", HASH, "$", false, false, List.of(), List.of(), List.of(), List.of(), "", false, false, at("oracle/fixture/trivial/cbl/COPYREC.cbl", 4, 8));
     }
 
     @Test
     void copyrecWrittenByHandIsAProgram() {
-        Program p = new Program(header(), items(), files(), procedure(statements()), List.of(), List.of());
+        Program p = new Program(header(), items(), files(), procedure(statements()), List.of(), List.of(), List.of());
         assertEquals(7, p.items().size());
         assertEquals("AMOUNT", p.items().get(2).name());
     }
@@ -113,25 +113,25 @@ class SirTypesTest {
 
     @Test
     void eachInvariantRefusesAViolation() {
-        refused("SIR-01", () -> new Header("COPYREC", "x", "sha256:nope", "$", false, false, List.of(), List.of(), List.of(), List.of(), "", at("x", 1, 1)));
+        refused("SIR-01", () -> new Header("COPYREC", "x", "sha256:nope", "$", false, false, List.of(), List.of(), List.of(), List.of(), "", false, false, at("x", 1, 1)));
         List<Item> renumbered = new ArrayList<>(items());
         renumbered.set(3, item(9, "FILLER", 5, 1, 1, Item.Section.FILE, 17, 3, text(3), null, at("x", 1, 1)));
-        refused("SIR-02", () -> new Program(header(), renumbered, files(), procedure(statements()), List.of(), List.of()));
+        refused("SIR-02", () -> new Program(header(), renumbered, files(), procedure(statements()), List.of(), List.of(), List.of()));
         List<Item> outside = new ArrayList<>(items());
         outside.set(3, item(4, "FILLER", 5, 1, 1, Item.Section.FILE, 17, 4, text(4), null, at("x", 1, 1)));
-        refused("SIR-03", () -> new Program(header(), outside, files(), procedure(statements()), List.of(), List.of()));
+        refused("SIR-03", () -> new Program(header(), outside, files(), procedure(statements()), List.of(), List.of(), List.of()));
         refused("SIR-04", () -> number(0, 0, "9"));
         refused("SIR-04", () -> new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.ALPHANUMERIC, 0, 0, true, false, false, "X", ""));
         refused("SIR-04", () -> new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.NUMERIC_EDITED, 3, 0, false, false, false, "ZZ9", ""));
         refused("SIR-04", () -> new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.NUMERIC_EDITED, 3, 2, false, false, false, "Z9V99", "Z9V99"));
         refused("SIR-04", () -> new Attributes(Attributes.Usage.DISPLAY, Attributes.Category.ALPHANUMERIC, 0, 0, false, false, false, "X", "X"));
         List<Statement> stray = List.of(statement("MOVE", 1, List.of(operand("to", field(8))), List.of()));
-        refused("SIR-05", () -> new Program(header(), items(), files(), procedure(stray), List.of(), List.of()));
+        refused("SIR-05", () -> new Program(header(), items(), files(), procedure(stray), List.of(), List.of(), List.of()));
         List<Statement> noFile = List.of(statement("CLOSE", 1, List.of(operand("file", new Value.File("NOPE"))), List.of()));
-        refused("SIR-05", () -> new Program(header(), items(), files(), procedure(noFile), List.of(), List.of()));
+        refused("SIR-05", () -> new Program(header(), items(), files(), procedure(noFile), List.of(), List.of(), List.of()));
         Procedure plain = procedure(statements());
         Procedure.Section useNope = new Procedure.Section("ERRS", true, new Procedure.Use(Procedure.Use.Kind.ERROR, false, "", List.of("NOPE"), List.of(), List.of()), -1, at("x", 1, 1));
-        refused("SIR-05", () -> new Program(header(), items(), files(), new Procedure(plain.using(), plain.returning(), List.of(useNope), plain.paragraphs(), plain.edges()), List.of(), List.of()));
+        refused("SIR-05", () -> new Program(header(), items(), files(), new Procedure(plain.using(), plain.returning(), List.of(useNope), plain.paragraphs(), plain.edges()), List.of(), List.of(), List.of()));
         refused("SIR-10", () -> new Procedure.Section("ERRS", true, null, -1, at("x", 1, 1)));
         Value five = new Value.Literal("5", Value.Literal.Kind.NUMERIC, "5", 0), zero = new Value.Literal("0", Value.Literal.Kind.NUMERIC, "0", 0);
         refused("SIR-11", () -> new FileDescriptor.Linage(zero, null, null, null));

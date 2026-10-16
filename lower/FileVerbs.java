@@ -21,18 +21,32 @@ final class FileVerbs {
     static void declare(Emitter e, katana.sir.types.Program p) {
         if (p.files().stream().anyMatch(FileVerbs::keyed)) e.line("private boolean ik, ok;");
         for (FileDescriptor d : p.files()) {
-            if (SortVerbs.sd(d)) {
-                e.line("private final SortFile " + name(d.name()) + " = new SortFile();");
-                continue;
-            }
-            if (keyed(d)) {
-                String type = relative(d) ? "RelFile" : "IdxFile";
-                e.line("private final " + type + " " + name(d.name()) + " = new " + type + "(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + (d.status() != 0) + ", " + d.optional() + ", KeyedFile.Access." + d.access() + ");");
-                continue;
-            }
-            boolean lines = d.organization() == FileDescriptor.Organization.LINE_SEQUENTIAL;
-            e.line("private final SeqFile " + name(d.name()) + " = new SeqFile(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + lines + ", " + (d.status() != 0) + ", " + d.optional() + ");");
+            String type = type(d);
+            e.line("private final " + type + " " + name(d.name()) + (external(d) ? ";" : " = " + made(d) + ";"));
         }
+    }
+
+    /** In the constructor: each EXTERNAL file the run unit's one connector of that name, the first program to describe it making it (LANE-19). */
+    static void externals(Emitter e, katana.sir.types.Program p) {
+        for (FileDescriptor d : p.files()) if (external(d)) e.line(name(d.name()) + " = u.externalFile(" + Emitter.quote(d.name()) + ", () -> " + made(d) + ");");
+    }
+
+    static boolean external(FileDescriptor d) {
+        return d.fd() != null && d.fd().external() && !SortVerbs.sd(d);
+    }
+
+    private static String type(FileDescriptor d) {
+        if (SortVerbs.sd(d)) return "SortFile";
+        if (keyed(d)) return relative(d) ? "RelFile" : "IdxFile";
+        return "SeqFile";
+    }
+
+    /** A file's object as made. */
+    private static String made(FileDescriptor d) {
+        if (SortVerbs.sd(d)) return "new SortFile()";
+        if (keyed(d)) return "new " + type(d) + "(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + (d.status() != 0) + ", " + d.optional() + ", KeyedFile.Access." + d.access() + ")";
+        boolean lines = d.organization() == FileDescriptor.Organization.LINE_SEQUENTIAL;
+        return "new SeqFile(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + lines + ", " + (d.status() != 0) + ", " + d.optional() + ")";
     }
 
     /**

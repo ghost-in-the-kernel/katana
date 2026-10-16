@@ -27,13 +27,14 @@ import org.junit.jupiter.api.Test;
  * lowered to Java and its indexed datasets `rt/IdxFile`'s, loaded and unloaded by `rt/Ksds` (LANE-16),
  * reports what the cobc lane's golden (oracle/lane/carddemo.golden) holds: every step's return code,
  * every stdout's lines and hash, every dataset's records and hash, every finding. The java lane's report
- * says it is the java lane, and has no program sources to hash; nothing else may differ. CREASTMT waits
- * for CALL (phase 4.3).
+ * says it is the java lane, and has no program sources to hash; nothing else may differ. CREASTMT's module
+ * CBSTM03B is lowered (LANE-19), and CBSTM03A stops before its first CALL, at its read of z/OS control
+ * blocks, the storage of phase 4.4.
  */
 @Tag("integration")
 class CardDemoJavaLaneIntegrationTest {
     private static final Path ROOT = LaneRuns.ROOT, CARDDEMO = ROOT.resolve("corpus/carddemo");
-    private static final List<String> PROGRAMS = List.of("CBTRN02C", "CBACT04C", "CBTRN03C");
+    private static final List<String> PROGRAMS = List.of("CBTRN02C", "CBACT04C", "CBTRN03C", "CBSTM03A", "CBSTM03B");
     private static final List<String> JOBS = List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST");
 
     @Test
@@ -43,9 +44,11 @@ class CardDemoJavaLaneIntegrationTest {
         Map<String, List<String>> commands = new LinkedHashMap<>();
         String launcher = Path.of(System.getProperty("java.home"), "bin", "java").toString(), path = classes + java.io.File.pathSeparator + System.getProperty("java.class.path");
         Fixture posttran = fixture("POSTTRAN");
-        // The profile's DISPSIGN (ibm.dispsign, COMPAT), which the generated main reads (J-109).
-        String dispsign = katana.profile.Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile"))).ibm().get("ibm.dispsign");
-        for (String name : PROGRAMS) commands.put(name, List.of(launcher, "-cp", path, "-Dkatana.dispsign=" + dispsign, lowered(name, classes, posttran)));
+        // The profile's DISPSIGN and DYNAM (ibm.dispsign COMPAT, ibm.dynam NODYNAM), which the generated main reads (J-109, J-186).
+        java.util.Map<String, String> ibm = katana.profile.Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile"))).ibm();
+        Fixture statements = fixture("CREASTMT");
+        // CBSTM03A's copybooks are read at CREASTMT's tab widths; a CALL finds CBSTM03B's class on the path (LANE-19).
+        for (String name : PROGRAMS) commands.put(name, List.of(launcher, "-cp", path, "-Dkatana.dispsign=" + ibm.get("ibm.dispsign"), "-Dkatana.dynam=" + ibm.get("ibm.dynam"), lowered(name, classes, name.startsWith("CBSTM") ? statements : posttran)));
         commands.put(CobcLane.KSDS, List.of(launcher, "-cp", path, "katana.rt.Ksds"));
         Map<String, String> golden = sections(Files.readString(ROOT.resolve("oracle/lane/carddemo.golden")));
         List<Path> runs = new ArrayList<>();
@@ -60,7 +63,11 @@ class CardDemoJavaLaneIntegrationTest {
         assertEquals(Map.of(), differ, "the java lane's lines the cobc lane's golden does not hold, by job");
         Path dir = Files.createTempDirectory(work, "CREASTMT");
         runs.add(dir);
-        assertEquals(List.of("the java lane has no called module CBSTM03B yet (CALL, phase 4.3)"), CobcLane.run(fixture("CREASTMT"), setup(dir, commands)).findings());
+        // CREASTMT stops where CBSTM03A sets a POINTER to the PSA at address 0, before its first CALL: z/OS storage (phase 4.4). Its steps before match.
+        List<String> creastmt = comparable(CobcLane.run(fixture("CREASTMT"), setup(dir, commands)).text()), golden040 = comparable(golden.get("CREASTMT"));
+        int at = creastmt.indexOf(creastmt.stream().filter(l -> l.startsWith("stdout STEP040")).findFirst().orElseThrow());
+        assertEquals(List.of(), creastmt.subList(0, at).stream().filter(l -> !golden040.contains(l)).toList(), "CREASTMT's steps before STEP040");
+        org.junit.jupiter.api.Assertions.assertTrue(creastmt.stream().anyMatch(l -> l.startsWith("stderr STEP040") && l.contains("not lowered: SET at") && l.contains("CBSTM03A.CBL:266")), "CREASTMT stops at the PSA: " + creastmt);
         runs.add(classes);
         Runs.passed(runs.toArray(Path[]::new));
     }
@@ -88,7 +95,9 @@ class CardDemoJavaLaneIntegrationTest {
 
     /** A CardDemo program lowered and compiled into `classes`, its copybooks at the fixture's tab widths; its class name. */
     private static String lowered(String name, Path classes, Fixture fixture) throws Exception {
-        Parse.Result parse = Parse.file(CARDDEMO.resolve("app/cbl/" + name + ".cbl"), new Copybooks(List.of(CARDDEMO.resolve("app/cpy")), Tabs.widths(fixture)), 8);
+        Path source = CARDDEMO.resolve("app/cbl/" + name + ".cbl");
+        if (!Files.exists(source)) source = CARDDEMO.resolve("app/cbl/" + name + ".CBL");
+        Parse.Result parse = Parse.file(source, new Copybooks(List.of(CARDDEMO.resolve("app/cpy")), Tabs.widths(fixture)), 8);
         assertEquals(List.of(), parse.errors(), name + " parses");
         Program program = Build.programs(parse, "sha256:" + "0".repeat(64)).get(0).program();
         String className = Lower.className(program);

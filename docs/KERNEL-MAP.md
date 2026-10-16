@@ -1428,3 +1428,43 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/SortFile.java:SortFile.rewind` |  | 2026-10-16 |  |
 | rt | `rt/katana/rt/SortFile.java:SortFile.returnNext` | R-060 | 2026-10-16 |  |
 | lower | `lower/Verbs.java:Verbs.io` |  | 2026-10-16 |  |
+| lower | `lower/CallVerbs.java:CallVerbs.CallVerbs` |  | 2026-10-16 |  |
+| lower | `lower/CallVerbs.java:CallVerbs.call` | R-062 | 2026-10-16 |  |
+| lower | `lower/CallVerbs.java:CallVerbs.cancel` | R-062 | 2026-10-16 |  |
+| lower | `lower/CallVerbs.java:CallVerbs.arguments` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.externals` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.external` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.type` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.made` |  | 2026-10-16 |  |
+| lower | `lower/Lower.java:Lower.program` | R-024 | 2026-10-16 |  |
+| lower | `lower/Lower.java:Lower.className#2` |  | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.Programs` |  | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.global` |  | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.external` |  | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.externals` |  | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.name` |  | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.entry` | R-019 | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.link` | R-019 | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.nested` |  | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.visible` | R-062 | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.byName` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Dispatcher.java:Dispatcher.exited` | R-021 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.RunUnit` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.call` | R-062 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.found` | R-062 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.cancel` | R-062 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.name` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.external` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.first` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.externalFile` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.close` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.content` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.load` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.className` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/StopRun.java:StopRun.StopRun` |  | 2026-10-16 |  |
+| sir | `sir/build/Globals.java:Globals.Globals` |  | 2026-10-16 |  |
+| sir | `sir/build/Globals.java:Globals.copied` | R-062 | 2026-10-16 |  |
+| sir | `sir/build/Globals.java:Globals.copy` |  | 2026-10-16 |  |
+| sir | `sir/build/Names.java:Names.own` |  | 2026-10-16 |  |
+| lower | `lower/Verbs.java:Verbs.call` | moved in phase 4.3 (J-186) | 2026-10-16 | superseded-by: `lower/CallVerbs.java:CallVerbs.call` |
+| sir | `sir/types/Program.java:Program.globals` |  | 2026-10-16 |  |

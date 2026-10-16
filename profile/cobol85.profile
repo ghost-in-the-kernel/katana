@@ -14,3 +14,5 @@ ibm.version 6.4
 # DISPLAY's sign form and the byte fresh WORKING-STORAGE is set to (R-049, R-057): NIST states neither, so IBM's defaults.
 ibm.dispsign COMPAT
 ibm.wsinit NONE
+# How a CALL literal is bound (research §24): NIST states no option, so IBM's default, a static call.
+ibm.dynam NODYNAM

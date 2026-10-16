@@ -75,7 +75,12 @@ class LoweredAutotestsIntegrationTest {
     static byte[] run(Built b) throws Exception {
         ByteArrayOutputStream out = new ByteArrayOutputStream(), err = new ByteArrayOutputStream();
         Object program = construct(b, new Sysout(out, Out.SIGN), new Sysout(err, Display.Sign.SEP));
-        b.type().getMethod("run").invoke(program);
+        try {
+            b.type().getMethod("run").invoke(program);
+        } catch (java.lang.reflect.InvocationTargetException e) {
+            // STOP RUN ends the run unit by throwing, as `main` catches it (LANE-19).
+            if (!(e.getCause() instanceof katana.rt.StopRun)) throw e;
+        }
         return out.toByteArray();
     }
 

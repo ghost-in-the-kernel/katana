@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 /** `Places`, one case per operand kind (tithe, J-170): what has a PICTURE, and each kind that has none. */
 class PlacesTest {
-    private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
+    private static final String HASH = "sha256:cc4bbf084793b6f5280da870d1aa7b6fb58d535dcfaf091d8436a36a66c4dae1";
 
     private static final Program P = Build.program(Parse.text(java.util.Arrays.stream(new String[] {
         "IDENTIFICATION DIVISION.", "PROGRAM-ID. PLACES.", "ENVIRONMENT DIVISION.", "INPUT-OUTPUT SECTION.", "FILE-CONTROL.",

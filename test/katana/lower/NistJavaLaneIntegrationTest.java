@@ -46,7 +46,7 @@ class NistJavaLaneIntegrationTest {
             Map.entry("IF123A", "D-030"), Map.entry("IF128A", "D-030"), Map.entry("IF129A", "D-030"), Map.entry("IF132A", "D-030"),
             Map.entry("IF137A", "D-030"), Map.entry("IF138A", "D-030"), Map.entry("IF141A", "D-030"));
     /** The same for OB. */
-    static final int OB_FLOOR = 6;
+    static final int OB_FLOOR = 7;
     /** The same for ST. */
     static final int ST_FLOOR = 32;
     /**
@@ -55,6 +55,17 @@ class NistJavaLaneIntegrationTest {
      */
     static final Map<String, String> ST_FINDINGS = Map.of("ST137A", "D-032", "ST139A", "D-032", "ST140A", "D-032", "ST144A", "D-032",
             "ST147A", "D-032", "ST117A", "D-032");
+    /** The same for IC, under the ibm profile's NODYNAM. */
+    static final int IC_FLOOR = 18;
+    /**
+     * IC's runs where IBM departs from cobc, which calls dynamically: under NODYNAM a program a CALL literal and
+     * a CALL identifier both reach has two copies (PG 6.4 p. 552), and a CANCEL leaves the static one as it
+     * was (LR 6.4 p. 327), D-033; each with the report it must leave. Under DYNAM each reports what cobc does.
+     */
+    static final Map<String, String> IC_IBM = Map.of("IC201A", "1 ok 11 1 10 0 0", "IC203A", "1 ok 21 17 4 0 0", "IC223A", "1 ok 11 1 10 0 0",
+            "IC225A", "1 ok 36 33 3 0 0");
+    /** IC under DYNAM: every run but IC233A and IC234A (a containing program's GLOBAL file, not lowered) and IC401M (no report). */
+    static final int IC_DYNAM_FLOOR = 22;
     /** The same for IX. */
     static final int IX_FLOOR = 42;
     /** The same for RL. */
@@ -98,6 +109,16 @@ class NistJavaLaneIntegrationTest {
     @Test
     void obThroughTheJavaLane() throws Exception {
         lane("OB", OB_FLOOR, Map.of());
+    }
+
+    @Test
+    void icThroughTheJavaLane() throws Exception {
+        lane("IC", IC_FLOOR, Map.of(), dir -> {}, new JavaRunner(60), "IC", IC_IBM);
+    }
+
+    @Test
+    void icUnderDynamThroughTheJavaLane() throws Exception {
+        lane("IC", IC_DYNAM_FLOOR, Map.of(), dir -> {}, new JavaRunner(60, true), "IC-DYNAM", Map.of());
     }
 
     @Test
@@ -178,12 +199,17 @@ class NistJavaLaneIntegrationTest {
 
     /** The same, with a check on the lowered folder; the folders are removed when every check passes (`Runs`). */
     private static void lane(String module, int floor, Map<String, String> findings, Lowered lowered) throws Exception {
+        lane(module, floor, findings, lowered, new JavaRunner(60), module, Map.of());
+    }
+
+    /** The same through a runner of its own, its report under `label`; each run in `ibm` must leave the report it gives there instead of cobc's. */
+    private static void lane(String module, int floor, Map<String, String> findings, Lowered lowered, JavaRunner runner, String label, Map<String, String> ibm) throws Exception {
         Path work = Files.createDirectories(ROOT.resolve("build/nist-java"));
         List<String> cards = cards();
         List<Population.Member> extracted = extracted(work);
         RunNotes notes = RunNotes.read(Files.readString(ROOT.resolve("oracle/nist/run-notes")));
-        Path dir = Files.createTempDirectory(work, module);
-        List<ModuleRun.Outcome> outcomes = ModuleRun.run(module, extracted, notes, Exec85.switches(cards), dir, new JavaRunner(60));
+        Path dir = Files.createTempDirectory(work, label);
+        List<ModuleRun.Outcome> outcomes = ModuleRun.run(module, extracted, notes, Exec85.switches(cards), dir, runner);
         Map<String, String> cobc = new LinkedHashMap<>();
         for (String line : Files.readAllLines(ROOT.resolve("oracle/nist/programs-ibm.golden"))) if (line.startsWith(module + " ")) cobc.putIfAbsent(line.split(" ")[1], line.substring(line.indexOf(' ', line.indexOf(' ') + 1) + 1));
         int same = 0, explained = 0;
@@ -197,11 +223,12 @@ class NistJavaLaneIntegrationTest {
             boolean clean = o.error() == null && o.counts().map(c -> c.fail() == 0 && c.total() > 0).orElse(false);
             if (findings.containsKey(o.program()) && (equal || !clean)) unexplained.add(o.program() + ": listed as cobc's but " + (equal ? "the same as cobc" : "failing through the Java lane"));
             if (findings.containsKey(o.program()) && !equal && clean) explained++;
+            if (ibm.containsKey(o.program()) && !ibm.get(o.program()).equals(java)) unexplained.add(o.program() + ": listed as IBM's departure with " + ibm.get(o.program()) + " but reported " + java);
             report.add(o.program() + (equal ? " SAME " : " DIFFER ") + java + " | cobc " + cobc.get(o.program()) + (o.error() == null ? "" : " | " + o.error()) + " " + o.note());
             notLowered(dir, o.program(), missing);
         }
-        report.add(0, module + " through the Java lane: " + same + " of " + outcomes.size() + " runs report what cobc -std=ibm reports, " + explained + " more pass every test where cobc departs (COBC_FINDINGS); not lowered, by kind: " + missing);
-        Files.write(work.resolve(module + ".txt"), report);
+        report.add(0, label + " through the Java lane: " + same + " of " + outcomes.size() + " runs report what cobc -std=ibm reports, " + explained + " more pass every test where cobc departs (COBC_FINDINGS); not lowered, by kind: " + missing);
+        Files.write(work.resolve(label + ".txt"), report);
         System.out.println(report.get(0));
         assertTrue(same >= floor, module + ": " + same + " < floor " + floor);
         org.junit.jupiter.api.Assertions.assertEquals(List.of(), unexplained);

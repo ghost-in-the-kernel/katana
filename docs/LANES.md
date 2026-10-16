@@ -26,9 +26,9 @@ Invariants are numbered LANE-01 onward, in this document only, and a number is n
   step's printed output (DISPLAY); the exit code is the return code; an abend is reported on stderr as
   `CEE3ABD abend Unnnn` (the 8-bit exit status cannot hold the code), and a program the platform stops
   on a signal ended abnormally (`abend SIGSEGV`).
-- **LANE-05 The java lane refuses what it does not run yet.** A fixture with a called module (CALL,
-  phase 4.3) or a stub the lowering does not call as its service (the stub facade, phase 4.4) is refused
-  with a finding, as is an indexed dataset when the lane's setup has no `rt/Ksds` command (LANE-16).
+- **LANE-05 The java lane refuses what it does not run yet.** A fixture with a called module its setup
+  has no lowered class for (LANE-19) or a stub the lowering does not call as its service (the stub
+  facade, phase 4.4) is refused with a finding, as is an indexed dataset when the lane's setup has no `rt/Ksds` command (LANE-16).
   `CEE3ABD` is lowered as LE's (LANE-18); a `PATH` needs nothing of its own, its key being an alternate
   key of the KSDS it is over (J-183).
 
@@ -104,7 +104,18 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
 - **LANE-18 CALL 'CEE3ABD' is LE's service.** The run ends with an abend of its first argument's value,
   `CEE3ABD abend Unnnn` on stderr and that code as the exit status, as the cobc lane's stub ends it (LE
   3.1 p. 111, research §22; R-027). Clean-up 0 performs no termination activity on IBM; the lane closes
-  every file at an abend all the same (an `// Unsure` in `lower/Verbs.call`).
+  every file at an abend all the same (an `// Unsure` in `lower/CallVerbs.call`).
+- **LANE-19 A CALL is a call into the run unit.** Each lowered program implements `rt/Subprogram`: its
+  `call` binds each LINKAGE record named in its USING to the argument's storage (BY REFERENCE the
+  caller's item, BY CONTENT a copy, OMITTED none), runs, and returns at EXIT PROGRAM or GOBACK with its
+  PERFORMs ended (LR 6.4 p. 343); STOP RUN ends the run from any program (`rt/StopRun`). `rt/RunUnit`
+  holds what the programs share (the console, UPSI, RETURN-CODE, each EXTERNAL record and file) and each
+  separately compiled program called, found by its class name on the class path: a static copy for a
+  CALL literal under the profile's NODYNAM, a dynamic copy otherwise, CANCEL forgetting the dynamic one
+  (R-062, research §24). A nested program is a class inside its container's, held by it, its GLOBAL
+  records the container's (SIR-12). A program that cannot be found raises ON EXCEPTION, else abend U4038.
+  The lane passes the profile's `ibm.dynam` as the system property `katana.dynam`, NODYNAM when absent;
+  a fixture's called module runs when the lane's setup names its lowered class (J-186).
 
 ## The check
 

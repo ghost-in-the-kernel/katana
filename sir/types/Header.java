@@ -9,10 +9,10 @@ import java.util.List;
  * DECIMAL-POINT IS COMMA, which a mask's `$` and `.` stand for; each switch-status condition-name,
  * with its switch's environment-name and the status it stands for (ON true); each switch's mnemonic-name;
  * each CLASS name with its members; each alphabet-name; and the alphabet the program collating
- * sequence names ("" for the native one).
+ * sequence names ("" for the native one); and the PROGRAM-ID's INITIAL and COMMON attributes (SIR-12).
  */
 public record Header(String program, String source, String profileHash, String currency, boolean decimalComma, boolean debuggingMode, List<Switch> switches, List<Mnemonic> mnemonics, List<CharClass> classes,
-        List<Alphabet> alphabets, String collating, Origin origin) {
+        List<Alphabet> alphabets, String collating, boolean initial, boolean common, Origin origin) {
     /**
      * An alphabet-name (LR 6.4 pp. 127-129): `kind` EBCDIC, ASCII, STANDARD-1, STANDARD-2, NATIVE or
      * LITERAL; for LITERAL its members in order, each a literal (each of its characters a position), a

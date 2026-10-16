@@ -2797,3 +2797,44 @@ taken; closed by a later `decision` entry naming it).
   grammar builds a new jar and removes the old (checked with a comment added to `Cobol.g4`). Warm fast loop:
   20 to 22 s; a fresh clone pays the parser once, 52 s cold. The ceiling is not raised (R-054).
 - **Touched:** `build.gradle`.
+
+### J-186 IC through the Java lane: CALL in `rt/RunUnit`; IC 18 of 25 under NODYNAM, 4 where IBM departs (D-033), 22 under DYNAM
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with IC next"). **Class:** build; trial; decision.
+- **Intent:** phase 4.3, CALL, checked by NIST's IC module through the Java lane; IBM's text and the
+  prediction committed before the run (research §24, 0e946df).
+- **Found:** 0 of 25 before. IBM's default NODYNAM link-edits a CALL literal's program with the main
+  program and loads a second copy for a CALL identifier, and CANCEL acts on the dynamic copy only (PG 6.4
+  pp. 366, 552; LR 6.4 p. 327); cobc calls dynamically. Built, the first run gave what the prediction
+  counted: under NODYNAM 18, IC203A 17 of 21, and IC201A, IC223A and IC225A failing only the checks that read
+  the subprogram's call counter back across both kinds of CALL; under DYNAM 22. IC233A and IC234A threw in
+  the lowering at a statement on a containing program's GLOBAL file; IC401M ends at a CALL of a program
+  that does not exist (abend U4038 here, exit 1 in cobc), with no report either way. OB's OBIC1A reports
+  what cobc does. CREASTMT's CBSTM03A stops at SET ADDRESS OF the PSA before its first CALL, so the
+  prediction that it would pass its CALLs was wrong. Two false leads in the unit test: a DISPLAY and then
+  a CALL vanished from a line past column 72, which fixed format cuts; neither was the parser's.
+- **Resolved:** R-062. `rt/RunUnit` (static and dynamic copies, EXTERNAL records and files, RETURN-CODE),
+  `rt/Subprogram`, `rt/StopRun`, `Dispatcher.exited`; `lower/CallVerbs` (CALL, CANCEL), `lower/Programs`
+  (each program's `call`, LINKAGE bound to the arguments, nested programs held by their container, CALL
+  and CANCEL by an identifier); `Lower` emits a nested program as a class inside its container's and
+  takes the run unit in the constructor; STOP RUN throws, EXIT PROGRAM in a main program passes on (the
+  autotest harness, which calls `run`, catches it as `main` does). NIST's IR golden gains 18 contract facts,
+  the new `attribute` and `global` lines. The pre-push check passed every test but refused the push at
+  13.5 min, past the 10 for the selected suites: the change selects every heavy suite but front and
+  autotest, the corpus pass alone taking 618 s on the shared cores (NC alone, 190 s, as before). On Ghost's
+  call ("run this push --all") it ran with `--all`, held to the 15 for every suite; the gap is a tithe
+  item in HANDOFF.
+  SIR-12: Header's INITIAL and COMMON, `Program.globals`, `sir/build/Globals` copying each visible GLOBAL
+  record after a nested program's items, `Names` taking the nearest definition. ibm.profile and
+  cobol85.profile gain `ibm.dynam NODYNAM` (R-049): every pinned profile hash moved, the CardDemo golden's
+  job hashes with it, nothing else. `CallVerbsTest` (red under four mutations: every CALL dynamic, CANCEL a
+  no-op, BY CONTENT the item itself, INITIAL ignored), `GlobalsTest`. IC floors 18 (`IC_IBM` for the four)
+  and 22 under DYNAM; OB 7; a statement on a GLOBAL file is a finding, not a crash. `JavaRunner` lowers
+  every program of a source; the java lane runs a fixture's module when its setup names the class.
+- **Touched:** `rt/katana/rt/RunUnit.java`, `Subprogram.java`, `StopRun.java`, `Dispatcher.java`; `lower/Lower.java`,
+  `CallVerbs.java`, `Programs.java`, `Verbs.java`, `FileVerbs.java`, `Flow.java`; `sir/types/Header.java`,
+  `Program.java`, `sir/build/Build.java`, `Globals.java`, `Names.java`, `sir/contract/Contract.java`;
+  `profile/`; `oracle/lane/CobcLane.java`, `carddemo.golden`; the fixtures' and goldens' profile hashes;
+  `test/katana/lower/CallVerbsTest.java`, `JavaRunner.java`, `NistJavaLaneIntegrationTest.java`,
+  `test/katana/sir/GlobalsTest.java`, the CardDemo and trivial lane tests; `docs/SEMANTIC-IR.md` (SIR-12),
+  `docs/LANES.md` (LANE-19), `docs/PROFILE.md`, `docs/DISCOVERIES.md` (D-033), `theGhost.md` (R-062),
+  research §24, `TODO.md`, `docs/checks.json`.

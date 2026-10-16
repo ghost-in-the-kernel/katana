@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
  * Each case here resolved wrongly, or silently, before the sweep.
  */
 class NameResolutionTest {
-    private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
+    private static final String HASH = "sha256:cc4bbf084793b6f5280da870d1aa7b6fb58d535dcfaf091d8436a36a66c4dae1";
 
     private static Build.Result build(String... lines) {
         String source = java.util.Arrays.stream(lines).map(l -> (l.startsWith("*") ? "      " : "       ") + l).collect(Collectors.joining("\n", "", "\n"));

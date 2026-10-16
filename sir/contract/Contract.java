@@ -29,6 +29,12 @@ public final class Contract {
             new Kind("profile", "the profile the program means what it means under", p -> List.of(p.header().profileHash())),
             new Kind("editing", "the currency sign and decimal point a mask's `$` and `.` stand for", p -> List.of("currency " + p.header().currency() + " point " + (p.header().decimalComma() ? "," : "."))),
             new Kind("debugging", "WITH DEBUGGING MODE, where written", p -> p.header().debuggingMode() ? List.of("mode") : List.of()),
+            new Kind("attribute", "the PROGRAM-ID's INITIAL and COMMON, where written", p -> {
+                List<String> lines = new ArrayList<>();
+                if (p.header().initial()) lines.add("INITIAL");
+                if (p.header().common()) lines.add("COMMON");
+                return lines;
+            }),
             new Kind("switch", "each switch-status condition-name, its switch and status", p -> each(p.header().switches(), s -> s.condition() + " " + s.environment() + " " + (s.on() ? "ON" : "OFF"))),
             new Kind("mnemonic", "each mnemonic-name with its environment-name", p -> each(p.header().mnemonics(), m -> m.name() + " " + m.environment())),
             new Kind("alphabet", "each alphabet-name, its kind and members, and the program collating sequence", p -> {
@@ -51,7 +57,8 @@ public final class Contract {
             new Kind("edge", "each PERFORM, GO TO and ALTER between paragraphs", p -> each(p.procedure().edges(), e -> e.kind() + " " + e.from() + " " + e.to() + " " + e.thru())),
             new Kind("statement", "each statement's verb, operands with their roles, and branches", Contract::statements),
             new Kind("call", "each CALL's target, arguments with their modes, and RETURNING", p -> each(p.calls(), Contract::call)),
-            new Kind("using", "the program's own USING and RETURNING items", p -> List.of(p.procedure().using() + " " + p.procedure().returning())));
+            new Kind("using", "the program's own USING and RETURNING items", p -> List.of(p.procedure().using() + " " + p.procedure().returning())),
+            new Kind("global", "each GLOBAL record of a containing program it sees: its item here, how many programs out, its item there", p -> each(p.globals(), g -> g.record() + " " + g.depth() + " " + g.outer())));
 
     private Contract() {}
 

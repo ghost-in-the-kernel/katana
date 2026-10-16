@@ -54,11 +54,14 @@ public final class Build {
     /** One program unit's IR; `outer` and `outerFiles` are the names of the programs it is nested in. */
     private static Program program(Parse.Result parse, CobolParser.ProgramUnitContext unit, String profileHash, List<String> findings, List<Names> outer, Set<String> outerFiles) {
         Map<String, List<Integer>> records = new HashMap<>();
-        Data data = data(parse, unit, records);
-        findings.addAll(data.findings());
+        Data own = data(parse, unit, records);
+        findings.addAll(own.findings());
+        List<Program.Global> globals = new ArrayList<>();
+        Map<Integer, Integer> tiers = new HashMap<>();
+        Data data = new Data(Globals.copied(own.items(), outer.stream().map(Names::own).toList(), globals, tiers), own.findings(), own.currency(), own.decimalComma());
         Map<Integer, Integer> lengths = new HashMap<>();
         data.items().forEach(i -> lengths.put(i.id(), i.length()));
-        Names names = new Names(data.items(), records, findings);
+        Names names = new Names(data.items(), own.items().size(), tiers, records, findings);
         Values values = new Values(parse, names, findings);
         List<FileDescriptor> files = Files.build(parse, unit, names, records, lengths);
         values.outer.addAll(outer);
@@ -83,8 +86,9 @@ public final class Build {
         for (var inner : unit.programUnit()) nested.add(program(parse, inner, profileHash, findings, inside, insideFiles));
         var id = unit.identificationDivision().programIdParagraph();
         Header header = new Header(Values.upper(id.programName().getText()).replaceAll("[\"']", ""), Origins.at(parse, unit).file(), profileHash,
-                String.valueOf(data.currency()), data.decimalComma(), debuggingMode(unit), switches(unit), mnemonics(unit), classes(unit), alphabets(unit), collating(unit), Origins.at(parse, id));
-        return new Program(header, data.items(), files, procedure, paragraphs.calls, nested);
+                String.valueOf(data.currency()), data.decimalComma(), debuggingMode(unit), switches(unit), mnemonics(unit), classes(unit), alphabets(unit), collating(unit),
+                id.INITIAL() != null, id.COMMON() != null, Origins.at(parse, id));
+        return new Program(header, data.items(), files, procedure, paragraphs.calls, nested, globals);
     }
 
     /** SOURCE-COMPUTER's WITH DEBUGGING MODE: the compile-time switch for debugging sections and lines (LR 6.4 p. 760). */

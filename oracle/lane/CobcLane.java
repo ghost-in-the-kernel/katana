@@ -122,14 +122,14 @@ public final class CobcLane {
     }
 
     /**
-     * What the java lane does not run yet (LANE-05): a called module (phase 4.3), a stub the lowering does
+     * What the java lane does not run yet (LANE-05): a called module its setup has no lowered class for (LANE-19), a stub the lowering does
      * not call as its service, and an indexed dataset with no `rt/Ksds` command. A PATH needs nothing of its
      * own: its key is an alternate key of the KSDS it is over, which `rt/Ksds` loads with it (`Start.catalog`).
      */
     private String javaLimits() {
         for (Schema.Line line : fixture.header()) {
             String name = line.values().get(0);
-            if (line.keyword().equals("module")) return "the java lane has no called module " + name + " yet (CALL, phase 4.3)";
+            if (line.keyword().equals("module") && !setup.java().containsKey(name)) return "the java lane's setup has no lowered class for the called module " + name + " (LANE-19)";
             if (line.keyword().equals("stub") && !LOWERED_STUBS.contains(name)) return "the java lane has no stub " + name + " yet (the stub facade, phase 4.4)";
         }
         for (Schema.Line d : fixture.datasets()) {

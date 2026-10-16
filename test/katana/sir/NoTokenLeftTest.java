@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 /** Tithe pass 2, A1, in the fast loop: no token of a statement is left out of the IR, on COPYREC, the probe and the NIST goldens. */
 class NoTokenLeftTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
-    private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
+    private static final String HASH = "sha256:cc4bbf084793b6f5280da870d1aa7b6fb58d535dcfaf091d8436a36a66c4dae1";
 
     static List<String> missing(Path program, Path copybooks) {
         GoldenPrograms.Built built = GoldenPrograms.of(program, copybooks);
@@ -47,7 +47,7 @@ class NoTokenLeftTest {
             stripped.add(new Procedure.Paragraph(g.index(), g.name(), g.section(), g.statements().stream().map(NoTokenLeftTest::strip).toList(), g.sentences(), g.origin()));
         }
         Procedure q = p.procedure();
-        Program without = new Program(p.header(), p.items(), p.files(), new Procedure(q.using(), q.returning(), q.sections(), stripped, q.edges()), p.calls(), p.nested());
+        Program without = new Program(p.header(), p.items(), p.files(), new Procedure(q.using(), q.returning(), q.sections(), stripped, q.edges()), p.calls(), p.nested(), p.globals());
         String missing = String.join(" ", TokenCoverage.missing(parse, without));
         for (String word : List.of("ROUNDED in COMPUTE", "TALLYING in INSPECT", "RUN in STOP", "ANY in EVALUATE", "AFTER in PERFORM")) assertTrue(missing.contains(word), word + " in " + missing);
     }
@@ -63,7 +63,7 @@ class NoTokenLeftTest {
         List<Procedure.Section> sections = p.procedure().sections().stream().map(s -> s.use() == null ? s : new Procedure.Section(s.name(), true,
                 new Procedure.Use(s.use().kind(), false, s.use().mode(), s.use().files().isEmpty() ? List.of() : List.of("REL-FILE"), s.use().outerFiles(), s.use().debugging()), s.priority(), s.origin())).toList();
         Procedure q = p.procedure();
-        Program without = new Program(p.header(), p.items(), files, new Procedure(q.using(), q.returning(), sections, q.paragraphs(), q.edges()), p.calls(), p.nested());
+        Program without = new Program(p.header(), p.items(), files, new Procedure(q.using(), q.returning(), sections, q.paragraphs(), q.edges()), p.calls(), p.nested(), p.globals());
         String missing = String.join(" ", TokenCoverage.missing(parse, without));
         for (String word : List.of("OPTIONAL in SELECT SEQ-FILE", "STATUS in SELECT SEQ-FILE", "FS in SELECT SEQ-FILE", "VS in SELECT SEQ-FILE", "SEQ-FILE in USE of SEQ-ERRORS", "GLOBAL in USE of INPUT-ERRORS")) {
             assertTrue(missing.contains(word), word + " in " + missing);
@@ -78,7 +78,7 @@ class NoTokenLeftTest {
         Program p = Build.program(parse, HASH).program();
         List<FileDescriptor> files = p.files().stream().map(f -> f.fd() == null ? f : new FileDescriptor(f.name(), f.assign(), f.optional(), f.organization(), f.access(), f.recordKey(),
                 f.alternateKeys(), f.relativeKey(), f.status(), f.vsamStatus(), stripped(f.fd()), f.records(), f.minRecord(), f.maxRecord(), f.sharesRecordArea(), f.origin())).toList();
-        Program without = new Program(p.header(), p.items(), files, p.procedure(), p.calls(), p.nested());
+        Program without = new Program(p.header(), p.items(), files, p.procedure(), p.calls(), p.nested(), p.globals());
         String missing = String.join(" ", TokenCoverage.missing(parse, without));
         for (String word : List.of("GLOBAL in FD SEQ-FILE", "RECORDING in FD SEQ-FILE", "CONTAINS in FD SEQ-FILE", "TOP in FD LIST-FILE", "BOTTOM in FD LIST-FILE",
                 "VLEN in FD VAR-FILE", "VARYING in FD VAR-FILE")) {

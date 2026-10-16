@@ -31,7 +31,11 @@ final class Flow {
     private String sentenceEnd = "";
     String paragraph = "";
 
-    Flow(Emitter e, Program p, Exprs x) {
+    /** The programs this one is nested in, the outermost first (LANE-19). */
+    final List<Program> containers;
+
+    Flow(Emitter e, Program p, Exprs x, List<Program> containers) {
+        this.containers = containers;
         this.e = e;
         this.p = p;
         this.x = x;
@@ -67,7 +71,7 @@ final class Flow {
     void procedure() {
         e.line("private static final ArithProfile P = ArithProfile.IBM_COMPAT;");
         e.line("private final Collation co;");
-        e.line("private boolean sz, ov, ae;");
+        e.line("private boolean sz, ov, ae, cx;");
         e.open("public void run()");
         e.line("int pc = " + entry() + ";");
         debugging.start(e, entry());

@@ -15,8 +15,8 @@ import org.junit.jupiter.api.Test;
 
 /** Holds docs/PROFILE.md to profile/ (docs/ROADMAP.md 4.1): its fields are the reader's, and its invariants hold. */
 class ProfileTest {
-    private static final String IBM = "ibm.trunc STD\nibm.numproc NOPFD\nibm.arith COMPAT\nibm.codepage 1140\nibm.invdata NO\nibm.version 6.4\nibm.dispsign COMPAT\nibm.wsinit NONE\n";
-    private static final String IBM_SHUFFLED = "ibm.wsinit NONE\nibm.version 6.4\nibm.codepage   1140\nibm.trunc STD\nibm.dispsign COMPAT\nibm.invdata NO\nibm.arith COMPAT\nibm.numproc NOPFD\n";
+    private static final String IBM = "ibm.trunc STD\nibm.numproc NOPFD\nibm.arith COMPAT\nibm.codepage 1140\nibm.invdata NO\nibm.version 6.4\nibm.dispsign COMPAT\nibm.wsinit NONE\nibm.dynam NODYNAM\n";
+    private static final String IBM_SHUFFLED = "ibm.wsinit NONE\nibm.version 6.4\nibm.codepage   1140\nibm.trunc STD\nibm.dispsign COMPAT\nibm.invdata NO\nibm.arith COMPAT\nibm.dynam NODYNAM\nibm.numproc NOPFD\n";
     private static String read(String path) throws Exception {
         return Files.readString(Path.of(System.getProperty("katana.root", "."), path));
     }

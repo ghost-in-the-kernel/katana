@@ -34,7 +34,7 @@ import katana.sir.types.Value;
 public final class IrCorpus {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final Path GOLDEN = ROOT.resolve("sir/ir.golden");
-    private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
+    private static final String HASH = "sha256:cc4bbf084793b6f5280da870d1aa7b6fb58d535dcfaf091d8436a36a66c4dae1";
     private static final Map<String, Roles.Verb> ROLES = Roles.vocabulary();
     private static final String HEADER = """
             # Phase 2.5 (docs/ROADMAP.md): each corpus's programs built to the Semantic IR under the ibm profile, as
