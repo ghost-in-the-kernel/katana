@@ -55,6 +55,12 @@ public final class Dispatcher {
         return next;
     }
 
+    /** EXIT PROGRAM or GOBACK back to the caller: "the ends of the ranges of all executed PERFORM statements are considered to have been reached" (LR 6.4 p. 343). */
+    // Decision: R-021
+    public void exited() {
+        depth = 0;
+    }
+
     /** How many PERFORMs are active. */
     public int depth() {
         return depth;

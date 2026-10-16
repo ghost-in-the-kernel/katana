@@ -25,33 +25,50 @@ import katana.sir.types.Program;
  */
 final class JavaRunner implements Runner {
     private final long seconds;
+    private final boolean dynam;
 
+    /** A runner under the ibm profile's NODYNAM (research §24). */
     JavaRunner(long seconds) {
-        this.seconds = seconds;
+        this(seconds, false);
     }
 
+    /** A runner under NODYNAM, or DYNAM (`dynam`), every CALL literal then dynamic as cobc's are. */
+    JavaRunner(long seconds, boolean dynam) {
+        this.seconds = seconds;
+        this.dynam = dynam;
+    }
+
+    /** A called module: lowered as a main program is, the CALL finding its class by name (LANE-19). */
     @Override
     public Result module(Path dir, String source) {
-        return new Result(1, "CALL is phase 4.3: a called module is not lowered yet");
+        return program(dir, source);
     }
 
+    /** Every program of the source lowered, one class each, the first the one that runs; compiled against `rt/` alone. */
     @Override
     public Result program(Path dir, String source) {
         try {
             Parse.Result parse = Parse.file(dir.resolve(source), new Copybooks(List.of(dir), n -> 8), 8);
             if (!parse.clean()) return new Result(1, "does not parse: " + parse.errors().get(0));
-            Build.Result built = Build.programs(parse, "sha256:" + "0".repeat(64)).get(0);
-            Program program = built.program();
-            String name = Lower.className(program);
-            Lower.Result lowered = Lower.java(program, name);
-            Files.writeString(dir.resolve(name + ".java"), lowered.java());
-            // The build's findings (a name that names nothing, or two items) are reported with the lowering's (J-160).
-            List<String> findings = new ArrayList<>(built.findings());
-            findings.addAll(lowered.findings());
-            Files.writeString(dir.resolve(stem(source) + ".class-name"), name + "\n" + String.join("\n", findings));
+            List<String> sources = new ArrayList<>(), findings = new ArrayList<>();
+            String first = null;
+            for (Build.Result built : Build.programs(parse, "sha256:" + "0".repeat(64))) {
+                Program program = built.program();
+                String name = Lower.className(program);
+                if (first == null) first = name;
+                Lower.Result lowered = Lower.java(program, name);
+                Files.writeString(dir.resolve(name + ".java"), lowered.java());
+                sources.add(dir.resolve(name + ".java").toString());
+                // The build's findings (a name that names nothing, or two items) are reported with the lowering's (J-160).
+                findings.addAll(built.findings());
+                findings.addAll(lowered.findings());
+            }
+            Files.writeString(dir.resolve(stem(source) + ".class-name"), first + "\n" + String.join("\n", findings));
             ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
             JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
-            int status = javac.run(null, null, diagnostics, "-classpath", rtClasses(), "-d", dir.toString(), dir.resolve(name + ".java").toString());
+            List<String> options = new ArrayList<>(List.of("-classpath", rtClasses() + java.io.File.pathSeparator + dir, "-d", dir.toString()));
+            options.addAll(sources);
+            int status = javac.run(null, null, diagnostics, options.toArray(String[]::new));
             return new Result(status, diagnostics.toString(StandardCharsets.UTF_8));
         } catch (Exception | StackOverflowError e) {
             return new Result(1, "lowering: " + e + " at " + java.util.Arrays.stream(e.getStackTrace()).filter(t -> t.getClassName().startsWith("katana.")).limit(4).map(String::valueOf).collect(java.util.stream.Collectors.joining(" < ")));
@@ -62,7 +79,7 @@ final class JavaRunner implements Runner {
     public Result run(Path dir, String program, Map<String, String> env, byte[] input) {
         try {
             String name = Files.readString(dir.resolve(stem(program) + ".class-name")).lines().findFirst().orElseThrow();
-            List<String> command = new ArrayList<>(List.of(Path.of(System.getProperty("java.home"), "bin", "java").toString(), "-cp", rtClasses() + java.io.File.pathSeparator + dir, "-Dkatana.upsi=" + upsi(env), "-Dkatana.debug=" + env.getOrDefault("COB_SET_DEBUG", "N"), name));
+            List<String> command = new ArrayList<>(List.of(Path.of(System.getProperty("java.home"), "bin", "java").toString(), "-cp", rtClasses() + java.io.File.pathSeparator + dir, "-Dkatana.upsi=" + upsi(env), "-Dkatana.debug=" + env.getOrDefault("COB_SET_DEBUG", "N"), "-Dkatana.dynam=" + (dynam ? "DYNAM" : "NODYNAM"), name));
             Path log = dir.resolve(stem(program) + ".java-out");
             ProcessBuilder pb = new ProcessBuilder(command).directory(dir.toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
             pb.environment().putAll(env);

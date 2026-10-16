@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 /** SORT, RELEASE and RETURN lowered (research §23, J-184), in a program that names an item CHAR, which IBM does not reserve (D-032). */
 class SortVerbsTest {
-    private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
+    private static final String HASH = "sha256:cc4bbf084793b6f5280da870d1aa7b6fb58d535dcfaf091d8436a36a66c4dae1";
 
     @Test
     void aSortWithProceduresLowersAndCharIsAName() {

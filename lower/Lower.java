@@ -21,17 +21,35 @@ public final class Lower {
     /** Items are set up in methods of this many, so no method passes the JVM's size limit. */
     static final int CHUNK = 150;
 
-    /** A program as one Java class through the one emitter (R-024): its records and fields, the constructor that builds and initializes them, main, and its procedure. */
+    /**
+     * A program as one Java class through the one emitter (R-024): its records and fields, the constructor
+     * that builds and initializes them, main, its procedure, and each program nested in it as a class
+     * inside it (LANE-19).
+     */
     // Decision: R-024
     public static Result java(Program p, String className) {
         Emitter e = new Emitter();
         List<String> findings = new ArrayList<>();
-        Exprs x = new Exprs(p, findings);
         e.line("// Lowered by Katana from " + p.header().source() + " (" + p.header().profileHash() + "). Literal: not for editing.");
         e.line("import katana.rt.*;");
         e.line("import katana.rt.Record;");
         e.line("import java.util.List;");
-        e.open("public final class " + className);
+        program(e, p, className, List.of(), findings);
+        return new Result(e.text(), findings, e.statements());
+    }
+
+    /**
+     * One program's class: a top-level one (`containers` empty) public, with `main`; a nested one a static
+     * class inside its container's, which it reaches as `up` (LANE-19).
+     */
+    // Decision: R-024
+    private static void program(Emitter e, Program p, String className, List<Program> containers, List<String> findings) {
+        Exprs x = new Exprs(p, findings);
+        boolean top = containers.isEmpty();
+        e.open((top ? "public final class " : "static final class ") + className + " implements Subprogram");
+        e.line("private final RunUnit u;");
+        if (!top) e.line("private final " + Lower.className(containers.get(containers.size() - 1)) + " up;");
+        e.line("private boolean called;");
         e.line("private final Codepage cp;");
         e.line("private final Sysin in;");
         e.line("private final Upsi upsi;");
@@ -41,55 +59,71 @@ public final class Lower {
         e.line("private final Dispatcher d = new Dispatcher(" + (Flow.segmented(p) ? Flow.segments(p) : String.valueOf(Math.max(1, p.procedure().paragraphs().size()))) + ");");
         declareItems(e, p);
         FileVerbs.declare(e, p);
-        e.open("public " + className + "(Codepage cp, Upsi upsi, Sysin in, Sysout out, Sysout err)");
-        e.line("this.cp = cp;");
+        if (top) {
+            e.open("public " + className + "(Codepage cp, Upsi upsi, Sysin in, Sysout out, Sysout err)");
+            e.line("this(new RunUnit(cp, upsi, in, out, err, false));");
+            e.close();
+        }
+        e.open("public " + className + "(RunUnit u" + (top ? "" : ", " + Lower.className(containers.get(containers.size() - 1)) + " up") + ")");
+        e.line("this.u = u;");
+        if (!top) e.line("this.up = up;");
+        e.line("this.cp = u.cp;");
         if (Debugging.held(p)) e.line("this.dbg = new Debug(cp, true);");
         e.line("this.co = " + Collating.of(x) + ";");
-        e.line("this.upsi = upsi;");
-        e.line("this.in = in;");
-        e.line("this.out = out;");
-        e.line("this.err = err;");
-        // RETURN-CODE: "01 RETURN-CODE GLOBAL PICTURE S9(4) USAGE BINARY VALUE ZERO" (LR 6.4 p. 24).
-        e.line("this.rc = new Field(Record.of(2, cp), 0, Attr.numeric(Attr.Usage.BINARY, 4, 0, true));");
-        e.line("rc.put(new Decimal(java.math.BigInteger.ZERO, 0));");
+        e.line("this.upsi = u.upsi;");
+        e.line("this.in = u.in;");
+        e.line("this.out = u.out;");
+        e.line("this.err = u.err;");
+        // RETURN-CODE, the run unit's (LR 6.4 p. 24).
+        e.line("this.rc = u.rc;");
+        FileVerbs.externals(e, p);
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("items" + c + "();");
+        Programs.externals(e, p);
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("values" + c + "();");
         FileVerbs.linages(e, p, x);
         FileVerbs.varyings(e, p, x);
         FileVerbs.keys(e, p, x);
         e.close();
         defineItems(e, p, x);
-        main(e, className, !p.procedure().using().isEmpty());
-        parm(e, p);
+        if (top) main(e, className, !p.procedure().using().isEmpty());
+        if (top) parm(e, p);
         FileVerbs.closer(e, p);
-        new Flow(e, p, x).procedure();
+        Programs.entry(e, p, x, containers);
+        new Flow(e, p, x, containers).procedure();
+        List<Program> inside = new ArrayList<>(containers);
+        inside.add(p);
+        for (Program n : p.nested()) program(e, n, Lower.className(n), inside, findings);
         e.close();
-        return new Result(e.text(), findings, e.statements());
     }
 
     /**
-     * A launcher: the lane's codepage and DISPLAY sign form from system properties (R-019; the profile's,
-     * J-109), and LE's UPSI option; at the end, normal or an abend (LANE-08), the files are closed. A normal
+     * A launcher: the lane's codepage, DISPLAY sign form and DYNAM from system properties (R-019; the
+     * profile's, J-109, J-186), and LE's UPSI option; at the end, normal (STOP RUN in any program, or the main
+     * program's last statement) or an abend (LANE-08), every program's files are closed. A normal
      * end returns RETURN-CODE "modulo 4096" to the system (LR 6.4 pp. 24, 457), 0 when it was never set.
      */
     private static void main(Emitter e, String className, boolean using) {
         e.open("public static void main(String[] args)");
         e.line("Codepage cp = Codepage.valueOf(System.getProperty(\"katana.codepage\", \"COBC_ASCII\"));");
         e.line("Display.Sign sign = Display.Sign.valueOf(System.getProperty(\"katana.dispsign\", \"SEP\"));");
-        e.line(className + " program = new " + className + "(cp, Upsi.of(System.getProperty(\"katana.upsi\", \"00000000\")), new Sysin(System.in), new Sysout(System.out, sign), new Sysout(System.err, sign));");
+        e.line("RunUnit u = new RunUnit(cp, Upsi.of(System.getProperty(\"katana.upsi\", \"00000000\")), new Sysin(System.in), new Sysout(System.out, sign), new Sysout(System.err, sign), \"DYNAM\".equals(System.getProperty(\"katana.dynam\", \"NODYNAM\")));");
+        e.line(className + " program = new " + className + "(u);");
         if (using) e.line("program.parm(args.length > 0 ? args[0] : \"\");");
         e.open("try");
         e.line("program.run();");
         e.close();
+        e.line("catch (StopRun s) { }");
         e.open("catch (Abend a)");
-        e.line("program.closeFiles();");
+        e.line("program.end();");
+        e.line("u.close();");
         e.line("System.out.flush();");
         e.line("System.err.println(a.line());");
         e.line("System.err.println(a.getMessage());");
         e.line("System.exit(a.code());");
         e.close();
-        e.line("program.closeFiles();");
-        e.line("System.exit(Math.floorMod(program.rc.get().unscaled().intValue(), 4096));");
+        e.line("program.end();");
+        e.line("u.close();");
+        e.line("System.exit(Math.floorMod(u.rc.get().unscaled().intValue(), 4096));");
         e.close();
     }
 
@@ -110,7 +144,12 @@ public final class Lower {
 
     /** A Java class name for a program: its PROGRAM-ID, each character Java does not allow made `_`. */
     public static String className(Program p) {
-        String name = p.header().program().replaceAll("[^A-Za-z0-9_]", "_");
+        return className(p.header().program());
+    }
+
+    /** A Java class name for a program-name, as `rt/RunUnit.className` makes it at a dynamic CALL. */
+    static String className(String program) {
+        String name = program.replaceAll("[^A-Za-z0-9_]", "_");
         return Character.isJavaIdentifierStart(name.charAt(0)) ? name : "P" + name;
     }
 
@@ -133,7 +172,14 @@ public final class Lower {
             }
             e.close();
             e.open("private void values" + c + "()");
-            for (Item i : chunk) Values.initial(e, p, i, x);
+            for (Item i : chunk) {
+                Item record = p.items().get(i.record() - 1);
+                // A GLOBAL record is its container's, set there; an EXTERNAL one by the first program that describes it (LANE-19).
+                if (Programs.global(p, record)) continue;
+                if (Programs.external(p, record)) e.open("if (x" + record.id() + ")");
+                Values.initial(e, p, i, x);
+                if (Programs.external(p, record)) e.close();
+            }
             e.close();
         }
     }
@@ -146,9 +192,12 @@ public final class Lower {
      */
     // Decision: R-019
     private static String area(Program p, Item record) {
+        for (Program.Global g : p.globals()) if (g.record() == record.id()) return "up" + ".up".repeat(g.depth() - 1) + ".r" + g.outer();
+        if (record.flags().contains(Item.Flag.EXTERNAL)) return "u.external(" + Emitter.quote(record.name()) + ", " + recordLength(p, record) + ")";
         if (record.redefines() != 0) return "r" + p.items().get(record.redefines() - 1).record();
         for (var d : p.files()) {
             if (!d.records().contains(record.id())) continue;
+            if (d.fd() != null && d.fd().external()) return "u.external(" + Emitter.quote("FD " + d.name()) + ", " + d.records().stream().mapToInt(r -> recordLength(p, p.items().get(r - 1))).max().orElse(record.length()) + ")";
             List<katana.sir.types.FileDescriptor> group = p.files().stream().filter(o -> o == d || d.sharesRecordArea().contains(o.name())).filter(o -> !o.records().isEmpty()).toList();
             // The group's record declared first owns the area, so it exists before the others refer to it.
             int first = group.stream().mapToInt(o -> o.records().get(0)).min().orElseThrow();

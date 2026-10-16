@@ -8,14 +8,24 @@ import java.util.function.Consumer;
 /**
  * A program's Semantic IR (R-007): what it does, derived from the parse tree and the profile with no
  * judgment anywhere. Its header, its data map (every item, in textual order), its files, its paragraph
- * graph and statements, its CALLs, and the programs nested in it.
+ * graph and statements, its CALLs, the programs nested in it, and the GLOBAL records of the programs it is
+ * nested in that it can see.
  */
-public record Program(Header header, List<Item> items, List<FileDescriptor> files, Procedure procedure, List<Call> calls, List<Program> nested) {
+public record Program(Header header, List<Item> items, List<FileDescriptor> files, Procedure procedure, List<Call> calls, List<Program> nested, List<Global> globals) {
+    /**
+     * SIR-12: a containing program's GLOBAL record this program can see (LR 6.4 p. 197), described here as
+     * its item `record` and that item's subordinates, copied after the program's own items: the record
+     * `outer` of the program `depth` levels out (1, the one this program is directly contained in).
+     */
+    public record Global(int record, int depth, int outer) {}
+
     public Program {
         items = List.copyOf(items);
         files = List.copyOf(files);
         calls = List.copyOf(calls);
         nested = List.copyOf(nested);
+        globals = List.copyOf(globals);
+        globals(items, globals);
         dataMap(items);
         references(items, files, procedure, calls);
     }
@@ -37,6 +47,13 @@ public record Program(Header header, List<Item> items, List<FileDescriptor> file
                 int extent = parent.occurs() == null ? parent.length() : parent.length() * parent.occurs().max();
                 if (item.offset() < parent.offset() || item.offset() + item.length() > parent.offset() + extent) throw new Invalid("SIR-03", item.name() + " lies outside its parent " + parent.name());
             }
+        }
+    }
+
+    /** SIR-12: each GLOBAL record is a record of this program's data map, from a program at least one level out. */
+    private static void globals(List<Item> items, List<Global> globals) {
+        for (Global g : globals) {
+            if (g.record() < 1 || g.record() > items.size() || items.get(g.record() - 1).record() != g.record() || g.depth() < 1 || g.outer() < 1) throw new Invalid("SIR-12", "GLOBAL record " + g);
         }
     }
 

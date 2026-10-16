@@ -16,6 +16,7 @@ final class Verbs {
     private final SortVerbs sorts;
     private final Evaluate evaluate;
     private final Search search;
+    private final CallVerbs calls;
 
     Verbs(Flow f) {
         this.f = f;
@@ -26,6 +27,7 @@ final class Verbs {
         this.sorts = new SortVerbs(f, files);
         this.evaluate = new Evaluate(f);
         this.search = new Search(f);
+        this.calls = new CallVerbs(f);
     }
 
     /** Each statement to its verb's lowering; a verb not lowered is a finding, and stops the program where it runs. */
@@ -46,8 +48,12 @@ final class Verbs {
         }
     }
 
-    /** The input-output verbs: a file's (`FileVerbs`) or a sort file's (`SortVerbs`). */
+    /** The input-output verbs: a file's (`FileVerbs`) or a sort file's (`SortVerbs`); one on a containing program's GLOBAL file is not lowered (J-186). */
     private void io(Statement s) {
+        if (s.operands().stream().anyMatch(o -> o.value() instanceof Value.Name n && n.kind().equals("global file"))) {
+            f.e.line(f.x.unsupported(s.verb() + " of a containing program's GLOBAL file at " + s.origin()) + ";");
+            return;
+        }
         switch (s.verb()) {
             case "OPEN" -> files.open(s);
             case "CLOSE" -> files.close(s);
@@ -76,25 +82,11 @@ final class Verbs {
             case "EXIT" -> exit(s);
             case "ALTER" -> alter(s);
             case "CONTINUE" -> f.e.line("// CONTINUE");
-            case "CALL" -> call(s);
+            case "CALL" -> calls.call(s);
+            case "CANCEL" -> calls.cancel(s);
             case "NEXT SENTENCE" -> f.nextSentence();
             default -> f.e.line(f.x.unsupported(s.verb() + " at " + s.origin() + " " + s.operands()) + ";");
         }
-    }
-
-    /**
-     * CALL: of LE's CEE3ABD (abcode, clean-up), the run ended with an abend of abcode, with no return (LE 3.1
-     * p. 111, research §22); every other CALL waits for phase 4.3 and is not lowered.
-     */
-    // Decision: R-027
-    // Unsure: clean-up 0 performs no termination activity, so IBM may leave a QSAM file's last buffer unwritten, where the lane closes every file at an abend (LANE-08). Stays: no CardDemo or NIST run reaches CEE3ABD; a mainframe run with a QSAM file open at CEE3ABD settles it.
-    private void call(Statement s) {
-        katana.sir.types.Call c = f.p.calls().stream().filter(x -> x.origin().equals(s.origin())).findFirst().orElse(null);
-        if (c != null && c.target() instanceof Value.Literal l && l.payload().equals("CEE3ABD") && !c.using().isEmpty()) {
-            f.e.line("if (true) throw new Abend((int) " + f.x.index(c.using().get(0).value()) + ", \"CALL CEE3ABD\");");
-            return;
-        }
-        f.e.line(f.x.unsupported(s.verb() + " at " + s.origin() + " " + s.operands()) + ";");
     }
 
     /** IF: its phrases hold statements only; a phrase with words left over (as NEXT SENTENCE once was, J-122) is not lowered, never dropped. */
@@ -169,7 +161,8 @@ final class Verbs {
     // Decision: R-019
     private void stop(Statement s) {
         if (keyword(s, "RUN")) {
-            f.jump(String.valueOf(f.end()));
+            // STOP RUN ends the run unit from any program in it (research §24).
+            f.e.line("if (true) throw new StopRun();");
             return;
         }
         List<String> parts = new ArrayList<>();
@@ -321,7 +314,8 @@ final class Verbs {
     }
 
     private void exit(Statement s) {
-        if (keyword(s, "PROGRAM")) f.jump(String.valueOf(f.end()));
+        // EXIT PROGRAM: back to the caller; with no CALL active, "control passes through the exit point to the next executable statement" (LR 6.4 p. 343).
+        if (keyword(s, "PROGRAM")) f.e.line("if (called) return " + f.end() + ";");
         else if (keyword(s, "PARAGRAPH") || keyword(s, "SECTION")) {
             int last = keyword(s, "SECTION") ? lastOfSection() : paragraphIndex();
             f.jump(f.end(last));

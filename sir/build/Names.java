@@ -13,13 +13,26 @@ import katana.sir.types.Item;
  */
 final class Names {
     private final List<Item> items;
+    private final int own;
+    private final Map<Integer, Integer> tiers;
     private final Map<String, List<Integer>> fileRecords;
     private final List<String> findings;
 
-    Names(List<Item> items, Map<String, List<Integer>> fileRecords, List<String> findings) {
+    /**
+     * A program's names: its own items, the first `own`, then the GLOBAL records of the programs it is
+     * nested in (SIR-12), each item's depth out in `tiers`.
+     */
+    Names(List<Item> items, int own, Map<Integer, Integer> tiers, Map<String, List<Integer>> fileRecords, List<String> findings) {
         this.items = items;
+        this.own = own;
+        this.tiers = tiers;
         this.fileRecords = fileRecords;
         this.findings = findings;
+    }
+
+    /** The program's own items, without the GLOBAL ones it sees. */
+    List<Item> own() {
+        return items.subList(0, own);
     }
 
     /** A build finding about a clause, not a name. */
@@ -44,6 +57,9 @@ final class Names {
     int find(String name, List<String> qualifiers, String file, String where) {
         List<Item> found = new ArrayList<>();
         for (Item i : items) if (i.name().equals(name) && qualified(i, qualifiers) && inFile(i, file)) found.add(i);
+        // A GLOBAL name is seen "as long as the contained program does not itself have a definition for that name" (LR 6.4 p. 197): the nearest definition wins.
+        int nearest = found.stream().mapToInt(i -> tiers.getOrDefault(i.id(), 0)).min().orElse(0);
+        found.removeIf(i -> tiers.getOrDefault(i.id(), 0) != nearest);
         if (found.size() > 1) findings.add(name + " at " + where + " is ambiguous: " + found.size() + " items");
         return found.isEmpty() ? 0 : found.get(0).id();
     }

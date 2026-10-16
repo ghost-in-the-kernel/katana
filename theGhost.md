@@ -1136,6 +1136,29 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-009, R-019, R-025
 - **subject:** oracle
 
+### R-062: A CALL reaches the copy IBM's DYNAM option says, the java lane's run unit keeping each
+- **Decision:** the java lane's run unit (`rt/RunUnit`) keeps, for each separately compiled program,
+  a static copy, which a CALL literal reaches under the profile's `ibm.dynam NODYNAM`, and a dynamic copy,
+  which a CALL identifier reaches, and a CALL literal under DYNAM; CANCEL forgets the dynamic copy only.
+  A nested program is held by the program that contains it; an INITIAL one is dropped after each CALL. A
+  containing program's GLOBAL records are copied into the IR of each program that sees them (SIR-12).
+- **Why:** IBM's text: NODYNAM is the default, "with the CALL literal statement, the called subprogram
+  will be link-edited with the main program", a CALL identifier loads "a separate program object", and
+  both in one program load "a second copy" (PG 6.4 pp. 366, 552); CANCEL takes no action on a program
+  "not dynamically called" (LR 6.4 p. 327). cobc calls dynamically, so the lanes part where a program's
+  results depend on which copy it reaches: NIST IC201A, IC203A, IC223A and IC225A, D-033 (J-186).
+- **Claims:** C-1 IBM's NODYNAM keeps two copies of a program called both ways: `hypothesis`, IBM's text
+  only, which calls the results "unpredictable"; a mainframe run of IC201A settles it. C-2 under DYNAM the
+  lane reaches what cobc does: `verified` (IC under DYNAM, 22 of 25, the other three for reasons of their
+  own, J-186).
+- **Held by:** `rt/RunUnit`; `lower/CallVerbs`, `lower/Programs`; `sir/build/Globals`;
+  `NistJavaLaneIntegrationTest` (`IC_IBM`, and IC under DYNAM); `CallVerbsTest`.
+- **Source:** Opus, 2026-10-16, under R-049 (IBM's documented defaults), on Ghost's "go ahead with IC";
+  for Ghost's review.
+- **Status:** in force
+- **See also:** R-019, R-027, R-049
+- **subject:** lower
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018

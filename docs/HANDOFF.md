@@ -592,6 +592,13 @@ R-015)
 
 (tithe pass 2a done, J-071 to J-073; tithe pass 2 done, J-076 to J-091; next: the boundary, then 3.1)
 
+- **The selected-suites ceiling and a push that selects every heavy suite (J-186), for the next tithe.**
+  A change to the IR, the profile and the Java lane selects sir, nist, javalane, lane, fixture and rt,
+  not front or autotest, and is held to 10 min, where the same work with all eight is held to 15: IC's
+  selected run took 13.5 min, the corpus pass alone 618 s on shared cores. Pushed with `--all` on Ghost's
+  call. The room is made in a tithe (the corpus pass where the front end or the data map changed, or its
+  cobc work cut), not by raising a ceiling (R-054).
+
 ## Trials (R-052: a question settled by running something; the implementing agent runs it)
 
 - **The recalled DFHAID values** (R-055 C-2): compare DFHPF13–24 and DFHPA1–3 against IBM's CICS
@@ -609,6 +616,9 @@ unchanged, R-042):
   together.
 - R-060 C-2 (past a short variable-length record the area keeps what it held): VARTRIAL steps 7 and 8
   run under Enterprise COBOL, with the IBM-run `// Unsure` lines (Waiting on a run).
+- R-062 C-1 (IBM's NODYNAM keeps two copies of a program a CALL literal and a CALL identifier both reach):
+  NIST IC201A run under Enterprise COBOL with its default options; under the claim it reports 1 of 11, as
+  the Java lane does (D-033).
 - R-022 C-2 (STD is what most OPT programs mean): a customer's mainframe gold on an OPT program.
 - R-023 C-2 (IEEE close enough for NIST's float tests): NIST's float cases through the java lane.
 - R-024 C-2 (passes as transformations the emitter prints): phase 6's first pass.

@@ -102,7 +102,7 @@ unload identically to the cobc lane.
 
 *Done (J-172):* SQ 85 of 85. *Done (J-180):* RL 35 of 35, relative files in `rt/RelFile`. *Done
 (J-182):* IX 42 of 42, indexed files in `rt/IdxFile`. *Done (J-183):* CardDemo's KSDS files load, read
-and unload identically in both lanes: every CardDemo fixture but CREASTMT (CALL, 4.3) reports in the java
+and unload identically in both lanes: every CardDemo fixture but CREASTMT (its PSA, 4.4) reports in the java
 lane what the cobc lane's golden holds, the KSDS files on their logical unload (R-025), the data's
 translated EBCDIC signs loaded in the lane's form (R-061).
 
@@ -116,10 +116,19 @@ the order of equal keys without DUPLICATES is not built: no ST or CardDemo progr
 
 ### 4.3 `rt/call`
 
-Check: none in the roadmap; written here before the item starts.
+Check: none in the roadmap; written here before the item starts. NIST IC through the Java lane, under the
+profile's NODYNAM and under DYNAM, each with its floor (J-186).
 
 Carried in (J-183): PARM via PROCEDURE DIVISION USING is lowered (LANE-17); CALL is not, but for LE's
 CEE3ABD (LANE-18, the stub facade's first routine, 4.4). CREASTMT waits here for CBSTM03B.
+
+*Done (J-186):* CALL and CANCEL through `rt/RunUnit` (R-062, LANE-19): LINKAGE bound BY REFERENCE and BY
+CONTENT, ON EXCEPTION, EXIT PROGRAM and GOBACK, STOP RUN from any program, INITIAL, nested programs with
+their containers' GLOBAL records (SIR-12), EXTERNAL records and files, static and dynamic copies by
+`ibm.dynam`. IC 18 of 25 under NODYNAM, 4 more where IBM's NODYNAM departs from cobc (D-033); 22 under
+DYNAM. OB 7 of 7. Not built, each a finding where a program reaches it: BY VALUE, CALL ... RETURNING,
+a containing program's GLOBAL file and USE GLOBAL (IC233A, IC234A). CREASTMT's CBSTM03B is lowered;
+CBSTM03A stops before its first CALL at the PSA, z/OS storage (4.4).
 
 ### 4.4 The stub facade
 

@@ -1288,3 +1288,15 @@ reports what cobc does (OB 7 of 7). CardDemo's CREASTMT passes its CALLs to CBST
 CBSTM03A's POINTER to the PSA, which phase 4.4's z/OS storage is for. The rivals: a LINKAGE item bound at
 the wrong place in its argument; a nested program's GLOBAL reference, IC233A's and IC234A's GLOBAL files
 and USE GLOBAL declaratives, and IC227A's EXTERNAL file, any of which may be left a finding.
+
+Result (J-186): the prediction held where it named numbers, and its rivals split. Before the run IC was 0 of
+25. With CALL lowered, under DYNAM 22 of 25 report what cobc does; under the profile's NODYNAM 18, and the
+four that part are the four named, each failing only checks that read a subprogram's state across a static
+and a dynamic CALL: IC203A 17 of 21, as counted; IC201A and IC223A 1 of 11, IC225A 33 of 36 (D-033). The
+24 the prediction gave DYNAM were 22: IC233A and IC234A open, read and USE GLOBAL a containing program's
+GLOBAL file, which is not lowered and is now a finding (it was a lowering crash on the first run). IC401M
+ends at its CALL of FIC401M, a program that does not exist, with abend U4038 where cobc exits 1; neither
+leaves a report. GLOBAL items, EXTERNAL records, IC227A's EXTERNAL file, INITIAL and nested programs needed
+nothing past the first build. OBIC1A reports what cobc does: OB 7 of 7. CREASTMT was refuted in part:
+CBSTM03A stops at its SET ADDRESS OF the PSA (line 266) before its first CALL, so CBSTM03B is lowered and
+never reached; the steps before STEP040 match the golden.

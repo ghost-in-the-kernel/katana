@@ -11,9 +11,9 @@ Invariants are numbered SIR-01 onward, in this document only, and a number is ne
 
 ## The header: the profile hash
 
-`Program`: the `Header`, the data map, the files, the `Procedure`, the `Call`s, and the programs
+`Program`: the `Header`, the data map, the files, the `Procedure`, the `Call`s, the GLOBAL records of its containers it sees (SIR-12), and the programs
 nested in it. `Header`: the program's name, its source file, the hash of the profile (R-049) it
-means what it means under, whether SOURCE-COMPUTER says WITH DEBUGGING MODE (research §17), and each `Switch`: a switch-status condition-name from SPECIAL-NAMES, its
+means what it means under, whether SOURCE-COMPUTER says WITH DEBUGGING MODE (research §17), its PROGRAM-ID's INITIAL and COMMON (SIR-12), and each `Switch`: a switch-status condition-name from SPECIAL-NAMES, its
 switch's environment-name (`UPSI-0` to `UPSI-7`) and the status it stands for (J-123); each switch's
 `Mnemonic`, which SET sets ON or OFF (J-127); each `Alphabet` and the alphabet the program collating
 sequence names (J-131); and each
@@ -75,6 +75,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | `profile` | the profile the program means what it means under |
 | `editing` | the currency sign and decimal point a mask's `$` and `.` stand for |
 | `debugging` | WITH DEBUGGING MODE, where written |
+| `attribute` | the PROGRAM-ID's INITIAL and COMMON, where written |
 | `switch` | each switch-status condition-name, its switch and status |
 | `mnemonic` | each mnemonic-name with its environment-name |
 | `alphabet` | each alphabet-name, its kind and members, and the program collating sequence |
@@ -94,6 +95,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | `statement` | each statement's verb, operands with their roles, and branches |
 | `call` | each CALL's target, arguments with their modes, and RETURNING |
 | `using` | the program's own USING and RETURNING items |
+| `global` | each GLOBAL record of a containing program it sees: its item here, how many programs out, its item there |
 
 Goldens: each program's contract, every line, is held in `sir/golden/<PROG>.contract` (COPYREC and one
 NIST program of each module, the NIST sources beside it as EXEC85 extracted them; `IrGoldenTest`), so a
@@ -147,3 +149,9 @@ shape: `lower/golden/<PROG>.java`, the generated Java byte for byte, a refactor 
   execution of the program") and DATA RECORDS ("only as documentation") are not kept, and a REPORT
   clause is a finding (Report Writer is not Enterprise COBOL's); every other word of an FD or SD entry
   is in its file (`NoTokenLeftTest`), so LINAGE reaches the lowering whole.
+- **SIR-12 A program carries how other programs reach it.** Its PROGRAM-ID's INITIAL and COMMON
+  attributes, as written; and each GLOBAL 01 of a program it is contained in, which its statements
+  name as their own (LR 6.4 p. 197): the record and its subordinates, with the indexes its tables are
+  INDEXED BY, copied after the program's own items, renumbered, offsets and attributes kept, a `Global`
+  saying whose record it is and how many programs out. A name the program defines itself is its own;
+  of two GLOBAL ones the nearest container's (research §24, J-186).

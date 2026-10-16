@@ -1,4 +1,4 @@
-profile COPYREC sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296
+profile COPYREC sha256:cc4bbf084793b6f5280da870d1aa7b6fb58d535dcfaf091d8436a36a66c4dae1
 editing COPYREC currency $ point .
 item COPYREC 1 COPY-REC level 1 parent 0 record 1 FILE offset 0 length 20 DISPLAY GROUP digits 0 scale 0 picture ""
 item COPYREC 2 ITEM level 5 parent 1 record 1 FILE offset 0 length 10 DISPLAY ALPHANUMERIC digits 0 scale 0 picture "XXXXXXXXXX"

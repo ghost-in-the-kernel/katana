@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 /** The 85 Standard's obsolete elements as IBM keeps them, lowered (research §18, J-177). */
 class ObsoleteTest {
-    private static final String HASH = "sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296";
+    private static final String HASH = "sha256:cc4bbf084793b6f5280da870d1aa7b6fb58d535dcfaf091d8436a36a66c4dae1";
 
     private static String java(String... procedure) {
         List<String> lines = new java.util.ArrayList<>(List.of("IDENTIFICATION DIVISION.", "PROGRAM-ID. OBS.", "PROCEDURE DIVISION."));
