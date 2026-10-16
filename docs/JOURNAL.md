@@ -2633,3 +2633,25 @@ taken; closed by a later `decision` entry naming it).
   finding line that starts `REPORT SECTION at` and says Report Writer is not in Enterprise COBOL; the
   rewording now fails it. No lowering changed; NC, SQ, SM, SG, IF, DB and OB unchanged; no golden moved.
 - **Touched:** `test/katana/lower/NistJavaLaneIntegrationTest.java`, research §19.
+
+### J-179 Tithe: a passing integration test removes its run folders, and the gate the clone a failed one kept
+- **Who:** Opus, on Ghost's go-ahead. **Class:** decision (tithe).
+- **Intent:** stop the disk filling. Twice on 2026-10-16 the disk was full: a gate failed before it ran
+  anything and the Docker daemon died. 7.6 GB was 209 run folders in `build/nist-java`; 7.7 GB more was
+  `copy…` and `exec85…` folders in `build/`, some from 10-05; 4.6 GB was gates' and agents' clones.
+- **Found:** every folder an integration test makes with `createTempDirectory`, so two runs never share
+  one, was kept for good: the Java lane's module and extraction folders, `ModuleRunIntegrationTest`'s, the
+  NIST sources the corpus check writes, `AbendIntegrationTest`'s and `LinageIntegrationTest`'s. Three
+  folders (`sir-ir-nist`, `sir-nist`, `front-nist`) were written by nothing since J-169 parsed the corpora
+  once. The gate already removed its clone when it passed; a failed gate's clone stayed.
+- **Resolved:** `katana.oracle.Runs.passed` removes a run's folders after its test's last check, so a
+  failing test leaves them to be read. An EXEC85 extraction folder is removed once read (its members are
+  in memory). The corpus check reads its NIST sources for its whole class, so `NistSources.write` removes
+  the earlier runs' instead. The Java lane's RW check on the lowered folder runs before the folder goes.
+  `scripts/prepush.sh` removes an earlier gate's clone before it clones. Run on OB and RW: the passing
+  tests left no folder; a failing `ModuleRunIntegrationTest` (modules named out of the golden's order)
+  kept its two. No behaviour, no golden moved.
+- **Touched:** `test/katana/oracle/Runs.java`, `test/katana/lower/NistJavaLaneIntegrationTest.java`,
+  `test/katana/oracle/nist/ModuleRunIntegrationTest.java`, `test/katana/oracle/nist/NistSources.java`,
+  `test/katana/lower/AbendIntegrationTest.java`, `test/katana/lower/LinageIntegrationTest.java`,
+  `scripts/prepush.sh`.

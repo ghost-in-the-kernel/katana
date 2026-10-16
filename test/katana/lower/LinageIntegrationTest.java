@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import katana.oracle.Runs;
 import katana.oracle.nist.Cobc;
 import katana.oracle.nist.Runner;
 import org.junit.jupiter.api.Tag;
@@ -31,6 +32,7 @@ class LinageIntegrationTest {
             String a = ran(new Cobc(Duration.ofSeconds(30), "ibm"), cobc, program.getKey()), b = ran(new JavaRunner(60), java, program.getKey());
             assertEquals(a, b, program.getKey() + "'s output");
             for (String file : program.getValue()) assertEquals(Files.readString(cobc.resolve(file)), Files.readString(java.resolve(file)), program.getKey() + "'s " + file);
+            Runs.passed(cobc, java);
         }
     }
 

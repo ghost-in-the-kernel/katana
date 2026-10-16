@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.Map;
+import katana.oracle.Runs;
 import katana.oracle.nist.Cobc;
 import katana.oracle.nist.ModuleRun;
 import katana.oracle.nist.Runner;
@@ -31,6 +32,7 @@ class AbendIntegrationTest {
         Path java = ran(new JavaRunner(60), Files.createTempDirectory(work, "java"));
         assertArrayEquals("RECORD ONERECORD TWO".getBytes(), Files.readAllBytes(cobc.resolve("ABOUT")));
         assertArrayEquals(Files.readAllBytes(cobc.resolve("ABOUT")), Files.readAllBytes(java.resolve("ABOUT")));
+        Runs.passed(cobc, java);
     }
 
     /** Compiles and runs ABENDW in a folder under a runner: it ends abnormally, for status 35 on ABSENT; the folder. */

@@ -61,6 +61,9 @@ PROPS=""
 case " $suites " in *" nist "*) ;; *" quick "*) PROPS="-Dkatana.nist.modules=NC,IF" ;; esac
 docker run --rm --network none -u "$(id -u)" -v "$ROOT":/katana -w /katana katana java scripts/TitheGate.java /katana
 echo "suites:${suites:- none (the fast loop and the doc tests only)}$why"
+# A passing gate removes its clone; a failing one keeps it to be read, until the next gate removes it
+# here (J-179: kept clones and test folders filled the disk). Two gates are never run at once.
+for old in /tmp/claude-0/prepush.*; do [ -d "$old" ] && echo "removing an earlier gate's clone: $old" && rm -rf "$old"; done
 WORK=$(mktemp -d /tmp/claude-0/prepush.XXXXXX)
 start=$(date +%s)
 git clone -q "$ROOT" "$WORK/katana"

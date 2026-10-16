@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import katana.oracle.Runs;
 import katana.oracle.nist.Cobc;
 import katana.oracle.nist.Exec85;
 import katana.oracle.nist.ModuleRun;
@@ -84,12 +85,13 @@ class NistJavaLaneIntegrationTest {
 
     @Test
     void rwThroughTheJavaLane() throws Exception {
-        Path dir = lane("RW", RW_FLOOR, Map.of());
-        try (var names = Files.list(dir)) {
-            List<Path> programs = names.filter(f -> f.toString().endsWith(".class-name")).toList();
-            org.junit.jupiter.api.Assertions.assertEquals(6, programs.size());
-            for (Path f : programs) assertTrue(Files.readAllLines(f).stream().anyMatch(l -> l.startsWith("REPORT SECTION at ") && l.contains("Report Writer is not in Enterprise COBOL")), f + ": Report Writer not said first");
-        }
+        lane("RW", RW_FLOOR, Map.of(), dir -> {
+            try (var names = Files.list(dir)) {
+                List<Path> programs = names.filter(f -> f.toString().endsWith(".class-name")).toList();
+                org.junit.jupiter.api.Assertions.assertEquals(6, programs.size());
+                for (Path f : programs) assertTrue(Files.readAllLines(f).stream().anyMatch(l -> l.startsWith("REPORT SECTION at ") && l.contains("Report Writer is not in Enterprise COBOL")), f + ": Report Writer not said first");
+            }
+        });
     }
 
     @Test
@@ -112,12 +114,24 @@ class NistJavaLaneIntegrationTest {
         lane("SQ", SQ_FLOOR, Map.of());
     }
 
-    /** One module through the Java lane: at least `floor` runs the same as cobc's, and each listed finding explained; returns the folder its runs were lowered in. */
-    private static Path lane(String module, int floor, Map<String, String> findings) throws Exception {
+    /** A check on the folder a module's runs were lowered in, made before a passing run removes it. */
+    private interface Lowered {
+        void check(Path dir) throws Exception;
+    }
+
+    /** One module through the Java lane: at least `floor` runs the same as cobc's, and each listed finding explained. */
+    private static void lane(String module, int floor, Map<String, String> findings) throws Exception {
+        lane(module, floor, findings, dir -> {});
+    }
+
+    /** The same, with a check on the lowered folder; the folders are removed when every check passes (`Runs`). */
+    private static void lane(String module, int floor, Map<String, String> findings, Lowered lowered) throws Exception {
         Path work = Files.createDirectories(ROOT.resolve("build/nist-java"));
         String base = Files.readString(ROOT.resolve("oracle/nist/exec85.cards")), overlay = Files.readString(ROOT.resolve("oracle/nist/exec85-ibm.cards"));
         List<String> cards = Exec85.cards(base, overlay);
-        List<Population.Member> extracted = Exec85.run(ROOT.resolve("corpus/nist-cobol85-test-suite/newcob.val"), cards, Files.createTempDirectory(work, "exec85"), new Cobc(Duration.ofSeconds(30)));
+        Path exec85 = Files.createTempDirectory(work, "exec85");
+        List<Population.Member> extracted = Exec85.run(ROOT.resolve("corpus/nist-cobol85-test-suite/newcob.val"), cards, exec85, new Cobc(Duration.ofSeconds(30)));
+        Runs.passed(exec85);
         RunNotes notes = RunNotes.read(Files.readString(ROOT.resolve("oracle/nist/run-notes")));
         Path dir = Files.createTempDirectory(work, module);
         List<ModuleRun.Outcome> outcomes = ModuleRun.run(module, extracted, notes, Exec85.switches(cards), dir, new JavaRunner(60));
@@ -142,7 +156,8 @@ class NistJavaLaneIntegrationTest {
         System.out.println(report.get(0));
         assertTrue(same >= floor, module + ": " + same + " < floor " + floor);
         org.junit.jupiter.api.Assertions.assertEquals(List.of(), unexplained);
-        return dir;
+        lowered.check(dir);
+        Runs.passed(dir);
     }
 
     /** A run as the cobc lane's golden writes it: a run with no report is `0 0 0 0 0` (ModuleRunIntegrationTest). */

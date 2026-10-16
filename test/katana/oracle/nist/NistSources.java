@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+import katana.oracle.Runs;
 
 /**
  * NIST's programs as files, for the tests that read them rather than run them (2.1's parse, 2.5's data
@@ -19,11 +20,20 @@ import java.util.stream.Collectors;
 public final class NistSources {
     private NistSources() {}
 
-    /** The programs written into `copy` under the root's work folder, by name. */
+    /**
+     * The programs written into `copy` under the root's work folder, by name. The one caller reads them for
+     * its whole class, so a run's folder is not removed when it passes; the earlier runs' are removed here
+     * instead (`Runs`).
+     */
     public static Map<String, Path> write(Path root, Path work) throws Exception {
+        try (var earlier = Files.list(work)) {
+            Runs.passed(earlier.filter(f -> f.getFileName().toString().startsWith("copy")).toArray(Path[]::new));
+        }
         String cards = Files.readString(root.resolve("oracle/nist/exec85.cards"));
+        Path exec85 = Files.createTempDirectory(work, "exec85");
         List<Population.Member> members = Exec85.run(root.resolve("corpus/nist-cobol85-test-suite/newcob.val"), Exec85.cards(cards),
-                Files.createTempDirectory(work, "exec85"), new Cobc(Duration.ofSeconds(30)));
+                exec85, new Cobc(Duration.ofSeconds(30)));
+        Runs.passed(exec85);
         Path copy = Files.createTempDirectory(work, "copy");
         Map<String, String> libraries = Map.of("ALTLB", "ALTLIB1/ALTLB", "ALTL1", "ALTLIB2/ALTLB");
         List<String[]> golden = Files.readAllLines(root.resolve("oracle/nist/programs.golden")).stream().filter(l -> !l.startsWith("#")).map(l -> l.split(" ")).toList();
