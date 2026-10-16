@@ -943,3 +943,10 @@ does: the Report Writer statements (INITIATE, GENERATE, TERMINATE) are not lower
 stand. The rival: a program the Java lane runs to cobc's report, which would mean the report file and the
 tests' report are apart and the Report Writer statements are never reached, or an RW program with no
 REPORT SECTION finding, which would mean the front end read the section as something else.
+
+Result (J-178): the prediction was refuted in part. RW is 2 of 6, not 0: RW301M and RW302M end at the OPEN
+of TFIL with status 35 in both lanes, before any Report Writer statement runs, so they report what cobc
+does without trying Report Writer at all (the rival's first form). The other four each fail at their first
+INITIATE, which is not lowered. All six programs' findings name the REPORT SECTION and the REPORT clause as
+Report Writer, not in Enterprise COBOL; `NistJavaLaneIntegrationTest` holds that line for each. cobc
+accepting Report Writer is not counted a discovery: a site with the precompiler gets the report too.

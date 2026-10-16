@@ -41,6 +41,8 @@ class NistJavaLaneIntegrationTest {
             Map.entry("IF137A", "D-030"), Map.entry("IF138A", "D-030"), Map.entry("IF141A", "D-030"));
     /** The same for OB. */
     static final int OB_FLOOR = 6;
+    /** The same for RW: the two runs that end at an OPEN before any Report Writer statement, which is not in Enterprise COBOL (research §19). */
+    static final int RW_FLOOR = 2;
     /** The same for DB. */
     static final int DB_FLOOR = 10;
     /** The same for SG. */
@@ -81,6 +83,16 @@ class NistJavaLaneIntegrationTest {
     }
 
     @Test
+    void rwThroughTheJavaLane() throws Exception {
+        Path dir = lane("RW", RW_FLOOR, Map.of());
+        try (var names = Files.list(dir)) {
+            List<Path> programs = names.filter(f -> f.toString().endsWith(".class-name")).toList();
+            org.junit.jupiter.api.Assertions.assertEquals(6, programs.size());
+            for (Path f : programs) assertTrue(Files.readAllLines(f).stream().anyMatch(l -> l.startsWith("REPORT SECTION at ") && l.contains("Report Writer is not in Enterprise COBOL")), f + ": Report Writer not said first");
+        }
+    }
+
+    @Test
     void dbThroughTheJavaLane() throws Exception {
         lane("DB", DB_FLOOR, Map.of());
     }
@@ -100,8 +112,8 @@ class NistJavaLaneIntegrationTest {
         lane("SQ", SQ_FLOOR, Map.of());
     }
 
-    /** One module through the Java lane: at least `floor` runs the same as cobc's, and each listed finding explained. */
-    private static void lane(String module, int floor, Map<String, String> findings) throws Exception {
+    /** One module through the Java lane: at least `floor` runs the same as cobc's, and each listed finding explained; returns the folder its runs were lowered in. */
+    private static Path lane(String module, int floor, Map<String, String> findings) throws Exception {
         Path work = Files.createDirectories(ROOT.resolve("build/nist-java"));
         String base = Files.readString(ROOT.resolve("oracle/nist/exec85.cards")), overlay = Files.readString(ROOT.resolve("oracle/nist/exec85-ibm.cards"));
         List<String> cards = Exec85.cards(base, overlay);
@@ -130,6 +142,7 @@ class NistJavaLaneIntegrationTest {
         System.out.println(report.get(0));
         assertTrue(same >= floor, module + ": " + same + " < floor " + floor);
         org.junit.jupiter.api.Assertions.assertEquals(List.of(), unexplained);
+        return dir;
     }
 
     /** A run as the cobc lane's golden writes it: a run with no report is `0 0 0 0 0` (ModuleRunIntegrationTest). */

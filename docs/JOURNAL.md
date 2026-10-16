@@ -2616,3 +2616,20 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `lower/Verbs.java`, `lower/Flow.java`, `sir/contract/Contract.java`,
   `test/katana/lower/ObsoleteTest.java`, `test/katana/lower/NistJavaLaneIntegrationTest.java`,
   `docs/LANES.md`, research §18, `docs/KERNEL-MAP.md`.
+
+### J-178 RW through the Java lane: Report Writer said first, as not in Enterprise COBOL; RW 2 of 6
+- **Who:** Opus, on Ghost's go-ahead (record RW as a finding, not build it). **Class:** trial;
+  failure-caught.
+- **Intent:** NIST's RW module (Report Writer) through the Java lane, its own floor; the prediction
+  committed before the run (research §19, 440e3c8). Enterprise COBOL supports Report Writer only through
+  the separate Report Writer Precompiler (LR 6.4 p. 785), so the REPORT SECTION stays a finding.
+- **Found:** 2 of 6, where 0 was predicted. RW301M and RW302M end at the OPEN of TFIL with status 35 in
+  both lanes before any Report Writer statement, so they match cobc's golden without trying Report
+  Writer; RW101A to RW104A fail at their first INITIATE. Every program's findings name the REPORT SECTION
+  and the REPORT clause. The first check of that ("the findings contain the words") passed with the REPORT
+  SECTION's finding reworded, as the REPORT clause's finding carries the same words: a check that could
+  not fail, caught by mutating `sir/build/Build.java` before the commit.
+- **Resolved:** `rwThroughTheJavaLane` holds RW at floor 2 and holds, for each of the six programs, a
+  finding line that starts `REPORT SECTION at` and says Report Writer is not in Enterprise COBOL; the
+  rewording now fails it. No lowering changed; NC, SQ, SM, SG, IF, DB and OB unchanged; no golden moved.
+- **Touched:** `test/katana/lower/NistJavaLaneIntegrationTest.java`, research §19.
