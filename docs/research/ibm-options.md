@@ -1021,3 +1021,12 @@ the Standard reads it), every one of the 35 RL programs reports what cobc -std=i
 abnormal end (status 38 on REL1) included. The rivals: a program where cobc's position indicator after an
 unsuccessful READ or START departs from the Standard's (both lanes then fail tests, differently); and the
 key-size statuses 14 and 24, where cobc may not check the RELATIVE KEY's digits as IBM does.
+
+Result (J-180): the prediction held for the runtime, and its bound on the baseline was refuted. As lowered
+before, with every file sequential, RL was already 13 of 35, not "at most the programs that use sequential
+access alone": RL119A (random), RL201A and RL204A (dynamic) read their keys in ascending order, which a
+sequential file gives too. With `rt/RelFile`, 34 of 35 at once; RL206A's file is RECORD IS VARYING IN SIZE
+FROM 120 TO 140 DEPENDING ON WRK-SIZE, and with `rt/Varying` giving a WRITE its length and a READ its
+DEPENDING ON, 35 of 35, RL401M's abnormal end included. Neither rival was met: no RL test separates cobc's
+position after an unsuccessful READ or START from the Standard's, and none writes or reads a record number
+wider than its RELATIVE KEY.

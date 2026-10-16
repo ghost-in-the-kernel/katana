@@ -68,6 +68,20 @@ final class Varying {
         return length;
     }
 
+    /** A record of `length` bytes read by another file's own framing (`RelFile`): DEPENDING ON takes the length (p. 188). */
+    void took(int length) {
+        if (depending != null) depending.put(new Decimal(java.math.BigInteger.valueOf(length), 0));
+    }
+
+    /** The `length` bytes a WRITE or REWRITE puts out, from the record's start, spaces past the area. */
+    byte[] bytes(Field record, int length) {
+        byte[] out = new byte[length], area = record.record().bytes();
+        int n = Math.min(length, area.length - record.offset());
+        System.arraycopy(area, record.offset(), out, 0, n);
+        java.util.Arrays.fill(out, n, length, record.record().codepage().character(' '));
+        return out;
+    }
+
     /** A READ's status: 04 for a record shorter than the shortest 01 or longer than the longest, VLR(STANDARD) being the default (PG pp. 422-423), else 00. */
     String status(int length) {
         return length < least || length > greatest ? "04" : "00";

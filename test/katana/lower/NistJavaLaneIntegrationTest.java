@@ -42,6 +42,8 @@ class NistJavaLaneIntegrationTest {
             Map.entry("IF137A", "D-030"), Map.entry("IF138A", "D-030"), Map.entry("IF141A", "D-030"));
     /** The same for OB. */
     static final int OB_FLOOR = 6;
+    /** The same for RL. */
+    static final int RL_FLOOR = 35;
     /** The same for RW: the two runs that end at an OPEN before any Report Writer statement, which is not in Enterprise COBOL (research §19). */
     static final int RW_FLOOR = 2;
     /** The same for DB. */
@@ -81,6 +83,11 @@ class NistJavaLaneIntegrationTest {
     @Test
     void obThroughTheJavaLane() throws Exception {
         lane("OB", OB_FLOOR, Map.of());
+    }
+
+    @Test
+    void rlThroughTheJavaLane() throws Exception {
+        lane("RL", RL_FLOOR, Map.of());
     }
 
     @Test

@@ -1285,3 +1285,41 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Verbs.java:Verbs.stop` | R-019 | 2026-10-16 |  |
 | sir | `sir/contract/Contract.java:Contract.stopLiteral` |  | 2026-10-16 |  |
 | lower | `lower/Flow.java:Flow.paragraphIndex` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.relative` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.descriptor` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.key` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.phrase` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.invalidKey` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.start` | R-019 | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.delete` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.RelFile` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.status` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.successful` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.invalid` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.atEnd` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.failed` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.mode` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.hasStatus` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.abend` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.varying` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.current` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.bytes` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.path` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.open` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.load` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.noRewind` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.refused` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.readNext` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.read` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.take` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.write` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.rewrite` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.delete` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.target` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.start` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.close` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.close#2` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.number` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.digits` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Varying.java:Varying.took` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Varying.java:Varying.bytes` |  | 2026-10-16 |  |

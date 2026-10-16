@@ -5,7 +5,7 @@ import katana.sir.types.FileDescriptor;
 import katana.sir.types.Statement;
 import katana.sir.types.Value;
 
-/** OPEN, CLOSE, WRITE and READ on sequential files, through `rt/SeqFile`; relative and indexed files wait for phase 4. */
+/** OPEN, CLOSE, WRITE, REWRITE and READ on sequential files, through `rt/SeqFile`; on relative files with START and DELETE, through `rt/RelFile` (research §20); indexed files wait for phase 4.1. */
 final class FileVerbs {
     private final Flow f;
 
@@ -17,9 +17,14 @@ final class FileVerbs {
         return "file_" + file.replaceAll("[^A-Za-z0-9]", "_");
     }
 
-    /** Each file's object, by the name it is ASSIGNed to. */
+    /** Each file's object, by the name it is ASSIGNed to; with a relative file, the flags its INVALID KEY phrases read. */
     static void declare(Emitter e, katana.sir.types.Program p) {
+        if (p.files().stream().anyMatch(FileVerbs::relative)) e.line("private boolean ik, ok;");
         for (FileDescriptor d : p.files()) {
+            if (relative(d)) {
+                e.line("private final RelFile " + name(d.name()) + " = new RelFile(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + (d.status() != 0) + ", " + d.optional() + ", RelFile.Access." + d.access() + ");");
+                continue;
+            }
             boolean lines = d.organization() == FileDescriptor.Organization.LINE_SEQUENTIAL;
             e.line("private final SeqFile " + name(d.name()) + " = new SeqFile(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + lines + ", " + (d.status() != 0) + ", " + d.optional() + ");");
         }
@@ -69,6 +74,58 @@ final class FileVerbs {
             f.e.line(name(file.name()) + ".close(" + words.contains("LOCK") + ", " + reel + ", " + (words.contains("REWIND") || words.contains("REMOVAL")) + ");");
             after("CLOSE", file.name(), false);
         }
+    }
+
+    static boolean relative(FileDescriptor d) {
+        return d.organization() == FileDescriptor.Organization.RELATIVE;
+    }
+
+    private FileDescriptor descriptor(String file) {
+        return f.p.files().stream().filter(x -> x.name().equals(file)).findFirst().orElseThrow();
+    }
+
+    /** A relative file's RELATIVE KEY as a field, or null when it has none. */
+    private String key(FileDescriptor d) {
+        return d.relativeKey() == 0 ? "null" : f.x.field(new Value.Field(d.relativeKey(), List.of(), null, null));
+    }
+
+    /** Whether a statement has a phrase, even an empty one. */
+    private static boolean phrase(Statement s, String label) {
+        return s.branches().stream().anyMatch(b -> b.label().equals(label));
+    }
+
+    /**
+     * After a statement on a relative file that can find an invalid key (LR pp. 303-304): the flags taken,
+     * then the status and a declarative unless an INVALID KEY phrase handles it, then INVALID KEY, or NOT
+     * INVALID KEY when the statement succeeded.
+     */
+    private void invalidKey(Statement s, String verb, String file) {
+        String v = name(file);
+        f.e.line("ik = " + v + ".invalid(); ok = " + v + ".successful();");
+        after(verb, file, phrase(s, "invalid-key-phrase"));
+        f.branch("ik", Verbs.branch(s, "invalid-key-phrase"), List.of());
+        f.branch("ok", Verbs.branch(s, "not-invalid-key-phrase"), List.of());
+    }
+
+    /** START file [KEY relation data-name] [INVALID KEY ...] (LR p. 456): EQUAL, GREATER or NOT LESS, by its words or symbols. */
+    // Decision: R-019
+    void start(Statement s) {
+        Value.File file = (Value.File) Verbs.operand(s, "start-statement");
+        java.util.Set<String> words = new java.util.HashSet<>();
+        for (Statement.Operand o : s.operands()) if (o.role().equals("start-key") && o.value() instanceof Value.Name n) words.add(n.text().toUpperCase());
+        boolean greater = words.contains("GREATER") || words.contains(">"), orEqual = words.contains("OR") || words.contains(">=");
+        String relation = words.contains("NOT") || greater && orEqual || words.contains(">=") ? "NOT_LESS" : greater ? "GREATER" : "EQUAL";
+        FileDescriptor d = descriptor(file.name());
+        f.e.line(name(file.name()) + ".start(" + key(d) + ", RelFile.Relation." + relation + ");");
+        invalidKey(s, "START", file.name());
+    }
+
+    /** DELETE file [RECORD] [INVALID KEY ...] (LR p. 332). */
+    void delete(Statement s) {
+        Value.File file = (Value.File) Verbs.operand(s, "delete-statement");
+        FileDescriptor d = descriptor(file.name());
+        f.e.line(name(file.name()) + ".delete(" + key(d) + ");");
+        invalidKey(s, "DELETE", file.name());
     }
 
     /** Whether NO REWIND follows a file in an OPEN, before the next file. */
@@ -139,7 +196,7 @@ final class FileVerbs {
         }
     }
 
-    /** Each variable-length sequential file given its record sizes and its DEPENDING ON item (research §13). */
+    /** Each variable-length sequential or relative file given its record sizes and its DEPENDING ON item (research §13). */
     static void varyings(Emitter e, katana.sir.types.Program p, Exprs x) {
         for (FileDescriptor d : p.files()) {
             int[] s = sizes(p, d, x);
@@ -150,14 +207,14 @@ final class FileVerbs {
     }
 
     /**
-     * A sequential file's least and greatest 01 sizes and its bounds, or null for fixed-length records:
+     * A sequential or relative file's least and greatest 01 sizes and its bounds, or null for fixed-length records:
      * variable for RECORD IS VARYING, or, unless RECORD CONTAINS gives one size (format 1, PG 6.4 p. 169),
      * for 01 records of different sizes or one holding an ODO table (PG p. 170). The least size counts
      * an ODO table at its fewest occurrences (LR p. 188); VARYING's FROM and TO are its bounds when written.
      */
     // Decision: R-019
     static int[] sizes(katana.sir.types.Program p, FileDescriptor d, Exprs x) {
-        if (d.organization() != FileDescriptor.Organization.SEQUENTIAL || d.fd() == null || d.records().isEmpty()) return null;
+        if (d.organization() != FileDescriptor.Organization.SEQUENTIAL && !relative(d) || d.fd() == null || d.records().isEmpty()) return null;
         FileDescriptor.Fd fd = d.fd();
         int least = Integer.MAX_VALUE, greatest = 0;
         boolean odo = false;
@@ -187,6 +244,12 @@ final class FileVerbs {
         String file = owner(record.item());
         Value from = Verbs.operand(s, "write-from-phrase");
         if (from != null) f.e.line(f.x.moveInto(from, f.x.field(record), f.x.item(record.item())) + ";");
+        FileDescriptor owner = descriptor(fileOf(record.item()));
+        if (relative(owner)) {
+            f.e.line(file + ".write(" + f.x.field(record) + ", " + key(owner) + ");");
+            invalidKey(s, "WRITE", owner.name());
+            return;
+        }
         boolean before = Verbs.keyword(s, "BEFORE");
         Value lines = Verbs.operand(s, "write-advancing-lines");
         String channel = channel(s);
@@ -229,6 +292,12 @@ final class FileVerbs {
         Value.Field record = (Value.Field) Verbs.operand(s, "record-name");
         Value from = Verbs.operand(s, "rewrite-from");
         if (from != null) f.e.line(f.x.moveInto(from, f.x.field(record), f.x.item(record.item())) + ";");
+        FileDescriptor owner = descriptor(fileOf(record.item()));
+        if (relative(owner)) {
+            f.e.line(name(owner.name()) + ".rewrite(" + f.x.field(record) + ", " + key(owner) + ");");
+            invalidKey(s, "REWRITE", owner.name());
+            return;
+        }
         f.e.line(owner(record.item()) + ".rewrite(" + f.x.field(record) + ");");
         after("REWRITE", fileOf(record.item()), false);
     }
@@ -239,14 +308,25 @@ final class FileVerbs {
         FileDescriptor d = f.p.files().stream().filter(x -> x.name().equals(file.name())).findFirst().orElseThrow();
         String record = "f" + d.records().get(0);
         String fileVar = name(file.name());
-        f.e.line(fileVar + ".read(" + record + ");");
-        f.e.line("ae = " + fileVar + ".status().equals(\"10\");");
+        // A relative file is read at its RELATIVE KEY with random access, and with dynamic access without NEXT (LR pp. 427-428).
+        boolean random = relative(d) && (d.access() == FileDescriptor.Access.RANDOM || d.access() == FileDescriptor.Access.DYNAMIC && !Verbs.keyword(s, "NEXT"));
+        if (random) f.e.line(fileVar + ".read(" + record + ", " + key(d) + ");");
+        else if (relative(d)) f.e.line(fileVar + ".readNext(" + record + ", " + key(d) + ");");
+        else f.e.line(fileVar + ".read(" + record + ");");
+        if (random) f.e.line("ik = " + fileVar + ".invalid(); ok = " + fileVar + ".successful();");
+        f.e.line("ae = " + fileVar + (relative(d) ? ".atEnd();" : ".status().equals(\"10\");"));
         Value into = Verbs.operand(s, "read-into");
         // A variable file's record moves at the length read, a group move (LR 6.4 pp. 188, 425).
         if (into != null && sizes(f.p, d, f.x) != null) f.e.line("if (" + fileVar + ".successful()) Move.group(" + fileVar + ".current(" + record + "), " + f.x.receiving((Value.Field) into) + ");");
         else if (into != null) f.e.line("if (" + fileVar + ".successful()) " + f.x.moveInto(new Value.Field(d.records().get(0), java.util.List.of(), null, null), f.x.receiving((Value.Field) into), f.x.item(((Value.Field) into).item())) + ";");
         List<Statement> atEnd = Verbs.branch(s, "at-end-phrase");
-        after("READ", file.name(), !atEnd.isEmpty() || s.branches().stream().anyMatch(b -> b.label().equals("at-end-phrase")));
+        if (random) {
+            after("READ", file.name(), phrase(s, "invalid-key-phrase"));
+            f.branch("ik", Verbs.branch(s, "invalid-key-phrase"), List.of());
+            f.branch("ok", Verbs.branch(s, "not-invalid-key-phrase"), List.of());
+            return;
+        }
+        after("READ", file.name(), !atEnd.isEmpty() || phrase(s, "at-end-phrase"));
         f.branch("ae", atEnd, List.of());
         f.branch(fileVar + ".successful()", Verbs.branch(s, "not-at-end-phrase"), List.of());
     }
