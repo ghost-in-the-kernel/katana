@@ -683,3 +683,26 @@ area past a short record, kept from before ("BBBBBAAAAA", "CCCBBAAAAA"), which t
 the text leaving it undefined; V5 (a) below the minimum (44 for L 1) and neither reading above it: L
 11 is 00 and a 10-byte record written, D-027; V4 (b), 00 for the 3-byte record, VLR(COMPAT)'s, where
 the default VLR(STANDARD) gives 04, D-028. VARTRIAL is an IBM reading (the text's (a), V3 kept).
+
+## 14. COPY REPLACING and REPLACE (read 2026-10-16, primary; NIST SM)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference.
+
+- LR p. 693 (COPY, debugging lines): "Debugging lines are permitted in library text and pseudo-text.
+  Text words within a debugging line participate in the matching rules as if the letter "D" did not
+  appear in the indicator area."
+- LR p. 701 (REPLACE, comparison rules): "Whenever a match occurs between pseudo-text-1 and the source
+  text, the corresponding pseudo-text-2 replaces the matched text in the source text. ... The source
+  text word that immediately follows the rightmost text word that participated in the match is then
+  considered as the leftmost source text word. The comparison cycle starts again, beginning with the
+  first occurrence of pseudo-text-1"; "If no match occurs, the comparison is repeated with each
+  successive occurrence of pseudo-text-1 ... until either a match is found or no further REPLACING
+  operands exist"; "For matching purposes, each occurrence of a separator comma, a separator semicolon,
+  or a sequence of one or more separator spaces is considered to be a single space."
+- LR p. 702: "Comment lines, inline comments, or blank lines in the source text, pseudo-text-1, or
+  partial-word-1 are ignored for purposes of matching."
+
+So a replacement is never matched again (SM206A's REPLACING ==1== BY ==5== ==5== BY ==7== gives 5), the
+replaceables are tried in the order written, and a debugging line's words take part in a match whether
+or not WITH DEBUGGING MODE is written. cobc -std=ibm fails SM206A's PST-TEST-009, a debugging line inside
+the copied text that the pseudo-text names: D-029.

@@ -2489,3 +2489,23 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `sir/build/Build.java`, `sir/types/Header.java`, `sir/contract/Contract.java`,
   `docs/SEMANTIC-IR.md`, `sir/ir.golden`, `lower/FileVerbs.java`, `lower/Exprs.java`, `lower/Verbs.java`,
   `docs/LANES.md`, the SQ floor.
+
+### J-173 SM through the Java lane: REPLACING made one pass of IBM's comparison rules; SM 14 of 17
+- **Who:** Opus, on Ghost's go-ahead. **Class:** build; failure-caught.
+- **Intent:** NIST's SM module (COPY and REPLACE) through the Java lane, its own floor.
+- **Found:** 13 of 17 at once. SM105A and SM205A stop at SORT (phase 4.2). SM206A and SM208A failed four
+  tests, each a rule of IBM's comparison (research §14): the preprocessor ran one `replaceAll` per
+  replaceable, longest first, so (1) a replacement was matched again, REPLACING ==1== BY ==5== ==5== BY
+  ==7== giving 7 for 5; (2) a comment line between two words stopped a match; (3) a separator comma or
+  semicolon was not a space; and the replaceables were tried longest first, not in the order written.
+  A debugging line's words already took part in a match, as IBM says (LR p. 693); cobc's do not, and it
+  fails SM206A's PST-TEST-009: D-029.
+- **Resolved:** `Preprocessor.replace` makes one left-to-right pass: at each source text word the
+  replaceables in the order written, a match replaced and the next word after it the next leftmost;
+  blanks, separator commas and semicolons, and comment lines all one separation. `ParseTest
+  .replacingFollowsIbmsComparisonRules` holds each rule and failed on the old code. SM through the Java
+  lane 14 of 17 and SM206A explained by D-029 (floor 14); NIST's contract facts 417602 to 417601, a
+  replacement that now matches; no other golden moved.
+- **Touched:** `front/Preprocessor.java`, `front/Mapped.java`, `test/katana/front/ParseTest.java`,
+  `test/katana/lower/NistJavaLaneIntegrationTest.java`, `sir/ir.golden`, `docs/DISCOVERIES.md`, research §14,
+  `docs/KERNEL-MAP.md`.

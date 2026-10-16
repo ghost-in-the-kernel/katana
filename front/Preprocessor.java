@@ -2,7 +2,6 @@ package katana.front;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Deque;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -193,21 +192,66 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
         if (token.getType() != Token.EOF) out.append(input, token.getStartIndex(), token.getStopIndex() + 1);
     }
 
-    /** Each clause applied, the longest replaceable first; a replaceable that starts or ends a word matches whole words only. */
+    /**
+     * Between two text words: blanks, a separator comma or semicolon ("each occurrence of a separator comma,
+     * a separator semicolon, or a sequence of one or more separator spaces is considered to be a single
+     * space", LR 6.4 p. 701), and comment lines and inline comments, which "are ignored for purposes of
+     * matching" (p. 702).
+     */
+    private static final String SEPARATION = "(?:\\s|[,;](?=\\s|$)|\\*>[^\\n]*)+";
+    private static final Pattern SEPARATOR = Pattern.compile(SEPARATION);
+    /** One source text word: a literal, a parenthesis, or a run of anything else up to a blank, a parenthesis or a quote. */
+    private static final Pattern WORD = Pattern.compile("\"[^\"\\n]*\"?|'[^'\\n]*'?|[()]|[^\\s()\"']+");
+
+    /**
+     * REPLACING and REPLACE as IBM's comparison rules give them (LR 6.4 p. 701): from the leftmost source
+     * text word, each replaceable tried in the order written; on a match the replacement is put in and the
+     * word after the matched text is the next leftmost, so a replacement is never matched again (NIST
+     * SM206A's 1 BY 5, 5 BY 7 gives 5, not 7); on none, the next word is. A replaceable that starts or ends
+     * with a letter or digit matches whole words only (J-173).
+     */
     private Mapped replace(Mapped text, List<CobolPreprocessorParser.ReplaceClauseContext> clauses) {
-        List<String[]> pairs = new ArrayList<>();
-        for (var clause : clauses) pairs.add(new String[] {operand(clause.replaceable()), operand(clause.replacement())});
-        pairs.sort(Comparator.comparingInt((String[] p) -> p[0].length()).reversed());
-        for (String[] pair : pairs) {
-            if (pair[0].isEmpty()) continue;
+        List<Pattern> patterns = new ArrayList<>();
+        List<String> replacements = new ArrayList<>();
+        for (var clause : clauses) {
+            String written = operand(clause.replaceable()).replaceAll("\\*>[^\\n]*", " ").trim();
+            // A replaceable that is only a separator comma or semicolon matches it as a text word (p. 701).
+            String replaceable = written.matches("[,;]") ? written : written.replaceAll("[,;](?=\\s|$)", " ").trim();
+            if (replaceable.isEmpty()) continue;
             List<String> parts = new ArrayList<>();
-            for (String part : pair[0].split("\\s+")) parts.add(Pattern.quote(part));
-            String regex = String.join("\\s+", parts);
-            if (Character.isLetterOrDigit(pair[0].charAt(0))) regex = "(?<![\\w-])" + regex;
-            if (Character.isLetterOrDigit(pair[0].charAt(pair[0].length() - 1))) regex = regex + "(?![\\w-])";
-            text = text.replaceAll(Pattern.compile(regex, Pattern.CASE_INSENSITIVE), pair[1]);
+            for (String part : replaceable.split("\\s+")) parts.add(Pattern.quote(part));
+            String regex = String.join(SEPARATION, parts);
+            if (Character.isLetterOrDigit(replaceable.charAt(0))) regex = "(?<![\\w-])" + regex;
+            if (Character.isLetterOrDigit(replaceable.charAt(replaceable.length() - 1))) regex = regex + "(?![\\w-])";
+            patterns.add(Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
+            replacements.add(operand(clause.replacement()));
         }
-        return text;
+        String s = text.toString();
+        Mapped out = new Mapped();
+        int copied = 0, at = 0;
+        while (at < s.length()) {
+            Matcher gap = SEPARATOR.matcher(s).region(at, s.length());
+            if (gap.lookingAt() && gap.end() > at) {
+                at = gap.end();
+                continue;
+            }
+            int matched = -1;
+            for (int k = 0; k < patterns.size() && matched < 0; k++) {
+                Matcher m = patterns.get(k).matcher(s).region(at, s.length()).useTransparentBounds(true);
+                if (m.lookingAt()) {
+                    out.append(text, copied, at);
+                    out.replacement(text, at, replacements.get(k));
+                    copied = matched = m.end();
+                }
+            }
+            if (matched >= 0) {
+                at = matched;
+                continue;
+            }
+            Matcher word = WORD.matcher(s).region(at, s.length());
+            at = word.lookingAt() && word.end() > at ? word.end() : at + 1;
+        }
+        return out.append(text, copied, s.length());
     }
 
     /** A replaceable or replacement as text: pseudo-text without its `==`, else the operand as written. */

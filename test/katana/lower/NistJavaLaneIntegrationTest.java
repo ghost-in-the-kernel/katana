@@ -32,6 +32,10 @@ class NistJavaLaneIntegrationTest {
     static final int FLOOR = 84;
     /** The same for SQ, its own floor (Fable: one module per suite, each with its floor). */
     static final int SQ_FLOOR = 85;
+    /** The same for SM. */
+    static final int SM_FLOOR = 14;
+    /** SM's runs where cobc departs: SM206A's debugging line in copied text, D-029. */
+    static final Map<String, String> SM_FINDINGS = Map.of("SM206A", "D-029");
 
     /**
      * The runs where cobc -std=ibm fails tests the Java lane passes, each with why: a discovery against cobc
@@ -49,6 +53,11 @@ class NistJavaLaneIntegrationTest {
     @Test
     void ncThroughTheJavaLane() throws Exception {
         lane("NC", FLOOR, COBC_FINDINGS);
+    }
+
+    @Test
+    void smThroughTheJavaLane() throws Exception {
+        lane("SM", SM_FLOOR, SM_FINDINGS);
     }
 
     @Test

@@ -63,6 +63,26 @@ class ParseTest {
         assertEquals(text.split("\n").length, normalized.split("\n").length);
     }
 
+    /** The text a REPLACE leaves, comments dropped and blanks folded. */
+    private static String replaced(String... lines) {
+        String text = java.util.Arrays.stream(lines).map(l -> l.startsWith("*") || l.startsWith("D") ? "      " + l : "       " + l).collect(java.util.stream.Collectors.joining("\n", "", "\n"));
+        return Preprocessor.run(text, NONE).text().toString().replaceAll("\\*>[^\\n]*", " ").replaceAll("\\s+", " ").trim();
+    }
+
+    /**
+     * IBM's comparison rules for REPLACE and COPY REPLACING (LR 6.4 pp. 693, 701-702; J-173): a replacement is
+     * never matched again; comment lines between words are ignored, a debugging line's words take part, a
+     * separator comma or semicolon is a space; the replaceables are tried in the order written.
+     */
+    @Test
+    void replacingFollowsIbmsComparisonRules() {
+        assertEquals("MOVE 5 TO X.", replaced("REPLACE ==1== BY ==5== ==5== BY ==7==.", "MOVE 1 TO X.", "REPLACE OFF."), "SM206A: 1 BY 5, 5 BY 7 gives 5");
+        assertEquals("MOVE \"PASS\" TO Y.", replaced("REPLACE ==MOVE \"FAIL\" TO== BY ==MOVE \"PASS\" TO==.", "MOVE", "* A COMMENT", "\"FAIL\"", "TO Y.", "REPLACE OFF."));
+        assertEquals("MOVE \"PASS\" TO Y.", replaced("REPLACE ==MOVE; \"FAIL\" , TO== BY ==MOVE \"PASS\" TO==.", "MOVE , \"FAIL\"; TO Y.", "REPLACE OFF."), "SM208A: separators");
+        assertEquals("PASS.", replaced("REPLACE ==FAIL. GARBAGE. NEXT.== BY ==PASS.==.", "FAIL.", "D   GARBAGE.", "NEXT.", "REPLACE OFF."), "SM206A: a debugging line's words match");
+        assertEquals("MOVE B TO X.", replaced("REPLACE ==A== BY ==B== ==A TO== BY ==C==.", "MOVE A TO X.", "REPLACE OFF."), "the first written that matches, not the longest");
+    }
+
     @Test
     void copyFindsItsBookQuotedOrNotInItsLibraryAndReplaces(@TempDir Path dir) throws Exception {
         Files.writeString(dir.resolve("REC.cpy"), "       01  :P:-A PIC X.\n");

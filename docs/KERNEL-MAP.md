@@ -1167,3 +1167,5 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Places.java:Places.counter` |  | 2026-10-15 |  |
 | lower | `lower/Exprs.java:Exprs.counterDigits` | moved to Places, where every operand's places are stated (J-170) | 2026-10-15 | superseded-by: `lower/Places.java:Places.counter` |
 | lower | `lower/FileVerbs.java:FileVerbs.channel` | R-019 | 2026-10-15 |  |
+| front | `front/Mapped.java:Mapped.replaceAll` | REPLACING made one pass of IBM's comparison rules (J-173) | 2026-10-16 | superseded-by: `front/Mapped.java:Mapped.replacement` |
+| front | `front/Mapped.java:Mapped.replacement` |  | 2026-10-16 |  |

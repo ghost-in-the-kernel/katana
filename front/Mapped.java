@@ -1,8 +1,6 @@
 package katana.front;
 
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Text that knows where each of its characters came from (docs/ROADMAP.md 2.3): a file, a line and a
@@ -97,18 +95,11 @@ public final class Mapped {
         return text.toString();
     }
 
-    /** Every match of the pattern replaced by the text, each replacing character at the origin of its match's first. */
-    public Mapped replaceAll(Pattern pattern, String replacement) {
-        Mapped out = new Mapped();
-        Matcher m = pattern.matcher(text);
-        int at = 0;
-        while (m.find()) {
-            out.append(this, at, m.start());
-            Origin o = origin(m.start());
-            for (char c : replacement.toCharArray()) out.add(c, o.file(), o.line(), o.column(), Kind.REPLACED);
-            at = m.end();
-        }
-        return out.append(this, at, length());
+    /** `replacement`'s characters, each with the origin of `source`'s character at `at`, marked replaced. */
+    public Mapped replacement(Mapped source, int at, String replacement) {
+        Origin o = source.origin(at);
+        for (char c : replacement.toCharArray()) add(c, o.file(), o.line(), o.column(), Kind.REPLACED);
+        return this;
     }
 
     private void grow() {
