@@ -98,7 +98,7 @@ final class Performs {
             return;
         }
         int back = f.label();
-        f.e.line("return d.perform(" + target.paragraph() + ", " + target.thru() + ", " + back + ");");
+        f.e.line("return " + f.perform(target, back) + ";");
         f.split(back);
     }
 
@@ -125,7 +125,7 @@ final class Performs {
     /** Once more: the procedures through the dispatcher, or the body, then on to `back`. */
     private void perform(Value.Target target, List<Statement> body, int back) {
         if (target != null) {
-            f.e.line("return d.perform(" + target.paragraph() + ", " + target.thru() + ", " + back + ");");
+            f.e.line("return " + f.perform(target, back) + ";");
             return;
         }
         f.statements(body);

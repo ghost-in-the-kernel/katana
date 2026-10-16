@@ -1246,3 +1246,39 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Dispatcher.java:Dispatcher.enter` | R-021 | 2026-10-16 |  |
 | rt | `rt/katana/rt/Dispatcher.java:Dispatcher.resume` |  | 2026-10-16 |  |
 | lower | `lower/Verbs.java:Verbs.alteredOnly` |  | 2026-10-16 |  |
+| front | `front/Mapped.java:Mapped.blank` |  | 2026-10-16 |  |
+| front | `front/Preprocessor.java:Preprocessor.debuggingMode` | R-019 | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.Debugging` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.on` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.held` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.start` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.perform` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.goTo` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.end` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.entry` | R-021 | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.alter` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.register` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.procedure` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.declarative` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.inDeclaratives` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.header` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.range` |  | 2026-10-16 |  |
+| lower | `lower/Debugging.java:Debugging.line` |  | 2026-10-16 |  |
+| lower | `lower/Flow.java:Flow.end#2` |  | 2026-10-16 |  |
+| lower | `lower/Flow.java:Flow.perform` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.Debug` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.on` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.start` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.perform` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.goTo` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.fell` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.entered` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.fill` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.altered` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.fill#2` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.put` |  | 2026-10-16 |  |
+| sir | `sir/build/Build.java:Build.debuggingMode` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Debug.java:Debug.section` |  | 2026-10-16 |  |
+| front | `front/Mapped.java:Mapped.debugging` |  | 2026-10-16 |  |
+| front | `front/Mapped.java:Mapped.debugging#2` |  | 2026-10-16 |  |
+| front | `front/Lines.java:Lines.marked` |  | 2026-10-16 |  |

@@ -71,6 +71,10 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
   through 12, or space suppression" (LR 6.4 p. 473); where a channel stops is the printer's
   carriage-control tape, not the program's. The java lane reads C01, channel 1, as a new page, as PAGE
   writes it, and CSP as no line advanced; C02 to C12 and stacker selection are not lowered (J-172).
+- **LANE-13 The object-time debugging switch is a property.** IBM's runtime option DEBUG, NODEBUG its
+  default, activates USE FOR DEBUGGING sections (LR 6.4 p. 760). The java lane reads it as the system
+  property `katana.debug`, Y or N, N when absent (`rt/Debug`); NIST's run notes set it for each run, as
+  COB_SET_DEBUG does for cobc (J-176).
 
 ## The check
 

@@ -446,7 +446,7 @@ statement SQ210M 27.13 MOVE move-to-sending-area=1 move-to-statement=keyword:TO 
 statement SQ210M 27.14 PERFORM perform-procedure-statement=@29..29 perform-times=80 perform-times=keyword:TIMES
 statement SQ210M 28.0 MOVE move-to-sending-area="END OF SQ210M VALIDATION TESTS" move-to-statement=keyword:TO move-to-statement=#1
 statement SQ210M 28.1 WRITE record-name=#1 write-advancing-phrase=keyword:AFTER write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINE
-statement SQ210M 28.2 GO TO go-to-statement-simple=@30..30
+statement SQ210M 28.2 GO TO go-to-statement-simple=@30..30 section
 statement SQ210M 29.0 MOVE move-to-sending-area=register:LINAGE-COUNTER move-to-statement=keyword:TO move-to-statement=#9
 statement SQ210M 29.1 MOVE move-to-sending-area=#4 move-to-statement=keyword:TO move-to-statement=#1
 statement SQ210M 29.2 WRITE record-name=#1 write-advancing-phrase=keyword:BEFORE write-advancing-phrase=keyword:ADVANCING write-advancing-lines=1 write-advancing-lines=keyword:LINE

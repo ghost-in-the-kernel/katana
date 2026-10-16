@@ -224,7 +224,7 @@ final class Paragraphs {
 
     private Value target(CobolParser.ProcedureNameContext p) {
         int[] r = range(p);
-        if (r != null) return new Value.Target(r[0], r[1]);
+        if (r != null) return new Value.Target(r[0], r[1], r.length > 2);
         findings.add("procedure " + Values.upper(p.getText()) + " at " + Origins.at(parse, p) + " names no paragraph or section");
         return new Value.Name("unresolved procedure", Values.upper(p.getText()));
     }
@@ -243,7 +243,8 @@ final class Paragraphs {
         }
         if (found >= 0) return new int[] {found, found};
         int[] section = sectionRanges.get(name);
-        return section != null && section[1] >= section[0] ? section : null;
+        // A third element marks a section named, which a debugging section tells apart (LR 6.4 p. 708).
+        return section != null && section[1] >= section[0] ? new int[] {section[0], section[1], 1} : null;
     }
 
     /** A CALL's target, its USING arguments each with its mode, and its RETURNING field. */

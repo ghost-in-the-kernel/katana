@@ -13,7 +13,7 @@ Invariants are numbered SIR-01 onward, in this document only, and a number is ne
 
 `Program`: the `Header`, the data map, the files, the `Procedure`, the `Call`s, and the programs
 nested in it. `Header`: the program's name, its source file, the hash of the profile (R-049) it
-means what it means under, and each `Switch`: a switch-status condition-name from SPECIAL-NAMES, its
+means what it means under, whether SOURCE-COMPUTER says WITH DEBUGGING MODE (research §17), and each `Switch`: a switch-status condition-name from SPECIAL-NAMES, its
 switch's environment-name (`UPSI-0` to `UPSI-7`) and the status it stands for (J-123); each switch's
 `Mnemonic`, which SET sets ON or OFF (J-127); each `Alphabet` and the alphabet the program collating
 sequence names (J-131); and each
@@ -45,7 +45,7 @@ in that phrase's branch, as one written alone is (J-122).
 
 `Statement`: a verb, its operands, each an `Operand` with its role, and its phrases, each a `Branch`
 with its condition and statements. What it operates on is a `Value`: a `Field` (subscripted and
-reference-modified as written), a `File`, a `Target` paragraph, a `Name` that is not data, a
+reference-modified as written), a `File`, a `Target` (its first and last paragraph, and whether the name was a section's), a `Name` that is not data, a
 `Literal` (its text, its `Kind` and its decoded payload, SIR-08), a `Figurative` constant, a
 `ConditionName`, or an `Expression` of these. A statement's roles and an expression's operators are
 the grammar's (front/grammar), not chosen here; sir/roles.golden lists every verb's roles and branch
@@ -74,6 +74,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | --- | --- |
 | `profile` | the profile the program means what it means under |
 | `editing` | the currency sign and decimal point a mask's `$` and `.` stand for |
+| `debugging` | WITH DEBUGGING MODE, where written |
 | `switch` | each switch-status condition-name, its switch and status |
 | `mnemonic` | each mnemonic-name with its environment-name |
 | `alphabet` | each alphabet-name, its kind and members, and the program collating sequence |

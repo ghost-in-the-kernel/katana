@@ -22,6 +22,8 @@ public final class Mapped {
     private int[] lines = new int[64];
     private int[] columns = new int[64];
     private Kind[] kinds = new Kind[64];
+    /** Whether a character is a debugging line's, or text a COPY on one copied (LR 6.4 p. 760). */
+    private boolean[] debug = new boolean[64];
 
     /** A file's text as written: every character SOURCE, at its line and column. */
     public static Mapped source(String text, String file) {
@@ -48,6 +50,7 @@ public final class Mapped {
         lines[at] = line;
         columns[at] = column;
         kinds[at] = kind;
+        debug[at] = false;
         return this;
     }
 
@@ -60,7 +63,10 @@ public final class Mapped {
 
     /** Characters from..to of another text, each with its origin. */
     public Mapped append(Mapped other, int from, int to) {
-        for (int i = from; i < to; i++) add(other.text.charAt(i), other.files[i], other.lines[i], other.columns[i], other.kinds[i]);
+        for (int i = from; i < to; i++) {
+            add(other.text.charAt(i), other.files[i], other.lines[i], other.columns[i], other.kinds[i]);
+            debug[text.length() - 1] = other.debug[i];
+        }
         return this;
     }
 
@@ -71,6 +77,23 @@ public final class Mapped {
     /** The text from..to, with its origins. */
     public Mapped slice(int from, int to) {
         return new Mapped().append(this, from, to);
+    }
+
+    /** The character at `i` made a space the front end wrote (ADDED), its place kept. */
+    public void blank(int i) {
+        text.setCharAt(i, ' ');
+        kinds[i] = Kind.ADDED;
+    }
+
+    /** Every character marked as debugging text: a debugging line's, or what a COPY on one copied. */
+    public Mapped debugging() {
+        java.util.Arrays.fill(debug, 0, text.length(), true);
+        return this;
+    }
+
+    /** Whether the character at `i` is debugging text. */
+    public boolean debugging(int i) {
+        return debug[i];
     }
 
     /** The text cut to its first `length` characters. */
@@ -98,7 +121,10 @@ public final class Mapped {
     /** `replacement`'s characters, each with the origin of `source`'s character at `at`, marked replaced. */
     public Mapped replacement(Mapped source, int at, String replacement) {
         Origin o = source.origin(at);
-        for (char c : replacement.toCharArray()) add(c, o.file(), o.line(), o.column(), Kind.REPLACED);
+        for (char c : replacement.toCharArray()) {
+            add(c, o.file(), o.line(), o.column(), Kind.REPLACED);
+            debug[text.length() - 1] = source.debug[at];
+        }
         return this;
     }
 
@@ -108,5 +134,6 @@ public final class Mapped {
         lines = Arrays.copyOf(lines, size);
         columns = Arrays.copyOf(columns, size);
         kinds = Arrays.copyOf(kinds, size);
+        debug = Arrays.copyOf(debug, size);
     }
 }

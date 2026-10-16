@@ -28,6 +28,7 @@ public final class Contract {
     public static final List<Kind> KINDS = List.of(
             new Kind("profile", "the profile the program means what it means under", p -> List.of(p.header().profileHash())),
             new Kind("editing", "the currency sign and decimal point a mask's `$` and `.` stand for", p -> List.of("currency " + p.header().currency() + " point " + (p.header().decimalComma() ? "," : "."))),
+            new Kind("debugging", "WITH DEBUGGING MODE, where written", p -> p.header().debuggingMode() ? List.of("mode") : List.of()),
             new Kind("switch", "each switch-status condition-name, its switch and status", p -> each(p.header().switches(), s -> s.condition() + " " + s.environment() + " " + (s.on() ? "ON" : "OFF"))),
             new Kind("mnemonic", "each mnemonic-name with its environment-name", p -> each(p.header().mnemonics(), m -> m.name() + " " + m.environment())),
             new Kind("alphabet", "each alphabet-name, its kind and members, and the program collating sequence", p -> {
@@ -170,7 +171,7 @@ public final class Contract {
             case Value.Field f -> "#" + f.item() + (f.subscripts().isEmpty() ? "" : f.subscripts().stream().map(Contract::value).collect(Collectors.joining(",", "(", ")")))
                     + (f.start() == null ? "" : "[" + value(f.start()) + ":" + value(f.length()) + "]");
             case Value.File f -> "file:" + f.name();
-            case Value.Target t -> "@" + t.paragraph() + ".." + t.thru();
+            case Value.Target t -> "@" + t.paragraph() + ".." + t.thru() + (t.section() ? " section" : "");
             case Value.Name n -> n.kind().replace(' ', '-') + ":" + n.text();
             case Value.Literal l -> literal(l);
             case Value.Figurative f -> f.name() + (f.all() == null ? "" : " " + literal(f.all()));

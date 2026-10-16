@@ -11,7 +11,7 @@ import java.util.List;
  * each CLASS name with its members; each alphabet-name; and the alphabet the program collating
  * sequence names ("" for the native one).
  */
-public record Header(String program, String source, String profileHash, String currency, boolean decimalComma, List<Switch> switches, List<Mnemonic> mnemonics, List<CharClass> classes,
+public record Header(String program, String source, String profileHash, String currency, boolean decimalComma, boolean debuggingMode, List<Switch> switches, List<Mnemonic> mnemonics, List<CharClass> classes,
         List<Alphabet> alphabets, String collating, Origin origin) {
     /**
      * An alphabet-name (LR 6.4 pp. 127-129): `kind` EBCDIC, ASCII, STANDARD-1, STANDARD-2, NATIVE or

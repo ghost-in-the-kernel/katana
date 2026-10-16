@@ -83,8 +83,14 @@ public final class Build {
         for (var inner : unit.programUnit()) nested.add(program(parse, inner, profileHash, findings, inside, insideFiles));
         var id = unit.identificationDivision().programIdParagraph();
         Header header = new Header(Values.upper(id.programName().getText()).replaceAll("[\"']", ""), Origins.at(parse, unit).file(), profileHash,
-                String.valueOf(data.currency()), data.decimalComma(), switches(unit), mnemonics(unit), classes(unit), alphabets(unit), collating(unit), Origins.at(parse, id));
+                String.valueOf(data.currency()), data.decimalComma(), debuggingMode(unit), switches(unit), mnemonics(unit), classes(unit), alphabets(unit), collating(unit), Origins.at(parse, id));
         return new Program(header, data.items(), files, procedure, paragraphs.calls, nested);
+    }
+
+    /** SOURCE-COMPUTER's WITH DEBUGGING MODE: the compile-time switch for debugging sections and lines (LR 6.4 p. 760). */
+    private static boolean debuggingMode(ParseTree unit) {
+        CobolParser.SourceComputerParagraphContext s = first(unit, CobolParser.SourceComputerParagraphContext.class);
+        return s != null && s.DEBUGGING() != null;
     }
 
     /** SPECIAL-NAMES' switch-status condition-names, each with its switch and the status it stands for. */

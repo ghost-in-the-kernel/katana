@@ -56,8 +56,26 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
     /** Preprocesses a file's text (tabs expanded, not yet normalized), its origins in that file. */
     public static Result run(String source, String file, Copybooks copybooks) {
         List<String> errors = new ArrayList<>();
-        return new Result(text(source, file, copybooks, errors, 0, "the program"), errors);
+        Mapped text = text(source, file, copybooks, errors, 0, "the program");
+        if (!debuggingMode(text.toString())) for (int i = 0; i < text.length(); i++) if (text.charAt(i) != '\n' && text.debugging(i)) text.blank(i);
+        return new Result(text, errors);
     }
+
+    /**
+     * Whether a source unit says WITH DEBUGGING MODE, "logically determined after all COPY and REPLACE
+     * statements have been processed"; without it, "all debugging sections and debugging lines are
+     * treated as comments" (LR 6.4 p. 122, p. 760), so `run` blanks the debugging lines' text.
+     */
+    // Decision: R-019
+    static boolean debuggingMode(String text) {
+        for (String line : text.split("\n")) {
+            if (line.stripLeading().startsWith("*>")) continue;
+            if (DEBUGGING_MODE.matcher(line).find()) return true;
+        }
+        return false;
+    }
+
+    private static final java.util.regex.Pattern DEBUGGING_MODE = java.util.regex.Pattern.compile("(?i)(^|[\\s.])DEBUGGING\\s+MODE([\\s.]|$)");
 
     private static Mapped text(String source, String file, Copybooks copybooks, List<String> errors, int depth, String where) {
         Mapped input = Lines.normalize(source, file);
@@ -131,6 +149,8 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
         }
         Mapped text = text(copybook.text(), copybook.file(), copybooks, errors, depth + 1, "copybook " + name);
         for (CobolPreprocessorParser.ReplacingPhraseContext replacing : ctx.replacingPhrase()) text = replace(text, replacing.replaceClause());
+        // "The compiler treats the copied text as the debugging line or lines" of a COPY on one (LR 6.4 p. 760).
+        if (input.debugging(ctx.getStart().getStartIndex())) text.debugging();
         contexts.peek().append(text).added("\n", text, text.length() - 1);
     }
 

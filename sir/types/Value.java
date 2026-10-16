@@ -12,7 +12,7 @@ public sealed interface Value {
     }
 
     /** A paragraph a PERFORM or GO TO names, through `thru` (the same paragraph when none; a section is its paragraphs). */
-    record Target(int paragraph, int thru) implements Value {}
+    record Target(int paragraph, int thru, boolean section) implements Value {}
 
     /** A word that is not data: a mnemonic or environment name, a special register, or a name that resolved to nothing (`kind` says which). */
     record Name(String kind, String text) implements Value {}
