@@ -56,7 +56,8 @@ final class Verbs {
             case "SEARCH" -> search.statement(s);
             case "PERFORM" -> performs.statement(s);
             case "GO TO" -> goTo(s);
-            case "STOP", "GOBACK" -> f.jump(String.valueOf(f.end()));
+            case "STOP" -> stop(s);
+            case "GOBACK" -> f.jump(String.valueOf(f.end()));
             case "EXIT" -> exit(s);
             case "ALTER" -> alter(s);
             case "CONTINUE" -> f.e.line("// CONTINUE");
@@ -117,6 +118,22 @@ final class Verbs {
         Value upon = operand(s, "display-upon");
         boolean syserr = upon instanceof Value.Name n && n.text().equals("SYSERR");
         f.e.line((syserr ? "err" : "out") + ".display(" + !keyword(s, "ADVANCING") + (parts.isEmpty() ? "" : ", ") + String.join(", ", parts) + ");");
+    }
+
+    /**
+     * STOP RUN ends the run. STOP literal: "the literal is communicated to the operator, and object
+     * program execution is suspended", resumed "at the next executable statement" (LR 6.4 p. 457); a lane
+     * has no operator, and reads the reply as given at once (LANE-14): the literal on the console, then on.
+     */
+    // Decision: R-019
+    private void stop(Statement s) {
+        if (keyword(s, "RUN")) {
+            f.jump(String.valueOf(f.end()));
+            return;
+        }
+        List<String> parts = new ArrayList<>();
+        for (Statement.Operand o : s.operands()) if (!(o.value() instanceof Value.Name n && n.kind().equals("keyword"))) parts.add(shown(o.value()));
+        f.e.line("err.display(true" + (parts.isEmpty() ? "" : ", ") + String.join(", ", parts) + ");");
     }
 
     /** ACCEPT: from the input device (format 1, any mnemonic), or a conceptual item, DATE to TIME (format 2). */
@@ -212,9 +229,9 @@ final class Verbs {
         }
     }
 
+    /** The paragraph being lowered, by its index: a name can stand for two paragraphs in two sections (NIST OBNC2M's PARA-6B, J-177). */
     private int paragraphIndex() {
-        for (Procedure.Paragraph p : f.p.procedure().paragraphs()) if (p.name().equals(f.paragraph)) return p.index();
-        return -1;
+        return f.paragraphIndex();
     }
 
     /** SET: an index or item TO a value, UP or DOWN BY one, or a condition name TO TRUE (its first value into its item). */

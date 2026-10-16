@@ -39,6 +39,8 @@ class NistJavaLaneIntegrationTest {
             Map.entry("IF119A", "D-030"), Map.entry("IF120A", "D-030"), Map.entry("IF121A", "D-030"), Map.entry("IF122A", "D-030"),
             Map.entry("IF123A", "D-030"), Map.entry("IF128A", "D-030"), Map.entry("IF129A", "D-030"), Map.entry("IF132A", "D-030"),
             Map.entry("IF137A", "D-030"), Map.entry("IF138A", "D-030"), Map.entry("IF141A", "D-030"));
+    /** The same for OB. */
+    static final int OB_FLOOR = 6;
     /** The same for DB. */
     static final int DB_FLOOR = 10;
     /** The same for SG. */
@@ -71,6 +73,11 @@ class NistJavaLaneIntegrationTest {
     @Test
     void ifThroughTheJavaLane() throws Exception {
         lane("IF", IF_FLOOR, IF_FINDINGS);
+    }
+
+    @Test
+    void obThroughTheJavaLane() throws Exception {
+        lane("OB", OB_FLOOR, Map.of());
     }
 
     @Test

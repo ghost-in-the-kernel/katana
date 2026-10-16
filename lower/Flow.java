@@ -142,6 +142,11 @@ final class Flow {
         return next++;
     }
 
+    /** The index of the paragraph being lowered. */
+    int paragraphIndex() {
+        return at;
+    }
+
     int counter() {
         return counters++;
     }
