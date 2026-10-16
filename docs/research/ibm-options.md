@@ -879,3 +879,32 @@ paragraph by its own name and expect the paragraph's entry alone. A section is e
 or GO TO names it, when control falls through its header, or at the run's start (`Debug.section`).
 DB103M, without WITH DEBUGGING MODE, ran its debugging lines as code until they were comments; SM101A's
 `D` line `COPY K1SEA.` copies debugging text, the usage note above.
+
+## 18. Obsolete elements (read 2026-10-16, primary; NIST OB)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR).
+
+- LR Preface pp. xxii-xxiii: the elements "categorized as obsolete by the 85 COBOL Standard", among them
+  the ALTER statement, the DATA RECORDS clause, the ENTER statement, "GO TO without a specified
+  procedure-name", the LABEL RECORDS clause, the MEMORY SIZE clause, the MULTIPLE FILE TAPE clause,
+  the "STOP literal format of the STOP statement" and the VALUE OF clause; "This does not imply that
+  IBM will remove the 85 COBOL Standard obsolete elements from a future release of Enterprise COBOL."
+- LR p. 698: "The ENTER statement is syntax checked but has no effect on the execution of the program."
+- LR p. 158: MULTIPLE FILE TAPE: "This clause is syntax checked, but has no effect on the execution of the
+  program."
+- LR p. 188: LABEL RECORDS: "the LABEL RECORDS clause is syntax checked, but has no effect on the
+  execution of the program." LR p. 189: VALUE OF: "The VALUE OF clause is syntax checked, but has no
+  effect on the execution of the program." DATA RECORDS: "syntax checked but serves only as
+  documentation".
+- LR p. 457 (STOP): "When STOP literal is specified, the literal is communicated to the operator, and
+  object program execution is suspended. Program execution is resumed only after operator
+  intervention, and continues at the next executable statement in sequence."
+
+A lane has no operator. The java lane reads STOP literal as the operator's reply given at once: the
+literal is displayed and the run goes on at the next statement (LANE-14), as cobc's does with nothing to
+answer it.
+
+Predicted, before the run: every OB program reports what cobc reports, the elements above having no
+effect or the effect already lowered (ALTER and the altered GO TO, J-175), OBNC1M's STOP-GF-9-TEST
+failing in both lanes as RECONCILIATION records ("EXECUTION DID NOT HALT"). The rival: a program that
+the Java lane cannot run for a reason no OB element holds (a CALL, OBIC1A).
