@@ -1323,3 +1323,71 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/RelFile.java:RelFile.digits` |  | 2026-10-16 |  |
 | rt | `rt/katana/rt/Varying.java:Varying.took` |  | 2026-10-16 |  |
 | rt | `rt/katana/rt/Varying.java:Varying.bytes` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.indexed` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.keyed` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.keys` |  | 2026-10-16 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.keyItem` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.Entry.compareTo` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.IdxFile` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.keys` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.value` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.value#2` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.clear` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.hold` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.drop` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.load` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.save` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.opened` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.forget` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.readNext` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.read` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.take` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.key` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.write` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.clash` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.repeats` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.rewrite` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.delete` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.target` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/IdxFile.java:IdxFile.start` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.KeyedFile` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.status` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.successful` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.invalid` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.atEnd` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.failed` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.mode` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.hasStatus` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.abend` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.varying` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.current` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.bytes` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.take` | R-060 | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.path` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.open` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.noRewind` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.refused` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.close` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/KeyedFile.java:KeyedFile.close#2` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.clear` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.save` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.opened` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.forget` |  | 2026-10-16 |  |
+| sir | `sir/build/Files.java:Files.shared` | R-019 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RelFile.java:RelFile.status` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.status` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.successful` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.successful` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.invalid` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.invalid` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.atEnd` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.atEnd` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.failed` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.failed` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.mode` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.mode` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.hasStatus` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.hasStatus` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.abend` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.abend` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.varying` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.varying` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.current` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.current` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.bytes` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.bytes` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.path` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.path` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.open` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.open` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.noRewind` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.noRewind` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.refused` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.refused` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.close` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.close` |
+| rt | `rt/katana/rt/RelFile.java:RelFile.close#2` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.close#2` |

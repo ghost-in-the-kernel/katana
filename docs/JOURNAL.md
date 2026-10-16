@@ -2691,3 +2691,32 @@ taken; closed by a later `decision` entry naming it).
   parallel execution with every other class's methods in turn, as before. The class alone: 263 s, every
   module's count unchanged. The ceiling is not raised (R-054 ratchets down); the room is made.
 - **Touched:** `test/katana/lower/NistJavaLaneIntegrationTest.java`, `build.gradle`.
+
+### J-182 IX through the Java lane: indexed files in `rt/IdxFile`, SAME RECORD AREA in the IR; IX 42 of 42
+- **Who:** Opus, on Ghost's go-ahead ("continue with the next on the list"). **Class:** build; trial.
+- **Intent:** the rest of phase 4.1's NIST check, indexed files, through the Java lane with its own floor;
+  IBM's text and the prediction committed before the run (research §21, 23ad0a0).
+- **Found:** before any change, 14 of 42, refuting the prediction's "fewer than ten"; most of the rest did
+  not compile, START and DELETE being lowered for relative files only. With an indexed file, 39 of 42.
+  IX110A threw `DuplicateFormatFlagsException`: its `PIC P VALUE ZERO` has no digit stored, and
+  `Field.zonedPut` formatted zero digits as `%00d`. IX205A and IX206A each failed one SAME AREA test: the
+  IR had no I-O-CONTROL, so files of a SAME RECORD AREA clause, and of a SAME AREA clause between indexed
+  files (VSAM, which IBM treats as SAME RECORD AREA), had record areas of their own.
+- **Resolved:** `rt/KeyedFile`, what relative and indexed files share (statuses, open modes, CLOSE,
+  variable records, the file kept in memory), taken out of `RelFile` with no change to it (its kernel-map
+  rows closed `superseded-by`); `rt/IdxFile`, each key an index in binary order with duplicates in the
+  order written, the key of reference, START cut to the shorter length, statuses 02, 21, 22, 23 and 39,
+  the keys and largest record kept on disk (LANE-15). `FileDescriptor.sharesRecordArea` (SIR-09) from
+  `Files.shared`, and `Lower.area` giving such files one record area as long as their longest record; the
+  contract states it only where a file shares, so no contract moved. `Field.zonedPut` writes nothing for
+  an item with no digit. `IdxFileTest` (red under four mutations: duplicates by prime key, no 02, START
+  at full length, no 39) and `FieldTest`'s P item (red without the guard). IX 42 of 42 (floor 42); RL 35
+  unchanged; no golden moved. The first pre-push check failed with an `OutOfMemoryError` in the lane's
+  JVM, NC and OB skipped: ten modules at once (J-181), each with its own extraction of the whole suite.
+  NIST is now extracted once for the class; the ten together pass in 259 s.
+- **Touched:** `rt/katana/rt/KeyedFile.java`, `rt/katana/rt/RelFile.java`, `rt/katana/rt/IdxFile.java`,
+  `rt/katana/rt/Field.java`, `sir/types/FileDescriptor.java`, `sir/build/Files.java`,
+  `sir/contract/Contract.java`, `lower/Lower.java`, `lower/FileVerbs.java`, `test/katana/rt/IdxFileTest.java`,
+  `test/katana/rt/FieldTest.java`, `test/katana/sir/SirTypesTest.java`, `test/katana/sir/NoTokenLeftTest.java`,
+  `test/katana/lower/NistJavaLaneIntegrationTest.java`, `docs/SEMANTIC-IR.md` (SIR-09), `docs/LANES.md`
+  (LANE-15), research §21, `TODO.md`, `docs/KERNEL-MAP.md`.

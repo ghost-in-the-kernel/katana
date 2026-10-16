@@ -1096,3 +1096,14 @@ and IX401M's abnormal ends included. The rivals: status 02, which cobc's indexed
 where IBM does (on a READ whose next record has the same alternate key, on a WRITE or REWRITE that makes a
 duplicate); where the file points after an unsuccessful START (undefined); and the order of duplicates
 after a REWRITE that leaves an alternate key unchanged.
+
+Result (J-182): the prediction held for the runtime, and its bound on the baseline was refuted again. As
+lowered before, IX was 14 of 42, not fewer than ten: an indexed file read in prime-key order as it was
+written passes a sequential file's test. With `rt/IdxFile`, 39 of 42 at once. The other three held nothing
+indexed: IX110A declares `01 STATUS-TEST-10 PIC P VALUE ZERO`, a picture of a scaling position alone, and
+the runtime wrote its zero digits with a format that has no width (LR p. 210: the value is zero in place of
+the P); IX205A and IX206A test I-O-CONTROL's SAME RECORD AREA and SAME AREA, which the IR did not carry
+(LR pp. 156-157: "For VSAM files, the SAME clause is treated as if equivalent to the SAME RECORD AREA
+clause"). With both, 42 of 42, IX301M's and IX401M's abnormal ends (35 and 39) included. Of the rivals,
+none was met where cobc and the lane could differ: status 02 on READ and on WRITE agreed with cobc's
+reports, no test reads after an unsuccessful START, and none rewrites a duplicate's alternate key.

@@ -7,10 +7,12 @@ import java.util.List;
  * RECORD KEY item and ALTERNATE keys (0 and empty when not indexed), its RELATIVE KEY item (0 for none),
  * its FILE STATUS item and the second one a VSAM file may name (0 for none; SIR-09), what its FD or SD
  * entry says (`Fd`, null with none; SIR-11), its records (the 01s under its FD), the smallest and
- * largest record in bytes, and its origin.
+ * largest record in bytes, the other files whose record area it shares (SIR-09: SAME RECORD AREA, and SAME
+ * AREA between relative and indexed files, which IBM treats as SAME RECORD AREA, LR 6.4 pp. 156-157), and
+ * its origin.
  */
 public record FileDescriptor(String name, String assign, boolean optional, Organization organization, Access access, int recordKey, List<AlternateKey> alternateKeys,
-        int relativeKey, int status, int vsamStatus, Fd fd, List<Integer> records, int minRecord, int maxRecord, Origin origin) {
+        int relativeKey, int status, int vsamStatus, Fd fd, List<Integer> records, int minRecord, int maxRecord, List<String> sharesRecordArea, Origin origin) {
     public enum Organization { SEQUENTIAL, LINE_SEQUENTIAL, INDEXED, RELATIVE }
 
     public enum Access { SEQUENTIAL, RANDOM, DYNAMIC }
@@ -54,6 +56,7 @@ public record FileDescriptor(String name, String assign, boolean optional, Organ
     public FileDescriptor {
         alternateKeys = List.copyOf(alternateKeys);
         records = List.copyOf(records);
+        sharesRecordArea = List.copyOf(sharesRecordArea);
         Invalid.origin(origin, "file " + name);
     }
 }

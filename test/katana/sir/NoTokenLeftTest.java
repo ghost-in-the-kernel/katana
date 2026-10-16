@@ -59,7 +59,7 @@ class NoTokenLeftTest {
         Parse.Result parse = Parse.file(golden.resolve("PROBE.cbl"), new Copybooks(List.of(golden), n -> 8), 8);
         Program p = Build.program(parse, HASH).program();
         List<FileDescriptor> files = p.files().stream().map(f -> new FileDescriptor(f.name(), f.assign(), false, f.organization(), f.access(), f.recordKey(), f.alternateKeys(),
-                f.relativeKey(), 0, 0, f.fd(), f.records(), f.minRecord(), f.maxRecord(), f.origin())).toList();
+                f.relativeKey(), 0, 0, f.fd(), f.records(), f.minRecord(), f.maxRecord(), f.sharesRecordArea(), f.origin())).toList();
         List<Procedure.Section> sections = p.procedure().sections().stream().map(s -> s.use() == null ? s : new Procedure.Section(s.name(), true,
                 new Procedure.Use(s.use().kind(), false, s.use().mode(), s.use().files().isEmpty() ? List.of() : List.of("REL-FILE"), s.use().outerFiles(), s.use().debugging()), s.priority(), s.origin())).toList();
         Procedure q = p.procedure();
@@ -77,7 +77,7 @@ class NoTokenLeftTest {
         Parse.Result parse = Parse.file(golden.resolve("PROBE.cbl"), new Copybooks(List.of(golden), n -> 8), 8);
         Program p = Build.program(parse, HASH).program();
         List<FileDescriptor> files = p.files().stream().map(f -> f.fd() == null ? f : new FileDescriptor(f.name(), f.assign(), f.optional(), f.organization(), f.access(), f.recordKey(),
-                f.alternateKeys(), f.relativeKey(), f.status(), f.vsamStatus(), stripped(f.fd()), f.records(), f.minRecord(), f.maxRecord(), f.origin())).toList();
+                f.alternateKeys(), f.relativeKey(), f.status(), f.vsamStatus(), stripped(f.fd()), f.records(), f.minRecord(), f.maxRecord(), f.sharesRecordArea(), f.origin())).toList();
         Program without = new Program(p.header(), p.items(), files, p.procedure(), p.calls(), p.nested());
         String missing = String.join(" ", TokenCoverage.missing(parse, without));
         for (String word : List.of("GLOBAL in FD SEQ-FILE", "RECORDING in FD SEQ-FILE", "CONTAINS in FD SEQ-FILE", "TOP in FD LIST-FILE", "BOTTOM in FD LIST-FILE",
