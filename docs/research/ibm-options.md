@@ -1140,3 +1140,20 @@ its IDCAMS card in both lanes. CREASTMT stays refused: CBSTM03A CALLs the module
 rivals: a program's FD record shorter or longer than its dataset's LRECL, which `IdxFile` reads as a
 conflict of attributes (39) where GnuCOBOL may not; and a numeric edit, a DISPLAY or a date in the three
 programs that the NIST modules never exercised.
+
+Result (J-183): the prediction held for the jobs and was refuted on the way in three places, each a gap the
+NIST modules never showed. (1) The rival named last was met, and larger than named: CardDemo's ASCII data
+holds its signs as EBCDIC overpunch translated byte for byte (`0000009303L`, X'D3', -930.33), which cobc
+-std=ibm reads as the digit 0, positive, measured over every printable byte, rewriting the byte as `0` in
+the record when it reads it. The cobc goldens had posted five returns as purchases over their limit. On
+Ghost's decision the fixtures say so (`signs=`, FIXTURE-10, R-061) and the lane loads those bytes in its own
+form; both lanes then read IBM's values: POSTTRAN posts 262, not 257, the study's frozen unloads (F-02) no
+longer the oracle. (2) The Java runtime read the machine's clock, not the lane's (LANE-03), returned no
+RETURN-CODE (it started as the spaces of a new record, 8224, exit 32), and gave a PROCEDURE DIVISION USING
+no PARM; LANE-17. (3) CBACT04C declares its cross-reference's alternate key without DUPLICATES over an
+index defined NONUNIQUEKEY, which `IdxFile` read as 39; IBM's list of 39's attributes does not say
+DUPLICATES is one, and CardDemo opens it on z/OS, so it is not (an `// Unsure`). The rival of the FD's
+LRECL was not met. TRANREPT-STUDY's stdout differs only as D-005 says (cobc's separate trailing sign
+where DISPSIGN(COMPAT) shows the bytes), held line by line. With those: POSTTRAN, INTCALC, TRANREPT,
+TRANREPT-STUDY, PRTCATBL, PRTCATBL-INLINE, COMBTRAN and SORTTEST report in the Java lane what the cobc
+lane's golden holds; CREASTMT is refused for CBSTM03B.

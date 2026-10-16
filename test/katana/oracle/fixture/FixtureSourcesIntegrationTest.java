@@ -14,14 +14,15 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Every source a CardDemo fixture cites holds the records its sha256= says (needs `corpus/fetch.sh
- * carddemo`). POSTTRAN's transaction KSDS, as a `job:` source, is checked against the study's frozen
- * unload (F-02, oracle/prototypes/carddemo); the lane checks every `job:` source when it runs.
+ * carddemo`). POSTTRAN-STUDY's transaction KSDS, as a `job:` source, would be checked against the study's
+ * frozen unload (F-02, oracle/prototypes/carddemo); POSTTRAN's, its data's signs read as IBM reads them
+ * (R-061), and every other `job:` source, the lane checks when it runs.
  */
 @Tag("integration")
 class FixtureSourcesIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final Path TRANFILE = ROOT.resolve("oracle/prototypes/carddemo/post1/tranfile.unl");
-    private static final Map<String, Path> FROZEN = Map.of("job:POSTTRAN", TRANFILE, "job:POSTTRAN:AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS", TRANFILE);
+    private static final Map<String, Path> FROZEN = Map.of("job:POSTTRAN-STUDY", TRANFILE, "job:POSTTRAN-STUDY:AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS", TRANFILE);
 
     /** Each fixture's JCL exists, and each dataset's from= source, framed and keyed as declared, hashes to its sha256=. */
     @Test
@@ -45,7 +46,8 @@ class FixtureSourcesIntegrationTest {
             }
         }
         assertEquals(List.of(), wrong);
-        assertEquals(28, checked);
+        // 27: POSTTRAN-STUDY's five file sources joined; the six job:POSTTRAN sources, read as IBM reads the data (R-061), are the lane's to check.
+        assertEquals(27, checked);
     }
 
     private static Path source(String from) {

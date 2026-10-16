@@ -1391,3 +1391,17 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/RelFile.java:RelFile.refused` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.refused` |
 | rt | `rt/katana/rt/RelFile.java:RelFile.close` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.close` |
 | rt | `rt/katana/rt/RelFile.java:RelFile.close#2` | moved into the base RelFile and IdxFile share (J-182) | 2026-10-16 | superseded-by: `rt/katana/rt/KeyedFile.java:KeyedFile.close#2` |
+| lower | `lower/Exprs.java:Exprs.returnCode` |  | 2026-10-16 |  |
+| lower | `lower/Verbs.java:Verbs.call` | R-027 | 2026-10-16 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.Datasets#2` |  | 2026-10-16 |  |
+| oracle | `oracle/lane/Datasets.java:Datasets.ksds` |  | 2026-10-16 |  |
+| oracle | `oracle/lane/Start.java:Start.signs` | R-061 | 2026-10-16 |  |
+| rt | `rt/katana/rt/Ksds.java:Ksds.Ksds` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Ksds.java:Ksds.main` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Ksds.java:Ksds.run` | R-025 | 2026-10-16 |  |
+| rt | `rt/katana/rt/Ksds.java:Ksds.key` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Ksds.java:Ksds.load` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Ksds.java:Ksds.unload` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Now.java:Now.Now` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Now.java:Now.now` | R-009 | 2026-10-16 |  |
+| lower | `lower/Lower.java:Lower.parm` | R-019 | 2026-10-16 |  |

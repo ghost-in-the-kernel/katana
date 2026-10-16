@@ -36,6 +36,7 @@ public final class Lower {
         e.line("private final Sysin in;");
         e.line("private final Upsi upsi;");
         e.line("private final Sysout out, err;");
+        e.line("private final Field rc;");
         if (Debugging.held(p)) e.line("private final Debug dbg;");
         e.line("private final Dispatcher d = new Dispatcher(" + (Flow.segmented(p) ? Flow.segments(p) : String.valueOf(Math.max(1, p.procedure().paragraphs().size()))) + ");");
         declareItems(e, p);
@@ -48,6 +49,9 @@ public final class Lower {
         e.line("this.in = in;");
         e.line("this.out = out;");
         e.line("this.err = err;");
+        // RETURN-CODE: "01 RETURN-CODE GLOBAL PICTURE S9(4) USAGE BINARY VALUE ZERO" (LR 6.4 p. 24).
+        e.line("this.rc = new Field(Record.of(2, cp), 0, Attr.numeric(Attr.Usage.BINARY, 4, 0, true));");
+        e.line("rc.put(new Decimal(java.math.BigInteger.ZERO, 0));");
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("items" + c + "();");
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("values" + c + "();");
         FileVerbs.linages(e, p, x);
@@ -55,7 +59,8 @@ public final class Lower {
         FileVerbs.keys(e, p, x);
         e.close();
         defineItems(e, p, x);
-        main(e, className);
+        main(e, className, !p.procedure().using().isEmpty());
+        parm(e, p);
         FileVerbs.closer(e, p);
         new Flow(e, p, x).procedure();
         e.close();
@@ -64,13 +69,15 @@ public final class Lower {
 
     /**
      * A launcher: the lane's codepage and DISPLAY sign form from system properties (R-019; the profile's,
-     * J-109), and LE's UPSI option; at the end, normal or an abend (LANE-08), the files are closed.
+     * J-109), and LE's UPSI option; at the end, normal or an abend (LANE-08), the files are closed. A normal
+     * end returns RETURN-CODE "modulo 4096" to the system (LR 6.4 pp. 24, 457), 0 when it was never set.
      */
-    private static void main(Emitter e, String className) {
+    private static void main(Emitter e, String className, boolean using) {
         e.open("public static void main(String[] args)");
         e.line("Codepage cp = Codepage.valueOf(System.getProperty(\"katana.codepage\", \"COBC_ASCII\"));");
         e.line("Display.Sign sign = Display.Sign.valueOf(System.getProperty(\"katana.dispsign\", \"SEP\"));");
         e.line(className + " program = new " + className + "(cp, Upsi.of(System.getProperty(\"katana.upsi\", \"00000000\")), new Sysin(System.in), new Sysout(System.out, sign), new Sysout(System.err, sign));");
+        if (using) e.line("program.parm(args.length > 0 ? args[0] : \"\");");
         e.open("try");
         e.line("program.run();");
         e.close();
@@ -82,6 +89,22 @@ public final class Lower {
         e.line("System.exit(a.code());");
         e.close();
         e.line("program.closeFiles();");
+        e.line("System.exit(Math.floorMod(program.rc.get().unscaled().intValue(), 4096));");
+        e.close();
+    }
+
+    /**
+     * A main program's PARM, as z/OS passes it to PROCEDURE DIVISION USING (LANE-03, the cobc lane's driver):
+     * into the first USING item's storage, a halfword binary length, then the text, spaces to 100 bytes.
+     */
+    // Decision: R-019
+    private static void parm(Emitter e, Program p) {
+        if (p.procedure().using().isEmpty()) return;
+        Item first = p.items().get(p.procedure().using().get(0) - 1);
+        e.open("void parm(String text)");
+        e.line("new Field(r" + first.record() + ", " + first.offset() + ", Attr.numeric(Attr.Usage.BINARY, 4, 0, true)).put(new Decimal(java.math.BigInteger.valueOf(text.length()), 0));");
+        e.line("byte[] area = r" + first.record() + ".bytes(), bytes = text.getBytes(cp.charset);");
+        e.line("for (int k = 0; k < 100 && " + first.offset() + " + 2 + k < area.length; k++) area[" + first.offset() + " + 2 + k] = k < bytes.length ? bytes[k] : cp.character(' ');");
         e.close();
     }
 

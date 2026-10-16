@@ -100,14 +100,20 @@ public final class IdxFile extends KeyedFile {
         for (int k = 1; k < keys.size(); k++) indexes.get(k).remove(new Entry(value(k, h.bytes()), h.orders()[k - 1], prime));
     }
 
-    /** The kept keys and largest record, then the records; false when the keys or the size are not the program's. */
+    /**
+     * The kept keys and largest record, then the records; false when the keys' places and lengths or the size
+     * are not the program's (PG 6.4 p. 198). Whether an alternate key's values may repeat is the file's, as
+     * its alternate index was defined, whatever the program's DUPLICATES phrase says.
+     */
+    // Unsure: IBM lists "Alternate record keys" among the attributes whose mismatch is 39 without saying whether DUPLICATES is one; CardDemo's CBACT04C opens its NONUNIQUEKEY index on z/OS without the phrase, so it is read as not one. Stays: a z/OS run of an OPEN with DUPLICATES unlike the index settles it.
     @Override
     protected boolean load(DataInputStream in) throws IOException {
         int count = in.readInt();
         boolean same = count == keys.size();
         for (int k = 0; k < count; k++) {
             Key kept = new Key(in.readInt(), in.readInt(), in.readBoolean());
-            same &= k < keys.size() && kept.equals(keys.get(k));
+            same &= k < keys.size() && kept.offset() == keys.get(k).offset() && kept.length() == keys.get(k).length();
+            if (same) keys.set(k, kept);
         }
         same &= in.readInt() == largest;
         if (!same) return false;

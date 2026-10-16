@@ -137,6 +137,7 @@ final class Exprs {
     /** A value as a sending item (a Field), for MOVE and comparison. */
     String sending(Value v) {
         if (counter(v) != null) return counter(v);
+        if (returnCode(v)) return "rc";
         if (v instanceof Value.Name n && n.kind().equals("register") && Debugging.held(p) && Debugging.register(n.text()) != null) return Debugging.register(n.text());
         return switch (v) {
             case Value.Field f -> field(f);
@@ -149,6 +150,11 @@ final class Exprs {
             case Value.Expression e when e.operator().equals("slice") -> "Table.ref(" + sending(e.operands().get(0)) + ", " + index(e.operands().get(1)) + ", " + (e.operands().size() > 2 ? index(e.operands().get(2)) : "0") + ")";
             default -> unsupported("sending " + v);
         };
+    }
+
+    /** Whether a value is the RETURN-CODE special register, which each program holds as its field `rc` (LR 6.4 p. 24). */
+    static boolean returnCode(Value v) {
+        return v instanceof Value.Name n && n.kind().equals("register") && n.text().equals("RETURN-CODE");
     }
 
     /** A figurative constant's or ALL literal's repeated characters, as a byte[] expression; null for any other value. */

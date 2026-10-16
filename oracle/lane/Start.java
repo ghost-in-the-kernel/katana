@@ -3,6 +3,7 @@ package katana.oracle.lane;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +61,10 @@ final class Start {
             records = Content.records(source, a.getOrDefault("framing", "fixed"), lrecl, ksds ? a.get("keys") : null);
             String actual = Content.sha256(records);
             if (!actual.equals("sha256:" + a.get("sha256"))) return "dataset " + dsn + ": its source's records are " + actual + ", the fixture says " + a.get("sha256");
+            if (a.containsKey("signs")) {
+                String complaint = signs(records, lrecl, a.get("signs"), setup);
+                if (complaint != null) return "dataset " + dsn + ": signs=" + a.get("signs") + ": " + complaint;
+            }
         }
         if (!ksds) {
             datasets.sequential(dsn, lrecl, records);
@@ -68,6 +73,38 @@ final class Start {
         Generated.Shape shape = new Generated.Shape(lrecl, Generated.Key.of(a.get("keys"), true), alternates);
         String complaint = datasets.indexed(dsn, shape, records);
         return complaint.isEmpty() ? null : "dataset " + dsn + ": loading it: " + complaint;
+    }
+
+    /**
+     * FIXTURE-10: each signed zoned field's last byte, as the copybook lays the records out, from EBCDIC
+     * overpunch translated to ASCII (`{` `A`-`I` positive 0-9, `}` `J`-`R` negative 0-9) into the cobc
+     * lane's ASCII form (the plain digit, or `p`-`y`), in place; why it cannot be, or null.
+     */
+    // Decision: R-061
+    static String signs(byte[] records, int lrecl, String copybook, CobcLane.Setup setup) {
+        Path file = setup.copybooks().stream().map(f -> f.resolve(copybook + ".cpy")).filter(Files::exists).findFirst().orElse(null);
+        if (file == null) return "no copybook " + copybook + ".cpy";
+        katana.oracle.compare.Layout layout;
+        try {
+            layout = katana.oracle.compare.Layout.read(Files.readString(file, java.nio.charset.StandardCharsets.ISO_8859_1));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        } catch (katana.oracle.compare.Layout.Unsupported e) {
+            return e.getMessage();
+        }
+        if (layout.length() != lrecl) return "its records are " + layout.length() + " bytes, the dataset's " + lrecl;
+        for (int at = 0; at < records.length; at += lrecl) {
+            for (katana.oracle.compare.Layout.Field f : layout.fields()) {
+                if (f.kind() != katana.oracle.compare.Layout.Kind.ZONED || !f.signed()) continue;
+                int i = at + f.offset() + f.length() - 1;
+                byte b = records[i];
+                if (b == '{') records[i] = '0';
+                else if (b >= 'A' && b <= 'I') records[i] = (byte) ('1' + b - 'A');
+                else if (b == '}') records[i] = 'p';
+                else if (b >= 'J' && b <= 'R') records[i] = (byte) ('q' + b - 'J');
+            }
+        }
+        return null;
     }
 
     /** A source's bytes: a file under a `from=` root, or another job's dataset (this one's name, or the one `job:NAME:DSN` gives); null when there is none. */

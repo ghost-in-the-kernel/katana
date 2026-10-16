@@ -487,6 +487,19 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-007, R-017, R-019
 - **subject:** lowering
 
+### R-025: Indexed files are compared on their logical unload
+- **Decision:** a KSDS is compared between the lanes, and with a golden, as its records in prime-key
+  order, each of the dataset's LRECL; never as the file a lane keeps it in.
+- **Why:** each lane keeps an indexed file in its own form, GnuCOBOL's BDB file in the cobc lane and
+  `rt/IdxFile`'s in the java lane (LANE-15); a mainframe keeps a VSAM cluster. The records in key order
+  are what each can give and what a program can see (docs/ROADMAP.md, phase 4).
+- **Held by:** `oracle/lane/Datasets.unload`; the cobc lane's generated unloaders; `rt/Ksds` in the
+  java lane (LANE-16); `CardDemoJavaLaneIntegrationTest`.
+- **Source:** docs/ROADMAP.md phase 4, reserved there; recorded by Opus at phase 4.1 (J-183).
+- **Status:** in force
+- **See also:** R-019, R-026
+- **subject:** oracle
+
 ### R-026: Katana's sort is stable; an unordered tie in the original is a finding
 - **Decision:** `oracle/sort` is stable (records with equal keys keep input order, DFSORT's
   `EQUALS`). When a SORT step's cards do not specify `EQUALS` and the input holds records with equal
@@ -1105,10 +1118,28 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-019, R-052, R-057
 - **subject:** runtime
 
+### R-061: A file source's EBCDIC signs translated to ASCII are loaded in the lane's ASCII form
+- **Decision:** a fixture's file source written from EBCDIC byte for byte says so with `signs=COPYBOOK`,
+  and the lane loads each signed zoned field's last byte in its ASCII form: `{` and `A`-`I` the plain
+  digit 0-9, `}` and `J`-`R` the digit with the negative zone, `p`-`y` (FIXTURE-10).
+- **Why:** CardDemo's ASCII data holds the overpunch so (`0000009303L` is X'D3', -930.33). cobc -std=ibm
+  reads each of those twenty bytes as the digit 0, positive, measured over every printable byte, and
+  rewrites the byte as `0` in the record when it reads it (J-183): a return posted as a purchase of
+  +930.30. Translated at load, both lanes read IBM's values, and the goldens hold what IBM would compute.
+- **Claims:** C-1 the twenty bytes are EBCDIC's C0-C9 and D0-D9 translated: `verified` against CardDemo's
+  own EBCDIC file (app/data/EBCDIC, DALYTRAN.PS): in all 300 daily transactions the amount's last byte is
+  X'C0'-X'C9' where the ASCII file has `{` `A`-`I` and X'D0'-X'D9' where it has `}` `J`-`R` (J-183). C-2 the goldens recorded before this departed
+  from IBM on every such field: `verified` (POSTTRAN's rejects and balances changed, J-183).
+- **Held by:** `oracle/lane/Start.signs`; `oracle/fixture/FixtureCheck`; the CardDemo fixtures' `signs=`.
+- **Source:** Ghost, 2026-10-16 ("convert the data at load"), on Opus's report; drafted by Opus.
+- **Status:** in force
+- **See also:** R-009, R-019, R-025
+- **subject:** oracle
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
-the attribute tuple; R-025 indexed-file comparison on logical unload; R-028 coverage in every proof; R-029 refuted intent never acted on; R-030 ledger
+the attribute tuple; R-028 coverage in every proof; R-029 refuted intent never acted on; R-030 ledger
 append-only; R-031 models propose intent only, later, never v1; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual
 dispatcher is acceptable output; R-035 the refactoring-distance report; R-036 the Hercules lane's

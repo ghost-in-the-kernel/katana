@@ -39,7 +39,7 @@ public final class Schema {
         s.put("tabs", new Spec(2, Set.of(), Set.of(), Set.of()));
         s.put("dfsort.pad", new Spec(1, Set.of(), Set.of(), Set.of()));
         s.put("dfsort.trunc", new Spec(1, Set.of(), Set.of(), Set.of()));
-        s.put("dataset", new Spec(1, ordered("org", "lrecl", "keys", "over", "unique", "from", "framing", "sha256", "defined-by"),
+        s.put("dataset", new Spec(1, ordered("org", "lrecl", "keys", "over", "unique", "from", "framing", "sha256", "signs", "defined-by"),
                 Set.of("org"), Set.of("empty")));
         s.put("gold", new Spec(1, Set.of("sha256"), Set.of("sha256"), Set.of()));
         s.put("step", new Spec(1, ordered("pgm", "parm", "cond"), Set.of("pgm"), Set.of()));
@@ -59,6 +59,7 @@ public final class Schema {
         v.put("from", Pattern.compile("(carddemo|repo):[\\w./-]+|job:[A-Z0-9#@$-]{1,20}(:" + DSN + ")?"));
         v.put("framing", Pattern.compile("lines|fixed"));
         v.put("sha256", Pattern.compile("[0-9a-f]{64}"));
+        v.put("signs", Pattern.compile("[A-Z0-9#@$]{1,8}"));
         v.put("defined-by", Pattern.compile("[A-Z0-9#@$.]{1,17}"));
         v.put("pgm", Pattern.compile("[A-Z0-9#@$]{1,8}"));
         v.put("parm", Pattern.compile(".{0,100}"));

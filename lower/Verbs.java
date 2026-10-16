@@ -63,9 +63,25 @@ final class Verbs {
             case "EXIT" -> exit(s);
             case "ALTER" -> alter(s);
             case "CONTINUE" -> f.e.line("// CONTINUE");
+            case "CALL" -> call(s);
             case "NEXT SENTENCE" -> f.nextSentence();
             default -> f.e.line(f.x.unsupported(s.verb() + " at " + s.origin() + " " + s.operands()) + ";");
         }
+    }
+
+    /**
+     * CALL: of LE's CEE3ABD (abcode, clean-up), the run ended with an abend of abcode, with no return (LE 3.1
+     * p. 111, research §22); every other CALL waits for phase 4.3 and is not lowered.
+     */
+    // Decision: R-027
+    // Unsure: clean-up 0 performs no termination activity, so IBM may leave a QSAM file's last buffer unwritten, where the lane closes every file at an abend (LANE-08). Stays: no CardDemo or NIST run reaches CEE3ABD; a mainframe run with a QSAM file open at CEE3ABD settles it.
+    private void call(Statement s) {
+        katana.sir.types.Call c = f.p.calls().stream().filter(x -> x.origin().equals(s.origin())).findFirst().orElse(null);
+        if (c != null && c.target() instanceof Value.Literal l && l.payload().equals("CEE3ABD") && !c.using().isEmpty()) {
+            f.e.line("if (true) throw new Abend((int) " + f.x.index(c.using().get(0).value()) + ", \"CALL CEE3ABD\");");
+            return;
+        }
+        f.e.line(f.x.unsupported(s.verb() + " at " + s.origin() + " " + s.operands()) + ";");
     }
 
     /** IF: its phrases hold statements only; a phrase with words left over (as NEXT SENTENCE once was, J-122) is not lowered, never dropped. */
@@ -107,7 +123,17 @@ final class Verbs {
             return;
         }
         for (Value to : operands(s, "move-to-statement")) {
-            Value.Field t = (Value.Field) to;
+            if (Exprs.returnCode(to)) {
+                // RETURN-CODE, an elementary binary item (LR 6.4 p. 24).
+                String pattern = f.x.pattern(from);
+                boolean zero = from instanceof Value.Figurative z && Exprs.singular(z.name()).equals("ZERO") && z.all() == null;
+                f.e.line((pattern != null ? "Move.fill(rc, " + pattern + ", " + zero + ")" : "Move.move(" + f.x.sending(from) + ", rc)") + ";");
+                continue;
+            }
+            if (!(to instanceof Value.Field t)) {
+                f.e.line(f.x.unsupported("MOVE to " + to) + ";");
+                continue;
+            }
             f.e.line(f.x.moveInto(from, f.x.receiving(t), f.x.item(t.item())) + ";");
         }
     }

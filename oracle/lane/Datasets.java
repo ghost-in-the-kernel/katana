@@ -15,8 +15,9 @@ import java.util.regex.Pattern;
 
 /**
  * The catalog of one run, on disk: each dataset a file under the run's folder (an indexed one is
- * GnuCOBOL's BDB file and, with alternate keys, its numbered companions), the generations a job
- * creates, and the loading and unloading of indexed files in key order through Generated's programs.
+ * GnuCOBOL's BDB file and, with alternate keys, its numbered companions; in the java lane, `rt/IdxFile`'s
+ * file, LANE-15), the generations a job creates, and the loading and unloading of indexed files in key
+ * order through Generated's programs, or in the java lane through `rt/Ksds` run as a process (LANE-16).
  */
 final class Datasets {
     /** A dataset in the catalog: its organization (PS or KSDS), its file, its record length, and a KSDS's shape. */
@@ -29,12 +30,20 @@ final class Datasets {
     private final Path work;
     private final Compiler compiler;
     private final Duration limit;
+    private final List<String> ksds;
 
+    /** The cobc lane's catalog, its indexed files GnuCOBOL's. */
     Datasets(Path work, Compiler compiler, Duration limit) throws IOException {
+        this(work, compiler, limit, null);
+    }
+
+    /** A catalog whose indexed files `ksds`, the command that runs `rt/Ksds`, loads and unloads (the java lane), or GnuCOBOL's when null. */
+    Datasets(Path work, Compiler compiler, Duration limit, List<String> ksds) throws IOException {
         this.work = work;
         this.dir = Files.createDirectories(work.resolve("catalog"));
         this.compiler = compiler;
         this.limit = limit;
+        this.ksds = ksds;
     }
 
     /** A name as the catalog knows it: with k generations existing at the start, `BASE(0)` is `BASE.G000kV00`, `(-n)` is k-n, `(+n)` is k+n. */
@@ -77,6 +86,7 @@ final class Datasets {
     String load(Entry entry, byte[] records) {
         Path seq = write(work.resolve("load.seq"), records);
         removeFiles(entry.path());
+        if (ksds != null) return ksds("load", entry, seq);
         return generated("kload-", Generated.loader(entry.shape()), entry, seq);
     }
 
@@ -86,7 +96,8 @@ final class Datasets {
             if (entry.org().equals("PS")) return Files.exists(entry.path()) ? Files.readAllBytes(entry.path()) : new byte[0];
             Path seq = work.resolve("unload.seq");
             Files.deleteIfExists(seq);
-            String complaint = generated("kunload-", Generated.unloader(entry.shape()), entry, seq);
+            if (ksds != null && !Files.exists(entry.path())) return new byte[0];
+            String complaint = ksds != null ? ksds("unload", entry, seq) : generated("kunload-", Generated.unloader(entry.shape()), entry, seq);
             if (!complaint.isEmpty()) throw new IllegalStateException("unloading " + entry.dsn() + ": " + complaint);
             return Files.readAllBytes(seq);
         } catch (IOException e) {
@@ -109,6 +120,21 @@ final class Datasets {
         Path out = work.resolve("generated.out"), err = work.resolve("generated.err");
         int exit = Exec.run(List.of(built.file().toString()), work, Map.of("DD_SEQIN", seq.toString(), "DD_KSOUT", entry.path().toString()),
                 Path.of("/dev/null"), out, err, limit);
+        try {
+            return exit == 0 ? "" : ("exit " + exit + " " + Files.readString(err).trim()).trim();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /** `rt/Ksds` loading or unloading an indexed file of the java lane; its stderr when it failed, else "". */
+    private String ksds(String mode, Entry entry, Path seq) {
+        Generated.Shape s = entry.shape();
+        String alternates = s.alternates().isEmpty() ? "-" : String.join(";", s.alternates().stream().map(a -> a.length() + "," + a.offset() + "," + (a.unique() ? "u" : "d")).toList());
+        List<String> command = new java.util.ArrayList<>(ksds);
+        command.addAll(List.of(mode, String.valueOf(s.lrecl()), s.key().length() + "," + s.key().offset(), alternates, seq.toString(), entry.path().toString()));
+        Path out = work.resolve("generated.out"), err = work.resolve("generated.err");
+        int exit = Exec.run(command, work, Map.of(), Path.of("/dev/null"), out, err, limit);
         try {
             return exit == 0 ? "" : ("exit " + exit + " " + Files.readString(err).trim()).trim();
         } catch (IOException e) {

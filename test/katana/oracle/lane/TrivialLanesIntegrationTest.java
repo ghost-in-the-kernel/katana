@@ -51,11 +51,14 @@ class TrivialLanesIntegrationTest {
         assertEquals("COPYREC rc=0", java.steps().get("COPY"));
     }
 
+    /** The java lane refuses what it does not run yet (LANE-05): a called module, and an indexed dataset with no `rt/Ksds` command (LANE-16). */
     @Test
-    void theStubRefusesWhatWaitsForTheRuntime() throws Exception {
+    void theJavaLaneRefusesWhatWaitsForTheRuntime() throws Exception {
         Fixture posttran = Fixture.read(Files.readString(ROOT.resolve("oracle/fixture/carddemo/POSTTRAN.fixture")));
         Report report = CobcLane.run(posttran, setup("trivial-java-posttran", JAVA));
-        assertEquals(List.of("the java lane's stub has no stub CEE3ABD yet (rt/, phase 3)"), report.findings());
+        assertEquals(List.of("the java lane's setup has no *KSDS command for the indexed dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS (LANE-16)"), report.findings());
+        Fixture creastmt = Fixture.read(Files.readString(ROOT.resolve("oracle/fixture/carddemo/CREASTMT.fixture")));
+        assertEquals(List.of("the java lane has no called module CBSTM03B yet (CALL, phase 4.3)"), CobcLane.run(creastmt, setup("trivial-java-creastmt", JAVA)).findings());
     }
 
     /** No COB_VARSEQ_FORMAT is IBM's RDW (J-062), so a RECFM=V DD stops both lanes before a step runs (LANE-02). */

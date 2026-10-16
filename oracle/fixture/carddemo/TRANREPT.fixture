@@ -18,7 +18,7 @@ tz UTC
 tabs 4 CUSTREC.cpy
 stub CEE3ABD
 
-dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS org=KSDS lrecl=350 keys=16,0 from=job:POSTTRAN sha256=aed617444207a7ebd2684e589c8569f766fb5d1d8323a25a658f8c4c03020b48
+dataset AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS org=KSDS lrecl=350 keys=16,0 from=job:POSTTRAN sha256=f0bba3690bac767f905467aba771852e345763530f284cdd723daef43620f96b
 dataset AWS.M2.CARDDEMO.CNTL(REPROCT) org=PS lrecl=80 from=carddemo:app/ctl/REPROCT.ctl framing=lines sha256=d4be5d9e718500a6c3865f3c1857887ab2e024133019e38385ecd5290a381098
 dataset AWS.M2.CARDDEMO.CARDXREF.VSAM.KSDS org=KSDS lrecl=50 keys=16,0 from=carddemo:app/data/ASCII/cardxref.txt framing=lines sha256=d49145cf821e7aae049706569b8bf90f6fb52e0fcc53e8099e39beb55e5c7056
 dataset AWS.M2.CARDDEMO.TRANTYPE.VSAM.KSDS org=KSDS lrecl=60 keys=2,0 from=carddemo:app/data/ASCII/trantype.txt framing=lines sha256=00e01dfa3a2144cc485dd57c91afe44eb69fbd8b6455e7f27329535820dac8ec

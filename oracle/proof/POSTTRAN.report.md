@@ -1,6 +1,6 @@
 # Proof report v0: POSTTRAN
 
-- Fixture: `oracle/fixture/carddemo/POSTTRAN.fixture`, sha256:758773caa147125dcc6eb199161fb98f1f9e3bf6007846eaad410f0296556185
+- Fixture: `oracle/fixture/carddemo/POSTTRAN-STUDY.fixture`, sha256:758773caa147125dcc6eb199161fb98f1f9e3bf6007846eaad410f0296556185
 - Profile: ibm sha256:25d21d9dc3d4db6554821c53cb0927a5bcc95f750d04631a50e43bb636866296
 - Expected: the cobc lane. Actual: the study's frozen datasets (F-02, oracle/prototypes/carddemo/post1).
 - Initial values: an item without VALUE is assumed to start as INITIALIZE would set it, not proven (R-057).

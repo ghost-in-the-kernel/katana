@@ -26,8 +26,11 @@ Invariants are numbered LANE-01 onward, in this document only, and a number is n
   step's printed output (DISPLAY); the exit code is the return code; an abend is reported on stderr as
   `CEE3ABD abend Unnnn` (the 8-bit exit status cannot hold the code), and a program the platform stops
   on a signal ended abnormally (`abend SIGSEGV`).
-- **LANE-05 The java lane's stub runs sequential datasets only.** A fixture with an indexed dataset, a
-  stub or a called module is refused by the java lane with a finding; those wait for `rt/` (phase 3).
+- **LANE-05 The java lane refuses what it does not run yet.** A fixture with a called module (CALL,
+  phase 4.3) or a stub the lowering does not call as its service (the stub facade, phase 4.4) is refused
+  with a finding, as is an indexed dataset when the lane's setup has no `rt/Ksds` command (LANE-16).
+  `CEE3ABD` is lowered as LE's (LANE-18); a `PATH` needs nothing of its own, its key being an alternate
+  key of the KSDS it is over (J-183).
 
 ## The generated program's contract (phase 3; tithe pass 2, B2)
 
@@ -83,10 +86,25 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
   hold the file's records in memory while it is open and write them back when it closes (`rt/KeyedFile`).
   A relative file: for each record that exists, its relative record number (8 bytes), its length (4
   bytes), big-endian, then its bytes. An indexed file: its keys (count, then each one's offset, length
-  and DUPLICATES), its largest record, which an OPEN compares with the program's for status 39; then each
+  and DUPLICATES), its largest record; an OPEN compares the keys' places and lengths and the largest
+  record with the program's for status 39 (PG 6.4 p. 198), DUPLICATES being the file's; then each
   record's length, bytes and, for each alternate key, its place among equal values. Like LANE-10 it is
   the java lane's choice, not IBM's VSAM nor cobc's form: no program sees it, and no lane compares it;
-  only the java lane reads what the java lane wrote (J-180, J-182).
+  only the java lane reads what the java lane wrote (J-180, J-182, J-183).
+- **LANE-16 The java lane loads and unloads a KSDS through `rt/Ksds`.** `oracle/` may not import `rt/`, so
+  the lane runs `katana.rt.Ksds load|unload LRECL PRIME ALTERNATES SEQUENTIAL INDEXED` as a process,
+  the command its setup names under `*KSDS` (`CobcLane.KSDS`), as the cobc lane runs its generated
+  loaders: records in key order in and out of the `IdxFile` (LANE-15), compared on their logical
+  unload (R-025; J-183).
+- **LANE-17 The generated program reads the lane's clock, returns RETURN-CODE and takes the PARM.**
+  CURRENT-DATE and ACCEPT FROM DATE, DAY and TIME read `COB_CURRENT_DATE` when it is set (LANE-03,
+  `rt/Now`); a normal end exits with RETURN-CODE modulo 4096 (LR 6.4 pp. 24, 457), 0 when it was never
+  set; a program with PROCEDURE DIVISION USING gets its one argument as z/OS passes the PARM, a halfword
+  length then the text, spaces to 100 bytes, as the cobc lane's driver does (J-183).
+- **LANE-18 CALL 'CEE3ABD' is LE's service.** The run ends with an abend of its first argument's value,
+  `CEE3ABD abend Unnnn` on stderr and that code as the exit status, as the cobc lane's stub ends it (LE
+  3.1 p. 111, research §22; R-027). Clean-up 0 performs no termination activity on IBM; the lane closes
+  every file at an abend all the same (an `// Unsure` in `lower/Verbs.call`).
 
 ## The check
 

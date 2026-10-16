@@ -198,7 +198,7 @@ public final class Functions {
 
     /** CURRENT-DATE: 21 characters, YYYYMMDDhhmmsscc and the difference from Greenwich, +hhmm. */
     public static Field currentDate(Codepage cp) {
-        java.time.ZonedDateTime now = java.time.ZonedDateTime.now();
+        java.time.ZonedDateTime now = Now.now();
         int offset = now.getOffset().getTotalSeconds() / 60;
         String s = String.format("%04d%02d%02d%02d%02d%02d%02d%s%02d%02d", now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute(),
                 now.getSecond(), now.getNano() / 10_000_000, offset < 0 ? "-" : "+", Math.abs(offset) / 60, Math.abs(offset) % 60);

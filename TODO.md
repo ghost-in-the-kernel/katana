@@ -101,8 +101,10 @@ Check: NIST SQ, RL and IX modules through the Java lane; CardDemo's five KSDS fi
 unload identically to the cobc lane.
 
 *Done (J-172):* SQ 85 of 85. *Done (J-180):* RL 35 of 35, relative files in `rt/RelFile`. *Done
-(J-182):* IX 42 of 42, indexed files in `rt/IdxFile`. *Next:* CardDemo's five KSDS files through both
-lanes, which compares the datasets themselves (R-025, logical unload), not a NIST report.
+(J-182):* IX 42 of 42, indexed files in `rt/IdxFile`. *Done (J-183):* CardDemo's KSDS files load, read
+and unload identically in both lanes: every CardDemo fixture but CREASTMT (CALL, 4.3) reports in the java
+lane what the cobc lane's golden holds, the KSDS files on their logical unload (R-025), the data's
+translated EBCDIC signs loaded in the lane's form (R-061).
 
 ### 4.2 `rt/sort`
 
@@ -111,6 +113,9 @@ Check: none in the roadmap; written here before the item starts.
 ### 4.3 `rt/call`
 
 Check: none in the roadmap; written here before the item starts.
+
+Carried in (J-183): PARM via PROCEDURE DIVISION USING is lowered (LANE-17); CALL is not, but for LE's
+CEE3ABD (LANE-18, the stub facade's first routine, 4.4). CREASTMT waits here for CBSTM03B.
 
 ### 4.4 The stub facade
 

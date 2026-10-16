@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Phase 1.9's check: the v0 proof reports for the trivial fixture (the cobc lane against the java lane)
- * and POSTTRAN (the cobc lane against the study's frozen datasets, F-02), each with the gate, every
+ * and POSTTRAN-STUDY (the cobc lane against the study's frozen datasets, F-02, the data's signs as the study read them, R-061), each with the gate, every
  * dataset compared, coverage from a traced run that is itself held to the untraced one, and PROOF.md's
  * limits quoted. Both reports are held by goldens in oracle/proof/ (`-Dkatana.record=true` rewrites).
  */
@@ -67,25 +67,26 @@ class ProofIntegrationTest {
 
     @Test
     void posttranAgainstTheStudysFrozenDatasets() throws Exception {
-        Fixture fixture = Fixture.read(Files.readString(ROOT.resolve("oracle/fixture/carddemo/POSTTRAN.fixture")));
+        // The study read the data's signs as they are (POSTTRAN-STUDY, R-061): its frozen datasets are its oracle.
+        Fixture fixture = Fixture.read(Files.readString(ROOT.resolve("oracle/fixture/carddemo/POSTTRAN-STUDY.fixture")));
         LaneRuns runA = new LaneRuns("proof-posttran-a"), runB = new LaneRuns("proof-posttran-b");
-        Report a = runA.run("POSTTRAN"), b = runB.run("POSTTRAN");
+        Report a = runA.run("POSTTRAN-STUDY"), b = runB.run("POSTTRAN-STUDY");
         Path carddemo = ROOT.resolve("corpus/carddemo");
         CobcLane.Setup setup = new CobcLane.Setup(ROOT, Map.of("carddemo", carddemo, "repo", ROOT), carddemo.resolve("app/cbl"),
-                List.of(carddemo.resolve("app/cpy")), runA.work("POSTTRAN"), ROOT.resolve("build/lane-cache"), Duration.ofSeconds(60), (j, d) -> null, null);
+                List.of(carddemo.resolve("app/cpy")), runA.work("POSTTRAN-STUDY"), ROOT.resolve("build/lane-cache"), Duration.ofSeconds(60), (j, d) -> null, null);
         Report traced = CobcLane.run(fixture, setup.traced(ROOT.resolve("build/proof-posttran-trace")));
-        Gate.Result gate = Gate.compare(fixture, a, runA.work("POSTTRAN"), b, runB.work("POSTTRAN"));
-        assertTrue(Gate.compare(fixture, a, runA.work("POSTTRAN"), traced, ROOT.resolve("build/proof-posttran-trace")).identical(), "tracing changed the run");
+        Gate.Result gate = Gate.compare(fixture, a, runA.work("POSTTRAN-STUDY"), b, runB.work("POSTTRAN-STUDY"));
+        assertTrue(Gate.compare(fixture, a, runA.work("POSTTRAN-STUDY"), traced, ROOT.resolve("build/proof-posttran-trace")).identical(), "tracing changed the run");
         Path frozen = ROOT.resolve("oracle/prototypes/carddemo/post1");
         String tranfile = "AWS.M2.CARDDEMO.TRANSACT.VSAM.KSDS", rejects = "AWS.M2.CARDDEMO.DALYREJS.G0001V00";
-        Compare.Result t = Compare.compare(gate, Compare.Side.fixed(tranfile, Files.readAllBytes(runA.work("POSTTRAN").resolve("unload/" + tranfile)), 350, "ascii"),
+        Compare.Result t = Compare.compare(gate, Compare.Side.fixed(tranfile, Files.readAllBytes(runA.work("POSTTRAN-STUDY").resolve("unload/" + tranfile)), 350, "ascii"),
                 Compare.Side.fixed(tranfile, Files.readAllBytes(frozen.resolve("tranfile.unl")), 350, "ascii"),
                 Layout.read(Files.readString(carddemo.resolve("app/cpy/CVTRA05Y.cpy"))), List.of(), Compare.Numproc.NOPFD);
-        Compare.Result r = Compare.compare(gate, Compare.Side.fixed(rejects, Files.readAllBytes(runA.work("POSTTRAN").resolve("unload/" + rejects)), 430, "ascii"),
+        Compare.Result r = Compare.compare(gate, Compare.Side.fixed(rejects, Files.readAllBytes(runA.work("POSTTRAN-STUDY").resolve("unload/" + rejects)), 430, "ascii"),
                 Compare.Side.fixed(rejects, Files.readAllBytes(frozen.resolve("dalyrejs.out")), 430, "ascii"), Layout.raw(430), List.of(), Compare.Numproc.NOPFD);
         assertTrue(t.same() && r.same(), t.findings() + " " + r.findings());
         assertTrue(traced.coverage().get("CBTRN02C").total() > 0, traced.text());
-        hold("POSTTRAN", ProofReport.write(fixture, "oracle/fixture/carddemo/POSTTRAN.fixture", a, gate, "the study's frozen datasets (F-02, oracle/prototypes/carddemo/post1)",
+        hold("POSTTRAN", ProofReport.write(fixture, "oracle/fixture/carddemo/POSTTRAN-STUDY.fixture", a, gate, "the study's frozen datasets (F-02, oracle/prototypes/carddemo/post1)",
                 List.of(new ProofReport.Compared(tranfile, List.of(), t), new ProofReport.Compared(rejects, List.of(), r)), traced, Files.readString(ROOT.resolve("docs/PROOF.md")),
                 findings(carddemo.resolve("app/cbl/CBTRN02C.cbl"), carddemo.resolve("app/cpy"))));
     }
