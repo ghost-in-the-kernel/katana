@@ -2679,3 +2679,15 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `rt/katana/rt/RelFile.java`, `rt/katana/rt/Varying.java`, `lower/FileVerbs.java`,
   `lower/Verbs.java`, `test/katana/rt/RelFileTest.java`, `test/katana/lower/NistJavaLaneIntegrationTest.java`,
   `docs/LANES.md` (LANE-15), research §20, `TODO.md`, `docs/KERNEL-MAP.md`.
+
+### J-181 The Java lane's modules run at once: the pre-push check back under its ceiling
+- **Who:** Opus. **Class:** failure-caught; measurement.
+- **Intent:** push J-180 (RL), which the pre-push check refused.
+- **Found:** every test passed, but the check took 11.1 min against R-054's 10 for the selected suites.
+  `NistJavaLaneIntegrationTest` was its longest path, 456 s: nine modules one after another (NC 209 s,
+  SQ 95, IF 50, RL 41, the rest under 17 each), on one of the image's four cores once the other classes
+  had finished. Each module already ran in folders of its own and wrote its own report.
+- **Resolved:** the class is `@Execution(CONCURRENT)`, and the `integration` task turns on JUnit's
+  parallel execution with every other class's methods in turn, as before. The class alone: 263 s, every
+  module's count unchanged. The ceiling is not raised (R-054 ratchets down); the room is made.
+- **Touched:** `test/katana/lower/NistJavaLaneIntegrationTest.java`, `build.gradle`.

@@ -18,15 +18,20 @@ import katana.oracle.nist.Population;
 import katana.oracle.nist.RunNotes;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * Phase 3.4, the Java lane module by module: NIST extracted as the cobc lane extracts it, each program of
  * a module lowered and run by `JavaRunner`, its report's counts set beside the cobc lane's golden under
  * -std=ibm (oracle/nist/programs-ibm.golden). How many runs equal cobc's is written to
  * build/nist-java/MODULE.txt with each program's line and, for those that do not, what was not lowered.
- * Each module has its own floor, which only rises.
+ * Each module has its own floor, which only rises. The modules run at once, each in folders of its own
+ * and writing its own report: run one after another they were the pre-push check's longest path, past
+ * its ceiling once RL joined (R-054, J-181).
  */
 @Tag("integration")
+@Execution(ExecutionMode.CONCURRENT)
 class NistJavaLaneIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     /** The NC runs whose counts equal cobc's; raised as the lowering grows, never lowered (the bench discipline, P-01). */
