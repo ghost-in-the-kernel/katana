@@ -914,3 +914,32 @@ report what cobc reports: OB 6 of 7. OBIC1A, the rival, CALLs OBIC2A (phase 4.3)
 held no obsolete element: STOP literal was lowered as STOP RUN, which left OBNC1M's report unwritten; and
 a GO TO in OBNC2M's QUAL-SECTION-2 PARA-6B, which an ALTER qualified IN that section changes, was not
 read from the ALTER table, the lowering finding its paragraph by name and taking QUAL-SECTION-1's.
+
+## 19. Report Writer (read 2026-10-16, primary; NIST RW)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR).
+
+- LR p. 785 (Industry specifications): "The Report Writer optional module of the standard is supported with
+  the optional IBM COBOL Report Writer Precompiler and Libraries (5798-DYR)." The modules the compiler
+  supports itself are Intrinsic Functions, Debug (1 DEB) and Segmentation.
+- LR p. 761 (Appendix E): "Words marked X under Standard only are 85 COBOL Standard reserved words for
+  function not implemented in Enterprise COBOL. (Some of the function is implemented in the Report Writer
+  Precompiler.) Use of these words as user-defined names is flagged with an S-level message." RD,
+  REPORT, REPORTS, REPORTING, INITIATE, CONTROL and CONTROLS are marked Standard only (pp. 764-772);
+  GENERATE is reserved (p. 768), for XML GENERATE.
+- PG 6.4 p. 1022 lists the precompiler's own manuals (Programmer's Manual SC26-4301), outside the
+  compiler's library.
+
+So a program with a REPORT SECTION is not an Enterprise COBOL program: the compiler refuses it, and a site
+that writes reports this way runs the precompiler first, whose output is the program Enterprise COBOL
+compiles. Katana's input is what the compiler compiles; the REPORT SECTION and the REPORT clause are
+findings (`sir/build/Build.java`, `sir/build/Files.java`), as the COMMUNICATION SECTION is. cobc
+-std=ibm accepts Report Writer and passes the four RW programs that report tests, 40 of 40
+(`oracle/nist/programs-ibm.golden`); RW301M and RW302M end at OPEN with status 35 in its golden.
+
+Predicted, before the run: RW through the Java lane is 0 of 6. Each program's findings name its REPORT
+SECTION and its REPORT clause as Report Writer, not in Enterprise COBOL, and no run reports what cobc's
+does: the Report Writer statements (INITIATE, GENERATE, TERMINATE) are not lowered and fail where they
+stand. The rival: a program the Java lane runs to cobc's report, which would mean the report file and the
+tests' report are apart and the Report Writer statements are never reached, or an RW program with no
+REPORT SECTION finding, which would mean the front end read the section as something else.
