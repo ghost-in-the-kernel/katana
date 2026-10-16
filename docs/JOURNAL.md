@@ -2838,3 +2838,25 @@ taken; closed by a later `decision` entry naming it).
   `test/katana/sir/GlobalsTest.java`, the CardDemo and trivial lane tests; `docs/SEMANTIC-IR.md` (SIR-12),
   `docs/LANES.md` (LANE-19), `docs/PROFILE.md`, `docs/DISCOVERIES.md` (D-033), `theGhost.md` (R-062),
   research §24, `TODO.md`, `docs/checks.json`.
+
+### J-187 The stub facade: the z/OS storage facade, and CREASTMT end to end in the java lane
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with the stub facade next"). **Class:** build; trial; decision.
+- **Intent:** phase 4.4. No CardDemo fixture's program calls an assembler routine, and CEE3ABD was lowered in
+  4.1, so the item's work is R-027's z/OS storage facade, CREASTMT its trial; IBM's text and the prediction
+  committed before the run (research §25, 5678f1b).
+- **Found:** IBM's MVS Data Areas are out of reach: the container's proxy refuses ibm.com, publibfp and
+  bitsavers, and a fetching agent found none of them. Ghost's call: build it as hypothesis (R-063). CBSTM03A's
+  gaps were POINTER items, SET ADDRESS OF and LENGTH OF in arithmetic, nothing else. Built, STEP040 printed
+  what §25 predicted line for line and ran to its end, rc 0, 50 statements over all 262 transactions.
+- **Resolved:** R-063. `rt/Storage` (the PSA, a TCB and a TIOT from `KATANA_TIOT`, which `oracle/lane/Steps`
+  gives every program step, LANE-03); `RunUnit.storage`; a POINTER as four bytes starting NULL; a bind method
+  for every LINKAGE record, which a CALL (LANE-19) and SET ADDRESS OF (`Verbs.setAddress`) share; LENGTH OF as
+  the item's length. LANE-20. `StorageTest`, `StorageFacadeTest` (red under three mutations: the TCB only at
+  PSA+540, LENGTH OF one more, a POINTER starting other than NULL), `Statements` with `StatementsTest`, which
+  holds CREASTMT's statements to their input where no cobc run can. R-027 C-2 verified; R-063's three
+  claims are hypotheses with their trials in HANDOFF.
+- **Touched:** `rt/katana/rt/Storage.java`, `RunUnit.java`; `lower/Verbs.java`, `Programs.java`, `Lower.java`,
+  `Values.java`, `Arith.java`, `Exprs.java`; `oracle/lane/Steps.java`; `test/katana/rt/StorageTest.java`,
+  `test/katana/lower/StorageFacadeTest.java`, `test/katana/oracle/lane/Statements.java`, `StatementsTest.java`,
+  `CardDemoJavaLaneIntegrationTest.java`; `docs/LANES.md` (LANE-03, LANE-20), `theGhost.md` (R-027, R-063),
+  `docs/HANDOFF.md`, `docs/checks.json`, research §25, `TODO.md`.

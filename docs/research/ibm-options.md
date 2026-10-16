@@ -1350,3 +1350,12 @@ STATEMNT.HTML, and ends with return code 0: CREASTMT runs end to end in the java
 The cobc lane is unchanged (abend SIGSEGV, R-027). The rivals: CBSTM03A's ALTERed GO TOs and CBSTM03B's
 file access by a DD name it is passed; an OCCURS table of 51 cards of 10 transactions each overflowing;
 a POINTER compared or moved where the lane holds bytes.
+
+Result (J-187): the prediction held, line for line. CBSTM03A lowered with no finding once POINTER, SET
+ADDRESS OF and LENGTH OF were; STEP040 printed the job, the step and the eight DDs as predicted, HTMLFILE
+from the IF after the loop, ran to its end with return code 0, and wrote 1212 statement records and 6082
+HTML records. With no cobc run to compare (it abends at the PSA), the statements were held to their own
+input: 50 statements, one for each card of the cross-reference file, listing all 262 transactions of the
+sorted file once each, and every Total EXP the sum of its lines. None of the rivals appeared: the ALTERed GO
+TOs, CBSTM03B's file access by the DD name it is passed (through LANE-19's CALL) and the 51-by-10 table ran
+as written. The blocks' layouts remain R-063's hypotheses.

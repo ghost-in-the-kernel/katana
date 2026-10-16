@@ -27,9 +27,9 @@ import org.junit.jupiter.api.Test;
  * lowered to Java and its indexed datasets `rt/IdxFile`'s, loaded and unloaded by `rt/Ksds` (LANE-16),
  * reports what the cobc lane's golden (oracle/lane/carddemo.golden) holds: every step's return code,
  * every stdout's lines and hash, every dataset's records and hash, every finding. The java lane's report
- * says it is the java lane, and has no program sources to hash; nothing else may differ. CREASTMT's module
- * CBSTM03B is lowered (LANE-19), and CBSTM03A stops before its first CALL, at its read of z/OS control
- * blocks, the storage of phase 4.4.
+ * says it is the java lane, and has no program sources to hash; nothing else may differ. CREASTMT, which the
+ * cobc lane abends in at the PSA, runs end to end through the z/OS storage facade (LANE-20), its statements
+ * held to their own input (`Statements`).
  */
 @Tag("integration")
 class CardDemoJavaLaneIntegrationTest {
@@ -63,11 +63,16 @@ class CardDemoJavaLaneIntegrationTest {
         assertEquals(Map.of(), differ, "the java lane's lines the cobc lane's golden does not hold, by job");
         Path dir = Files.createTempDirectory(work, "CREASTMT");
         runs.add(dir);
-        // CREASTMT stops where CBSTM03A sets a POINTER to the PSA at address 0, before its first CALL: z/OS storage (phase 4.4). Its steps before match.
-        List<String> creastmt = comparable(CobcLane.run(fixture("CREASTMT"), setup(dir, commands)).text()), golden040 = comparable(golden.get("CREASTMT"));
+        // CREASTMT end to end (R-027 C-2, research §25): the cobc lane abends at the PSA; here CBSTM03A reads its job, step and DDs through the
+        // z/OS storage facade, and its statements are checked against the transactions they summarize.
+        List<String> creastmt = comparable(CobcLane.run(fixture("CREASTMT"), setup(dir, commands)).text()), before = comparable(golden.get("CREASTMT"));
         int at = creastmt.indexOf(creastmt.stream().filter(l -> l.startsWith("stdout STEP040")).findFirst().orElseThrow());
-        assertEquals(List.of(), creastmt.subList(0, at).stream().filter(l -> !golden040.contains(l)).toList(), "CREASTMT's steps before STEP040");
-        org.junit.jupiter.api.Assertions.assertTrue(creastmt.stream().anyMatch(l -> l.startsWith("stderr STEP040") && l.contains("not lowered: SET at") && l.contains("CBSTM03A.CBL:266")), "CREASTMT stops at the PSA: " + creastmt);
+        assertEquals(List.of(), creastmt.subList(0, at).stream().filter(l -> !before.contains(l)).toList(), "CREASTMT's steps before STEP040");
+        org.junit.jupiter.api.Assertions.assertTrue(creastmt.contains("step STEP040 CBSTM03A rc=0") && creastmt.stream().noneMatch(l -> l.startsWith("finding")), creastmt.toString());
+        assertEquals(List.of("Running JCL : CREASTMT Step STEP040 ", "DD Names from TIOT: ", ": SYSPRINT --  null UCB", ": SYSOUT   --  null UCB", ": TRNXFILE -- valid UCB",
+                ": XREFFILE -- valid UCB", ": ACCTFILE -- valid UCB", ": CUSTFILE -- valid UCB", ": STMTFILE -- valid UCB", ": HTMLFILE -- valid UCB"),
+                Files.readAllLines(dir.resolve("sysout/STEP040.stdout"), StandardCharsets.ISO_8859_1));
+        assertEquals("50 statements, 262 transactions, each once, every total its lines' sum", Statements.check(dataset(dir, "STATEMNT.PS"), dataset(dir, "TRXFL.SEQ")));
         runs.add(classes);
         Runs.passed(runs.toArray(Path[]::new));
     }
@@ -90,6 +95,13 @@ class CardDemoJavaLaneIntegrationTest {
             return Files.exists(file) ? Files.readAllBytes(file) : null;
         } catch (java.io.IOException e) {
             throw new java.io.UncheckedIOException(e);
+        }
+    }
+
+    /** The file a dataset of a run is held in, by the end of its name. */
+    private static byte[] dataset(Path dir, String suffix) throws java.io.IOException {
+        try (var files = Files.walk(dir)) {
+            return Files.readAllBytes(files.filter(Files::isRegularFile).filter(f -> f.getFileName().toString().endsWith(suffix)).findFirst().orElseThrow());
         }
     }
 

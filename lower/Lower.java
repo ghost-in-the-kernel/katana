@@ -234,6 +234,8 @@ public final class Lower {
             case ALPHANUMERIC_EDITED -> "new Attr(Attr.Usage.DISPLAY, Attr.Category.ALPHANUMERIC_EDITED, 0, 0, false, false, false, false, " + edit(p, a, blank) + ")";
             case GROUP, ALPHANUMERIC, ALPHABETIC -> "Attr.text(" + i.length() + ", " + justified + ")";
             case INDEX -> index(i, x);
+            // A POINTER is its four bytes, the address big-endian (research §25); rt/Storage reads and sets it.
+            case POINTER -> "Attr.text(4, false)";
             default -> x.unsupported(i, "category " + a.category());
         };
     }

@@ -46,7 +46,7 @@ final class Arith {
         // An expression holding a floating-point function is computed whole in floating point (PG 6.4 p. 800).
         if (x.funcs.floating(v)) return "Floats.term(" + x.funcs.dbl(v, this) + ")";
         if (Funcs.name(v) != null && x.numeric(v)) return "Functions.term(" + x.funcs.fixed((Value.Expression) v, this) + ", " + Places.of(v, x).places() + ")";
-        if (!(v instanceof Value.Expression e) || !x.numeric(v)) return operand(v);
+        if (!(v instanceof Value.Expression e) || !x.numeric(v) || e.operator().equals("LENGTH OF")) return operand(v);
         if (e.operator().equals("neg")) return "Decimal.negate(" + term(e.operands().get(0), dmax, last, rounded) + ")";
         if (e.operator().equals("pos")) return term(e.operands().get(0), dmax, last, rounded);
         if (e.operator().equals("**")) return power(e, dmax, last, rounded);
@@ -92,6 +92,9 @@ final class Arith {
             case Value.Field f -> "Decimal.operand(" + x.field(f) + ".get(), " + size.places() + ")";
             case Value.Literal l when l.numeric() -> "Decimal.operand(new Decimal(new java.math.BigInteger(" + Emitter.quote(l.payload()) + "), " + l.scale() + "), " + size.places() + ")";
             case Value.Figurative f when x.numeric(f) -> "Decimal.operand(new Decimal(java.math.BigInteger.ZERO, 0), " + size.places() + ")";
+            // LENGTH OF: "the number of bytes used by a data item" (LR 6.4 p. 22), the item's length.
+            case Value.Expression e when e.operator().equals("LENGTH OF") && e.operands().get(0) instanceof Value.Field f && x.item(f.item()).occurs() == null
+                    -> "Decimal.operand(new Decimal(java.math.BigInteger.valueOf(" + x.item(f.item()).length() + "), 0), " + size.places() + ")";
             default -> x.unsupported("arithmetic operand " + v + ", not held (its places would be " + size.places() + ")");
         };
     }
