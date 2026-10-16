@@ -820,3 +820,49 @@ exactly what cobc fails in SG102A, SG201A and SG203A, and 2 of SG103A's 3. Under
 under P2, so no SG test returns from a PERFORM into an independent segment whose ALTERs it changed: P2
 stays a reading. SG203A's SEGM-TEST-18 failed under every reading until the altered GO TO (p. 347), which
 the IR had dropped, was built as a GO TO naming no procedure.
+
+## 17. Debugging (read 2026-10-16, primary; NIST DB)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR).
+
+- LR p. 122 (WITH DEBUGGING MODE): "Activates a compile-time switch for debugging lines written in the
+  source text." "To specify a debugging line in your program, code a D in column 7 (indicator area)."
+  "The presence or absence of the DEBUGGING MODE clause is logically determined after all COPY and
+  REPLACE statements have been processed." "If a debugging line contains only spaces in Area A and in
+  Area B, the debugging line is treated the same as a blank line."
+- LR p. 760: "When WITH DEBUGGING MODE is specified, all debugging sections and debugging lines are
+  compiled. When WITH DEBUGGING MODE is omitted, all debugging sections and debugging lines are treated
+  as comments." "The USE FOR DEBUGGING declarative procedures are activated when DEBUG is in effect and
+  inhibited when NODEBUG is in effect." "The debugging lines (lines with "D" or "d" in column 7) are not
+  affected by the DEBUG or NODEBUG option; they are always active if they have been compiled."
+- LR p. 759: "A debugging section executes only if both the compile-time switch and the object-time
+  switch are activated." "A debugging section can be called, for example, by a PERFORM statement that
+  causes repeated execution of a procedure. Any associated procedure-name debugging declarative section
+  is executed once for each repetition."
+- LR p. 707: "Automatic execution of a debugging section is not caused by a statement that appears in a
+  debugging section." LR p. 708, Format 2: `USE FOR DEBUGGING ON procedure-name-1 ... | ALL PROCEDURES`,
+  no other operand. Table 74: procedure-name-1, "Before each execution of the named procedure" and
+  "After the execution of an ALTER statement referring to the named procedure"; ALL PROCEDURES, "Before
+  each execution of each nondebugging procedure in the outermost program" and "After the execution of
+  each ALTER statement in the outermost program (except ALTER statements in declarative procedures)".
+- LR pp. 19-20 (DEBUG-ITEM): DEBUG-LINE X(6), DEBUG-NAME X(30), DEBUG-SUB-1 to -3 S9999 SIGN LEADING
+  SEPARATE, DEBUG-CONTENTS X(n), a space between each. "Before each debugging section is executed,
+  DEBUG-ITEM is filled with spaces." DEBUG-NAME: "The first 30 characters of the name that caused
+  execution of the debugging section. Any qualifiers are separated by the word 'OF'." DEBUG-SUB-n:
+  "Always set to spaces." Table 2: an ALTER, DEBUG-CONTENTS the TO PROCEED TO name; a GO TO, spaces; a
+  PERFORM, "PERFORM LOOP"; a USE procedure, "USE PROCEDURE"; falling in from the procedure before,
+  "FALL THROUGH"; the first nondeclarative procedure, "START PROGRAM"; DEBUG-NAME the procedure-name.
+
+What IBM has is procedure debugging alone: the 85 Standard's USE FOR DEBUGGING ON a data-name, file-name
+or cd-name (NIST DB201A, DB202A, DB203A, DB205A, DB303M, DB304M) is not IBM syntax, and the lowering
+refuses it with that reason. DEBUG-LINE is "the source-statement sequence number (or the
+compiler-generated sequence number, depending on the compiler option chosen)": NIST reads it only by
+inspection (INSPT), never as a pass or a fail; Katana writes the source line of the statement, a reading.
+
+Predicted, before the run: with procedure debugging lowered as above (the declarative performed before
+each entry to the procedure it names, after an ALTER of it, the DEBUG-ITEM filled per Table 2; run only
+when WITH DEBUGGING MODE is written and the object-time switch is on, the lane's COB_SET_DEBUG standing
+for IBM's DEBUG runtime option; debugging lines code only with WITH DEBUGGING MODE), DB101A, DB102A,
+DB103M (both runs) and DB105A report what cobc reports. The rival for DEBUG-NAME: a paragraph named in a
+section is its name alone (predicted: the name as the program's reference wrote it, qualified only when
+the reference was), against the name with OF and its section always.
