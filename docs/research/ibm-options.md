@@ -1213,3 +1213,78 @@ lane, and ST117A, which checks the file ST115A writes, passes the test cobc fail
 count it; ST301M, a flagging test whose PERFORM runs a RELEASE and a RETURN outside any SORT, ends in cobc
 on status 30 for its own sort work file, which IBM's text leaves undefined. No key was compared differently
 from cobc, and no program relied on the order of equal keys without DUPLICATES.
+
+## 24. CALL, CANCEL and nested programs (read 2026-10-16, primary; NIST IC, phase 4.3)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR) and Programming Guide (PG).
+
+- LR p. 318 (CALL): "The CALL statement transfers control from one program to another within a run unit."
+  LR p. 320 (USING): "This correspondence is positional." BY REFERENCE: "the corresponding data item in the
+  calling program occupies the same storage area as the data item in the called program." LR p. 321 (BY
+  CONTENT): "Changes to the parameter in the called program do not affect the corresponding argument in the
+  calling program"; for an alphanumeric literal "the called subprogram should describe the parameter as PIC
+  X(n) USAGE DISPLAY, where n is the number of characters in the literal."
+- LR p. 323 (ON EXCEPTION): "An exception condition occurs ... When the called subprogram cannot be made
+  available"; with the phrase, control goes to imperative-statement-1, and without it "the NOT ON
+  EXCEPTION phrase, if specified, is ignored." LR p. 324: "The ON OVERFLOW phrase has the same effect as the
+  ON EXCEPTION phrase."
+- LR p. 343 (EXIT PROGRAM): under an active CALL, control returns after the CALL, and "The state of the
+  called program or method is not altered except that the ends of the ranges of all executed PERFORM
+  statements are considered to have been reached"; "If control reaches an EXIT PROGRAM statement, and no
+  CALL statement is active, control passes through the exit point to the next executable statement";
+  "When there is no next executable statement in a called program, an implicit EXIT PROGRAM statement is
+  executed."
+- LR p. 103 (INITIAL): a program is in its initial state "The first time the program is called in a run
+  unit", "Every time the program is called, if it possesses the initial attribute", and "The first time the
+  program is called after the execution of a CANCEL statement that references the program"; in it "If a
+  VALUE clause is used in the description of the data item, the data item is initialized to the defined
+  value", "Files with internal file connectors ... are not in the open mode", and PERFORMs and altered GO
+  TOs are reset. LR p. 343: EXIT PROGRAM in an INITIAL program "is equivalent also to executing a CANCEL".
+- LR p. 326 (CANCEL): it "ensures that the referenced subprogram is entered in initial state the next time
+  that it is called"; p. 327: it "closes all open files that are associated with an internal file connector
+  in the program", and "No action is taken when a CANCEL statement is executed if the specified program:
+  Has not been dynamically called in this run unit by another COBOL program; Has been called and
+  subsequently canceled."
+- PG p. 366 (DYNAM): "Use DYNAM to cause nonnested, separately compiled programs invoked through the CALL
+  literal statement to be loaded for CALL, and deleted for CANCEL, dynamically at run time"; "CALL
+  identifier statements always result in a runtime load of the target program and are not affected by this
+  option"; "Default is: NODYNAM". PG p. 552: under NODYNAM, "with the CALL literal statement, the called
+  subprogram will be link-edited with the main program into one program object. The CALL identifier
+  statement results in the dynamic invocation of a separate program object. When a dynamic CALL statement
+  and a static CALL statement to the same subprogram are issued within one program, a second copy of the
+  subprogram is loaded into storage. Because this arrangement does not guarantee that the subprogram will
+  be left in its last-used state, results can be unpredictable." PG p. 554: "When control is transferred the
+  second time from the statically linked program, SUBPROG is made available in its last-used state".
+- LR pp. 86-87 (program-names): a program directly contained in another "can be referenced only by
+  statements included in that containing program", a COMMON one also by its siblings and their contents;
+  a CALL names a program "contained within the program that includes the CALL statement" before any other.
+  LR p. 197 (GLOBAL): "a data-name is available to every program contained within the program that defines
+  it, as long as the contained program does not itself have a definition for that name." (EXTERNAL): "the
+  storage associated with a data item is associated with the run unit rather than with any particular
+  program ... In a run unit, there is only one representative of an external data item."
+
+The lane's reading. A run unit holds each called program once per way it was reached: a nested program
+in its containing program; a separately compiled program called by a literal under NODYNAM in the one
+program object (static); one called by an identifier, or by a literal under DYNAM, as a separate dynamic
+copy, which CANCEL alone resets. Under the ibm profile's NODYNAM, a program reached both ways has two
+copies, as PG p. 552 says, each in its own last-used state. ibm.profile gains `ibm.dynam NODYNAM`, IBM's
+default (R-049), as the options CardDemo states none of. A BY REFERENCE argument is the caller's storage;
+a BY CONTENT one a copy made at the CALL; a LINKAGE record with no argument stays unaddressed. EXIT
+PROGRAM and GOBACK return from a called program, its PERFORM ranges ended; STOP RUN ends the run unit;
+EXIT PROGRAM in the main program passes on. A program that cannot be found raises the exception
+condition; without ON EXCEPTION the run ends abnormally.
+
+Predicted, before the run. As lowered today the Java lane builds no called module, so every IC main
+program fails: 0 of 25 the same as cobc -std=ibm. With CALL lowered (a run unit in `rt`, LINKAGE bound
+to the arguments, CANCEL, INITIAL, nested programs, GLOBAL and EXTERNAL items) and the lane run under
+DYNAM, the 24 runs that leave a report report what cobc does; IC401M, a flagging test that cobc ends
+without one (exit 1), cannot be compared. Under the profile's NODYNAM the static and dynamic copies part
+where a test reads a subprogram's state back across both kinds of CALL: IC203A 17 of 21 (CNCL-TEST-01's
+three checks, where CANCEL "IC204A" leaves the static copy in its last-used state, and CNCL-TEST-05, where
+IC205A's CANCEL "IC206A" does nothing), and IC201A, IC223A and IC225A each fail the checks that read
+IC202A's or the -1 program's call counter (expected 5, 6, 7, CALL-COUNT): 20 of 25 the same, the other
+five a discovery against cobc, which calls dynamically. OB's OBIC1A, which CALLs OBIC2A and OBIC3A,
+reports what cobc does (OB 7 of 7). CardDemo's CREASTMT passes its CALLs to CBSTM03B and stops at
+CBSTM03A's POINTER to the PSA, which phase 4.4's z/OS storage is for. The rivals: a LINKAGE item bound at
+the wrong place in its argument; a nested program's GLOBAL reference, IC233A's and IC234A's GLOBAL files
+and USE GLOBAL declaratives, and IC227A's EXTERNAL file, any of which may be left a finding.
