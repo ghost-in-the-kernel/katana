@@ -1030,3 +1030,69 @@ FROM 120 TO 140 DEPENDING ON WRK-SIZE, and with `rt/Varying` giving a WRITE its 
 DEPENDING ON, 35 of 35, RL401M's abnormal end included. Neither rival was met: no RL test separates cobc's
 position after an unsuccessful READ or START from the Standard's, and none writes or reads a record number
 wider than its RELATIVE KEY.
+
+## 21. Indexed files (read 2026-10-16, primary; NIST IX)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR).
+
+- LR pp. 146-147 (Indexed organization): "Each record in an indexed file must have an embedded prime key
+  data item ... the value in each prime key data item must be unique and must not be changed when the
+  record is updated ... each record in an indexed file can contain one or more embedded alternate key data
+  items ... The key used for any specific input-output request is known as the key of reference."
+- LR p. 150 (ACCESS MODE, indexed): sequential access is "the ascending order of the record key value. The
+  order of retrieval within a set of records that have duplicate alternate record key values is the order
+  in which records were written into the set"; random access, "If a set of records has duplicate alternate
+  record key values, only the first record written is available."
+- LR pp. 150-152 (RECORD KEY, ALTERNATE RECORD KEY): "Regardless of the category of the key data item, the
+  key is treated as an alphanumeric item. The collation order of the key is determined by the item's binary
+  value order"; "The identical character positions referenced by data-name-2 in any one record description
+  entry are implicitly referenced as keys for all other record description entries for that file";
+  without DUPLICATES an alternate key's values "must be unique among records in the file".
+- LR pp. 300-301 (Table 34): 02, "applies only to indexed files with alternate keys that allow duplicates
+  ... For a READ statement, the key value for the current key of reference was equal to the value of the
+  same key in the next record within the current key of reference. For a REWRITE or WRITE statement, the
+  record just written created a duplicate key value for at least one alternate record key for which
+  duplicates are allowed"; 21, "A sequence error exists for a sequentially accessed indexed file. The
+  prime record key value was changed by the program between the successful execution of a READ statement
+  and the execution of the next REWRITE statement for that file. Or the ascending requirements for
+  successive record key values were violated"; 22, "an attempt was made to write or rewrite a record that
+  would create a duplicate prime record key or a duplicate alternate record key without the DUPLICATES
+  phrase"; 39, "a conflict was detected between the fixed file attributes and the attributes specified for
+  that file in the program. These attributes include the organization of the file ..., the prime record
+  key, the alternate record keys, the code set, the maximum record size, the record type ... and the
+  blocking factor."
+- LR pp. 427-428 (READ): sequential, "the key sequence is the sequence of ascending values of the current
+  key of reference"; "When an ALTERNATE RECORD KEY with DUPLICATES is the key of reference, file records
+  with duplicate key values are made available in the order in which they were placed in the file"; random,
+  "the value of the key of reference [is] compared with the value of the corresponding key data item in
+  the file records, until the first record having an equal value is found ... If the KEY phrase is not
+  specified, the prime RECORD KEY becomes the key of reference ... When dynamic access is specified, this
+  key of reference is used for subsequent executions of sequential READ statements".
+- LR p. 433 (REWRITE, indexed): sequential access, the record's prime key "must equal the value of the
+  prime record key data item in the last record read from this file"; random or dynamic, the record is the
+  one with the prime RECORD KEY's value; "Values of ALTERNATE RECORD KEY data items in the rewritten record
+  can differ from those in the record being replaced."
+- LR pp. 455-456 (START): "When the KEY phrase is not specified, KEY IS EQUAL (to the prime record key) is
+  implied"; data-name-1 is the prime key, an alternate key, or an item "whose leftmost character position
+  corresponds to the leftmost character position of that record key ... less than or equal to the length
+  of the record key"; "If the operands in the comparison are of unequal lengths, the comparison proceeds as
+  if the longer field were truncated on the right to the length of the shorter field ... the PROGRAM
+  COLLATING SEQUENCE clause, if specified, has no effect"; it becomes the key of reference; "If the
+  comparison is not satisfied by any record in the file, an invalid key condition exists; the position of
+  the file position indicator is undefined".
+- LR p. 477 (WRITE for indexed files): "When ACCESS IS SEQUENTIAL is specified ... records must be released
+  in ascending order of RECORD KEY values"; with DUPLICATES "the system stores the records so that later
+  sequential access to the records allows retrieval in the same order in which they were stored". p. 475:
+  an invalid key when, with sequential access and OPEN OUTPUT, "the value of the prime record key is not
+  greater than that of the previous record", or the prime key "equals that of an already existing record".
+
+Predicted, before the run. As lowered today an indexed file is a sequential file, and START and DELETE are
+lowered for a relative file only (J-180), so most IX programs fail to compile or read the wrong record:
+fewer than ten of 42 runs report what cobc does. With an indexed file in `rt` (records by prime key in
+binary order, each alternate key an index with duplicates in the order written, the key of reference set by
+READ KEY and START and kept for READ NEXT, START's truncated comparison, the statuses above, the
+attributes kept with the file for 39) every one of the 42 runs reports what cobc -std=ibm reports, IX301M's
+and IX401M's abnormal ends included. The rivals: status 02, which cobc's indexed handler may not give
+where IBM does (on a READ whose next record has the same alternate key, on a WRITE or REWRITE that makes a
+duplicate); where the file points after an unsuccessful START (undefined); and the order of duplicates
+after a REWRITE that leaves an alternate key unchanged.
