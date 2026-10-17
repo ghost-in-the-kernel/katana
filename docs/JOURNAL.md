@@ -3016,3 +3016,19 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `intent/review/*`; `test/katana/intent/ReviewTest.java`, `Cbtrn02cReviewIntegrationTest.java`;
   `docs/INTENT-IR.md`, `docs/checks.json`, `docs/KERNEL-MAP.md`, `theGhost.md` (R-064), `CLAUDE.md`, research
   §30, `TODO.md`.
+
+### J-197 The proof ledger: append-only lines, chained, over the symbols the lowering's manifest names
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with 5.4 next"). **Class:** build; trial.
+- **Intent:** phase 5.4, the roadmap's check: an edit to an existing line refused, every Java symbol of a
+  build a line, a removed symbol superseded; prediction before the build (research §31, ea905ad).
+- **Found:** `ledger/` may not read `lower/`, so the lowering had to say what it wrote. A hash chain leaves
+  its last line unheld (the edit test failed on it). The chain holds no secret, which the doc says.
+- **Resolved:** `Lower.Result` gains the manifest (`Lower.Symbol`: the class on its program, `f`/`r` on
+  their item, `s<label>` on its paragraph, through `Emitter.symbol`); `ledger/`: `Entry` (the line,
+  LED-02, LED-03), `Ledger` (append, read with its `end` line, `appendedTo`, `live`, `against`, LED-01,
+  LED-04), `ProvenanceMap`, `LedgerReport`. docs/LEDGER.md and `LedgerDocTest`; `LedgerTest`;
+  `ManifestTest`; `LiteralLedgerIntegrationTest`, the trial on the proven jobs' five programs. R-030
+  recorded. The gate gains a `ledger` suite, selected by `ledger/`, `intent/` and `lower/`.
+- **Touched:** `lower/Emitter.java`, `Lower.java`, `Flow.java`; `ledger/*`; `test/katana/ledger/*`,
+  `test/katana/lower/ManifestTest.java`; `docs/LEDGER.md`, `docs/checks.json`, `docs/KERNEL-MAP.md`,
+  `theGhost.md` (R-030), `scripts/prepush.sh`, `CLAUDE.md`, research §31, `TODO.md`.

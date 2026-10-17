@@ -1576,3 +1576,14 @@ it, and accepted after; the provenance map names, for every symbol, the COBOL no
 on. The rivals: a stretch label that is not a paragraph's own start (a continuation the dispatcher needs
 inside a paragraph), whose node is the paragraph it continues; and a symbol the Java declares that no
 COBOL node stands on, which belongs to its class's line, not a line of its own.
+
+Result (J-197): as predicted, with one hole in the design found by its own test. CBTRN02C, CBTRN03C, CBACT04C,
+CBSTM03A and CBSTM03B lower to 316, 324, 294, 300 and 70 symbols; each manifest is exactly the `f`, `r` and
+`s` members the Java text declares, in order, and a nested program's are inside its container's class; each
+literal ledger covers its build, reads back equal, and its provenance map names every symbol with its node and
+its job's v1 report. A pass simulated on CBTRN02C that removes a field is refused until a line supersedes the
+field's, and accepted after, the earlier ledger's lines unchanged in the later. The hole: a chain where each
+line carries the hash of the one before leaves the last line unheld, and the edit test found it; the file now
+ends with an `end` line carrying the last line's hash. Neither rival arose as a symbol without a node: a
+stretch label inside a paragraph is opened while that paragraph is the current one and stands on it, and the
+machinery stands on its class.

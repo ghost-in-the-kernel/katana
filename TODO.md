@@ -151,6 +151,12 @@ Check: `ledger.test` refuses an edit to an existing line; every Java symbol in a
 one line; a symbol removed by a pass has a `superseded-by`. The Java symbols are those the lowering's manifest names
 (research §31); the trial is the four proven jobs' programs.
 
+*Done (J-197):* `ledger/` (R-030, docs/LEDGER.md, LED-01 to LED-04): lines chained by hash and an `end` line,
+an edit, deletion, insertion or reorder refused (`LedgerTest`); the lowering's manifest of the symbols it
+writes (`ManifestTest`); the proven jobs' five programs each a literal ledger covering every symbol, a
+removal refused until superseded (`LiteralLedgerIntegrationTest`); the provenance map and the report's
+ledger section written from the live lines.
+
 ### 5.5 Tithe pass 5
 
 Check: none in the roadmap; written here before the item starts.

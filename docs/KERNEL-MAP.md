@@ -1610,3 +1610,24 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | intent | `intent/review/Review.java:Review.withState` |  | 2026-10-17 |  |
 | intent | `intent/review/Review.java:Review.read` |  | 2026-10-17 |  |
 | intent | `intent/review/Review.java:Review.write` |  | 2026-10-17 |  |
+| ledger | `ledger/Entry.java:Entry.Entry` |  | 2026-10-17 |  |
+| ledger | `ledger/Entry.java:Entry.text` |  | 2026-10-17 |  |
+| ledger | `ledger/Entry.java:Entry.read` |  | 2026-10-17 |  |
+| ledger | `ledger/Entry.java:Entry.hash` |  | 2026-10-17 |  |
+| ledger | `ledger/Invalid.java:Invalid.Invalid` |  | 2026-10-17 |  |
+| ledger | `ledger/Ledger.java:Ledger.Ledger` | R-030 | 2026-10-17 |  |
+| ledger | `ledger/Ledger.java:Ledger.read` |  | 2026-10-17 |  |
+| ledger | `ledger/Ledger.java:Ledger.last` |  | 2026-10-17 |  |
+| ledger | `ledger/Ledger.java:Ledger.text` |  | 2026-10-17 |  |
+| ledger | `ledger/Ledger.java:Ledger.append` | R-030 | 2026-10-17 |  |
+| ledger | `ledger/Ledger.java:Ledger.appendedTo` |  | 2026-10-17 |  |
+| ledger | `ledger/Ledger.java:Ledger.live` |  | 2026-10-17 |  |
+| ledger | `ledger/Ledger.java:Ledger.against` |  | 2026-10-17 |  |
+| ledger | `ledger/LedgerReport.java:LedgerReport.LedgerReport` |  | 2026-10-17 |  |
+| ledger | `ledger/LedgerReport.java:LedgerReport.write` |  | 2026-10-17 |  |
+| ledger | `ledger/ProvenanceMap.java:ProvenanceMap.ProvenanceMap` |  | 2026-10-17 |  |
+| ledger | `ledger/ProvenanceMap.java:ProvenanceMap.write` |  | 2026-10-17 |  |
+| lower | `lower/Emitter.java:Emitter.enter` |  | 2026-10-17 |  |
+| lower | `lower/Emitter.java:Emitter.leave` |  | 2026-10-17 |  |
+| lower | `lower/Emitter.java:Emitter.symbol` |  | 2026-10-17 |  |
+| lower | `lower/Emitter.java:Emitter.symbols` |  | 2026-10-17 |  |

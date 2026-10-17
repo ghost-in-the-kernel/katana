@@ -32,7 +32,8 @@ at the plan.
 | The dialect profile | `profile/Profile.java`, `profile/ibm.profile` | `docs/PROFILE.md` | `test/katana/profile/ProfileTest.java` |
 | The literal lowering and the runtime | `lower/`, `rt/` (phase 3) | `docs/research/semantic_traps.md` until `docs/SEMANTIC-IR.md` covers it | the 359 autotests; NIST through the java lane |
 | The Intent IR: what a program means, as facts with evidence and a state | `intent/types/Fact.java`, `intent/types/Intent.java`, `intent/rules/Rules.java`, `intent/review/Review.java` | `docs/INTENT-IR.md` (INT-01 onward), R-029, R-064 | `test/katana/intent/IntentDocTest.java`, `test/katana/intent/IntentTypesTest.java` |
-| Passes, the ledger | `passes/`, `ledger/` (phases 5–6) | `docs/PROOF.md` | every golden byte-identical after every pass |
+| The proof ledger: what was done to the Java and why, and the provenance map | `ledger/Ledger.java`, `ledger/Entry.java`, `ledger/ProvenanceMap.java`, `lower/Lower.java` (its manifest) | `docs/LEDGER.md` (LED-01 onward), R-030 | `test/katana/ledger/LedgerTest.java`, `test/katana/ledger/LiteralLedgerIntegrationTest.java` |
+| Passes | `passes/` (phase 6) | `docs/PROOF.md` | every golden byte-identical after every pass |
 | The agent's environment: metrics, the kernel map | `docs/AGENT.md`, `docs/KERNEL-MAP.md`, `scripts/Metrics.java`, `scripts/KernelMap.java` | `docs/ROADMAP.md` §4.3, §5 | `test/MetricsTest.java`, `test/KernelMapTest.java` |
 | The corpus | `corpus/MANIFEST.md`, `corpus/fetch.sh`, `corpus/scan.sh` | licenses in the manifest | a file with no license fails |
 
