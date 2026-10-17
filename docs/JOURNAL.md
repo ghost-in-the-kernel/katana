@@ -2860,3 +2860,19 @@ taken; closed by a later `decision` entry naming it).
   `test/katana/lower/StorageFacadeTest.java`, `test/katana/oracle/lane/Statements.java`, `StatementsTest.java`,
   `CardDemoJavaLaneIntegrationTest.java`; `docs/LANES.md` (LANE-03, LANE-20), `theGhost.md` (R-027, R-063),
   `docs/HANDOFF.md`, `docs/checks.json`, research §25, `TODO.md`.
+
+### J-188 Each NIST source compiled once a JVM: the pre-push check's room for J-187
+- **Who:** Opus. **Class:** failure-caught; measurement.
+- **Intent:** push J-187, which the pre-push check refused: every test passed, 10.5 min against the 10 for
+  the selected suites (quick, javalane, lane, rt).
+- **Found:** the four cores are saturated, so running NC's programs in three groups at once moved time, not
+  removed it (the NIST Java lane class 281 s as one group, 303 s in three), and C1-only, serial-GC program
+  JVMs were slower (394 s). Timed by phase, NC's 186 s are 143 s of parsing, 16 of javac, 20 of runs: the
+  grammar's SLL parse takes about 1.5 s a NIST program, warm (12 NC programs, 19 s). IC parsed, lowered and
+  compiled its 47 sources twice, once under NODYNAM and once under DYNAM (J-186).
+- **Resolved:** `JavaRunner` keeps each source's compiled files by the hash of its text and the copy members
+  beside it, for the JVM, and copies them into the next module's folder; IC under DYNAM reruns the programs
+  only. javac no longer has the run's folder on its class path. Single runs of the class vary by a fifth,
+  so the pre-push check is the measure. The ceiling is not raised (R-054); the grammar's parse speed is the
+  room left, a tithe item.
+- **Touched:** `test/katana/lower/JavaRunner.java`.
