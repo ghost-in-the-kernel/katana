@@ -1414,3 +1414,48 @@ paragraphs entered (94%), the seven left the abend and I/O-error paragraphs. Nei
 report file, laid out by CVTRA07Y's seven record descriptions, is compared byte for byte, the report saying
 why. On the way: cobc's `-ftrace` adds where a signal stopped the program to its stderr, so the trace check
 leaves a signalled step's stderr out.
+
+## 28. The Intent IR's types (phase 5.1; no IBM text: the facts are Katana's own)
+
+What 5.1 asks (docs/ROADMAP.md 3.2 and phase 5): the fact kinds (`Money`, `Enum`, `Flag`, `Counter`,
+`Date`, `TaggedUnion`, `Function` for a PERFORM range, `Reducible` for a paragraph set, `Stateless` for a
+subprogram, `NeverOverflows` for an item), each with its evidence (the IR nodes and the rule that fired), a
+confidence, and a state, inferred, confirmed or refuted, with who and when. The Semantic IR is what the
+program does; a fact is what someone (a rule, then a person) says it means, so no IBM page settles one,
+and the types hold the shape of a claim, not its truth: 5.2's rules make facts, 5.3's review file
+confirms or refutes them, 6's passes act on them (R-029: never on a refuted fact; an unconfirmed one is
+said so).
+
+The design, as `sir/types` is built (records whose constructors refuse a violation, numbered invariants
+held to a document by a test): a fact is its kind, its subject, its evidence, its confidence and its state.
+The subject is what the fact is about, in one of five shapes, each kind taking one: an item (`Money`,
+`Flag`, `Counter`, `Date`, `NeverOverflows`), an item and its condition-names (`Enum`, two or more), an
+item and the items that REDEFINES it, with the item whose value says which is meant when there is one
+(`TaggedUnion`), a range of paragraphs (`Function`, first THRU last as PERFORM names them), a set of
+paragraphs (`Reducible`), and a program (`Stateless`). The evidence names its rule and its version and at
+least one IR node: an item, a paragraph, a statement (paragraph and place) or an edge of the paragraph
+graph. A fact is known by its kind and its subject, so a rule's next version re-inferring it is the same
+fact, and a person's confirmation stays with it. A set of facts is one program's, under one profile hash,
+and is checked against that program's IR: every node it names is in that program.
+
+Predicted, before the build. Each invariant refuses a violation (one mutation each, as SIR-nn). The
+facts a person writes for CardDemo's CBTRN02C by reading it, the trial of the shapes on a real program,
+all fit and are accepted against its IR: `Money` for DALYTRAN-AMT, TRAN-CAT-BAL and ACCT-CURR-BAL (the
+amounts it ADDs), `Enum` for APPL-RESULT (APPL-AOK, APPL-EOF), `Flag` for END-OF-FILE and
+WS-CREATE-TRANCAT-REC, `Counter` for WS-TRANSACTION-COUNT and WS-REJECT-COUNT, `Date` for COBOL-TS and
+DB2-FORMAT-TS, `Function` for 1500-A-LOOKUP-XREF and 9910-DISPLAY-IO-STATUS, `Reducible` for the six
+open paragraphs; the same facts with one node renamed or moved are refused. CBTRN02C has no
+`TaggedUnion` and no `Stateless` (it is a main program). The rivals: one of its meanings needs a shape the
+five do not give. The likeliest is its two REDEFINES, TWO-BYTES-ALPHA over a binary and a FILLER over
+DB2-FORMAT-TS: views of the same bytes, not a union with a tag, which no kind the roadmap names holds. If
+so, a finding for 5.2 and Fable, not a kind added here (the kinds are the roadmap's).
+
+Result (J-193): the prediction held. Every invariant refuses its violation; the thirteen facts written for
+CBTRN02C (three `Money`, an `Enum`, two each of `Flag`, `Counter` and `Date`, two `Function`s and the
+opens as `Reducible`) are accepted against its IR, and refused with a condition-name renamed, an item past
+the data map, an alternative that does not redefine its item, or a range past the last paragraph. The
+rival arose as foreseen, and only as a matter of meaning: the shapes accept a `TaggedUnion` of
+TWO-BYTES-BINARY and TWO-BYTES-ALPHA, since the one REDEFINES the other, though it is a view of the same
+bytes with no tag. The types hold a claim's shape, not its truth; a person refutes such a fact (R-029), and
+whether a view is a kind of its own goes to Fable (HANDOFF). On the way: the IR's paragraph 0 is the
+procedure's unnamed start, so a program's first named paragraph is 1.

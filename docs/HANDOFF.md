@@ -22,6 +22,11 @@ Fable answers "For Fable: the phase-4 boundary" below.
   TIOT lists, and a POINTER's starting NULL are from recollection of IBM's macros, not read; CREASTMT's
   STEP040 is held to the java lane's own golden. Default taken: kept as hypothesis; the proof report says
   CREASTMT's statements are not compared (R-027).
+- **A REDEFINES that is a view, not a union (J-193, research §28).** CBTRN02C's TWO-BYTES-ALPHA over a
+  binary, and its FILLER over DB2-FORMAT-TS, are the same bytes read two ways, with no tag; the roadmap's
+  kinds have no `View`, and the types accept such a pair as a `TaggedUnion`. Default taken: no kind added
+  (the kinds are the roadmap's); 5.2's union rule infers one only where a tag is found, and a person
+  refutes the rest (R-029).
 - **The selected-suites ceiling (For Opus, J-186): closed by measurement.** Every suite now runs in 8.2 min
   (491 s at cf630c6, after J-189's lexer fix), under the 10 a selected push is held to, so no push can
   select past it. No ceiling raised; the 15-min `--all` ceiling could ratchet to 10 (yours to say).
