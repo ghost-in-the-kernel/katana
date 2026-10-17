@@ -51,6 +51,18 @@ citing the nodes it read, its confidence never above the precision recorded for 
 hand-written key (`RulesBenchIntegrationTest`, intent/rules/carddemo.scores; a lower score is refused):
 enum.disjoint-88s, money.packed-v99-added and function.perform-range, as docs/ROADMAP.md 5.2 words them.
 
+## The review file
+
+A person's word on a program's facts is a plain file beside it, `<PROGRAM>.review` (intent/review, R-064),
+one line a fact: `state | kind | subject | rule vN | confidence | who date | why`. The subject is written
+by the program's names (an item `OF` its parents as far as makes it unique, a range `FIRST THRU LAST`,
+condition-names after a colon), never by the IR's numbers, which a line added above renumbers. A person
+changes `inferred` to `confirmed` or `refuted` and writes who and the date, or writes a fact of their own
+under the rule `person v1`. A rebuild keeps their word: a confirmed fact stays confirmed; a refuted one stays
+refuted under the rule version that refuted it and returns as inferred under a newer one, the refutation
+beside it (R-029); a line that names nothing in the program any more is kept as `orphaned` and reported,
+never bound to something else; a fact the program has no unique name for is reported, not written.
+
 ## Evidence and state
 
 `Evidence` names the rule that inferred the fact and its version (`person` for a fact a person wrote)

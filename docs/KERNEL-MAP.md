@@ -1586,3 +1586,27 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | intent | `intent/rules/Walk.java:Walk.statements` |  | 2026-10-17 |  |
 | intent | `intent/rules/Walk.java:Walk.add` |  | 2026-10-17 |  |
 | intent | `intent/rules/Walk.java:Walk.refers` |  | 2026-10-17 |  |
+| intent | `intent/review/Line.java:Line.write` |  | 2026-10-17 |  |
+| intent | `intent/review/Line.java:Line.confidence` |  | 2026-10-17 |  |
+| intent | `intent/review/Line.java:Line.read` |  | 2026-10-17 |  |
+| intent | `intent/review/Line.java:Line.problem` |  | 2026-10-17 |  |
+| intent | `intent/review/Line.java:Line.subject` |  | 2026-10-17 |  |
+| intent | `intent/review/Line.java:Line.join` |  | 2026-10-17 |  |
+| intent | `intent/review/Line.java:Line.subject#2` |  | 2026-10-17 |  |
+| intent | `intent/review/Line.java:Line.union` |  | 2026-10-17 |  |
+| intent | `intent/review/Line.java:Line.list` |  | 2026-10-17 |  |
+| intent | `intent/review/Line.java:Line.nodes` |  | 2026-10-17 |  |
+| intent | `intent/review/Names.java:Names.Names` |  | 2026-10-17 |  |
+| intent | `intent/review/Names.java:Names.item` |  | 2026-10-17 |  |
+| intent | `intent/review/Names.java:Names.item#2` |  | 2026-10-17 |  |
+| intent | `intent/review/Names.java:Names.matches` |  | 2026-10-17 |  |
+| intent | `intent/review/Names.java:Names.ancestors` |  | 2026-10-17 |  |
+| intent | `intent/review/Names.java:Names.paragraph` |  | 2026-10-17 |  |
+| intent | `intent/review/Names.java:Names.paragraph#2` |  | 2026-10-17 |  |
+| intent | `intent/review/Review.java:Review.Review` |  | 2026-10-17 |  |
+| intent | `intent/review/Review.java:Review.merge` |  | 2026-10-17 |  |
+| intent | `intent/review/Review.java:Review.merge#2` | R-064 | 2026-10-17 |  |
+| intent | `intent/review/Review.java:Review.kept` |  | 2026-10-17 |  |
+| intent | `intent/review/Review.java:Review.withState` |  | 2026-10-17 |  |
+| intent | `intent/review/Review.java:Review.read` |  | 2026-10-17 |  |
+| intent | `intent/review/Review.java:Review.write` |  | 2026-10-17 |  |
