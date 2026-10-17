@@ -597,7 +597,8 @@ R-015)
   not front or autotest, and is held to 10 min, where the same work with all eight is held to 15: IC's
   selected run took 13.5 min, the corpus pass alone 618 s on shared cores. Pushed with `--all` on Ghost's
   call. The room is made in a tithe (the corpus pass where the front end or the data map changed, or its
-  cobc work cut), not by raising a ceiling (R-054).
+  cobc work cut), not by raising a ceiling (R-054). J-189 cut the lexer's time a hundredfold (the corpus
+  pass 618 s under load to 103 s alone); re-measure the selected suites before acting on the rest.
 
 ## Trials (R-052: a question settled by running something; the implementing agent runs it)
 

@@ -2876,3 +2876,18 @@ taken; closed by a later `decision` entry naming it).
   so the pre-push check is the measure. The ceiling is not raised (R-054); the grammar's parse speed is the
   room left, a tithe item.
 - **Touched:** `test/katana/lower/JavaRunner.java`.
+
+### J-189 Tithe: the lexer's decimal-comma predicate at its rule's right edge, a hundred times faster
+- **Who:** Opus, on Ghost's call ("tithe the parser first"). **Class:** tithe; measurement.
+- **Intent:** room under R-054's ceiling for J-187, which the pre-push check refused twice at 10.4 and 10.5
+  min with every test passing; J-188 found parsing most of a NIST run's time.
+- **Found:** ANTLR's profiler over 12 NC programs: the parser's decisions take 0.86 s, the lexer 20.4 s. The
+  one lexer predicate, NUMERICLITERAL's `{decimalComma}?` (J-119), stood after an optional `[0-9]*`, so it
+  was in the closure of the lexer's start state, and ANTLR caches no DFA edge through a predicate: every
+  token of every program was matched by ATN simulation. Without the alternative the 12 lex in 188 ms.
+- **Resolved:** the comma literal is its own alternative with the predicate at its right edge, evaluated
+  only when a comma literal has matched; under its absence the lexer falls back to the shorter match, as
+  before. 12 programs lex in 161 ms; `CorpusIntegrationTest` (every corpus program parsed) 103 s alone, where
+  it took 275 s (J-169) and 618 s under the IC check's load. No golden moved (`DecimalCommaTest`, the
+  corpus and IR goldens). The ceilings are not touched (R-054).
+- **Touched:** `front/grammar/Cobol.g4`, `docs/HANDOFF.md`.
