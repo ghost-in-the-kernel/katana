@@ -2977,3 +2977,25 @@ taken; closed by a later `decision` entry naming it).
   10 min (R-054's ratchet).
 - **Touched:** `intent/types/Subject.java`, `Intent.java`; `test/katana/intent/IntentTypesTest.java`,
   `Cbtrn02cIntentIntegrationTest.java`; `docs/INTENT-IR.md`, `docs/AGENT.md`, `docs/HANDOFF.md`.
+
+### J-195 The first inference rules, measured on CardDemo against a hand-written key
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with 5.2 next"). **Class:** build; trial.
+- **Intent:** phase 5.2, the roadmap's three rules with their precision on a key written first (research
+  §29, 1ec1a82).
+- **Found:** the first run found two errors in how the key was made: CBSTM03A was absent (the survey listing
+  its candidates read CUSTREC.cpy at 8 columns and failed), and the survey's own parsing counted three items
+  with one condition-name as two. Corrected: CBSTM03A judged by the key's written readings (eight money
+  items; WS-M03B-OPER an enum, as CBSTM03B's LK-M03B-OPER is; HTML-FIXED-LN a text field), and
+  WS-US-PHONE-AREA-CODE-TO-EDIT, which had entered unread, judged after the run as no enum. The function
+  rule's first reading of a paragraph's end refused six ranges: a dead `EXIT.` after CBSTM03A's GO TO, and
+  EXIT PROGRAM, which the IR names `EXIT` (so `Contract.falls` never matches it either). Money's one fact is
+  real: CBSTM03A's WS-TOTAL-AMT, COMP-3 and ADDed to.
+- **Resolved:** `intent/rules`: `Rule`, `Rules`, `Walk`, `EnumRule`, `MoneyRule`, `FunctionRule` (a
+  paragraph ends at any top-level unconditional transfer; EXIT PROGRAM ends one only in a program with
+  USING, an `// Unsure`). `RulesBenchIntegrationTest` scores them against `test/katana/intent/carddemo.key`
+  into intent/rules/carddemo.scores, refusing a lower score and a confidence over precision; `RulesTest`
+  keeps and breaks each condition. Enum 0.588/0.973, money 1.000/0.009, function 1.000/1.000. HANDOFF puts
+  enum's flags, money's COMP-3 and the contract's EXIT PROGRAM to Fable.
+- **Touched:** `intent/rules/*`; `test/katana/intent/RulesTest.java`, `RulesBenchIntegrationTest.java`,
+  `carddemo.key`; `docs/INTENT-IR.md`, `docs/checks.json`, `docs/KERNEL-MAP.md`, `docs/HANDOFF.md`, research
+  §29, `TODO.md`.

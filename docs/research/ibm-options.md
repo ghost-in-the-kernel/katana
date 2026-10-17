@@ -1489,3 +1489,19 @@ the IR's unnamed paragraph 0 or a main line ending in GOBACK reads as falling in
 GO TOs and CBSTM03B's GO TOs to their exits read as leaving a range. If money finds nothing, the finding is
 the roadmap's evidence requirement, not the rule: COMP-3 is IBM's packed decimal, and CardDemo's amounts are
 zoned; whether money's next version drops COMP-3 goes to Fable.
+
+Result (J-195): as predicted for function and money, near it for enum, and the key itself corrected twice
+by the first run. Enum: 187 facts, 110 true of 113, precision 0.588, recall 0.973; its 77 errors are 69
+flags and 8 message or number fields, its misses the three items whose condition values overlap. Money: one
+fact, CBSTM03A's WS-TOTAL-AMT, a COMP-3 statement total its program ADDs to, and true: precision 1.000,
+recall 0.009 (1 of 116): CardDemo's money is zoned. Function: 175 of 175 once the rule read a paragraph's
+end as a person does; its first run refused six, the rivals foreseen: CBSTM03A's 8599-EXIT ends
+`GO TO 0000-START. EXIT.`, whose last statement falls though nothing reaches it, and CSUTLDTC's EXIT PROGRAM,
+which the IR names `EXIT` with PROGRAM as its operand, so a reading of the verb alone never matched it (nor
+does `Contract.falls`'s; EXIT PROGRAM in a program no CALL reached is passed over, so the contract's
+reading is IBM's there by accident). The key: CBSTM03A was absent (the survey that listed the candidates
+read CUSTREC.cpy at 8 columns and failed), and three items with one condition-name were counted as two;
+both corrected, CBSTM03A's eight money items and WS-M03B-OPER judged by the key's written rules, and
+WS-US-PHONE-AREA-CODE-TO-EDIT, which had entered the key unread, judged after the run (a code checked
+against lists of valid ones, not an enum). The bench is held to these scores; what comes next for enum
+(flags) and money (zoned amounts) goes to Fable.
