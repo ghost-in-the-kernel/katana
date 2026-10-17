@@ -2946,3 +2946,20 @@ taken; closed by a later `decision` entry naming it).
   10-min ceiling a selected push is held to, which closes J-186's gap; warm fast loop 15 s, cold 31 (over
   its unheld 30). `docs/AGENT.md` gains pass 4's column; HANDOFF names the phase-4 boundary's questions
   for Fable, each with its default (phase 3's open items, D-033, R-063, the ceilings).
+
+### J-193 The Intent IR's types: facts with their evidence, confidence and state, checked against a program's IR
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with 5.1 next"). **Class:** build; trial.
+- **Intent:** phase 5.1, the types every later phase-5 and phase-6 step reads; prediction before the build
+  (research §28, c933671).
+- **Found:** the IR numbers the procedure's unnamed start as paragraph 0, which the first test's indexes
+  missed. The shapes accept a `TaggedUnion` over CBTRN02C's TWO-BYTES-ALPHA, a view with no tag: a claim's
+  shape is checkable, its truth is a person's (R-029). `Intent.subject` came out at 22 paths; split by
+  shape.
+- **Resolved:** `intent/types`: `Kind` (the roadmap's ten), `Subject` (six shapes), `Node`, `Evidence`,
+  `State`, `Fact`, `Intent`, `Invalid`; INT-01 to INT-07 in docs/INTENT-IR.md, held by `IntentDocTest`;
+  `IntentTypesTest` (each invariant's refusal, a program's facts against its IR, R-029's view);
+  `Cbtrn02cIntentIntegrationTest`, the trial on a real program. R-029 recorded. The gate gains an `intent`
+  suite, selected by `intent/` and `sir/`.
+- **Touched:** `intent/types/*`; `test/katana/intent/*`; `docs/INTENT-IR.md`, `docs/checks.json`,
+  `docs/KERNEL-MAP.md`, `theGhost.md` (R-029), `scripts/prepush.sh`, `CLAUDE.md`, research §28, `TODO.md`,
+  `docs/HANDOFF.md`.

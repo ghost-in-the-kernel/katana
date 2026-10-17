@@ -1449,3 +1449,13 @@ open paragraphs; the same facts with one node renamed or moved are refused. CBTR
 five do not give. The likeliest is its two REDEFINES, TWO-BYTES-ALPHA over a binary and a FILLER over
 DB2-FORMAT-TS: views of the same bytes, not a union with a tag, which no kind the roadmap names holds. If
 so, a finding for 5.2 and Fable, not a kind added here (the kinds are the roadmap's).
+
+Result (J-193): the prediction held. Every invariant refuses its violation; the thirteen facts written for
+CBTRN02C (three `Money`, an `Enum`, two each of `Flag`, `Counter` and `Date`, two `Function`s and the
+opens as `Reducible`) are accepted against its IR, and refused with a condition-name renamed, an item past
+the data map, an alternative that does not redefine its item, or a range past the last paragraph. The
+rival arose as foreseen, and only as a matter of meaning: the shapes accept a `TaggedUnion` of
+TWO-BYTES-BINARY and TWO-BYTES-ALPHA, since the one REDEFINES the other, though it is a view of the same
+bytes with no tag. The types hold a claim's shape, not its truth; a person refutes such a fact (R-029), and
+whether a view is a kind of its own goes to Fable (HANDOFF). On the way: the IR's paragraph 0 is the
+procedure's unnamed start, so a program's first named paragraph is 1.

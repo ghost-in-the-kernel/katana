@@ -113,6 +113,11 @@ invariant refuses a violation; the facts a person writes for CardDemo's CBTRN02C
 and refused with a node moved; R-029 recorded, a refuted fact never among those a pass may act on
 (research §28).
 
+*Done (J-193):* `intent/types`: `Fact` (its `Kind`, `Subject`, `Evidence`, confidence and `State`) and
+`Intent`, one program's facts under its profile hash, checked against its IR (INT-01 to INT-07,
+docs/INTENT-IR.md, `IntentDocTest`). The thirteen facts written for CBTRN02C accepted, and refused with a
+node moved (`Cbtrn02cIntentIntegrationTest`). R-029 recorded.
+
 ### 5.2 `intent/rules`
 
 Check: none in the roadmap; written here before the item starts.

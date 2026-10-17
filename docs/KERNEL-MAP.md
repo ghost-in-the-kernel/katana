@@ -1519,3 +1519,37 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/FileVerbs.java:FileVerbs.varyings` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.varyings` |
 | lower | `lower/FileVerbs.java:FileVerbs.sizes` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.sizes` |
 | lower | `lower/FileVerbs.java:FileVerbs.supplier` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.supplier` |
+| intent | `intent/types/Evidence.java:Evidence.Evidence` |  | 2026-10-17 |  |
+| intent | `intent/types/Fact.java:Fact.Fact` |  | 2026-10-17 |  |
+| intent | `intent/types/Fact.java:Fact.id` |  | 2026-10-17 |  |
+| intent | `intent/types/Fact.java:Fact.unconfirmed` |  | 2026-10-17 |  |
+| intent | `intent/types/Intent.java:Intent.Intent` |  | 2026-10-17 |  |
+| intent | `intent/types/Intent.java:Intent.actionable` | R-029 | 2026-10-17 |  |
+| intent | `intent/types/Intent.java:Intent.against` |  | 2026-10-17 |  |
+| intent | `intent/types/Intent.java:Intent.subject` |  | 2026-10-17 |  |
+| intent | `intent/types/Intent.java:Intent.node` |  | 2026-10-17 |  |
+| intent | `intent/types/Intent.java:Intent.item` |  | 2026-10-17 |  |
+| intent | `intent/types/Intent.java:Intent.paragraph` |  | 2026-10-17 |  |
+| intent | `intent/types/Invalid.java:Invalid.Invalid` |  | 2026-10-17 |  |
+| intent | `intent/types/Kind.java:Kind.Kind` |  | 2026-10-17 |  |
+| intent | `intent/types/Kind.java:Kind.shape` |  | 2026-10-17 |  |
+| intent | `intent/types/Node.java:Node.ItemNode.ItemNode` |  | 2026-10-17 |  |
+| intent | `intent/types/Node.java:Node.ParagraphNode.ParagraphNode` |  | 2026-10-17 |  |
+| intent | `intent/types/Node.java:Node.StatementNode.StatementNode` |  | 2026-10-17 |  |
+| intent | `intent/types/Node.java:Node.EdgeNode.EdgeNode` |  | 2026-10-17 |  |
+| intent | `intent/types/State.java:State.State` |  | 2026-10-17 |  |
+| intent | `intent/types/State.java:State.date` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Datum.Datum` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Datum.text` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Choice.Choice` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Choice.text` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Union.Union` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Union.text` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Range.Range` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Range.text` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Paragraphs.Paragraphs` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Paragraphs.text` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Whole.Whole` |  | 2026-10-17 |  |
+| intent | `intent/types/Subject.java:Subject.Whole.text` |  | 2026-10-17 |  |
+| intent | `intent/types/Intent.java:Intent.conditions` |  | 2026-10-17 |  |
+| intent | `intent/types/Intent.java:Intent.alternatives` |  | 2026-10-17 |  |

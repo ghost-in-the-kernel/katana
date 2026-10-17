@@ -538,6 +538,23 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-005, R-048, P-03
 - **subject:** facades
 
+### R-029: Intent is never acted on when refuted, and is flagged when unconfirmed
+- **Decision:** a fact of the Intent IR stands inferred, confirmed or refuted, a person saying who and
+  when for the last two (INT-05). A pass may act only on a fact not refuted (`Intent.actionable`), and a
+  pass acting on a fact no person confirmed says so (`Fact.unconfirmed`; its ledger line, 5.4). A fact is
+  known by its kind and subject, so a rule's next version that infers it again is the same fact and a
+  person's refutation stays with it.
+- **Why:** an oracle proves what the Java does, never what the program means (R-007); the only check on
+  a meaning is a person's word, and a refutation a rebuild could undo would not be one (docs/ROADMAP.md
+  3.2, phase 5).
+- **Held by:** `intent/types` (`Intent`, `Fact`, `State`); `IntentTypesTest`
+  (`aRefutedFactIsNeverActionableAndAnInferredOneIsUnconfirmed`); docs/INTENT-IR.md.
+- **Source:** Ghost and Reviewer G, 2026-10-04 (reserved in the roadmap); recorded by Opus, 2026-10-17, at
+  phase 5.1, on Ghost's "go ahead with 5.1".
+- **Status:** in force
+- **See also:** R-007, R-004
+- **subject:** architecture
+
 ### R-037: Patent protection is intended; nothing public before a provisional is filed
 - **Decision:** Ghost intends to seek patent protection. Candidate claims: per-pass translation
   validation for legacy migration with an append-only provenance ledger; the double-run determinism
@@ -1183,7 +1200,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
-the attribute tuple; R-028 coverage in every proof; R-029 refuted intent never acted on; R-030 ledger
+the attribute tuple; R-028 coverage in every proof; R-030 ledger
 append-only; R-031 models propose intent only, later, never v1; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual
 dispatcher is acceptable output; R-035 the refactoring-distance report; R-036 the Hercules lane's
