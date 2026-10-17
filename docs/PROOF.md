@@ -41,3 +41,9 @@ the clock the fixture pins, on the paragraphs the fixture's data entered. Nothin
 - **PROOF-02 A proof is valid for one fixture and one profile.** Both are named by hash (P-12).
 - **PROOF-03 Nothing is compared before the gate passes.** A report whose gate failed says so and
   compares nothing.
+- **PROOF-04 Coverage says where it comes from.** v1 (4.6, research §27) proves the java lane against the
+  cobc lane; each program's coverage comes from the cobc trace, and from the java lane's own trace only
+  where the cobc lane cannot run the program (R-027), the report saying which. On every program both lanes
+  run, the java lane's trace enters exactly the paragraphs cobc's does (`ProofV1IntegrationTest`). A dataset
+  the cobc lane leaves none of is listed as not compared, never as the same. `oracle/proof/CARDDEMO.coverage.md`
+  sums the coverage over the fixtures, listing every paragraph none entered (J-191).

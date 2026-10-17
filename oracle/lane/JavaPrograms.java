@@ -20,11 +20,20 @@ final class JavaPrograms implements ProgramRunner {
     private final Map<String, List<String>> commands;
     private final Path work;
     private final Duration limit;
+    private final boolean trace;
+    private final java.util.Set<String> ran = new java.util.TreeSet<>();
 
-    JavaPrograms(Map<String, List<String>> commands, Path work, Duration limit) {
+    /** The setup's Java programs by PGM; with `trace`, each step's paragraphs traced into `work/trace` as cobc's are (research §27). */
+    JavaPrograms(Map<String, List<String>> commands, Path work, Duration limit, boolean trace) {
         this.commands = commands;
         this.work = work;
         this.limit = limit;
+        this.trace = trace;
+    }
+
+    /** The programs run so far, by PGM. */
+    java.util.Set<String> ran() {
+        return ran;
     }
 
     @Override
@@ -33,6 +42,16 @@ final class JavaPrograms implements ProgramRunner {
         if (command == null) return new Programs.Ended(0, null, "no Java program for " + name + " in the java lane's setup");
         List<String> full = new ArrayList<>(command);
         if (parm != null) full.add(parm);
+        ran.add(name);
+        if (trace) {
+            env = new java.util.HashMap<>(env);
+            env.put("KATANA_TRACE_FILE", work.resolve("trace").resolve(step + ".trace").toString());
+            try {
+                java.nio.file.Files.createDirectories(work.resolve("trace"));
+            } catch (java.io.IOException e) {
+                throw new java.io.UncheckedIOException(e);
+            }
+        }
         int exit = Exec.run(full, work, env, stdin, work.resolve("sysout/" + step + ".stdout"), work.resolve("sysout/" + step + ".stderr"), limit);
         if (exit == -1) return new Programs.Ended(exit, null, name + " ran past the time limit");
         Matcher abend = ABEND.matcher(Programs.text(work.resolve("sysout/" + step + ".stderr")));

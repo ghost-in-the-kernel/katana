@@ -78,7 +78,7 @@ class CardDemoJavaLaneIntegrationTest {
      * module) lowered into `classes` at the fixture's tab widths, launched under the profile's DISPSIGN and
      * DYNAM (J-109, J-186), a CALL finding a module's class on the path (LANE-19); and `rt/Ksds` (LANE-16).
      */
-    private static Map<String, List<String>> commands(Fixture fixture, Path classes) throws Exception {
+    static Map<String, List<String>> commands(Fixture fixture, Path classes) throws Exception {
         Map<String, String> ibm = katana.profile.Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile"))).ibm();
         String launcher = Path.of(System.getProperty("java.home"), "bin", "java").toString(), path = classes + java.io.File.pathSeparator + System.getProperty("java.class.path");
         java.util.Set<String> programs = new java.util.LinkedHashSet<>();
@@ -93,11 +93,11 @@ class CardDemoJavaLaneIntegrationTest {
         return commands;
     }
 
-    private static Fixture fixture(String job) throws Exception {
+    static Fixture fixture(String job) throws Exception {
         return Fixture.read(Files.readString(ROOT.resolve("oracle/fixture/carddemo/" + job + ".fixture")));
     }
 
-    private static CobcLane.Setup setup(Path dir, Map<String, List<String>> java) {
+    static CobcLane.Setup setup(Path dir, Map<String, List<String>> java) {
         LaneRuns cobc = new LaneRuns("carddemo-java-sources");
         return new CobcLane.Setup(ROOT, Map.of("carddemo", CARDDEMO, "repo", ROOT), CARDDEMO.resolve("app/cbl"), List.of(CARDDEMO.resolve("app/cpy")),
                 dir, ROOT.resolve("build/lane-cache"), Duration.ofSeconds(60), (j, d) -> cobcUnload(cobc, j, d), null, java);
@@ -115,7 +115,7 @@ class CardDemoJavaLaneIntegrationTest {
     }
 
     /** The file a dataset of a run is held in, by the end of its name. */
-    private static byte[] dataset(Path dir, String suffix) throws java.io.IOException {
+    static byte[] dataset(Path dir, String suffix) throws java.io.IOException {
         try (var files = Files.walk(dir)) {
             return Files.readAllBytes(files.filter(Files::isRegularFile).filter(f -> f.getFileName().toString().endsWith(suffix)).findFirst().orElseThrow());
         }
@@ -188,7 +188,7 @@ class CardDemoJavaLaneIntegrationTest {
     }
 
     /** A report's lines but the java lane's banner and the cobc lane's program-source hashes, which only one lane has. */
-    private static List<String> comparable(String report) {
+    static List<String> comparable(String report) {
         return report.lines().filter(l -> !l.isBlank() && !l.startsWith("lane java") && !l.startsWith("program ")).toList();
     }
 }

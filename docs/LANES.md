@@ -124,6 +124,10 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
   zero; SET ADDRESS OF a LINKAGE record binds it to the storage at the pointer's address, as a CALL binds
   it to an argument (LANE-19); an address no block holds ends the run with abend U4038. The cobc lane
   cannot map address 0 and holds the program's abend as its outcome (R-027, J-187).
+- **LANE-21 The java lane traces paragraphs as cobc does.** With `KATANA_TRACE_FILE` set (the lane sets it
+  when its setup is traced, one file a step, as COB_TRACE_FILE is), each section and paragraph a lowered
+  program enters is a `Program-Id: NAME Paragraph: NAME` line (`rt/Trace`), so coverage is read from either
+  lane's trace alike (PROOF-04, J-191).
 
 ## The check
 

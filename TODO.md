@@ -158,7 +158,15 @@ STEP040, which the cobc lane abends in (R-027), is held to `oracle/lane/carddemo
 
 ### 4.6 Proof report, v1
 
-Check: none in the roadmap; written here before the item starts.
+Check: none in the roadmap; written here before the item starts. The four jobs proven, the java lane against
+the cobc lane, every dataset compared under its fixture's copybook, coverage from the cobc trace and from
+the java lane's where the cobc lane cannot run a step, the two traces equal elsewhere; CardDemo's coverage
+by the fixtures, every paragraph none entered listed (J-191).
+
+*Done (J-191):* `oracle/proof/<JOB>.v1.report.md` for POSTTRAN, TRANREPT, TRANREPT-STUDY, INTCALC and
+CREASTMT (PROOF-04), every dataset compared the same; CREASTMT's statements said not compared (R-027).
+`oracle/proof/CARDDEMO.coverage.md`: 106 of 113 paragraphs of the five programs entered; the seven left are
+each program's abend and I/O-error paragraphs, which no fixture's data reaches.
 
 ### 4.7 Tithe pass 4
 
