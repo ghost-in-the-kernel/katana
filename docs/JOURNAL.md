@@ -2891,3 +2891,18 @@ taken; closed by a later `decision` entry naming it).
   it took 275 s (J-169) and 618 s under the IC check's load. No golden moved (`DecimalCommaTest`, the
   corpus and IR goldens). The ceilings are not touched (R-054).
 - **Touched:** `front/grammar/Cobol.g4`, `docs/HANDOFF.md`.
+
+### J-190 The four jobs through both lanes: each job's programs lowered from its own fixture
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with 4.5 next"). **Class:** build; trial.
+- **Intent:** phase 4.5's check: POSTTRAN, TRANREPT, INTCALC and CREASTMT against the phase-1 goldens, the
+  java lane consuming the same fixture with no per-program adaptation; prediction before the run (research
+  §26, 312d64e).
+- **Found:** the java lane's test lowered its programs from a list it named, CBSTM03A and CBSTM03B at
+  CREASTMT's tab widths and the rest at POSTTRAN's: a per-program adaptation in the test, if not in the lane.
+  CREASTMT's phase-1 golden ends at STEP040's abend, which no cobc run can pass (R-027).
+- **Resolved:** each job's setup is made from its fixture: the PGM of each step that is no utility and each
+  module, lowered at its `tabs` widths into the job's own classes. Every report the same as before. CREASTMT's
+  STEP040 is held to `oracle/lane/carddemo-java.golden` (written by `-Dkatana.record=true`, the java lane's own
+  run, so it catches change) and to `Statements` (which catches error); the registry entry says so.
+- **Touched:** `test/katana/oracle/lane/CardDemoJavaLaneIntegrationTest.java`, `oracle/lane/carddemo-java.golden`,
+  `docs/checks.json`, research §26, `TODO.md`.

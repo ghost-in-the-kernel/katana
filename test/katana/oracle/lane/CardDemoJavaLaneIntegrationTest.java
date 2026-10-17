@@ -23,58 +23,74 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
- * Phase 4.1's CardDemo check (research §22): each CardDemo fixture through the java lane, its programs
- * lowered to Java and its indexed datasets `rt/IdxFile`'s, loaded and unloaded by `rt/Ksds` (LANE-16),
- * reports what the cobc lane's golden (oracle/lane/carddemo.golden) holds: every step's return code,
- * every stdout's lines and hash, every dataset's records and hash, every finding. The java lane's report
- * says it is the java lane, and has no program sources to hash; nothing else may differ. CREASTMT, which the
- * cobc lane abends in at the PSA, runs end to end through the z/OS storage facade (LANE-20), its statements
- * held to their own input (`Statements`).
+ * Phases 4.1 and 4.5's CardDemo check (research §22, §26): each CardDemo fixture through the java lane, the
+ * programs it runs lowered from it, its indexed datasets `rt/IdxFile`'s, loaded and unloaded by `rt/Ksds`
+ * (LANE-16), reports what the cobc lane's golden (oracle/lane/carddemo.golden) holds: every step's return
+ * code, every stdout's lines and hash, every dataset's records and hash, every finding. The java lane's
+ * report says it is the java lane, and has no program sources to hash; nothing else may differ but D-005's
+ * DISPLAY lines. CREASTMT's STEP040, which the cobc lane abends in at the PSA (R-027), runs through the z/OS
+ * storage facade (LANE-20) and is held to the java lane's own golden and to its input (`Statements`).
  */
 @Tag("integration")
 class CardDemoJavaLaneIntegrationTest {
     private static final Path ROOT = LaneRuns.ROOT, CARDDEMO = ROOT.resolve("corpus/carddemo");
-    private static final List<String> PROGRAMS = List.of("CBTRN02C", "CBACT04C", "CBTRN03C", "CBSTM03A", "CBSTM03B");
-    private static final List<String> JOBS = List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST");
+    private static final List<String> JOBS = List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST", "CREASTMT");
+    /** The utilities the lanes run themselves; every other PGM, and every module, is a CardDemo program lowered for the job. */
+    private static final java.util.Set<String> UTILITIES = java.util.Set.of("IDCAMS", "SORT", "IEFBR14", "IEBGENER");
+    /** The java lane's own golden: CREASTMT, whose STEP040 the cobc lane cannot run (R-027), as this lane ran it (research §26). */
+    private static final Path JAVA_GOLDEN = ROOT.resolve("oracle/lane/carddemo-java.golden");
 
+    /**
+     * Phase 4.5 (research §26): each job's programs lowered from its own fixture, its steps' PGMs and its
+     * modules at its tab widths, no program named here; every job reports what the cobc lane's golden holds,
+     * D-005's stdout lines aside, but CREASTMT from STEP040, which holds the java lane's golden and its input.
+     */
     @Test
     void everyCardDemoJobTheJavaLaneRunsReportsWhatTheCobcLanesGoldenHolds() throws Exception {
         Path work = Files.createDirectories(ROOT.resolve("build/carddemo-java"));
-        Path classes = Files.createTempDirectory(work, "classes");
-        Map<String, List<String>> commands = new LinkedHashMap<>();
-        String launcher = Path.of(System.getProperty("java.home"), "bin", "java").toString(), path = classes + java.io.File.pathSeparator + System.getProperty("java.class.path");
-        Fixture posttran = fixture("POSTTRAN");
-        // The profile's DISPSIGN and DYNAM (ibm.dispsign COMPAT, ibm.dynam NODYNAM), which the generated main reads (J-109, J-186).
-        java.util.Map<String, String> ibm = katana.profile.Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile"))).ibm();
-        Fixture statements = fixture("CREASTMT");
-        // CBSTM03A's copybooks are read at CREASTMT's tab widths; a CALL finds CBSTM03B's class on the path (LANE-19).
-        for (String name : PROGRAMS) commands.put(name, List.of(launcher, "-cp", path, "-Dkatana.dispsign=" + ibm.get("ibm.dispsign"), "-Dkatana.dynam=" + ibm.get("ibm.dynam"), lowered(name, classes, name.startsWith("CBSTM") ? statements : posttran)));
-        commands.put(CobcLane.KSDS, List.of(launcher, "-cp", path, "katana.rt.Ksds"));
         Map<String, String> golden = sections(Files.readString(ROOT.resolve("oracle/lane/carddemo.golden")));
         List<Path> runs = new ArrayList<>();
         Map<String, List<String>> differ = new LinkedHashMap<>();
+        Map<String, String> javaGolden = new LinkedHashMap<>();
         for (String job : JOBS) {
-            Path dir = Files.createTempDirectory(work, job);
+            Path dir = Files.createTempDirectory(work, job), classes = Files.createTempDirectory(work, job + "-classes");
             runs.add(dir);
-            List<String> cobc = comparable(golden.get(job)), java = comparable(CobcLane.run(fixture(job), setup(dir, commands)).text());
-            List<String> unexplained = java.stream().filter(l -> !cobc.contains(l)).filter(l -> !d005(job, l, dir)).toList();
-            if (!unexplained.isEmpty() || cobc.size() != java.size()) differ.put(job, unexplained);
+            runs.add(classes);
+            String text = CobcLane.run(fixture(job), setup(dir, commands(fixture(job), classes))).text();
+            List<String> cobc = comparable(golden.get(job)), java = comparable(text);
+            int at = job.equals("CREASTMT") ? java.indexOf(java.stream().filter(l -> l.startsWith("stdout STEP040")).findFirst().orElseThrow()) : java.size();
+            List<String> unexplained = java.subList(0, at).stream().filter(l -> !cobc.contains(l)).filter(l -> !d005(job, l, dir)).toList();
+            if (!unexplained.isEmpty() || (at == java.size() && cobc.size() != java.size())) differ.put(job, unexplained);
+            if (job.equals("CREASTMT")) {
+                javaGolden.put(job, text + String.join("\n", Files.readAllLines(dir.resolve("sysout/STEP040.stdout"), StandardCharsets.ISO_8859_1)) + "\n");
+                assertEquals("50 statements, 262 transactions, each once, every total its lines' sum", Statements.check(dataset(dir, "STATEMNT.PS"), dataset(dir, "TRXFL.SEQ")));
+            }
         }
         assertEquals(Map.of(), differ, "the java lane's lines the cobc lane's golden does not hold, by job");
-        Path dir = Files.createTempDirectory(work, "CREASTMT");
-        runs.add(dir);
-        // CREASTMT end to end (R-027 C-2, research §25): the cobc lane abends at the PSA; here CBSTM03A reads its job, step and DDs through the
-        // z/OS storage facade, and its statements are checked against the transactions they summarize.
-        List<String> creastmt = comparable(CobcLane.run(fixture("CREASTMT"), setup(dir, commands)).text()), before = comparable(golden.get("CREASTMT"));
-        int at = creastmt.indexOf(creastmt.stream().filter(l -> l.startsWith("stdout STEP040")).findFirst().orElseThrow());
-        assertEquals(List.of(), creastmt.subList(0, at).stream().filter(l -> !before.contains(l)).toList(), "CREASTMT's steps before STEP040");
-        org.junit.jupiter.api.Assertions.assertTrue(creastmt.contains("step STEP040 CBSTM03A rc=0") && creastmt.stream().noneMatch(l -> l.startsWith("finding")), creastmt.toString());
-        assertEquals(List.of("Running JCL : CREASTMT Step STEP040 ", "DD Names from TIOT: ", ": SYSPRINT --  null UCB", ": SYSOUT   --  null UCB", ": TRNXFILE -- valid UCB",
-                ": XREFFILE -- valid UCB", ": ACCTFILE -- valid UCB", ": CUSTFILE -- valid UCB", ": STMTFILE -- valid UCB", ": HTMLFILE -- valid UCB"),
-                Files.readAllLines(dir.resolve("sysout/STEP040.stdout"), StandardCharsets.ISO_8859_1));
-        assertEquals("50 statements, 262 transactions, each once, every total its lines' sum", Statements.check(dataset(dir, "STATEMNT.PS"), dataset(dir, "TRXFL.SEQ")));
-        runs.add(classes);
+        String recorded = javaGolden.entrySet().stream().map(e -> "# oracle/fixture/carddemo/" + e.getKey() + ".fixture\n" + e.getValue()).collect(java.util.stream.Collectors.joining());
+        if (Boolean.getBoolean("katana.record")) Files.writeString(JAVA_GOLDEN, recorded);
+        assertEquals(Files.readString(JAVA_GOLDEN), recorded, "CREASTMT as the java lane ran it (`-Dkatana.record=true` rewrites it; its diff is the review)");
         Runs.passed(runs.toArray(Path[]::new));
+    }
+
+    /**
+     * The java lane's setup for a job: each program its fixture runs (a step's PGM that is no utility, or a
+     * module) lowered into `classes` at the fixture's tab widths, launched under the profile's DISPSIGN and
+     * DYNAM (J-109, J-186), a CALL finding a module's class on the path (LANE-19); and `rt/Ksds` (LANE-16).
+     */
+    private static Map<String, List<String>> commands(Fixture fixture, Path classes) throws Exception {
+        Map<String, String> ibm = katana.profile.Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile"))).ibm();
+        String launcher = Path.of(System.getProperty("java.home"), "bin", "java").toString(), path = classes + java.io.File.pathSeparator + System.getProperty("java.class.path");
+        java.util.Set<String> programs = new java.util.LinkedHashSet<>();
+        for (Fixture.Step step : fixture.steps()) {
+            String pgm = step.line().attributes().get("pgm");
+            if (pgm != null && !UTILITIES.contains(pgm)) programs.add(pgm);
+        }
+        for (var line : fixture.header()) if (line.keyword().equals("module")) programs.add(line.values().get(0));
+        Map<String, List<String>> commands = new LinkedHashMap<>();
+        for (String name : programs) commands.put(name, List.of(launcher, "-cp", path, "-Dkatana.dispsign=" + ibm.get("ibm.dispsign"), "-Dkatana.dynam=" + ibm.get("ibm.dynam"), lowered(name, classes, fixture)));
+        commands.put(CobcLane.KSDS, List.of(launcher, "-cp", path, "katana.rt.Ksds"));
+        return commands;
     }
 
     private static Fixture fixture(String job) throws Exception {

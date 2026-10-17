@@ -149,6 +149,13 @@ Check: POSTTRAN, TRANREPT, INTCALC and CREASTMT produce byte-identical datasets 
 SYSOUT and return codes against the phase-1 goldens; the Java lane consumes the same `DD_*` fixture
 with no per-program adaptation.
 
+*Done (J-190):* `CardDemoJavaLaneIntegrationTest` lowers each job's programs from its own fixture (its
+steps' PGMs and its modules, at its tab widths), no program named in the test. POSTTRAN, TRANREPT and INTCALC,
+with TRANREPT-STUDY, PRTCATBL, PRTCATBL-INLINE, COMBTRAN and SORTTEST, report what the phase-1 golden holds,
+SYSOUT the same but the DISPLAY sign form D-005 explains. CREASTMT matches the golden through STEP030; its
+STEP040, which the cobc lane abends in (R-027), is held to `oracle/lane/carddemo-java.golden` and to its input
+(`Statements`), its blocks' layouts R-063's hypotheses.
+
 ### 4.6 Proof report, v1
 
 Check: none in the roadmap; written here before the item starts.
