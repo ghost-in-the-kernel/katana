@@ -107,7 +107,11 @@ suite timed at the boundary (J-192).
 
 ### 5.1 `intent/types`
 
-Check: none in the roadmap; written here before the item starts.
+Check: none in the roadmap; written here before the item starts. The fact kinds with their evidence,
+confidence and state (docs/INTENT-IR.md, held to `intent/types` by a test, as SEMANTIC-IR.md is); each
+invariant refuses a violation; the facts a person writes for CardDemo's CBTRN02C accepted against its IR
+and refused with a node moved; R-029 recorded, a refuted fact never among those a pass may act on
+(research §28).
 
 ### 5.2 `intent/rules`
 
