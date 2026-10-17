@@ -120,7 +120,11 @@ node moved (`Cbtrn02cIntentIntegrationTest`). R-029 recorded.
 
 ### 5.2 `intent/rules`
 
-Check: none in the roadmap; written here before the item starts.
+Check: none in the roadmap; written here before the item starts. The roadmap's first three rules (enum,
+money, function), one file each, their precision and recall on CardDemo against the hand-written key
+(`test/katana/intent/carddemo.key`), recorded and held by a test that refuses a lower score; each rule's
+facts accepted against its program's IR (INT-07) and its confidence no more than its recorded precision
+(research §29).
 
 ### 5.3 The review file
 
