@@ -1376,3 +1376,8 @@ through STEP030; from STEP040 its golden is the java lane's own run, recorded be
 (`oracle/lane/carddemo-java.golden`), held to its input by `Statements` (J-187): what the golden catches is
 change, what `Statements` catches is error. The rival: a job whose fixture names a program another job's
 fixture compiles at other tab widths, which only CREASTMT's CUSTREC.cpy has.
+
+Result (J-190): as predicted. With each job's programs lowered from its own fixture, every job's report is
+line for line what it was; CREASTMT through STEP030 is the cobc golden's, and its STEP040 is recorded as
+`oracle/lane/carddemo-java.golden`. The rival did not arise: every fixture names CUSTREC.cpy at the same
+widths.
