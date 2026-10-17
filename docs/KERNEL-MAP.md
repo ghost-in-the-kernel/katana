@@ -1494,3 +1494,28 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Trace.java:Trace.section` |  | 2026-10-17 |  |
 | rt | `rt/katana/rt/Trace.java:Trace.paragraph` |  | 2026-10-17 |  |
 | rt | `rt/katana/rt/Trace.java:Trace.line` |  | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.FileDecls` |  | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.declare` |  | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.externals` |  | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.external` |  | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.type` |  | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.made` |  | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.closer` | R-019 | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.keys` |  | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.linages` | R-019 | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.varyings` |  | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.sizes` | R-019 | 2026-10-17 |  |
+| lower | `lower/FileDecls.java:FileDecls.supplier` |  | 2026-10-17 |  |
+| lower | `lower/Verbs.java:Verbs.moveCorresponding` |  | 2026-10-17 |  |
+| oracle | `oracle/lane/JavaPrograms.java:JavaPrograms.traced` |  | 2026-10-17 |  |
+| lower | `lower/FileVerbs.java:FileVerbs.declare` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.declare` |
+| lower | `lower/FileVerbs.java:FileVerbs.externals` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.externals` |
+| lower | `lower/FileVerbs.java:FileVerbs.external` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.external` |
+| lower | `lower/FileVerbs.java:FileVerbs.type` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.type` |
+| lower | `lower/FileVerbs.java:FileVerbs.made` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.made` |
+| lower | `lower/FileVerbs.java:FileVerbs.closer` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.closer` |
+| lower | `lower/FileVerbs.java:FileVerbs.keys` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.keys` |
+| lower | `lower/FileVerbs.java:FileVerbs.linages` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.linages` |
+| lower | `lower/FileVerbs.java:FileVerbs.varyings` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.varyings` |
+| lower | `lower/FileVerbs.java:FileVerbs.sizes` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.sizes` |
+| lower | `lower/FileVerbs.java:FileVerbs.supplier` | moved in tithe pass 4 (4.7) | 2026-10-17 | superseded-by: `lower/FileDecls.java:FileDecls.supplier` |

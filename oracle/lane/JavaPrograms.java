@@ -36,6 +36,18 @@ final class JavaPrograms implements ProgramRunner {
         return ran;
     }
 
+    /** The step's environment with KATANA_TRACE_FILE naming its trace, under the work directory's trace/ (LANE-21). */
+    private Map<String, String> traced(String step, Map<String, String> env) {
+        Map<String, String> with = new java.util.HashMap<>(env);
+        with.put("KATANA_TRACE_FILE", work.resolve("trace").resolve(step + ".trace").toString());
+        try {
+            java.nio.file.Files.createDirectories(work.resolve("trace"));
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
+        return with;
+    }
+
     @Override
     public Programs.Ended run(String step, String name, String parm, Map<String, String> env, Path stdin) {
         List<String> command = commands.get(name);
@@ -43,15 +55,7 @@ final class JavaPrograms implements ProgramRunner {
         List<String> full = new ArrayList<>(command);
         if (parm != null) full.add(parm);
         ran.add(name);
-        if (trace) {
-            env = new java.util.HashMap<>(env);
-            env.put("KATANA_TRACE_FILE", work.resolve("trace").resolve(step + ".trace").toString());
-            try {
-                java.nio.file.Files.createDirectories(work.resolve("trace"));
-            } catch (java.io.IOException e) {
-                throw new java.io.UncheckedIOException(e);
-            }
-        }
+        if (trace) env = traced(step, env);
         int exit = Exec.run(full, work, env, stdin, work.resolve("sysout/" + step + ".stdout"), work.resolve("sysout/" + step + ".stderr"), limit);
         if (exit == -1) return new Programs.Ended(exit, null, name + " ran past the time limit");
         Matcher abend = ABEND.matcher(Programs.text(work.resolve("sysout/" + step + ".stderr")));

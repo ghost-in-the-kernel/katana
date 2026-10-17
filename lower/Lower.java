@@ -58,7 +58,7 @@ public final class Lower {
         if (Debugging.held(p)) e.line("private final Debug dbg;");
         e.line("private final Dispatcher d = new Dispatcher(" + (Flow.segmented(p) ? Flow.segments(p) : String.valueOf(Math.max(1, p.procedure().paragraphs().size()))) + ");");
         declareItems(e, p);
-        FileVerbs.declare(e, p);
+        FileDecls.declare(e, p);
         if (top) {
             e.open("public " + className + "(Codepage cp, Upsi upsi, Sysin in, Sysout out, Sysout err)");
             e.line("this(new RunUnit(cp, upsi, in, out, err, false));");
@@ -76,18 +76,18 @@ public final class Lower {
         e.line("this.err = u.err;");
         // RETURN-CODE, the run unit's (LR 6.4 p. 24).
         e.line("this.rc = u.rc;");
-        FileVerbs.externals(e, p);
+        FileDecls.externals(e, p);
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("items" + c + "();");
         Programs.externals(e, p);
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("values" + c + "();");
-        FileVerbs.linages(e, p, x);
-        FileVerbs.varyings(e, p, x);
-        FileVerbs.keys(e, p, x);
+        FileDecls.linages(e, p, x);
+        FileDecls.varyings(e, p, x);
+        FileDecls.keys(e, p, x);
         e.close();
         defineItems(e, p, x);
         if (top) main(e, className, !p.procedure().using().isEmpty());
         if (top) parm(e, p);
-        FileVerbs.closer(e, p);
+        FileDecls.closer(e, p);
         Programs.entry(e, p, x, containers);
         new Flow(e, p, x, containers).procedure();
         List<Program> inside = new ArrayList<>(containers);
