@@ -1505,3 +1505,34 @@ both corrected, CBSTM03A's eight money items and WS-M03B-OPER judged by the key'
 WS-US-PHONE-AREA-CODE-TO-EDIT, which had entered the key unread, judged after the run (a code checked
 against lists of valid ones, not an enum). The bench is held to these scores; what comes next for enum
 (flags) and money (zoned amounts) goes to Fable.
+
+## 30. The review file: a person's word on each fact, kept across a rebuild (phase 5.3; no IBM text)
+
+What 5.3 asks (docs/ROADMAP.md, phase 5): how a person confirms or refutes facts, as a plain text file
+beside the program, the person's words surviving a rebuild (Suite Builder's YOURS-block instinct), and a
+refuted fact never re-inferred without a new rule version (R-029).
+
+The design. `<PROGRAM>.review`, one line a fact, fields between ` | `: its state, its kind, its subject,
+the rule and version that inferred it (`person v1` for a fact a person wrote), its confidence, and for a
+confirmed or refuted fact who and when, then why if the person says. The subject is written by the
+program's names, not the IR's numbers: an item by its name (qualified `OF` its parent where the name is
+not unique), a condition-name list after a colon, a range `FIRST THRU LAST`, a set of paragraphs by name,
+a program by its PROGRAM-ID. Numbers move when a line is added above them; names move only when a person
+renames, and then the line no longer names anything. A person edits the state word and adds `who date`.
+
+A rebuild merges the rules' new facts with the file: a fact the file confirms stays confirmed, whatever
+version infers it again; a fact it refutes stays refuted while the same rule version infers it, and comes
+back as inferred under a newer version, the old refutation written beside it; a fact the person wrote, or
+confirmed or refuted, that no rule infers any more stays, the person's word kept; a line whose names the
+program no longer holds is kept in the file as orphaned and reported, never dropped and never bound to
+something else. The merged facts are checked against the IR (INT-07) as any are.
+
+Predicted, before the build. On CBTRN02C, its rules' facts written to a review file, a person's edits
+(money confirmed, an enum refuted as a flag, a fact of the person's own) survive a rebuild of the same
+program unchanged, and a rebuild after a WORKING-STORAGE item is added above the others (every later item
+renumbered): every line binds to the same names, the review file unchanged but for nothing. After a
+paragraph the person confirmed as a function is renamed, its line is orphaned and reported, the rest kept.
+A refuted enum re-inferred by enum.disjoint-88s v1 stays refuted; under a v2 it returns as inferred with
+the refutation beside it. The rivals: a name the IR does not hold uniquely even qualified (FILLER, an item
+of a copybook copied twice), which the writer cannot name and must say so, not guess; and condition-names
+that are not unique across items, which a `Choice` names under its item, so they need no qualification.

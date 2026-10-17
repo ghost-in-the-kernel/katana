@@ -134,7 +134,11 @@ on Fable (HANDOFF).
 
 ### 5.3 The review file
 
-Check: none in the roadmap; written here before the item starts.
+Check: none in the roadmap; written here before the item starts. A program's facts written to a plain
+`<PROGRAM>.review` beside it by the program's names, a person's confirmations, refutations and own facts
+read back and surviving a rebuild, a renumbering included; a renamed subject's line kept as orphaned and
+reported, never rebound; a refuted fact staying refuted under the rule version that refuted it (R-029); the
+trial on CBTRN02C (research §30).
 
 ### 5.4 `ledger/`
 
