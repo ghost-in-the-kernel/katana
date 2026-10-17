@@ -1381,3 +1381,26 @@ Result (J-190): as predicted. With each job's programs lowered from its own fixt
 line for line what it was; CREASTMT through STEP030 is the cobc golden's, and its STEP040 is recorded as
 `oracle/lane/carddemo-java.golden`. The rival did not arise: every fixture names CUSTREC.cpy at the same
 widths.
+
+## 27. Proof report v1: the four jobs, the java lane against the cobc lane (phase 4.6; no new IBM text)
+
+What 4.6 asks (docs/ROADMAP.md): the proof report on a real job, the coverage of CardDemo's paragraphs by
+its fixtures, and the paragraphs no fixture entered, "the honest number a buyer needs". v0 (1.9) proved the
+cobc lane against the study's frozen datasets; v1 proves what Katana makes, the java lane, against the cobc
+lane, for each of the four jobs of 4.5, one report a fixture (PROOF-02): the gate (the cobc lane twice),
+every dataset the job leaves compared field by field under the copybook its fixture names (raw where it
+names none), the programs' findings, and each program's coverage. Coverage comes from a cobc trace; where
+the cobc lane cannot run a step (CREASTMT's STEP040, R-027) it comes from the java lane's own trace, written
+in cobc's trace format, which is held equal to the cobc trace on every program both lanes run.
+`oracle/proof/CARDDEMO.coverage.md` sums the four: each program's paragraphs entered by any fixture, and
+those none entered.
+
+Predicted, before the run. POSTTRAN, TRANREPT and INTCALC: every dataset the same, the java lane's trace
+the cobc trace's paragraphs exactly, CBTRN02C 24 of 26 as in v0 (9999-ABEND-PROGRAM and
+9910-DISPLAY-IO-STATUS never entered: the fixture holds no I/O error). CREASTMT: every dataset through
+STEP030 the same; STATEMNT.PS and STATEMNT.HTML have no expected side and the report says so, naming R-027,
+R-063 and `Statements`; CBSTM03A's and CBSTM03B's coverage from the java lane, their abend and error
+paragraphs not entered. Across CardDemo's five batch programs these fixtures run, more than four paragraphs
+in five entered. The rivals: a paragraph cobc's trace names that the IR's graph does not (a section's
+implicit paragraph), or the reverse; a dataset written in place (ACCTDATA, TCATBALF) compared under a
+copybook whose signed fields the comparator reads otherwise than the lanes do.
