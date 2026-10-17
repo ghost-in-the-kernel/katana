@@ -45,4 +45,26 @@ class ProofReportTest {
         org.junit.jupiter.api.Assertions.assertTrue(valid.contains("HY-01"), valid);
         org.junit.jupiter.api.Assertions.assertTrue(report.contains("not proven (R-057)"), report);
     }
+
+    /** v1 (research §27): a dataset only the java lane leaves is said, not compared; coverage names where it comes from. */
+    @Test
+    void v1SaysWhatItCouldNotCompareAndWhereCoverageCameFrom() throws Exception {
+        var coverage = new java.util.TreeMap<String, Report.Coverage>(java.util.Map.of("P", new Report.Coverage(1, 2, List.of("ABEND"))));
+        String report = ProofReport.v1(FIXTURE, "t.fixture", new Report(), new Gate.Result(true, List.of()), List.of(), List.of("OUT.PS"), coverage,
+                java.util.Map.of("P", "the java lane's trace"), proof(), List.of(), List.of("a note"));
+        org.junit.jupiter.api.Assertions.assertTrue(report.contains("Not compared, the cobc lane leaving none of them (a step it cannot run, R-027): OUT.PS."), report);
+        org.junit.jupiter.api.Assertions.assertTrue(report.contains("| P | 1 of 2 | ABEND | the java lane's trace |") && report.contains("- a note"), report);
+        org.junit.jupiter.api.Assertions.assertTrue(report.startsWith("# Proof report v1:"), report);
+    }
+
+    /** CardDemo's coverage: a paragraph one fixture entered is entered; only one no fixture entered is listed. */
+    @Test
+    void coverageTakesWhatAnyFixtureEntered() {
+        java.util.Map<String, Report.Coverage> one = java.util.Map.of("P", new Report.Coverage(2, 4, List.of("C", "D"))), two = java.util.Map.of("P", new Report.Coverage(3, 4, List.of("D")));
+        var byJob = new java.util.LinkedHashMap<String, java.util.Map<String, Report.Coverage>>();
+        byJob.put("ONE", one);
+        byJob.put("TWO", two);
+        String summary = ProofReport.coverage(byJob);
+        org.junit.jupiter.api.Assertions.assertTrue(summary.contains("| P | 3 of 4 | ONE, TWO | D |") && summary.contains(": 3 of 4."), summary);
+    }
 }

@@ -58,8 +58,13 @@ class ProofIntegrationTest {
 
     /** A step program's findings under the ibm profile: what NonExact finds in its IR. */
     static List<katana.findings.Finding> findings(Path source, Path copybooks) throws Exception {
+        return findings(source, copybooks, n -> 8);
+    }
+
+    /** The same, its copybooks' tabs at a fixture's widths (R-016). */
+    static List<katana.findings.Finding> findings(Path source, Path copybooks, java.util.function.ToIntFunction<String> widths) throws Exception {
         katana.profile.Profile ibm = katana.profile.Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile")));
-        katana.front.Parse.Result parse = katana.front.Parse.file(source, new katana.front.Copybooks(List.of(copybooks), n -> 8), 8);
+        katana.front.Parse.Result parse = katana.front.Parse.file(source, new katana.front.Copybooks(List.of(copybooks), widths), 8);
         List<katana.findings.Finding> out = new java.util.ArrayList<>();
         for (var r : katana.sir.build.Build.programs(parse, ibm.hash())) out.addAll(katana.sir.check.NonExact.findings(r.program(), ibm));
         return out;

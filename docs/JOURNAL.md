@@ -2906,3 +2906,23 @@ taken; closed by a later `decision` entry naming it).
   run, so it catches change) and to `Statements` (which catches error); the registry entry says so.
 - **Touched:** `test/katana/oracle/lane/CardDemoJavaLaneIntegrationTest.java`, `oracle/lane/carddemo-java.golden`,
   `docs/checks.json`, research §26, `TODO.md`.
+
+### J-191 Proof report v1: the java lane against the cobc lane, and CardDemo's coverage by its fixtures
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with 4.6 next"). **Class:** build; trial.
+- **Intent:** phase 4.6, the proof report on a real job and the coverage a buyer needs; prediction before the
+  run (research §27, e5fab1b).
+- **Found:** the java lane had no trace, and CREASTMT's STEP040 has no cobc one (R-027). TRANREPT as its
+  JCL is written stops at its first step in both lanes, so it covers nothing; TRANREPT-STUDY does. cobc's
+  `-ftrace` adds the source line to a SIGSEGV's message, a difference of the trace, not the run. NonExact
+  read CBSTM03A's copybooks at 8 columns where CUSTREC.cpy needs its fixture's 4. A report layout copybook
+  (CVTRA07Y) has seven 01s and is no one record.
+- **Resolved:** `rt/Trace` and the lowering's call at each paragraph's start (LANE-21); the java lane traces
+  when its setup is, and reads coverage of the programs it ran. `ProofReport.v1` and `ProofReport.coverage`;
+  `ProofV1IntegrationTest` proves POSTTRAN, TRANREPT, TRANREPT-STUDY, INTCALC and CREASTMT, holds the java
+  trace equal to cobc's on every program both run, and keeps the reports and `CARDDEMO.coverage.md` as
+  goldens. Every dataset the same; 106 of 113 paragraphs entered. PROOF-04. `ProofReportTest` gains v1's
+  and the summary's cases (the latter the registry's mutation).
+- **Touched:** `rt/katana/rt/Trace.java`; `lower/Flow.java`; `oracle/lane/JavaPrograms.java`, `CobcLane.java`;
+  `oracle/proof/ProofReport.java` and its v1 reports and `CARDDEMO.coverage.md`; `test/katana/oracle/lane/ProofV1IntegrationTest.java`,
+  `ProofIntegrationTest.java`, `LaneRuns.java`, `CardDemoJavaLaneIntegrationTest.java`; `test/katana/oracle/proof/ProofReportTest.java`;
+  `docs/PROOF.md` (PROOF-04), `docs/LANES.md` (LANE-21), `docs/checks.json`, research §27, `TODO.md`.

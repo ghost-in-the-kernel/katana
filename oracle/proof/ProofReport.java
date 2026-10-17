@@ -101,6 +101,98 @@ public final class ProofReport {
         }
     }
 
+    /**
+     * The proof report, v1 (research §27): what Katana makes, the java lane, against the cobc lane. Each
+     * dataset the job leaves compared; one the cobc lane leaves none of (a step it cannot run, R-027) said
+     * with what holds it instead; each program's coverage from the cobc trace, or from the java lane's where
+     * the cobc lane cannot run it; the java lane's trace held to cobc's elsewhere.
+     */
+    public static String v1(Fixture fixture, String fixturePath, Report expected, Gate.Result gate, List<Compared> compared, List<String> javaOnly,
+                            Map<String, Report.Coverage> coverage, Map<String, String> coverageSource, String proofDocument, List<Finding> findings, List<String> notes) {
+        List<String> out = new ArrayList<>();
+        out.add("# Proof report v1: " + fixture.first("job").values().get(0));
+        out.add("");
+        out.add("- Fixture: `" + fixturePath + "`, " + fixture.hash());
+        out.add("- Profile: " + profileLine(expected));
+        out.add("- Expected: the cobc lane. Actual: the java lane (the program lowered by Katana, run on rt/).");
+        out.add("- Initial values: an item without VALUE is assumed to start as INITIALIZE would set it, not proven (R-057).");
+        out.add("");
+        out.add("## Gate");
+        out.add("");
+        if (!gate.identical()) {
+            out.add("Failed: the cobc lane's two runs differ, so nothing is compared (PROOF-03).");
+            gate.differences().forEach(d -> out.add("- " + d));
+        } else {
+            out.add("Passed: the cobc lane's two runs are identical.");
+            if (!expected.findings().isEmpty()) {
+                out.add("");
+                out.add("The job's own findings, in both lanes:");
+                expected.findings().forEach(f -> out.add("- " + f));
+            }
+            out.add("");
+            compared(compared, out);
+            if (!javaOnly.isEmpty()) {
+                out.add("");
+                out.add("Not compared, the cobc lane leaving none of them (a step it cannot run, R-027): " + String.join("; ", javaOnly) + ".");
+            }
+        }
+        out.add("");
+        findings(findings, out);
+        if (!notes.isEmpty()) {
+            out.add("");
+            out.add("## Notes");
+            out.add("");
+            notes.forEach(n -> out.add("- " + n));
+        }
+        out.add("");
+        out.add("## Coverage");
+        out.add("");
+        out.add("| Program | Paragraphs entered | Not entered | From |");
+        out.add("| --- | --- | --- | --- |");
+        for (Map.Entry<String, Report.Coverage> e : coverage.entrySet()) {
+            Report.Coverage c = e.getValue();
+            String not = c.total() == 0 ? "(no named paragraphs)" : c.notEntered().isEmpty() ? "none" : String.join(", ", c.notEntered());
+            out.add("| " + e.getKey() + " | " + c.entered() + " of " + c.total() + " | " + not + " | " + coverageSource.get(e.getKey()) + " |");
+        }
+        out.add("");
+        out.add("## What it never covers (docs/PROOF.md, verbatim)");
+        out.add("");
+        out.add(neverCovers(proofDocument));
+        return String.join("\n", out) + "\n";
+    }
+
+    /**
+     * CardDemo's coverage by its fixtures (research §27): each program any of them runs, the paragraphs one
+     * or more entered of all it has, the fixtures that ran it, and every paragraph none entered, which the
+     * proofs leave proven by nothing ("the honest number a buyer needs", docs/ROADMAP.md 4.6).
+     */
+    public static String coverage(Map<String, Map<String, Report.Coverage>> byJob) {
+        Map<String, Report.Coverage> merged = new java.util.TreeMap<>();
+        Map<String, List<String>> jobs = new java.util.TreeMap<>();
+        for (var job : byJob.entrySet()) {
+            for (var c : job.getValue().entrySet()) {
+                jobs.computeIfAbsent(c.getKey(), k -> new ArrayList<>()).add(job.getKey());
+                Report.Coverage was = merged.get(c.getKey()), now = c.getValue();
+                List<String> not = was == null ? now.notEntered() : was.notEntered().stream().filter(now.notEntered()::contains).toList();
+                merged.put(c.getKey(), new Report.Coverage(now.total() - not.size(), now.total(), not));
+            }
+        }
+        int entered = merged.values().stream().mapToInt(Report.Coverage::entered).sum(), total = merged.values().stream().mapToInt(Report.Coverage::total).sum();
+        List<String> out = new ArrayList<>();
+        out.add("# CardDemo's coverage by its fixtures");
+        out.add("");
+        out.add("The paragraphs of CardDemo's batch programs that " + String.join(", ", byJob.keySet()) + " entered (research §27): " + entered + " of " + total
+                + ". A paragraph no fixture entered is listed, and proven by nothing (docs/PROOF.md).");
+        out.add("");
+        out.add("| Program | Paragraphs entered | Run by | Not entered by any |");
+        out.add("| --- | --- | --- | --- |");
+        for (var e : merged.entrySet()) {
+            Report.Coverage c = e.getValue();
+            out.add("| " + e.getKey() + " | " + c.entered() + " of " + c.total() + " | " + String.join(", ", jobs.get(e.getKey())) + " | " + (c.notEntered().isEmpty() ? "none" : String.join(", ", c.notEntered())) + " |");
+        }
+        return String.join("\n", out) + "\n";
+    }
+
     /** docs/PROOF.md's "What it never covers" section: its body, up to the next heading. */
     public static String neverCovers(String proofDocument) {
         int start = proofDocument.indexOf("## What it never covers");

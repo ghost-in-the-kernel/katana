@@ -31,17 +31,21 @@ final class LaneRuns {
         return ROOT.resolve("build/" + folder + "/" + job);
     }
 
+    /** The lane's setup for a job in build/FOLDER/JOB, a `job:` source taken from this instance's runs. */
+    CobcLane.Setup setup(String job) {
+        Path carddemo = ROOT.resolve("corpus/carddemo");
+        return new CobcLane.Setup(ROOT, Map.of("carddemo", carddemo, "repo", ROOT), carddemo.resolve("app/cbl"),
+                List.of(carddemo.resolve("app/cpy")), ROOT.resolve("build/" + folder + "/" + job), ROOT.resolve("build/lane-cache"),
+                Duration.ofSeconds(60), this::unloaded, clock);
+    }
+
     /** A fixture through the lane in build/FOLDER/JOB, once. */
     Report run(String job) {
         Report done = reports.get(job);
         if (done != null) return done;
         try {
             Fixture fixture = Fixture.read(Files.readString(ROOT.resolve("oracle/fixture/carddemo/" + job + ".fixture")));
-            Path carddemo = ROOT.resolve("corpus/carddemo");
-            CobcLane.Setup setup = new CobcLane.Setup(ROOT, Map.of("carddemo", carddemo, "repo", ROOT), carddemo.resolve("app/cbl"),
-                    List.of(carddemo.resolve("app/cpy")), ROOT.resolve("build/" + folder + "/" + job), ROOT.resolve("build/lane-cache"),
-                    Duration.ofSeconds(60), this::unloaded, clock);
-            Report report = CobcLane.run(fixture, setup);
+            Report report = CobcLane.run(fixture, setup(job));
             reports.put(job, report);
             return report;
         } catch (IOException e) {

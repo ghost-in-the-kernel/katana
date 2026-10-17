@@ -1486,3 +1486,11 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Storage.java:Storage.word` |  | 2026-10-16 |  |
 | rt | `rt/katana/rt/Storage.java:Storage.text` |  | 2026-10-16 |  |
 | lower | `lower/Programs.java:Programs.link` | renamed in phase 4.4 (J-187) | 2026-10-16 | superseded-by: `lower/Programs.java:Programs.bind` |
+| lower | `lower/Flow.java:Flow.trace` |  | 2026-10-17 |  |
+| oracle | `oracle/lane/JavaPrograms.java:JavaPrograms.ran` |  | 2026-10-17 |  |
+| oracle | `oracle/proof/ProofReport.java:ProofReport.v1` |  | 2026-10-17 |  |
+| oracle | `oracle/proof/ProofReport.java:ProofReport.coverage#2` |  | 2026-10-17 |  |
+| rt | `rt/katana/rt/Trace.java:Trace.Trace` |  | 2026-10-17 |  |
+| rt | `rt/katana/rt/Trace.java:Trace.section` |  | 2026-10-17 |  |
+| rt | `rt/katana/rt/Trace.java:Trace.paragraph` |  | 2026-10-17 |  |
+| rt | `rt/katana/rt/Trace.java:Trace.line` |  | 2026-10-17 |  |

@@ -133,7 +133,21 @@ final class Flow {
         labels.add(label);
         e.open("private int s" + label + "()");
         if (segmented) e.line(label == at ? "d.enter(" + at + ");" : "d.resume(" + at + ");");
-        if (label == at && current != null) debugging.entry(e, current);
+        if (label == at && current != null) {
+            debugging.entry(e, current);
+            trace(current);
+        }
+    }
+
+    /**
+     * The java lane's paragraph trace (rt/Trace, research §27): a paragraph's start says its section when it
+     * is the section's first, then its own name; an unnamed paragraph says nothing.
+     */
+    private void trace(Procedure.Paragraph g) {
+        String program = Emitter.quote(p.header().program());
+        boolean first = !g.section().isEmpty() && p.procedure().paragraphs().stream().filter(o -> o.section().equals(g.section())).findFirst().orElseThrow() == g;
+        if (first) e.line("Trace.section(" + program + ", " + Emitter.quote(g.section()) + ");");
+        if (!g.name().isEmpty()) e.line("Trace.paragraph(" + program + ", " + Emitter.quote(g.name()) + ");");
     }
 
     /** Ends this stretch and opens the one at `label`. */

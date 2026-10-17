@@ -1404,3 +1404,13 @@ paragraphs not entered. Across CardDemo's five batch programs these fixtures run
 in five entered. The rivals: a paragraph cobc's trace names that the IR's graph does not (a section's
 implicit paragraph), or the reverse; a dataset written in place (ACCTDATA, TCATBALF) compared under a
 copybook whose signed fields the comparator reads otherwise than the lanes do.
+
+Result (J-191): the prediction held but for its job list. POSTTRAN, INTCALC and CREASTMT went as predicted:
+every dataset the same, the java lane's trace the cobc trace's paragraphs exactly, CBTRN02C 24 of 26. TRANREPT,
+written as its JCL is, stops at its first step in both lanes (J-035), so it runs no program; its report says
+so, and TRANREPT-STUDY, the run that reaches CBTRN03C, was added (24 of 26). CREASTMT's statements are listed
+as not compared; CBSTM03A 24 of 25, CBSTM03B 14 of 14, from the java lane's trace. CardDemo: 106 of 113
+paragraphs entered (94%), the seven left the abend and I/O-error paragraphs. Neither rival arose; TRANREPT's
+report file, laid out by CVTRA07Y's seven record descriptions, is compared byte for byte, the report saying
+why. On the way: cobc's `-ftrace` adds where a signal stopped the program to its stderr, so the trace check
+leaves a signalled step's stderr out.

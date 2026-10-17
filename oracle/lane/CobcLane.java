@@ -66,6 +66,8 @@ public final class CobcLane {
     private final java.util.function.ToIntFunction<String> widths;
     private Datasets datasets;
     private Programs programs;
+    /** The programs the java lane ran, for its coverage. */
+    private java.util.Set<String> javaRan = java.util.Set.of();
 
     private CobcLane(Fixture fixture, Setup setup) {
         this.widths = Tabs.widths(fixture);
@@ -97,7 +99,9 @@ public final class CobcLane {
             if (stopped == null) stopped = Start.catalog(fixture, datasets, setup, paths);
             if (stopped == null && setup.java() == null) stopped = libraries();
             if (stopped != null) report.finding(stopped);
-            ProgramRunner runner = setup.java() == null ? programs : new JavaPrograms(setup.java(), setup.work(), setup.limit());
+            JavaPrograms lowered = setup.java() == null ? null : new JavaPrograms(setup.java(), setup.work(), setup.limit(), setup.trace());
+            ProgramRunner runner = lowered == null ? programs : lowered;
+            if (lowered != null) javaRan = lowered.ran();
             new Steps(fixture, datasets, runner, paths, setup.work(), report, setup.clock()).run(stopped != null);
             end();
         } catch (IOException e) {
@@ -173,7 +177,13 @@ public final class CobcLane {
                 for (Path f : files.sorted().toList()) traces.append(Files.readString(f, java.nio.charset.StandardCharsets.ISO_8859_1)).append('\n');
             }
         }
-        for (String name : new java.util.TreeSet<>(programs.sourceHashes().keySet())) {
+        // The java lane runs the programs its setup names, a module through its CALL (research §27).
+        java.util.Set<String> ran = new java.util.TreeSet<>(programs.sourceHashes().keySet());
+        if (setup.java() != null) {
+            ran.addAll(javaRan);
+            for (Schema.Line line : fixture.header()) if (line.keyword().equals("module")) ran.add(line.values().get(0));
+        }
+        for (String name : ran) {
             List<String> all = Paragraphs.of(programs.source(name), setup.copybooks(), widths);
             java.util.Set<String> entered = Paragraphs.entered(traces.toString(), name);
             List<String> not = all.stream().filter(p -> !entered.contains(p)).toList();
