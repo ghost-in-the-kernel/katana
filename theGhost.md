@@ -1197,6 +1197,26 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-027, R-057, R-062
 - **subject:** facades
 
+### R-064: A review file names each fact by the program's names, and a person's word on it outlives a rebuild
+- **Decision:** a program's review file (`intent/review`) writes each fact's subject by the program's own
+  names, an item qualified `OF` its parents only as far as makes it unique, a paragraph `IN` its section
+  where two share a name; never by the IR's numbers. A rebuild merges the rules' facts with it: a confirmed
+  fact stays confirmed; a refuted one stays refuted while the rule version that refuted it, or an older one,
+  infers it, and comes back inferred under a newer one with the refutation written beside it; a fact a person
+  wrote, confirmed or refuted that no rule infers any more stays; a line that names nothing the program holds
+  is kept as orphaned and reported, never dropped and never bound to something else; a fact the program has
+  no unique name for is reported, not written.
+- **Why:** the IR numbers items and paragraphs in textual order, so one line added above renumbers every
+  later one, and a review keyed by number would carry a person's word to the wrong item without a sound.
+  A name moves only when a person renames, and then the line names nothing, which is said (docs/ROADMAP.md
+  5.3: the person's words survive a rebuild; R-029).
+- **Held by:** `intent/review` (`Review.merge`, `Names`, `Line`); `ReviewTest`;
+  `Cbtrn02cReviewIntegrationTest`.
+- **Source:** Opus, 2026-10-17, at phase 5.3, on Ghost's "go ahead with 5.3"; for Ghost's review.
+- **Status:** in force
+- **See also:** R-029, R-007
+- **subject:** architecture
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018

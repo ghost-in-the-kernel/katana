@@ -1536,3 +1536,12 @@ A refuted enum re-inferred by enum.disjoint-88s v1 stays refuted; under a v2 it 
 the refutation beside it. The rivals: a name the IR does not hold uniquely even qualified (FILLER, an item
 of a copybook copied twice), which the writer cannot name and must say so, not guess; and condition-names
 that are not unique across items, which a `Choice` names under its item, so they need no qualification.
+
+Result (J-196): as predicted. On CBTRN02C a person's four words (a function and an enum confirmed, a
+function refuted, a money fact of their own) survive a rebuild unchanged; with a WORKING-STORAGE item added
+above the others the review file is byte for byte the same, every line bound to the same names; with
+1500-A-LOOKUP-XREF renamed its confirmed line is kept as orphaned and reported, the renamed paragraph
+inferred afresh, the other three words kept. A refuted enum stays refuted under its rule's v1 and returns as
+inferred under a v2, the refutation beside it. The first rival arose only where foreseen: an enum on a FILLER
+has no name, and the merge says so rather than write a line no person could edit; condition-names need no
+qualification. Nothing else surprised.

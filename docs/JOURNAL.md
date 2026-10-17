@@ -2999,3 +2999,20 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `intent/rules/*`; `test/katana/intent/RulesTest.java`, `RulesBenchIntegrationTest.java`,
   `carddemo.key`; `docs/INTENT-IR.md`, `docs/checks.json`, `docs/KERNEL-MAP.md`, `docs/HANDOFF.md`, research
   §29, `TODO.md`.
+
+### J-196 The review file: a person's word on each fact, by the program's names, kept across a rebuild
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with 5.3 next"). **Class:** build; trial.
+- **Intent:** phase 5.3, the plain file a person confirms and refutes facts in, and the merge a rebuild
+  makes; prediction before the build (research §30, bc8263f).
+- **Found:** keyed by the IR's numbers, a review would carry a person's word to the wrong item after any
+  line added above; names move only when a person renames. A fact about a FILLER has no name a person could
+  write, so it is reported, not written.
+- **Resolved:** `intent/review`: `Names` (an item `OF` its parents as far as makes it unique, a paragraph
+  `IN` its section where two share a name), `Line` (one fact as `state | kind | subject | rule vN |
+  confidence | who date | why`), `Review.merge` (confirmed kept; refuted kept under the refuting version,
+  inferred again under a newer with the refutation beside it; a person's facts kept; a line naming nothing
+  orphaned and reported). R-064 recorded. `ReviewTest`; `Cbtrn02cReviewIntegrationTest`, the trial: a
+  renumbering leaves CBTRN02C's review byte for byte the same, a rename orphans one line.
+- **Touched:** `intent/review/*`; `test/katana/intent/ReviewTest.java`, `Cbtrn02cReviewIntegrationTest.java`;
+  `docs/INTENT-IR.md`, `docs/checks.json`, `docs/KERNEL-MAP.md`, `theGhost.md` (R-064), `CLAUDE.md`, research
+  §30, `TODO.md`.

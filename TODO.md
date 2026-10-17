@@ -140,6 +140,11 @@ read back and surviving a rebuild, a renumbering included; a renamed subject's l
 reported, never rebound; a refuted fact staying refuted under the rule version that refuted it (R-029); the
 trial on CBTRN02C (research §30).
 
+*Done (J-196):* `intent/review` (R-064): `<PROGRAM>.review` by the program's names; a person's confirmations,
+refutations and own facts kept across a rebuild; a renumbering leaves CBTRN02C's review byte for byte the
+same, a rename orphans its one line and reports it; a refuted fact returns only under a newer rule version
+(`ReviewTest`, `Cbtrn02cReviewIntegrationTest`).
+
 ### 5.4 `ledger/`
 
 Check: `ledger.test` refuses an edit to an existing line; every Java symbol in a build has at least
