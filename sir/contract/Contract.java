@@ -139,6 +139,7 @@ public final class Contract {
         return s.verb().equals("STOP") && s.operands().stream().noneMatch(o -> o.value() instanceof Value.Name n && n.text().equals("RUN"));
     }
 
+    /** Each paragraph that falls through into the next, as `i i+1`: its last statement no GO TO, STOP RUN, GOBACK or EXIT PROGRAM (an altered GO TO and STOP literal fall through). */
     private static List<String> falls(Program p) {
         List<Procedure.Paragraph> all = p.procedure().paragraphs();
         List<String> lines = new ArrayList<>();

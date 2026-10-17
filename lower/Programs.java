@@ -62,7 +62,7 @@ final class Programs {
         for (Item r : p.items()) if (linkage(r)) bind(e, p, x, r.id());
         e.line("public boolean initial() { return " + p.header().initial() + "; }");
         e.open("public void cancel()");
-        for (FileDescriptor d : p.files()) if (!SortVerbs.sd(d) && !FileVerbs.external(d)) e.line(FileVerbs.name(d.name()) + ".close();");
+        for (FileDescriptor d : p.files()) if (!SortVerbs.sd(d) && !FileDecls.external(d)) e.line(FileVerbs.name(d.name()) + ".close();");
         for (Program n : p.nested()) e.line("k_" + Lower.className(n) + "();");
         e.close();
         e.open("public void end()");

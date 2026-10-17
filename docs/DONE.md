@@ -270,3 +270,77 @@ reader with the fetch left to phase 3 by R-045 (B3), `rt/` compiled against the 
 tithe: the kernel map's stale column (C1), the quick NIST (C2), `DataMap` split (C3), pass 2 measured
 and two decisions' missing tests written (C4). J-076 to J-091.
 
+## Phase 4: CardDemo batch, end to end
+
+### 4.1 `rt/files`
+
+Check: NIST SQ, RL and IX modules through the Java lane; CardDemo's five KSDS files load, read and
+unload identically to the cobc lane.
+
+*Done (J-172):* SQ 85 of 85. *Done (J-180):* RL 35 of 35, relative files in `rt/RelFile`. *Done
+(J-182):* IX 42 of 42, indexed files in `rt/IdxFile`. *Done (J-183):* CardDemo's KSDS files load, read
+and unload identically in both lanes: every CardDemo fixture but CREASTMT (its PSA, 4.4) reports in the java
+lane what the cobc lane's golden holds, the KSDS files on their logical unload (R-025), the data's
+translated EBCDIC signs loaded in the lane's form (R-061).
+
+### 4.2 `rt/sort`
+
+Check: none in the roadmap; written here before the item starts. NIST ST through the Java lane (J-184).
+
+*Done (J-184):* SORT, MERGE, RELEASE and RETURN through `rt/SortFile`; ST 32 of 40 the same as cobc and 6
+more where cobc refuses a valid program (D-032). The finding R-026 names for an output that could depend on
+the order of equal keys without DUPLICATES is not built: no ST or CardDemo program has needed it.
+
+### 4.3 `rt/call`
+
+Check: none in the roadmap; written here before the item starts. NIST IC through the Java lane, under the
+profile's NODYNAM and under DYNAM, each with its floor (J-186).
+
+Carried in (J-183): PARM via PROCEDURE DIVISION USING is lowered (LANE-17); CALL is not, but for LE's
+CEE3ABD (LANE-18, the stub facade's first routine, 4.4). CREASTMT waits here for CBSTM03B.
+
+*Done (J-186):* CALL and CANCEL through `rt/RunUnit` (R-062, LANE-19): LINKAGE bound BY REFERENCE and BY
+CONTENT, ON EXCEPTION, EXIT PROGRAM and GOBACK, STOP RUN from any program, INITIAL, nested programs with
+their containers' GLOBAL records (SIR-12), EXTERNAL records and files, static and dynamic copies by
+`ibm.dynam`. IC 18 of 25 under NODYNAM, 4 more where IBM's NODYNAM departs from cobc (D-033); 22 under
+DYNAM. OB 7 of 7. Not built, each a finding where a program reaches it: BY VALUE, CALL ... RETURNING,
+a containing program's GLOBAL file and USE GLOBAL (IC233A, IC234A). CREASTMT's CBSTM03B is lowered;
+CBSTM03A stops before its first CALL at the PSA, z/OS storage (4.4).
+
+### 4.4 The stub facade
+
+Check: none in the roadmap; written here before the item starts. CREASTMT through the java lane end to end:
+STEP040's TIOT lines name the fixture's job, step and DDs, and its statements hold each transaction of
+their input once, each total its lines' sum (J-187).
+
+*Done (J-187):* LE's CEE3ABD was lowered in 4.1 (LANE-18); no CardDemo fixture's program calls an
+assembler routine (COBDATFT, MVSWAIT and CEEDAYS are called by programs no fixture runs), so the recorded
+stubs wait for a fixture that needs one (P-11). The z/OS storage facade (R-027, R-063, LANE-20): POINTER,
+SET ADDRESS OF and LENGTH OF lowered; `rt/Storage` from the step's facts. CREASTMT runs end to end in the
+java lane: 50 statements, 262 transactions, rc 0. The layouts are hypotheses until IBM's text or a z/OS
+run (HANDOFF, Trials).
+
+### 4.5 The four jobs through both lanes
+
+Check: POSTTRAN, TRANREPT, INTCALC and CREASTMT produce byte-identical datasets (on logical unload),
+SYSOUT and return codes against the phase-1 goldens; the Java lane consumes the same `DD_*` fixture
+with no per-program adaptation.
+
+*Done (J-190):* `CardDemoJavaLaneIntegrationTest` lowers each job's programs from its own fixture (its
+steps' PGMs and its modules, at its tab widths), no program named in the test. POSTTRAN, TRANREPT and INTCALC,
+with TRANREPT-STUDY, PRTCATBL, PRTCATBL-INLINE, COMBTRAN and SORTTEST, report what the phase-1 golden holds,
+SYSOUT the same but the DISPLAY sign form D-005 explains. CREASTMT matches the golden through STEP030; its
+STEP040, which the cobc lane abends in (R-027), is held to `oracle/lane/carddemo-java.golden` and to its input
+(`Statements`), its blocks' layouts R-063's hypotheses.
+
+### 4.6 Proof report, v1
+
+Check: none in the roadmap; written here before the item starts. The four jobs proven, the java lane against
+the cobc lane, every dataset compared under its fixture's copybook, coverage from the cobc trace and from
+the java lane's where the cobc lane cannot run a step, the two traces equal elsewhere; CardDemo's coverage
+by the fixtures, every paragraph none entered listed (J-191).
+
+*Done (J-191):* `oracle/proof/<JOB>.v1.report.md` for POSTTRAN, TRANREPT, TRANREPT-STUDY, INTCALC and
+CREASTMT (PROOF-04), every dataset compared the same; CREASTMT's statements said not compared (R-027).
+`oracle/proof/CARDDEMO.coverage.md`: 106 of 113 paragraphs of the five programs entered; the seven left are
+each program's abend and I/O-error paragraphs, which no fixture's data reaches.

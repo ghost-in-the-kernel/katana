@@ -127,7 +127,7 @@ final class SortVerbs {
         f.e.line(out + ".open(SeqFile.Mode.OUTPUT);");
         files.after("OPEN", g.name(), false);
         f.e.open("while (" + file + ".returnNext(" + area(sd) + "))");
-        boolean varies = FileVerbs.sizes(f.p, g, f.x) != null;
+        boolean varies = FileDecls.sizes(f.p, g, f.x) != null;
         String record = varies ? "new Field(" + rec + ".record(), " + rec + ".offset(), Attr.text(" + file + ".current(" + area(sd) + ").attr().length(), false))" : rec;
         f.e.line("Move.group(" + file + ".current(" + area(sd) + "), " + record + ");");
         if (FileVerbs.keyed(g)) f.e.line(out + ".write(" + record + (FileVerbs.indexed(g) ? "" : ", null") + ");");

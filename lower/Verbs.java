@@ -118,13 +118,11 @@ final class Verbs {
         return List.of();
     }
 
+    /** MOVE x TO y ...: into each receiving item, RETURN-CODE among them; MOVE CORRESPONDING apart. */
     private void move(Statement s) {
         Value from = operand(s, "move-to-sending-area");
         if (from == null) {
-            Value.Field group = (Value.Field) operand(s, "move-corresponding-to-sending-area");
-            for (Value to : operands(s, "move-corresponding-to-statement")) {
-                for (Value.Field[] pair : Corresponding.pairs(f.x, group, (Value.Field) to, false)) f.e.line(f.x.moveInto(pair[0], f.x.field(pair[1]), f.x.item(pair[1].item())) + ";");
-            }
+            moveCorresponding(s);
             return;
         }
         for (Value to : operands(s, "move-to-statement")) {
@@ -140,6 +138,14 @@ final class Verbs {
                 continue;
             }
             f.e.line(f.x.moveInto(from, f.x.receiving(t), f.x.item(t.item())) + ";");
+        }
+    }
+
+    /** MOVE CORRESPONDING group TO group ...: each pair of like-named elementary items moved. */
+    private void moveCorresponding(Statement s) {
+        Value.Field group = (Value.Field) operand(s, "move-corresponding-to-sending-area");
+        for (Value to : operands(s, "move-corresponding-to-statement")) {
+            for (Value.Field[] pair : Corresponding.pairs(f.x, group, (Value.Field) to, false)) f.e.line(f.x.moveInto(pair[0], f.x.field(pair[1]), f.x.item(pair[1].item())) + ";");
         }
     }
 

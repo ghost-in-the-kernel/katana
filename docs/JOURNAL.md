@@ -2926,3 +2926,19 @@ taken; closed by a later `decision` entry naming it).
   `oracle/proof/ProofReport.java` and its v1 reports and `CARDDEMO.coverage.md`; `test/katana/oracle/lane/ProofV1IntegrationTest.java`,
   `ProofIntegrationTest.java`, `LaneRuns.java`, `CardDemoJavaLaneIntegrationTest.java`; `test/katana/oracle/proof/ProofReportTest.java`;
   `docs/PROOF.md` (PROOF-04), `docs/LANES.md` (LANE-21), `docs/checks.json`, research §27, `TODO.md`.
+
+### J-192 Tithe pass 4, the phase-4 boundary: room in `lower/`, the long functions named, the roadmap and handoff current
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with 4.7 next"). **Class:** tithe.
+- **Intent:** phase 4.7, no behaviour changed and no golden (P-02): its check written in `TODO.md` first.
+- **Found:** `lower/FileVerbs.java` at 399 lines against the 400 limit; three main-code functions long and
+  uncommented (`Verbs.move`, `JavaPrograms.run`, `Contract.falls`) and the proof test's one 49-line method;
+  4.1 to 4.6 done but still in `TODO.md`; HANDOFF's next work still phase 3's start.
+- **Resolved:** a program's file declarations (each file's object, EXTERNAL files, keys, LINAGE, record
+  sizes, the closing at the run unit's end) are `lower/FileDecls` (131 lines), `FileVerbs` the verbs (277);
+  the largest file is now `lower/Verbs.java` at 360. MOVE CORRESPONDING its own method, the java lane's
+  trace environment its own, `falls` commented; `ProofV1IntegrationTest` one job's proof and its datasets'
+  comparison each a method. The kernel map closes the moved functions with `superseded-by:`. 4.1 to 4.6
+  moved to `docs/DONE.md`. No main-code function is long without a comment.
+- **Touched:** `lower/FileDecls.java`, `FileVerbs.java`, `Lower.java`, `Programs.java`, `SortVerbs.java`,
+  `Verbs.java`; `oracle/lane/JavaPrograms.java`; `sir/contract/Contract.java`;
+  `test/katana/oracle/lane/ProofV1IntegrationTest.java`; `docs/KERNEL-MAP.md`, `TODO.md`, `docs/DONE.md`.

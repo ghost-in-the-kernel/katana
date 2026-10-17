@@ -37,49 +37,58 @@ class ProofV1IntegrationTest {
         LaneRuns runA = new LaneRuns("proof1-a"), runB = new LaneRuns("proof1-b");
         Map<String, Map<String, Report.Coverage>> byJob = new LinkedHashMap<>();
         Map<String, List<String>> differ = new TreeMap<>();
-        for (String job : JOBS) {
-            Fixture fixture = CardDemoJavaLaneIntegrationTest.fixture(job);
-            Report a = runA.run(job), b = runB.run(job);
-            Gate.Result gate = Gate.compare(fixture, a, runA.work(job), b, runB.work(job));
-            Path cobcTrace = ROOT.resolve("build/proof1-trace/" + job), javaDir = ROOT.resolve("build/proof1-java/" + job), classes = Files.createDirectories(ROOT.resolve("build/proof1-classes/" + job));
-            Report traced = CobcLane.run(fixture, runA.setup(job).traced(cobcTrace));
-            // Under -ftrace libcob says where a signal stopped the program, on stderr: the trace's own lines, not the run's.
-            Set<String> signalled = signalled(fixture, a);
-            List<String> changed = Gate.compare(fixture, a, runA.work(job), traced, cobcTrace).differences().stream()
-                    .filter(d -> signalled.stream().noneMatch(step -> d.startsWith(step + ".stderr:"))).toList();
-            assertEquals(List.of(), changed, job + ": tracing changed the run");
-            Report java = CobcLane.run(fixture, CardDemoJavaLaneIntegrationTest.setup(javaDir, CardDemoJavaLaneIntegrationTest.commands(fixture, classes)).traced(javaDir));
-            Set<String> javaOnly = javaOnly(fixture, a);
-            Map<String, Report.Coverage> coverage = new TreeMap<>();
-            Map<String, String> from = new TreeMap<>();
-            for (var c : java.coverage().entrySet()) {
-                boolean cobc = !javaOnly.contains(c.getKey());
-                if (cobc && !c.getValue().equals(traced.coverage().get(c.getKey()))) differ.put(job + " " + c.getKey(), List.of("java " + c.getValue(), "cobc " + traced.coverage().get(c.getKey())));
-                coverage.put(c.getKey(), c.getValue());
-                from.put(c.getKey(), cobc ? "the cobc trace; the java lane's the same" : "the java lane's trace (the cobc lane cannot run it, R-027)");
-            }
-            byJob.put(job, coverage);
-            List<ProofReport.Compared> compared = new ArrayList<>();
-            List<String> notes = new ArrayList<>(laneHypotheses(fixture, javaOnly));
-            List<String> onlyJava = new ArrayList<>();
-            for (String dsn : new TreeSet<>(java.datasets().keySet())) {
-                if (!a.datasets().containsKey(dsn)) {
-                    onlyJava.add(dsn);
-                    continue;
-                }
-                int lrecl = a.lrecls().get(dsn);
-                Compare.Result r = Compare.compare(gate, Compare.Side.fixed(dsn, Files.readAllBytes(runA.work(job).resolve("unload/" + dsn)), lrecl, "ascii"),
-                        Compare.Side.fixed(dsn, Files.readAllBytes(javaDir.resolve("unload/" + dsn)), lrecl, "ascii"), layout(fixture, dsn, lrecl, notes), List.of(), Compare.Numproc.NOPFD);
-                compared.add(new ProofReport.Compared(dsn, List.of(), r));
-                if (!r.same()) differ.put(job + " " + dsn, r.findings().stream().map(String::valueOf).toList());
-            }
-            List<katana.findings.Finding> findings = new ArrayList<>();
-            for (String program : coverage.keySet()) findings.addAll(ProofIntegrationTest.findings(source(program), CARDDEMO.resolve("app/cpy"), Tabs.widths(fixture)));
-            hold(job + ".v1.report.md", ProofReport.v1(fixture, "oracle/fixture/carddemo/" + job + ".fixture", a, gate, compared, onlyJava, coverage, from,
-                    Files.readString(ROOT.resolve("docs/PROOF.md")), findings, notes));
-        }
+        for (String job : JOBS) prove(job, runA, runB, byJob, differ);
         assertEquals(Map.of(), differ, "datasets that differ, and programs whose java trace is not the cobc trace");
         hold("CARDDEMO.coverage.md", ProofReport.coverage(byJob));
+    }
+
+    /** One job: the gate between two cobc runs, the cobc trace unchanged by tracing, the java lane's trace and datasets compared with the cobc lane's, its v1 report held. */
+    private static void prove(String job, LaneRuns runA, LaneRuns runB, Map<String, Map<String, Report.Coverage>> byJob, Map<String, List<String>> differ) throws Exception {
+        Fixture fixture = CardDemoJavaLaneIntegrationTest.fixture(job);
+        Report a = runA.run(job), b = runB.run(job);
+        Gate.Result gate = Gate.compare(fixture, a, runA.work(job), b, runB.work(job));
+        Path cobcTrace = ROOT.resolve("build/proof1-trace/" + job), javaDir = ROOT.resolve("build/proof1-java/" + job), classes = Files.createDirectories(ROOT.resolve("build/proof1-classes/" + job));
+        Report traced = CobcLane.run(fixture, runA.setup(job).traced(cobcTrace));
+        // Under -ftrace libcob says where a signal stopped the program, on stderr: the trace's own lines, not the run's.
+        Set<String> signalled = signalled(fixture, a);
+        List<String> changed = Gate.compare(fixture, a, runA.work(job), traced, cobcTrace).differences().stream()
+                .filter(d -> signalled.stream().noneMatch(step -> d.startsWith(step + ".stderr:"))).toList();
+        assertEquals(List.of(), changed, job + ": tracing changed the run");
+        Report java = CobcLane.run(fixture, CardDemoJavaLaneIntegrationTest.setup(javaDir, CardDemoJavaLaneIntegrationTest.commands(fixture, classes)).traced(javaDir));
+        Set<String> javaOnly = javaOnly(fixture, a);
+        Map<String, Report.Coverage> coverage = new TreeMap<>();
+        Map<String, String> from = new TreeMap<>();
+        for (var c : java.coverage().entrySet()) {
+            boolean cobc = !javaOnly.contains(c.getKey());
+            if (cobc && !c.getValue().equals(traced.coverage().get(c.getKey()))) differ.put(job + " " + c.getKey(), List.of("java " + c.getValue(), "cobc " + traced.coverage().get(c.getKey())));
+            coverage.put(c.getKey(), c.getValue());
+            from.put(c.getKey(), cobc ? "the cobc trace; the java lane's the same" : "the java lane's trace (the cobc lane cannot run it, R-027)");
+        }
+        byJob.put(job, coverage);
+        List<ProofReport.Compared> compared = new ArrayList<>();
+        List<String> notes = new ArrayList<>(laneHypotheses(fixture, javaOnly));
+        List<String> onlyJava = new ArrayList<>();
+        compareDatasets(job, fixture, a, gate, runA.work(job), javaDir, java, compared, onlyJava, notes, differ);
+        List<katana.findings.Finding> findings = new ArrayList<>();
+        for (String program : coverage.keySet()) findings.addAll(ProofIntegrationTest.findings(source(program), CARDDEMO.resolve("app/cpy"), Tabs.widths(fixture)));
+        hold(job + ".v1.report.md", ProofReport.v1(fixture, "oracle/fixture/carddemo/" + job + ".fixture", a, gate, compared, onlyJava, coverage, from,
+                Files.readString(ROOT.resolve("docs/PROOF.md")), findings, notes));
+    }
+
+    /** Each dataset both lanes wrote compared record by record, with the copybook's layout; one only the java lane wrote listed apart. */
+    private static void compareDatasets(String job, Fixture fixture, Report a, Gate.Result gate, Path cobcWork, Path javaDir, Report java, List<ProofReport.Compared> compared, List<String> onlyJava,
+            List<String> notes, Map<String, List<String>> differ) throws Exception {
+        for (String dsn : new TreeSet<>(java.datasets().keySet())) {
+            if (!a.datasets().containsKey(dsn)) {
+                onlyJava.add(dsn);
+                continue;
+            }
+            int lrecl = a.lrecls().get(dsn);
+            Compare.Result r = Compare.compare(gate, Compare.Side.fixed(dsn, Files.readAllBytes(cobcWork.resolve("unload/" + dsn)), lrecl, "ascii"),
+                    Compare.Side.fixed(dsn, Files.readAllBytes(javaDir.resolve("unload/" + dsn)), lrecl, "ascii"), layout(fixture, dsn, lrecl, notes), List.of(), Compare.Numproc.NOPFD);
+            compared.add(new ProofReport.Compared(dsn, List.of(), r));
+            if (!r.same()) differ.put(job + " " + dsn, r.findings().stream().map(String::valueOf).toList());
+        }
     }
 
     /** The steps the cobc lane ended on a signal (R-027). */
