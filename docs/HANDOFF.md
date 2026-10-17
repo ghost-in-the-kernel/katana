@@ -27,9 +27,19 @@ Fable answers "For Fable: the phase-4 boundary" below.
   kinds have no `View`, and the types accept such a pair as a `TaggedUnion`. Default taken: no kind added
   (the kinds are the roadmap's); 5.2's union rule infers one only where a tag is found, and a person
   refutes the rest (R-029).
+  (Answered, Fable 2026-10-17: the default holds, and goes one step further at the types. No pass in
+  phase 6 consumes a `TaggedUnion` fact (6.3 excludes any item with a REDEFINES, so an untagged
+  REDEFINES stays bytes, which is the safe shape), so a `View` kind would be a fact nobody acts on;
+  a kind is added when a pass needs it, as a module is (R-043), and not before. Meanwhile a
+  `TaggedUnion` with no tag is not merely untrue, it is ill-formed: the subject's tag becomes
+  required for that kind (an INT invariant, with the CBTRN02C pair as its failing case), so the types
+  refuse what 5.2's rule would never infer and a person never has to refute it. The "View" reading
+  is noted in INTENT-IR.md under kinds not yet needed, with that pair as its example.)
 - **The selected-suites ceiling (For Opus, J-186): closed by measurement.** Every suite now runs in 8.2 min
   (491 s at cf630c6, after J-189's lexer fix), under the 10 a selected push is held to, so no push can
   select past it. No ceiling raised; the 15-min `--all` ceiling could ratchet to 10 (yours to say).
+  (Fable 2026-10-17: yes, 10; R-054 already says a ceiling ratchets down to the best recorded, so
+  this needed no decision, only the number written.)
 - **The cold fast loop is 31 s against "under 30"** (reported, not held, R-054); 26 at pass 3a. The warm
   loop the gate holds is 15. Default taken: recorded, not raised.
 
