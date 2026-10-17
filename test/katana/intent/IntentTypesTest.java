@@ -41,7 +41,7 @@ class IntentTypesTest {
 
     private static List<Fact> facts() {
         return List.of(fact(Kind.ENUM, new Subject.Choice(1, List.of("OK", "DONE"))), fact(Kind.MONEY, new Subject.Datum(2)),
-                fact(Kind.TAGGED_UNION, new Subject.Union(2, List.of(3), 0)), fact(Kind.FUNCTION, new Subject.Range(2, 2)),
+                fact(Kind.TAGGED_UNION, new Subject.Union(2, List.of(3), 1)), fact(Kind.FUNCTION, new Subject.Range(2, 2)),
                 fact(Kind.REDUCIBLE, new Subject.Paragraphs(List.of(0, 1, 2))), fact(Kind.STATELESS, new Subject.Whole("P")),
                 new Fact(Kind.COUNTER, new Subject.Datum(1), new Evidence("person", 1, List.of(new Node.StatementNode(2, 0), new Node.EdgeNode(0), new Node.ParagraphNode(2))), 0.5, State.INFERRED));
     }
@@ -66,7 +66,7 @@ class IntentTypesTest {
         refused("INT-02", () -> new Subject.Datum(0));
         refused("INT-02", () -> new Subject.Choice(1, List.of("OK")));
         refused("INT-02", () -> new Subject.Choice(1, List.of("OK", "OK")));
-        refused("INT-02", () -> new Subject.Union(2, List.of(2), 0));
+        refused("INT-02", () -> new Subject.Union(2, List.of(2), 1));
         refused("INT-02", () -> new Subject.Union(2, List.of(3), 3));
         refused("INT-02", () -> new Subject.Range(2, 1));
         refused("INT-02", () -> new Subject.Paragraphs(List.of(1, 0)));
@@ -80,6 +80,7 @@ class IntentTypesTest {
         refused("INT-05", () -> new State(State.Status.CONFIRMED, "Ghost", "yesterday"));
         refused("INT-05", () -> new State(State.Status.REFUTED, "", "2026-10-17"));
         refused("INT-05", () -> new State(State.Status.INFERRED, "Ghost", ""));
+        refused("INT-08", () -> new Subject.Union(2, List.of(3), 0));
         refused("INT-06", () -> new Intent("P", "sha256:nope", List.of()));
         refused("INT-06", () -> new Intent("P", HASH, List.of(fact(Kind.MONEY, new Subject.Datum(2)), fact(Kind.MONEY, new Subject.Datum(2)))));
     }
@@ -90,7 +91,7 @@ class IntentTypesTest {
         refused("INT-07", () -> { new Intent("Q", HASH, List.of()).against(p); return null; });
         refused("INT-07", () -> { new Intent("P", "sha256:" + "1".repeat(64), List.of()).against(p); return null; });
         for (Fact wrong : List.of(fact(Kind.MONEY, new Subject.Datum(9)), fact(Kind.ENUM, new Subject.Choice(1, List.of("OK", "LATER"))),
-                fact(Kind.TAGGED_UNION, new Subject.Union(1, List.of(3), 0)), fact(Kind.FUNCTION, new Subject.Range(2, 3)),
+                fact(Kind.TAGGED_UNION, new Subject.Union(1, List.of(3), 2)), fact(Kind.TAGGED_UNION, new Subject.Union(2, List.of(3), 9)), fact(Kind.FUNCTION, new Subject.Range(2, 3)),
                 fact(Kind.REDUCIBLE, new Subject.Paragraphs(List.of(5))), fact(Kind.STATELESS, new Subject.Whole("Q")),
                 new Fact(Kind.MONEY, new Subject.Datum(2), new Evidence("r", 1, List.of(new Node.StatementNode(2, 1))), 1, State.INFERRED),
                 new Fact(Kind.MONEY, new Subject.Datum(2), new Evidence("r", 1, List.of(new Node.EdgeNode(1))), 1, State.INFERRED))) {

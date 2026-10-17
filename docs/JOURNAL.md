@@ -2963,3 +2963,17 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `intent/types/*`; `test/katana/intent/*`; `docs/INTENT-IR.md`, `docs/checks.json`,
   `docs/KERNEL-MAP.md`, `theGhost.md` (R-029), `scripts/prepush.sh`, `CLAUDE.md`, research §28, `TODO.md`,
   `docs/HANDOFF.md`.
+
+### J-194 A tagged union names its tag (INT-08); View noted as a kind not yet needed; the `--all` ceiling at 10
+- **Who:** Opus, on Fable's answer (HANDOFF, 2026-10-17, d1e625a). **Class:** build.
+- **Intent:** the types refuse an untagged REDEFINES as a `TaggedUnion` rather than leave it to a person to
+  refute; the `--all` ceiling written where `scripts/Ceilings.java` reads it.
+- **Found:** `IntentDocTest` read the View note's backticks as a type the code lacks, as it should: a kind
+  not yet needed is prose, not a name.
+- **Resolved:** `Subject.Union` requires its tag (INT-08), so INT-07 always checks it; docs/INTENT-IR.md
+  gains INT-08 and "Kinds not yet needed" with CBTRN02C's TWO-BYTES-BINARY and TWO-BYTES-ALPHA as View's
+  example; `Cbtrn02cIntentIntegrationTest` holds that pair as INT-08's failing case; `IntentTypesTest`
+  gains INT-08's refusal and a tag outside the program refused by INT-07. `docs/AGENT.md`: `--all` held to
+  10 min (R-054's ratchet).
+- **Touched:** `intent/types/Subject.java`, `Intent.java`; `test/katana/intent/IntentTypesTest.java`,
+  `Cbtrn02cIntentIntegrationTest.java`; `docs/INTENT-IR.md`, `docs/AGENT.md`, `docs/HANDOFF.md`.

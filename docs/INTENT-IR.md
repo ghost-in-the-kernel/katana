@@ -35,8 +35,14 @@ Each `Kind` is about one shape of `Subject`:
 | `NEVER_OVERFLOWS` | `Datum` | no value the program stores overflows the item |
 
 `Datum` is an item by its id; `Choice` an item and two or more of its condition-names; `Union` an item,
-the items that REDEFINES it and the tag item (0 with none known); `Range` the first and last paragraph
+the items that REDEFINES it and the tag item whose value says which is meant (INT-08); `Range` the first and last paragraph
 a PERFORM names, by index; `Paragraphs` a set of paragraphs; `Whole` a program by its PROGRAM-ID.
+
+Kinds not yet needed. A kind is added when a pass needs it, as a module is (R-043), and not before.
+**View** (not a type yet): an item and an item that REDEFINES it as the same bytes read two ways, with no tag, as CardDemo's
+CBTRN02C reads TWO-BYTES-BINARY as TWO-BYTES-ALPHA. No phase-6 pass acts on one (6.3 leaves any item with
+a REDEFINES as bytes), so it waits for a pass that wants accessors over shared bytes; until then such a
+pair is no fact, and as a tagged union it is refused (INT-08).
 
 ## Evidence and state
 
@@ -51,8 +57,9 @@ invariant's number.
 
 - **INT-01 A fact is about its kind's shape of subject.** An enum about a `Choice`, a function about a
   `Range`, and so on as the table says.
-- **INT-02 A subject is well formed.** Items numbered from 1, paragraphs from 0; a `Choice` has two or
-  more distinct condition-names; a `Union` one or more distinct alternatives, none the item or the tag; a
+- **INT-02 A subject is well formed.** Items numbered from 1, paragraphs from 0 (paragraph 0 the
+  procedure's unnamed start); a `Choice` has two or more distinct condition-names; a `Union` one or more
+  distinct alternatives, none the item or the tag; a
   `Range` ends at or after it starts; `Paragraphs` ascending, none twice; a `Whole` names a program.
 - **INT-03 Evidence names its rule, its version and at least one node.** A node's numbers are numbers the
   IR could hold.
@@ -64,3 +71,6 @@ invariant's number.
 - **INT-07 A program's facts are that program's.** Checked against its Semantic IR: its name and profile
   hash, and every node a fact names one of its own: an item it numbers, a condition-name of that item, an
   alternative that REDEFINES the item, a paragraph, a statement of that paragraph, an edge of its graph.
+- **INT-08 A tagged union names its tag.** A `Union` without the item whose value says which alternative
+  is meant is ill-formed, not merely untrue: two readings of the same bytes with no tag are a view, a kind
+  not yet needed (above), so the types refuse what no rule should infer and no person need refute.

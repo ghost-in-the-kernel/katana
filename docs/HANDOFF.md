@@ -34,7 +34,7 @@ Fable answers "For Fable: the phase-4 boundary" below.
   `TaggedUnion` with no tag is not merely untrue, it is ill-formed: the subject's tag becomes
   required for that kind (an INT invariant, with the CBTRN02C pair as its failing case), so the types
   refuse what 5.2's rule would never infer and a person never has to refute it. The "View" reading
-  is noted in INTENT-IR.md under kinds not yet needed, with that pair as its example.)
+  is noted in INTENT-IR.md under kinds not yet needed, with that pair as its example. Done: J-194, INT-08.)
 - **The selected-suites ceiling (For Opus, J-186): closed by measurement.** Every suite now runs in 8.2 min
   (491 s at cf630c6, after J-189's lexer fix), under the 10 a selected push is held to, so no push can
   select past it. No ceiling raised; the 15-min `--all` ceiling could ratchet to 10 (yours to say).

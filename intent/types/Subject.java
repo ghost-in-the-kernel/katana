@@ -33,11 +33,12 @@ public sealed interface Subject {
         }
     }
 
-    /** An item and the items that REDEFINES it, each one alternative; `tag` the item whose value says which, or 0 with none known. */
+    /** An item and the items that REDEFINES it, each one alternative; `tag` the item whose value says which (INT-08). */
     record Union(int item, List<Integer> alternatives, int tag) implements Subject {
         public Union {
             alternatives = List.copyOf(alternatives);
-            if (item < 1 || tag < 0 || tag == item || alternatives.isEmpty() || alternatives.contains(item) || alternatives.contains(tag)
+            if (tag < 1) throw new Invalid("INT-08", "item " + item + " with alternatives " + alternatives + " names no tag");
+            if (item < 1 || tag == item || alternatives.isEmpty() || alternatives.contains(item) || alternatives.contains(tag)
                     || alternatives.stream().anyMatch(a -> a < 1) || new HashSet<>(alternatives).size() != alternatives.size()) {
                 throw new Invalid("INT-02", "item " + item + " with alternatives " + alternatives + " and tag " + tag);
             }
