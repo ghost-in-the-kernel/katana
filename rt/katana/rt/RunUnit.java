@@ -24,6 +24,7 @@ public final class RunUnit {
     private final Map<String, Record> externals = new HashMap<>();
     private final Map<String, Object> externalFiles = new HashMap<>();
     private final java.util.Set<String> described = new java.util.HashSet<>();
+    private Storage storage;
 
     public RunUnit(Codepage cp, Upsi upsi, Sysin in, Sysout out, Sysout err, boolean dynam) {
         this.cp = cp;
@@ -97,6 +98,17 @@ public final class RunUnit {
     @SuppressWarnings("unchecked")
     public <T> T externalFile(String name, java.util.function.Supplier<T> make) {
         return (T) externalFiles.computeIfAbsent(name, n -> make.get());
+    }
+
+    /** The step's z/OS storage (R-027), from the lane's `KATANA_TIOT`, made when a program first reads it. */
+    public Storage storage() {
+        if (storage == null) storage = Storage.of(System.getenv("KATANA_TIOT"), cp);
+        return storage;
+    }
+
+    /** The step's z/OS storage given, in place of the one `KATANA_TIOT` describes (a test's). */
+    public void storage(Storage given) {
+        storage = given;
     }
 
     /** At the end of the run, normal or not: every called program's files closed. */

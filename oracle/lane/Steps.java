@@ -154,7 +154,23 @@ final class Steps {
                 if (finding != null) return new Bound(env, dsns, inputs, created, stdin, finding);
             }
         }
+        env.put("KATANA_TIOT", tiot(step));
         return new Bound(env, dsns, inputs, created, stdin, null);
+    }
+
+    /**
+     * The step's own facts for the java lane's z/OS storage (LANE-03, R-027): the job, the step, and each
+     * DD in order with whether it is on a device and so has a UCB (`:u`), or is SYSOUT, in-stream or DUMMY
+     * (`:n`; research §25, H2).
+     */
+    // Decision: R-063
+    private String tiot(Fixture.Step step) {
+        StringBuilder t = new StringBuilder(fixture.first("job").values().get(0) + " " + step.name());
+        for (Fixture.Dd dd : step.dds()) {
+            boolean device = !(dd.line().words().contains("dummy") || dd.line().words().contains("sysout") || dd.line().words().contains("inline"));
+            t.append(' ').append(dd.name()).append(device ? ":u" : ":n");
+        }
+        return t.toString();
     }
 
     /** A dataset DD: NEW makes it (and refuses one that exists), MOD makes it if absent, SHR and OLD need it; a concat one joins the DD's inputs. */

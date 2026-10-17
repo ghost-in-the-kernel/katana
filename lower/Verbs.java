@@ -277,7 +277,8 @@ final class Verbs {
         }
         Value value = operand(s, "set-to-value"), by = operand(s, "set-by-value");
         for (Value t : operands(s, "set-to")) {
-            if (t instanceof Value.ConditionName c && value instanceof Value.Literal l && l.payload().equals("TRUE")) setTrue(c);
+            if (address(t) || address(value)) setAddress(s, t, value);
+            else if (t instanceof Value.ConditionName c && value instanceof Value.Literal l && l.payload().equals("TRUE")) setTrue(c);
             else if (t instanceof Value.Field target && by != null) {
                 Value step = keyword(s, "DOWN") ? new Value.Expression("-", List.of(target, by)) : new Value.Expression("+", List.of(target, by));
                 f.e.line("Arithmetic.store(" + f.x.field(target) + ", " + f.arith.result(step, 0, false) + ", false, false);");
@@ -285,6 +286,27 @@ final class Verbs {
                 f.e.line(f.x.moveInto(value, f.x.field(target), f.x.item(target.item())) + ";");
             } else f.e.line(f.x.unsupported("SET at " + s.origin() + " " + s.operands()) + ";");
         }
+    }
+
+    private static boolean address(Value v) {
+        return v instanceof Value.Expression e && e.operator().equals("ADDRESS OF") || v instanceof Value.Figurative g && g.name().equals("NULL");
+    }
+
+    /**
+     * SET format 5 (LR 6.4 p. 443) over the lane's z/OS storage (R-027, research §25): ADDRESS OF a
+     * LINKAGE record TO a pointer binds the record to the storage at the pointer's address; a pointer TO
+     * ADDRESS OF an item takes the item's address there, TO NULL zero. A pointer TO a pointer is a MOVE of
+     * its four bytes, lowered as one.
+     */
+    // Decision: R-063
+    private void setAddress(Statement s, Value target, Value value) {
+        if (target instanceof Value.Expression e && e.operands().get(0) instanceof Value.Field r && Programs.linkage(f.x.item(r.item())) && value instanceof Value.Field p) {
+            f.e.line("bind" + r.item() + "(u.storage().at(Storage.pointer(" + f.x.field(p) + "), " + f.x.item(r.item()).length() + "));");
+        } else if (target instanceof Value.Field p && value instanceof Value.Expression e && e.operands().get(0) instanceof Value.Field r) {
+            f.e.line("Storage.set(" + f.x.field(p) + ", u.storage().addressOf(" + f.x.field(r) + "));");
+        } else if (target instanceof Value.Field p && value instanceof Value.Figurative) {
+            f.e.line("Storage.set(" + f.x.field(p) + ", 0);");
+        } else f.e.line(f.x.unsupported("SET at " + s.origin() + " " + s.operands()) + ";");
     }
 
     /** SET mnemonic-name ... TO ON or OFF, in groups as written: each mnemonic's UPSI switch set. */

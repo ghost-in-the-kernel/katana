@@ -22,6 +22,8 @@ Invariants are numbered LANE-01 onward, in this document only, and a number is n
   `COB_CURRENT_DATE` and its zone in `TZ`; nothing else of the machine's environment is passed (PATH
   aside). The PARM is the program's one argument (the cobc lane passes it through a driver as z/OS
   does: a halfword length, then the text). An inline SYSIN is the program's stdin, one card a line.
+  `KATANA_TIOT` gives the step's own facts for the java lane's z/OS storage (LANE-20): the job, the
+  step, and each DD in order, `:u` on a device, `:n` SYSOUT, in-stream or DUMMY; the cobc lane ignores it.
 - **LANE-04 The step's outputs are its datasets, its stdout and its return code.** stdout is the
   step's printed output (DISPLAY); the exit code is the return code; an abend is reported on stderr as
   `CEE3ABD abend Unnnn` (the 8-bit exit status cannot hold the code), and a program the platform stops
@@ -116,6 +118,12 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
   records the container's (SIR-12). A program that cannot be found raises ON EXCEPTION, else abend U4038.
   The lane passes the profile's `ibm.dynam` as the system property `katana.dynam`, NODYNAM when absent;
   a fixture's called module runs when the lane's setup names its lowered class (J-186).
+- **LANE-20 The java lane answers a program's reads of z/OS control blocks.** `rt/Storage` holds the
+  step's PSA at address 0, a TCB and a TIOT built from `KATANA_TIOT` (LANE-03), laid out as R-063 says (a
+  hypothesis: what CBSTM03A declares, not IBM's text). A POINTER is four bytes holding an address, NULL
+  zero; SET ADDRESS OF a LINKAGE record binds it to the storage at the pointer's address, as a CALL binds
+  it to an argument (LANE-19); an address no block holds ends the run with abend U4038. The cobc lane
+  cannot map address 0 and holds the program's abend as its outcome (R-027, J-187).
 
 ## The check
 

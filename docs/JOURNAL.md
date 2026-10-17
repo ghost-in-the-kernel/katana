@@ -2838,3 +2838,56 @@ taken; closed by a later `decision` entry naming it).
   `test/katana/sir/GlobalsTest.java`, the CardDemo and trivial lane tests; `docs/SEMANTIC-IR.md` (SIR-12),
   `docs/LANES.md` (LANE-19), `docs/PROFILE.md`, `docs/DISCOVERIES.md` (D-033), `theGhost.md` (R-062),
   research §24, `TODO.md`, `docs/checks.json`.
+
+### J-187 The stub facade: the z/OS storage facade, and CREASTMT end to end in the java lane
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with the stub facade next"). **Class:** build; trial; decision.
+- **Intent:** phase 4.4. No CardDemo fixture's program calls an assembler routine, and CEE3ABD was lowered in
+  4.1, so the item's work is R-027's z/OS storage facade, CREASTMT its trial; IBM's text and the prediction
+  committed before the run (research §25, 5678f1b).
+- **Found:** IBM's MVS Data Areas are out of reach: the container's proxy refuses ibm.com, publibfp and
+  bitsavers, and a fetching agent found none of them. Ghost's call: build it as hypothesis (R-063). CBSTM03A's
+  gaps were POINTER items, SET ADDRESS OF and LENGTH OF in arithmetic, nothing else. Built, STEP040 printed
+  what §25 predicted line for line and ran to its end, rc 0, 50 statements over all 262 transactions.
+- **Resolved:** R-063. `rt/Storage` (the PSA, a TCB and a TIOT from `KATANA_TIOT`, which `oracle/lane/Steps`
+  gives every program step, LANE-03); `RunUnit.storage`; a POINTER as four bytes starting NULL; a bind method
+  for every LINKAGE record, which a CALL (LANE-19) and SET ADDRESS OF (`Verbs.setAddress`) share; LENGTH OF as
+  the item's length. LANE-20. `StorageTest`, `StorageFacadeTest` (red under three mutations: the TCB only at
+  PSA+540, LENGTH OF one more, a POINTER starting other than NULL), `Statements` with `StatementsTest`, which
+  holds CREASTMT's statements to their input where no cobc run can. R-027 C-2 verified; R-063's three
+  claims are hypotheses with their trials in HANDOFF.
+- **Touched:** `rt/katana/rt/Storage.java`, `RunUnit.java`; `lower/Verbs.java`, `Programs.java`, `Lower.java`,
+  `Values.java`, `Arith.java`, `Exprs.java`; `oracle/lane/Steps.java`; `test/katana/rt/StorageTest.java`,
+  `test/katana/lower/StorageFacadeTest.java`, `test/katana/oracle/lane/Statements.java`, `StatementsTest.java`,
+  `CardDemoJavaLaneIntegrationTest.java`; `docs/LANES.md` (LANE-03, LANE-20), `theGhost.md` (R-027, R-063),
+  `docs/HANDOFF.md`, `docs/checks.json`, research §25, `TODO.md`.
+
+### J-188 Each NIST source compiled once a JVM: the pre-push check's room for J-187
+- **Who:** Opus. **Class:** failure-caught; measurement.
+- **Intent:** push J-187, which the pre-push check refused: every test passed, 10.5 min against the 10 for
+  the selected suites (quick, javalane, lane, rt).
+- **Found:** the four cores are saturated, so running NC's programs in three groups at once moved time, not
+  removed it (the NIST Java lane class 281 s as one group, 303 s in three), and C1-only, serial-GC program
+  JVMs were slower (394 s). Timed by phase, NC's 186 s are 143 s of parsing, 16 of javac, 20 of runs: the
+  grammar's SLL parse takes about 1.5 s a NIST program, warm (12 NC programs, 19 s). IC parsed, lowered and
+  compiled its 47 sources twice, once under NODYNAM and once under DYNAM (J-186).
+- **Resolved:** `JavaRunner` keeps each source's compiled files by the hash of its text and the copy members
+  beside it, for the JVM, and copies them into the next module's folder; IC under DYNAM reruns the programs
+  only. javac no longer has the run's folder on its class path. Single runs of the class vary by a fifth,
+  so the pre-push check is the measure. The ceiling is not raised (R-054); the grammar's parse speed is the
+  room left, a tithe item.
+- **Touched:** `test/katana/lower/JavaRunner.java`.
+
+### J-189 Tithe: the lexer's decimal-comma predicate at its rule's right edge, a hundred times faster
+- **Who:** Opus, on Ghost's call ("tithe the parser first"). **Class:** tithe; measurement.
+- **Intent:** room under R-054's ceiling for J-187, which the pre-push check refused twice at 10.4 and 10.5
+  min with every test passing; J-188 found parsing most of a NIST run's time.
+- **Found:** ANTLR's profiler over 12 NC programs: the parser's decisions take 0.86 s, the lexer 20.4 s. The
+  one lexer predicate, NUMERICLITERAL's `{decimalComma}?` (J-119), stood after an optional `[0-9]*`, so it
+  was in the closure of the lexer's start state, and ANTLR caches no DFA edge through a predicate: every
+  token of every program was matched by ATN simulation. Without the alternative the 12 lex in 188 ms.
+- **Resolved:** the comma literal is its own alternative with the predicate at its right edge, evaluated
+  only when a comma literal has matched; under its absence the lexer falls back to the shorter match, as
+  before. 12 programs lex in 161 ms; `CorpusIntegrationTest` (every corpus program parsed) 103 s alone, where
+  it took 275 s (J-169) and 618 s under the IC check's load. No golden moved (`DecimalCommaTest`, the
+  corpus and IR goldens). The ceilings are not touched (R-054).
+- **Touched:** `front/grammar/Cobol.g4`, `docs/HANDOFF.md`.

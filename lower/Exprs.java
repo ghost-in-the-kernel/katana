@@ -197,7 +197,7 @@ final class Exprs {
             case Value.Field f -> List.of(Attributes.Category.NUMERIC, Attributes.Category.INDEX).contains(item(f.item()).attributes().category()) && f.start() == null;
             case Value.Literal l -> l.numeric();
             case Value.Expression e when Funcs.name(e) != null -> funcs.numeric(e);
-            case Value.Expression e -> List.of("+", "-", "*", "/", "**", "neg", "pos").contains(e.operator());
+            case Value.Expression e -> List.of("+", "-", "*", "/", "**", "neg", "pos", "LENGTH OF").contains(e.operator());
             case Value.Figurative f -> singular(f.name()).equals("ZERO") && f.all() == null;
             default -> false;
         };

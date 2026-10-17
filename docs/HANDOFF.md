@@ -597,7 +597,8 @@ R-015)
   not front or autotest, and is held to 10 min, where the same work with all eight is held to 15: IC's
   selected run took 13.5 min, the corpus pass alone 618 s on shared cores. Pushed with `--all` on Ghost's
   call. The room is made in a tithe (the corpus pass where the front end or the data map changed, or its
-  cobc work cut), not by raising a ceiling (R-054).
+  cobc work cut), not by raising a ceiling (R-054). J-189 cut the lexer's time a hundredfold (the corpus
+  pass 618 s under load to 103 s alone); re-measure the selected suites before acting on the rest.
 
 ## Trials (R-052: a question settled by running something; the implementing agent runs it)
 
@@ -622,7 +623,11 @@ unchanged, R-042):
 - R-022 C-2 (STD is what most OPT programs mean): a customer's mainframe gold on an OPT program.
 - R-023 C-2 (IEEE close enough for NIST's float tests): NIST's float cases through the java lane.
 - R-024 C-2 (passes as transformations the emitter prints): phase 6's first pass.
-- R-027 C-2 (`rt/` answers them from the fixture): phase 3's CREASTMT end to end.
+- R-063 C-1 (the PSA, TCB and TIOT layouts): IBM's MVS Data Areas (IHAPSA, IKJTCB, IEFTIOT1) read where
+  they can be reached, or CBSTM03A's STEP040 run on z/OS.
+- R-063 C-2 (which DDs the TIOT lists, and with what UCB): the same z/OS run, whose stdout names the DDs as
+  the TIOT holds them.
+- R-063 C-3 (a POINTER without VALUE starts NULL): the same z/OS run, or LE's STORAGE option text.
 - R-052 C-2 (a trial is cheaper than a debate): trials per phase against Fable minutes per phase, from
   the journal.
 - R-053 C-1 (most deferred questions decided the way the agent leaned): the boundary tithe's count of

@@ -3259,7 +3259,12 @@ LEVEL_NUMBER_88 : '88';
 INTEGERLITERAL : (PLUSCHAR | MINUSCHAR)? [0-9]+;
 
 // Katana (3.3, J-119): a comma is a decimal point only under DECIMAL-POINT IS COMMA; elsewhere `1,1` is two literals.
-NUMERICLITERAL : (PLUSCHAR | MINUSCHAR)? [0-9]* (DOT | {decimalComma}? COMMACHAR) [0-9]+ (('e' | 'E') (PLUSCHAR | MINUSCHAR)? [0-9]+)?;
+// The predicate stands at the alternative's right edge (J-189): placed before the comma, the empty `[0-9]*` put it
+// in the start state's closure, and no token could use the lexer's DFA cache, a hundred times slower.
+NUMERICLITERAL
+   : (PLUSCHAR | MINUSCHAR)? [0-9]* DOT [0-9]+ (('e' | 'E') (PLUSCHAR | MINUSCHAR)? [0-9]+)?
+   | (PLUSCHAR | MINUSCHAR)? [0-9]* COMMACHAR [0-9]+ (('e' | 'E') (PLUSCHAR | MINUSCHAR)? [0-9]+)? {decimalComma}?
+   ;
 
 IDENTIFIER : [a-zA-Z0-9]+ ([-_]+ [a-zA-Z0-9]+)*;
 

@@ -1300,3 +1300,62 @@ leaves a report. GLOBAL items, EXTERNAL records, IC227A's EXTERNAL file, INITIAL
 nothing past the first build. OBIC1A reports what cobc does: OB 7 of 7. CREASTMT was refuted in part:
 CBSTM03A stops at its SET ADDRESS OF the PSA (line 266) before its first CALL, so CBSTM03B is lowered and
 never reached; the steps before STEP040 match the golden.
+
+## 25. The z/OS storage facade: POINTER, SET ADDRESS OF, and the PSA, TCB and TIOT (read 2026-10-16; phase 4.4, R-027)
+
+Verbatim from the Enterprise COBOL for z/OS 6.4 Language Reference (LR).
+
+- LR p. 242 (POINTER): "A pointer data item is a 4-byte elementary item or an 8-byte elementary item
+  depending on whether the LP(32) or LP(64) is in effect"; p. 243: "A pointer data item can be the subject
+  or object of a REDEFINES clause", "A VALUE clause for a pointer data item can contain only NULL or NULLS".
+- LR p. 17 (NULL): "Represents a value used to indicate that data items defined with USAGE POINTER ... do
+  not contain a valid address ... NULL has the value zero."
+- LR p. 19 (ADDRESS OF): "For 01 and 77 level items in the LINKAGE SECTION, the ADDRESS OF special register
+  can be used as either a sending item or a receiving item ... The ADDRESS OF special register is implicitly
+  defined as USAGE POINTER."
+- LR p. 443 (SET, format 5): "the current value of the receiving field is replaced by the address value
+  contained in the sending field"; for ADDRESS OF identifier-5, a LINKAGE 01 or 77, "The addresses of these
+  items are set to the value of the operand specified in the TO phrase."
+- LR p. 22 (LENGTH OF): "The LENGTH OF special register contains the number of bytes used by a data item."
+
+Not read: IBM's MVS Data Areas (the PSA, TCB and TIOT mappings). This container cannot reach ibm.com,
+publibfp.dhe.ibm.com or bitsavers.org, so what follows about the blocks is what CBSTM03A declares (lines
+235-261, R-027 C-1) and recollection, each a hypothesis claim with its trial (R-063, on Ghost's call
+"build it as hypothesis"):
+
+- H1 (declared by CBSTM03A): the current TCB's address is the fullword at PSA+536 (X'218'); the TIOT's at
+  TCB+12 (X'0C'); the TIOT begins with the job name, the step name and the procedure step name, 8 bytes
+  each (24); each DD entry is 20 bytes, its length in its first byte and its DD name at +4, its UCB address
+  in its last three; a fullword of zeros follows the last entry. Recalled: IBM's PSATOLD (X'21C') and
+  PSATNEW (X'218') both hold the running TCB of a one-task step.
+- H2 (recalled): the TIOT lists the step's DDs in the order the JCL codes them; a DD on a device (DASD,
+  VSAM) has a UCB address; SYSOUT, an in-stream DD and DUMMY have none (zeros). The fixture leaves out the
+  JCL's STEPLIB, a load library no lane reads, and whatever DDs JES adds; the facade lists the fixture's DDs.
+- H3 (the program's expectation, wsinit NONE): PSAPTR, a POINTER without VALUE, starts as NULL, address
+  zero, the PSA's; under R-057 the lane starts a pointer as INITIALIZE would leave it, which LR does not
+  give for a pointer (its INITIALIZE rules name none), so the lane starts it NULL.
+
+The lane's reading. A POINTER is 4 bytes holding an address big-endian, as BINARY is (so BUMP-TIOT, a
+binary S9(8) that REDEFINES TIOT-INDEX, steps it). `rt/Storage` is the step's z/OS storage: the PSA at 0,
+a TCB and a TIOT built from the fixture's job, step and DDs; SET ADDRESS OF a LINKAGE record binds it to
+the storage at the pointer's address, as a CALL binds it to an argument (LANE-19). An address no block
+holds is the run's abend (S0C4 on z/OS, recalled), never invented storage.
+
+Predicted, before the run. CREASTMT's STEP040 prints, in its java lane stdout, `Running JCL : CREASTMT
+Step STEP040 `, `DD Names from TIOT: `, then `: SYSPRINT --  null UCB` and `: SYSOUT   --  null UCB` from
+the loop, the five DASD DDs `-- valid UCB` from TRNXFILE to STMTFILE, and HTMLFILE from the IF after the
+loop (the loop's END-OF-TIOT reads the next entry's first fullword, so it stops one entry early). The step
+then runs to its end, CBSTM03B doing its file access through LANE-19's CALL, writes STATEMNT.PS and
+STATEMNT.HTML, and ends with return code 0: CREASTMT runs end to end in the java lane, R-027 C-2's trial.
+The cobc lane is unchanged (abend SIGSEGV, R-027). The rivals: CBSTM03A's ALTERed GO TOs and CBSTM03B's
+file access by a DD name it is passed; an OCCURS table of 51 cards of 10 transactions each overflowing;
+a POINTER compared or moved where the lane holds bytes.
+
+Result (J-187): the prediction held, line for line. CBSTM03A lowered with no finding once POINTER, SET
+ADDRESS OF and LENGTH OF were; STEP040 printed the job, the step and the eight DDs as predicted, HTMLFILE
+from the IF after the loop, ran to its end with return code 0, and wrote 1212 statement records and 6082
+HTML records. With no cobc run to compare (it abends at the PSA), the statements were held to their own
+input: 50 statements, one for each card of the cross-reference file, listing all 262 transactions of the
+sorted file once each, and every Total EXP the sum of its lines. None of the rivals appeared: the ALTERed GO
+TOs, CBSTM03B's file access by the DD name it is passed (through LANE-19's CALL) and the 51-by-10 table ran
+as written. The blocks' layouts remain R-063's hypotheses.

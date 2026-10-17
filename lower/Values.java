@@ -18,6 +18,11 @@ final class Values {
     // Decision: R-057
     static void initial(Emitter e, Program p, Item i, Exprs x) {
         if (governed(p, i)) return;
+        // A POINTER starts NULL, "the value zero" (LR 6.4 p. 17), its VALUE NULL or none (research §25, H3).
+        if (i.attributes().category() == Attributes.Category.POINTER && x.occurrences(i) == null) {
+            e.line("Move.move(Literal.hex(\"00000000\", cp), f" + i.id() + ");");
+            return;
+        }
         boolean group = i.attributes().category() == Attributes.Category.GROUP;
         if (i.value() == null && (group || isText(i))) return;
         String each = x.occurrences(i), target = each == null ? "f" + i.id() : "t";

@@ -49,7 +49,7 @@ final class Programs {
         for (Item i : p.items()) if (i.record() == i.id() && external(p, i)) e.line("private boolean x" + i.id() + ";");
         List<Integer> using = p.procedure().using();
         e.open("public void call(Field[] using)");
-        for (int k = 0; k < using.size(); k++) e.line("if (using.length > " + k + " && using[" + k + "] != null) link" + k + "(using[" + k + "]);");
+        for (int k = 0; k < using.size(); k++) e.line("if (using.length > " + k + " && using[" + k + "] != null) bind" + using.get(k) + "(using[" + k + "]);");
         e.line("called = true;");
         e.open("try");
         e.line("run();");
@@ -59,7 +59,7 @@ final class Programs {
         e.line("d.exited();");
         e.close();
         e.close();
-        for (int k = 0; k < using.size(); k++) link(e, p, x, k, using.get(k));
+        for (Item r : p.items()) if (linkage(r)) bind(e, p, x, r.id());
         e.line("public boolean initial() { return " + p.header().initial() + "; }");
         e.open("public void cancel()");
         for (FileDescriptor d : p.files()) if (!SortVerbs.sd(d) && !FileVerbs.external(d)) e.line(FileVerbs.name(d.name()) + ".close();");
@@ -73,21 +73,27 @@ final class Programs {
         byName(e, p, containers);
     }
 
+    /** A LINKAGE 01 or 77 that redefines none: a record a CALL or SET ADDRESS OF binds to storage. */
+    static boolean linkage(Item r) {
+        return r.record() == r.id() && r.section() == Item.Section.LINKAGE && r.redefines() == 0;
+    }
+
     /**
-     * A USING record bound to its argument: it and every item in it, and each 01 that redefines it, now
-     * the argument's storage, "the same storage area" (LR 6.4 p. 320), at the argument's place.
+     * A LINKAGE record bound to storage: it and every item in it, and each 01 that redefines it, now that
+     * storage, at its place: a CALL's argument, "the same storage area" (LR 6.4 p. 320), or the address SET
+     * ADDRESS OF gives it (p. 443).
      */
     // Decision: R-019
-    private static void link(Emitter e, Program p, Exprs x, int k, int record) {
+    private static void bind(Emitter e, Program p, Exprs x, int record) {
         List<Item> bound = new ArrayList<>();
         for (Item i : p.items()) {
             Item r = p.items().get(i.record() - 1);
             if (i.record() == record || r.redefines() == record) bound.add(i);
         }
         for (int c = 0; c == 0 || c * Lower.CHUNK < bound.size(); c++) {
-            e.open("private void link" + k + (c == 0 ? "" : "_" + c) + "(Field a)");
+            e.open("private void bind" + record + (c == 0 ? "" : "_" + c) + "(Field a)");
             for (Item i : bound.subList(c * Lower.CHUNK, Math.min(bound.size(), (c + 1) * Lower.CHUNK))) e.line("f" + i.id() + " = new Field(a.record(), a.offset() + " + i.offset() + ", " + Lower.attr(p, i, x) + ");");
-            if ((c + 1) * Lower.CHUNK < bound.size()) e.line("link" + k + "_" + (c + 1) + "(a);");
+            if ((c + 1) * Lower.CHUNK < bound.size()) e.line("bind" + record + "_" + (c + 1) + "(a);");
             e.close();
         }
     }

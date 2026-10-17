@@ -132,7 +132,16 @@ CBSTM03A stops before its first CALL at the PSA, z/OS storage (4.4).
 
 ### 4.4 The stub facade
 
-Check: none in the roadmap; written here before the item starts.
+Check: none in the roadmap; written here before the item starts. CREASTMT through the java lane end to end:
+STEP040's TIOT lines name the fixture's job, step and DDs, and its statements hold each transaction of
+their input once, each total its lines' sum (J-187).
+
+*Done (J-187):* LE's CEE3ABD was lowered in 4.1 (LANE-18); no CardDemo fixture's program calls an
+assembler routine (COBDATFT, MVSWAIT and CEEDAYS are called by programs no fixture runs), so the recorded
+stubs wait for a fixture that needs one (P-11). The z/OS storage facade (R-027, R-063, LANE-20): POINTER,
+SET ADDRESS OF and LENGTH OF lowered; `rt/Storage` from the step's facts. CREASTMT runs end to end in the
+java lane: 50 statements, 262 transactions, rc 0. The layouts are hypotheses until IBM's text or a z/OS
+run (HANDOFF, Trials).
 
 ### 4.5 The four jobs through both lanes
 

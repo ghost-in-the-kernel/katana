@@ -44,12 +44,56 @@ final class JavaRunner implements Runner {
         return program(dir, source);
     }
 
-    /** Every program of the source lowered, one class each, the first the one that runs; compiled against `rt/` alone. */
+    /** A source's lowering as compiled: its Java and class files by name, its `.class-name` text, and javac's result. */
+    private record Compiled(Map<String, byte[]> files, String names, Result result) {}
+
+    /**
+     * Each source compiled once a JVM, by its text and the copy members beside it: IC runs under NODYNAM and
+     * DYNAM, the same 47 sources, and parsing is most of a NIST run's time (J-188).
+     */
+    private static final Map<String, Compiled> COMPILED = new java.util.concurrent.ConcurrentHashMap<>();
+
+    /** Every program of the source lowered, one class each, the first the one that runs; compiled against `rt/` alone, once a JVM. */
     @Override
     public Result program(Path dir, String source) {
         try {
+            String key = key(dir, source);
+            Compiled done = COMPILED.get(key);
+            if (done == null) {
+                done = compile(dir, source);
+                COMPILED.put(key, done);
+            }
+            for (var f : done.files().entrySet()) Files.write(dir.resolve(f.getKey()), f.getValue());
+            if (!done.names().isEmpty()) Files.writeString(dir.resolve(stem(source) + ".class-name"), done.names());
+            return done.result();
+        } catch (java.io.IOException e) {
+            return new Result(1, "lowering: " + e);
+        }
+    }
+
+    /** A source's key: its text's hash and each copy member's beside it. */
+    private static String key(Path dir, String source) throws java.io.IOException {
+        java.security.MessageDigest sha;
+        try {
+            sha = java.security.MessageDigest.getInstance("SHA-256");
+        } catch (java.security.NoSuchAlgorithmException e) {
+            throw new IllegalStateException(e);
+        }
+        sha.update(Files.readAllBytes(dir.resolve(source)));
+        try (var list = Files.list(dir)) {
+            for (Path c : list.filter(f -> f.toString().endsWith(".CPY")).sorted().toList()) {
+                sha.update(c.getFileName().toString().getBytes(StandardCharsets.UTF_8));
+                sha.update(Files.readAllBytes(c));
+            }
+        }
+        return java.util.HexFormat.of().formatHex(sha.digest());
+    }
+
+    /** The source parsed, built, lowered and compiled in its folder; what it wrote, kept. */
+    private Compiled compile(Path dir, String source) {
+        try {
             Parse.Result parse = Parse.file(dir.resolve(source), new Copybooks(List.of(dir), n -> 8), 8);
-            if (!parse.clean()) return new Result(1, "does not parse: " + parse.errors().get(0));
+            if (!parse.clean()) return new Compiled(Map.of(), "", new Result(1, "does not parse: " + parse.errors().get(0)));
             List<String> sources = new ArrayList<>(), findings = new ArrayList<>();
             String first = null;
             for (Build.Result built : Build.programs(parse, "sha256:" + "0".repeat(64))) {
@@ -63,15 +107,25 @@ final class JavaRunner implements Runner {
                 findings.addAll(built.findings());
                 findings.addAll(lowered.findings());
             }
-            Files.writeString(dir.resolve(stem(source) + ".class-name"), first + "\n" + String.join("\n", findings));
+            String names = first + "\n" + String.join("\n", findings);
+            Path out = Files.createTempDirectory(dir, "javac");
             ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
             JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
-            List<String> options = new ArrayList<>(List.of("-classpath", rtClasses() + java.io.File.pathSeparator + dir, "-d", dir.toString()));
+            List<String> options = new ArrayList<>(List.of("-classpath", rtClasses(), "-d", out.toString()));
             options.addAll(sources);
             int status = javac.run(null, null, diagnostics, options.toArray(String[]::new));
-            return new Result(status, diagnostics.toString(StandardCharsets.UTF_8));
+            Map<String, byte[]> files = new java.util.TreeMap<>();
+            for (String java : sources) files.put(Path.of(java).getFileName().toString(), Files.readAllBytes(Path.of(java)));
+            try (var list = Files.list(out)) {
+                for (Path c : list.toList()) {
+                    files.put(c.getFileName().toString(), Files.readAllBytes(c));
+                    Files.delete(c);
+                }
+            }
+            Files.delete(out);
+            return new Compiled(files, names, new Result(status, diagnostics.toString(StandardCharsets.UTF_8)));
         } catch (Exception | StackOverflowError e) {
-            return new Result(1, "lowering: " + e + " at " + java.util.Arrays.stream(e.getStackTrace()).filter(t -> t.getClassName().startsWith("katana.")).limit(4).map(String::valueOf).collect(java.util.stream.Collectors.joining(" < ")));
+            return new Compiled(Map.of(), "", new Result(1, "lowering: " + e + " at " + java.util.Arrays.stream(e.getStackTrace()).filter(t -> t.getClassName().startsWith("katana.")).limit(4).map(String::valueOf).collect(java.util.stream.Collectors.joining(" < "))));
         }
     }
 

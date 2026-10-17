@@ -1468,3 +1468,21 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | sir | `sir/build/Names.java:Names.own` |  | 2026-10-16 |  |
 | lower | `lower/Verbs.java:Verbs.call` | moved in phase 4.3 (J-186) | 2026-10-16 | superseded-by: `lower/CallVerbs.java:CallVerbs.call` |
 | sir | `sir/types/Program.java:Program.globals` |  | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.linkage` |  | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.bind` | R-019 | 2026-10-16 |  |
+| lower | `lower/Verbs.java:Verbs.address` |  | 2026-10-16 |  |
+| lower | `lower/Verbs.java:Verbs.setAddress` | R-063 | 2026-10-16 |  |
+| oracle | `oracle/lane/Steps.java:Steps.tiot` | R-063 | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.storage` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/RunUnit.java:RunUnit.storage#2` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Storage.java:Storage.Storage` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Storage.java:Storage.of` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Storage.java:Storage.of#2` | R-063 | 2026-10-16 |  |
+| rt | `rt/katana/rt/Storage.java:Storage.add` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Storage.java:Storage.at` | R-063 | 2026-10-16 |  |
+| rt | `rt/katana/rt/Storage.java:Storage.addressOf` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Storage.java:Storage.pointer` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Storage.java:Storage.set` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Storage.java:Storage.word` |  | 2026-10-16 |  |
+| rt | `rt/katana/rt/Storage.java:Storage.text` |  | 2026-10-16 |  |
+| lower | `lower/Programs.java:Programs.link` | renamed in phase 4.4 (J-187) | 2026-10-16 | superseded-by: `lower/Programs.java:Programs.bind` |

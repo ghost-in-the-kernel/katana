@@ -529,8 +529,8 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   the question the program is asking. Programs that read control blocks are a real shape in the wild
   and worth a facade, not a workaround.
 - **Claims:** C-1 CBSTM03A's reads are PSA→TCB→TIOT only: `verified` (its lines 266–290, J-050).
-  C-2 `rt/` can answer them from the fixture: `hypothesis`; phase 3's CREASTMT end-to-end is the
-  trial.
+  C-2 `rt/` can answer them from the fixture: `verified` (CREASTMT end to end in the java lane, its
+  statements held to its input, J-187); the blocks' layouts it answers with are R-063's hypotheses.
 - **Held by:** the fixture's `stubs`; `oracle/lane` (abend as outcome, a finding naming R-027); `rt/` (phase 3).
 - **Source:** Opus's three options and lean (J-050); decided by Fable at the phase-1 boundary,
   2026-10-04, for the lean.
@@ -1158,6 +1158,27 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Status:** in force
 - **See also:** R-019, R-027, R-049
 - **subject:** lower
+
+### R-063: The java lane's z/OS storage is the blocks a program reads, laid out as it declares them
+- **Decision:** `rt/Storage` holds the step's PSA at address 0, a TCB and a TIOT, built from the lane's
+  `KATANA_TIOT` (the job, the step, each DD and whether it has a UCB); a POINTER is four bytes holding an
+  address big-endian, NULL zero, a POINTER without VALUE NULL; SET ADDRESS OF binds a LINKAGE record to
+  the storage at an address; an address no block holds ends the run. The layouts are what CBSTM03A
+  declares (the TCB at PSA+536 and +540, the TIOT at TCB+12, a 24-byte header, 20-byte entries, a zero
+  fullword at the end) and recollection, not IBM's text, which this container cannot reach.
+- **Why:** R-027 makes the java lane CREASTMT's oracle, and the program asks only for its job, step and
+  DDs; Ghost chose to build it as hypothesis rather than wait for the manuals (2026-10-16, "build it as
+  hypothesis"), each claim with its trial.
+- **Claims:** C-1 the PSA, TCB and TIOT offsets and the TIOT's entry layout are IBM's: `hypothesis`
+  (research §25 H1); C-2 the TIOT lists the step's DDs in JCL order, a device DD with a UCB and SYSOUT,
+  in-stream and DUMMY without: `hypothesis` (H2; the fixture leaves out the JCL's STEPLIB and any DD JES
+  adds); C-3 a POINTER without VALUE starts NULL on IBM: `hypothesis` (H3).
+- **Held by:** `rt/Storage`; `lower/Verbs.setAddress`, `lower/Programs.bind`; `oracle/lane/Steps.tiot`;
+  `StorageTest`, `StorageFacadeTest`, `CardDemoJavaLaneIntegrationTest` (CREASTMT).
+- **Source:** Opus, 2026-10-16, on Ghost's "build it as hypothesis" (phase 4.4).
+- **Status:** in force
+- **See also:** R-027, R-057, R-062
+- **subject:** facades
 
 ---
 
