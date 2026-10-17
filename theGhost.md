@@ -555,6 +555,24 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-007, R-004
 - **subject:** architecture
 
+
+### R-030: The proof ledger is append-only, each line chained to the one before
+- **Decision:** the proof ledger (`ledger/`) is lines only ever appended: each numbered, each carrying the
+  hash of the line before and the file's `end` line the hash of the last, so an edit, deletion, insertion or
+  reorder is refused from the file alone (LED-01); a mapping is never edited, only superseded by a later line
+  citing it. Every Java symbol of a build, as the lowering's manifest names it, has a live line, and a symbol
+  a pass removes has a line superseding its last (LED-04).
+- **Why:** provenance is the product (R-007): a ledger a later change can rewrite is evidence a later change
+  can destroy, the failure the kernel map exists to stop in Katana's own code (docs/ROADMAP.md 3.2, phase 5).
+  The chain holds no secret, so it stops an edit by hand or by mistake; a deliberate rewrite of every hash
+  is caught against an earlier copy (`Ledger.appendedTo`, the repository's history).
+- **Held by:** `ledger/Ledger`, `ledger/Entry`; `LedgerTest`; `LiteralLedgerIntegrationTest`; docs/LEDGER.md.
+- **Source:** Ghost and Reviewer G, 2026-10-04 (reserved in the roadmap); recorded by Opus, 2026-10-17, at
+  phase 5.4, on Ghost's "go ahead with 5.4".
+- **Status:** in force
+- **See also:** R-007, R-029, R-024
+- **subject:** architecture
+
 ### R-037: Patent protection is intended; nothing public before a provisional is filed
 - **Decision:** Ghost intends to seek patent protection. Candidate claims: per-pass translation
   validation for legacy migration with an append-only provenance ledger; the double-run determinism
@@ -1220,8 +1238,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
-the attribute tuple; R-028 coverage in every proof; R-030 ledger
-append-only; R-031 models propose intent only, later, never v1; R-032 passes apply only when
+the attribute tuple; R-028 coverage in every proof; R-031 models propose intent only, later, never v1; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual
 dispatcher is acceptable output; R-035 the refactoring-distance report; R-036 the Hercules lane's
 legal status.

@@ -132,6 +132,7 @@ final class Flow {
     private void open(int label) {
         labels.add(label);
         e.open("private int s" + label + "()");
+        e.symbol("s" + label, "paragraph " + at);
         if (segmented) e.line(label == at ? "d.enter(" + at + ");" : "d.resume(" + at + ");");
         if (label == at && current != null) {
             debugging.entry(e, current);

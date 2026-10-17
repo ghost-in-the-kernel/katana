@@ -15,8 +15,15 @@ import katana.sir.types.Program;
 public final class Lower {
     private Lower() {}
 
-    /** The Java source of a class `className`, and what could not be lowered. */
-    public record Result(String java, List<String> findings, int statements) {}
+    /** The Java source of a class `className`, what could not be lowered, and the manifest of the symbols it declares (research §31). */
+    public record Result(String java, List<String> findings, int statements, List<Symbol> symbols) {}
+
+    /**
+     * One symbol the Java declares that stands on a COBOL node: a class on `program NAME`, a field `f<id>` or
+     * record `r<id>` on `item <id>`, a stretch method `s<label>` on `paragraph <index>`. The machinery a class
+     * holds besides (its constructor, `run`, `step`, `main`) stands on the class.
+     */
+    public record Symbol(String name, String node) {}
 
     /** Items are set up in methods of this many, so no method passes the JVM's size limit. */
     static final int CHUNK = 150;
@@ -35,7 +42,7 @@ public final class Lower {
         e.line("import katana.rt.Record;");
         e.line("import java.util.List;");
         program(e, p, className, List.of(), findings);
-        return new Result(e.text(), findings, e.statements());
+        return new Result(e.text(), findings, e.statements(), e.symbols());
     }
 
     /**
@@ -47,6 +54,8 @@ public final class Lower {
         Exprs x = new Exprs(p, findings);
         boolean top = containers.isEmpty();
         e.open((top ? "public final class " : "static final class ") + className + " implements Subprogram");
+        e.enter(className);
+        e.symbol("", "program " + p.header().program());
         e.line("private final RunUnit u;");
         if (!top) e.line("private final " + Lower.className(containers.get(containers.size() - 1)) + " up;");
         e.line("private boolean called;");
@@ -93,6 +102,7 @@ public final class Lower {
         List<Program> inside = new ArrayList<>(containers);
         inside.add(p);
         for (Program n : p.nested()) program(e, n, Lower.className(n), inside, findings);
+        e.leave();
         e.close();
     }
 
@@ -155,8 +165,12 @@ public final class Lower {
 
     private static void declareItems(Emitter e, Program p) {
         for (Item i : p.items()) {
-            if (i.record() == i.id()) e.line("private Record r" + i.id() + ";");
+            if (i.record() == i.id()) {
+                e.line("private Record r" + i.id() + ";");
+                e.symbol("r" + i.id(), "item " + i.id());
+            }
             e.line("private Field f" + i.id() + "; // " + i.name());
+            e.symbol("f" + i.id(), "item " + i.id());
         }
     }
 

@@ -148,7 +148,14 @@ same, a rename orphans its one line and reports it; a refuted fact returns only 
 ### 5.4 `ledger/`
 
 Check: `ledger.test` refuses an edit to an existing line; every Java symbol in a build has at least
-one line; a symbol removed by a pass has a `superseded-by`.
+one line; a symbol removed by a pass has a `superseded-by`. The Java symbols are those the lowering's manifest names
+(research §31); the trial is the four proven jobs' programs.
+
+*Done (J-197):* `ledger/` (R-030, docs/LEDGER.md, LED-01 to LED-04): lines chained by hash and an `end` line,
+an edit, deletion, insertion or reorder refused (`LedgerTest`); the lowering's manifest of the symbols it
+writes (`ManifestTest`); the proven jobs' five programs each a literal ledger covering every symbol, a
+removal refused until superseded (`LiteralLedgerIntegrationTest`); the provenance map and the report's
+ledger section written from the live lines.
 
 ### 5.5 Tithe pass 5
 
