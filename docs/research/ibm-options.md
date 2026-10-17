@@ -1545,3 +1545,34 @@ inferred afresh, the other three words kept. A refuted enum stays refuted under 
 inferred under a v2, the refutation beside it. The first rival arose only where foreseen: an enum on a FILLER
 has no name, and the merge says so rather than write a line no person could edit; condition-names need no
 qualification. Nothing else surprised.
+
+## 31. The proof ledger: append-only lines over the Java a build makes (phase 5.4; no IBM text)
+
+What 5.4 asks (docs/ROADMAP.md 3.2 and phase 5): the append-only store; the line schema (pass, fact, oracle
+run, Java symbol, COBOL node, profile hash, time, supersedes); the provenance map writer, per Java method and
+field what it stands on; the report writer. Its check: the ledger refuses an edit to an existing line; every
+Java symbol in a build has at least one line; a symbol removed by a pass has a `superseded-by`. R-030, the
+ledger append-only, is recorded here.
+
+The design. `ledger/` may not read `lower/` (modules.json), so the lowering says what it wrote: a manifest,
+each Java symbol it emitted that stands on a COBOL node, the class on its program, a field `f<id>` and a
+record `r<id>` on their item, a stretch method `s<label>` on the paragraph it runs; the machinery (the
+constructor, `run`, `step`, `main`) stands on its class's line. A build's literal lines are one a symbol,
+pass `literal`, no fact, the oracle run that proved the Java (a proof report and its hash) or `-` where
+none has, under the profile hash. A line is `seq | prev | pass | fact | state | run | symbol | node | profile
+| time | supersedes`; `prev` is the hash of the line before, so an edit, a deletion, an insertion or a
+reorder anywhere breaks the chain from there on and is refused by reading the file alone, without its
+earlier copy. A pass's line that replaces a symbol supersedes the line it stands in for; a symbol is live
+while its last line is not superseded. Against a build: every symbol of the manifest has a live line, and
+every live line's symbol is in the build, so a symbol a pass removed without a superseding line is refused.
+A pass acting on a fact writes the fact's id and whether a person confirmed it (R-029); a refuted fact
+cannot appear.
+
+Predicted, before the build. For the programs of the four proven jobs, the manifest names every `f`, `r` and
+`s` member the Java text declares and nothing else, nested programs as `Outer.Inner`; each build's literal
+ledger covers its manifest; changing one character of any line, deleting, inserting or swapping lines is
+refused at that line; a pass simulated on CBTRN02C that removes a field is refused until a line supersedes
+it, and accepted after; the provenance map names, for every symbol, the COBOL node and the run it stands
+on. The rivals: a stretch label that is not a paragraph's own start (a continuation the dispatcher needs
+inside a paragraph), whose node is the paragraph it continues; and a symbol the Java declares that no
+COBOL node stands on, which belongs to its class's line, not a line of its own.
