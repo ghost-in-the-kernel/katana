@@ -80,6 +80,16 @@ class Cbtrn02cIntentIntegrationTest {
         return facts;
     }
 
+    /** INT-08's failing case: TWO-BYTES-ALPHA reads TWO-BYTES-BINARY's bytes with no tag, a view, not a union. */
+    @Test
+    void cbtrn02cUntaggedRedefinesIsNoTaggedUnion() throws Exception {
+        Program p = program();
+        int binary = item(p, "TWO-BYTES-BINARY"), alpha = item(p, "TWO-BYTES-ALPHA");
+        assertEquals(binary, p.items().get(alpha - 1).redefines());
+        Invalid e = assertThrows(Invalid.class, () -> new Subject.Union(binary, List.of(alpha), 0));
+        assertEquals(true, e.getMessage().startsWith("INT-08: "), e.getMessage());
+    }
+
     @Test
     void cbtrn02cFactsAreAcceptedAgainstItsIrAndRefusedWithANodeMoved() throws Exception {
         Program p = program();
@@ -90,7 +100,7 @@ class Cbtrn02cIntentIntegrationTest {
         int result = item(p, "APPL-RESULT"), binary = item(p, "TWO-BYTES-BINARY");
         for (Fact moved : List.of(fact(Kind.ENUM, new Subject.Choice(result, List.of("APPL-AOK", "APPL-OK")), new Node.ItemNode(result)),
                 fact(Kind.MONEY, new Subject.Datum(p.items().size() + 1), new Node.ItemNode(result)),
-                fact(Kind.TAGGED_UNION, new Subject.Union(binary, List.of(result), 0), new Node.ItemNode(binary)),
+                fact(Kind.TAGGED_UNION, new Subject.Union(binary, List.of(result), item(p, "TIMING")), new Node.ItemNode(binary)),
                 fact(Kind.FUNCTION, new Subject.Range(0, p.procedure().paragraphs().size()), new Node.ParagraphNode(0)))) {
             List<Fact> with = new ArrayList<>(facts);
             with.add(moved);

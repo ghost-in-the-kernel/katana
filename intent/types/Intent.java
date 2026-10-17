@@ -61,7 +61,7 @@ public record Intent(String program, String profileHash, List<Fact> facts) {
     private static void alternatives(Program p, Subject.Union u, List<String> wrong) {
         if (item(p, u.item()) == null) wrong.add("item " + u.item());
         for (int a : u.alternatives()) if (item(p, a) == null || item(p, a).redefines() != u.item()) wrong.add("alternative " + a + " of item " + u.item());
-        if (u.tag() != 0 && item(p, u.tag()) == null) wrong.add("tag " + u.tag());
+        if (item(p, u.tag()) == null) wrong.add("tag " + u.tag());
     }
 
     private static boolean node(Program p, Node n) {

@@ -38,7 +38,7 @@ recorded time past it. The cold fast loop and the skipped tests are reported, no
 | Mandatory context (words) | < 1,500 | 804 | every task pays it | 804 | 804 | 795 | 872 | 636 |
 | Fast loop (s) | ≤ 25 (20 from tithe pass 3's close; held, R-054 amended) | 15 (warm, in the pre-push container at cf630c6; 17 by `gradle metrics`) | the agent runs it after every edit | 17 | 14 | 11 | 9 | 12 |
 | Fast loop, cold (s) | < 30 | 31 (reported, not held: R-054) | a fresh session pays it once | 26 | 22 | 20 | 24 | — |
-| Pre-push check, every suite (min) | ≤ 15 (held; "under 3" retired; 12 corrected to 15, R-054 amended) | 8.2 (491 s at cf630c6, all eight suites; J-189's lexer fix the most of the cut) | paid before every push while CI has no minutes (R-050) | 10.5 | 3.5 | 3.4 | — | — |
+| Pre-push check, every suite (min) | ≤ 10 (held; ratcheted from 15 on 2026-10-17, 8.2 measured, R-054; "under 3" retired; 12 corrected to 15, R-054 amended) | 8.2 (491 s at cf630c6, all eight suites; J-189's lexer fix the most of the cut) | paid before every push while CI has no minutes (R-050) | 10.5 | 3.5 | 3.4 | — | — |
 | Pre-push check, the suites a push selects (min) | ≤ 10 (held, R-054 amended) | 8.2 at most (every suite, above, is the most a push can select) | what each push waits | 5.7 | — | — | — | — |
 | Largest source file (lines) | < 400 | 360 (lower/Verbs.java; lower/FileVerbs split at 399 into FileDecls, 4.7) | fits a read without paging | 327 | 258 | 344 | 241 | 179 |
 | Files a routing row opens | ≤ 5 | 4 | first five reads decide the task | 4 | 4 | 4 | 4 | 4 |
