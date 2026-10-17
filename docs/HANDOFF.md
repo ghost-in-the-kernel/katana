@@ -2,10 +2,31 @@
 
 ## What to work on next
 
-`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phases 0, 1 and 2 are
-done (1.5 with one part of its check deferred, below; 2.2 deferred to 7.2, R-015), and tithe pass 2
-with them (J-091). Phase 3 starts after the boundary: Fable answers "For Fable" and Ghost "For Ghost"
-below; 3.1's first step is the autotest fetch TODO names.
+`TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phases 0 to 2 are done
+(2.2 deferred to 7.2, R-015); phase 3's items stand open in `TODO.md` with what each has built, NIST
+through the java lane held by floors that only rise; phase 4 is done (4.1 to 4.6, J-172 to J-191) and its
+tithe with it (4.7, J-192). Phase 5 (the Intent IR and the proof ledger) starts after the boundary:
+Fable answers "For Fable: the phase-4 boundary" below.
+
+## For Fable: the phase-4 boundary (R-053; the default taken is named)
+
+- **Phase 3's items are open while phase 4 is done.** 3.1 to 3.7 each say what they built (the autotests
+  by hand, the dispatcher, the lowering, NIST module by module by floors), but none meets its check as
+  written, and 3.5 and 3.6 have no check. Phase 4 was worked on Ghost's word, step by step. Default
+  taken: phase 3's items stay open in `TODO.md`, and 5.1 is not started until you say whether phase 3
+  closes first (its checks written for 3.5 to 3.7) or carries on beside phase 5.
+- **IBM's NODYNAM and cobc's (D-033, R-062 C-1).** The profile's `ibm.dynam NODYNAM` keeps a static copy
+  for CALL literal and a dynamic one for CALL identifier, so IC 4 programs differ from cobc; a
+  hypothesis until IC201A runs under Enterprise COBOL (Trials). Default taken: NODYNAM, as IBM's text reads.
+- **The z/OS storage facade's layouts (R-063 C-1 to C-3).** The PSA, TCB and TIOT offsets, which DDs the
+  TIOT lists, and a POINTER's starting NULL are from recollection of IBM's macros, not read; CREASTMT's
+  STEP040 is held to the java lane's own golden. Default taken: kept as hypothesis; the proof report says
+  CREASTMT's statements are not compared (R-027).
+- **The selected-suites ceiling (For Opus, J-186): closed by measurement.** Every suite now runs in 8.2 min
+  (491 s at cf630c6, after J-189's lexer fix), under the 10 a selected push is held to, so no push can
+  select past it. No ceiling raised; the 15-min `--all` ceiling could ratchet to 10 (yours to say).
+- **The cold fast loop is 31 s against "under 30"** (reported, not held, R-054); 26 at pass 3a. The warm
+  loop the gate holds is 15. Default taken: recorded, not raised.
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
@@ -593,6 +614,7 @@ R-015)
 (tithe pass 2a done, J-071 to J-073; tithe pass 2 done, J-076 to J-091; next: the boundary, then 3.1)
 
 - **The selected-suites ceiling and a push that selects every heavy suite (J-186), for the next tithe.**
+  (Done at tithe pass 4, J-192: every suite is 8.2 min, under the selected ceiling.)
   A change to the IR, the profile and the Java lane selects sir, nist, javalane, lane, fixture and rt,
   not front or autotest, and is held to 10 min, where the same work with all eight is held to 15: IC's
   selected run took 13.5 min, the corpus pass alone 618 s on shared cores. Pushed with `--all` on Ghost's

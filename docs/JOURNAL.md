@@ -2942,3 +2942,7 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `lower/FileDecls.java`, `FileVerbs.java`, `Lower.java`, `Programs.java`, `SortVerbs.java`,
   `Verbs.java`; `oracle/lane/JavaPrograms.java`; `sir/contract/Contract.java`;
   `test/katana/oracle/lane/ProofV1IntegrationTest.java`; `docs/KERNEL-MAP.md`, `TODO.md`, `docs/DONE.md`.
+- **Measured:** the pre-push check over every suite passed in 491 s (8.2 min, 10.5 at pass 3a), under the
+  10-min ceiling a selected push is held to, which closes J-186's gap; warm fast loop 15 s, cold 31 (over
+  its unheld 30). `docs/AGENT.md` gains pass 4's column; HANDOFF names the phase-4 boundary's questions
+  for Fable, each with its default (phase 3's open items, D-033, R-063, the ceilings).
