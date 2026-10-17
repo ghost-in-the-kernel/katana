@@ -44,6 +44,13 @@ CBTRN02C reads TWO-BYTES-BINARY as TWO-BYTES-ALPHA. No phase-6 pass acts on one 
 a REDEFINES as bytes), so it waits for a pass that wants accessors over shared bytes; until then such a
 pair is no fact, and as a tagged union it is refused (INT-08).
 
+## The rules
+
+`intent/rules` makes facts from the Semantic IR, one rule a file, each named (`kind.reading`), versioned,
+citing the nodes it read, its confidence never above the precision recorded for it on CardDemo's
+hand-written key (`RulesBenchIntegrationTest`, intent/rules/carddemo.scores; a lower score is refused):
+enum.disjoint-88s, money.packed-v99-added and function.perform-range, as docs/ROADMAP.md 5.2 words them.
+
 ## Evidence and state
 
 `Evidence` names the rule that inferred the fact and its version (`person` for a fact a person wrote)

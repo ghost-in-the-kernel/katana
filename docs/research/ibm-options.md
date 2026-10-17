@@ -1459,3 +1459,49 @@ TWO-BYTES-BINARY and TWO-BYTES-ALPHA, since the one REDEFINES the other, though 
 bytes with no tag. The types hold a claim's shape, not its truth; a person refutes such a fact (R-029), and
 whether a view is a kind of its own goes to Fable (HANDOFF). On the way: the IR's paragraph 0 is the
 procedure's unnamed start, so a program's first named paragraph is 1.
+
+## 29. The first inference rules, measured against a hand-written key (phase 5.2; no IBM text)
+
+What 5.2 asks (docs/ROADMAP.md, phase 5): one file per rule, named, with its evidence and its precision
+measured on the corpus against a hand-written key, a rule that lowers the recorded score refused. The first
+three, as the roadmap words them: 88-levels with disjoint values are an enum; `V99 COMP-3` written by ADD or
+SUBTRACT and never multiplied by itself is money; a PERFORM range entered only by PERFORM, leaving only at
+its end, no ALTER target and not recursive, is a function, checked on the paragraph graph.
+
+The key (`test/katana/intent/carddemo.key`) is CardDemo read by hand before any rule exists: its scope and
+its judgments are written at its head. Enum: 200 items carry two or more condition-names; 118 are enums, 69
+are flags in an enum's clothing (Y/N, 0/1, valid/invalid), 13 are neither (message texts, a day or a month
+with named ranges). Money: 109 numeric items of scale 2, all money but one rate; 8 are COMP-3, and none of
+those 8 is written by anything but MOVE (CBEXPORT and CBIMPORT's export records). Function: 175 PERFORM
+ranges in the batch programs, every one a function by reading; the online programs' ranges are out of scope
+until the CICS facade, since their main lines end in EXEC CICS RETURN, which the IR does not read.
+
+The rules, version 1, as the roadmap words them, each its own file in `intent/rules`. Precision is the share
+of a rule's facts in its scope that the key holds; recall the share of the key the rule finds. A rule's
+confidence is never more than its recorded precision.
+
+Predicted, before the rules. Enum: every multi-88 item but the few whose values overlap (ACUP- and
+CCUP-CHANGE-ACTION, WS-EDIT-SELECT, the day and month numbers), so about 195 facts, about 115 true: precision
+near 0.6, recall near 0.97; its errors are the flags, which disjointness cannot tell from an enum. Money: no
+fact at all on CardDemo, so no precision and recall 0: CardDemo's money is DISPLAY, and its COMP-3 amounts
+are only MOVEd. Function: all 175 batch ranges, precision and recall 1. The rivals: a range refused because
+the IR's unnamed paragraph 0 or a main line ending in GOBACK reads as falling into it; CBSTM03A's ALTERed
+GO TOs and CBSTM03B's GO TOs to their exits read as leaving a range. If money finds nothing, the finding is
+the roadmap's evidence requirement, not the rule: COMP-3 is IBM's packed decimal, and CardDemo's amounts are
+zoned; whether money's next version drops COMP-3 goes to Fable.
+
+Result (J-195): as predicted for function and money, near it for enum, and the key itself corrected twice
+by the first run. Enum: 187 facts, 110 true of 113, precision 0.588, recall 0.973; its 77 errors are 69
+flags and 8 message or number fields, its misses the three items whose condition values overlap. Money: one
+fact, CBSTM03A's WS-TOTAL-AMT, a COMP-3 statement total its program ADDs to, and true: precision 1.000,
+recall 0.009 (1 of 116): CardDemo's money is zoned. Function: 175 of 175 once the rule read a paragraph's
+end as a person does; its first run refused six, the rivals foreseen: CBSTM03A's 8599-EXIT ends
+`GO TO 0000-START. EXIT.`, whose last statement falls though nothing reaches it, and CSUTLDTC's EXIT PROGRAM,
+which the IR names `EXIT` with PROGRAM as its operand, so a reading of the verb alone never matched it (nor
+does `Contract.falls`'s; EXIT PROGRAM in a program no CALL reached is passed over, so the contract's
+reading is IBM's there by accident). The key: CBSTM03A was absent (the survey that listed the candidates
+read CUSTREC.cpy at 8 columns and failed), and three items with one condition-name were counted as two;
+both corrected, CBSTM03A's eight money items and WS-M03B-OPER judged by the key's written rules, and
+WS-US-PHONE-AREA-CODE-TO-EDIT, which had entered the key unread, judged after the run (a code checked
+against lists of valid ones, not an enum). The bench is held to these scores; what comes next for enum
+(flags) and money (zoned amounts) goes to Fable.

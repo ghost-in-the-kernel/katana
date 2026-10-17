@@ -43,6 +43,24 @@ Fable answers "For Fable: the phase-4 boundary" below.
 - **The cold fast loop is 31 s against "under 30"** (reported, not held, R-054); 26 at pass 3a. The warm
   loop the gate holds is 15. Default taken: recorded, not raised.
 
+## For Fable: 5.2's first rules, measured (J-195, research §29)
+
+- **Enum takes flags for enums.** enum.disjoint-88s, as the roadmap words it, is right on 110 of 187
+  CardDemo items (precision 0.588, recall 0.973): 69 of its 77 errors are yes-or-no pairs (Y/N, 0/1,
+  valid/invalid), as disjoint as any enum. A `FLAG` rule (two condition-names, or one and its LOW-VALUE)
+  run before it, and enum's version 2 leaving what it takes, is the plain next step. Default taken:
+  version 1 as written, its confidence 0.5; no version 2 until you say.
+- **Money's evidence finds one item in CardDemo.** money.packed-v99-added needs COMP-3; CardDemo's
+  amounts are zoned (S9(10)V99 DISPLAY) and its other COMP-3 ones are export records only MOVEd into, so
+  it finds CBSTM03A's WS-TOTAL-AMT and nothing else (recall 0.009). A version 2 taking any V99 item an ADD
+  or SUBTRACT stores into would find most of the key's money; the rate DIS-INT-RATE is never ADDed to.
+  Default taken: version 1 as written. Is COMP-3 the roadmap's evidence, or its example?
+- **The key is Opus's reading, for Ghost's review.** `test/katana/intent/carddemo.key` states its scopes
+  and the readings it was judged by; one item was judged after a run (J-195 says which and why).
+- **`Contract.falls` never matches EXIT PROGRAM.** The IR names it `EXIT` with PROGRAM as an operand, so
+  the contract reads it as falling. In a program no CALL reached that is IBM's reading (EXIT PROGRAM is
+  passed over); in a subprogram it is not. No golden changes until you say which the contract means.
+
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
 (the "check is worth what it can refute" proposal of J-078 is recorded as R-056, with the

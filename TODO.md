@@ -120,7 +120,17 @@ node moved (`Cbtrn02cIntentIntegrationTest`). R-029 recorded.
 
 ### 5.2 `intent/rules`
 
-Check: none in the roadmap; written here before the item starts.
+Check: none in the roadmap; written here before the item starts. The roadmap's first three rules (enum,
+money, function), one file each, their precision and recall on CardDemo against the hand-written key
+(`test/katana/intent/carddemo.key`), recorded and held by a test that refuses a lower score; each rule's
+facts accepted against its program's IR (INT-07) and its confidence no more than its recorded precision
+(research §29).
+
+*Done (J-195):* `intent/rules`: enum.disjoint-88s (precision 0.588, recall 0.973), money.packed-v99-added
+(1.000 on its one fact, recall 0.009: CardDemo's money is zoned), function.perform-range (1.000, 1.000 on
+the batch programs' 175 ranges), held by `RulesBenchIntegrationTest` against `test/katana/intent/carddemo.key`
+in intent/rules/carddemo.scores; `RulesTest` keeps and breaks each condition. Each rule's next version waits
+on Fable (HANDOFF).
 
 ### 5.3 The review file
 
