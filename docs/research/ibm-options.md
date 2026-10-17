@@ -1359,3 +1359,20 @@ input: 50 statements, one for each card of the cross-reference file, listing all
 sorted file once each, and every Total EXP the sum of its lines. None of the rivals appeared: the ALTERed GO
 TOs, CBSTM03B's file access by the DD name it is passed (through LANE-19's CALL) and the 51-by-10 table ran
 as written. The blocks' layouts remain R-063's hypotheses.
+
+## 26. The four jobs through both lanes (phase 4.5; no new IBM text)
+
+4.5's check: POSTTRAN, TRANREPT, INTCALC and CREASTMT produce the same datasets on logical unload, SYSOUT
+and return codes as the phase-1 goldens, the java lane consuming the same `DD_*` fixture with no
+per-program adaptation. No IBM text is new here; what governs is R-027 (CREASTMT's STEP040 is outside the
+cobc lane, its oracle the java lane), R-061 (the data's signs) and D-005 (DISPLAY's sign form).
+
+Predicted, before the run. The java lane's setup today lowers each program by name, CBSTM03A and CBSTM03B
+at CREASTMT's tab widths and the others at POSTTRAN's: a per-program adaptation. Lowering each job's
+programs from its own fixture (its steps' PGMs and its modules, at its `tabs` widths) changes no line of
+any job's report. POSTTRAN, TRANREPT and INTCALC (with TRANREPT-STUDY and the three other jobs) report what
+the cobc golden holds, D-005's stdout lines aside, as they do since J-183. CREASTMT matches the golden
+through STEP030; from STEP040 its golden is the java lane's own run, recorded beside the cobc golden
+(`oracle/lane/carddemo-java.golden`), held to its input by `Statements` (J-187): what the golden catches is
+change, what `Statements` catches is error. The rival: a job whose fixture names a program another job's
+fixture compiles at other tab widths, which only CREASTMT's CUSTREC.cpy has.
