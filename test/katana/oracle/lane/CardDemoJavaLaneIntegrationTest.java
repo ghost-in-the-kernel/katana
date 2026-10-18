@@ -98,7 +98,9 @@ class CardDemoJavaLaneIntegrationTest {
     }
 
     static CobcLane.Setup setup(Path dir, Map<String, List<String>> java) {
-        LaneRuns cobc = new LaneRuns("carddemo-java-sources");
+        // The cobc runs a job's `job:` sources come from, in folders of the caller's own: ProofV1 and this class share
+        // this setup, and run at once they removed each other's folders (J-206).
+        LaneRuns cobc = new LaneRuns("carddemo-java-sources-" + dir.getParent().getFileName());
         return new CobcLane.Setup(ROOT, Map.of("carddemo", CARDDEMO, "repo", ROOT), CARDDEMO.resolve("app/cbl"), List.of(CARDDEMO.resolve("app/cpy")),
                 dir, ROOT.resolve("build/lane-cache"), Duration.ofSeconds(60), (j, d) -> cobcUnload(cobc, j, d), null, java);
     }

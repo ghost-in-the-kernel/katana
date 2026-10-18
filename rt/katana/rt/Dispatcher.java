@@ -40,6 +40,7 @@ public final class Dispatcher {
         }
         ends[depth] = lastParagraph;
         backs[depth++] = back;
+        if (PerformTrace.ON) PerformTrace.perform(first, lastParagraph);
         return first;
     }
 
@@ -48,16 +49,19 @@ public final class Dispatcher {
     public int end(int paragraph, int next) {
         for (int i = depth - 1; i >= 0; i--) {
             if (ends[i] == paragraph) {
+                if (PerformTrace.ON) PerformTrace.returned(paragraph, depth - 1 - i);
                 depth = i;
                 return backs[i];
             }
         }
+        if (PerformTrace.ON) PerformTrace.fell(paragraph, next);
         return next;
     }
 
     /** EXIT PROGRAM or GOBACK back to the caller: "the ends of the ranges of all executed PERFORM statements are considered to have been reached" (LR 6.4 p. 343). */
     // Decision: R-021
     public void exited() {
+        if (PerformTrace.ON) PerformTrace.exited(depth);
         depth = 0;
     }
 

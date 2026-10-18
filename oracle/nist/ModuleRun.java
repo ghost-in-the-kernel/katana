@@ -67,6 +67,12 @@ public final class ModuleRun {
      */
     public static List<Outcome> run(String module, List<Population.Member> extracted, RunNotes notes, Map<String, String> switches,
                                     Path dir, Runner runner) {
+        return run(module, extracted, notes, switches, dir, runner, 0, Integer.MAX_VALUE);
+    }
+
+    /** The same for the module's main programs `from` to `to` (exclusive) in order: a part of a module whose programs share no file (J-206). */
+    public static List<Outcome> run(String module, List<Population.Member> extracted, RunNotes notes, Map<String, String> switches,
+                                    Path dir, Runner runner, int from, int to) {
         try {
             Files.createDirectories(dir);
             Map<String, Population.Member> data = new HashMap<>();
@@ -75,9 +81,11 @@ public final class ModuleRun {
                 if (member.kind().equals("DATA*")) data.put(member.name(), member);
             }
             List<Outcome> outcomes = new ArrayList<>();
+            int at = 0;
             for (Population.Member main : extracted) {
                 if (!main.kind().equals("COBOL") || !main.name().equals(main.owner()) || !module(main).equals(module)) continue;
-                outcomes.addAll(runMain(main, extracted, data, notes, switches, dir, runner));
+                if (at >= from && at < to) outcomes.addAll(runMain(main, extracted, data, notes, switches, dir, runner));
+                at++;
             }
             return outcomes;
         } catch (IOException e) {

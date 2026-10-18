@@ -1645,3 +1645,13 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | intent | `intent/rules/MoneyRule.java:MoneyRule.edited` |  | 2026-10-18 |  |
 | intent | `intent/review/Review.java:Review.sections` |  | 2026-10-18 |  |
 | sir | `sir/contract/Contract.java:Contract.leaves` |  | 2026-10-18 |  |
+| rt | `rt/katana/rt/PerformTrace.java:PerformTrace.PerformTrace` |  | 2026-10-18 |  |
+| rt | `rt/katana/rt/PerformTrace.java:PerformTrace.entered` |  | 2026-10-18 |  |
+| rt | `rt/katana/rt/PerformTrace.java:PerformTrace.perform` |  | 2026-10-18 |  |
+| rt | `rt/katana/rt/PerformTrace.java:PerformTrace.returned` |  | 2026-10-18 |  |
+| rt | `rt/katana/rt/PerformTrace.java:PerformTrace.fell` |  | 2026-10-18 |  |
+| rt | `rt/katana/rt/PerformTrace.java:PerformTrace.exited` |  | 2026-10-18 |  |
+| rt | `rt/katana/rt/PerformTrace.java:PerformTrace.caller` |  | 2026-10-18 |  |
+| rt | `rt/katana/rt/PerformTrace.java:PerformTrace.program` |  | 2026-10-18 |  |
+| rt | `rt/katana/rt/PerformTrace.java:PerformTrace.line` |  | 2026-10-18 |  |
+| oracle | `oracle/nist/ModuleRun.java:ModuleRun.run#2` |  | 2026-10-18 |  |

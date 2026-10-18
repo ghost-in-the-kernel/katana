@@ -1653,25 +1653,25 @@ The catalogue:
   rule on CBSTM03A's last five paragraphs, and the contract was wrong: `Contract.falls` read 8599-EXIT's
   dead `EXIT.` after `GO TO 0000-START.` as a fall into 9100-TRNXFILE-CLOSE. Fixed (J-204): no top-level
   statement after an unconditional GO TO, STOP RUN or GOBACK is reached.
-- **T-F2 FunctionRangeXrefIntegrationTest** (named, not yet built): the same three conditions read on
+- **T-F2 FunctionRangeXrefIntegrationTest** (built, J-205; with `FunctionRangeXrefTest` on a listing written by hand): the same three conditions read on
   cobc's cross-reference listing, a second parser of the source, with a count-equality guard so it cannot
   pass on nothing.
-- **T-F3 PerformReturnTraceIntegrationTest** (named, not yet built; needs `rt/Dispatcher` to trace PERFORM,
-  return and fall, a change to rt/ not yet decided): on the fixtures' runs, every entry to a range by
+- **T-F3 PerformTracesTest** (built, J-205, as `PerformTraces`, held by ProofV1IntegrationTest over its runs;
+  `rt/PerformTrace` traces PERFORM, return and fall to a file of its own): on the fixtures' runs, every entry to a range by
   PERFORM, every exit a return. Evidence on the fixtures' data only.
 - **D-F1** (a document to find): IBM's Language Environment reference for CEE3ABD, that it ends the
   enclave and does not return; for the 12 abend paragraphs.
-- **T-E1 EnumValuesStoredTest** (named, not yet built): the values the program stores into an enum item
+- **T-E1 EnumValuesStoredTest** (built, J-205): the values the program stores into an enum item
   are among its condition-names' values (APPL-RESULT's 8 and 12 are not; the evidence line now says so).
-- **T-E2 EnumIsReadTest** (named, not yet built): some condition-name of the item is tested, in the program
+- **T-E2 EnumIsReadTest** (built, J-205): some condition-name of the item is tested, in the program
   or in the program it is handed to by CALL (HTML-FIXED-LN's never are).
-- **T-E3** (named, not yet built): a run with an input absent, where a file-status item takes a value no
+- **T-E3 FileStatusAbsentIntegrationTest** (built, J-205, on STATUS35 in both lanes): a run with an input absent, where a file-status item takes a value no
   condition-name names ('35').
 - **D-E1** (a document to find): the file status table (IBM's Language Reference, "Status key").
 - **D-E2** (a document to find): IBM's CEEDAYS feedback codes, for FEEDBACK-TOKEN-VALUE.
-- **T-M1 MoneyFlowTest** (named, not yet built): every item a money item is added with, moved to or from,
+- **T-M1 MoneyFlowTest** (built, J-205): every item a money item is added with, moved to or from,
   or compared with is a two-place number or an edited field; a rate only by multiplication.
-- **T-M2 MoneyEditedElsewhereTest** (named, not yet built): a copybook money item is printed or shown, by
+- **T-M2 MoneyEditedElsewhereTest** (built, J-205): a copybook money item is printed or shown, by
   some program of CardDemo, through a currency- or comma-edited field.
 - **D-M1** (a document to make): the values each money item holds in the fixtures' data, decoded under its
   copybook.
@@ -1684,3 +1684,45 @@ never reached (8100-TRNXFILE-OPEN, 8200-XREFFILE-OPEN, 8300-CUSTFILE-OPEN, 8400-
 NIST's rise by 5, each a paragraph ending in GO TO ... DEPENDING ON, which falls through when its index is
 out of range (DB201A twice, NC102A twice, IC115A), and which the old reading took for a GO TO that always
 leaves. No golden program's contract changed.
+
+## 34. The remaining review tests, built (R-066; J-205)
+
+Section 33's catalogue named seven tests not yet built: T-F2, T-F3, T-E1, T-E2, T-E3, T-M1 and T-M2. Each is
+built as a check with its killer mutation on programs small enough to read, and, where it reads the review
+file's facts, a verdict per fact that the fact's `tests:` line shows and the doc test holds to what the check
+computes now. T-F3 needs the java lane to say, beside its paragraph trace, each PERFORM, each return from
+one and each fall from a paragraph into the next: `rt/Dispatcher` writes them, with its program's name, to
+`KATANA_PERFORM_TRACE_FILE`, a file of its own, since the paragraph trace is held equal to cobc's.
+
+Predicted, before the tests (the advisor's expectations, section 33). T-F2, on cobc's cross-reference
+listing: all 175 function facts hold. T-F3, on the four proven jobs' runs: no range is fallen into or out
+of; each range a fixture enters is entered by PERFORM and returns as often; the abend and I/O-status
+paragraphs not entered. T-E1: APPL-RESULT refuted in all eight programs (8 and 12 stored, unnamed);
+CODATECN's two and the M03B codes hold; the six file-status items and FEEDBACK-TOKEN-VALUE cannot tell from
+the program, being set outside it. T-E2: HTML-FIXED-LN refuted (never tested); CODATECN cannot tell (handed
+to COBDATFT, assembler, outside CardDemo's COBOL); the rest hold, LK-M03B-OPER and WS-M03B-OPER through
+CBSTM03B's tests. T-E3: a file-status item takes '35' on OPEN of an absent file, in both lanes, a value no
+condition-name of CBEXPORT's or CBIMPORT's names. T-M1: all 13 money facts hold, WS-MONTHLY-INT's rate by
+multiplication only. T-M2: the copybook amounts ACCT-CURR-BAL and TRAN-AMT are printed through a
+comma-edited field by some program of CardDemo; the program's own working totals are not copybook items.
+The rival: a test that cannot tell on a fact the advisor thought it would settle, which the verdict says.
+
+Found (J-205). Every verdict is on the review file, under the fact's tests line, held to what the test
+computes now by BatchReviewIntegrationTest. T-F1, T-F2: all 175 function facts hold, on sir/'s graph and on
+cobc's listing alike; cobc's PERFORM and GO TO references number the IR's edges in all fourteen programs
+(the guard first caught the reader: cobc's table cuts a name at 28 characters, CBEXPORT's
+4200-CREATE-XREF-EXPORT-RECORD among them, and puts a long list's count on a line of its own). T-F3: the
+five proven jobs' java-lane runs (POSTTRAN, TRANREPT, TRANREPT-STUDY, INTCALC, CREASTMT) enter 84 of the
+91 ranges it is named for, each entry by a PERFORM of the whole range, none fallen into or out of; 7 cannot
+tell (not entered); the 84 other function facts it is not named for are counted in
+carddemo-batch.performs too. T-E1: APPL-RESULT refuted in all eight (8 and 12); the M03B codes hold in
+both programs once the CALL is followed both ways (CBSTM03A's SETs are what CBSTM03B's LINKAGE receives);
+HTML-FIXED-LN holds; the six file statuses and FEEDBACK-TOKEN-VALUE cannot tell, as predicted; CODATECN's
+two cannot tell, against the prediction: the program stores only named values, but it hands the record to
+COBDATFT, assembler, which may store what it likes (the rival, as stated). T-E2: HTML-FIXED-LN refuted;
+CODATECN's two cannot tell; WS-M03B-OPER holds through CBSTM03B's tests; the rest hold. T-E3: '35' on
+OPEN INPUT of an absent file in both lanes, so the six file-status facts are refuted as the kind is
+defined, the program reading a value none of its condition-names names. T-M1: all 13 hold. T-M2: the six
+it is named for hold, ACCT-CURR-BAL through COACTVWC's ACURBALO (+ZZZ,ZZZ,ZZZ.99), TRAN-AMT and the three
+working totals through CBTRN03C's report fields; the totals are the program's own, so the program itself
+is where they are printed.

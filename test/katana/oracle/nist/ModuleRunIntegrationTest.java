@@ -29,6 +29,8 @@ class ModuleRunIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final List<String> ALL = List.of("NC", "SM", "IC", "SQ", "RL", "IX", "ST", "SG", "OB", "IF", "RW", "DB");
     private static final String ONLY = System.getProperty("katana.nist.modules", "");
+    /** Where NC is cut in two: its main programs before this one run in one folder, the rest in another. */
+    private static final int NC_HALF = 50;
     private static final List<String> MODULES = ONLY.isBlank() ? ALL : List.of(ONLY.split(","));
     private static final String HEADER = """
             # Katana's NIST golden (R-047): each run of each program, as its own footer reports it under Katana's
@@ -38,9 +40,27 @@ class ModuleRunIntegrationTest {
             # and, when libcob names one, the reason (LANE-08). Written by `gradle integration -Dkatana.record=true`.
             """;
 
+    /**
+     * Each dialect at once, in folders of its own: run one after the other, each ended on NC alone, and the
+     * class, last of the long ones to start, held the pre-push check past its ceiling (R-054, J-206).
+     */
     @Test
     void everyRunIsTheGoldens() throws Exception {
-        for (String dialect : System.getProperty("katana.std", "cobol85,ibm").split(",")) everyRunIsTheGolden(dialect);
+        List<Future<?>> dialects = new ArrayList<>();
+        try (ExecutorService pool = Executors.newVirtualThreadPerTaskExecutor()) {
+            for (String dialect : System.getProperty("katana.std", "cobol85,ibm").split(",")) dialects.add(pool.submit(() -> {
+                everyRunIsTheGolden(dialect);
+                return null;
+            }));
+            for (Future<?> d : dialects) {
+                try {
+                    d.get();
+                } catch (java.util.concurrent.ExecutionException e) {
+                    if (e.getCause() instanceof Error error) throw error;
+                    throw (Exception) e.getCause();
+                }
+            }
+        }
     }
 
     /** One dialect: EXEC85 extracts, every module runs in parallel, each run's line against the golden. */
@@ -62,13 +82,18 @@ class ModuleRunIntegrationTest {
         List<String> lines = new ArrayList<>();
         try (ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
             for (String module : MODULES) {
-                Path dir = Files.createTempDirectory(work, module);
-                dirs.add(dir);
-                runs.put(module, pool.submit(() -> ModuleRun.run(module, extracted, notes, switches, dir, cobc)));
+                // NC, the longest, in two parts of its own folders: its programs share no file (J-206).
+                int[][] parts = module.equals("NC") ? new int[][] {{0, NC_HALF}, {NC_HALF, Integer.MAX_VALUE}} : new int[][] {{0, Integer.MAX_VALUE}};
+                for (int[] part : parts) {
+                    Path dir = Files.createTempDirectory(work, module);
+                    dirs.add(dir);
+                    runs.put(module + " " + part[0], pool.submit(() -> ModuleRun.run(module, extracted, notes, switches, dir, cobc, part[0], part[1])));
+                }
             }
+            Map<String, Integer> seen = new LinkedHashMap<>();
             for (var run : runs.entrySet()) {
-                Map<String, Integer> seen = new LinkedHashMap<>();
-                for (ModuleRun.Outcome o : run.getValue().get()) lines.add(line(run.getKey(), o, seen.merge(o.program(), 1, Integer::sum)));
+                String module = run.getKey().split(" ")[0];
+                for (ModuleRun.Outcome o : run.getValue().get()) lines.add(line(module, o, seen.merge(module + " " + o.program(), 1, Integer::sum)));
             }
         }
         String got = HEADER.replace("-std=cobol85", "-std=" + dialect) + String.join("\n", lines) + "\n";

@@ -979,6 +979,17 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   20 are taken by running the fast loop's test classes in parallel (JUnit, four cores; the goldens
   are written only under `-Dkatana.record`, so the classes share no file), which is Opus's, and its
   killer mutation is a class that writes without the flag.
+- **Amended 2026-10-18 (J-207):** the every-suite (`--all`) ceiling is set **up** to 15 min, by Ghost's
+  decision. Main itself (b0ba390) measured 10.6 min on the gating machine that day, against the 10 set
+  from one 8.2 run, with run-to-run noise of about half a minute; J-205's seven passing review tests and
+  J-206's tithe were refused on time alone, every test green, which is R-056's third shape. The rule
+  from now: the every-suite ceiling is the best recorded run plus a fifth, rounded up, recorded with
+  the machine it was measured on; it ratchets down as the best falls; and when main's own head measures
+  over it on the gating machine, it is reset by a decision recorded here, never raised silently. The 15
+  is Ghost's choice above the rule's 13 (best 10.3, J-206), to cover the machine's drift. The warm
+  fast loop's ceiling is unchanged: it is what an agent pays on every edit, and it holds steady. This
+  check stands in for CI until CI has minutes again (R-050, 2026-11-02); its every-suite number matters
+  less once CI runs it. Proposed by a Fable advisor (J-207), decided by Ghost.
 - **See also:** R-008, R-042
 - **subject:** process
 

@@ -32,8 +32,6 @@ final class BatchReview {
     static final Path FILE = ROOT.resolve("test/katana/intent/carddemo-batch.review");
     static final Path NOTES = ROOT.resolve("test/katana/intent/carddemo-batch.notes");
     static final Path PROPOSALS = ROOT.resolve("test/katana/intent/carddemo-batch.proposals");
-    /** The tests the proposals name that are built, and the test class that holds each (research section 33). */
-    static final java.util.Map<String, String> BUILT = java.util.Map.of("T-F1", "FunctionRangeStructureIntegrationTest");
     /** The batch programs, CBTRN02C first (the one the trial read), then as CardDemo names them. */
     static final List<String> PROGRAMS = List.of("CBTRN02C.cbl", "CBACT01C.cbl", "CBACT02C.cbl", "CBACT03C.cbl", "CBACT04C.cbl", "CBCUS01C.cbl", "CBEXPORT.cbl",
             "CBIMPORT.cbl", "CBSTM03A.CBL", "CBSTM03B.CBL", "CBTRN01C.cbl", "CBTRN03C.cbl", "COBSWAIT.cbl", "CSUTLDTC.cbl");
@@ -59,11 +57,13 @@ final class BatchReview {
     private static final String HEADER = """
             # CardDemo's batch programs: what Katana's rules say each item and block of steps means (R-066).
             #
-            # For Ghost. Each fact is one line that starts with `inferred`; under it, four readings:
+            # For Ghost. Each fact is one line that starts with `inferred`; under it, its readings:
             #   evidence  what the program does with the item, and where, in the program's own names
             #   rule      the rule that proposed it, and how sure the rule is (its measured precision on
             #             a hand-written key bounds it; the key is Opus's reading, not a person's)
             #   Fable     a proposal only (R-031): a probability and a reason, never a confirmation
+            #   T-xx      each built test's verdict (research section 34): holds, refutes or cannot tell, and why;
+            #             a test's word is evidence for your answer, never the answer (R-029)
             #   docs      the program's authors (AWS's CardDemo README, the copybook and program comments),
             #             quoted where they describe the item, "none" where they do not
             #
@@ -94,15 +94,17 @@ final class BatchReview {
         if (programNote != null) out.append("#   note (document research, J-204): ").append(programNote).append('\n');
         out.append('\n');
         String file = Review.merge(p, Rules.infer(p)).text();
+        java.util.Map<String, Fact> byLine = byLine(p);
         for (String line : file.lines().toList()) {
             if (line.isBlank() || line.startsWith("#")) continue;
-            Fact f = fact(p, line);
+            Fact f = byLine.get(line);
             out.append(line).append('\n');
             out.append("#   evidence: ").append(BatchReviewEvidence.evidence(p, f)).append('\n');
             out.append("#   rule: ").append(f.evidence().rule()).append(" v").append(f.evidence().version()).append(", confidence ").append(line.split("\\s*\\|\\s*")[4]).append('\n');
             String[] proposal = proposals().get(name + " | " + line.split("\\s*\\|\\s*")[1] + " | " + line.split("\\s*\\|\\s*")[2]);
             out.append("#   Fable (proposal, R-031): ").append(proposal == null ? "___% because ___" : proposal[0] + "% because " + Character.toLowerCase(proposal[1].charAt(0)) + proposal[1].substring(1)).append('\n');
             if (proposal != null) out.append("#   tests: ").append(tests(proposal[2])).append('\n');
+            if (proposal != null) for (Verdict v : ReviewTests.verdicts(p, f, proposal[2])) out.append("#   ").append(v.line()).append('\n');
             out.append("#   docs: ").append(BatchReviewDocs.docs(p, f)).append('\n');
             String[] cells = line.split("\\s*\\|\\s*");
             String note = notes().get(name + " | " + cells[1] + " | " + cells[2]);
@@ -132,7 +134,7 @@ final class BatchReview {
         List<String> out = new ArrayList<>();
         for (String id : named.split(",\\s*")) {
             if (id.isBlank()) continue;
-            out.add(id + (BUILT.containsKey(id) ? " (held by " + BUILT.get(id) + ")" : id.startsWith("D-") ? " (a document to find)" : " (named, not yet built)"));
+            out.add(id + (ReviewTests.BUILT.containsKey(id) ? " (built, " + ReviewTests.BUILT.get(id) + ": its verdict below)" : id.startsWith("D-") ? " (a document to find)" : " (named, not yet built)"));
         }
         return out.isEmpty() ? "none named" : String.join(", ", out) + "; each in docs/research/ibm-options.md section 33";
     }
@@ -152,12 +154,13 @@ final class BatchReview {
         return out;
     }
 
-    /** The fact a line of the merged file names, in the order the merge wrote them. */
-    static Fact fact(Program p, String line) {
-        Review.Result one = Review.merge(p, Rules.infer(p), line + "\n");
-        String kind = line.split("\\s*\\|\\s*")[1];
-        return one.intent().facts().stream().filter(f -> Review.merge(p, new katana.intent.types.Intent(p.header().program(), p.header().profileHash(), List.of(f))).text().contains(line))
-                .filter(f -> f.kind().name().equalsIgnoreCase(kind)).findFirst().orElseThrow();
+    /** Each fact the rules infer on the program, by the line the merge writes for it alone: one merge a fact. */
+    static java.util.Map<String, Fact> byLine(Program p) {
+        java.util.Map<String, Fact> out = new java.util.HashMap<>();
+        for (Fact f : Rules.infer(p).facts())
+            for (String line : Review.merge(p, new katana.intent.types.Intent(p.header().program(), p.header().profileHash(), List.of(f))).text().lines().toList())
+                if (!line.isBlank() && !line.startsWith("#")) out.put(line, f);
+        return out;
     }
 
     static String file(String path) {

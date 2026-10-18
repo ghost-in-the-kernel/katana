@@ -3158,3 +3158,80 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `sir/contract/Contract.java`, `sir/ir.golden`; `test/katana/intent/BatchReview*.java`,
   `FunctionRangeStructure*.java`, `BatchReviewIntegrationTest.java`, `carddemo-batch.review`, `.notes`,
   `.proposals`; `docs/checks.json`, `docs/KERNEL-MAP.md`, `docs/HANDOFF.md`, research section 33.
+
+### J-205 Every test the review advisor named, built, its verdict under each fact
+- **Who:** Opus, on Ghost's word ("go ahead and build the remaining tests"). **Class:** build; trial.
+- **Intent:** the seven tests research section 33 named and J-204 left unbuilt (T-F2, T-F3, T-E1, T-E2,
+  T-E3, T-M1, T-M2), each with its killer mutation, and each one's word on the review file's facts;
+  predicted in research section 34 before the tests.
+- **Found:** as predicted but one: CODATECN's two condition sets cannot be told by T-E1 (CBACT01C stores only
+  named values, but hands the record to COBDATFT, assembler), where the advisor expected them to hold.
+  Refuted, as the kinds are defined: APPL-RESULT in all eight programs (T-E1, 8 and 12 stored), the six file
+  statuses (T-E3: '35' on OPEN INPUT of an absent file, cobc and the java lane alike), HTML-FIXED-LN (T-E2,
+  never tested). Everything else holds or cannot be told: all 175 function facts on sir/'s graph and on
+  cobc's listing; 84 of the 91 ranges T-F3 is named for entered in the proven jobs' runs, only by PERFORM;
+  all 13 money facts' partners amounts; every copybook amount named for T-M2 printed by some CardDemo
+  program. T-F2's guard, cobc's PERFORM and GO TO references against the IR's edge count, refused the
+  reader twice before it read the listing right (a name cut at 28 characters, a count on its own line).
+- **Resolved:** `rt/PerformTrace`: with `KATANA_PERFORM_TRACE_FILE` set, `Dispatcher` writes each PERFORM,
+  return, drop, fall and exit, and `Trace.paragraph` each entry, to a file of its own (the paragraph trace
+  stays cobc's form, held by ProofV1); the java lane sets it beside the paragraph trace, under perform/.
+  ProofV1IntegrationTest holds the traces' summary, test/katana/intent/carddemo-batch.performs. In
+  test/katana/intent: `EnumValuesStored` (T-E1), `EnumIsRead` (T-E2), `CallEnds` (a CALL's other end in
+  CardDemo, by offset in the group handed), `FileStatusAbsent` (T-E3's word), `MoneyFlow` (T-M1),
+  `MoneyEditedElsewhere` (T-M2), `FunctionRangeXref` (T-F2, cobc's listing read), `PerformTraces` (T-F3),
+  `ReviewTests` (the built tests by id and each verdict), `Verdict`, `Small`; a unit test each on programs
+  small enough to read, carrying the advisor's mutation; `FunctionRangeXrefIntegrationTest`; in
+  test/katana/lower `FileStatusAbsentIntegrationTest` on `status/STATUS35.cbl`. The review file shows each
+  built test's verdict under the fact's tests line; BatchReviewIntegrationTest holds each to what the test
+  computes now.
+- **Touched:** `rt/katana/rt/PerformTrace.java`, `Dispatcher.java`, `Trace.java`; `oracle/lane/JavaPrograms.java`;
+  `test/katana/intent/*` as above, `carddemo-batch.review`, `carddemo-batch.performs`;
+  `test/katana/oracle/lane/ProofV1IntegrationTest.java`; `test/katana/lower/FileStatusAbsentIntegrationTest.java`,
+  `test/katana/lower/status/STATUS35.cbl`; `docs/checks.json`, `docs/HANDOFF.md`, research sections 33 and 34.
+
+### J-206 Tithe: the NIST goldens' two dialects at once, so the pre-push check ends under its ceiling again
+- **Who:** Opus, on Ghost's word ("go ahead with the tithe"). **Class:** tithe.
+- **Intent:** make room under the 10-minute ceiling of the pre-push check, every suite (R-054), which J-205's
+  commit and the code before it both missed on this machine (10.1 to 11.4 minutes, and 10.6 on b0ba390);
+  the ceiling is not raised.
+- **Found:** the gate's timeline, from the test reports' start times: the integration classes start in
+  package order, four at once, and ModuleRunIntegrationTest, last of the long ones, started at 411 s and
+  ran its two dialects one after the other, each ending on NC alone; from 450 s to 579 s it ran by itself
+  with three of the four processors idle. J-205's review doc test was itself made linear (105 s to 19 s:
+  one merge a fact, CardDemo's programs parsed only when a test asks for one).
+  The gate also ran the fast loop twice: in `gradle build` (through `check`), then again to time it warm,
+  the second failing the gate as the first did.
+- **Resolved:** ModuleRunIntegrationTest runs the dialects at once, each in its own folders as before; alone,
+  121 s for both (the integration suites then ended at 565 s, from 595). scripts/prepush.sh builds with
+  `assemble testClasses` and runs the fast loop once, last, timed. Still 10.4 minutes: the tail was each
+  dialect's NC, run in turn in one folder. `ModuleRun.run` takes a part of a module's main programs, and the
+  golden run cuts NC in two, each half in a folder of its own; both goldens hold to the byte, so NC's
+  programs share no file. Tried and taken out: the goldens run from the start in a clone and a container
+  of their own; the check took 10.6 minutes, the machine being short of processors throughout, not idle
+  at the end. That run found a race: ProofV1IntegrationTest and CardDemoJavaLaneIntegrationTest both
+  took the cobc runs their `job:` sources come from under build/carddemo-java-sources, and run at once
+  each removed the other's folder; each now has its own. Looked at and left: CardDemo's online programs
+  fall back from SLL to full LL, where one EVALUATE decision looks up to 1,296 tokens ahead (CORPT00C:
+  5.3 s of LL, 4.3 of them there), about 50 s of the check's processor time, and a grammar change is not
+  a tithe's; NIST parses in 10 s in all, 3 programs of 437 falling back, so the Java lane's time is its
+  javac and JVM per run, not parsing (J-188's comment no longer holds). No behaviour and no golden changed.
+- **Touched:** `test/katana/oracle/nist/ModuleRunIntegrationTest.java`, `oracle/nist/ModuleRun.java`,
+  `scripts/prepush.sh`, `test/katana/oracle/lane/CardDemoJavaLaneIntegrationTest.java`.
+
+### J-207 The every-suite ceiling set up to 15 minutes, by decision, and R-054's rule for it
+- **Who:** Ghost decided; a Fable advisor proposed; Opus recorded. **Class:** decision.
+- **Intent:** stop a ceiling set from one run refusing tested work on a machine that drifted: main itself
+  measured 10.6 minutes against the every-suite ceiling of 10, and J-205 and J-206 passed every test and
+  were refused on time alone (10.1 to 11.4 minutes).
+- **Found:** the Fable advisor: the mechanism is principled (a held number, since a reported one doubled
+  unread, J-154, J-163), the figure is not (10 from one 8.2 run, 0.5 minutes of margin after two suites
+  joined, the size of the noise); a ceiling below main's own time is red on every push and says nothing
+  (R-056's third shape), the mistake R-054 was already corrected for once.
+- **Resolved:** R-054 amended: the every-suite ceiling is the best recorded plus a fifth, rounded up, with
+  the machine recorded; it ratchets down; when main's head measures over it, a recorded decision resets
+  it. Ghost set it to 15 (the rule's 13, and the drift covered). The fast loop's ceiling unchanged. J-205
+  and J-206 merge under it, J-206's work kept. The JVM flags go to tithe pass 6's list; the one-JVM NIST
+  lane and the EVALUATE lookahead to TODO.md as feature work, each with a design note first.
+- **Touched:** `theGhost.md` (R-054), `docs/AGENT.md`, `TODO.md`, `docs/JOURNAL.md`.
+

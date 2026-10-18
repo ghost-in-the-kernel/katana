@@ -36,12 +36,14 @@ final class JavaPrograms implements ProgramRunner {
         return ran;
     }
 
-    /** The step's environment with KATANA_TRACE_FILE naming its trace, under the work directory's trace/ (LANE-21). */
+    /** The step's environment with KATANA_TRACE_FILE naming its trace, under the work directory's trace/ (LANE-21), and KATANA_PERFORM_TRACE_FILE its PERFORM trace, under perform/ (T-F3, research §34). */
     private Map<String, String> traced(String step, Map<String, String> env) {
         Map<String, String> with = new java.util.HashMap<>(env);
         with.put("KATANA_TRACE_FILE", work.resolve("trace").resolve(step + ".trace").toString());
+        with.put("KATANA_PERFORM_TRACE_FILE", work.resolve("perform").resolve(step + ".perform").toString());
         try {
             java.nio.file.Files.createDirectories(work.resolve("trace"));
+            java.nio.file.Files.createDirectories(work.resolve("perform"));
         } catch (java.io.IOException e) {
             throw new java.io.UncheckedIOException(e);
         }

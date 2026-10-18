@@ -24,6 +24,7 @@ public final class Trace {
 
     /** Control enters a paragraph. */
     public static void paragraph(String program, String paragraph) {
+        PerformTrace.entered(program, paragraph);
         line(program, "Paragraph", paragraph);
     }
 

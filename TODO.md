@@ -165,6 +165,13 @@ held times have room; the runnable autotests through the lowering at scale (3.1'
 three offsets read against IBM's z/OS Data Areas (IHAPSA, IKJTCB, IEFTIOT1). The proof report says in one
 line that the ledger is held by the repository's history, not a signature, until 8.3.
 
+Carried in (J-207, R-054 amended 2026-10-18): the Java lane's JVM flags measured once (a class-data-sharing
+archive of rt/, C1 only, the serial collector), kept only if every NIST and CardDemo run reports what it
+did and the lane's time falls. Feature work, not tithe, each with its own design note first: the NIST Java
+lane in one JVM (rt/'s STOP RUN, files under the run's folder, DD names and UPSI each read from the run,
+not the process), and the EVALUATE decision that sends CardDemo's online programs to full LL (CORPT00C,
+1,296 tokens of lookahead), the parse trees held byte-identical.
+
 ## Phase 7: scale and the facades
 
 ### 7.1 CNAF CGMX02
