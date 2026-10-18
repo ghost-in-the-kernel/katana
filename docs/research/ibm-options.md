@@ -1726,3 +1726,72 @@ defined, the program reading a value none of its condition-names names. T-M1: al
 it is named for hold, ACCT-CURR-BAL through COACTVWC's ACURBALO (+ZZZ,ZZZ,ZZZ.99), TRAN-AMT and the three
 working totals through CBTRN03C's report fields; the totals are the program's own, so the program itself
 is where they are printed.
+
+## 35. 6.1, pattern structuring: a Function range becomes a method (R-029, R-032; J-210)
+
+**What 6.1 asks** (ROADMAP 6.1): a GO TO to the next paragraph becomes a fall; a PERFORM range satisfying
+`Function` becomes a method; a PERFORM VARYING with a provably monotone counter becomes a `for`. Each pass
+is a file in `passes/`, with the facts it needs, its obligations, the transformation, its proof and its
+ledger lines (ROADMAP phase 6). This step builds the first two; the third is the next step's, since its
+obligation (the counter written nowhere in the body, its BY a positive constant, its UNTIL reached) is
+an interval proof of its own, not a reading of the graph.
+
+**Where it acts.** The literal lowering already makes each paragraph a method `s<label>` returning the next
+label, stepped by `run`'s switch (R-021). An out-of-line PERFORM ends its stretch, `return d.perform(first,
+last, back)`, and the statements after it are a new stretch `s<back>`. So a range does not need new code to
+become a method; it needs a caller that calls it:
+
+```
+private void f<first>() {                       // the range FIRST THRU LAST, on Function fact F
+    int pc = <first>;
+    while (pc != <last + 1>) { if (pc == <end>) throw new Halt(); pc = step(pc); }
+}
+```
+
+and a PERFORM of it, once, TIMES or UNTIL, lowered as structured Java in the caller's own stretch
+(`f<first>();`, `while (!(cond)) f<first>();`), with no `d.perform`, no split and no `s<back>`. The range's
+paragraphs keep their `s<label>` methods and their trace lines, so the paragraph-entry trace is the same by
+construction; the last paragraph's `d.end(last, last + 1)` finds no PERFORM ending there and gives
+`last + 1`, which ends the loop. A STOP RUN inside throws `StopRun`, as it does now; a GOBACK or EXIT PROGRAM
+returns the run's end label, which the loop turns into `Halt`, the exception the declaratives already use,
+caught in `run`. A VARYING PERFORM of a method range keeps the dispatcher's form, which still works, since
+the range's paragraphs are all still in the switch.
+
+**The pass decides; lower/ writes** (MOD-04: passes/ writes Java only through lower/'s emitter). `passes/`
+reads the program's Semantic IR and its Intent, and gives lower/ a plan: the ranges that become methods,
+each with the fact it stands on, and the GO TOs that become falls; lower/ takes the plan as data and decides
+nothing (`Lower.java(program, className, plan)`, the literal lowering being the empty plan).
+
+**Obligations**, each read on sir/'s graph and contract, never on intent/rules' code (R-032: a range that
+fails one is not structured, and the pass says why, never with a warning):
+
+1. A `Function` fact names the range, and no person refuted it (R-029: `Intent.actionable`); a fact no person
+   confirmed licenses the method and its ledger line says `unconfirmed`.
+2. Only a PERFORM of the whole range enters it: no PERFORM of a part of it, no GO TO into it, no ALTER
+   naming it, the main line never falling into it.
+3. It leaves only at its end: no GO TO out of it.
+4. No other range overlaps it, and it never PERFORMs itself, directly or through another (recursion would be
+   Java recursion with no end, where the dispatcher's PERFORM is undefined, LR 6.4 p. 414).
+5. The program is not segmented (no independent segment with an ALTER, research §16), and has no USE FOR
+   DEBUGGING (Debugging wraps every PERFORM), and the range is in no declarative section.
+
+For a GO TO to become a fall: it is the paragraph's last top-level statement, unconditional, to the
+paragraph after it, not alterable, and no PERFORM range ends at that paragraph (a GO TO passes a range's
+end where a fall would take it).
+
+**Proof** (ROADMAP 6's check for every pass): the CardDemo jobs the java lane proves (POSTTRAN, TRANREPT,
+TRANREPT-STUDY, INTCALC, CREASTMT) run with the structured Java leave every dataset byte-identical to
+cobc's golden, and each step's paragraph trace equal to the literal Java's; NIST's Java lane, structured,
+reports what it reports literal, module by module; the GnuCOBOL autotests the lowering runs pass structured
+as they pass literal; and the ledger: a line per method `f<first>` (pass `structuring v1`, its fact, its
+state), and a removal line superseding each stretch `s<back>` a PERFORM no longer splits off, so LED-04
+holds against the structured build.
+
+**Predicted, before the build.** On CardDemo's batch programs, all 175 function facts discharge every
+obligation and become methods (T-F1 and T-F2 hold on all of them; no batch program is segmented or debugs);
+every dataset and trace the same. The PERFORMs that call them become plain calls, so the stretches and the
+switch's cases fall by about one per PERFORM statement of a method range; the GO TOs to the next paragraph
+are few (CBSTM03B's `GO TO nnnn-EXIT` jumps to the end of its own range's last paragraph, which a PERFORM
+ends, so obligation 6 keeps it). On NIST, every report the same. The rival: an obligation the graph
+discharges that the run disproves, which shows as a dataset or trace that differs, or a NIST report that
+changes, and stops the pass where it shows.
