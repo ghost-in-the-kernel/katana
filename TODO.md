@@ -131,10 +131,11 @@ wrote says otherwise; no figure counts Opus's key or the trial's review edits as
 Built (J-210, research §35): `passes/Structuring` (a `Function` range a method its callers call; a GO TO to the
 next paragraph left to fall), `passes/StructuringLedger`; on the batch programs all 175 function facts
 become methods, every CardDemo job's report and paragraph trace the literal Java's, every NIST module's runs
-the literal Java's, the ledger covering the structured build with each method's fact `unconfirmed`. Open:
-the third pattern, PERFORM VARYING with a provably monotone counter as a `for` (its interval obligation);
-and the pass's unit corpus, the GnuCOBOL autotests that exercise PERFORM, which waits on phase 3's
-runnable autotests through the lowering (the 20 hand-lowered ones pass structured, none holding a range).
+the literal Java's, the ledger covering the structured build with each method's fact `unconfirmed`. The
+third pattern built too (J-211, research §36): a PERFORM VARYING of one phrase, its body structured, its
+counter monotone, a `for` (CBSTM03A's two; NIST's 23, 57 kept as stretches, each with why). Open: the pass's
+unit corpus, the GnuCOBOL autotests that exercise PERFORM, which waits on phase 3's runnable autotests
+through the lowering (the 20 hand-lowered ones pass structured, none holding a range).
 
 ### 6.2 Method extraction under the dispatcher
 

@@ -69,7 +69,13 @@ final class Performs {
         }
     }
 
-    /** Whether a PERFORM varies an identifier: always lowered as stretches. */
+    /** The phrases of a PERFORM, as `Lower.varying` gives them to a pass. */
+    static Lower.Varying phrases(Statement s) {
+        Loop l = loop(s);
+        return new Lower.Varying(l.varying.stream().map(p -> p.id).toList(), l.varying.stream().map(p -> p.by).toList());
+    }
+
+    /** Whether a PERFORM varies an identifier: lowered as stretches unless a pass's plan writes it as a `for`. */
     static boolean varies(Statement s) {
         return s.verb().equals("PERFORM") && !loop(s).varying.isEmpty();
     }
@@ -79,7 +85,8 @@ final class Performs {
         Value.Target target = Flow.target(s);
         List<Statement> body = Verbs.branch(s, "perform-inline-statement");
         Loop l = loop(s);
-        if (!l.varying.isEmpty()) varying(s, l, target, body);
+        if (l.varying.size() == 1 && f.loop(s) && l.varying.get(0).from != null && l.varying.get(0).until != null) counted(l, target, body);
+        else if (!l.varying.isEmpty()) varying(s, l, target, body);
         else if (l.times != null) repeat(target, body, "t[" + count(l.times) + "]-- <= 0", false);
         else if (l.until != null) repeat(target, body, f.conditions.of(l.until), l.testAfter);
         else once(target, body);
@@ -211,9 +218,29 @@ final class Performs {
     }
 
     private void step(Phrase p) {
+        f.e.line(stepped(p) + ";");
+    }
+
+    /** The counter stepped BY, as an expression a `for` header can hold. */
+    private String stepped(Phrase p) {
         Value by = p.by == null ? new Value.Literal("1", Value.Literal.Kind.NUMERIC, "1", 0) : p.by;
         Value increment = new Value.Expression("+", List.of(p.id, by));
         int dmax = f.arith.dmax(List.of(f.x.item(p.id.item())), List.of(increment));
-        f.e.line("Arithmetic.store(" + f.x.field(p.id) + ", " + f.arith.result(increment, dmax, false) + ", false, false);");
+        return "Arithmetic.store(" + f.x.field(p.id) + ", " + f.arith.result(increment, dmax, false) + ", false, false)";
+    }
+
+    /**
+     * One VARYING phrase the plan writes as a `for` (6.1, research §36): FROM, then the test and the body and
+     * the step in the order the stretches take them, TEST BEFORE testing first, TEST AFTER after the body.
+     */
+    // Decision: R-021
+    private void counted(Loop l, Value.Target target, List<Statement> body) {
+        Phrase p = l.varying.get(0);
+        f.e.line(f.x.moveInto(p.from, f.x.field(p.id), f.x.item(p.id.item())) + ";");
+        f.e.open(l.testAfter ? "for (;; " + stepped(p) + ")" : "for (; !(" + f.conditions.of(p.until) + "); " + stepped(p) + ")");
+        if (target != null) f.e.line(f.call(target));
+        else f.statements(body);
+        if (l.testAfter) f.e.line("if (" + f.conditions.of(p.until) + ") break;");
+        f.e.close();
     }
 }

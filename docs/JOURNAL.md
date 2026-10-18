@@ -3309,3 +3309,22 @@ taken; closed by a later `decision` entry naming it).
   `test/katana/rt/autotest/LoweredAutotestsIntegrationTest.java`; `scripts/prepush.sh`, `docs/checks.json`,
   `docs/LEDGER.md`, `docs/KERNEL-MAP.md`, `TODO.md`.
 
+### J-211 6.1's third pattern: a monotone PERFORM VARYING becomes a `for`
+- **Who:** Opus, on Ghost's word ("go ahead with the VARYING pattern"). **Class:** build; trial.
+- **Intent:** research §36, before the build: a PERFORM VARYING of one phrase whose body is structured Java
+  and whose counter is monotone (BY a constant other than zero; nothing it runs stores into the counter or a
+  group holding it, or hands it to a CALL) becomes a Java `for` over the COBOL field in the caller's stretch,
+  the same moves, tests and steps in the same order; with AFTER it stays stretches, since COBOL resets the
+  inner identifiers FROM where nested `for` loops would not.
+- **Found:** as predicted: CBSTM03A's two loops in 4000-TRNXFILE-GET, the second inside the first, its body
+  PERFORMing 6000-WRITE-TRANS, both `for` loops (eight more stretches gone, 69 in all); CREASTMT reports and
+  traces as literal. NIST: 23 loops become `for`, 57 stay stretches: 45 with AFTER, 14 whose counter the body
+  may store into, 12 whose BY is no constant, 4 that PERFORM a range no method (a loop may fail more than one);
+  every module's runs as literal.
+- **Resolved:** `Lower.Plan` gains its loops, keyed by the PERFORM's origin; `Performs.counted` writes one;
+  `Lower.varying` gives a pass the phrases as the lowering reads them, so the pass and the lowering cannot
+  read them differently; `passes/Loops` discharges the obligations, inner loops first. 6.1's three patterns
+  are built; its unit corpus waits on phase 3's runnable autotests.
+- **Touched:** `passes/Loops.java`, `passes/Structuring.java`; `lower/Lower.java`, `Performs.java`,
+  `Flow.java`; `test/katana/passes/StructuringTest.java`; `TODO.md`.
+

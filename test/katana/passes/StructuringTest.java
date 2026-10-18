@@ -87,4 +87,37 @@ class StructuringTest {
         int a = ends.procedure().paragraphs().stream().filter(g -> g.name().equals("A")).findFirst().orElseThrow().index();
         assertFalse(Structuring.falls(ends).contains(a), "a PERFORM range ends at A: its GO TO passes the range's end, a fall would not");
     }
+
+    private static final String VARY = "01 J PIC 99.\n01 T PIC 9(4).\n";
+
+    private static Program varying(String procedure) {
+        String source = ("IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n01 I PIC 99.\n" + VARY + "PROCEDURE DIVISION.\n" + procedure)
+                .lines().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
+        return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
+    }
+
+    @Test
+    void aVaryingOfOneMonotoneCounterBecomesAFor() {
+        Program p = varying("MAIN.\n    PERFORM VARYING I FROM 1 BY 1 UNTIL I > 5\n        ADD I TO T\n        PERFORM A\n    END-PERFORM.\n    PERFORM A VARYING J FROM 1 BY 2 UNTIL J > 9.\n    STOP RUN.\nA.\n    ADD 1 TO T.\n");
+        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        assertEquals(2, r.plan().loops().size(), r.refused().toString());
+        String java = Lower.java(p, "P", r.plan()).java();
+        assertTrue(java.contains("for (; !("), java);
+        assertFalse(java.contains("return d.perform("), "the loops' bodies call the method: no stretch ends at a PERFORM");
+    }
+
+    @Test
+    void eachLoopObligationBrokenKeepsItStretches() {
+        assertLoopRefused("MAIN.\n    PERFORM VARYING I FROM 1 BY 1 UNTIL I > 5\n        ADD 1 TO I\n    END-PERFORM.\n    STOP RUN.\n", "store into its counter");
+        assertLoopRefused("MAIN.\n    PERFORM VARYING I FROM 1 BY 1 UNTIL I > 5 AFTER J FROM 1 BY 1 UNTIL J > 2\n        ADD 1 TO T\n    END-PERFORM.\n    STOP RUN.\n", "AFTER");
+        assertLoopRefused("MAIN.\n    PERFORM VARYING I FROM 1 BY T UNTIL I > 5\n        ADD 1 TO T\n    END-PERFORM.\n    STOP RUN.\n", "BY");
+        assertLoopRefused("MAIN.\n    PERFORM A VARYING I FROM 1 BY 1 UNTIL I > 5.\n    STOP RUN.\nA.\n    MOVE 9 TO I.\n", "store into its counter");
+    }
+
+    private static void assertLoopRefused(String procedure, String why) {
+        Program p = varying(procedure);
+        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        assertEquals(java.util.Set.of(), r.plan().loops(), procedure);
+        assertTrue(r.refused().entrySet().stream().anyMatch(e -> e.getKey().startsWith("PERFORM VARYING") && e.getValue().stream().anyMatch(w -> w.contains(why))), procedure + ": " + r.refused());
+    }
 }

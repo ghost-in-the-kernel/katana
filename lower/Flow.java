@@ -154,6 +154,11 @@ final class Flow {
         }
     }
 
+    /** Whether the plan writes this PERFORM VARYING as a `for` (research §36). */
+    boolean loop(Statement s) {
+        return plan.loops().contains(Lower.Plan.loop(s.origin()));
+    }
+
     /** Whether the plan calls this PERFORM's range as a method. */
     boolean method(Value.Target target) {
         return target != null && Integer.valueOf(target.thru()).equals(plan.methods().get(target.paragraph()));
@@ -282,7 +287,7 @@ final class Flow {
 
     /** Whether a statement holds an out-of-line PERFORM (but of a range the plan calls as a method), a VARYING loop, a SEARCH or a SORT's procedure, here or in a phrase, so it cannot be structured Java. */
     boolean splits(Statement s) {
-        if (s.verb().equals("PERFORM") && (Performs.varies(s) || target(s) != null && !method(target(s)))) return true;
+        if (s.verb().equals("PERFORM") && (Performs.varies(s) && !loop(s) || target(s) != null && !method(target(s)))) return true;
         if (s.verb().equals("SEARCH")) return true;
         // A SORT or MERGE with an INPUT or OUTPUT PROCEDURE performs it (SortVerbs).
         if ((s.verb().equals("SORT") || s.verb().equals("MERGE")) && s.operands().stream().anyMatch(o -> o.value() instanceof Value.Target)) return true;
