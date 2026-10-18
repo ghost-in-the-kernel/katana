@@ -1692,3 +1692,15 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/Loops.java:Loops.holds` |  | 2026-10-18 |  |
 | passes | `passes/Loops.java:Loops.target` |  | 2026-10-18 |  |
 | passes | `passes/Loops.java:Loops.body` |  | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.inlined` |  | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.inline` | R-021 | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.targets` |  | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.leave` |  | 2026-10-18 |  |
+| passes | `passes/Inline.java:Inline.Inline` |  | 2026-10-18 |  |
+| passes | `passes/Inline.java:Inline.inline` | R-032 | 2026-10-18 |  |
+| passes | `passes/Inline.java:Inline.refusals` |  | 2026-10-18 |  |
+| passes | `passes/Inline.java:Inline.local` |  | 2026-10-18 |  |
+| passes | `passes/Inline.java:Inline.entries` |  | 2026-10-18 |  |
+| passes | `passes/Inline.java:Inline.run` |  | 2026-10-18 |  |
+| passes | `passes/Inline.java:Inline.procedures` |  | 2026-10-18 |  |
+| passes | `passes/Inline.java:Inline.dispatched` |  | 2026-10-18 |  |
