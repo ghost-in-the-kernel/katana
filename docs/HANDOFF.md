@@ -21,6 +21,10 @@ questions above it still stand.
 - **The ledger's chain is not a signature (R-030).** A deliberate rewrite is caught only against an
   earlier copy. Default taken: the repository's history is that copy; a signed ledger waits for 8.3 (the
   provenance map, shipped).
+- **Two held times are near their ceilings.** Every suite took 9.5 min at this boundary (569 s, ceiling
+  10; 8.2 at pass 4, the intent and ledger suites new) and the warm fast loop 19 s (ceiling 20; 15 at pass
+  4). Default taken: no ceiling raised (R-054); phase 6's first tithe makes room before either is passed,
+  the corpus pass and the java lane's NIST the largest suites.
 - **Phase 3 is still open.** As at the phase-4 boundary: its items each say what they built; none meets
   its check as written. Default taken: unchanged, phase 6 not blocked by it.
 

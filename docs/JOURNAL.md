@@ -3045,3 +3045,7 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `intent/rules/FunctionRule.java`, `MoneyRule.java`; `intent/types/Intent.java`,
   `Subject.java`; `docs/GLOSSARY.md`, `theGhost.md` (R-031), `TODO.md`, `docs/DONE.md`, `docs/HANDOFF.md`,
   `docs/KERNEL-MAP.md`.
+- **Measured:** the pre-push check over every suite passed in 569 s (9.5 min, ceiling 10; 8.2 at pass 4) on
+  5516d15, the warm fast loop 19 s (ceiling 20), cold 36 (unheld). `docs/AGENT.md` gains pass 5's column;
+  HANDOFF says both held times are near their ceilings, with the default: none raised, room made in phase
+  6's first tithe.
