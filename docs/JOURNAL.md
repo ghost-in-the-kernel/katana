@@ -3064,3 +3064,14 @@ taken; closed by a later `decision` entry naming it).
   phase that needed the most judgment, meaning, produced the fewest reversals, because its rules
   were measured against a key before anyone argued about them.
 
+### J-200 The review gets three readings before a person's word; Ghost, who does not read COBOL, is the reviewer
+- **Who:** Ghost asked; Fable recorded R-066. **Class:** decision; direction.
+- **Found:** the first review file was Ghost's to write and he does not read COBOL. That is the
+  product's claim stated as a test: a business reader confirms meaning from evidence, not source.
+- **Resolved:** R-066: every covered item in plain language with three readings (the rule's, Fable's
+  as a labelled proposal with a probability, the authors' documentation), a test or a document for
+  anything under certainty, three answers for the person, "could not tell" counted as a finding
+  against the evidence line. Opus builds the file; Fable fills the probability column; Ghost reads.
+- **Note:** a model's reading is kept a proposal on purpose (R-031): the day a probability column is
+  mistaken for a confirmation, the proof report is lying about who said what.
+
