@@ -28,16 +28,31 @@ public final class Lower {
     /**
      * What a pass asks the lowering to write otherwise (MOD-04: passes/ writes Java only through this emitter):
      * each PERFORM range, by its first paragraph's index to its last's, called as a method `perform<first>`, and the
-     * paragraphs whose last statement, a GO TO to the next, is left to fall. Empty, the literal lowering; it
+     * paragraphs whose last statement, a GO TO to the next, is left to fall, and the PERFORM VARYINGs written as
+     * a `for` (research §36). Empty, the literal lowering; it
      * decides nothing (passes/Structuring discharges the obligations).
      */
-    public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls) {
-        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of());
+    public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls, java.util.Set<String> loops) {
+        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of());
 
         public Plan {
             methods = java.util.Map.copyOf(methods);
             falls = java.util.Set.copyOf(falls);
+            loops = java.util.Set.copyOf(loops);
         }
+
+        /** A PERFORM VARYING the plan writes as a `for`, by where its statement starts: `file:line:column`. */
+        public static String loop(katana.sir.types.Origin o) {
+            return o.file() + ":" + o.line() + ":" + o.column();
+        }
+    }
+
+    /** A PERFORM VARYING's phrases as the lowering reads them (research §36): each identifier and its BY (null for none). */
+    public record Varying(List<katana.sir.types.Value.Field> ids, List<katana.sir.types.Value> bys) {}
+
+    /** The VARYING phrases of a PERFORM statement, VARYING then each AFTER; none for any other. */
+    public static Varying varying(katana.sir.types.Statement s) {
+        return Performs.phrases(s);
     }
 
     /** Items are set up in methods of this many, so no method passes the JVM's size limit. */

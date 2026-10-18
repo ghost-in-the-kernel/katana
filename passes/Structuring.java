@@ -61,7 +61,8 @@ public final class Structuring {
                 applied.add(new Applied(r.first(), r.last(), facts.get(r)));
             } else refused.put(name(p, r), why);
         }
-        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of()), applied, refused);
+        Set<String> loops = program.isEmpty() ? Loops.loops(p, methods, refused) : Set.of();
+        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops), applied, refused);
     }
 
     /** What keeps a whole program literal: an independent segment with an ALTER, whose state the dispatcher keeps (research §16); declaratives, which run as PERFORMs of their own. */

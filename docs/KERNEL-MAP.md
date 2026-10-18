@@ -1675,3 +1675,20 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/Structuring.java:Structuring.Obligations.recursive` |  | 2026-10-18 |  |
 | passes | `passes/StructuringLedger.java:StructuringLedger.StructuringLedger` |  | 2026-10-18 |  |
 | passes | `passes/StructuringLedger.java:StructuringLedger.lines` | R-030 | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.loop` |  | 2026-10-18 |  |
+| lower | `lower/Lower.java:Lower.Plan.loop` |  | 2026-10-18 |  |
+| lower | `lower/Lower.java:Lower.varying` |  | 2026-10-18 |  |
+| lower | `lower/Performs.java:Performs.phrases` |  | 2026-10-18 |  |
+| lower | `lower/Performs.java:Performs.stepped` |  | 2026-10-18 |  |
+| lower | `lower/Performs.java:Performs.counted` | R-021 | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.Loops` |  | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.loops` | R-032 | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.visit` |  | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.refusals` |  | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.unstructured` |  | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.scope` |  | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.flatten` |  | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.stores` |  | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.holds` |  | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.target` |  | 2026-10-18 |  |
+| passes | `passes/Loops.java:Loops.body` |  | 2026-10-18 |  |
