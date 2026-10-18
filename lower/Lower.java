@@ -25,6 +25,21 @@ public final class Lower {
      */
     public record Symbol(String name, String node) {}
 
+    /**
+     * What a pass asks the lowering to write otherwise (MOD-04: passes/ writes Java only through this emitter):
+     * each PERFORM range, by its first paragraph's index to its last's, called as a method `perform<first>`, and the
+     * paragraphs whose last statement, a GO TO to the next, is left to fall. Empty, the literal lowering; it
+     * decides nothing (passes/Structuring discharges the obligations).
+     */
+    public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls) {
+        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of());
+
+        public Plan {
+            methods = java.util.Map.copyOf(methods);
+            falls = java.util.Set.copyOf(falls);
+        }
+    }
+
     /** Items are set up in methods of this many, so no method passes the JVM's size limit. */
     static final int CHUNK = 150;
 
@@ -35,13 +50,19 @@ public final class Lower {
      */
     // Decision: R-024
     public static Result java(Program p, String className) {
+        return java(p, className, Plan.LITERAL);
+    }
+
+    /** The same under a pass's plan (6.1): the program's own procedure only, a nested program's literal. */
+    // Decision: R-024
+    public static Result java(Program p, String className, Plan plan) {
         Emitter e = new Emitter();
         List<String> findings = new ArrayList<>();
-        e.line("// Lowered by Katana from " + p.header().source() + " (" + p.header().profileHash() + "). Literal: not for editing.");
+        e.line("// Lowered by Katana from " + p.header().source() + " (" + p.header().profileHash() + "). " + (plan.equals(Plan.LITERAL) ? "Literal" : "Structured (passes/, 6.1)") + ": not for editing.");
         e.line("import katana.rt.*;");
         e.line("import katana.rt.Record;");
         e.line("import java.util.List;");
-        program(e, p, className, List.of(), findings);
+        program(e, p, className, List.of(), findings, plan);
         return new Result(e.text(), findings, e.statements(), e.symbols());
     }
 
@@ -50,7 +71,7 @@ public final class Lower {
      * class inside its container's, which it reaches as `up` (LANE-19).
      */
     // Decision: R-024
-    private static void program(Emitter e, Program p, String className, List<Program> containers, List<String> findings) {
+    private static void program(Emitter e, Program p, String className, List<Program> containers, List<String> findings, Plan plan) {
         Exprs x = new Exprs(p, findings);
         boolean top = containers.isEmpty();
         e.open((top ? "public final class " : "static final class ") + className + " implements Subprogram");
@@ -98,10 +119,10 @@ public final class Lower {
         if (top) parm(e, p);
         FileDecls.closer(e, p);
         Programs.entry(e, p, x, containers);
-        new Flow(e, p, x, containers).procedure();
+        new Flow(e, p, x, containers, plan).procedure();
         List<Program> inside = new ArrayList<>(containers);
         inside.add(p);
-        for (Program n : p.nested()) program(e, n, Lower.className(n), inside, findings);
+        for (Program n : p.nested()) program(e, n, Lower.className(n), inside, findings, Plan.LITERAL);
         e.leave();
         e.close();
     }

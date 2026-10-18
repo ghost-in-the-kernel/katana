@@ -79,6 +79,11 @@ class CardDemoJavaLaneIntegrationTest {
      * DYNAM (J-109, J-186), a CALL finding a module's class on the path (LANE-19); and `rt/Ksds` (LANE-16).
      */
     static Map<String, List<String>> commands(Fixture fixture, Path classes) throws Exception {
+        return commands(fixture, classes, false);
+    }
+
+    /** The same, each program lowered under 6.1's structuring pass when `structured` (research §35). */
+    static Map<String, List<String>> commands(Fixture fixture, Path classes, boolean structured) throws Exception {
         Map<String, String> ibm = katana.profile.Profile.read(Files.readString(ROOT.resolve("profile/ibm.profile"))).ibm();
         String launcher = Path.of(System.getProperty("java.home"), "bin", "java").toString(), path = classes + java.io.File.pathSeparator + System.getProperty("java.class.path");
         java.util.Set<String> programs = new java.util.LinkedHashSet<>();
@@ -88,7 +93,7 @@ class CardDemoJavaLaneIntegrationTest {
         }
         for (var line : fixture.header()) if (line.keyword().equals("module")) programs.add(line.values().get(0));
         Map<String, List<String>> commands = new LinkedHashMap<>();
-        for (String name : programs) commands.put(name, List.of(launcher, "-XX:TieredStopAtLevel=1", "-XX:+UseSerialGC", "-cp", path, "-Dkatana.dispsign=" + ibm.get("ibm.dispsign"), "-Dkatana.dynam=" + ibm.get("ibm.dynam"), lowered(name, classes, fixture)));
+        for (String name : programs) commands.put(name, List.of(launcher, "-XX:TieredStopAtLevel=1", "-XX:+UseSerialGC", "-cp", path, "-Dkatana.dispsign=" + ibm.get("ibm.dispsign"), "-Dkatana.dynam=" + ibm.get("ibm.dynam"), lowered(name, classes, fixture, structured)));
         commands.put(CobcLane.KSDS, List.of(launcher, "-cp", path, "katana.rt.Ksds"));
         return commands;
     }
@@ -124,14 +129,15 @@ class CardDemoJavaLaneIntegrationTest {
     }
 
     /** A CardDemo program lowered and compiled into `classes`, its copybooks at the fixture's tab widths; its class name. */
-    private static String lowered(String name, Path classes, Fixture fixture) throws Exception {
+    private static String lowered(String name, Path classes, Fixture fixture, boolean structured) throws Exception {
         Path source = CARDDEMO.resolve("app/cbl/" + name + ".cbl");
         if (!Files.exists(source)) source = CARDDEMO.resolve("app/cbl/" + name + ".CBL");
         Parse.Result parse = Parse.file(source, new Copybooks(List.of(CARDDEMO.resolve("app/cpy")), Tabs.widths(fixture)), 8);
         assertEquals(List.of(), parse.errors(), name + " parses");
         Program program = Build.programs(parse, "sha256:" + "0".repeat(64)).get(0).program();
         String className = Lower.className(program);
-        Files.writeString(classes.resolve(className + ".java"), Lower.java(program, className).java());
+        Lower.Plan plan = structured ? katana.passes.Structuring.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Lower.Plan.LITERAL;
+        Files.writeString(classes.resolve(className + ".java"), Lower.java(program, className, plan).java());
         ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
         int status = ToolProvider.getSystemJavaCompiler().run(null, null, diagnostics, "-classpath", System.getProperty("java.class.path"), "-d", classes.toString(), classes.resolve(className + ".java").toString());
         assertEquals(0, status, name + " compiles: " + diagnostics.toString(StandardCharsets.UTF_8));

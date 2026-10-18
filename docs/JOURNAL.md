@@ -3274,3 +3274,38 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `test/katana/intent/BatchReview.java`, `BatchReviewDocs.java`, `BatchReviewEvidence.java`,
   `EnumValuesStored.java`, `EnumValuesStoredTest.java`, `BatchReviewIntegrationTest.java`,
   `carddemo-batch.proposals`, `carddemo-batch.review`.
+
+### J-210 6.1, pattern structuring: every batch Function range a method, every run the literal Java's
+- **Who:** Opus, on Ghost's word ("lets continue with 6.1", without his review first: every fact the pass
+  acts on is `unconfirmed`, R-029). **Class:** build; trial.
+- **Intent:** 6.1's first two patterns (research §35, written before the build): a PERFORM range a `Function`
+  fact names becomes a method its callers call, and a GO TO to the next paragraph is left to fall, each only
+  where its obligations hold on sir/'s graph and contract (R-032); proven by every CardDemo job and every
+  NIST module reporting, structured, what it reports literal, the paragraph trace equal, and the ledger.
+- **Found:** as predicted on CardDemo: all 175 batch function facts discharge every obligation and become
+  methods (CBTRN02C 26, CBTRN03C 26, CBACT04C 22 ...; 117 over the nine jobs' programs); every job's report
+  and every traced step's paragraph trace the literal Java's; no GO TO to the next paragraph in the batch
+  programs (predicted a few). Against the prediction, NIST found two faults before the run held: (1) the
+  method's loop as research §35 wrote it, stepping until `last + 1`, takes a PERFORM or GO TO that lands on
+  the paragraph after the range for its end (RL206A: `PERFORM SIZE-TEST-2` returns paragraph 40, one past
+  SIZE-TEST-1's range, so the method returned at the 33rd of 500 records); (2) `FlagRule` threw on a
+  figurative with no key (NC252A's ALL literal), so `Rules.infer` crashed and NC252A could not be lowered
+  structured. ST117A's difference was ST115A's file, the same fault. The guard was the comparison itself:
+  each NIST run structured against the same run literal.
+- **Resolved:** a range's method is the dispatcher's own PERFORM with `-3` for its return, as `use` does for a
+  declarative: `int pc = d.perform(first, last, -3); while (pc != -3) { ...; pc = step(pc); }`, so the range
+  ends where a literal PERFORM would, and only the caller's side is structured (no `return d.perform`, no
+  split, so IF and EVALUATE holding such a PERFORM stay Java). The methods are `perform<first>` (`f<first>`
+  named fields already). `FlagRule.nothing` treats a keyless figurative as neither SPACE nor LOW-VALUE.
+  `lower/` takes a `Lower.Plan` (empty: the literal lowering, byte for byte); `passes/Structuring` makes it;
+  `passes/StructuringLedger` writes the lines. The pass's unit corpus: the 20 hand-lowered autotests pass
+  structured, but none holds a range; GnuCOBOL's PERFORM autotests wait on phase 3's runnable autotests
+  through the lowering. The third pattern (PERFORM VARYING as `for`) is the next step. A `passes` suite in
+  the pre-push check.
+- **Touched:** `passes/Structuring.java`, `passes/StructuringLedger.java`; `lower/Lower.java`, `Flow.java`,
+  `Performs.java`, `Evaluate.java`; `intent/rules/FlagRule.java`; `test/katana/passes/*`,
+  `test/katana/oracle/lane/StructuringCardDemoIntegrationTest.java`, `CardDemoJavaLaneIntegrationTest.java`,
+  `test/katana/lower/JavaRunner.java`, `NistJavaLaneIntegrationTest.java`, `ManifestTest.java`,
+  `test/katana/rt/autotest/LoweredAutotestsIntegrationTest.java`; `scripts/prepush.sh`, `docs/checks.json`,
+  `docs/LEDGER.md`, `docs/KERNEL-MAP.md`, `TODO.md`.
+

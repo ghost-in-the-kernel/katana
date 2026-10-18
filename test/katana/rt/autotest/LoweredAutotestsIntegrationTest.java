@@ -47,11 +47,16 @@ class LoweredAutotestsIntegrationTest {
     record Built(Program program, Lower.Result lowered, Class<?> type) {}
 
     static Built build(String id) throws Exception {
+        return build(id, false);
+    }
+
+    /** The same, lowered under 6.1's structuring pass when `structured` (research §35): the pass's unit corpus. */
+    static Built build(String id, boolean structured) throws Exception {
         Parse.Result parse = Parse.file(CASES.resolve(id).resolve("prog.cob"), new Copybooks(List.of(), n -> 8), 8);
         if (!parse.clean()) return null;
         Program program = Build.program(parse, "sha256:" + "0".repeat(64)).program();
-        Lower.Result lowered = Lower.java(program, "Prog");
-        Path dir = Files.createDirectories(ROOT.resolve("build/lowered/" + id));
+        Lower.Result lowered = Lower.java(program, "Prog", structured ? katana.passes.Structuring.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Lower.Plan.LITERAL);
+        Path dir = Files.createDirectories(ROOT.resolve("build/lowered/" + id + (structured ? "-structured" : "")));
         Files.writeString(dir.resolve("Prog.java"), lowered.java());
         JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
         ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
@@ -96,7 +101,7 @@ class LoweredAutotestsIntegrationTest {
     @Test
     void eachHandLoweredProgramLowersToTheSameOutput() throws Exception {
         List<String> differ = new ArrayList<>();
-        int lowered = 0;
+        int lowered = 0, methods = 0;
         for (Lowered l : AutotestRtIntegrationTest.LOWERED) {
             Built b = build(l.id());
             if (b == null) continue;
@@ -112,7 +117,11 @@ class LoweredAutotestsIntegrationTest {
                 continue;
             }
             if (!Arrays.equals(want, got)) differ.add(l.id() + " findings " + b.lowered().findings() + "\nlowered:\n" + text(got) + "by hand:\n" + text(want));
+            Built structured = build(l.id(), true);
+            if (!Arrays.equals(want, run(structured))) differ.add(l.id() + " structured (6.1) differs");
+            if (structured.lowered().java().contains("private void perform")) methods++;
         }
+        System.out.println("structured: " + methods + " of the lowered programs hold a range made a method");
         System.out.println("lowered " + lowered + " of " + AutotestRtIntegrationTest.LOWERED.size());
         assertEquals(List.of(), differ);
     }

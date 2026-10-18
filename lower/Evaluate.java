@@ -44,7 +44,7 @@ final class Evaluate {
             f.statements(other);
             return;
         }
-        boolean split = Flow.splits(bodies.get(k)) || Flow.splits(other) || bodies.subList(k + 1, bodies.size()).stream().anyMatch(Flow::splits);
+        boolean split = f.splits(bodies.get(k)) || f.splits(other) || bodies.subList(k + 1, bodies.size()).stream().anyMatch(f::splits);
         if (!split) {
             f.e.open("if (" + conditions.get(k) + ")");
             f.statements(bodies.get(k));

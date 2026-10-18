@@ -97,6 +97,10 @@ final class Performs {
             f.statements(body);
             return;
         }
+        if (f.method(target)) {
+            f.e.line(f.call(target));
+            return;
+        }
         int back = f.label();
         f.e.line("return " + f.perform(target, back) + ";");
         f.split(back);
@@ -104,9 +108,10 @@ final class Performs {
 
     /** Repeats the procedures or the body until `done` holds, tested before each time (or after, for TEST AFTER). */
     private void repeat(Value.Target target, List<Statement> body, String done, boolean testAfter) {
-        if (target == null && !Flow.splits(body)) {
+        if (target == null && !f.splits(body) || f.method(target)) {
             f.e.open(testAfter ? "do" : "while (!(" + done + "))");
-            f.statements(body);
+            if (target != null) f.e.line(f.call(target));
+            else f.statements(body);
             if (testAfter) {
                 f.e.close();
                 f.e.line("while (!(" + done + "));");
