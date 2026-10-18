@@ -88,7 +88,7 @@ class CardDemoJavaLaneIntegrationTest {
         }
         for (var line : fixture.header()) if (line.keyword().equals("module")) programs.add(line.values().get(0));
         Map<String, List<String>> commands = new LinkedHashMap<>();
-        for (String name : programs) commands.put(name, List.of(launcher, "-cp", path, "-Dkatana.dispsign=" + ibm.get("ibm.dispsign"), "-Dkatana.dynam=" + ibm.get("ibm.dynam"), lowered(name, classes, fixture)));
+        for (String name : programs) commands.put(name, List.of(launcher, "-XX:TieredStopAtLevel=1", "-XX:+UseSerialGC", "-cp", path, "-Dkatana.dispsign=" + ibm.get("ibm.dispsign"), "-Dkatana.dynam=" + ibm.get("ibm.dynam"), lowered(name, classes, fixture)));
         commands.put(CobcLane.KSDS, List.of(launcher, "-cp", path, "katana.rt.Ksds"));
         return commands;
     }

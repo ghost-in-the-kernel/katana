@@ -133,7 +133,7 @@ final class JavaRunner implements Runner {
     public Result run(Path dir, String program, Map<String, String> env, byte[] input) {
         try {
             String name = Files.readString(dir.resolve(stem(program) + ".class-name")).lines().findFirst().orElseThrow();
-            List<String> command = new ArrayList<>(List.of(Path.of(System.getProperty("java.home"), "bin", "java").toString(), "-cp", rtClasses() + java.io.File.pathSeparator + dir, "-Dkatana.upsi=" + upsi(env), "-Dkatana.debug=" + env.getOrDefault("COB_SET_DEBUG", "N"), "-Dkatana.dynam=" + (dynam ? "DYNAM" : "NODYNAM"), name));
+            List<String> command = new ArrayList<>(List.of(Path.of(System.getProperty("java.home"), "bin", "java").toString(), "-XX:TieredStopAtLevel=1", "-XX:+UseSerialGC", "-cp", rtClasses() + java.io.File.pathSeparator + dir, "-Dkatana.upsi=" + upsi(env), "-Dkatana.debug=" + env.getOrDefault("COB_SET_DEBUG", "N"), "-Dkatana.dynam=" + (dynam ? "DYNAM" : "NODYNAM"), name));
             Path log = dir.resolve(stem(program) + ".java-out");
             ProcessBuilder pb = new ProcessBuilder(command).directory(dir.toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
             pb.environment().putAll(env);

@@ -3235,3 +3235,18 @@ taken; closed by a later `decision` entry naming it).
   lane and the EVALUATE lookahead to TODO.md as feature work, each with a design note first.
 - **Touched:** `theGhost.md` (R-054), `docs/AGENT.md`, `TODO.md`, `docs/JOURNAL.md`.
 
+### J-208 Tithe: the Java lane's JVMs run C1 only with the serial collector
+- **Who:** Opus, on Ghost's word ("lets do the tithe"). **Class:** tithe.
+- **Intent:** the item J-207 carried to tithe pass 6's list: flags that cut a short JVM's start and
+  compilation, kept only if every NIST and CardDemo run reports what it did and the lane's time falls.
+- **Found:** NIST's Java lane alone, on the gating machine: 128 s as it was; 114 s with
+  `-XX:TieredStopAtLevel=1 -XX:+UseSerialGC`, every module's report the same line for line (the temporary
+  folders' names aside). A dynamic class-data-sharing archive of rt/ on top (`-XX:+AutoCreateSharedArchive`,
+  its log off) made the runs fail and took 134 s: refused. With the two flags the CardDemo Java lane,
+  ProofV1, the abend, file-status and LINAGE tests pass, the proof goldens and the PERFORM summary unchanged.
+- **Resolved:** `JavaRunner` and the CardDemo Java lane's launcher start each lowered program's JVM with the
+  two flags. No behaviour and no golden changed. J-188's comment (parsing most of a NIST run's time) stands
+  corrected by J-206's measure: the time is the JVM per run.
+- **Touched:** `test/katana/lower/JavaRunner.java`, `test/katana/oracle/lane/CardDemoJavaLaneIntegrationTest.java`,
+  `TODO.md`.
+
