@@ -1871,3 +1871,49 @@ ranges, whose GO TOs go forward to an `-EXIT` paragraph) or a NEXT SENTENCE; the
 cases, the main line's and those ranges' remaining. NIST: many ranges inline; every run as literal. The
 rival: a range the obligations admit that the run disproves (an entry the graph does not show), caught by
 the comparison as a dispatcher `pc` with no case, or a report that differs.
+
+## 38. 6.2b, the main line as `run`'s own code and the loops as labeled `while`s (R-032 to R-034; J-213)
+
+**What is left after 6.2.** The switch holds the main line (CardDemo's batch: 30 cases, its main lines) and
+the ranges with a GO TO back. A survey of the backward GO TOs before the build (J-212's follow-up, a Fable
+advisor's reading of the design): NIST, 541 on main lines (533 of them a paragraph's GO TO to itself), 89
+elsewhere (15 to itself), 2 inside method ranges (both to themselves); CardDemo, 8 on main lines and 1 a
+paragraph's GO TO to itself. Backward jumps are mostly the main line's.
+
+**This step's set.** The main line, the paragraphs control reaches from the start without a PERFORM, becomes
+`run`'s own code, in order, as a method range's does in 6.2. A GO TO back to a paragraph T from a paragraph S
+at or after it makes T a loop's header: `WT: while (true) { ...T..E...; break WT; }`, E the last paragraph that
+jumps back to T, the GO TO a `continue WT`. Forward GO TOs stay `break`s out of labeled blocks, opened per
+level (inside a loop, its own). A PERFORM of a range no method, which 6.2 refused, is a call,
+`dispatch(first, last)`: the dispatcher runs it to a mark of its own, `-3 - depth`, so a PERFORM nested in
+the dispatcher's run returns to its own frame (an `Unwind` carries a foreign mark up to the frame that owns
+it). When no paragraph is left in the switch, `step` is not written.
+
+**One reading of EXIT PROGRAM.** 6.1's main line skipped a `returns-if-called` fall in a program with
+USING, 6.2's entries counted it: two readings. A program with USING may run as the main program (its PARM
+its USING), and then EXIT PROGRAM falls (J-199). Both now count it.
+
+**Obligations** (R-032; the main line that fails one stays in the switch, and the pass says why, a finding
+`main line` per program, R-034):
+
+1. The main line's code needs no stretch: as §37's 2 (a PERFORM of a range no method is now `dispatch`).
+2. Its GO TOs name paragraphs on it; none is DEPENDING or altered; no ALTER reaches it.
+3. Nothing enters it from elsewhere: no PERFORM or SORT procedure runs through it, no GO TO or fall from a
+   paragraph off it.
+4. No method's range is in it.
+5. Its loops are reducible as text order says them: a loop is entered only at its header, and two loops nest
+   or are apart. An irreducible one (two entries) stays residual: a choice of entry would change what runs
+   (the question Ghost asked; R-033 refuses node splitting, and the dispatcher is the faithful form).
+
+A method range takes 5 too: a range with a GO TO back is now its own code when its loops are reducible.
+
+**Proof**: as §37's: every CardDemo job and every NIST module structured, reporting and tracing what it does
+literal; the ledger's lines; the autotests structured.
+
+**Predicted, before the build.** CardDemo's batch: 13 of the 14 programs lose their switch entirely (no
+`step`); CBSTM03A keeps its main line, ALTERed (and its methods inline as before). NIST: most main lines
+become `run`'s code, its 541 backward GO TOs mostly `continue`s; those left are main lines with ALTER, GO TO
+DEPENDING, SORT procedures, segmentation, or a PERFORM running through the main line (the old style of
+`PERFORM A THRU Z` over the line), and a handful of irreducible loops, perhaps none. Every run as literal.
+The rival: a main line the obligations admit that the run disproves, an entry the graph does not show
+(J-212's SORT procedure was one), seen as a report or trace that differs or a `pc` no case takes.
