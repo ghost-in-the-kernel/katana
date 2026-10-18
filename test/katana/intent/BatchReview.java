@@ -61,18 +61,23 @@ final class BatchReview {
             #   evidence  what the program does with the item, and where, in the program's own names
             #   rule      the rule that proposed it, and how sure the rule is (its measured precision on
             #             a hand-written key bounds it; the key is Opus's reading, not a person's)
-            #   Fable     a proposal only (R-031): a probability and a reason, never a confirmation
+            #   Fable     a proposal only (R-031): a probability and a reason, never a confirmation. A Fable
+            #             advisor's (J-204), a session separate from the Fable that wrote R-066; the percent
+            #             is the advisor's on every line; where the line says "reason in Opus's words" the
+            #             reason is Opus's, written from the advisor's report (J-209)
             #   T-xx      each built test's verdict (research section 34): holds, refutes or cannot tell, and why;
             #             a test's word is evidence for your answer, never the answer (R-029)
             #   docs      the program's authors (AWS's CardDemo README, the copybook and program comments),
             #             quoted where they describe the item, "none" where they do not
             #
-            # Your answer goes on the fact line itself, and the next build reads it:
-            #   confirmed   change `inferred` to `confirmed` and fill the empty field after the confidence
-            #               with your name and the date: `| Ghost 2026-10-18`
-            #   refuted     change it to `refuted`, the same name and date, then `| ` and what it is instead
-            #   could not tell  leave `inferred`, and after the confidence write `|  | could not tell: `
-            #               and what you would have needed; this counts against the evidence line, not you
+            # Your answer goes on the fact line itself, and the next build reads it. Leave the subject (the
+            # names after the kind) as it is; each line is answered on its own, APPL-RESULT once a program.
+            #   confirmed   change `inferred` to `confirmed`, and after the confidence append your name and
+            #               the date: `| Ghost 2026-10-18`
+            #   refuted     change `inferred` to `refuted`, append the same, then `| ` and what it is instead
+            #   could not tell  leave `inferred`, and after the confidence append `|  | could not tell: ` (the
+            #               name field left empty) and what you would have needed; it counts against the
+            #               evidence line, not you
             # No reading, and no agreement among them, makes a fact confirmed; only your word does (R-029).
             #
             # Words. An item is a named piece of a record or of working storage. A paragraph is a named block
@@ -102,7 +107,8 @@ final class BatchReview {
             out.append("#   evidence: ").append(BatchReviewEvidence.evidence(p, f)).append('\n');
             out.append("#   rule: ").append(f.evidence().rule()).append(" v").append(f.evidence().version()).append(", confidence ").append(line.split("\\s*\\|\\s*")[4]).append('\n');
             String[] proposal = proposals().get(name + " | " + line.split("\\s*\\|\\s*")[1] + " | " + line.split("\\s*\\|\\s*")[2]);
-            out.append("#   Fable (proposal, R-031): ").append(proposal == null ? "___% because ___" : proposal[0] + "% because " + Character.toLowerCase(proposal[1].charAt(0)) + proposal[1].substring(1)).append('\n');
+            out.append("#   Fable (proposal, R-031").append(proposal != null && proposal[3].equals("Opus") ? "; reason in Opus's words" : "").append("): ")
+                    .append(proposal == null ? "___% because ___" : proposal[0] + "% because " + sentence(proposal[1])).append('\n');
             if (proposal != null) out.append("#   tests: ").append(tests(proposal[2])).append('\n');
             if (proposal != null) for (Verdict v : ReviewTests.verdicts(p, f, proposal[2])) out.append("#   ").append(v.line()).append('\n');
             out.append("#   docs: ").append(BatchReviewDocs.docs(p, f)).append('\n');
@@ -114,14 +120,20 @@ final class BatchReview {
         return out.toString();
     }
 
-    /** The proposals file, by `PROGRAM | kind | subject`: the percent, the reason, the tests and documents named. */
+    /** A reason after "because": its first letter lowered, unless its first word is a name in capitals (ADD, CYC-CREDIT). */
+    private static String sentence(String reason) {
+        String first = reason.split("[\\s,:;(]", 2)[0];
+        return first.length() > 1 && first.equals(first.toUpperCase()) ? reason : Character.toLowerCase(reason.charAt(0)) + reason.substring(1);
+    }
+
+    /** The proposals file, by `PROGRAM | kind | subject`: the percent, the reason, the tests and documents named, and whose words the reason is. */
     static java.util.Map<String, String[]> proposals() {
         java.util.Map<String, String[]> out = new java.util.LinkedHashMap<>();
         try {
             for (String line : Files.readAllLines(PROPOSALS)) {
                 if (line.isBlank() || line.startsWith("#")) continue;
                 String[] f = line.split(" \\| ", -1);
-                out.put(f[0] + " | " + f[1] + " | " + f[2], new String[] {f[3], f[4], f[5]});
+                out.put(f[0] + " | " + f[1] + " | " + f[2], new String[] {f[3], f[4], f[5], f[6]});
             }
         } catch (java.io.IOException e) {
             throw new java.io.UncheckedIOException(e);
@@ -136,7 +148,7 @@ final class BatchReview {
             if (id.isBlank()) continue;
             out.add(id + (ReviewTests.BUILT.containsKey(id) ? " (built, " + ReviewTests.BUILT.get(id) + ": its verdict below)" : id.startsWith("D-") ? " (a document to find)" : " (named, not yet built)"));
         }
-        return out.isEmpty() ? "none named" : String.join(", ", out) + "; each in docs/research/ibm-options.md section 33";
+        return out.isEmpty() ? "none named" : String.join(", ", out) + "; each in docs/research/ibm-options.md sections 33 and 34";
     }
 
     /** The notes file, by `PROGRAM | kind | subject`. */

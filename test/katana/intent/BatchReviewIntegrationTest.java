@@ -59,7 +59,7 @@ class BatchReviewIntegrationTest {
             for (String fact : lines) {
                 List<String> after = part.lines().dropWhile(l -> !l.equals(fact)).skip(1).takeWhile(l -> l.startsWith("#")).toList();
                 List<String> verdicts = after.stream().skip(4).takeWhile(l -> l.startsWith("#   T-")).toList();
-                assertTrue(after.size() >= 5 + verdicts.size() && after.get(0).startsWith("#   evidence: ") && after.get(1).startsWith("#   rule: ") && after.get(2).matches("#   Fable \\(proposal, R-031\\): \\d+% because .+")
+                assertTrue(after.size() >= 5 + verdicts.size() && after.get(0).startsWith("#   evidence: ") && after.get(1).startsWith("#   rule: ") && after.get(2).matches("#   Fable \\(proposal, R-031(; reason in Opus's words)?\\): \\d+% because .+")
                         && after.get(3).startsWith("#   tests: ") && after.get(4 + verdicts.size()).startsWith("#   docs: "), fact + " has its readings, its proposal, the tests it names and their verdicts");
                 for (String id : after.get(3).replaceAll("\\([^)]*\\)", "").replaceAll(";.*", "").replace("#   tests: ", "").split(",\\s*")) {
                     assertTrue(id.isBlank() || java.util.regex.Pattern.compile("\\*\\*" + id.strip() + "[ *]").matcher(CATALOGUE).find(), id + " is in research section 33's catalogue");
