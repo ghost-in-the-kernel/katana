@@ -14,39 +14,63 @@ import katana.sir.types.Item;
 import katana.sir.types.Program;
 import katana.sir.types.Statement;
 
-/** `money.packed-v99-added`: a `V99 COMP-3` item an ADD or SUBTRACT stores into, and never multiplied by itself, is money (docs/ROADMAP.md 5.2). */
+/**
+ * `money.used` (R-065): a numeric item of two places an ADD, SUBTRACT or COMPUTE stores into with another
+ * two-place item among its operands, or one MOVEd to an edited picture with a currency sign or comma
+ * insertion, and never multiplied by itself, is money. Its version 1, `money.packed-v99-added`, read COMP-3,
+ * a packing, as the meaning (J-195).
+ */
 final class MoneyRule implements Rule {
-    private static final Set<String> STORED = Set.of("add-to", "add-giving", "subtract-minuend", "subtract-giving");
+    private static final Set<String> STORED = Set.of("add-to", "add-giving", "subtract-minuend", "subtract-giving", "compute-store");
 
     public String name() {
-        return "money.packed-v99-added";
+        return "money.used";
     }
 
     public int version() {
-        return 1;
+        return 2;
     }
 
-    // Unsure: 0.5 though its precision is 1.000, from one fact (CBSTM03A's WS-TOTAL-AMT); CardDemo's other COMP-3 amounts are only MOVEd, its money zoned (research §29).
+    // Unsure: 0.9, under the 1.000 recorded on CardDemo's key from 29 facts (research §32): a small sample, one corpus.
     public double confidence() {
-        return 0.5;
+        return 0.9;
     }
 
-    /** Each numeric `V99` packed-decimal item an ADD or SUBTRACT stores into and none multiplies by itself. */
+    /** Each numeric two-place item stored into with another, or MOVEd to a currency-edited picture, and none multiplies by itself. */
     public List<Fact> infer(Program p) {
         List<Statement> all = Walk.statements(p);
         List<Fact> facts = new ArrayList<>();
         for (Item i : p.items()) {
             Attributes a = i.attributes();
-            if (a.category() != Attributes.Category.NUMERIC || a.scale() != 2 || a.usage() != Attributes.Usage.PACKED) continue;
-            if (!stored(all, i.id()) || squared(all, i.id())) continue;
+            if (!twoPlaces(i) || squared(all, i.id()) || !(stored(p, all, i.id()) || edited(p, all, i.id()))) continue;
             facts.add(new Fact(Kind.MONEY, new Subject.Datum(i.id()), new Evidence(name(), version(), List.of(new Node.ItemNode(i.id()))), confidence(), State.INFERRED));
         }
         return facts;
     }
 
-    /** Whether an ADD or SUBTRACT stores into the item. */
-    private static boolean stored(List<Statement> all, int item) {
-        for (Statement s : all) for (Statement.Operand o : s.operands()) if (STORED.contains(o.role()) && Walk.refers(o.value(), item) > 0) return true;
+    private static boolean twoPlaces(Item i) {
+        return i.attributes().category() == Attributes.Category.NUMERIC && i.attributes().scale() == 2;
+    }
+
+    /** Whether an ADD, SUBTRACT or COMPUTE stores into the item with another two-place item among its operands. */
+    private static boolean stored(Program p, List<Statement> all, int item) {
+        for (Statement s : all) {
+            if (s.operands().stream().noneMatch(o -> STORED.contains(o.role()) && Walk.refers(o.value(), item) > 0)) continue;
+            for (Item other : p.items()) if (other.id() != item && twoPlaces(other) && s.operands().stream().anyMatch(o -> Walk.refers(o.value(), other.id()) > 0)) return true;
+        }
+        return false;
+    }
+
+    /** Whether a MOVE sends the item to an edited picture with a currency sign or comma insertion. */
+    private static boolean edited(Program p, List<Statement> all, int item) {
+        for (Statement s : all) {
+            if (!s.verb().equals("MOVE") || s.operands().stream().noneMatch(o -> o.role().equals("move-to-sending-area") && Walk.refers(o.value(), item) > 0)) continue;
+            for (Statement.Operand o : s.operands()) {
+                if (!o.role().equals("move-to-statement") || !(o.value() instanceof katana.sir.types.Value.Field f)) continue;
+                Attributes to = p.items().get(f.item() - 1).attributes();
+                if (to.category() == Attributes.Category.NUMERIC_EDITED && (to.picture().contains(p.header().currency()) || to.picture().contains(","))) return true;
+            }
+        }
         return false;
     }
 

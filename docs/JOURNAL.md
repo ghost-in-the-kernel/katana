@@ -3079,3 +3079,20 @@ taken; closed by a later `decision` entry naming it).
   carried-in list (parse-once, the autotests at scale, R-063's offsets, the ledger's one line).
 - **Touched:** `sir/contract/Contract.java`, `sir/golden/IC237A.contract`, `docs/SEMANTIC-IR.md`,
   `docs/KERNEL-MAP.md`, `TODO.md`.
+
+### J-201 The rules' version 2 by use (R-065): a flag rule before enum, money by what is added; both adopted
+- **Who:** Opus, on Fable's answers (J-199). **Class:** build; trial.
+- **Intent:** R-065's two claims tried on CardDemo's key; prediction and the key's flag lines before the
+  rules (research §32, ef292d8).
+- **Found:** the key had no flag lines; its version-1 scope judged 69 pairs flags without writing them.
+  Seventy-nine flags written before the rule. The bench's guard compared versions by rule name, and money's
+  name changed with its reading, so it now compares by kind.
+- **Resolved:** `FlagRule` (flag.yes-no v1), `EnumRule` v2 (leaving what flag takes), `MoneyRule` v2
+  (money.used: stored into with another two-place item, or moved to a currency-edited picture). flag 0.986 /
+  0.861; enum v2 0.932 / 0.973; money v2 1.000 / 0.250; function unchanged. R-065 C-1 and C-2 verified;
+  both versions adopted, neither figure falling. `RulesTest` gains the flag cases; `ReviewTest` and the
+  CBTRN02C review trial follow the new versions (the trial's refutation now of a flag).
+- **Touched:** `intent/rules/*`; `test/katana/intent/RulesTest.java`, `ReviewTest.java`,
+  `Cbtrn02cReviewIntegrationTest.java`, `RulesBenchIntegrationTest.java`, `carddemo.key`;
+  `intent/rules/carddemo.scores`; `theGhost.md` (R-065's claims), `docs/HANDOFF.md`, `docs/INTENT-IR.md`,
+  `docs/KERNEL-MAP.md`, research §32.

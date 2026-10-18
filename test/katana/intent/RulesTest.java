@@ -61,7 +61,7 @@ class RulesTest {
     }
 
     @Test
-    void aPackedV99ItemAnAddStoresIntoAndNoneSquaresIsMoney() {
+    void aTwoPlaceItemStoredIntoWithAnotherAndNoneSquaresIsMoney() {
         Program p = program("""
                 01 TOTAL PIC S9(7)V99 COMP-3.
                 01 MOVED PIC S9(7)V99 COMP-3.
@@ -77,7 +77,28 @@ class RulesTest {
                     COMPUTE SQUARED = SQUARED * SQUARED.
                     STOP RUN.
                 """);
-        assertEquals(List.of("TOTAL", "TAKEN"), about(p, Kind.MONEY));
+        assertEquals(List.of("TOTAL", "ZONED"), about(p, Kind.MONEY));
+    }
+
+    @Test
+    void aYesOrNoIsAFlagAndNoEnum() {
+        Program p = program("""
+                01 YN PIC X.
+                   88 YN-YES VALUE 'Y'.
+                   88 YN-NO VALUE 'N'.
+                01 ON-OFF PIC X.
+                   88 IS-OFF VALUE LOW-VALUE.
+                   88 IS-ON VALUE '1'.
+                01 SWITCH PIC X.
+                   88 FOUND VALUE '1'.
+                01 UNSET PIC X.
+                   88 SEEN VALUE '1'.
+                01 CODE-X PIC X.
+                   88 CODE-A VALUE 'A'.
+                   88 CODE-U VALUE 'U'.
+                """, "MAIN.\n    MOVE LOW-VALUES TO SWITCH.\n    STOP RUN.\n");
+        assertEquals(List.of("YN", "ON-OFF", "SWITCH"), about(p, Kind.FLAG));
+        assertEquals(List.of("CODE-X"), about(p, Kind.ENUM));
     }
 
     @Test

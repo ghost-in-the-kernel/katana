@@ -43,8 +43,8 @@ class Cbtrn02cReviewIntegrationTest {
         String first = rebuild(p, "").text();
         String edited = first.replace("inferred | function | 1500-A-LOOKUP-XREF | function.perform-range v1 | 1",
                         "confirmed | function | 1500-A-LOOKUP-XREF | function.perform-range v1 | 1 | Ghost 2026-10-17")
-                .replace("inferred | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v1 | 0.5",
-                        "confirmed | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v1 | 0.5 | Ghost 2026-10-17")
+                .replace("inferred | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v2 | 0.9",
+                        "confirmed | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v2 | 0.9 | Ghost 2026-10-17")
                 .replace("inferred | function | Z-GET-DB2-FORMAT-TIMESTAMP | function.perform-range v1 | 1",
                         "refuted | function | Z-GET-DB2-FORMAT-TIMESTAMP | function.perform-range v1 | 1 | Ghost 2026-10-17 | the trial's refutation")
                 + "confirmed | money | DALYTRAN-AMT | person v1 | 1 | Ghost 2026-10-17\n";

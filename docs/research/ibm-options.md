@@ -1615,3 +1615,11 @@ between 0.15 and 0.5 (C-1): the balances, totals and interest CardDemo adds and 
 CBTRN03C edits for its report, found; the record fields only read, written or moved, which are most of
 the key's money, missed; DIS-INT-RATE, only multiplied, not taken. The rival for money: a two-place
 item added to that is no amount (a percentage kept as a running sum), which precision would show.
+
+Result (J-201): as predicted, every figure inside its range. flag.yes-no v1: 69 facts, 68 true of 79,
+precision 0.986, recall 0.861; its one error a message field with a blank and one text, its misses the
+0 and 9 pair and the one-condition switches no statement sets to SPACE or LOW-VALUE (they are set to '0'
+and '1'). enum.disjoint-88s v2: 118 facts, 110 true, precision 0.932 (0.588 at v1), recall 0.973 kept:
+C-2 verified. money.used v2: 29 facts, all true, precision 1.000, recall 0.250 (0.009 at v1): C-1
+verified; DIS-INT-RATE not taken; the misses are the record fields only read, written or moved. Neither
+version lowers a figure, so both are adopted (R-065); confidences 0.9, under each precision.
