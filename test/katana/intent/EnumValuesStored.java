@@ -35,7 +35,7 @@ final class EnumValuesStored {
         if (!unnamed.isEmpty()) {
             List<String> said = new ArrayList<>();
             unnamed.forEach((v, at) -> said.add(v + " (in " + list(at) + ")"));
-            return Verdict.refutes(TEST, "the program stores or compares it with " + String.join("; ", said) + ", which no condition-name names");
+            return Verdict.refutes(TEST, "the program " + String.join("; ", said) + ", which no condition-name names");
         }
         String own = stored == 0 ? "the program itself stores nothing into it and compares it with no literal" : "every value the program itself stores is named (" + count + ")";
         if (!outside.isEmpty()) return Verdict.cannotTell(TEST, own + ", but it is also " + String.join("; ", outside) + ", and what that stores the program does not say");
@@ -46,9 +46,11 @@ final class EnumValuesStored {
     private static int stores(Program q, int there, Item it, String program, Map<String, Set<String>> unnamed) {
         int stored = 0;
         for (BatchReviewEvidence.At a : BatchReviewEvidence.statements(q)) {
-            for (Value v : storedOrCompared(a.s(), there)) {
-                stored++;
-                if (!named(it, v, key(v, it))) unnamed.computeIfAbsent(BatchReviewEvidence.value(v), k -> new LinkedHashSet<>()).add(program + a.paragraph());
+            for (int how = 0; how < 2; how++) {
+                for (Value v : how == 0 ? stored(a.s(), there) : compared(a.s(), there)) {
+                    stored++;
+                    if (!named(it, v, key(v, it))) unnamed.computeIfAbsent((how == 0 ? "stores " : "compares it with ") + BatchReviewEvidence.value(v), k -> new LinkedHashSet<>()).add(program + a.paragraph());
+                }
             }
         }
         return stored;
@@ -80,13 +82,19 @@ final class EnumValuesStored {
         return s.size() <= 4 ? String.join(", ", s) : String.join(", ", new ArrayList<>(s).subList(0, 4)) + " and " + (s.size() - 4) + " more";
     }
 
-    /** The values one statement stores into the item, or compares it with: a MOVE's literal, a SET's condition-name, a relation's literal. */
-    static List<Value> storedOrCompared(Statement s, int item) {
+    /** The values one statement stores into the item: a MOVE's literal, a SET's condition-name. */
+    static List<Value> stored(Statement s, int item) {
         List<Value> out = new ArrayList<>();
         if (s.verb().equals("MOVE") && s.operands().stream().anyMatch(o -> o.role().equals("move-to-statement") && whole(o.value(), item))) {
             for (Statement.Operand o : s.operands()) if (o.role().equals("move-to-sending-area") && (o.value() instanceof Value.Literal || o.value() instanceof Value.Figurative)) out.add(o.value());
         }
         if (s.verb().equals("SET")) for (Statement.Operand o : s.operands()) if (o.value() instanceof Value.ConditionName c && c.item() == item) out.add(c);
+        return out;
+    }
+
+    /** The literals one statement compares the item with, in a relation of its operands or a branch's condition. */
+    static List<Value> compared(Statement s, int item) {
+        List<Value> out = new ArrayList<>();
         for (Statement.Operand o : s.operands()) compared(o.value(), item, out);
         for (Statement.Branch b : s.branches()) if (b.condition() != null) compared(b.condition(), item, out);
         return out;

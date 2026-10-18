@@ -19,8 +19,9 @@ class EnumValuesStoredTest {
     void aValueNoConditionNameNamesRefutes() {
         Verdict v = verdict(Small.program("P", X, "MAIN.\n    SET X-A TO TRUE.\n    MOVE 12 TO X.\n    STOP RUN.\n"), Corpus.of(Map.of()));
         assertEquals(Verdict.Outcome.REFUTES, v.outcome(), v.line());
-        assertTrue(v.why().contains("12 (in MAIN)"), v.line());
-        assertEquals(Verdict.Outcome.REFUTES, verdict(Small.program("P", X, "MAIN.\n    IF X = 12 DISPLAY 'T' END-IF.\n    STOP RUN.\n"), Corpus.of(Map.of())).outcome(), "a literal compared counts");
+        assertTrue(v.why().contains("stores 12 (in MAIN)"), v.line());
+        Verdict compared = verdict(Small.program("P", X, "MAIN.\n    IF X = 12 DISPLAY 'T' END-IF.\n    STOP RUN.\n"), Corpus.of(Map.of()));
+        assertTrue(compared.outcome() == Verdict.Outcome.REFUTES && compared.why().contains("compares it with 12 (in MAIN)"), "a literal compared counts, and is said to be compared: " + compared.line());
     }
 
     @Test
@@ -38,6 +39,6 @@ class EnumValuesStoredTest {
         assertEquals(Verdict.Outcome.HOLDS, verdict(caller, Corpus.of(Map.of("Q", good))).outcome(), verdict(caller, Corpus.of(Map.of("Q", good))).line());
         Verdict v = verdict(caller, Corpus.of(Map.of("Q", bad)));
         assertEquals(Verdict.Outcome.REFUTES, v.outcome(), v.line());
-        assertTrue(v.why().contains("12 (in Q MAIN)"), v.line());
+        assertTrue(v.why().contains("stores 12 (in Q MAIN)"), v.line());
     }
 }

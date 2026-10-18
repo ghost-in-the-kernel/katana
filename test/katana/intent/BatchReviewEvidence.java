@@ -198,7 +198,7 @@ final class BatchReviewEvidence {
 
     /** A COMPUTE's formula by the program's names, multiplication and division as the signs a reader knows. */
     private static String formula(Statement s) {
-        return s.operands().stream().filter(o -> o.role().equals("compute-statement")).map(o -> expression(o.value(), true)).findFirst().orElse("a formula");
+        return s.operands().stream().filter(o -> o.role().equals("compute-statement") && !(o.value() instanceof Value.Name)).map(o -> expression(o.value(), true)).findFirst().orElse("a formula");
     }
 
     private static String expression(Value v, boolean top) {

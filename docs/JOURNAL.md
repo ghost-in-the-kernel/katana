@@ -3250,3 +3250,27 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `test/katana/lower/JavaRunner.java`, `test/katana/oracle/lane/CardDemoJavaLaneIntegrationTest.java`,
   `TODO.md`.
 
+
+### J-209 The review file's Fable column relabelled where the words are Opus's; six faults fixed before Ghost reads
+- **Who:** Opus, on Ghost's word and Fable's audit (ab62bcf); a second Fable advisor's reading. **Class:** fix.
+- **Intent:** the label under R-031: Fable asked who wrote the proposal column, in its voice.
+- **Found:** the percentages are all the J-204 advisor's (a Fable session separate from the one that wrote
+  R-066). The reasons are its report's words on 24 lines; on 184 they are Opus's: the advisor gave one
+  reason a class of paragraph (the 175 function lines) or "as above", and Opus put it on each line. Two of
+  those were Opus's errors: ACCT-CURR-CYC-DEBIT carried CYC-CREDIT's reason (the advisor wrote "as above for
+  amounts < 0"), and CBTRN03C's APPL-RESULT kept only a parenthesis. The second advisor also found: first
+  letters lowered into "aDD", "cOMPUTE"; a COMPUTE's formula printed as a parse node (the `=` keyword taken
+  for it); CODATECN's licence banner quoted as its record's documentation; T-E1 saying "stores or compares"
+  where the program only stores; the tests line naming section 33 where the verdicts are section 34's; the
+  header's answer syntax naming an empty field the lines do not have.
+- **Resolved:** carddemo-batch.proposals gains a `wording` field, Fable or Opus, and the file says "reason
+  in Opus's words" on the 184; the two reasons rewritten from the source (CBTRN02C 2800-UPDATE-ACCOUNT-REC's
+  ELSE; CBTRN03C lines 228, 349, 377); the header names the two Fable readers and gives the answer syntax as
+  `intent/review` parses it (append ` | Ghost DATE`; for "could not tell" an empty name field; the subject
+  untouched). Each fault fixed in the generator and the file regenerated, no person's word in it yet.
+- **Ghost, 2026-10-18:** nothing is taken as absolute truth, only settled: a fact settles where the evidence
+  is enough, and a concrete test that says otherwise is raised against it. More tests where the evidence is
+  thin, later; where things work as expected, that is enough for now.
+- **Touched:** `test/katana/intent/BatchReview.java`, `BatchReviewDocs.java`, `BatchReviewEvidence.java`,
+  `EnumValuesStored.java`, `EnumValuesStoredTest.java`, `BatchReviewIntegrationTest.java`,
+  `carddemo-batch.proposals`, `carddemo-batch.review`.

@@ -103,6 +103,8 @@ final class BatchReviewDocs {
             else said.add(text);
             if (step < 0 || first == 0) first = k + 1;
         }
+        // A file's licence banner documents no item (J-209: CODATECN.cpy's was quoted as its record's words).
+        if (said.stream().anyMatch(t -> t.contains("Licensed under") || t.contains("Copyright"))) return null;
         return said.isEmpty() ? null : "\"" + String.join(" ", said) + "\" (" + BatchReview.file(file) + " line " + first + ")";
     }
 }
