@@ -63,6 +63,12 @@ refuted under the rule version that refuted it and returns as inferred under a n
 beside it (R-029); a line that names nothing in the program any more is kept as `orphaned` and reported,
 never bound to something else; a fact the program has no unique name for is reported, not written.
 
+A file may hold several programs, each part opening `# program NAME` (`Review.sections`). The first is
+test/katana/intent/carddemo-batch.review (R-066): every fact the rules infer on CardDemo's batch programs,
+CBTRN02C first, each followed by its four readings as comment lines (the evidence in plain language, the
+rule's confidence, an empty proposal column, the authors' documentation quoted or `none`), held to the
+rules by `BatchReviewIntegrationTest` and never rewritten over a person's or a proposal's word.
+
 ## Evidence and state
 
 `Evidence` names the rule that inferred the fact and its version (`person` for a fact a person wrote)

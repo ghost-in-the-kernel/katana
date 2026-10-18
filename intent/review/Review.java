@@ -22,6 +22,28 @@ public final class Review {
 
     private Review() {}
 
+    /**
+     * A review file that holds several programs, split at its `# program NAME` lines into each program's
+     * part (R-066's first review file holds a corpus's batch programs in one file a person reads through).
+     */
+    public static java.util.Map<String, String> sections(String text) {
+        java.util.Map<String, String> out = new LinkedHashMap<>();
+        String program = null;
+        StringBuilder part = new StringBuilder();
+        for (String line : text.lines().toList()) {
+            java.util.regex.Matcher m = SECTION.matcher(line);
+            if (m.matches()) {
+                if (program != null) out.put(program, part.toString());
+                program = m.group(1);
+                part = new StringBuilder();
+            } else if (program != null) part.append(line).append('\n');
+        }
+        if (program != null) out.put(program, part.toString());
+        return out;
+    }
+
+    private static final java.util.regex.Pattern SECTION = java.util.regex.Pattern.compile("# program (\\S+)(?:\\s.*)?");
+
     /** A first review file, with no person's word yet. */
     public static Result merge(Program p, Intent inferred) {
         return merge(p, inferred, "");

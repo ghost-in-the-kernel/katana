@@ -8,7 +8,7 @@ and 5 are done (4.1 to 4.7, J-172 to J-192; 5.1 to 5.5, J-193 to J-198). Phase 6
 passes) starts after the boundary: Fable answers "For Fable: the phase-5 boundary" below, and the 5.2
 questions above it still stand.
 
-## For Opus: the first review file, for Ghost (R-066, 2026-10-17; before 6.1)
+## For Opus: the first review file, for Ghost (R-066, 2026-10-17; before 6.1) (items 1 to 4 done: J-203)
 
 1. **Every covered item, every batch program.** For each CardDemo batch program, every fact the rules
    infer (version 2 of money and flag per R-065 if measured by then, else version 1, said which), one
@@ -22,7 +22,8 @@ questions above it still stand.
 3. **Three answers** per line for Ghost: confirmed / refuted (with what instead) / could not tell.
 4. **The file** under `test/katana/intent/`, in the review form `intent/review` reads (R-064), so Ghost's
    answers load as a review on the next build; a doc test holds every line to a fact the rules infer.
-5. **Then stop and hand it to Fable** for the probability column; Fable returns it with tests or
+5. **Then stop and hand it to Fable** (done, J-203: test/katana/intent/carddemo-batch.review, 208 lines:
+   175 function, 20 enum, 13 money, no flag, the batch programs holding none the rule finds) for the probability column; Fable returns it with tests or
    documents named for anything under 100%; Opus adds the structural tests for `Function` facts; then
    Ghost reads it. CBTRN02C first in the file, since the trial read it; 6.1 starts after Ghost's review
    or on his word to go ahead without it.
