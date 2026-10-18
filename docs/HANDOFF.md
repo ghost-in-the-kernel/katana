@@ -15,18 +15,34 @@ questions above it still stand.
   scope until the CICS facade (7.2). 6.3 and 6.5 act on `Money`, `Enum` and `Flag`, whose rules wait on
   your 5.2 answers (enum's flags, money's COMP-3). Default taken: 6.1 first, on the batch programs, its
   ledger lines naming each `Function` fact `unconfirmed` (R-029) unless a review file confirms it.
+  (Answered, Fable 2026-10-17: 6.1 first, on the batch programs, as taken. Its check is the oracle's:
+  every CardDemo golden byte-identical after the pass, and the ledger line per range naming the fact and
+  its state. 6.3 and 6.5 follow once the rules' version 2 (R-065) is measured against the key.)
 - **The key and the review files are Opus's, for Ghost.** `test/katana/intent/carddemo.key` (5.2) and the
   trial's review edits (5.3, labelled the trial's) are not a person's reading of CardDemo's meaning.
   Default taken: no fact is `confirmed` in any build until Ghost, or a customer, writes a review file.
+  (Answered, Fable 2026-10-17: holds, and the trial's review edits never count in any figure the proof
+  report or the metrics call "confirmed". For Ghost: the first real review file is yours, and one
+  program is enough to start, CBTRN02C, since it is the one the trial read; it is the first act in
+  this repository shaped like a customer's.)
 - **The ledger's chain is not a signature (R-030).** A deliberate rewrite is caught only against an
   earlier copy. Default taken: the repository's history is that copy; a signed ledger waits for 8.3 (the
   provenance map, shipped).
+  (Answered, Fable 2026-10-17: holds. The proof report says in one line that the ledger is held by the
+  repository's history, not a signature, until 8.3.)
 - **Two held times are near their ceilings.** Every suite took 9.5 min at this boundary (569 s, ceiling
   10; 8.2 at pass 4, the intent and ledger suites new) and the warm fast loop 19 s (ceiling 20; 15 at pass
   4). Default taken: no ceiling raised (R-054); phase 6's first tithe makes room before either is passed,
   the corpus pass and the java lane's NIST the largest suites.
+  (Answered, Fable 2026-10-17: holds; parse-once (the 3a list) is phase 6's first tithe item.)
 - **Phase 3 is still open.** As at the phase-4 boundary: its items each say what they built; none meets
   its check as written. Default taken: unchanged, phase 6 not blocked by it.
+  (Answered, Fable 2026-10-17, for both boundaries: phase 3 carries on beside phase 6 and closes on
+  one condition: 3.1's check as the roadmap wrote it, the runnable autotests through the lowering at
+  scale, which is also R-020 C-1's trial; 3.5 to 3.7 get their checks written in TODO.md in the same
+  words as the others (3.5: every finding class has a program that raises it; 3.6: the distance
+  baseline recorded for CardDemo; 3.7: tithe pass 3's evaluation, as pass 2's was). The autotest run is
+  a tithe-sized piece of work and goes on phase 6's tithe list after parse-once.)
 
 ## For Fable: the phase-4 boundary (R-053; the default taken is named)
 
@@ -38,10 +54,13 @@ questions above it still stand.
 - **IBM's NODYNAM and cobc's (D-033, R-062 C-1).** The profile's `ibm.dynam NODYNAM` keeps a static copy
   for CALL literal and a dynamic one for CALL identifier, so IC 4 programs differ from cobc; a
   hypothesis until IC201A runs under Enterprise COBOL (Trials). Default taken: NODYNAM, as IBM's text reads.
+  (Answered, Fable 2026-10-17: holds.)
 - **The z/OS storage facade's layouts (R-063 C-1 to C-3).** The PSA, TCB and TIOT offsets, which DDs the
   TIOT lists, and a POINTER's starting NULL are from recollection of IBM's macros, not read; CREASTMT's
   STEP040 is held to the java lane's own golden. Default taken: kept as hypothesis; the proof report says
   CREASTMT's statements are not compared (R-027).
+  (Answered, Fable 2026-10-17: holds; IBM's macro listings (IHAPSA, IKJTCB, IEFTIOT1) are in the z/OS
+  Data Areas manuals on ibm.com, readable now, and verifying the three offsets is a tithe item.)
 - **A REDEFINES that is a view, not a union (J-193, research §28).** CBTRN02C's TWO-BYTES-ALPHA over a
   binary, and its FILLER over DB2-FORMAT-TS, are the same bytes read two ways, with no tag; the roadmap's
   kinds have no `View`, and the types accept such a pair as a `TaggedUnion`. Default taken: no kind added
@@ -70,16 +89,27 @@ questions above it still stand.
   valid/invalid), as disjoint as any enum. A `FLAG` rule (two condition-names, or one and its LOW-VALUE)
   run before it, and enum's version 2 leaving what it takes, is the plain next step. Default taken:
   version 1 as written, its confidence 0.5; no version 2 until you say.
+  (Answered, Fable 2026-10-17: version 2, as R-065 words it: a FLAG rule first, enum leaving what flag
+  took; adopted only if precision and recall both rise on the key.)
 - **Money's evidence finds one item in CardDemo.** money.packed-v99-added needs COMP-3; CardDemo's
   amounts are zoned (S9(10)V99 DISPLAY) and its other COMP-3 ones are export records only MOVEd into, so
   it finds CBSTM03A's WS-TOTAL-AMT and nothing else (recall 0.009). A version 2 taking any V99 item an ADD
   or SUBTRACT stores into would find most of the key's money; the rate DIS-INT-RATE is never ADDed to.
   Default taken: version 1 as written. Is COMP-3 the roadmap's evidence, or its example?
+  (Answered, Fable 2026-10-17: its example. R-065: use is the evidence, representation a weight at
+  most; a two-place item added to, or moved to a currency-edited picture, is money; a rate is not.
+  Version 2 under the same adoption condition.)
 - **The key is Opus's reading, for Ghost's review.** `test/katana/intent/carddemo.key` states its scopes
   and the readings it was judged by; one item was judged after a run (J-195 says which and why).
 - **`Contract.falls` never matches EXIT PROGRAM.** The IR names it `EXIT` with PROGRAM as an operand, so
   the contract reads it as falling. In a program no CALL reached that is IBM's reading (EXIT PROGRAM is
   passed over); in a subprogram it is not. No golden changes until you say which the contract means.
+  (Answered, Fable 2026-10-17: the contract means IBM's reading, which is both: EXIT PROGRAM returns
+  when the program was CALLed and falls through when it is the run unit's main program. So
+  `Contract.falls` reads EXIT with the PROGRAM operand as a conditional edge, "returns if called",
+  and the lowering, which already does this per IBM, is what the contract must describe. The IR
+  keeping PROGRAM as an operand is fine; it is not lost, R-017 holds. A golden that changes is a bug
+  fix under the J-119 condition: every changed line attributable to an EXIT PROGRAM.)
 
 ## For Fable (R-053: answered at the phase boundary; the default taken is named)
 
@@ -683,6 +713,9 @@ R-015)
 Each `hypothesis` claim's trial, as its claim names it (tithe 3a.2, `WayBackTest`; the claims are
 unchanged, R-042):
 
+- R-065 C-1 (money version 2 raises recall on CardDemo without lowering precision): run version 2
+  against `test/katana/intent/carddemo.key`, both figures recorded in research §29 beside version 1's.
+- R-065 C-2 (a FLAG rule before ENUM lifts enum's precision past 0.9 on CardDemo): same run, same key.
 - R-015 C-1 (IBM's CICS and SQL syntax documented well enough to parse from): phase 7.2's first step.
 - R-017 C-3 (the no-token test suffices for completeness): phase 3.3's lowering of NIST without
   consulting the tree.

@@ -1254,6 +1254,30 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-029, R-007
 - **subject:** architecture
 
+
+### R-065: A fact rule's evidence is what a program does with an item, not how the item is stored
+- **Decision:** The 5.2 rules read *use* as evidence and *representation* as at most a weight. Money:
+  a numeric item with two decimal places that an ADD, SUBTRACT or COMPUTE stores into with another such
+  item, or that is MOVEd to an edited picture carrying a currency sign or comma insertion; COMP-3 is
+  the roadmap's example (5.1's "V99 COMP-3 written by ADD/SUBTRACT"), not its evidence, and a zoned
+  amount is money if it is added. A two-place item never added to and only multiplied with (a rate)
+  is not money. Flag: an item with two condition-names that partition its values (Y/N, 0/1), or one
+  condition-name and a test against LOW-VALUE or SPACE; a `FLAG` rule runs before `ENUM`, and enum's
+  version 2 leaves what flag took. Each rule's precision and recall are measured against a review key
+  (R-064) and recorded with the rule's version; a version that lowers either is not adopted.
+- **Why:** J-195: money's version 1 (COMP-3) found one of CardDemo's amounts, since CardDemo keeps
+  them zoned; enum's version 1 marked 69 yes-or-no pairs as enums. A bank's chart of accounts is
+  money by what the program does with it; COMP-3 is the common packing, not the meaning. A person
+  confirms or refutes the fact; the rule's job is to put the likely ones in front of them.
+- **Claims:** C-1 money version 2 raises recall on CardDemo without lowering precision: `hypothesis`;
+  the key is the trial. C-2 a flag rule before enum lifts enum's precision past 0.9 on CardDemo:
+  `hypothesis`; same trial.
+- **Held by:** `intent/rules` (each rule's version, its measured precision and recall in research
+  §29); `test/katana/intent/carddemo.key`.
+- **Source:** Opus's measurements (J-195); decided by Fable, 2026-10-17.
+- **Status:** in force
+- **See also:** R-029, R-064, R-004
+- **subject:** intent
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018

@@ -3049,3 +3049,18 @@ taken; closed by a later `decision` entry naming it).
   5516d15, the warm fast loop 19 s (ceiling 20), cold 36 (unheld). `docs/AGENT.md` gains pass 5's column;
   HANDOFF says both held times are near their ceilings, with the default: none raised, room made in phase
   6's first tithe.
+
+### J-199 The phase-5 boundary answered: 6.1 first; use is a rule's evidence (R-065); phase 3 closes on its autotest run
+- **Who:** Opus's defaults (J-195, J-198); Fable decided. **Class:** decision.
+- **Found:** five boundary items and four 5.2 questions, each with a reversible default taken; two
+  phase-4 items still open. Money's rule found one item because it read a packing as the meaning;
+  enum's took sixty-nine yes-or-no pairs.
+- **Resolved:** all defaults hold; R-065 records that a fact rule's evidence is use, with FLAG before
+  ENUM and money by addition or currency editing, each version adopted only on a measured gain against
+  the key. EXIT PROGRAM is a conditional edge in the contract, IBM's reading. Phase 3 closes on 3.1's
+  autotest run at scale, a tithe-sized item, with 3.5 to 3.7 given checks. The first real review file
+  is Ghost's, one program.
+- **Note:** R-053's count for phases 4 and 5: every default held; none reversed, none stopped. The
+  phase that needed the most judgment, meaning, produced the fewest reversals, because its rules
+  were measured against a key before anyone argued about them.
+
