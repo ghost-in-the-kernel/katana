@@ -141,6 +141,12 @@ through the lowering (the 20 hand-lowered ones pass structured, none holding a r
 
 Check: as above.
 
+Built (J-212, research §37): a method range whose paragraphs need no stretch of their own, whose GO TOs go
+forward inside it, and which nothing enters but its callers' calls, becomes its method's own code, out of the
+switch (a forward GO TO a labeled `break`). CardDemo's batch: all 175 methods, the switches from 986 cases to
+30 (the main lines'); NIST: 2,501 of 3,037 methods, 106,713 cases to 50,667; every run as literal. Open: a
+backward GO TO (a loop) as a labeled `while`, and the main line itself, both residual with their findings.
+
 ### 6.3 Scalar promotion
 
 Check: as above.

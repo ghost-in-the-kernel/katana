@@ -29,16 +29,18 @@ public final class Lower {
      * What a pass asks the lowering to write otherwise (MOD-04: passes/ writes Java only through this emitter):
      * each PERFORM range, by its first paragraph's index to its last's, called as a method `perform<first>`, and the
      * paragraphs whose last statement, a GO TO to the next, is left to fall, and the PERFORM VARYINGs written as
-     * a `for` (research §36). Empty, the literal lowering; it
+     * a `for` (research §36), and the methods, by their first paragraph, whose paragraphs are the method's own
+     * code, out of the switch (6.2, research §37). Empty, the literal lowering; it
      * decides nothing (passes/Structuring discharges the obligations).
      */
-    public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls, java.util.Set<String> loops) {
-        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of());
+    public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls, java.util.Set<String> loops, java.util.Set<Integer> inline) {
+        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of());
 
         public Plan {
             methods = java.util.Map.copyOf(methods);
             falls = java.util.Set.copyOf(falls);
             loops = java.util.Set.copyOf(loops);
+            inline = java.util.Set.copyOf(inline);
         }
 
         /** A PERFORM VARYING the plan writes as a `for`, by where its statement starts: `file:line:column`. */

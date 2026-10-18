@@ -3328,3 +3328,29 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `passes/Loops.java`, `passes/Structuring.java`; `lower/Lower.java`, `Performs.java`,
   `Flow.java`; `test/katana/passes/StructuringTest.java`; `TODO.md`.
 
+### J-212 6.2: a method range's paragraphs become the method's own code; the dispatcher shrinks
+- **Who:** Opus, on Ghost's word ("go ahead with 6.2"). **Class:** build; trial.
+- **Intent:** research §37, before the build: a range 6.1 made a method whose paragraphs need no stretch of
+  their own, whose GO TOs all go forward inside it, and which nothing enters but its callers' calls, becomes
+  the method's own code (each paragraph after its trace line; a fall the next statement; a forward GO TO a
+  `break` out of a labeled block ending before its target; GOBACK and EXIT PROGRAM `Halt`), its stretches out
+  of the switch; what stays in the switch is residual, with why (R-034).
+- **Found:** as predicted on CardDemo's batch: all 175 methods inline, the fourteen programs' switches from
+  986 cases to 30, the main lines' (CBSTM03A keeps 11, its ALTERed main line); every job's report and trace
+  as literal. NIST: 2,501 of 3,037 methods inline, 106,713 switch cases to 50,667; left: 295 whose paragraphs
+  PERFORM a range no method, 226 that a wider PERFORM or SORT procedure runs through, 34 PERFORMed VARYING
+  through the dispatcher, a few with NEXT SENTENCE, a backward GO TO or a procedure. Against the prediction,
+  the first run's comparison caught ST146A: CLEAR-ODO-RECORD is a range alone, but it sits inside SORT-OUTPUT-
+  PROCEDURES SECTION, which the SORT runs through the dispatcher and which falls into it, so its stretch had
+  left the switch (`pc 38`). A SORT or MERGE procedure is no edge of sir/'s graph, and the obligations had read
+  only edges, and of those only ranges starting or ending inside. 6.1's method form was safe from it, its
+  stretches staying in the switch.
+- **Resolved:** the entry obligation reads every range the dispatcher runs (PERFORM edges and SORT or MERGE
+  procedures, a SORT's procedures taken as one span) and refuses any that overlaps the range but its own; and a
+  fall chain into its first paragraph from one on the main line or a GO TO's or ALTER's target. `lower/` writes
+  an inlined range (`Flow.inline`; `jump` a `break` or `Halt` inside one; EXIT PROGRAM through `leave`);
+  `passes/Inline` discharges the obligations. DB205A's lowering fails at an ACCEPT, literal and structured
+  alike: found by the count, not this pass's.
+- **Touched:** `passes/Inline.java`, `Loops.java`, `Structuring.java`; `lower/Lower.java`, `Flow.java`,
+  `Verbs.java`; `test/katana/passes/StructuringTest.java`; `TODO.md`.
+

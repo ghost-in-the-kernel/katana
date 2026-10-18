@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import katana.front.Copybooks;
 import katana.front.Parse;
@@ -37,7 +38,10 @@ class StructuringTest {
         assertTrue(java.contains("private void perform" + a + "()") && java.contains("    perform" + a + "();"), java);
         assertTrue(java.contains("while (!(") && java.contains("perform" + b + "();"), "PERFORM ... UNTIL of a method is a loop in the caller's stretch");
         assertFalse(java.contains("return d.perform("), "no caller's stretch ends at a PERFORM: each calls the method");
-        assertTrue(java.contains("int pc = d.perform(" + a + ", " + a + ", -3);"), "the method is the dispatcher's PERFORM, its end the return -3 (J-210)");
+        assertEquals(Set.of(a, b), r.plan().inline(), "both ranges are their methods' own code (6.2): " + r.refused());
+        int exit = index(p, "B-EXIT");
+        assertTrue(java.contains("L" + exit + ": {") && java.contains("if (true) break L" + exit + ";"), "B's GO TO B-EXIT is a break out of the block that ends before B-EXIT");
+        assertFalse(java.contains("private int s" + a + "()") || java.contains("case " + a + " ->"), "A's stretch has left the switch");
         assertTrue(r.applied().stream().allMatch(x -> x.fact().unconfirmed()), "the facts are no person's word: unconfirmed (R-029)");
         assertEquals(Lower.java(p, "P").java().replace("Literal", "x"), Lower.java(p, "P", Lower.Plan.LITERAL).java().replace("Literal", "x"), "the empty plan is the literal lowering");
     }
@@ -119,5 +123,22 @@ class StructuringTest {
         Structuring.Result r = Structuring.plan(p, Rules.infer(p));
         assertEquals(java.util.Set.of(), r.plan().loops(), procedure);
         assertTrue(r.refused().entrySet().stream().anyMatch(e -> e.getKey().startsWith("PERFORM VARYING") && e.getValue().stream().anyMatch(w -> w.contains(why))), procedure + ": " + r.refused());
+    }
+
+    @Test
+    void aRangeThatLoopsOrIsDispatchedStaysOverTheSwitch() {
+        Program loops = program("MAIN.\n    PERFORM A THRU A2.\n    STOP RUN.\nA.\n    ADD 1 TO I.\nA2.\n    IF I < 5 GO TO A.\n");
+        Structuring.Result r = Structuring.plan(loops, Rules.infer(loops));
+        assertTrue(r.plan().inline().isEmpty() && r.refused().values().stream().flatMap(List::stream).anyMatch(w -> w.contains("back")), r.refused() + " " + r.plan());
+        String java = Lower.java(loops, "P", r.plan()).java();
+        assertTrue(java.contains("int pc = d.perform("), "a loop stays 6.1's method over the switch");
+        Program enclosed = program("MAIN.\n    PERFORM B.\n    PERFORM A THRU C.\n    STOP RUN.\nA.\n    DISPLAY 'A'.\nB.\n    DISPLAY 'B'.\nC.\n    DISPLAY 'C'.\n");
+        katana.intent.types.Subject.Range b = new katana.intent.types.Subject.Range(index(enclosed, "B"), index(enclosed, "B"));
+        Fact given = new Fact(katana.intent.types.Kind.FUNCTION, b, new katana.intent.types.Evidence("person", 1, List.of(new katana.intent.types.Node.ParagraphNode(b.first()))), 1, State.INFERRED);
+        Structuring.Result e = Structuring.plan(enclosed, new Intent("P", enclosed.header().profileHash(), List.of(given)));
+        assertTrue(e.plan().inline().isEmpty() && e.refused().values().stream().flatMap(List::stream).anyMatch(w -> w.contains("runs through it")), "a PERFORM A THRU C runs through B, so B's stretch must stay: " + e.refused() + " " + e.plan());
+        Program varying = program("MAIN.\n    PERFORM A.\n    PERFORM A VARYING I FROM 1 BY 1 UNTIL I > 3 AFTER I FROM 1 BY 1 UNTIL I > 2.\n    STOP RUN.\nA.\n    DISPLAY 'A'.\n");
+        Structuring.Result v = Structuring.plan(varying, Rules.infer(varying));
+        assertTrue(v.plan().inline().isEmpty() && v.refused().values().stream().flatMap(List::stream).anyMatch(w -> w.contains("through the dispatcher")), v.refused() + " " + v.plan());
     }
 }

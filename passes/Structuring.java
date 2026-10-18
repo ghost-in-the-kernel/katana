@@ -62,7 +62,8 @@ public final class Structuring {
             } else refused.put(name(p, r), why);
         }
         Set<String> loops = program.isEmpty() ? Loops.loops(p, methods, refused) : Set.of();
-        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops), applied, refused);
+        Set<Integer> inline = program.isEmpty() ? Inline.inline(p, methods, loops, refused) : Set.of();
+        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline), applied, refused);
     }
 
     /** What keeps a whole program literal: an independent segment with an ALTER, whose state the dispatcher keeps (research §16); declaratives, which run as PERFORMs of their own. */

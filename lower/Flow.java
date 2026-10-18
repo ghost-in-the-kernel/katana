@@ -91,6 +91,7 @@ final class Flow {
         declaratives();
         List<Procedure.Paragraph> paragraphs = p.procedure().paragraphs();
         for (Procedure.Paragraph para : paragraphs) {
+            if (inlined(para.index())) continue;
             paragraph = para.name();
             at = para.index();
             current = para;
@@ -143,6 +144,10 @@ final class Flow {
     // Decision: R-021
     private void methods() {
         for (var m : new java.util.TreeMap<>(plan.methods()).entrySet()) {
+            if (plan.inline().contains(m.getKey())) {
+                inline(m.getKey(), m.getValue());
+                continue;
+            }
             e.open("private void perform" + m.getKey() + "()");
             e.symbol("perform" + m.getKey(), "paragraph " + m.getKey());
             e.line("int pc = d.perform(" + m.getKey() + ", " + m.getValue() + ", -3);");
@@ -152,6 +157,52 @@ final class Flow {
             e.close();
             e.close();
         }
+    }
+
+    /** The labels of the blocks a GO TO inside an inlined range breaks out of, while one is written; null otherwise. */
+    private java.util.Set<Integer> breaks;
+
+    /** Whether a paragraph is inside a range whose paragraphs are its method's own code (6.2). */
+    private boolean inlined(int g) {
+        for (int first : plan.inline()) if (g >= first && g <= plan.methods().get(first)) return true;
+        return false;
+    }
+
+    /**
+     * A range's paragraphs as its method's own code (6.2, research §37): each after its trace line, a fall the
+     * next statement; a forward GO TO inside it a `break` out of the labeled block that ends just before its
+     * target, the blocks nested the farthest target outermost; the run's end `Halt`.
+     */
+    // Decision: R-021
+    private void inline(int first, int last) {
+        e.open("private void perform" + first + "()");
+        e.symbol("perform" + first, "paragraph " + first);
+        java.util.TreeSet<Integer> targets = new java.util.TreeSet<>();
+        for (int g = first; g <= last; g++) for (Statement s : p.procedure().paragraphs().get(g).statements()) targets(s, first, last, targets);
+        for (int t : targets.descendingSet()) e.open("L" + t + ":");
+        breaks = targets;
+        for (int g = first; g <= last; g++) {
+            if (targets.contains(g)) e.close();
+            current = p.procedure().paragraphs().get(g);
+            paragraph = current.name();
+            at = g;
+            trace(current);
+            sentences(current);
+        }
+        breaks = null;
+        current = null;
+        e.close();
+    }
+
+    /** The paragraphs inside the range a GO TO in this statement, or in its phrases, names. */
+    private static void targets(Statement s, int first, int last, java.util.Set<Integer> out) {
+        if (s.verb().equals("GO TO")) for (Statement.Operand o : s.operands()) if (o.value() instanceof Value.Target t && t.paragraph() > first && t.paragraph() <= last) out.add(t.paragraph());
+        for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) targets(t, first, last, out);
+    }
+
+    /** How a statement leaves for the run's end: from a stretch its end label, from an inlined range `Halt`. */
+    String leave() {
+        return breaks == null ? "return " + end : "throw new Halt()";
     }
 
     /** Whether the plan writes this PERFORM VARYING as a `for` (research §36). */
@@ -335,6 +386,12 @@ final class Flow {
 
     /** A jump: `if (true)` so that what follows it in the same stretch still compiles. */
     void jump(String to) {
-        e.line("if (true) return " + to + ";");
+        if (breaks == null) {
+            e.line("if (true) return " + to + ";");
+            return;
+        }
+        if (to.equals(String.valueOf(end))) e.line("if (true) throw new Halt();");
+        else if (to.matches("\\d+") && breaks.contains(Integer.parseInt(to))) e.line("if (true) break L" + to + ";");
+        else e.line("if (true) throw new IllegalStateException(\"a jump to " + to + " from inside an inlined range\");");
     }
 }

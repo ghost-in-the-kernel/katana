@@ -59,7 +59,7 @@ final class Loops {
     }
 
     /** What keeps an inline body from being structured Java: a PERFORM of a range no method, a VARYING no `for`, a SEARCH, a SORT's procedure. */
-    private static void unstructured(Statement t, Map<Integer, Integer> methods, Set<String> loops, List<String> why) {
+    static void unstructured(Statement t, Map<Integer, Integer> methods, Set<String> loops, List<String> why) {
         Value.Target target = target(t);
         if (t.verb().equals("PERFORM") && target != null && !Integer.valueOf(target.thru()).equals(methods.get(target.paragraph()))) why.add("line " + t.origin().line() + " PERFORMs a range that is no method");
         if (t.verb().equals("PERFORM") && !Lower.varying(t).ids().isEmpty() && !loops.contains(Lower.Plan.loop(t.origin()))) why.add("line " + t.origin().line() + " is a VARYING that is no for");
@@ -108,7 +108,7 @@ final class Loops {
         return false;
     }
 
-    private static Value.Target target(Statement s) {
+    static Value.Target target(Statement s) {
         Value.Target first = null, last = null;
         for (Statement.Operand o : s.operands()) {
             if (!(o.value() instanceof Value.Target t) || !o.role().equals("perform-procedure-statement")) continue;

@@ -343,7 +343,7 @@ final class Verbs {
 
     private void exit(Statement s) {
         // EXIT PROGRAM: back to the caller; with no CALL active, "control passes through the exit point to the next executable statement" (LR 6.4 p. 343).
-        if (keyword(s, "PROGRAM")) f.e.line("if (called) return " + f.end() + ";");
+        if (keyword(s, "PROGRAM")) f.e.line("if (called) " + f.leave() + ";");
         else if (keyword(s, "PARAGRAPH") || keyword(s, "SECTION")) {
             int last = keyword(s, "SECTION") ? lastOfSection() : paragraphIndex();
             f.jump(f.end(last));
