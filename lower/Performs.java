@@ -104,7 +104,7 @@ final class Performs {
             f.statements(body);
             return;
         }
-        if (f.method(target)) {
+        if (f.called(target)) {
             f.e.line(f.call(target));
             return;
         }
@@ -115,7 +115,7 @@ final class Performs {
 
     /** Repeats the procedures or the body until `done` holds, tested before each time (or after, for TEST AFTER). */
     private void repeat(Value.Target target, List<Statement> body, String done, boolean testAfter) {
-        if (target == null && !f.splits(body) || f.method(target)) {
+        if (target == null && !f.splits(body) || f.called(target)) {
             f.e.open(testAfter ? "do" : "while (!(" + done + "))");
             if (target != null) f.e.line(f.call(target));
             else f.statements(body);

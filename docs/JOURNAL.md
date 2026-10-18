@@ -3354,3 +3354,33 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `passes/Inline.java`, `Loops.java`, `Structuring.java`; `lower/Lower.java`, `Flow.java`,
   `Verbs.java`; `test/katana/passes/StructuringTest.java`; `TODO.md`.
 
+
+### J-213 6.2b: the main line as `run`'s own code; a GO TO back a labeled `while`
+- **Who:** Opus, on Ghost's word ("go with your defaults, main line first"; the defaults: irreducible loops
+  residual with a finding, no `step` when its switch is empty, one reading of EXIT PROGRAM, a residual finding
+  per program). **Class:** build; trial.
+- **Intent:** research §38, before the build: the paragraphs control reaches from the start without a PERFORM
+  become `run`'s own code where nothing else enters them and their code needs no stretch; a GO TO back to T
+  from E is `WT: while (true) { T..E; break WT; }`, the GO TO `continue WT`, where loops nest and each is
+  entered only at its header; a PERFORM of a range no method is `dispatch(first, last)`, the dispatcher run to
+  a mark of its own (`-3 - depth`, an `Unwind` carrying a foreign mark to its frame). A method range with a
+  GO TO back is its own code by the same rule.
+- **Found:** CardDemo's batch: 11 of 14 programs have no switch (no `step`), 986 cases to 17; the prediction
+  said 13. CBSTM03A keeps 11 (its ALTERs, as predicted); CSUTLDTC keeps 4: under the one reading of EXIT
+  PROGRAM its main line falls into A000-MAIN, which its PERFORM also runs; CBTRN03C keeps 2, a NEXT SENTENCE
+  in an inline PERFORM on its main line. NIST: 46 of 436 main lines structured (the prediction said most),
+  106,661 cases to 47,896 (50,667 after 6.2); 2 loops written. The main lines left: entered from elsewhere
+  (2,534 GO TOs, 1,695 falls from paragraphs PERFORMed, CCVS's sections jumping to their exits on the line),
+  a loop entered past its header (321; read on text order, e.g. a GO TO back to CLOSE-FILES with a forward
+  GO TO past it), SEARCH 146, NEXT SENTENCE 110, VARYING no `for` 55, ALTER 26, DEPENDING 16, 10 overlapping
+  loops. 232 main lines are kept by entries alone, theirs or a loop's. Every CardDemo job and NIST module
+  structured reports and traces what it does literal; the autotests and the ledger as before.
+- **Resolved:** the miss is the obligation's: a main-line paragraph that a PERFORM runs or a GO TO from off
+  the line reaches has to stay a stretch, and the main line with it. Two ways past it are design, Ghost's to
+  choose: such a paragraph in both forms (`run`'s code and a stretch, the Java twice), or the paragraphs
+  reordered in the Java so the loops nest. Neither is built. `passes/Cycles` reads the loops, `passes/MainLine`
+  the obligations; `lower/Regions` writes regions, methods and `dispatch`; `Structuring.Obligations.mainLine`
+  counts `returns-if-called` in every program (it skipped USING programs; `Inline` counted it: two readings).
+- **Touched:** `passes/Cycles.java`, `MainLine.java` (new), `Inline.java`, `Loops.java`, `Structuring.java`;
+  `lower/Regions.java` (new), `Lower.java`, `Flow.java`, `Performs.java`; `test/katana/passes/StructuringTest.java`;
+  `docs/KERNEL-MAP.md`; `TODO.md`.

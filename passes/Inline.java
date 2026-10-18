@@ -22,11 +22,17 @@ final class Inline {
 
     /** The method ranges, by first paragraph, whose paragraphs become the method's own code; each refused one with why, in `refused`. */
     // Decision: R-032
-    static Set<Integer> inline(Program p, Map<Integer, Integer> methods, Set<String> loops, Map<String, List<String>> refused) {
+    static Set<Integer> inline(Program p, Map<Integer, Integer> methods, Set<String> loops, Map<Integer, Integer> cycles, Map<String, List<String>> refused) {
         Set<Integer> out = new HashSet<>();
         for (Map.Entry<Integer, Integer> m : methods.entrySet()) {
             List<String> why = refusals(p, m.getKey(), m.getValue(), methods, loops);
-            if (why.isEmpty()) out.add(m.getKey());
+            List<Integer> ps = new ArrayList<>();
+            for (int g = m.getKey(); g <= m.getValue(); g++) ps.add(g);
+            Map<Integer, Integer> found = Cycles.cycles(p, ps, why);
+            if (why.isEmpty()) {
+                out.add(m.getKey());
+                cycles.putAll(found);
+            }
             else refused.put("inline " + Structuring.name(p, new katana.intent.types.Subject.Range(m.getKey(), m.getValue())), why);
         }
         return out;
@@ -44,14 +50,14 @@ final class Inline {
         return why;
     }
 
-    /** What a statement does that the method's own code cannot say: NEXT SENTENCE, GO TO DEPENDING or back, EXIT PARAGRAPH or SECTION. */
-    private static void local(Statement s, int at, int last, List<String> why) {
+    /** What a statement does that a region's own code cannot say: NEXT SENTENCE, GO TO DEPENDING or out past `last`, EXIT PARAGRAPH or SECTION (a GO TO back is a loop: `Cycles`). */
+    static void local(Statement s, int at, int last, List<String> why) {
         int line = s.origin().line();
         if (s.verb().equals("NEXT SENTENCE")) why.add("line " + line + " is a NEXT SENTENCE");
         if (s.verb().equals("GO TO")) {
             List<Value.Target> to = s.operands().stream().filter(o -> o.value() instanceof Value.Target).map(o -> (Value.Target) o.value()).toList();
             if (to.size() != 1 || s.operands().stream().anyMatch(o -> o.value() instanceof Value.Field)) why.add("line " + line + " is a GO TO DEPENDING or an altered GO TO");
-            else if (to.get(0).paragraph() <= at || to.get(0).paragraph() > last) why.add("line " + line + " is a GO TO back (a loop) or out");
+            else if (to.get(0).paragraph() > last) why.add("line " + line + " is a GO TO out");
         }
         if (s.verb().equals("EXIT") && s.operands().stream().anyMatch(o -> o.value() instanceof Value.Name n && (n.text().equals("PARAGRAPH") || n.text().equals("SECTION")))) why.add("line " + line + " is an EXIT PARAGRAPH or SECTION");
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) local(t, at, last, why);
@@ -80,7 +86,7 @@ final class Inline {
     }
 
     /** Every range the dispatcher runs: each PERFORM edge's, and each SORT or MERGE procedure's; with its line. */
-    private static List<int[]> run(Program p) {
+    static List<int[]> run(Program p) {
         List<int[]> out = new ArrayList<>();
         for (Procedure.Edge e : p.procedure().edges()) if (e.kind() == Procedure.Kind.PERFORM) out.add(new int[] {e.to(), e.thru(), e.origin().line()});
         for (Procedure.Paragraph g : p.procedure().paragraphs()) for (Statement s : g.statements()) procedures(s, out);

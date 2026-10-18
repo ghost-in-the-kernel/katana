@@ -37,8 +37,12 @@ final class Flow {
     /** A pass's plan: the ranges called as methods and the GO TOs left to fall (6.1). */
     final Lower.Plan plan;
 
+    /** The pass's structured control: its methods, regions and `dispatch` (6.1, 6.2). */
+    final Regions regions;
+
     Flow(Emitter e, Program p, Exprs x, List<Program> containers, Lower.Plan plan) {
         this.plan = plan;
+        this.regions = new Regions(this);
         this.containers = containers;
         this.e = e;
         this.p = p;
@@ -77,11 +81,13 @@ final class Flow {
         e.line("private final Collation co;");
         e.line("private boolean sz, ov, ae, cx;");
         e.open("public void run()");
-        e.line("int pc = " + entry() + ";");
-        debugging.start(e, entry());
-        boolean declaratives = p.procedure().sections().stream().anyMatch(Procedure.Section::declarative), halts = declaratives || !plan.methods().isEmpty();
+        boolean main = !plan.main().isEmpty();
+        if (!main) e.line("int pc = " + entry() + ";");
+        if (!main) debugging.start(e, entry());
+        boolean declaratives = p.procedure().sections().stream().anyMatch(Procedure.Section::declarative), halts = declaratives || !plan.methods().isEmpty() || main;
         if (halts) e.open("try");
-        e.line("while (pc != " + end + ") pc = step(pc);");
+        if (main) regions.region(new ArrayList<>(new java.util.TreeSet<>(plan.main())));
+        else e.line("while (pc != " + end + ") pc = step(pc);");
         if (halts) {
             e.close();
             e.line("catch (Halt h) { }");
@@ -91,7 +97,7 @@ final class Flow {
         declaratives();
         List<Procedure.Paragraph> paragraphs = p.procedure().paragraphs();
         for (Procedure.Paragraph para : paragraphs) {
-            if (inlined(para.index())) continue;
+            if (regions.inlined(para.index())) continue;
             paragraph = para.name();
             at = para.index();
             current = para;
@@ -100,9 +106,11 @@ final class Flow {
             e.line("return " + end(para.index()) + ";");
             e.close();
         }
-        if (paragraphs.isEmpty()) labels.add(0);
-        methods();
-        step();
+        if (paragraphs.isEmpty() && plan.main().isEmpty()) labels.add(0);
+        regions.methods();
+        // A switch with no case left is no switch (research §38): `step` and `dispatch` go with it.
+        if (!labels.isEmpty()) step();
+        if (!labels.isEmpty() && !plan.equals(Lower.Plan.LITERAL)) regions.dispatch();
         if (counters > 0) e.line("private final long[] t = new long[" + counters + "];");
     }
 
@@ -135,74 +143,19 @@ final class Flow {
         e.close();
     }
 
-    /**
-     * Each range the plan calls as a method (6.1, research §35): a PERFORM through the dispatcher whose return
-     * is no label but `-3`, its paragraphs stepped until the end of the range gives it back, as `use` does for
-     * a declarative (a paragraph after the range reached by a PERFORM or GO TO inside it is no end: J-210); a
-     * GOBACK or EXIT PROGRAM inside, the run's end, is `Halt`, which `run` catches.
-     */
-    // Decision: R-021
-    private void methods() {
-        for (var m : new java.util.TreeMap<>(plan.methods()).entrySet()) {
-            if (plan.inline().contains(m.getKey())) {
-                inline(m.getKey(), m.getValue());
-                continue;
-            }
-            e.open("private void perform" + m.getKey() + "()");
-            e.symbol("perform" + m.getKey(), "paragraph " + m.getKey());
-            e.line("int pc = d.perform(" + m.getKey() + ", " + m.getValue() + ", -3);");
-            e.open("while (pc != -3)");
-            e.line("if (pc == " + end + ") throw new Halt();");
-            e.line("pc = step(pc);");
-            e.close();
-            e.close();
-        }
-    }
-
-    /** The labels of the blocks a GO TO inside an inlined range breaks out of, while one is written; null otherwise. */
-    private java.util.Set<Integer> breaks;
-
-    /** Whether a paragraph is inside a range whose paragraphs are its method's own code (6.2). */
-    private boolean inlined(int g) {
-        for (int first : plan.inline()) if (g >= first && g <= plan.methods().get(first)) return true;
-        return false;
-    }
-
-    /**
-     * A range's paragraphs as its method's own code (6.2, research §37): each after its trace line, a fall the
-     * next statement; a forward GO TO inside it a `break` out of the labeled block that ends just before its
-     * target, the blocks nested the farthest target outermost; the run's end `Halt`.
-     */
-    // Decision: R-021
-    private void inline(int first, int last) {
-        e.open("private void perform" + first + "()");
-        e.symbol("perform" + first, "paragraph " + first);
-        java.util.TreeSet<Integer> targets = new java.util.TreeSet<>();
-        for (int g = first; g <= last; g++) for (Statement s : p.procedure().paragraphs().get(g).statements()) targets(s, first, last, targets);
-        for (int t : targets.descendingSet()) e.open("L" + t + ":");
-        breaks = targets;
-        for (int g = first; g <= last; g++) {
-            if (targets.contains(g)) e.close();
-            current = p.procedure().paragraphs().get(g);
-            paragraph = current.name();
-            at = g;
-            trace(current);
-            sentences(current);
-        }
-        breaks = null;
+    /** A paragraph as a region's own code: its trace line, then its sentences (6.2). */
+    void paragraphCode(int g) {
+        current = p.procedure().paragraphs().get(g);
+        paragraph = current.name();
+        at = g;
+        trace(current);
+        sentences(current);
         current = null;
-        e.close();
-    }
-
-    /** The paragraphs inside the range a GO TO in this statement, or in its phrases, names. */
-    private static void targets(Statement s, int first, int last, java.util.Set<Integer> out) {
-        if (s.verb().equals("GO TO")) for (Statement.Operand o : s.operands()) if (o.value() instanceof Value.Target t && t.paragraph() > first && t.paragraph() <= last) out.add(t.paragraph());
-        for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) targets(t, first, last, out);
     }
 
     /** How a statement leaves for the run's end: from a stretch its end label, from an inlined range `Halt`. */
     String leave() {
-        return breaks == null ? "return " + end : "throw new Halt()";
+        return regions.active() ? "throw new Halt()" : "return " + end;
     }
 
     /** Whether the plan writes this PERFORM VARYING as a `for` (research §36). */
@@ -215,9 +168,14 @@ final class Flow {
         return target != null && Integer.valueOf(target.thru()).equals(plan.methods().get(target.paragraph()));
     }
 
-    /** The call of a range the plan makes a method. */
+    /** Whether a PERFORM of the range is a call: under a pass's plan, of its method or through `dispatch` (research §38). */
+    boolean called(Value.Target target) {
+        return target != null && !plan.equals(Lower.Plan.LITERAL);
+    }
+
+    /** The call of a PERFORMed range: its method, or `dispatch`. */
     String call(Value.Target target) {
-        return "perform" + target.paragraph() + "();";
+        return method(target) ? "perform" + target.paragraph() + "();" : "dispatch(" + target.paragraph() + ", " + target.thru() + ");";
     }
 
     private void open(int label) {
@@ -336,9 +294,9 @@ final class Flow {
         return !all.isEmpty() && all.get(all.size() - 1) == s;
     }
 
-    /** Whether a statement holds an out-of-line PERFORM (but of a range the plan calls as a method), a VARYING loop, a SEARCH or a SORT's procedure, here or in a phrase, so it cannot be structured Java. */
+    /** Whether a statement holds an out-of-line PERFORM (but one a pass's plan makes a call), a VARYING loop, a SEARCH or a SORT's procedure, here or in a phrase, so it cannot be structured Java. */
     boolean splits(Statement s) {
-        if (s.verb().equals("PERFORM") && (Performs.varies(s) && !loop(s) || target(s) != null && !method(target(s)))) return true;
+        if (s.verb().equals("PERFORM") && (Performs.varies(s) && !loop(s) || target(s) != null && !called(target(s)))) return true;
         if (s.verb().equals("SEARCH")) return true;
         // A SORT or MERGE with an INPUT or OUTPUT PROCEDURE performs it (SortVerbs).
         if ((s.verb().equals("SORT") || s.verb().equals("MERGE")) && s.operands().stream().anyMatch(o -> o.value() instanceof Value.Target)) return true;
@@ -386,12 +344,11 @@ final class Flow {
 
     /** A jump: `if (true)` so that what follows it in the same stretch still compiles. */
     void jump(String to) {
-        if (breaks == null) {
+        if (!regions.active()) {
             e.line("if (true) return " + to + ";");
             return;
         }
-        if (to.equals(String.valueOf(end))) e.line("if (true) throw new Halt();");
-        else if (to.matches("\\d+") && breaks.contains(Integer.parseInt(to))) e.line("if (true) break L" + to + ";");
-        else e.line("if (true) throw new IllegalStateException(\"a jump to " + to + " from inside an inlined range\");");
+        String reach = regions.jump(to, at);
+        e.line("if (true) " + (reach != null ? reach : "throw new IllegalStateException(\"a jump to " + to + " no region reaches\")") + ";");
     }
 }
