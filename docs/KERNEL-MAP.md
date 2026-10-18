@@ -1631,3 +1631,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Emitter.java:Emitter.leave` |  | 2026-10-17 |  |
 | lower | `lower/Emitter.java:Emitter.symbol` |  | 2026-10-17 |  |
 | lower | `lower/Emitter.java:Emitter.symbols` |  | 2026-10-17 |  |
+| sir | `sir/contract/Contract.java:Contract.exitProgram` |  | 2026-10-18 |  |

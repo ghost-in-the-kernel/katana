@@ -3064,3 +3064,18 @@ taken; closed by a later `decision` entry naming it).
   phase that needed the most judgment, meaning, produced the fewest reversals, because its rules
   were measured against a key before anyone argued about them.
 
+
+### J-200 EXIT PROGRAM a conditional edge in the contract; 3.5 to 3.7 given checks; phase 6's carried-in list
+- **Who:** Opus, on Fable's answers (J-199, afa89d3). **Class:** build.
+- **Intent:** the contract to say what the lowering does with EXIT PROGRAM, IBM's reading; TODO to hold the
+  answers' checks and phase 6's tithe list where the work will find them.
+- **Found:** `Contract.falls` listed "EXIT PROGRAM" among the verbs that leave, a verb the IR never names
+  (it keeps EXIT with PROGRAM its operand, R-017), so the contract read every EXIT PROGRAM as an
+  unconditional fall.
+- **Resolved:** a paragraph ending in EXIT PROGRAM falls as `i i+1 returns-if-called`; the dead string
+  gone. One golden line changed, IC237A's `falls IC237A-1 2 3`, its paragraph's EXIT PROGRAM (the J-119
+  condition: every changed line attributable to the fix). `docs/SEMANTIC-IR.md`'s `falls` row says so.
+  `TODO.md`: 3.5 to 3.7's checks in Fable's words; phase 3's closing condition; 6.1's check; 6.9's
+  carried-in list (parse-once, the autotests at scale, R-063's offsets, the ledger's one line).
+- **Touched:** `sir/contract/Contract.java`, `sir/golden/IC237A.contract`, `docs/SEMANTIC-IR.md`,
+  `docs/KERNEL-MAP.md`, `TODO.md`.

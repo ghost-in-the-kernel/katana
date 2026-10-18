@@ -90,7 +90,7 @@ is a row. A back end's output read back as lines is compared with the IR's fact 
 | `declarative` | each declarative section's USE: what it follows, GLOBAL, and its files or mode, or what it debugs |
 | `segment` | each section's priority-number, where one is written |
 | `paragraph` | each paragraph's place in textual order and its section |
-| `falls` | control that falls from a paragraph into the next |
+| `falls` | control that falls from a paragraph into the next, `returns-if-called` after EXIT PROGRAM |
 | `edge` | each PERFORM, GO TO and ALTER between paragraphs |
 | `statement` | each statement's verb, operands with their roles, and branches |
 | `call` | each CALL's target, arguments with their modes, and RETURNING |

@@ -79,15 +79,15 @@ too; the lowering applies IBM's table to literals.
 
 ### 3.5 Findings, second set
 
-Check: none in the roadmap; written here before the item starts.
+Check: every finding class has a program that raises it (Fable, 2026-10-17, J-199).
 
 ### 3.6 Refactoring distance, v0
 
-Check: none in the roadmap; written here before the item starts.
+Check: the distance baseline recorded for CardDemo (Fable, 2026-10-17, J-199).
 
 ### 3.7 Tithe pass 3
 
-Check: none in the roadmap; written here before the item starts.
+Check: tithe pass 3's evaluation, as pass 2's was (Fable, 2026-10-17, J-199).
 
 Carried in (Fable, 2026-10-06): a line in GHOST-IN-THE-KERNEL's "check that cannot fail" paragraph,
 since J-082's pattern (an old helper still at work where no test looked; a check whose expected side
@@ -115,13 +115,18 @@ the pre-push check over every suite timed at the boundary (J-198).
 
 ## Phase 6: proven refactoring passes
 
+Phase 3 runs beside phase 6 and closes on one condition: 3.1's check as the roadmap wrote it, the runnable
+autotests through the lowering at scale, which is also R-020 C-1's trial (Fable, 2026-10-17, J-199).
+
 Every pass's check (ROADMAP 6): all phase-3 and phase-4 goldens byte-identical; the
 paragraph-entry trace equal; the ledger has a line per changed symbol; the pass's own unit corpus
 (the GnuCOBOL autotests that exercise its construct) passes.
 
 ### 6.1 Pattern structuring
 
-Check: as above.
+Check: as above. On the batch programs first: every CardDemo golden byte-identical after the pass, and a
+ledger line per range naming its `Function` fact and its state, `unconfirmed` until a review file a person
+wrote says otherwise; no figure counts Opus's key or the trial's review edits as confirmed (J-199).
 
 ### 6.2 Method extraction under the dispatcher
 
@@ -154,6 +159,11 @@ Check: as above.
 ### 6.9 Tithe pass 6
 
 Check: none in the roadmap; written here before the item starts.
+
+Carried in (Fable, 2026-10-17, J-199), phase 6's tithe list in order: parse-once (the 3a list), so the
+held times have room; the runnable autotests through the lowering at scale (3.1's check, R-020 C-1); R-063's
+three offsets read against IBM's z/OS Data Areas (IHAPSA, IKJTCB, IEFTIOT1). The proof report says in one
+line that the ledger is held by the repository's history, not a signature, until 8.3.
 
 ## Phase 7: scale and the facades
 
