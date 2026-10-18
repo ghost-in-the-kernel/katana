@@ -3218,3 +3218,20 @@ taken; closed by a later `decision` entry naming it).
   javac and JVM per run, not parsing (J-188's comment no longer holds). No behaviour and no golden changed.
 - **Touched:** `test/katana/oracle/nist/ModuleRunIntegrationTest.java`, `oracle/nist/ModuleRun.java`,
   `scripts/prepush.sh`, `test/katana/oracle/lane/CardDemoJavaLaneIntegrationTest.java`.
+
+### J-207 The every-suite ceiling set up to 15 minutes, by decision, and R-054's rule for it
+- **Who:** Ghost decided; a Fable advisor proposed; Opus recorded. **Class:** decision.
+- **Intent:** stop a ceiling set from one run refusing tested work on a machine that drifted: main itself
+  measured 10.6 minutes against the every-suite ceiling of 10, and J-205 and J-206 passed every test and
+  were refused on time alone (10.1 to 11.4 minutes).
+- **Found:** the Fable advisor: the mechanism is principled (a held number, since a reported one doubled
+  unread, J-154, J-163), the figure is not (10 from one 8.2 run, 0.5 minutes of margin after two suites
+  joined, the size of the noise); a ceiling below main's own time is red on every push and says nothing
+  (R-056's third shape), the mistake R-054 was already corrected for once.
+- **Resolved:** R-054 amended: the every-suite ceiling is the best recorded plus a fifth, rounded up, with
+  the machine recorded; it ratchets down; when main's head measures over it, a recorded decision resets
+  it. Ghost set it to 15 (the rule's 13, and the drift covered). The fast loop's ceiling unchanged. J-205
+  and J-206 merge under it, J-206's work kept. The JVM flags go to tithe pass 6's list; the one-JVM NIST
+  lane and the EVALUATE lookahead to TODO.md as feature work, each with a design note first.
+- **Touched:** `theGhost.md` (R-054), `docs/AGENT.md`, `TODO.md`, `docs/JOURNAL.md`.
+
