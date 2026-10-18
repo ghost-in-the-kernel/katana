@@ -1684,3 +1684,25 @@ never reached (8100-TRNXFILE-OPEN, 8200-XREFFILE-OPEN, 8300-CUSTFILE-OPEN, 8400-
 NIST's rise by 5, each a paragraph ending in GO TO ... DEPENDING ON, which falls through when its index is
 out of range (DB201A twice, NC102A twice, IC115A), and which the old reading took for a GO TO that always
 leaves. No golden program's contract changed.
+
+## 34. The remaining review tests, built (R-066; J-205)
+
+Section 33's catalogue named seven tests not yet built: T-F2, T-F3, T-E1, T-E2, T-E3, T-M1 and T-M2. Each is
+built as a check with its killer mutation on programs small enough to read, and, where it reads the review
+file's facts, a verdict per fact that the fact's `tests:` line shows and the doc test holds to what the check
+computes now. T-F3 needs the java lane to say, beside its paragraph trace, each PERFORM, each return from
+one and each fall from a paragraph into the next: `rt/Dispatcher` writes them, with its program's name, to
+`KATANA_PERFORM_TRACE_FILE`, a file of its own, since the paragraph trace is held equal to cobc's.
+
+Predicted, before the tests (the advisor's expectations, section 33). T-F2, on cobc's cross-reference
+listing: all 175 function facts hold. T-F3, on the four proven jobs' runs: no range is fallen into or out
+of; each range a fixture enters is entered by PERFORM and returns as often; the abend and I/O-status
+paragraphs not entered. T-E1: APPL-RESULT refuted in all eight programs (8 and 12 stored, unnamed);
+CODATECN's two and the M03B codes hold; the six file-status items and FEEDBACK-TOKEN-VALUE cannot tell from
+the program, being set outside it. T-E2: HTML-FIXED-LN refuted (never tested); CODATECN cannot tell (handed
+to COBDATFT, assembler, outside CardDemo's COBOL); the rest hold, LK-M03B-OPER and WS-M03B-OPER through
+CBSTM03B's tests. T-E3: a file-status item takes '35' on OPEN of an absent file, in both lanes, a value no
+condition-name of CBEXPORT's or CBIMPORT's names. T-M1: all 13 money facts hold, WS-MONTHLY-INT's rate by
+multiplication only. T-M2: the copybook amounts ACCT-CURR-BAL and TRAN-AMT are printed through a
+comma-edited field by some program of CardDemo; the program's own working totals are not copybook items.
+The rival: a test that cannot tell on a fact the advisor thought it would settle, which the verdict says.
