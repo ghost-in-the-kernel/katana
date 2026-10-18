@@ -1587,3 +1587,31 @@ line carries the hash of the one before leaves the last line unheld, and the edi
 ends with an `end` line carrying the last line's hash. Neither rival arose as a symbol without a node: a
 stretch label inside a paragraph is opened while that paragraph is the current one and stands on it, and the
 machinery stands on its class.
+
+## 32. The rules' version 2: use as evidence (R-065; phase 5.2's answers, J-199)
+
+R-065: a fact rule's evidence is what the program does with an item, its representation at most a
+weight; FLAG runs before ENUM; each version adopted only if neither precision nor recall falls against
+the key. Its trials: C-1, money's version 2 raises recall without lowering precision; C-2, a flag rule
+before enum lifts enum's precision past 0.9.
+
+The key first. Flags had no lines: version 1's key judged 69 two-condition items yes-or-no pairs, flags
+not enums, without writing them as flags. Its scope for flags is now every item with one or two
+condition-names, its reading written at its head (a yes-or-no, or the one condition-name naming the yes
+of a switch); the 69, and 10 of the 33 one-condition items (the found-in-master and row-error switches,
+the one-condition validity groups), are its 79 flags, judged before the rule.
+
+The rules. flag.yes-no v1: two condition-names whose values, SPACE and LOW-VALUE set aside as the
+nothing state, are a yes-or-no pair (Y and N, or 0 and 1), or one of which is only SPACE or LOW-VALUE; or
+one condition-name, the item also compared with or set to SPACE or LOW-VALUE (R-065's second form).
+enum.disjoint-88s v2: version 1 leaving every item flag takes. money.used v2: a numeric item of two
+places an ADD, SUBTRACT or COMPUTE stores into with another two-place item among its operands, or one
+MOVEd to an edited picture with a currency sign or comma insertion; never one it squares.
+
+Predicted, before the rules. Flag: precision at least 0.9, recall near 0.85; it misses the 0 and 9 pair
+(WS-CA-LAST-PAGE-DISPLAYED) and the one-condition switches no statement sets to SPACE or LOW-VALUE.
+Enum v2: precision past 0.9 (C-2), recall unchanged at 0.973. Money v2: precision at least 0.95, recall
+between 0.15 and 0.5 (C-1): the balances, totals and interest CardDemo adds and computes, and the amounts
+CBTRN03C edits for its report, found; the record fields only read, written or moved, which are most of
+the key's money, missed; DIS-INT-RATE, only multiplied, not taken. The rival for money: a two-place
+item added to that is no amount (a percentage kept as a running sum), which precision would show.
