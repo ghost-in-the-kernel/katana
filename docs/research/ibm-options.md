@@ -1832,3 +1832,42 @@ No intent fact licenses it; its proof is the run's. The ledger has a removal lin
 both become `for` loops, and CREASTMT reports and traces as literal. NIST: many become `for` loops, every run
 reporting what it reports literal; those with AFTER stay stretches. The rival: a loop the obligations admit
 whose run differs, which the comparison of each run with its literal self shows.
+
+## 37. 6.2, method extraction under the dispatcher: a range's paragraphs as the method's own code (R-032 to R-034; J-212)
+
+**What 6.2 asks** (ROADMAP 6.2): a reducible paragraph set becomes a method with local control flow; the
+dispatcher shrinks; the residual `switch` stays for what is not reducible, with a finding naming it
+(R-034: the residual dispatcher is acceptable output; R-033: Erosa–Hendren's total structuring refused).
+
+**This step's set.** After 6.1 a `Function` range is a method, `perform<first>()`, but its body still steps
+the global switch over the range's stretches (`int pc = d.perform(first, last, -3); while ...`). Here the
+range's paragraphs move into the method as its own code, in order, each after its trace line and its
+provenance comments, and their stretches, `s<label>`, leave the switch. A paragraph's fall into the next is
+the next statement. A GO TO forward to a paragraph inside the range is a `break` out of a labeled block that
+ends just before that paragraph's code (the blocks nest, the farthest target outermost: forward jumps in an
+acyclic sequence are exactly what nested labeled blocks express). GOBACK and EXIT PROGRAM, the run's end, are
+`Halt`, as in 6.1's methods. This is the acyclic, forward-only part of the reducible graphs; a backward GO TO
+(a loop) stays in the switch this step, a finding naming it (a labeled `while` is the next step's).
+
+**Obligations** (R-032; a range that fails one stays 6.1's method over the switch, and the pass says why):
+
+1. The range is a method of 6.1's plan.
+2. Its paragraphs need no stretch of their own: no PERFORM of a range no method, no VARYING no `for`, no
+   SEARCH, no SORT or MERGE procedure, no NEXT SENTENCE, no GO TO DEPENDING, no EXIT PARAGRAPH or SECTION.
+3. Every GO TO in it goes forward to a paragraph inside it, after the one it is in.
+4. No PERFORM but the range's own ends inside it, and nothing PERFORMs it through the dispatcher (a VARYING
+   no `for`, a SORT procedure): its first stretch is no longer in the switch to be entered.
+5. Nothing falls into its first paragraph: the paragraph before it does not fall, or a PERFORM ends there.
+
+**The residual dispatcher** is reported per program: the switch's cases before and after, and each range
+left with why; the main line stays in the switch this step.
+
+**Proof**: as 6.1's: every CardDemo job and every NIST module, structured, reporting and tracing what it
+does literal; the ledger, a removal line for each stretch the switch loses.
+
+**Predicted, before the build.** CardDemo's batch: nearly all of 6.1's 175 methods become the method's own
+code; those left are the ranges with a GO TO DEPENDING or a backward GO TO (none expected in the batch
+ranges, whose GO TOs go forward to an `-EXIT` paragraph) or a NEXT SENTENCE; the switch loses most of its
+cases, the main line's and those ranges' remaining. NIST: many ranges inline; every run as literal. The
+rival: a range the obligations admit that the run disproves (an entry the graph does not show), caught by
+the comparison as a dispatcher `pc` with no case, or a report that differs.
