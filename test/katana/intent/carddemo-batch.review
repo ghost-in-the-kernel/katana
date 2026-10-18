@@ -1,0 +1,1315 @@
+# CardDemo's batch programs: what Katana's rules say each item and block of steps means (R-066).
+#
+# For Ghost. Each fact is one line that starts with `inferred`; under it, four readings:
+#   evidence  what the program does with the item, and where, in the program's own names
+#   rule      the rule that proposed it, and how sure the rule is (its measured precision on
+#             a hand-written key bounds it; the key is Opus's reading, not a person's)
+#   Fable     a proposal only (R-031): a probability and a reason, never a confirmation
+#   docs      the program's authors (AWS's CardDemo README, the copybook and program comments),
+#             quoted where they describe the item, "none" where they do not
+#
+# Your answer goes on the fact line itself, and the next build reads it:
+#   confirmed   change `inferred` to `confirmed` and fill the empty field after the confidence
+#               with your name and the date: `| Ghost 2026-10-18`
+#   refuted     change it to `refuted`, the same name and date, then `| ` and what it is instead
+#   could not tell  leave `inferred`, and after the confidence write `|  | could not tell: `
+#               and what you would have needed; this counts against the evidence line, not you
+# No reading, and no agreement among them, makes a fact confirmed; only your word does (R-029).
+#
+# Words. An item is a named piece of a record or of working storage. A paragraph is a named block
+# of steps; PERFORM runs one as a subroutine and comes back; GO TO jumps without coming back. A
+# condition-name (an 88 level) is a name for one or more values of an item. MOVE copies; ADD adds
+# into; COMPUTE sets from a formula; an edited field is one laid out for printing ($, commas).
+# Kinds: money, an amount of money; enum, an item holding one of several named values; flag, a
+# yes-or-no; function, a block of steps the program runs as a subroutine and that returns.
+
+# program CBTRN02C
+#   docs: README, its jobs table: "POSTTRAN, CBTRN02C, Transaction processing job"
+
+inferred | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: APPL-AOK = 0, APPL-EOF = 16; set in 0000-DALYTRAN-OPEN, 0100-TRANFILE-OPEN, 0200-XREFFILE-OPEN, 0300-DALYREJS-OPEN and 14 more; checked in 0000-DALYTRAN-OPEN, 0100-TRANFILE-OPEN, 0200-XREFFILE-OPEN, 0300-DALYREJS-OPEN and 14 more
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0000-DALYTRAN-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0000-DALYTRAN-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0100-TRANFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0100-TRANFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0200-XREFFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0200-XREFFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0300-DALYREJS-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0300-DALYREJS-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0400-ACCTFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0400-ACCTFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0500-TCATBALF-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0500-TCATBALF-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-DALYTRAN-GET-NEXT | function.perform-range v1 | 1
+#   evidence: the block 1000-DALYTRAN-GET-NEXT (4 steps: READ, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1500-A-LOOKUP-XREF | function.perform-range v1 | 1
+#   evidence: the block 1500-A-LOOKUP-XREF (3 steps: MOVE, READ, EXIT) is run by PERFORM from 1500-VALIDATE-TRAN and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1500-B-LOOKUP-ACCT | function.perform-range v1 | 1
+#   evidence: the block 1500-B-LOOKUP-ACCT (3 steps: MOVE, READ, EXIT) is run by PERFORM from 1500-VALIDATE-TRAN and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1500-VALIDATE-TRAN | function.perform-range v1 | 1
+#   evidence: the block 1500-VALIDATE-TRAN (3 steps: PERFORM, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2000-POST-TRANSACTION | function.perform-range v1 | 1
+#   evidence: the block 2000-POST-TRANSACTION (18 steps: MOVE, PERFORM, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2500-WRITE-REJECT-REC | function.perform-range v1 | 1
+#   evidence: the block 2500-WRITE-REJECT-REC (7 steps: MOVE, WRITE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2700-A-CREATE-TCATBAL-REC | function.perform-range v1 | 1
+#   evidence: the block 2700-A-CREATE-TCATBAL-REC (8 steps: INITIALIZE, MOVE, ADD, WRITE, IF) is run by PERFORM from 2700-UPDATE-TCATBAL and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2700-B-UPDATE-TCATBAL-REC | function.perform-range v1 | 1
+#   evidence: the block 2700-B-UPDATE-TCATBAL-REC (4 steps: ADD, REWRITE, IF) is run by PERFORM from 2700-UPDATE-TCATBAL and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2700-UPDATE-TCATBAL | function.perform-range v1 | 1
+#   evidence: the block 2700-UPDATE-TCATBAL (9 steps: MOVE, READ, IF, EXIT) is run by PERFORM from 2000-POST-TRANSACTION and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2800-UPDATE-ACCOUNT-REC | function.perform-range v1 | 1
+#   evidence: the block 2800-UPDATE-ACCOUNT-REC (4 steps: ADD, IF, REWRITE, EXIT) is run by PERFORM from 2000-POST-TRANSACTION and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2900-WRITE-TRANSACTION-FILE | function.perform-range v1 | 1
+#   evidence: the block 2900-WRITE-TRANSACTION-FILE (5 steps: MOVE, WRITE, IF, EXIT) is run by PERFORM from 2000-POST-TRANSACTION and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9000-DALYTRAN-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9000-DALYTRAN-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9100-TRANFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9100-TRANFILE-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9200-XREFFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9200-XREFFILE-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9300-DALYREJS-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9300-DALYREJS-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9400-ACCTFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9400-ACCTFILE-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9500-TCATBALF-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9500-TCATBALF-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9910-DISPLAY-IO-STATUS | function.perform-range v1 | 1
+#   evidence: the block 9910-DISPLAY-IO-STATUS (2 steps: IF, EXIT) is run by PERFORM from 0000-DALYTRAN-OPEN, 0100-TRANFILE-OPEN, 0200-XREFFILE-OPEN, 0300-DALYREJS-OPEN and 14 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9999-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block 9999-ABEND-PROGRAM (4 steps: DISPLAY, MOVE, CALL) is run by PERFORM from 0000-DALYTRAN-OPEN, 0100-TRANFILE-OPEN, 0200-XREFFILE-OPEN, 0300-DALYREJS-OPEN and 14 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | Z-GET-DB2-FORMAT-TIMESTAMP | function.perform-range v1 | 1
+#   evidence: the block Z-GET-DB2-FORMAT-TIMESTAMP (12 steps: MOVE, EXIT) is run by PERFORM from 2000-POST-TRANSACTION and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | money | ACCT-CURR-BAL | money.used v2 | 0.9
+#   evidence: ADD adds DALYTRAN-AMT into it in 2800-UPDATE-ACCOUNT-REC (it is a number of 12 digits, 2 after the point, signed, picture S9999999999V99, declared in CVACT01Y.cpy)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: of its record, ACCOUNT-RECORD: "Data-structure for  account entity (RECLN 300)" (CVACT01Y.cpy line 3)
+
+inferred | money | ACCT-CURR-CYC-CREDIT | money.used v2 | 0.9
+#   evidence: ADD adds DALYTRAN-AMT into it in 2800-UPDATE-ACCOUNT-REC (it is a number of 12 digits, 2 after the point, signed, picture S9999999999V99, declared in CVACT01Y.cpy)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: of its record, ACCOUNT-RECORD: "Data-structure for  account entity (RECLN 300)" (CVACT01Y.cpy line 3)
+
+inferred | money | ACCT-CURR-CYC-DEBIT | money.used v2 | 0.9
+#   evidence: ADD adds DALYTRAN-AMT into it in 2800-UPDATE-ACCOUNT-REC (it is a number of 12 digits, 2 after the point, signed, picture S9999999999V99, declared in CVACT01Y.cpy)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: of its record, ACCOUNT-RECORD: "Data-structure for  account entity (RECLN 300)" (CVACT01Y.cpy line 3)
+
+inferred | money | TRAN-CAT-BAL | money.used v2 | 0.9
+#   evidence: ADD adds DALYTRAN-AMT into it in 2700-A-CREATE-TCATBAL-REC; ADD adds DALYTRAN-AMT into it in 2700-B-UPDATE-TCATBAL-REC (it is a number of 11 digits, 2 after the point, signed, picture S999999999V99, declared in CVTRA01Y.cpy)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: of its record, TRAN-CAT-BAL-RECORD: "Data-structure for transaction category balance (RECLN = 50)" (CVTRA01Y.cpy line 3)
+
+inferred | money | WS-TEMP-BAL | money.used v2 | 0.9
+#   evidence: COMPUTE sets it by a formula from DALYTRAN-AMT, ACCT-CURR-CYC-CREDIT, ACCT-CURR-CYC-DEBIT in 1500-B-LOOKUP-ACCT (it is a number of 11 digits, 2 after the point, signed, picture S999999999V99, declared in CBTRN02C.cbl)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBACT01C
+#   docs: none
+
+inferred | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: APPL-AOK = 0, APPL-EOF = 16; set in 1000-ACCTFILE-GET-NEXT, 0000-ACCTFILE-OPEN, 2000-OUTFILE-OPEN, 3000-ARRFILE-OPEN and 1 more; checked in 1000-ACCTFILE-GET-NEXT, 0000-ACCTFILE-OPEN, 2000-OUTFILE-OPEN, 3000-ARRFILE-OPEN and 2 more
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | enum | CODATECN-OUTTYPE: YYYY-MM-DD-OP, YYYYMMDD-OP | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: YYYY-MM-DD-OP = '1', YYYYMMDD-OP = '2'; set in 1300-POPUL-ACCT-RECORD; checked in none; handed to another program by CALL COBDATFT in 1300-POPUL-ACCT-RECORD (inside CODATECN-REC)
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | enum | CODATECN-TYPE: YYYYMMDD-IN, YYYY-MM-DD-IN | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: YYYYMMDD-IN = '1', YYYY-MM-DD-IN = '2'; set in 1300-POPUL-ACCT-RECORD; checked in none; handed to another program by CALL COBDATFT in 1300-POPUL-ACCT-RECORD (inside CODATECN-REC)
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0000-ACCTFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0000-ACCTFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-ACCTFILE-GET-NEXT | function.perform-range v1 | 1
+#   evidence: the block 1000-ACCTFILE-GET-NEXT (4 steps: READ, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: "I/O ROUTINES TO ACCESS A KSDS, VSAM DATA SET..." (CBACT01C.cbl line 164)
+
+inferred | function | 1100-DISPLAY-ACCT-RECORD | function.perform-range v1 | 1
+#   evidence: the block 1100-DISPLAY-ACCT-RECORD (13 steps: DISPLAY, EXIT) is run by PERFORM from 1000-ACCTFILE-GET-NEXT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1300-POPUL-ACCT-RECORD | function.perform-range v1 | 1
+#   evidence: the block 1300-POPUL-ACCT-RECORD (16 steps: MOVE, CALL, IF, EXIT) is run by PERFORM from 1000-ACCTFILE-GET-NEXT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1350-WRITE-ACCT-RECORD | function.perform-range v1 | 1
+#   evidence: the block 1350-WRITE-ACCT-RECORD (3 steps: WRITE, IF, EXIT) is run by PERFORM from 1000-ACCTFILE-GET-NEXT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1400-POPUL-ARRAY-RECORD | function.perform-range v1 | 1
+#   evidence: the block 1400-POPUL-ARRAY-RECORD (8 steps: MOVE, EXIT) is run by PERFORM from 1000-ACCTFILE-GET-NEXT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1450-WRITE-ARRY-RECORD | function.perform-range v1 | 1
+#   evidence: the block 1450-WRITE-ARRY-RECORD (3 steps: WRITE, IF, EXIT) is run by PERFORM from 1000-ACCTFILE-GET-NEXT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1500-POPUL-VBRC-RECORD | function.perform-range v1 | 1
+#   evidence: the block 1500-POPUL-VBRC-RECORD (8 steps: MOVE, DISPLAY, EXIT) is run by PERFORM from 1000-ACCTFILE-GET-NEXT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1550-WRITE-VB1-RECORD | function.perform-range v1 | 1
+#   evidence: the block 1550-WRITE-VB1-RECORD (5 steps: MOVE, WRITE, IF, EXIT) is run by PERFORM from 1000-ACCTFILE-GET-NEXT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1575-WRITE-VB2-RECORD | function.perform-range v1 | 1
+#   evidence: the block 1575-WRITE-VB2-RECORD (5 steps: MOVE, WRITE, IF, EXIT) is run by PERFORM from 1000-ACCTFILE-GET-NEXT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2000-OUTFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 2000-OUTFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 3000-ARRFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 3000-ARRFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 4000-VBRFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 4000-VBRFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9000-ACCTFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9000-ACCTFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9910-DISPLAY-IO-STATUS | function.perform-range v1 | 1
+#   evidence: the block 9910-DISPLAY-IO-STATUS (2 steps: IF, EXIT) is run by PERFORM from 1000-ACCTFILE-GET-NEXT, 1350-WRITE-ACCT-RECORD, 1450-WRITE-ARRY-RECORD, 1550-WRITE-VB1-RECORD and 6 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9999-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block 9999-ABEND-PROGRAM (4 steps: DISPLAY, MOVE, CALL) is run by PERFORM from 1000-ACCTFILE-GET-NEXT, 1350-WRITE-ACCT-RECORD, 1450-WRITE-ARRY-RECORD, 1550-WRITE-VB1-RECORD and 6 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBACT02C
+#   docs: none
+
+inferred | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: APPL-AOK = 0, APPL-EOF = 16; set in 1000-CARDFILE-GET-NEXT, 0000-CARDFILE-OPEN; checked in 1000-CARDFILE-GET-NEXT, 0000-CARDFILE-OPEN, 9000-CARDFILE-CLOSE
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0000-CARDFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0000-CARDFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-CARDFILE-GET-NEXT | function.perform-range v1 | 1
+#   evidence: the block 1000-CARDFILE-GET-NEXT (4 steps: READ, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: "I/O ROUTINES TO ACCESS A KSDS, VSAM DATA SET..." (CBACT02C.cbl line 91)
+
+inferred | function | 9000-CARDFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9000-CARDFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9910-DISPLAY-IO-STATUS | function.perform-range v1 | 1
+#   evidence: the block 9910-DISPLAY-IO-STATUS (2 steps: IF, EXIT) is run by PERFORM from 1000-CARDFILE-GET-NEXT, 0000-CARDFILE-OPEN, 9000-CARDFILE-CLOSE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9999-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block 9999-ABEND-PROGRAM (4 steps: DISPLAY, MOVE, CALL) is run by PERFORM from 1000-CARDFILE-GET-NEXT, 0000-CARDFILE-OPEN, 9000-CARDFILE-CLOSE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBACT03C
+#   docs: none
+
+inferred | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: APPL-AOK = 0, APPL-EOF = 16; set in 1000-XREFFILE-GET-NEXT, 0000-XREFFILE-OPEN; checked in 1000-XREFFILE-GET-NEXT, 0000-XREFFILE-OPEN, 9000-XREFFILE-CLOSE
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0000-XREFFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0000-XREFFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-XREFFILE-GET-NEXT | function.perform-range v1 | 1
+#   evidence: the block 1000-XREFFILE-GET-NEXT (4 steps: READ, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: "I/O ROUTINES TO ACCESS A KSDS, VSAM DATA SET..." (CBACT03C.cbl line 91)
+
+inferred | function | 9000-XREFFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9000-XREFFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9910-DISPLAY-IO-STATUS | function.perform-range v1 | 1
+#   evidence: the block 9910-DISPLAY-IO-STATUS (2 steps: IF, EXIT) is run by PERFORM from 1000-XREFFILE-GET-NEXT, 0000-XREFFILE-OPEN, 9000-XREFFILE-CLOSE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9999-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block 9999-ABEND-PROGRAM (4 steps: DISPLAY, MOVE, CALL) is run by PERFORM from 1000-XREFFILE-GET-NEXT, 0000-XREFFILE-OPEN, 9000-XREFFILE-CLOSE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBACT04C
+#   docs: README, its jobs table: "INTCALC, CBACT04C, Run interest calculations"
+
+inferred | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: APPL-AOK = 0, APPL-EOF = 16; set in 0000-TCATBALF-OPEN, 0100-XREFFILE-OPEN, 0200-DISCGRP-OPEN, 0300-ACCTFILE-OPEN and 13 more; checked in 0000-TCATBALF-OPEN, 0100-XREFFILE-OPEN, 0200-DISCGRP-OPEN, 0300-ACCTFILE-OPEN and 13 more
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0000-TCATBALF-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0000-TCATBALF-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0100-XREFFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0100-XREFFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0200-DISCGRP-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0200-DISCGRP-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0300-ACCTFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0300-ACCTFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0400-TRANFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0400-TRANFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-TCATBALF-GET-NEXT | function.perform-range v1 | 1
+#   evidence: the block 1000-TCATBALF-GET-NEXT (4 steps: READ, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1050-UPDATE-ACCOUNT | function.perform-range v1 | 1
+#   evidence: the block 1050-UPDATE-ACCOUNT (7 steps: ADD, MOVE, REWRITE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1100-GET-ACCT-DATA | function.perform-range v1 | 1
+#   evidence: the block 1100-GET-ACCT-DATA (4 steps: READ, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1110-GET-XREF-DATA | function.perform-range v1 | 1
+#   evidence: the block 1110-GET-XREF-DATA (4 steps: READ, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1200-A-GET-DEFAULT-INT-RATE | function.perform-range v1 | 1
+#   evidence: the block 1200-A-GET-DEFAULT-INT-RATE (4 steps: READ, IF, EXIT) is run by PERFORM from 1200-GET-INTEREST-RATE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1200-GET-INTEREST-RATE | function.perform-range v1 | 1
+#   evidence: the block 1200-GET-INTEREST-RATE (5 steps: READ, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1300-B-WRITE-TX | function.perform-range v1 | 1
+#   evidence: the block 1300-B-WRITE-TX (19 steps: ADD, STRING, MOVE, PERFORM, WRITE, IF, EXIT) is run by PERFORM from 1300-COMPUTE-INTEREST and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1300-COMPUTE-INTEREST | function.perform-range v1 | 1
+#   evidence: the block 1300-COMPUTE-INTEREST (4 steps: COMPUTE, ADD, PERFORM, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1400-COMPUTE-FEES | function.perform-range v1 | 1
+#   evidence: the block 1400-COMPUTE-FEES (1 steps: EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9000-TCATBALF-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9000-TCATBALF-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9100-XREFFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9100-XREFFILE-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9200-DISCGRP-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9200-DISCGRP-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9300-ACCTFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9300-ACCTFILE-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9400-TRANFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9400-TRANFILE-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9910-DISPLAY-IO-STATUS | function.perform-range v1 | 1
+#   evidence: the block 9910-DISPLAY-IO-STATUS (2 steps: IF, EXIT) is run by PERFORM from 0000-TCATBALF-OPEN, 0100-XREFFILE-OPEN, 0200-DISCGRP-OPEN, 0300-ACCTFILE-OPEN and 13 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9999-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block 9999-ABEND-PROGRAM (4 steps: DISPLAY, MOVE, CALL) is run by PERFORM from 0000-TCATBALF-OPEN, 0100-XREFFILE-OPEN, 0200-DISCGRP-OPEN, 0300-ACCTFILE-OPEN and 13 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | Z-GET-DB2-FORMAT-TIMESTAMP | function.perform-range v1 | 1
+#   evidence: the block Z-GET-DB2-FORMAT-TIMESTAMP (12 steps: MOVE, EXIT) is run by PERFORM from 1300-B-WRITE-TX and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | money | ACCT-CURR-BAL | money.used v2 | 0.9
+#   evidence: ADD adds WS-TOTAL-INT into it in 1050-UPDATE-ACCOUNT (it is a number of 12 digits, 2 after the point, signed, picture S9999999999V99, declared in CVACT01Y.cpy)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: of its record, ACCOUNT-RECORD: "Data-structure for  account entity (RECLN 300)" (CVACT01Y.cpy line 3)
+
+inferred | money | WS-MONTHLY-INT | money.used v2 | 0.9
+#   evidence: COMPUTE sets it by a formula from TRAN-CAT-BAL, DIS-INT-RATE in 1300-COMPUTE-INTEREST (it is a number of 11 digits, 2 after the point, signed, picture S999999999V99, declared in CBACT04C.cbl)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | money | WS-TOTAL-INT | money.used v2 | 0.9
+#   evidence: ADD adds WS-MONTHLY-INT into it in 1300-COMPUTE-INTEREST (it is a number of 11 digits, 2 after the point, signed, picture S999999999V99, declared in CBACT04C.cbl)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBCUS01C
+#   docs: none
+
+inferred | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: APPL-AOK = 0, APPL-EOF = 16; set in 1000-CUSTFILE-GET-NEXT, 0000-CUSTFILE-OPEN; checked in 1000-CUSTFILE-GET-NEXT, 0000-CUSTFILE-OPEN, 9000-CUSTFILE-CLOSE
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0000-CUSTFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0000-CUSTFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-CUSTFILE-GET-NEXT | function.perform-range v1 | 1
+#   evidence: the block 1000-CUSTFILE-GET-NEXT (4 steps: READ, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: "I/O ROUTINES TO ACCESS A KSDS, VSAM DATA SET..." (CBCUS01C.cbl line 91)
+
+inferred | function | 9000-CUSTFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9000-CUSTFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | Z-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block Z-ABEND-PROGRAM (4 steps: DISPLAY, MOVE, CALL) is run by PERFORM from 1000-CUSTFILE-GET-NEXT, 0000-CUSTFILE-OPEN, 9000-CUSTFILE-CLOSE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | Z-DISPLAY-IO-STATUS | function.perform-range v1 | 1
+#   evidence: the block Z-DISPLAY-IO-STATUS (2 steps: IF, EXIT) is run by PERFORM from 1000-CUSTFILE-GET-NEXT, 0000-CUSTFILE-OPEN, 9000-CUSTFILE-CLOSE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBEXPORT
+#   docs: none
+
+inferred | enum | WS-ACCOUNT-STATUS: WS-ACCOUNT-EOF, WS-ACCOUNT-OK | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: WS-ACCOUNT-EOF = '10', WS-ACCOUNT-OK = '00'; set by the file system after each operation on ACCOUNT-INPUT (its FILE STATUS); checked in 1100-OPEN-FILES, 3000-EXPORT-ACCOUNTS, 3100-READ-ACCOUNT-RECORD
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | enum | WS-CARD-STATUS: WS-CARD-EOF, WS-CARD-OK | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: WS-CARD-EOF = '10', WS-CARD-OK = '00'; set by the file system after each operation on CARD-INPUT (its FILE STATUS); checked in 1100-OPEN-FILES, 5500-EXPORT-CARDS, 5600-READ-CARD-RECORD
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | enum | WS-CUSTOMER-STATUS: WS-CUSTOMER-EOF, WS-CUSTOMER-OK | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: WS-CUSTOMER-EOF = '10', WS-CUSTOMER-OK = '00'; set by the file system after each operation on CUSTOMER-INPUT (its FILE STATUS); checked in 1100-OPEN-FILES, 2000-EXPORT-CUSTOMERS, 2100-READ-CUSTOMER-RECORD
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | enum | WS-TRANSACTION-STATUS: WS-TRANSACTION-EOF, WS-TRANSACTION-OK | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: WS-TRANSACTION-EOF = '10', WS-TRANSACTION-OK = '00'; set by the file system after each operation on TRANSACTION-INPUT (its FILE STATUS); checked in 1100-OPEN-FILES, 5000-EXPORT-TRANSACTIONS, 5100-READ-TRANSACTION-RECORD
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | enum | WS-XREF-STATUS: WS-XREF-EOF, WS-XREF-OK | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: WS-XREF-EOF = '10', WS-XREF-OK = '00'; set by the file system after each operation on XREF-INPUT (its FILE STATUS); checked in 1100-OPEN-FILES, 4000-EXPORT-XREFS, 4100-READ-XREF-RECORD
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-INITIALIZE | function.perform-range v1 | 1
+#   evidence: the block 1000-INITIALIZE (5 steps: DISPLAY, PERFORM) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1050-GENERATE-TIMESTAMP | function.perform-range v1 | 1
+#   evidence: the block 1050-GENERATE-TIMESTAMP (5 steps: ACCEPT, STRING) is run by PERFORM from 1000-INITIALIZE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1100-OPEN-FILES | function.perform-range v1 | 1
+#   evidence: the block 1100-OPEN-FILES (12 steps: OPEN, IF) is run by PERFORM from 1000-INITIALIZE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2000-EXPORT-CUSTOMERS | function.perform-range v1 | 1
+#   evidence: the block 2000-EXPORT-CUSTOMERS (4 steps: DISPLAY, PERFORM) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2100-READ-CUSTOMER-RECORD | function.perform-range v1 | 1
+#   evidence: the block 2100-READ-CUSTOMER-RECORD (2 steps: READ, IF) is run by PERFORM from 2000-EXPORT-CUSTOMERS and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2200-CREATE-CUSTOMER-EXP-REC | function.perform-range v1 | 1
+#   evidence: the block 2200-CREATE-CUSTOMER-EXP-REC (29 steps: INITIALIZE, MOVE, ADD, WRITE, IF) is run by PERFORM from 2000-EXPORT-CUSTOMERS and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 3000-EXPORT-ACCOUNTS | function.perform-range v1 | 1
+#   evidence: the block 3000-EXPORT-ACCOUNTS (4 steps: DISPLAY, PERFORM) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 3100-READ-ACCOUNT-RECORD | function.perform-range v1 | 1
+#   evidence: the block 3100-READ-ACCOUNT-RECORD (2 steps: READ, IF) is run by PERFORM from 3000-EXPORT-ACCOUNTS and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 3200-CREATE-ACCOUNT-EXP-REC | function.perform-range v1 | 1
+#   evidence: the block 3200-CREATE-ACCOUNT-EXP-REC (23 steps: INITIALIZE, MOVE, ADD, WRITE, IF) is run by PERFORM from 3000-EXPORT-ACCOUNTS and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 4000-EXPORT-XREFS | function.perform-range v1 | 1
+#   evidence: the block 4000-EXPORT-XREFS (4 steps: DISPLAY, PERFORM) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 4100-READ-XREF-RECORD | function.perform-range v1 | 1
+#   evidence: the block 4100-READ-XREF-RECORD (2 steps: READ, IF) is run by PERFORM from 4000-EXPORT-XREFS and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 4200-CREATE-XREF-EXPORT-RECORD | function.perform-range v1 | 1
+#   evidence: the block 4200-CREATE-XREF-EXPORT-RECORD (14 steps: INITIALIZE, MOVE, ADD, WRITE, IF) is run by PERFORM from 4000-EXPORT-XREFS and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 5000-EXPORT-TRANSACTIONS | function.perform-range v1 | 1
+#   evidence: the block 5000-EXPORT-TRANSACTIONS (4 steps: DISPLAY, PERFORM) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 5100-READ-TRANSACTION-RECORD | function.perform-range v1 | 1
+#   evidence: the block 5100-READ-TRANSACTION-RECORD (2 steps: READ, IF) is run by PERFORM from 5000-EXPORT-TRANSACTIONS and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 5200-CREATE-TRAN-EXP-REC | function.perform-range v1 | 1
+#   evidence: the block 5200-CREATE-TRAN-EXP-REC (24 steps: INITIALIZE, MOVE, ADD, WRITE, IF) is run by PERFORM from 5000-EXPORT-TRANSACTIONS and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 5500-EXPORT-CARDS | function.perform-range v1 | 1
+#   evidence: the block 5500-EXPORT-CARDS (4 steps: DISPLAY, PERFORM) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 5600-READ-CARD-RECORD | function.perform-range v1 | 1
+#   evidence: the block 5600-READ-CARD-RECORD (2 steps: READ, IF) is run by PERFORM from 5500-EXPORT-CARDS and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 5700-CREATE-CARD-EXPORT-RECORD | function.perform-range v1 | 1
+#   evidence: the block 5700-CREATE-CARD-EXPORT-RECORD (17 steps: INITIALIZE, MOVE, ADD, WRITE, IF) is run by PERFORM from 5500-EXPORT-CARDS and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 6000-FINALIZE | function.perform-range v1 | 1
+#   evidence: the block 6000-FINALIZE (13 steps: CLOSE, DISPLAY) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9999-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block 9999-ABEND-PROGRAM (2 steps: DISPLAY, CALL) is run by PERFORM from 1100-OPEN-FILES, 2100-READ-CUSTOMER-RECORD, 2200-CREATE-CUSTOMER-EXP-REC, 3100-READ-ACCOUNT-RECORD and 7 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBIMPORT
+#   docs: none
+
+inferred | enum | WS-EXPORT-STATUS: WS-EXPORT-EOF, WS-EXPORT-OK | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: WS-EXPORT-EOF = '10', WS-EXPORT-OK = '00'; set by the file system after each operation on EXPORT-INPUT (its FILE STATUS); checked in 1100-OPEN-FILES, 2000-PROCESS-EXPORT-FILE, 2100-READ-EXPORT-RECORD
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-INITIALIZE | function.perform-range v1 | 1
+#   evidence: the block 1000-INITIALIZE (14 steps: DISPLAY, MOVE, PERFORM) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1100-OPEN-FILES | function.perform-range v1 | 1
+#   evidence: the block 1100-OPEN-FILES (14 steps: OPEN, IF) is run by PERFORM from 1000-INITIALIZE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2000-PROCESS-EXPORT-FILE | function.perform-range v1 | 1
+#   evidence: the block 2000-PROCESS-EXPORT-FILE (2 steps: PERFORM) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2100-READ-EXPORT-RECORD | function.perform-range v1 | 1
+#   evidence: the block 2100-READ-EXPORT-RECORD (2 steps: READ, IF) is run by PERFORM from 2000-PROCESS-EXPORT-FILE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2200-PROCESS-RECORD-BY-TYPE | function.perform-range v1 | 1
+#   evidence: the block 2200-PROCESS-RECORD-BY-TYPE (1 steps: EVALUATE) is run by PERFORM from 2000-PROCESS-EXPORT-FILE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2300-PROCESS-CUSTOMER-RECORD | function.perform-range v1 | 1
+#   evidence: the block 2300-PROCESS-CUSTOMER-RECORD (22 steps: INITIALIZE, MOVE, WRITE, IF, ADD) is run by PERFORM from 2200-PROCESS-RECORD-BY-TYPE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2400-PROCESS-ACCOUNT-RECORD | function.perform-range v1 | 1
+#   evidence: the block 2400-PROCESS-ACCOUNT-RECORD (16 steps: INITIALIZE, MOVE, WRITE, IF, ADD) is run by PERFORM from 2200-PROCESS-RECORD-BY-TYPE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2500-PROCESS-XREF-RECORD | function.perform-range v1 | 1
+#   evidence: the block 2500-PROCESS-XREF-RECORD (7 steps: INITIALIZE, MOVE, WRITE, IF, ADD) is run by PERFORM from 2200-PROCESS-RECORD-BY-TYPE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2600-PROCESS-TRAN-RECORD | function.perform-range v1 | 1
+#   evidence: the block 2600-PROCESS-TRAN-RECORD (17 steps: INITIALIZE, MOVE, WRITE, IF, ADD) is run by PERFORM from 2200-PROCESS-RECORD-BY-TYPE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2650-PROCESS-CARD-RECORD | function.perform-range v1 | 1
+#   evidence: the block 2650-PROCESS-CARD-RECORD (10 steps: INITIALIZE, MOVE, WRITE, IF, ADD) is run by PERFORM from 2200-PROCESS-RECORD-BY-TYPE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2700-PROCESS-UNKNOWN-RECORD | function.perform-range v1 | 1
+#   evidence: the block 2700-PROCESS-UNKNOWN-RECORD (6 steps: ADD, MOVE, PERFORM) is run by PERFORM from 2200-PROCESS-RECORD-BY-TYPE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2750-WRITE-ERROR | function.perform-range v1 | 1
+#   evidence: the block 2750-WRITE-ERROR (3 steps: WRITE, IF, ADD) is run by PERFORM from 2700-PROCESS-UNKNOWN-RECORD and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 3000-VALIDATE-IMPORT | function.perform-range v1 | 1
+#   evidence: the block 3000-VALIDATE-IMPORT (2 steps: DISPLAY) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 4000-FINALIZE | function.perform-range v1 | 1
+#   evidence: the block 4000-FINALIZE (16 steps: CLOSE, DISPLAY) is run by PERFORM from 0000-MAIN-PROCESSING and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9999-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block 9999-ABEND-PROGRAM (2 steps: DISPLAY, CALL) is run by PERFORM from 1100-OPEN-FILES, 2100-READ-EXPORT-RECORD, 2300-PROCESS-CUSTOMER-RECORD, 2400-PROCESS-ACCOUNT-RECORD and 3 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBSTM03A
+#   docs: README, its jobs table: "CREASTMT, CBSTM03A, Produce transaction statement"
+
+inferred | enum | HTML-FIXED-LN: HTML-L01, HTML-L02, HTML-L03, HTML-L04, HTML-L05, HTML-L06, HTML-L07, HTML-L08, HTML-LTRS, HTML-LTRE, HTML-LTDS, HTML-LTDE, HTML-L10, HTML-L15, HTML-L16, HTML-L17, HTML-L18, HTML-L22-35, HTML-L30-42, HTML-L31, HTML-L43, HTML-L47, HTML-L48, HTML-L50, HTML-L51, HTML-L53, HTML-L54, HTML-L58, HTML-L61, HTML-L64, HTML-L75, HTML-L78, HTML-L79, HTML-L80 | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 34 named values: HTML-L01 = '<!DOCTYPE html>', HTML-L02 = '<html lang="en">', HTML-L03 = '<head>', HTML-L04 = '<meta charset="utf-8">', HTML-L05 = '<title>HTML Table Layout</title>', HTML-L06 = '</head>', HTML-L07 = '<body style="margin:0px;">', HTML-L08 = '<table  align="center" frame="box" style="width:70%; font:12px Segoe UI,sans-serif;">', HTML-LTRS = '<tr>', HTML-LTRE = '</tr>', HTML-LTDS = '<td>', HTML-LTDE = '</td>', HTML-L10 = '<td colspan="3" style="padding:0px 5px;background-color:#1d1d96b3;">', HTML-L15 = '<td colspan="3" style="padding:0px 5px;background-color:#FFAF33;">', HTML-L16 = '<p style="font-size:16px">Bank of XYZ</p>', HTML-L17 = '<p>410 Terry Ave N</p>', HTML-L18 = '<p>Seattle WA 99999</p>', HTML-L22-35 = '<td colspan="3" style="padding:0px 5px;background-color:#f2f2f2;">', HTML-L30-42 = '<td colspan="3" style="padding:0px 5px;background-color:#33FFD1; text-align:center;">', HTML-L31 = '<p style="font-size:16px">Basic Details</p>', HTML-L43 = '<p style="font-size:16px">Transaction Summary</p>', HTML-L47 = '<td style="width:25%; padding:0px 5px; background-color:#33FF5E; text-align:left;">', HTML-L48 = '<p style="font-size:16px">Tran ID</p>', HTML-L50 = '<td style="width:55%; padding:0px 5px; background-color:#33FF5E; text-align:left;">', HTML-L51 = '<p style="font-size:16px">Tran Details</p>', HTML-L53 = '<td style="width:20%; padding:0px 5px; background-color:#33FF5E; text-align:right;">', HTML-L54 = '<p style="font-size:16px">Amount</p>', HTML-L58 = '<td style="width:25%; padding:0px 5px; background-color:#f2f2f2; text-align:left;">', HTML-L61 = '<td style="width:55%; padding:0px 5px; background-color:#f2f2f2; text-align:left;">', HTML-L64 = '<td style="width:20%; padding:0px 5px; background-color:#f2f2f2; text-align:right;">', HTML-L75 = '<h3>End of Statement</h3>', HTML-L78 = '</table>', HTML-L79 = '</body>', HTML-L80 = '</html>'; set in 4000-TRNXFILE-GET, 5100-WRITE-HTML-HEADER, 5200-WRITE-HTML-NMADBS, 6000-WRITE-TRANS; checked in none
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | enum | WS-M03B-OPER: M03B-OPEN, M03B-CLOSE, M03B-READ, M03B-READ-K, M03B-WRITE, M03B-REWRITE | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 6 named values: M03B-OPEN = 'O', M03B-CLOSE = 'C', M03B-READ = 'R', M03B-READ-K = 'K', M03B-WRITE = 'W', M03B-REWRITE = 'Z'; set in 1000-XREFFILE-GET-NEXT, 2000-CUSTFILE-GET, 3000-ACCTFILE-GET, 8100-TRNXFILE-OPEN and 8 more; checked in none; handed to another program by CALL CBSTM03B in 1000-XREFFILE-GET-NEXT (inside WS-M03B-AREA), CBSTM03B in 2000-CUSTFILE-GET (inside WS-M03B-AREA), CBSTM03B in 3000-ACCTFILE-GET (inside WS-M03B-AREA), CBSTM03B in 8100-TRNXFILE-OPEN (inside WS-M03B-AREA) and 8 more
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-XREFFILE-GET-NEXT | function.perform-range v1 | 1
+#   evidence: the block 1000-XREFFILE-GET-NEXT (8 steps: MOVE, SET, CALL, EVALUATE, EXIT) is run by PERFORM from 1000-MAINLINE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2000-CUSTFILE-GET | function.perform-range v1 | 1
+#   evidence: the block 2000-CUSTFILE-GET (11 steps: MOVE, SET, COMPUTE, CALL, EVALUATE, EXIT) is run by PERFORM from 1000-MAINLINE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 3000-ACCTFILE-GET | function.perform-range v1 | 1
+#   evidence: the block 3000-ACCTFILE-GET (11 steps: MOVE, SET, COMPUTE, CALL, EVALUATE, EXIT) is run by PERFORM from 1000-MAINLINE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 4000-TRNXFILE-GET | function.perform-range v1 | 1
+#   evidence: the block 4000-TRNXFILE-GET (23 steps: PERFORM, MOVE, WRITE, SET, EXIT) is run by PERFORM from 1000-MAINLINE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 5000-CREATE-STATEMENT | function.perform-range v1 | 1
+#   evidence: the block 5000-CREATE-STATEMENT (27 steps: INITIALIZE, WRITE, PERFORM, STRING, MOVE, EXIT) is run by PERFORM from 1000-MAINLINE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 5100-WRITE-HTML-HEADER THRU 5100-EXIT | function.perform-range v1 | 1
+#   evidence: the block 5100-WRITE-HTML-HEADER through 5100-EXIT (45 steps: SET, WRITE, MOVE, EXIT) is run by PERFORM from 5000-CREATE-STATEMENT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 5200-WRITE-HTML-NMADBS THRU 5200-EXIT | function.perform-range v1 | 1
+#   evidence: the block 5200-WRITE-HTML-NMADBS through 5200-EXIT (77 steps: MOVE, STRING, WRITE, SET, EXIT) is run by PERFORM from 5000-CREATE-STATEMENT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 6000-WRITE-TRANS | function.perform-range v1 | 1
+#   evidence: the block 6000-WRITE-TRANS (30 steps: MOVE, WRITE, SET, STRING, EXIT) is run by PERFORM from 4000-TRNXFILE-GET and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9100-TRNXFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9100-TRNXFILE-CLOSE (6 steps: MOVE, SET, CALL, IF, EXIT) is run by PERFORM from 1000-MAINLINE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9200-XREFFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9200-XREFFILE-CLOSE (6 steps: MOVE, SET, CALL, IF, EXIT) is run by PERFORM from 1000-MAINLINE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9300-CUSTFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9300-CUSTFILE-CLOSE (6 steps: MOVE, SET, CALL, IF, EXIT) is run by PERFORM from 1000-MAINLINE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9400-ACCTFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9400-ACCTFILE-CLOSE (6 steps: MOVE, SET, CALL, IF, EXIT) is run by PERFORM from 1000-MAINLINE and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9999-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block 9999-ABEND-PROGRAM (2 steps: DISPLAY, CALL) is run by PERFORM from 1000-XREFFILE-GET-NEXT, 2000-CUSTFILE-GET, 3000-ACCTFILE-GET, 8100-TRNXFILE-OPEN and 8 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | money | WS-TOTAL-AMT | money.used v2 | 0.9
+#   evidence: ADD adds TRNX-AMT into it in 4000-TRNXFILE-GET (it is a number of 11 digits, 2 after the point, signed, picture S999999999V99, declared in CBSTM03A.CBL)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBSTM03B
+#   docs: none
+
+inferred | enum | LK-M03B-OPER: M03B-OPEN, M03B-CLOSE, M03B-READ, M03B-READ-K, M03B-WRITE, M03B-REWRITE | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 6 named values: M03B-OPEN = 'O', M03B-CLOSE = 'C', M03B-READ = 'R', M03B-READ-K = 'K', M03B-WRITE = 'W', M03B-REWRITE = 'Z'; set by the program that CALLs this one (it is in the LINKAGE SECTION); checked in 1000-TRNXFILE-PROC, 2000-XREFFILE-PROC, 3000-CUSTFILE-PROC, 4000-ACCTFILE-PROC
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-TRNXFILE-PROC THRU 1999-EXIT | function.perform-range v1 | 1
+#   evidence: the block 1000-TRNXFILE-PROC through 1999-EXIT (5 steps: IF, MOVE, EXIT) is run by PERFORM from 0000-START and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 2000-XREFFILE-PROC THRU 2999-EXIT | function.perform-range v1 | 1
+#   evidence: the block 2000-XREFFILE-PROC through 2999-EXIT (5 steps: IF, MOVE, EXIT) is run by PERFORM from 0000-START and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 3000-CUSTFILE-PROC THRU 3999-EXIT | function.perform-range v1 | 1
+#   evidence: the block 3000-CUSTFILE-PROC through 3999-EXIT (5 steps: IF, MOVE, EXIT) is run by PERFORM from 0000-START and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 4000-ACCTFILE-PROC THRU 4999-EXIT | function.perform-range v1 | 1
+#   evidence: the block 4000-ACCTFILE-PROC through 4999-EXIT (5 steps: IF, MOVE, EXIT) is run by PERFORM from 0000-START and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBTRN01C
+#   docs: none
+
+inferred | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: APPL-AOK = 0, APPL-EOF = 16; set in 1000-DALYTRAN-GET-NEXT, 0000-DALYTRAN-OPEN, 0100-CUSTFILE-OPEN, 0200-XREFFILE-OPEN and 9 more; checked in 1000-DALYTRAN-GET-NEXT, 0000-DALYTRAN-OPEN, 0100-CUSTFILE-OPEN, 0200-XREFFILE-OPEN and 9 more
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0000-DALYTRAN-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0000-DALYTRAN-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0100-CUSTFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0100-CUSTFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0200-XREFFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0200-XREFFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0300-CARDFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0300-CARDFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0400-ACCTFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0400-ACCTFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0500-TRANFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0500-TRANFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1000-DALYTRAN-GET-NEXT | function.perform-range v1 | 1
+#   evidence: the block 1000-DALYTRAN-GET-NEXT (4 steps: READ, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: "READS FILE" (CBTRN01C.cbl line 201)
+
+inferred | function | 2000-LOOKUP-XREF | function.perform-range v1 | 1
+#   evidence: the block 2000-LOOKUP-XREF (2 steps: MOVE, READ) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 3000-READ-ACCOUNT | function.perform-range v1 | 1
+#   evidence: the block 3000-READ-ACCOUNT (2 steps: MOVE, READ) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9000-DALYTRAN-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9000-DALYTRAN-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9100-CUSTFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9100-CUSTFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9200-XREFFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9200-XREFFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9300-CARDFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9300-CARDFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9400-ACCTFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9400-ACCTFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9500-TRANFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9500-TRANFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from MAIN-PARA and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | Z-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block Z-ABEND-PROGRAM (4 steps: DISPLAY, MOVE, CALL) is run by PERFORM from 1000-DALYTRAN-GET-NEXT, 0000-DALYTRAN-OPEN, 0100-CUSTFILE-OPEN, 0200-XREFFILE-OPEN and 9 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | Z-DISPLAY-IO-STATUS | function.perform-range v1 | 1
+#   evidence: the block Z-DISPLAY-IO-STATUS (2 steps: IF, EXIT) is run by PERFORM from 1000-DALYTRAN-GET-NEXT, 0000-DALYTRAN-OPEN, 0100-CUSTFILE-OPEN, 0200-XREFFILE-OPEN and 9 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program CBTRN03C
+#   docs: README, its jobs table: "TRANREPT, CBTRN03C, Transaction Report - Submitted from CICS"
+
+inferred | enum | APPL-RESULT: APPL-AOK, APPL-EOF | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 2 named values: APPL-AOK = 0, APPL-EOF = 16; set in 0550-DATEPARM-READ, 1000-TRANFILE-GET-NEXT, 1111-WRITE-REPORT-REC, 0000-TRANFILE-OPEN and 9 more; checked in 0550-DATEPARM-READ, 1000-TRANFILE-GET-NEXT, 1111-WRITE-REPORT-REC, 0000-TRANFILE-OPEN and 11 more
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0000-TRANFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0000-TRANFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0100-REPTFILE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0100-REPTFILE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0200-CARDXREF-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0200-CARDXREF-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0300-TRANTYPE-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0300-TRANTYPE-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0400-TRANCATG-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0400-TRANCATG-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0500-DATEPARM-OPEN | function.perform-range v1 | 1
+#   evidence: the block 0500-DATEPARM-OPEN (5 steps: MOVE, OPEN, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 0550-DATEPARM-READ | function.perform-range v1 | 1
+#   evidence: the block 0550-DATEPARM-READ (3 steps: READ, EVALUATE, IF) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: "Read the date parameter file." (CBTRN03C.cbl line 219)
+
+inferred | function | 1000-TRANFILE-GET-NEXT | function.perform-range v1 | 1
+#   evidence: the block 1000-TRANFILE-GET-NEXT (4 steps: READ, EVALUATE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: "I/O ROUTINES TO ACCESS A KSDS, VSAM DATA SET..." (CBTRN03C.cbl line 247)
+
+inferred | function | 1100-WRITE-TRANSACTION-REPORT | function.perform-range v1 | 1
+#   evidence: the block 1100-WRITE-TRANSACTION-REPORT (5 steps: IF, ADD, PERFORM, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1110-WRITE-GRAND-TOTALS | function.perform-range v1 | 1
+#   evidence: the block 1110-WRITE-GRAND-TOTALS (4 steps: MOVE, PERFORM, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1110-WRITE-PAGE-TOTALS | function.perform-range v1 | 1
+#   evidence: the block 1110-WRITE-PAGE-TOTALS (10 steps: MOVE, PERFORM, ADD, EXIT) is run by PERFORM from the program's opening steps, 1100-WRITE-TRANSACTION-REPORT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1111-WRITE-REPORT-REC | function.perform-range v1 | 1
+#   evidence: the block 1111-WRITE-REPORT-REC (4 steps: WRITE, IF, EXIT) is run by PERFORM from 1110-WRITE-PAGE-TOTALS, 1120-WRITE-ACCOUNT-TOTALS, 1110-WRITE-GRAND-TOTALS, 1120-WRITE-HEADERS and 1 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1120-WRITE-ACCOUNT-TOTALS | function.perform-range v1 | 1
+#   evidence: the block 1120-WRITE-ACCOUNT-TOTALS (9 steps: MOVE, PERFORM, ADD, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1120-WRITE-DETAIL | function.perform-range v1 | 1
+#   evidence: the block 1120-WRITE-DETAIL (13 steps: INITIALIZE, MOVE, PERFORM, ADD, EXIT) is run by PERFORM from 1100-WRITE-TRANSACTION-REPORT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1120-WRITE-HEADERS | function.perform-range v1 | 1
+#   evidence: the block 1120-WRITE-HEADERS (13 steps: MOVE, PERFORM, ADD, EXIT) is run by PERFORM from 1100-WRITE-TRANSACTION-REPORT and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1500-A-LOOKUP-XREF | function.perform-range v1 | 1
+#   evidence: the block 1500-A-LOOKUP-XREF (2 steps: READ, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1500-B-LOOKUP-TRANTYPE | function.perform-range v1 | 1
+#   evidence: the block 1500-B-LOOKUP-TRANTYPE (2 steps: READ, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 1500-C-LOOKUP-TRANCATG | function.perform-range v1 | 1
+#   evidence: the block 1500-C-LOOKUP-TRANCATG (2 steps: READ, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9000-TRANFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9000-TRANFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9100-REPTFILE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9100-REPTFILE-CLOSE (5 steps: ADD, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9200-CARDXREF-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9200-CARDXREF-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9300-TRANTYPE-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9300-TRANTYPE-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9400-TRANCATG-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9400-TRANCATG-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9500-DATEPARM-CLOSE | function.perform-range v1 | 1
+#   evidence: the block 9500-DATEPARM-CLOSE (5 steps: MOVE, CLOSE, IF, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9910-DISPLAY-IO-STATUS | function.perform-range v1 | 1
+#   evidence: the block 9910-DISPLAY-IO-STATUS (2 steps: IF, EXIT) is run by PERFORM from 0550-DATEPARM-READ, 1000-TRANFILE-GET-NEXT, 1111-WRITE-REPORT-REC, 0000-TRANFILE-OPEN and 14 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | 9999-ABEND-PROGRAM | function.perform-range v1 | 1
+#   evidence: the block 9999-ABEND-PROGRAM (4 steps: DISPLAY, MOVE, CALL) is run by PERFORM from 0550-DATEPARM-READ, 1000-TRANFILE-GET-NEXT, 1111-WRITE-REPORT-REC, 0000-TRANFILE-OPEN and 14 more and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | money | TRAN-AMT | money.used v2 | 0.9
+#   evidence: MOVE copies it to TRAN-REPORT-AMT, a field printed as -ZZZ,ZZZ,ZZZ.ZZ, in 1120-WRITE-DETAIL (it is a number of 11 digits, 2 after the point, signed, picture S999999999V99, declared in CVTRA05Y.cpy)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: of its record, TRAN-RECORD: "Data-structure for TRANsaction record (RECLN = 350)" (CVTRA05Y.cpy line 3)
+
+inferred | money | WS-ACCOUNT-TOTAL | money.used v2 | 0.9
+#   evidence: ADD adds TRAN-AMT into it (and into WS-PAGE-TOTAL) in the program's opening steps; ADD adds TRAN-AMT into it (and into WS-PAGE-TOTAL) in 1100-WRITE-TRANSACTION-REPORT; MOVE copies it to REPT-ACCOUNT-TOTAL, a field printed as +ZZZ,ZZZ,ZZZ.ZZ, in 1120-WRITE-ACCOUNT-TOTALS (it is a number of 11 digits, 2 after the point, signed, picture S999999999V99, declared in CBTRN03C.cbl)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | money | WS-GRAND-TOTAL | money.used v2 | 0.9
+#   evidence: ADD adds WS-PAGE-TOTAL into it in 1110-WRITE-PAGE-TOTALS; MOVE copies it to REPT-GRAND-TOTAL, a field printed as +ZZZ,ZZZ,ZZZ.ZZ, in 1110-WRITE-GRAND-TOTALS (it is a number of 11 digits, 2 after the point, signed, picture S999999999V99, declared in CBTRN03C.cbl)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | money | WS-PAGE-TOTAL | money.used v2 | 0.9
+#   evidence: ADD adds TRAN-AMT into it (and into WS-ACCOUNT-TOTAL) in the program's opening steps; ADD adds TRAN-AMT into it (and into WS-ACCOUNT-TOTAL) in 1100-WRITE-TRANSACTION-REPORT; MOVE copies it to REPT-PAGE-TOTAL, a field printed as +ZZZ,ZZZ,ZZZ.ZZ, in 1110-WRITE-PAGE-TOTALS (it is a number of 11 digits, 2 after the point, signed, picture S999999999V99, declared in CBTRN03C.cbl)
+#   rule: money.used v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+# program COBSWAIT
+#   docs: README, its jobs table: "WAITSTEP, COBSWAIT, Wait job for given time"
+
+# program CSUTLDTC
+#   docs: none
+
+inferred | enum | FEEDBACK-TOKEN-VALUE: FC-INVALID-DATE, FC-INSUFFICIENT-DATA, FC-BAD-DATE-VALUE, FC-INVALID-ERA, FC-UNSUPP-RANGE, FC-INVALID-MONTH, FC-BAD-PIC-STRING, FC-NON-NUMERIC-DATA, FC-YEAR-IN-ERA-ZERO | enum.disjoint-88s v2 | 0.9
+#   evidence: holds one of 9 named values: FC-INVALID-DATE = '0000000000000000', FC-INSUFFICIENT-DATA = '000309CB59C3C5C5', FC-BAD-DATE-VALUE = '000309CC59C3C5C5', FC-INVALID-ERA = '000309CD59C3C5C5', FC-UNSUPP-RANGE = '000309D159C3C5C5', FC-INVALID-MONTH = '000309D559C3C5C5', FC-BAD-PIC-STRING = '000309D659C3C5C5', FC-NON-NUMERIC-DATA = '000309D859C3C5C5', FC-YEAR-IN-ERA-ZERO = '000309D959C3C5C5'; set nowhere in this program; checked in A000-MAIN; handed to another program by CALL CEEDAYS in A000-MAIN (inside FEEDBACK-CODE)
+#   rule: enum.disjoint-88s v2, confidence 0.9
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+
+inferred | function | A000-MAIN THRU A000-MAIN-EXIT | function.perform-range v1 | 1
+#   evidence: the block A000-MAIN through A000-MAIN-EXIT (11 steps: MOVE, CALL, EVALUATE, EXIT) is run by PERFORM from the program's opening steps and returns; nothing jumps into it or out of it with GO TO
+#   rule: function.perform-range v1, confidence 1
+#   Fable (proposal, R-031): ___% because ___
+#   docs: none
+

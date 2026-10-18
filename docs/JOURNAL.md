@@ -3106,3 +3106,23 @@ taken; closed by a later `decision` entry naming it).
   `Cbtrn02cReviewIntegrationTest.java`, `RulesBenchIntegrationTest.java`, `carddemo.key`;
   `intent/rules/carddemo.scores`; `theGhost.md` (R-065's claims), `docs/HANDOFF.md`, `docs/INTENT-IR.md`,
   `docs/KERNEL-MAP.md`, research §32.
+
+### J-203 The first review file: CardDemo's batch facts in plain language, with their readings, for Ghost
+- **Who:** Opus, on Ghost's direction (R-066, HANDOFF). **Class:** build.
+- **Intent:** items 1 to 4 of HANDOFF's R-066 list; then stop and hand the file over.
+- **Found:** the IR keeps an IF's condition and a PERFORM's UNTIL as operands, not as a branch's condition;
+  a file's status item and a LINKAGE item are set by the file system and by the caller, which the program's
+  own statements do not show; CODATECN's two enums are only handed to COBDATFT by CALL. Each first read
+  "set in none" or "checked in none", which would have told a reader something false; the evidence line now
+  says who sets it and what the program hands it to. The build forwards only `katana.record` to tests, so the
+  file is written under it, never over a person's or a proposal's word. The batch programs hold no item the
+  flag rule finds (their yes-or-noes have no condition-names).
+- **Resolved:** `Review.sections` (a file of several programs, each part opening `# program NAME`);
+  test/katana/intent/carddemo-batch.review, 14 programs, 208 lines (175 function, 20 enum, 13 money), each
+  with its evidence, rule, an empty proposal column and the authors' documentation (the README's jobs table,
+  the comment above an item or paragraph or above its record, else `none`; 204 of 222 docs lines are
+  `none`); `BatchReview` writes it, `BatchReviewIntegrationTest` holds every line to a fact and every fact
+  to a line, each with its readings.
+- **Touched:** `intent/review/Review.java`; `test/katana/intent/BatchReview.java`,
+  `BatchReviewIntegrationTest.java`, `carddemo-batch.review`; `docs/INTENT-IR.md`, `docs/checks.json`,
+  `docs/HANDOFF.md`, `docs/KERNEL-MAP.md`.
