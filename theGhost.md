@@ -1270,14 +1270,42 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   money by what the program does with it; COMP-3 is the common packing, not the meaning. A person
   confirms or refutes the fact; the rule's job is to put the likely ones in front of them.
 - **Claims:** C-1 money version 2 raises recall on CardDemo without lowering precision: `verified`
-  (J-201: money.used v2, recall 0.009 to 0.250, precision 1.000 to 1.000). C-2 a flag rule before enum
-  lifts enum's precision past 0.9 on CardDemo: `verified` (J-201: enum v2 0.588 to 0.932, recall 0.973
+  (J-202: money.used v2, recall 0.009 to 0.250, precision 1.000 to 1.000). C-2 a flag rule before enum
+  lifts enum's precision past 0.9 on CardDemo: `verified` (J-202: enum v2 0.588 to 0.932, recall 0.973
   kept; flag.yes-no v1 0.986, recall 0.861).
 - **Held by:** `intent/rules` (each rule's version, its measured precision and recall in research
   §29); `test/katana/intent/carddemo.key`.
 - **Source:** Opus's measurements (J-195); decided by Fable, 2026-10-17.
 - **Status:** in force
 - **See also:** R-029, R-064, R-004
+- **subject:** intent
+
+### R-066: A review has three readings before a person's word, and a model's reading is one of them, never the word
+- **Decision:** Before a person reviews a program's facts, each fact is laid out in plain language with
+  its evidence (what the program does with the item, where, in the program's own names, R-064) and three
+  readings beside it: the rule's (its version and confidence); a model's offline reading, as a probability
+  with its reason, made by Fable from the evidence and the program, labelled a *proposal* (R-031) and
+  never a confirmation; and the documentation's, where the program's authors documented the item (for
+  CardDemo, AWS's README and the copybook comments, quoted). A fact any reading puts under certainty, or
+  the readings disagree on, gets a test (structural, for a `Function`: one entry, one exit, no GO TO out
+  of the range) or a document before the person sees it, and the review file says which. The person's
+  answer is one of three: confirmed, refuted (with what it is instead, if they can say), or *could not
+  tell from the evidence shown*; the third is recorded as a finding against the review file's evidence
+  line, and counted. No reading, and no agreement among readings, makes a fact `confirmed` (R-029).
+- **Why:** Ghost, 2026-10-17: "put it into a file that can be widely checked across every covered
+  variable; give a probability on the correctness; anything below 100%, devise a test or find existing
+  documentation." And Ghost does not read COBOL, which makes him the reviewer the product claims to
+  serve: a business reader confirming meaning from evidence, not from source. A review file he cannot
+  judge has failed, not he.
+- **Claims:** C-1 the three readings agree on most of CardDemo's batch facts: `hypothesis`; the first
+  review file is the trial. C-2 a reviewer who does not read COBOL can judge most facts from the
+  evidence line alone: `hypothesis`; Ghost's count of "could not tell" on CBTRN02C is the trial, and
+  it is the review file's usability result, not his.
+- **Held by:** `intent/review`'s file form (the three reading columns and the three answers);
+  `docs/INTENT-IR.md`; the first review file under `test/katana/intent/`.
+- **Source:** Ghost, 2026-10-17; recorded by Fable.
+- **Status:** in force
+- **See also:** R-004, R-029, R-031, R-064, R-065
 - **subject:** intent
 ---
 

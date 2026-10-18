@@ -8,6 +8,25 @@ and 5 are done (4.1 to 4.7, J-172 to J-192; 5.1 to 5.5, J-193 to J-198). Phase 6
 passes) starts after the boundary: Fable answers "For Fable: the phase-5 boundary" below, and the 5.2
 questions above it still stand.
 
+## For Opus: the first review file, for Ghost (R-066, 2026-10-17; before 6.1)
+
+1. **Every covered item, every batch program.** For each CardDemo batch program, every fact the rules
+   infer (version 2 of money and flag per R-065 if measured by then, else version 1, said which), one
+   line each in plain language: the item or range by the program's names, the kind, and the evidence
+   as what the program does with it and where ("ADDed into ACCT-CURR-BAL in 1500-UPDATE-ACCOUNT; MOVEd
+   to a field edited with $ and commas in 3000-PRINT"). No IR numbers, no COBOL terms without a gloss.
+2. **Three reading columns**: the rule's confidence; a column left empty for Fable's probability and
+   reason; the documentation's: AWS CardDemo's README and the copybook comments, quoted where they
+   describe the item, "none" where they do not (the corpus is in `corpus/`; the README's license is in
+   the manifest; quote, do not copy files in).
+3. **Three answers** per line for Ghost: confirmed / refuted (with what instead) / could not tell.
+4. **The file** under `test/katana/intent/`, in the review form `intent/review` reads (R-064), so Ghost's
+   answers load as a review on the next build; a doc test holds every line to a fact the rules infer.
+5. **Then stop and hand it to Fable** for the probability column; Fable returns it with tests or
+   documents named for anything under 100%; Opus adds the structural tests for `Function` facts; then
+   Ghost reads it. CBTRN02C first in the file, since the trial read it; 6.1 starts after Ghost's review
+   or on his word to go ahead without it.
+
 ## For Fable: the phase-5 boundary (R-053; the default taken is named)
 
 - **Phase 6's first pass needs facts a person can stand on.** 6.1 (pattern structuring) acts on
@@ -713,6 +732,10 @@ R-015)
 Each `hypothesis` claim's trial, as its claim names it (tithe 3a.2, `WayBackTest`; the claims are
 unchanged, R-042):
 
+- R-066 C-1 (the three readings agree on most of CardDemo's batch facts): the first review file, its
+  three columns filled, the agreements counted in research §29.
+- R-066 C-2 (a reviewer who does not read COBOL can judge most facts from the evidence line): Ghost's
+  review of CBTRN02C, the "could not tell" count recorded as the review file's usability result.
 - R-015 C-1 (IBM's CICS and SQL syntax documented well enough to parse from): phase 7.2's first step.
 - R-017 C-3 (the no-token test suffices for completeness): phase 3.3's lowering of NIST without
   consulting the tree.
@@ -749,7 +772,7 @@ unchanged, R-042):
 - R-059 C-2 (for MULTIPLY and DIVIDE the temporary is the multiplier or divisor): a mainframe run, or a
   further IBM example.
 
-(run: R-065 C-1 and C-2 J-201, RECFM=V J-062, stderr J-059, NC124A J-072)
+(run: R-065 C-1 and C-2 J-202, RECFM=V J-062, stderr J-059, NC124A J-072)
 
 ## Waiting on Ghost
 

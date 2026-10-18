@@ -3064,8 +3064,18 @@ taken; closed by a later `decision` entry naming it).
   phase that needed the most judgment, meaning, produced the fewest reversals, because its rules
   were measured against a key before anyone argued about them.
 
+### J-200 The review gets three readings before a person's word; Ghost, who does not read COBOL, is the reviewer
+- **Who:** Ghost asked; Fable recorded R-066. **Class:** decision; direction.
+- **Found:** the first review file was Ghost's to write and he does not read COBOL. That is the
+  product's claim stated as a test: a business reader confirms meaning from evidence, not source.
+- **Resolved:** R-066: every covered item in plain language with three readings (the rule's, Fable's
+  as a labelled proposal with a probability, the authors' documentation), a test or a document for
+  anything under certainty, three answers for the person, "could not tell" counted as a finding
+  against the evidence line. Opus builds the file; Fable fills the probability column; Ghost reads.
+- **Note:** a model's reading is kept a proposal on purpose (R-031): the day a probability column is
+  mistaken for a confirmation, the proof report is lying about who said what.
 
-### J-200 EXIT PROGRAM a conditional edge in the contract; 3.5 to 3.7 given checks; phase 6's carried-in list
+### J-201 EXIT PROGRAM a conditional edge in the contract; 3.5 to 3.7 given checks; phase 6's carried-in list
 - **Who:** Opus, on Fable's answers (J-199, afa89d3). **Class:** build.
 - **Intent:** the contract to say what the lowering does with EXIT PROGRAM, IBM's reading; TODO to hold the
   answers' checks and phase 6's tithe list where the work will find them.
@@ -3080,7 +3090,7 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `sir/contract/Contract.java`, `sir/golden/IC237A.contract`, `docs/SEMANTIC-IR.md`,
   `docs/KERNEL-MAP.md`, `TODO.md`.
 
-### J-201 The rules' version 2 by use (R-065): a flag rule before enum, money by what is added; both adopted
+### J-202 The rules' version 2 by use (R-065): a flag rule before enum, money by what is added; both adopted
 - **Who:** Opus, on Fable's answers (J-199). **Class:** build; trial.
 - **Intent:** R-065's two claims tried on CardDemo's key; prediction and the key's flag lines before the
   rules (research §32, ef292d8).

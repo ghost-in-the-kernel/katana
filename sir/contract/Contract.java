@@ -148,7 +148,7 @@ public final class Contract {
      * Each paragraph that falls through into the next, as `i i+1`: its last statement no GO TO, STOP RUN or
      * GOBACK (an altered GO TO and STOP literal fall through). One ending in EXIT PROGRAM is a conditional
      * edge, `i i+1 returns-if-called`: IBM's reading, a return where the program was CALLed and a fall into
-     * the next paragraph where it is the run unit's main program, as the lowering does (J-199, J-200).
+     * the next paragraph where it is the run unit's main program, as the lowering does (J-199, J-201).
      */
     private static List<String> falls(Program p) {
         List<Procedure.Paragraph> all = p.procedure().paragraphs();
