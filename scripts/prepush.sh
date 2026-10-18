@@ -22,7 +22,7 @@ suites=""; why=""
 add() { case " $suites " in *" $1 "*) ;; *) suites="$suites $1"; why="$why
   $1: $2";; esac; }
 if [ -n "$ALL" ]; then
-  for s in nist fixture lane front sir autotest rt javalane intent ledger; do add $s "--all"; done
+  for s in nist fixture lane front sir autotest rt javalane intent ledger passes; do add $s "--all"; done
 else
   for f in $CHANGED; do
     case "$f" in
@@ -34,17 +34,18 @@ else
       profile/*|test/katana/profile/*) add nist "$f"; add fixture "$f"; add lane "$f" ;;
       front/*|test/katana/front/*) add front "$f"; add sir "$f" ;;
       sir/*|test/katana/sir/*) add sir "$f"; add quick "$f"; add javalane "$f"; add intent "$f" ;;
-      intent/*|test/katana/intent/*) add intent "$f"; add ledger "$f" ;;
-      ledger/*|test/katana/ledger/*) add ledger "$f" ;;
+      intent/*|test/katana/intent/*) add intent "$f"; add ledger "$f"; add passes "$f" ;;
+      ledger/*|test/katana/ledger/*) add ledger "$f"; add passes "$f" ;;
+      passes/*|test/katana/passes/*) add passes "$f"; add javalane "$f"; add lane "$f" ;;
       rt/*|test/katana/rt/*) add rt "$f"; add quick "$f"; add javalane "$f" ;;
-      lower/*|test/katana/lower/*) add quick "$f"; add javalane "$f"; add ledger "$f" ;;
+      lower/*|test/katana/lower/*) add quick "$f"; add javalane "$f"; add ledger "$f"; add passes "$f" ;;
       test/*.java|scripts/*) ;;
-      *) for s in nist fixture lane front sir autotest rt javalane intent ledger; do add $s "$f (the build or the corpus)"; done ;;
+      *) for s in nist fixture lane front sir autotest rt javalane intent ledger passes; do add $s "$f (the build or the corpus)"; done ;;
     esac
   done
 fi
 # Every suite selected is --all in substance, and is held to --all's ceiling (R-054, J-168).
-every=yes; for s in nist fixture lane front sir autotest rt javalane intent ledger; do case " $suites " in *" $s "*) ;; *) every= ;; esac; done
+every=yes; for s in nist fixture lane front sir autotest rt javalane intent ledger passes; do case " $suites " in *" $s "*) ;; *) every= ;; esac; done
 [ -n "$every" ] && ALL=yes
 tests=""
 for s in $suites; do
@@ -60,6 +61,7 @@ for s in $suites; do
     javalane) tests="$tests --tests katana.lower.*" ;;
     intent) tests="$tests --tests katana.intent.*" ;;
     ledger) tests="$tests --tests katana.ledger.*" ;;
+    passes) tests="$tests --tests katana.passes.* --tests katana.oracle.lane.StructuringCardDemoIntegrationTest" ;;
   esac
 done
 PROPS=""

@@ -1655,3 +1655,23 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/PerformTrace.java:PerformTrace.program` |  | 2026-10-18 |  |
 | rt | `rt/katana/rt/PerformTrace.java:PerformTrace.line` |  | 2026-10-18 |  |
 | oracle | `oracle/nist/ModuleRun.java:ModuleRun.run#2` |  | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.methods` | R-021 | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.method` |  | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.call` |  | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.falls` |  | 2026-10-18 |  |
+| lower | `lower/Lower.java:Lower.Plan.Plan` |  | 2026-10-18 |  |
+| lower | `lower/Lower.java:Lower.java#2` | R-024 | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.Structuring` |  | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.plan` | R-032 | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.program` |  | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.falls` | R-032 | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.toNext` |  | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.name` |  | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.Obligations.Obligations` |  | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.Obligations.refusals` |  | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.Obligations.edges` |  | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.Obligations.in` |  | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.Obligations.mainLine` |  | 2026-10-18 |  |
+| passes | `passes/Structuring.java:Structuring.Obligations.recursive` |  | 2026-10-18 |  |
+| passes | `passes/StructuringLedger.java:StructuringLedger.StructuringLedger` |  | 2026-10-18 |  |
+| passes | `passes/StructuringLedger.java:StructuringLedger.lines` | R-030 | 2026-10-18 |  |

@@ -34,7 +34,11 @@ final class Flow {
     /** The programs this one is nested in, the outermost first (LANE-19). */
     final List<Program> containers;
 
-    Flow(Emitter e, Program p, Exprs x, List<Program> containers) {
+    /** A pass's plan: the ranges called as methods and the GO TOs left to fall (6.1). */
+    final Lower.Plan plan;
+
+    Flow(Emitter e, Program p, Exprs x, List<Program> containers, Lower.Plan plan) {
+        this.plan = plan;
         this.containers = containers;
         this.e = e;
         this.p = p;
@@ -75,14 +79,15 @@ final class Flow {
         e.open("public void run()");
         e.line("int pc = " + entry() + ";");
         debugging.start(e, entry());
-        boolean declaratives = p.procedure().sections().stream().anyMatch(Procedure.Section::declarative);
-        if (declaratives) e.open("try");
+        boolean declaratives = p.procedure().sections().stream().anyMatch(Procedure.Section::declarative), halts = declaratives || !plan.methods().isEmpty();
+        if (halts) e.open("try");
         e.line("while (pc != " + end + ") pc = step(pc);");
-        if (declaratives) {
+        if (halts) {
             e.close();
             e.line("catch (Halt h) { }");
         }
         e.close();
+        if (halts) e.line("private static final class Halt extends RuntimeException { Halt() { super(null, null, false, false); } }");
         declaratives();
         List<Procedure.Paragraph> paragraphs = p.procedure().paragraphs();
         for (Procedure.Paragraph para : paragraphs) {
@@ -95,6 +100,7 @@ final class Flow {
             e.close();
         }
         if (paragraphs.isEmpty()) labels.add(0);
+        methods();
         step();
         if (counters > 0) e.line("private final long[] t = new long[" + counters + "];");
     }
@@ -119,7 +125,6 @@ final class Flow {
     // Decision: R-021
     private void declaratives() {
         if (p.procedure().sections().stream().noneMatch(Procedure.Section::declarative)) return;
-        e.line("private static final class Halt extends RuntimeException { Halt() { super(null, null, false, false); } }");
         e.open("private void use(int first, int last)");
         e.line("int pc = d.perform(first, last, -2);");
         e.open("while (pc != -2)");
@@ -127,6 +132,36 @@ final class Flow {
         e.line("pc = step(pc);");
         e.close();
         e.close();
+    }
+
+    /**
+     * Each range the plan calls as a method (6.1, research §35): a PERFORM through the dispatcher whose return
+     * is no label but `-3`, its paragraphs stepped until the end of the range gives it back, as `use` does for
+     * a declarative (a paragraph after the range reached by a PERFORM or GO TO inside it is no end: J-210); a
+     * GOBACK or EXIT PROGRAM inside, the run's end, is `Halt`, which `run` catches.
+     */
+    // Decision: R-021
+    private void methods() {
+        for (var m : new java.util.TreeMap<>(plan.methods()).entrySet()) {
+            e.open("private void perform" + m.getKey() + "()");
+            e.symbol("perform" + m.getKey(), "paragraph " + m.getKey());
+            e.line("int pc = d.perform(" + m.getKey() + ", " + m.getValue() + ", -3);");
+            e.open("while (pc != -3)");
+            e.line("if (pc == " + end + ") throw new Halt();");
+            e.line("pc = step(pc);");
+            e.close();
+            e.close();
+        }
+    }
+
+    /** Whether the plan calls this PERFORM's range as a method. */
+    boolean method(Value.Target target) {
+        return target != null && Integer.valueOf(target.thru()).equals(plan.methods().get(target.paragraph()));
+    }
+
+    /** The call of a range the plan makes a method. */
+    String call(Value.Target target) {
+        return "perform" + target.paragraph() + "();";
     }
 
     private void open(int label) {
@@ -233,13 +268,21 @@ final class Flow {
         for (Statement s : list) {
             line = s.origin().line();
             e.provenance(s.origin(), paragraph, s.verb());
-            verbs.statement(s);
+            if (falls(s)) e.line("// GO TO the next paragraph: left to fall (structuring, 6.1)");
+            else verbs.statement(s);
         }
     }
 
-    /** Whether a statement holds an out-of-line PERFORM, a VARYING loop, a SEARCH or a SORT's procedure, here or in a phrase, so it cannot be structured Java. */
-    static boolean splits(Statement s) {
-        if (s.verb().equals("PERFORM") && (target(s) != null || Performs.varies(s))) return true;
+    /** Whether the plan leaves this statement, its paragraph's last and a GO TO to the next, to fall. */
+    private boolean falls(Statement s) {
+        if (current == null || !plan.falls().contains(at) || !s.verb().equals("GO TO")) return false;
+        List<Statement> all = current.statements();
+        return !all.isEmpty() && all.get(all.size() - 1) == s;
+    }
+
+    /** Whether a statement holds an out-of-line PERFORM (but of a range the plan calls as a method), a VARYING loop, a SEARCH or a SORT's procedure, here or in a phrase, so it cannot be structured Java. */
+    boolean splits(Statement s) {
+        if (s.verb().equals("PERFORM") && (Performs.varies(s) || target(s) != null && !method(target(s)))) return true;
         if (s.verb().equals("SEARCH")) return true;
         // A SORT or MERGE with an INPUT or OUTPUT PROCEDURE performs it (SortVerbs).
         if ((s.verb().equals("SORT") || s.verb().equals("MERGE")) && s.operands().stream().anyMatch(o -> o.value() instanceof Value.Target)) return true;
@@ -247,8 +290,8 @@ final class Flow {
         return false;
     }
 
-    static boolean splits(List<Statement> list) {
-        return list.stream().anyMatch(Flow::splits);
+    boolean splits(List<Statement> list) {
+        return list.stream().anyMatch(this::splits);
     }
 
     /** An out-of-line PERFORM's procedures, from the first named through the last (`A THRU B` is two targets), null for an inline one. */

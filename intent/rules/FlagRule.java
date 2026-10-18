@@ -91,7 +91,9 @@ final class FlagRule implements Rule {
         return e.operands().stream().anyMatch(o -> compared(o, item));
     }
 
+    /** SPACE or LOW-VALUE; a figurative EnumRule gives no key (ALL with a literal, NIST's NC252A) is neither. */
     private static boolean nothing(Value v) {
-        return v instanceof Value.Figurative && NOTHING.contains(EnumRule.key(v));
+        String key = v instanceof Value.Figurative ? EnumRule.key(v) : null;
+        return key != null && NOTHING.contains(key);
     }
 }

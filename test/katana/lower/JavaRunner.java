@@ -25,7 +25,7 @@ import katana.sir.types.Program;
  */
 final class JavaRunner implements Runner {
     private final long seconds;
-    private final boolean dynam;
+    private final boolean dynam, structured;
 
     /** A runner under the ibm profile's NODYNAM (research §24). */
     JavaRunner(long seconds) {
@@ -34,8 +34,19 @@ final class JavaRunner implements Runner {
 
     /** A runner under NODYNAM, or DYNAM (`dynam`), every CALL literal then dynamic as cobc's are. */
     JavaRunner(long seconds, boolean dynam) {
+        this(seconds, dynam, false);
+    }
+
+    /** The same, each program lowered under 6.1's structuring pass when `structured` (research §35). */
+    JavaRunner(long seconds, boolean dynam, boolean structured) {
         this.seconds = seconds;
         this.dynam = dynam;
+        this.structured = structured;
+    }
+
+    /** This runner with each program lowered under the structuring pass (6.1). */
+    JavaRunner structured() {
+        return new JavaRunner(seconds, dynam, true);
     }
 
     /** A called module: lowered as a main program is, the CALL finding its class by name (LANE-19). */
@@ -57,7 +68,7 @@ final class JavaRunner implements Runner {
     @Override
     public Result program(Path dir, String source) {
         try {
-            String key = key(dir, source);
+            String key = key(dir, source) + (structured ? " structured" : "");
             Compiled done = COMPILED.get(key);
             if (done == null) {
                 done = compile(dir, source);
@@ -100,7 +111,7 @@ final class JavaRunner implements Runner {
                 Program program = built.program();
                 String name = Lower.className(program);
                 if (first == null) first = name;
-                Lower.Result lowered = Lower.java(program, name);
+                Lower.Result lowered = Lower.java(program, name, structured ? katana.passes.Structuring.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Lower.Plan.LITERAL);
                 Files.writeString(dir.resolve(name + ".java"), lowered.java());
                 sources.add(dir.resolve(name + ".java").toString());
                 // The build's findings (a name that names nothing, or two items) are reported with the lowering's (J-160).

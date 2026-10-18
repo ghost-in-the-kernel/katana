@@ -233,6 +233,20 @@ class NistJavaLaneIntegrationTest {
         assertTrue(same >= floor, module + ": " + same + " < floor " + floor);
         org.junit.jupiter.api.Assertions.assertEquals(List.of(), unexplained);
         lowered.check(dir);
+        structured(module, extracted, notes, cards, work, label, runner, outcomes);
+        Runs.passed(dir);
+    }
+
+    /**
+     * 6.1's proof on NIST (research §35): the module again, each program lowered under the structuring pass,
+     * every run reporting what it reported literal, how it ended and why included.
+     */
+    private static void structured(String module, List<Population.Member> extracted, RunNotes notes, List<String> cards, Path work, String label, JavaRunner literal, List<ModuleRun.Outcome> outcomes) throws Exception {
+        Path dir = Files.createTempDirectory(work, label + "-structured");
+        List<ModuleRun.Outcome> again = ModuleRun.run(module, extracted, notes, Exec85.switches(cards), dir, literal.structured());
+        List<String> a = outcomes.stream().map(o -> o.program() + " " + rendered(o) + " " + o.abnormal() + " " + o.reason()).toList();
+        List<String> b = again.stream().map(o -> o.program() + " " + rendered(o) + " " + o.abnormal() + " " + o.reason()).toList();
+        org.junit.jupiter.api.Assertions.assertEquals(a, b, label + ": every run structured reports what it reports literal");
         Runs.passed(dir);
     }
 
