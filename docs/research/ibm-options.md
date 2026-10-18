@@ -1623,3 +1623,64 @@ and '1'). enum.disjoint-88s v2: 118 facts, 110 true, precision 0.932 (0.588 at v
 C-2 verified. money.used v2: 29 facts, all true, precision 1.000, recall 0.250 (0.009 at v1): C-1
 verified; DIS-INT-RATE not taken; the misses are the record fields only read, written or moved. Neither
 version lowers a figure, so both are adopted (R-065); confidences 0.9, under each precision.
+
+## 33. The first review file's second reading: tests and documents for what is under certainty (R-066; J-204)
+
+R-066: a fact any reading puts under certainty, or the readings disagree on, gets a test or a document
+before the person sees it, and the review file says which. A Fable advisor read every fact of
+test/katana/intent/carddemo-batch.review and proposed a probability and a reason for each (a proposal,
+R-031: test/katana/intent/carddemo-batch.proposals), naming a test or a document for each under 100%; three
+document researchers searched CardDemo's corpus for what its authors wrote (ibm.com was refused by the
+network, so no IBM page is quoted). The catalogue below is the advisor's, as built or named; each fact's
+`tests:` line names its entries.
+
+The proposals: Function 95 to 99% (the 12 abend paragraphs 95%: CALL CEE3ABD ends the job, so they never
+return on the real system; CSUTLDTC's range 95%: a function only because the program is CALLed); Money 96
+to 99%; Enum split: the M03B operation codes 95%, the CODATECN format codes 85%, FEEDBACK-TOKEN-VALUE 55%,
+APPL-RESULT 40% (eight programs: the program stores 0, 8, 12 and 16, two of them named, so as the kind is
+defined the fact is false), the six file-status items 30%, HTML-FIXED-LN 5% (a text buffer). R-066 C-1, the
+three readings agree on most batch facts: on this reading they agree for Function and Money and not for
+Enum, which the person's answers will settle.
+
+The catalogue:
+
+- **T-F1 FunctionRangeStructureIntegrationTest** (built; with `FunctionRangeStructureTest` on small
+  programs): each `function` line's range on the paragraph graph and the contract's `falls` lines, which
+  sir/ builds, never intent/rules' code: one entry (a PERFORM only of the whole range; no GO TO or ALTER in;
+  not on the main line, which the main line does not fall into), one exit (no GO TO out), no overlap, no
+  declarative section. Its killer mutations: CBSTM03B's 1000-TRNXFILE-PROC alone (its GO TO leaves it),
+  CBSTM03A's 8100-TRNXFILE-OPEN and 1000-MAINLINE (an ALTER, the main line). Its first run disagreed with the
+  rule on CBSTM03A's last five paragraphs, and the contract was wrong: `Contract.falls` read 8599-EXIT's
+  dead `EXIT.` after `GO TO 0000-START.` as a fall into 9100-TRNXFILE-CLOSE. Fixed (J-204): no top-level
+  statement after an unconditional GO TO, STOP RUN or GOBACK is reached.
+- **T-F2 FunctionRangeXrefIntegrationTest** (named, not yet built): the same three conditions read on
+  cobc's cross-reference listing, a second parser of the source, with a count-equality guard so it cannot
+  pass on nothing.
+- **T-F3 PerformReturnTraceIntegrationTest** (named, not yet built; needs `rt/Dispatcher` to trace PERFORM,
+  return and fall, a change to rt/ not yet decided): on the fixtures' runs, every entry to a range by
+  PERFORM, every exit a return. Evidence on the fixtures' data only.
+- **D-F1** (a document to find): IBM's Language Environment reference for CEE3ABD, that it ends the
+  enclave and does not return; for the 12 abend paragraphs.
+- **T-E1 EnumValuesStoredTest** (named, not yet built): the values the program stores into an enum item
+  are among its condition-names' values (APPL-RESULT's 8 and 12 are not; the evidence line now says so).
+- **T-E2 EnumIsReadTest** (named, not yet built): some condition-name of the item is tested, in the program
+  or in the program it is handed to by CALL (HTML-FIXED-LN's never are).
+- **T-E3** (named, not yet built): a run with an input absent, where a file-status item takes a value no
+  condition-name names ('35').
+- **D-E1** (a document to find): the file status table (IBM's Language Reference, "Status key").
+- **D-E2** (a document to find): IBM's CEEDAYS feedback codes, for FEEDBACK-TOKEN-VALUE.
+- **T-M1 MoneyFlowTest** (named, not yet built): every item a money item is added with, moved to or from,
+  or compared with is a two-place number or an edited field; a rate only by multiplication.
+- **T-M2 MoneyEditedElsewhereTest** (named, not yet built): a copybook money item is printed or shown, by
+  some program of CardDemo, through a currency- or comma-edited field.
+- **D-M1** (a document to make): the values each money item holds in the fixtures' data, decoded under its
+  copybook.
+- **D-M2** (a document to find): the authors' own words beside the item in the programs (CBACT04C's
+  'Int. for a/c ').
+
+The contract fix's golden change, every line attributed (the J-119 condition): sir/ir.golden's contract facts
+for CardDemo fall by 5, each a `falls` line of CBSTM03A whose paragraph ends `GO TO ... EXIT.` with the EXIT
+never reached (8100-TRNXFILE-OPEN, 8200-XREFFILE-OPEN, 8300-CUSTFILE-OPEN, 8400-ACCTFILE-OPEN, 8599-EXIT);
+NIST's rise by 5, each a paragraph ending in GO TO ... DEPENDING ON, which falls through when its index is
+out of range (DB201A twice, NC102A twice, IC115A), and which the old reading took for a GO TO that always
+leaves. No golden program's contract changed.

@@ -1,0 +1,12 @@
+# Notes for test/katana/intent/carddemo-batch.review: what the document research found that would
+# mislead a reader who takes a name or a comment at its word (J-204). One line a note:
+# `PROGRAM | kind | subject | note`, the subject as the review file writes it, or `PROGRAM | program | | note`
+# for the program as a whole. Each note cites where it can be checked; BatchReviewIntegrationTest holds
+# every note to a line of the file.
+CBTRN01C | program |  | its header's Function line is CBTRN02C's word for word, but this program only reads and looks records up, and no JCL or README runs it (CBTRN01C.cbl line 5; app/jcl)
+CBTRN02C | money | ACCT-CURR-CYC-DEBIT | the program adds into it only amounts below zero (CBTRN02C.cbl lines 548 to 551), so it holds a negative total, though "debit" reads as a positive amount
+CBTRN03C | function | 1000-TRANFILE-GET-NEXT | the banner above it says a KSDS, but TRANREPT.jcl gives this file a sorted flat copy (AWS.M2.CARDDEMO.TRANSACT.DALY, TRANREPT.jcl line 66)
+CBACT04C | function | 1400-COMPUTE-FEES | INTCALC.jcl line 20 says the job will "compute interest and fees", but this paragraph does nothing yet ("To be implemented", CBACT04C.cbl line 519)
+CSUTLDTC | enum | FEEDBACK-TOKEN-VALUE: FC-INVALID-DATE, FC-INSUFFICIENT-DATA, FC-BAD-DATE-VALUE, FC-INVALID-ERA, FC-UNSUPP-RANGE, FC-INVALID-MONTH, FC-BAD-PIC-STRING, FC-NON-NUMERIC-DATA, FC-YEAR-IN-ERA-ZERO | FC-INVALID-DATE is all zeros, and the program's own message for it is 'Date is valid' (CSUTLDTC.cbl lines 62 and 130): the name says the opposite of what the value means
+CBSTM03A | enum | HTML-FIXED-LN: HTML-L01, HTML-L02, HTML-L03, HTML-L04, HTML-L05, HTML-L06, HTML-L07, HTML-L08, HTML-LTRS, HTML-LTRE, HTML-LTDS, HTML-LTDE, HTML-L10, HTML-L15, HTML-L16, HTML-L17, HTML-L18, HTML-L22-35, HTML-L30-42, HTML-L31, HTML-L43, HTML-L47, HTML-L48, HTML-L50, HTML-L51, HTML-L53, HTML-L54, HTML-L58, HTML-L61, HTML-L64, HTML-L75, HTML-L78, HTML-L79, HTML-L80 | a 100-character line the program fills with one fixed piece of HTML at a time and writes to the HTML statement (CBSTM03A.CBL lines 149 and 439 to 440); none of its condition-names is ever tested
+CSUTLDTC | function | A000-MAIN THRU A000-MAIN-EXIT | CSUTLDTC is a subprogram other programs CALL; its main line hands control back with EXIT PROGRAM, so A000-MAIN is reached only by the PERFORM; run on its own, its main line would go on into A000-MAIN a second time (CSUTLDTC.cbl lines 88 to 102)

@@ -134,7 +134,7 @@ public final class Contract {
                 + " " + f.minRecord() + ".." + f.maxRecord() + (f.sharesRecordArea().isEmpty() ? "" : " shares-record-area " + f.sharesRecordArea());
     }
 
-    /** A paragraph falls into the next unless its last statement leaves (GO TO, STOP RUN, GOBACK); an altered GO TO, naming no procedure, falls until an ALTER sends it (LR 6.4 p. 347), and STOP literal resumes at the next statement (p. 457). */
+    /** STOP with a literal, which resumes at the next statement (LR 6.4 p. 457), not STOP RUN. */
     private static boolean stopLiteral(Statement s) {
         return s.verb().equals("STOP") && s.operands().stream().noneMatch(o -> o.value() instanceof Value.Name n && n.text().equals("RUN"));
     }
@@ -145,22 +145,33 @@ public final class Contract {
     }
 
     /**
-     * Each paragraph that falls through into the next, as `i i+1`: its last statement no GO TO, STOP RUN or
-     * GOBACK (an altered GO TO and STOP literal fall through). One ending in EXIT PROGRAM is a conditional
-     * edge, `i i+1 returns-if-called`: IBM's reading, a return where the program was CALLed and a fall into
-     * the next paragraph where it is the run unit's main program, as the lowering does (J-199, J-201).
+     * Each paragraph that falls through into the next, as `i i+1`: none of its top-level statements leaves
+     * unconditionally (a GO TO naming one procedure, STOP RUN, GOBACK), since a statement after one is never
+     * reached (CBSTM03A's `GO TO 0000-START. EXIT.`; an altered GO TO and STOP literal fall through). One whose
+     * first leaving statement is EXIT PROGRAM, with no unconditional one after it, is a conditional edge,
+     * `i i+1 returns-if-called`: IBM's reading, a return where the program was CALLed and a fall into the next
+     * paragraph where it is the run unit's main program, as the lowering does (J-199, J-201, J-204).
      */
     private static List<String> falls(Program p) {
         List<Procedure.Paragraph> all = p.procedure().paragraphs();
         List<String> lines = new ArrayList<>();
         for (int i = 0; i + 1 < all.size(); i++) {
             List<Statement> s = all.get(i).statements();
-            Statement end = s.isEmpty() ? null : s.get(s.size() - 1);
-            String last = end == null || (end.verb().equals("GO TO") && end.operands().isEmpty()) || stopLiteral(end) ? "" : end.verb();
-            if (end != null && exitProgram(end)) lines.add(i + " " + (i + 1) + " returns-if-called");
-            else if (!List.of("GO TO", "STOP", "GOBACK").contains(last)) lines.add(i + " " + (i + 1));
+            boolean exitProgram = false, leaves = false;
+            for (Statement st : s) {
+                if (leaves(st)) leaves = true;
+                else if (exitProgram(st) && !leaves) exitProgram = true;
+            }
+            if (leaves) continue;
+            lines.add(i + " " + (i + 1) + (exitProgram ? " returns-if-called" : ""));
         }
         return lines;
+    }
+
+    /** A statement that leaves unconditionally: a GO TO naming one procedure, STOP RUN, GOBACK. */
+    private static boolean leaves(Statement s) {
+        if (s.verb().equals("GO TO")) return s.operands().size() == 1 && s.operands().get(0).value() instanceof Value.Target;
+        return s.verb().equals("GOBACK") || (s.verb().equals("STOP") && !stopLiteral(s));
     }
 
     /** Each statement, numbered within its paragraph as `paragraph.n`, its branches' statements after it as `paragraph.n.label.m`. */

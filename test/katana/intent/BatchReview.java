@@ -30,6 +30,10 @@ final class BatchReview {
     static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     static final Path CARDDEMO = ROOT.resolve("corpus/carddemo/app");
     static final Path FILE = ROOT.resolve("test/katana/intent/carddemo-batch.review");
+    static final Path NOTES = ROOT.resolve("test/katana/intent/carddemo-batch.notes");
+    static final Path PROPOSALS = ROOT.resolve("test/katana/intent/carddemo-batch.proposals");
+    /** The tests the proposals name that are built, and the test class that holds each (research section 33). */
+    static final java.util.Map<String, String> BUILT = java.util.Map.of("T-F1", "FunctionRangeStructureIntegrationTest");
     /** The batch programs, CBTRN02C first (the one the trial read), then as CardDemo names them. */
     static final List<String> PROGRAMS = List.of("CBTRN02C.cbl", "CBACT01C.cbl", "CBACT02C.cbl", "CBACT03C.cbl", "CBACT04C.cbl", "CBCUS01C.cbl", "CBEXPORT.cbl",
             "CBIMPORT.cbl", "CBSTM03A.CBL", "CBSTM03B.CBL", "CBTRN01C.cbl", "CBTRN03C.cbl", "COBSWAIT.cbl", "CSUTLDTC.cbl");
@@ -75,26 +79,77 @@ final class BatchReview {
             # of steps; PERFORM runs one as a subroutine and comes back; GO TO jumps without coming back. A
             # condition-name (an 88 level) is a name for one or more values of an item. MOVE copies; ADD adds
             # into; COMPUTE sets from a formula; an edited field is one laid out for printing ($, commas).
-            # Kinds: money, an amount of money; enum, an item holding one of several named values; flag, a
-            # yes-or-no; function, a block of steps the program runs as a subroutine and that returns.
+            # Kinds, as the facts mean them (docs/INTENT-IR.md): money, an amount of money; enum, an item that,
+            # whenever the program reads it, holds one of the values its condition-names name (a status code
+            # with other values besides is not one); flag, a yes-or-no; function, a block of steps that only a
+            # PERFORM enters and that leaves only at its end, with no GO TO in or out.
 
             """;
 
     private static String program(Program p) throws Exception {
         String name = p.header().program();
         StringBuilder out = new StringBuilder("# program " + name + "\n");
-        out.append("#   docs: ").append(readme(name)).append("\n\n");
+        for (String said : BatchReviewDocs.programDocs(p)) out.append("#   docs: ").append(said).append('\n');
+        String programNote = notes().get(name + " | program | ");
+        if (programNote != null) out.append("#   note (document research, J-204): ").append(programNote).append('\n');
+        out.append('\n');
         String file = Review.merge(p, Rules.infer(p)).text();
         for (String line : file.lines().toList()) {
             if (line.isBlank() || line.startsWith("#")) continue;
             Fact f = fact(p, line);
             out.append(line).append('\n');
-            out.append("#   evidence: ").append(evidence(p, f)).append('\n');
+            out.append("#   evidence: ").append(BatchReviewEvidence.evidence(p, f)).append('\n');
             out.append("#   rule: ").append(f.evidence().rule()).append(" v").append(f.evidence().version()).append(", confidence ").append(line.split("\\s*\\|\\s*")[4]).append('\n');
-            out.append("#   Fable (proposal, R-031): ___% because ___\n");
-            out.append("#   docs: ").append(docs(p, f)).append("\n\n");
+            String[] proposal = proposals().get(name + " | " + line.split("\\s*\\|\\s*")[1] + " | " + line.split("\\s*\\|\\s*")[2]);
+            out.append("#   Fable (proposal, R-031): ").append(proposal == null ? "___% because ___" : proposal[0] + "% because " + Character.toLowerCase(proposal[1].charAt(0)) + proposal[1].substring(1)).append('\n');
+            if (proposal != null) out.append("#   tests: ").append(tests(proposal[2])).append('\n');
+            out.append("#   docs: ").append(BatchReviewDocs.docs(p, f)).append('\n');
+            String[] cells = line.split("\\s*\\|\\s*");
+            String note = notes().get(name + " | " + cells[1] + " | " + cells[2]);
+            if (note != null) out.append("#   note (document research, J-204): ").append(note).append('\n');
+            out.append('\n');
         }
         return out.toString();
+    }
+
+    /** The proposals file, by `PROGRAM | kind | subject`: the percent, the reason, the tests and documents named. */
+    static java.util.Map<String, String[]> proposals() {
+        java.util.Map<String, String[]> out = new java.util.LinkedHashMap<>();
+        try {
+            for (String line : Files.readAllLines(PROPOSALS)) {
+                if (line.isBlank() || line.startsWith("#")) continue;
+                String[] f = line.split(" \\| ", -1);
+                out.put(f[0] + " | " + f[1] + " | " + f[2], new String[] {f[3], f[4], f[5]});
+            }
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
+        return out;
+    }
+
+    /** Each test or document a proposal names, and whether it is built: a test that holds the fact, one named and not yet built, a document to find. */
+    static String tests(String named) {
+        List<String> out = new ArrayList<>();
+        for (String id : named.split(",\\s*")) {
+            if (id.isBlank()) continue;
+            out.add(id + (BUILT.containsKey(id) ? " (held by " + BUILT.get(id) + ")" : id.startsWith("D-") ? " (a document to find)" : " (named, not yet built)"));
+        }
+        return out.isEmpty() ? "none named" : String.join(", ", out) + "; each in docs/research/ibm-options.md section 33";
+    }
+
+    /** The notes file, by `PROGRAM | kind | subject`. */
+    static java.util.Map<String, String> notes() {
+        java.util.Map<String, String> out = new java.util.LinkedHashMap<>();
+        try {
+            for (String line : Files.readAllLines(NOTES)) {
+                if (line.isBlank() || line.startsWith("#")) continue;
+                String[] f = line.split("\\s*\\|\\s*", 4);
+                out.put(f[0].strip() + " | " + f[1].strip() + " | " + f[2].strip(), f[3].strip());
+            }
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
+        return out;
     }
 
     /** The fact a line of the merged file names, in the order the merge wrote them. */
@@ -105,220 +160,7 @@ final class BatchReview {
                 .filter(f -> f.kind().name().equalsIgnoreCase(kind)).findFirst().orElseThrow();
     }
 
-    // ---- evidence, in plain language ----
-
-    /** One statement with the paragraph it is in. */
-    record At(String paragraph, Statement s) {}
-
-    static List<At> statements(Program p) {
-        List<At> out = new ArrayList<>();
-        for (Procedure.Paragraph g : p.procedure().paragraphs()) for (Statement s : g.statements()) add(where(g), s, out);
-        return out;
-    }
-
-    private static void add(String paragraph, Statement s, List<At> out) {
-        out.add(new At(paragraph, s));
-        for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) add(paragraph, t, out);
-    }
-
-    private static String where(Procedure.Paragraph g) {
-        return g.name().isBlank() ? "the program's opening steps" : g.name();
-    }
-
-    private static String evidence(Program p, Fact f) {
-        return switch (f.subject()) {
-            case Subject.Datum d -> f.kind().name().equals("MONEY") ? money(p, d.item()) : flag(p, d.item());
-            case Subject.Choice c -> "holds one of " + c.conditions().size() + " named values: " + values(p.items().get(c.item() - 1)) + "; " + touched(p, c.item());
-            case Subject.Range r -> function(p, r);
-            default -> f.subject().text();
-        };
-    }
-
-    private static String money(Program p, int item) {
-        List<String> said = new ArrayList<>();
-        for (At a : statements(p)) {
-            Statement s = a.s();
-            boolean stored = s.operands().stream().anyMatch(o -> Set.of("add-to", "add-giving", "subtract-minuend", "subtract-giving", "compute-store").contains(o.role()) && refers(o.value(), item));
-            if (stored) {
-                Set<String> from = names(p, s, item, Set.of("add-from", "subtract-subtrahend", "compute-statement")), also = names(p, s, item, Set.of("add-to", "add-giving", "subtract-minuend", "subtract-giving", "compute-store"));
-                String verb = switch (s.verb()) {
-                    case "ADD" -> "ADD adds " + String.join(", ", from) + " into it";
-                    case "SUBTRACT" -> "SUBTRACT takes " + String.join(", ", from) + " from it";
-                    default -> "COMPUTE sets it by a formula from " + String.join(", ", from);
-                };
-                if (!from.isEmpty() || !also.isEmpty()) said.add(verb + (also.isEmpty() ? "" : " (and into " + String.join(", ", also) + ")") + " in " + a.paragraph());
-            }
-            if (s.verb().equals("MOVE") && s.operands().stream().anyMatch(o -> o.role().equals("move-to-sending-area") && refers(o.value(), item))) {
-                for (Statement.Operand o : s.operands()) {
-                    if (!o.role().equals("move-to-statement") || !(o.value() instanceof Value.Field t)) continue;
-                    Item to = p.items().get(t.item() - 1);
-                    if (to.attributes().category() == katana.sir.types.Attributes.Category.NUMERIC_EDITED && (to.attributes().picture().contains(",") || to.attributes().picture().contains(p.header().currency()))) {
-                        said.add("MOVE copies it to " + to.name() + ", a field printed as " + to.attributes().picture() + ", in " + a.paragraph());
-                    }
-                }
-            }
-        }
-        return a2s(said) + " (" + kind(p.items().get(item - 1)) + ")";
-    }
-
-    /** The two-place items other than this one a statement's operands of these roles name. */
-    private static Set<String> names(Program p, Statement s, int item, Set<String> roles) {
-        Set<String> out = new LinkedHashSet<>();
-        for (Statement.Operand o : s.operands()) {
-            if (!roles.contains(o.role())) continue;
-            for (Item i : p.items()) if (i.id() != item && i.attributes().scale() == 2 && refers(o.value(), i.id())) out.add(i.name());
-        }
-        return out;
-    }
-
-    private static String flag(Program p, int item) {
-        Item i = p.items().get(item - 1);
-        return "a yes-or-no: " + values(i) + "; " + touched(p, item) + " (" + kind(i) + ")";
-    }
-
-    /** Where the program sets the item, where it checks it, and what it hands it to. */
-    private static String touched(Program p, int item) {
-        return String.join("; ", setting(p, item)) + "; checked in " + list(checked(p, item)) + handed(p, item);
-    }
-
-    /** The paragraphs that MOVE into the item or SET one of its condition-names, and who else sets it: the file system, a caller. */
-    private static List<String> setting(Program p, int item) {
-        Set<String> set = new LinkedHashSet<>();
-        for (At a : statements(p)) {
-            Statement s = a.s();
-            boolean moves = s.verb().equals("MOVE") && s.operands().stream().anyMatch(o -> o.role().equals("move-to-statement") && refers(o.value(), item));
-            boolean sets = s.verb().equals("SET") && s.operands().stream().anyMatch(o -> o.value() instanceof Value.ConditionName c && c.item() == item);
-            if (moves || sets) set.add(a.paragraph());
-        }
-        List<String> setting = new ArrayList<>();
-        if (!set.isEmpty()) setting.add("set in " + list(set));
-        for (katana.sir.types.FileDescriptor d : p.files()) if (d.status() == item) setting.add("set by the file system after each operation on " + d.name() + " (its FILE STATUS)");
-        if (p.items().get(item - 1).section() == Item.Section.LINKAGE) setting.add("set by the program that CALLs this one (it is in the LINKAGE SECTION)");
-        if (setting.isEmpty()) setting.add("set nowhere in this program");
-        return setting;
-    }
-
-    /** The paragraphs whose IF, EVALUATE, PERFORM UNTIL or SEARCH, or a branch's condition, reads the item. */
-    private static Set<String> checked(Program p, int item) {
-        Set<String> checked = new LinkedHashSet<>();
-        for (At a : statements(p)) {
-            Statement s = a.s();
-            for (Statement.Branch b : s.branches()) if (b.condition() != null && refers(b.condition(), item)) checked.add(a.paragraph());
-            if (Set.of("IF", "EVALUATE", "PERFORM", "SEARCH").contains(s.verb()) && s.operands().stream().anyMatch(o -> refers(o.value(), item))) checked.add(a.paragraph());
-        }
-        return checked;
-    }
-
-    /** Each CALL that hands the item, or a group holding it, to another program. */
-    private static String handed(Program p, int item) {
-        Set<String> called = new LinkedHashSet<>();
-        for (At a : statements(p)) {
-            if (!a.s().verb().equals("CALL")) continue;
-            for (int at = item; at > 0; at = p.items().get(at - 1).parent()) {
-                final int held = at;
-                if (a.s().operands().stream().anyMatch(o -> refers(o.value(), held))) called.add(callee(a.s()) + " in " + a.paragraph() + (held == item ? "" : " (inside " + p.items().get(held - 1).name() + ")"));
-            }
-        }
-        return called.isEmpty() ? "" : "; handed to another program by CALL " + list(called);
-    }
-
-    private static String callee(Statement s) {
-        return s.operands().stream().filter(o -> o.value() instanceof Value.Literal).map(o -> ((Value.Literal) o.value()).payload()).findFirst().orElse("a program named at run time");
-    }
-
-    private static String function(Program p, Subject.Range r) {
-        String first = p.procedure().paragraphs().get(r.first()).name(), last = p.procedure().paragraphs().get(r.last()).name();
-        Set<String> callers = new LinkedHashSet<>();
-        for (Procedure.Edge e : p.procedure().edges()) if (e.kind() == Procedure.Kind.PERFORM && e.to() == r.first() && e.thru() == r.last()) callers.add(where(p.procedure().paragraphs().get(e.from())));
-        int steps = 0;
-        Set<String> verbs = new LinkedHashSet<>();
-        for (int g = r.first(); g <= r.last(); g++) for (Statement s : p.procedure().paragraphs().get(g).statements()) {
-            steps++;
-            verbs.add(s.verb());
-        }
-        return "the block " + first + (r.first() == r.last() ? "" : " through " + last) + " (" + steps + " steps: " + String.join(", ", verbs) + ") is run by PERFORM from " + list(callers)
-                + " and returns; nothing jumps into it or out of it with GO TO";
-    }
-
-    private static String values(Item i) {
-        List<String> out = new ArrayList<>();
-        for (Item.Condition c : i.conditions()) out.add(c.name() + " = " + String.join(" or ", c.values().stream().map(BatchReview::value).toList()));
-        return String.join(", ", out);
-    }
-
-    private static String value(Value v) {
-        if (v instanceof Value.Literal l) return l.kind() == Value.Literal.Kind.NUMERIC ? l.payload() : "'" + l.payload() + "'";
-        if (v instanceof Value.Figurative f) return f.name().toLowerCase().replace('-', ' ');
-        if (v instanceof Value.Expression e && e.operator().equals("THRU")) return value(e.operands().get(0)) + " to " + value(e.operands().get(1));
-        return String.valueOf(v);
-    }
-
-    private static String kind(Item i) {
-        var a = i.attributes();
-        return "it is " + (a.category() == katana.sir.types.Attributes.Category.NUMERIC ? "a number of " + a.digits() + " digits, " + a.scale() + " after the point" + (a.signed() ? ", signed" : "") : "text of " + i.length() + " characters")
-                + ", picture " + a.picture() + ", declared in " + file(i.origin().file());
-    }
-
-    private static String list(Set<String> s) {
-        return s.isEmpty() ? "none" : s.size() <= 4 ? String.join(", ", s) : String.join(", ", new ArrayList<>(s).subList(0, 4)) + " and " + (s.size() - 4) + " more";
-    }
-
-    private static String a2s(List<String> said) {
-        return said.size() <= 3 ? String.join("; ", said) : String.join("; ", said.subList(0, 3)) + "; and " + (said.size() - 3) + " more such";
-    }
-
-    static boolean refers(Value v, int item) {
-        if (v instanceof Value.Field f) return f.item() == item || f.subscripts().stream().anyMatch(s -> refers(s, item));
-        if (v instanceof Value.ConditionName c) return c.item() == item;
-        if (v instanceof Value.Expression e) return e.operands().stream().anyMatch(o -> refers(o, item));
-        return false;
-    }
-
-    private static String file(String path) {
+    static String file(String path) {
         return path.substring(path.lastIndexOf('/') + 1);
-    }
-
-    // ---- the authors' documentation ----
-
-    /** The README's line for the program, quoted, or none. */
-    private static String readme(String program) throws Exception {
-        for (String line : Files.readAllLines(CARDDEMO.getParent().resolve("README.md"))) {
-            if (line.contains("| " + program + " ")) return "README, its jobs table: \"" + String.join(", ", java.util.Arrays.stream(line.split("\\|")).map(String::strip).filter(c -> !c.isEmpty()).toList()) + "\"";
-        }
-        return "none";
-    }
-
-    /** The comment block right above the item's or paragraph's declaration, or above its record, quoted; none where there is none. */
-    private static String docs(Program p, Fact f) throws Exception {
-        katana.sir.types.Origin at;
-        String about;
-        switch (f.subject()) {
-            case Subject.Datum d -> { at = p.items().get(d.item() - 1).origin(); about = p.items().get(d.item() - 1).record() == d.item() ? null : "its record, " + p.items().get(p.items().get(d.item() - 1).record() - 1).name(); }
-            case Subject.Choice c -> { at = p.items().get(c.item() - 1).origin(); about = null; }
-            case Subject.Range r -> { at = p.procedure().paragraphs().get(r.first()).origin(); about = null; }
-            default -> { return "none"; }
-        }
-        String own = comment(at.file(), at.line());
-        if (own != null) return own;
-        if (about != null && f.subject() instanceof Subject.Datum d) {
-            Item record = p.items().get(p.items().get(d.item() - 1).record() - 1);
-            String theirs = comment(record.origin().file(), record.origin().line());
-            if (theirs != null) return "of " + about + ": " + theirs;
-        }
-        return "none";
-    }
-
-    /** The comment lines (an asterisk in column 7) directly above a line, quoted with their file and line, or null. */
-    private static String comment(String file, int line) throws Exception {
-        Path path = Path.of(file);
-        if (!Files.exists(path)) path = CARDDEMO.resolve("cpy").resolve(file(file));
-        if (!Files.exists(path)) return null;
-        List<String> lines = Files.readAllLines(path, java.nio.charset.StandardCharsets.ISO_8859_1);
-        List<String> said = new ArrayList<>();
-        for (int k = line - 2; k >= 0 && lines.get(k).length() > 6 && lines.get(k).charAt(6) == '*'; k--) {
-            String text = lines.get(k).substring(7, Math.min(72, lines.get(k).length())).replaceAll("[*-]{3,}", "").replaceAll("\\s*\\*+\\s*$", "").replace("|", "/").strip();
-            if (!text.isEmpty()) said.add(0, text);
-        }
-        return said.isEmpty() ? null : "\"" + String.join(" ", said) + "\" (" + file(file) + " line " + (line - said.size()) + ")";
     }
 }
