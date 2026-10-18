@@ -3126,3 +3126,35 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `intent/review/Review.java`; `test/katana/intent/BatchReview.java`,
   `BatchReviewIntegrationTest.java`, `carddemo-batch.review`; `docs/INTENT-IR.md`, `docs/checks.json`,
   `docs/HANDOFF.md`, `docs/KERNEL-MAP.md`.
+
+### J-204 The first review file's second reading: the authors' documents, a Fable advisor's proposals and tests, and a contract bug the first test found
+- **Who:** Opus, on Ghost's word ("pull up a fable advisor for devising tests, and a few sonnet agents for
+  doing document research"). **Class:** build; trial.
+- **Intent:** R-066's second reading of test/katana/intent/carddemo-batch.review: the documentation column
+  from the corpus, the proposal column with a test or document named for every fact under certainty, and
+  Opus's structural tests for `Function` facts.
+- **Found:** three document researchers: CardDemo documents its programs and records, almost never an item
+  or a paragraph; a few paragraph comments sit just inside the paragraph, where the generator did not look;
+  six traps a reader would fall into (CBTRN01C's header copied from CBTRN02C, a debit total that holds
+  negatives, a KSDS banner over a flat file, a fees paragraph the JCL promises that does nothing,
+  FC-INVALID-DATE meaning valid, HTML-FIXED-LN a text buffer); ibm.com refused by the network. The
+  generator's comment line numbers were one off. A Fable advisor: Function 95 to 99%, Money 96 to 99%, Enum
+  split (the M03B codes 95%, CODATECN 85%, FEEDBACK-TOKEN-VALUE 55%, APPL-RESULT 40%, file statuses 30%,
+  HTML-FIXED-LN 5%), a catalogue of tests and documents, thirteen evidence lines that would mislead. T-F1's
+  first run disagreed with the rule on CBSTM03A's last five paragraphs, and the contract was wrong:
+  `Contract.falls` read a dead `EXIT.` after `GO TO` as a fall, and took GO TO ... DEPENDING ON, which falls
+  through when its index is out of range, for a GO TO that always leaves.
+- **Resolved:** `Contract.falls`: a paragraph falls unless a top-level statement leaves unconditionally (a
+  one-target GO TO, STOP RUN, GOBACK); sir/ir.golden: CardDemo 5 fewer facts, NIST 5 more, each attributed
+  (research section 33). The review file regenerated: program sections quote the header's Function line, the
+  JCL step's comment and the README; items their nearest commented group or record; paragraphs a comment
+  just inside; enums the values stored that no condition-name names and the names never used; the
+  advisor's rewordings (abend paragraphs end the job, statements counted in words, EXIT glossed, file status
+  explained, formulas written out, edited pictures in words, the kinds defined strictly in the header).
+  carddemo-batch.notes (seven traps, each with its source) and carddemo-batch.proposals (the proposal and
+  the tests named per fact) are sidecars the generator merges; each fact's `tests:` line names its entries
+  in research section 33's catalogue, T-F1 built (`FunctionRangeStructure`, its unit and integration tests),
+  the rest named. `BatchReview` split in three under the line limit.
+- **Touched:** `sir/contract/Contract.java`, `sir/ir.golden`; `test/katana/intent/BatchReview*.java`,
+  `FunctionRangeStructure*.java`, `BatchReviewIntegrationTest.java`, `carddemo-batch.review`, `.notes`,
+  `.proposals`; `docs/checks.json`, `docs/KERNEL-MAP.md`, `docs/HANDOFF.md`, research section 33.

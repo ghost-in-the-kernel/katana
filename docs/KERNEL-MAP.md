@@ -1644,3 +1644,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | intent | `intent/rules/MoneyRule.java:MoneyRule.twoPlaces` |  | 2026-10-18 |  |
 | intent | `intent/rules/MoneyRule.java:MoneyRule.edited` |  | 2026-10-18 |  |
 | intent | `intent/review/Review.java:Review.sections` |  | 2026-10-18 |  |
+| sir | `sir/contract/Contract.java:Contract.leaves` |  | 2026-10-18 |  |

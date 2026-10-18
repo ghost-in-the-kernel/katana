@@ -22,14 +22,25 @@ import org.junit.jupiter.api.Test;
  */
 @Tag("integration")
 class BatchReviewIntegrationTest {
+    private static final String CATALOGUE;
+
+    static {
+        try {
+            String research = Files.readString(BatchReview.ROOT.resolve("docs/research/ibm-options.md"));
+            CATALOGUE = research.substring(research.indexOf("## 33."));
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
+    }
+
     @Test
     void everyLineIsAFactTheRulesInferWithItsReadings() throws Exception {
         List<Program> programs = BatchReview.programs();
         if (Boolean.getBoolean("katana.record")) {
             if (Files.exists(BatchReview.FILE)) {
                 String old = Files.readString(BatchReview.FILE);
-                assertTrue(old.lines().noneMatch(l -> l.startsWith("confirmed") || l.startsWith("refuted") || l.contains("could not tell:") || (l.startsWith("#   Fable") && !l.contains("___%"))),
-                        "the review holds a person's or Fable's word; it is merged, never rewritten");
+                assertTrue(old.lines().filter(l -> !l.startsWith("#")).noneMatch(l -> l.startsWith("confirmed") || l.startsWith("refuted") || l.contains("could not tell:")),
+                        "the review holds a person's word; it is merged, never rewritten (the proposal column is written from carddemo-batch.proposals)");
             }
             Files.writeString(BatchReview.FILE, BatchReview.write(programs));
         }
@@ -44,13 +55,23 @@ class BatchReviewIntegrationTest {
             List<String> lines = part.lines().filter(l -> !l.isBlank() && !l.startsWith("#")).toList();
             assertEquals(Rules.infer(p).facts().size(), lines.size(), p.header().program() + ": a line a fact");
             for (String fact : lines) {
-                List<String> after = part.lines().dropWhile(l -> !l.equals(fact)).skip(1).limit(4).toList();
-                assertTrue(after.size() == 4 && after.get(0).startsWith("#   evidence: ") && after.get(1).startsWith("#   rule: ") && after.get(2).startsWith("#   Fable (proposal, R-031): ")
-                        && after.get(3).startsWith("#   docs: "), fact + " has its four readings");
+                List<String> after = part.lines().dropWhile(l -> !l.equals(fact)).skip(1).limit(5).toList();
+                assertTrue(after.size() == 5 && after.get(0).startsWith("#   evidence: ") && after.get(1).startsWith("#   rule: ") && after.get(2).matches("#   Fable \\(proposal, R-031\\): \\d+% because .+")
+                        && after.get(3).startsWith("#   tests: ") && after.get(4).startsWith("#   docs: "), fact + " has its readings, its proposal and the tests it names");
+                for (String id : after.get(3).replaceAll("\\([^)]*\\)", "").replaceAll(";.*", "").replace("#   tests: ", "").split(",\\s*")) {
+                    assertTrue(id.isBlank() || java.util.regex.Pattern.compile("\\*\\*" + id.strip() + "[ *]").matcher(CATALOGUE).find(), id + " is in research section 33's catalogue");
+                }
             }
             facts += lines.size();
             assertTrue(loaded.intent().facts().stream().noneMatch(f -> f.state().status() == State.Status.CONFIRMED && !f.state().who().equals("Ghost")), "only a person confirms");
         }
         System.out.println("review lines: " + facts);
+        for (String key : BatchReview.notes().keySet()) {
+            String[] k = key.split(" \\| ", -1);
+            String part = sections.get(k[0]);
+            boolean held = part != null && (k[1].equals("program") || part.lines().anyMatch(l -> l.startsWith("inferred | " + k[1] + " | " + k[2] + " | ")));
+            assertTrue(held, "the note on " + key + " names no line of the review file");
+            assertTrue(text.contains(BatchReview.notes().get(key)), "the note on " + key + " is in the file");
+        }
     }
 }
