@@ -147,6 +147,13 @@ switch (a forward GO TO a labeled `break`). CardDemo's batch: all 175 methods, t
 30 (the main lines'); NIST: 2,501 of 3,037 methods, 106,713 cases to 50,667; every run as literal. Open: a
 backward GO TO (a loop) as a labeled `while`, and the main line itself, both residual with their findings.
 
+Built (J-213, research §38): the main line as `run`'s own code and a GO TO back as a labeled `while`, where the
+loops nest and nothing enters the line from elsewhere; a PERFORM of a range no method is `dispatch`. CardDemo's
+batch: 11 of 14 programs with no switch, 986 cases to 17 (CBSTM03A's ALTERs, CSUTLDTC's PERFORM over its main
+line, CBTRN03C's NEXT SENTENCE); NIST: 46 of 436 main lines, 106,661 cases to 47,896; every run as literal.
+Open, Ghost's to decide: a main-line paragraph entered from elsewhere kept in both forms (232 NIST main lines
+blocked only by entries, theirs or a loop's), or the paragraphs reordered so such loops nest.
+
 ### 6.3 Scalar promotion
 
 Check: as above.

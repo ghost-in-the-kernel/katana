@@ -62,8 +62,10 @@ public final class Structuring {
             } else refused.put(name(p, r), why);
         }
         Set<String> loops = program.isEmpty() ? Loops.loops(p, methods, refused) : Set.of();
-        Set<Integer> inline = program.isEmpty() ? Inline.inline(p, methods, loops, refused) : Set.of();
-        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline), applied, refused);
+        Map<Integer, Integer> cycles = new HashMap<>();
+        Set<Integer> inline = program.isEmpty() ? Inline.inline(p, methods, loops, cycles, refused) : Set.of();
+        Set<Integer> main = program.isEmpty() ? MainLine.main(p, methods, loops, cycles, refused) : Set.of();
+        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles), applied, refused);
     }
 
     /** What keeps a whole program literal: an independent segment with an ALTER, whose state the dispatcher keeps (research §16); declaratives, which run as PERFORMs of their own. */
@@ -137,13 +139,16 @@ public final class Structuring {
             return g >= r.first() && g <= r.last();
         }
 
-        /** The paragraphs control reaches from the start without a PERFORM: the contract's falls (a `returns-if-called` one only in a program with no USING), GO TOs, ALTERs. */
+        /**
+         * The paragraphs control reaches from the start without a PERFORM: the contract's falls, GO TOs, ALTERs. A
+         * `returns-if-called` fall counts in every program: one with USING may run as the main program, its PARM
+         * its USING (`Lower`'s `parm`), and then EXIT PROGRAM falls (one reading, J-213; it was skipped for USING).
+         */
         static BitSet mainLine(Program p) {
             Set<Integer> falls = new HashSet<>();
-            boolean subprogram = !p.procedure().using().isEmpty();
             for (String line : Contract.lines(p)) {
                 String[] w = line.split(" ");
-                if (w[0].equals("falls") && !(w.length > 4 && w[4].equals("returns-if-called") && subprogram)) falls.add(Integer.parseInt(w[2]));
+                if (w[0].equals("falls") && w[1].equals(p.header().program())) falls.add(Integer.parseInt(w[2]));
             }
             BitSet seen = new BitSet();
             Deque<Integer> work = new ArrayDeque<>(List.of(0));

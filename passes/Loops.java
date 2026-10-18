@@ -50,7 +50,6 @@ final class Loops {
         Value by = v.bys().get(0);
         if (by != null && !(by instanceof Value.Literal l && l.numeric() && !l.payload().matches("-?0"))) why.add("its BY is no constant other than zero");
         Value.Target target = target(s);
-        if (target != null && !Integer.valueOf(target.thru()).equals(methods.get(target.paragraph()))) why.add("it PERFORMs a range that is no method");
         List<Statement> body = body(s);
         for (Statement t : body) unstructured(t, methods, loops, why);
         int counter = v.ids().get(0).item();
@@ -58,10 +57,8 @@ final class Loops {
         return why;
     }
 
-    /** What keeps an inline body from being structured Java: a PERFORM of a range no method, a VARYING no `for`, a SEARCH, a SORT's procedure. */
+    /** What keeps code from being structured Java: a VARYING no `for`, a SEARCH, a SORT's procedure (a PERFORM of a range no method is `dispatch`, research §38). */
     static void unstructured(Statement t, Map<Integer, Integer> methods, Set<String> loops, List<String> why) {
-        Value.Target target = target(t);
-        if (t.verb().equals("PERFORM") && target != null && !Integer.valueOf(target.thru()).equals(methods.get(target.paragraph()))) why.add("line " + t.origin().line() + " PERFORMs a range that is no method");
         if (t.verb().equals("PERFORM") && !Lower.varying(t).ids().isEmpty() && !loops.contains(Lower.Plan.loop(t.origin()))) why.add("line " + t.origin().line() + " is a VARYING that is no for");
         if (t.verb().equals("SEARCH")) why.add("line " + t.origin().line() + " is a SEARCH");
         if ((t.verb().equals("SORT") || t.verb().equals("MERGE")) && t.operands().stream().anyMatch(o -> o.value() instanceof Value.Target)) why.add("line " + t.origin().line() + " has a procedure");

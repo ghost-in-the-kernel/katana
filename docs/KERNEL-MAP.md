@@ -1695,6 +1695,10 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Flow.java:Flow.inlined` |  | 2026-10-18 |  |
 | lower | `lower/Flow.java:Flow.inline` | R-021 | 2026-10-18 |  |
 | lower | `lower/Flow.java:Flow.targets` |  | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.methods` | moved to Regions in 6.2b | 2026-10-18 | superseded-by: `lower/Regions.java:Regions.methods` |
+| lower | `lower/Flow.java:Flow.inlined` | moved to Regions in 6.2b | 2026-10-18 | superseded-by: `lower/Regions.java:Regions.inlined` |
+| lower | `lower/Flow.java:Flow.inline` | moved to Regions in 6.2b | 2026-10-18 | superseded-by: `lower/Regions.java:Regions.region` |
+| lower | `lower/Flow.java:Flow.targets` | moved to Regions in 6.2b | 2026-10-18 | superseded-by: `lower/Regions.java:Regions.targets` |
 | lower | `lower/Flow.java:Flow.leave` |  | 2026-10-18 |  |
 | passes | `passes/Inline.java:Inline.Inline` |  | 2026-10-18 |  |
 | passes | `passes/Inline.java:Inline.inline` | R-032 | 2026-10-18 |  |
@@ -1704,3 +1708,22 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/Inline.java:Inline.run` |  | 2026-10-18 |  |
 | passes | `passes/Inline.java:Inline.procedures` |  | 2026-10-18 |  |
 | passes | `passes/Inline.java:Inline.dispatched` |  | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.paragraphCode` |  | 2026-10-18 |  |
+| lower | `lower/Flow.java:Flow.called` |  | 2026-10-18 |  |
+| lower | `lower/Regions.java:Regions.Regions` |  | 2026-10-18 |  |
+| lower | `lower/Regions.java:Regions.active` |  | 2026-10-18 |  |
+| lower | `lower/Regions.java:Regions.inlined` |  | 2026-10-18 |  |
+| lower | `lower/Regions.java:Regions.jump` |  | 2026-10-18 |  |
+| lower | `lower/Regions.java:Regions.methods` | R-021 | 2026-10-18 |  |
+| lower | `lower/Regions.java:Regions.dispatch` | R-021 | 2026-10-18 |  |
+| lower | `lower/Regions.java:Regions.region` |  | 2026-10-18 |  |
+| lower | `lower/Regions.java:Regions.level` |  | 2026-10-18 |  |
+| lower | `lower/Regions.java:Regions.targets` |  | 2026-10-18 |  |
+| lower | `lower/Regions.java:Regions.gotos` |  | 2026-10-18 |  |
+| passes | `passes/Cycles.java:Cycles.Cycles` |  | 2026-10-18 |  |
+| passes | `passes/Cycles.java:Cycles.cycles` | R-033 | 2026-10-18 |  |
+| passes | `passes/Cycles.java:Cycles.gotos` |  | 2026-10-18 |  |
+| passes | `passes/Cycles.java:Cycles.name` |  | 2026-10-18 |  |
+| passes | `passes/MainLine.java:MainLine.MainLine` |  | 2026-10-18 |  |
+| passes | `passes/MainLine.java:MainLine.main` | R-032 | 2026-10-18 |  |
+| passes | `passes/MainLine.java:MainLine.entries` |  | 2026-10-18 |  |

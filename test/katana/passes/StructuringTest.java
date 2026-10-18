@@ -40,7 +40,7 @@ class StructuringTest {
         assertFalse(java.contains("return d.perform("), "no caller's stretch ends at a PERFORM: each calls the method");
         assertEquals(Set.of(a, b), r.plan().inline(), "both ranges are their methods' own code (6.2): " + r.refused());
         int exit = index(p, "B-EXIT");
-        assertTrue(java.contains("L" + exit + ": {") && java.contains("if (true) break L" + exit + ";"), "B's GO TO B-EXIT is a break out of the block that ends before B-EXIT");
+        assertTrue(java.contains("B" + exit + ": {") && java.contains("if (true) break B" + exit + ";"), "B's GO TO B-EXIT is a break out of the block that ends before B-EXIT");
         assertFalse(java.contains("private int s" + a + "()") || java.contains("case " + a + " ->"), "A's stretch has left the switch");
         assertTrue(r.applied().stream().allMatch(x -> x.fact().unconfirmed()), "the facts are no person's word: unconfirmed (R-029)");
         assertEquals(Lower.java(p, "P").java().replace("Literal", "x"), Lower.java(p, "P", Lower.Plan.LITERAL).java().replace("Literal", "x"), "the empty plan is the literal lowering");
@@ -129,9 +129,11 @@ class StructuringTest {
     void aRangeThatLoopsOrIsDispatchedStaysOverTheSwitch() {
         Program loops = program("MAIN.\n    PERFORM A THRU A2.\n    STOP RUN.\nA.\n    ADD 1 TO I.\nA2.\n    IF I < 5 GO TO A.\n");
         Structuring.Result r = Structuring.plan(loops, Rules.infer(loops));
-        assertTrue(r.plan().inline().isEmpty() && r.refused().values().stream().flatMap(List::stream).anyMatch(w -> w.contains("back")), r.refused() + " " + r.plan());
+        int a = index(loops, "A");
+        assertEquals(Set.of(a), r.plan().inline(), "a GO TO back is a loop the method's own code says (6.2b): " + r.refused());
         String java = Lower.java(loops, "P", r.plan()).java();
-        assertTrue(java.contains("int pc = d.perform("), "a loop stays 6.1's method over the switch");
+        assertTrue(java.contains("W" + a + ": while (true) {") && java.contains("if (true) continue W" + a + ";"), java);
+        assertFalse(java.contains("private int step("), "main line and method both left the switch, so there is none: " + java);
         Program enclosed = program("MAIN.\n    PERFORM B.\n    PERFORM A THRU C.\n    STOP RUN.\nA.\n    DISPLAY 'A'.\nB.\n    DISPLAY 'B'.\nC.\n    DISPLAY 'C'.\n");
         katana.intent.types.Subject.Range b = new katana.intent.types.Subject.Range(index(enclosed, "B"), index(enclosed, "B"));
         Fact given = new Fact(katana.intent.types.Kind.FUNCTION, b, new katana.intent.types.Evidence("person", 1, List.of(new katana.intent.types.Node.ParagraphNode(b.first()))), 1, State.INFERRED);
@@ -140,5 +142,25 @@ class StructuringTest {
         Program varying = program("MAIN.\n    PERFORM A.\n    PERFORM A VARYING I FROM 1 BY 1 UNTIL I > 3 AFTER I FROM 1 BY 1 UNTIL I > 2.\n    STOP RUN.\nA.\n    DISPLAY 'A'.\n");
         Structuring.Result v = Structuring.plan(varying, Rules.infer(varying));
         assertTrue(v.plan().inline().isEmpty() && v.refused().values().stream().flatMap(List::stream).anyMatch(w -> w.contains("through the dispatcher")), v.refused() + " " + v.plan());
+    }
+
+    /**
+     * 6.2b (research §38): a main line with a loop entered past its header, or reached by an ALTER, stays in the
+     * switch, the program's `main line` finding saying why (R-034); a reducible one is `run`'s own code.
+     */
+    @Test
+    void anIrreducibleOrAlteredMainLineStaysInTheSwitchWithAFinding() {
+        Program twoEntries = program("MAIN.\n    IF I = 1 GO TO B.\nA.\n    ADD 1 TO I.\nB.\n    ADD 1 TO I.\n    IF I < 5 GO TO A.\n    STOP RUN.\n");
+        Structuring.Result r = Structuring.plan(twoEntries, Rules.infer(twoEntries));
+        assertTrue(r.plan().main().isEmpty() && r.refused().getOrDefault("main line", List.of()).stream().anyMatch(w -> w.contains("enters the loop")), r.refused() + " " + r.plan());
+        assertTrue(Lower.java(twoEntries, "P", r.plan()).java().contains("private int step("), "the residual main line keeps its switch");
+        Program altered = program("MAIN.\n    ALTER G TO PROCEED TO B.\nG.\n    GO TO A.\nA.\n    STOP RUN.\nB.\n    STOP RUN.\n");
+        Structuring.Result a = Structuring.plan(altered, Rules.infer(altered));
+        assertTrue(a.plan().main().isEmpty() && a.refused().getOrDefault("main line", List.of()).stream().anyMatch(w -> w.contains("ALTER")), a.refused() + " " + a.plan());
+        Program reducible = program("MAIN.\n    ADD 1 TO I.\n    IF I < 5 GO TO MAIN.\n    STOP RUN.\n");
+        Structuring.Result m = Structuring.plan(reducible, Rules.infer(reducible));
+        int main = index(reducible, "MAIN");
+        assertTrue(m.plan().main().contains(main), m.refused().toString());
+        assertTrue(Lower.java(reducible, "P", m.plan()).java().contains("W" + main + ": while (true) {"), "a GO TO back on the main line is a labeled while");
     }
 }
