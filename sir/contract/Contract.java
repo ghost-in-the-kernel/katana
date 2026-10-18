@@ -53,7 +53,7 @@ public final class Contract {
             new Kind("declarative", "each declarative section's USE: what it follows, GLOBAL, and its files or mode, or what it debugs", p -> each(p.procedure().sections().stream().filter(Procedure.Section::declarative).toList(), Contract::declarative)),
             new Kind("segment", "each section's priority-number, where one is written", p -> each(p.procedure().sections().stream().filter(s -> s.priority() >= 0).toList(), s -> quoted(s.name()) + " " + s.priority())),
             new Kind("paragraph", "each paragraph's place in textual order and its section", p -> each(p.procedure().paragraphs(), g -> g.index() + " " + quoted(g.name()) + " " + quoted(g.section()))),
-            new Kind("falls", "control that falls from a paragraph into the next", Contract::falls),
+            new Kind("falls", "control that falls from a paragraph into the next, `returns-if-called` after EXIT PROGRAM", Contract::falls),
             new Kind("edge", "each PERFORM, GO TO and ALTER between paragraphs", p -> each(p.procedure().edges(), e -> e.kind() + " " + e.from() + " " + e.to() + " " + e.thru())),
             new Kind("statement", "each statement's verb, operands with their roles, and branches", Contract::statements),
             new Kind("call", "each CALL's target, arguments with their modes, and RETURNING", p -> each(p.calls(), Contract::call)),
@@ -134,12 +134,22 @@ public final class Contract {
                 + " " + f.minRecord() + ".." + f.maxRecord() + (f.sharesRecordArea().isEmpty() ? "" : " shares-record-area " + f.sharesRecordArea());
     }
 
-    /** A paragraph falls into the next unless its last statement leaves (GO TO, STOP RUN, GOBACK, EXIT PROGRAM); an altered GO TO, naming no procedure, falls until an ALTER sends it (LR 6.4 p. 347), and STOP literal resumes at the next statement (p. 457). */
+    /** A paragraph falls into the next unless its last statement leaves (GO TO, STOP RUN, GOBACK); an altered GO TO, naming no procedure, falls until an ALTER sends it (LR 6.4 p. 347), and STOP literal resumes at the next statement (p. 457). */
     private static boolean stopLiteral(Statement s) {
         return s.verb().equals("STOP") && s.operands().stream().noneMatch(o -> o.value() instanceof Value.Name n && n.text().equals("RUN"));
     }
 
-    /** Each paragraph that falls through into the next, as `i i+1`: its last statement no GO TO, STOP RUN, GOBACK or EXIT PROGRAM (an altered GO TO and STOP literal fall through). */
+    /** EXIT PROGRAM, which the IR keeps as EXIT with PROGRAM its operand (R-017). */
+    private static boolean exitProgram(Statement s) {
+        return s.verb().equals("EXIT") && s.operands().stream().anyMatch(o -> o.value() instanceof Value.Name n && n.text().equals("PROGRAM"));
+    }
+
+    /**
+     * Each paragraph that falls through into the next, as `i i+1`: its last statement no GO TO, STOP RUN or
+     * GOBACK (an altered GO TO and STOP literal fall through). One ending in EXIT PROGRAM is a conditional
+     * edge, `i i+1 returns-if-called`: IBM's reading, a return where the program was CALLed and a fall into
+     * the next paragraph where it is the run unit's main program, as the lowering does (J-199, J-201).
+     */
     private static List<String> falls(Program p) {
         List<Procedure.Paragraph> all = p.procedure().paragraphs();
         List<String> lines = new ArrayList<>();
@@ -147,7 +157,8 @@ public final class Contract {
             List<Statement> s = all.get(i).statements();
             Statement end = s.isEmpty() ? null : s.get(s.size() - 1);
             String last = end == null || (end.verb().equals("GO TO") && end.operands().isEmpty()) || stopLiteral(end) ? "" : end.verb();
-            if (!List.of("GO TO", "STOP", "GOBACK", "EXIT PROGRAM").contains(last)) lines.add(i + " " + (i + 1));
+            if (end != null && exitProgram(end)) lines.add(i + " " + (i + 1) + " returns-if-called");
+            else if (!List.of("GO TO", "STOP", "GOBACK").contains(last)) lines.add(i + " " + (i + 1));
         }
         return lines;
     }

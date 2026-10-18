@@ -1,88 +1,32 @@
 # 5.2's bench (research §29): each rule on CardDemo against test/katana/intent/carddemo.key, within its scope.
 # `rule NAME vVERSION facts F true T key K precision P recall R`, then each fact the key does not hold (`not`) and
 # each the key holds that the rule missed (`missed`). Written by `gradle integration -Dkatana.record=true`; a lower score is refused.
-rule enum.disjoint-88s v1 facts 187 true 110 key 113 precision 0.588 recall 0.973
+rule flag.yes-no v1 facts 69 true 68 key 79 precision 0.986 recall 0.861
+  not flag COCRDLIC WS-INFO-MSG
+  missed flag COACTUPC WS-ACCOUNT-MASTER-READ-FLAG
+  missed flag COACTUPC WS-CUST-MASTER-READ-FLAG
+  missed flag COACTUPC WS-EDIT-OPEN-DATE-FLGS
+  missed flag COACTUPC WS-EDIT-PHONE-NUM-1-FLGS
+  missed flag COACTUPC WS-EDIT-PHONE-NUM-2-FLGS
+  missed flag COACTUPC WS-EDIT-REISSUE-DATE-FLGS
+  missed flag COACTUPC WS-EXPIRY-DATE-FLGS
+  missed flag COACTVWC WS-ACCOUNT-MASTER-READ-FLAG
+  missed flag COACTVWC WS-CUST-MASTER-READ-FLAG
+  missed flag COCRDLIC WS-CA-LAST-PAGE-DISPLAYED
+  missed flag COCRDLIC WS-ROW-CRDSELECT-ERROR
+rule enum.disjoint-88s v2 facts 118 true 110 key 113 precision 0.932 recall 0.973
   not enum CBSTM03A HTML-FIXED-LN
-  not enum COACTUPC CDEMO-PGM-CONTEXT
-  not enum COACTUPC WS-DATACHANGED-FLAG
   not enum COACTUPC WS-EDIT-DATE-CC-N
-  not enum COACTUPC WS-EDIT-DATE-FLGS
-  not enum COACTUPC WS-EDIT-DT-OF-BIRTH-FLGS
-  not enum COACTUPC WS-EDIT-US-PHONE-NUM-FLGS
-  not enum COACTUPC WS-EDIT-US-SSN-FLGS
   not enum COACTUPC WS-INFO-MSG
-  not enum COACTUPC WS-PFK-FLAG
-  not enum COACTUPC WS-RETURN-FLAG
-  not enum COACTVWC CDEMO-PGM-CONTEXT
   not enum COACTVWC WS-INFO-MSG
-  not enum COADM01C CDEMO-PGM-CONTEXT
-  not enum COADM01C WS-ERR-FLG
-  not enum COBIL00C CDEMO-CB00-NEXT-PAGE-FLG
-  not enum COBIL00C CDEMO-PGM-CONTEXT
-  not enum COBIL00C WS-CONF-PAY-FLG
-  not enum COBIL00C WS-ERR-FLG
-  not enum COBIL00C WS-USR-MODIFIED
-  not enum COCRDLIC CDEMO-PGM-CONTEXT
-  not enum COCRDLIC FLG-PROTECT-SELECT-ROWS
   not enum COCRDLIC WS-CA-LAST-PAGE-DISPLAYED
-  not enum COCRDLIC WS-CA-NEXT-PAGE-IND
-  not enum COCRDLIC WS-CONTEXT-FLAG
   not enum COCRDLIC WS-ERROR-MSG
-  not enum COCRDLIC WS-FILTER-RECORD-FLAG
-  not enum COCRDLIC WS-INFO-MSG
-  not enum COCRDLIC WS-INPUT-FLAG
-  not enum COCRDLIC WS-PFK-FLAG
-  not enum COCRDLIC WS-RECORDS-TO-PROCESS-FLAG
-  not enum COCRDLIC WS-RETURN-FLAG
-  not enum COCRDSLC CDEMO-PGM-CONTEXT
   not enum COCRDSLC WS-INFO-MSG
-  not enum COCRDSLC WS-PFK-FLAG
-  not enum COCRDSLC WS-RETURN-FLAG
-  not enum COCRDUPC CDEMO-PGM-CONTEXT
   not enum COCRDUPC WS-INFO-MSG
-  not enum COCRDUPC WS-PFK-FLAG
-  not enum COCRDUPC WS-RETURN-FLAG
-  not enum COMEN01C CDEMO-PGM-CONTEXT
-  not enum COMEN01C WS-ERR-FLG
-  not enum CORPT00C CDEMO-PGM-CONTEXT
-  not enum CORPT00C WS-END-LOOP
-  not enum CORPT00C WS-ERR-FLG
-  not enum CORPT00C WS-SEND-ERASE-FLG
-  not enum CORPT00C WS-TRANSACT-EOF
-  not enum COSGN00C CDEMO-PGM-CONTEXT
-  not enum COSGN00C WS-ERR-FLG
-  not enum COTRN00C CDEMO-CT00-NEXT-PAGE-FLG
-  not enum COTRN00C CDEMO-PGM-CONTEXT
-  not enum COTRN00C WS-ERR-FLG
-  not enum COTRN00C WS-SEND-ERASE-FLG
-  not enum COTRN00C WS-TRANSACT-EOF
-  not enum COTRN01C CDEMO-CT01-NEXT-PAGE-FLG
-  not enum COTRN01C CDEMO-PGM-CONTEXT
-  not enum COTRN01C WS-ERR-FLG
-  not enum COTRN01C WS-USR-MODIFIED
-  not enum COTRN02C CDEMO-CT02-NEXT-PAGE-FLG
-  not enum COTRN02C CDEMO-PGM-CONTEXT
-  not enum COTRN02C WS-ERR-FLG
-  not enum COTRN02C WS-USR-MODIFIED
-  not enum COUSR00C CDEMO-CU00-NEXT-PAGE-FLG
-  not enum COUSR00C CDEMO-PGM-CONTEXT
-  not enum COUSR00C WS-ERR-FLG
-  not enum COUSR00C WS-SEND-ERASE-FLG
-  not enum COUSR00C WS-USER-SEC-EOF
-  not enum COUSR01C CDEMO-PGM-CONTEXT
-  not enum COUSR01C WS-ERR-FLG
-  not enum COUSR02C CDEMO-CU02-NEXT-PAGE-FLG
-  not enum COUSR02C CDEMO-PGM-CONTEXT
-  not enum COUSR02C WS-ERR-FLG
-  not enum COUSR02C WS-USR-MODIFIED
-  not enum COUSR03C CDEMO-CU03-NEXT-PAGE-FLG
-  not enum COUSR03C CDEMO-PGM-CONTEXT
-  not enum COUSR03C WS-ERR-FLG
-  not enum COUSR03C WS-USR-MODIFIED
   missed enum COACTUPC ACUP-CHANGE-ACTION
   missed enum COCRDLIC WS-EDIT-SELECT
   missed enum COCRDUPC CCUP-CHANGE-ACTION
-rule money.packed-v99-added v1 facts 1 true 1 key 116 precision 1.000 recall 0.009
+rule money.used v2 facts 29 true 29 key 116 precision 1.000 recall 0.250
   missed money CBACT01C ACCT-CASH-CREDIT-LIMIT
   missed money CBACT01C ACCT-CREDIT-LIMIT
   missed money CBACT01C ACCT-CURR-BAL
@@ -99,13 +43,10 @@ rule money.packed-v99-added v1 facts 1 true 1 key 116 precision 1.000 recall 0.0
   missed money CBACT01C VB2-ACCT-CURR-BAL
   missed money CBACT04C ACCT-CASH-CREDIT-LIMIT
   missed money CBACT04C ACCT-CREDIT-LIMIT
-  missed money CBACT04C ACCT-CURR-BAL
   missed money CBACT04C ACCT-CURR-CYC-CREDIT
   missed money CBACT04C ACCT-CURR-CYC-DEBIT
   missed money CBACT04C TRAN-AMT
   missed money CBACT04C TRAN-CAT-BAL
-  missed money CBACT04C WS-MONTHLY-INT
-  missed money CBACT04C WS-TOTAL-INT
   missed money CBEXPORT ACCT-CASH-CREDIT-LIMIT
   missed money CBEXPORT ACCT-CREDIT-LIMIT
   missed money CBEXPORT ACCT-CURR-BAL
@@ -146,17 +87,8 @@ rule money.packed-v99-added v1 facts 1 true 1 key 116 precision 1.000 recall 0.0
   missed money CBTRN01C TRAN-AMT
   missed money CBTRN02C ACCT-CASH-CREDIT-LIMIT
   missed money CBTRN02C ACCT-CREDIT-LIMIT
-  missed money CBTRN02C ACCT-CURR-BAL
-  missed money CBTRN02C ACCT-CURR-CYC-CREDIT
-  missed money CBTRN02C ACCT-CURR-CYC-DEBIT
   missed money CBTRN02C DALYTRAN-AMT
   missed money CBTRN02C TRAN-AMT
-  missed money CBTRN02C TRAN-CAT-BAL
-  missed money CBTRN02C WS-TEMP-BAL
-  missed money CBTRN03C TRAN-AMT
-  missed money CBTRN03C WS-ACCOUNT-TOTAL
-  missed money CBTRN03C WS-GRAND-TOTAL
-  missed money CBTRN03C WS-PAGE-TOTAL
   missed money COACTUPC ACCT-CASH-CREDIT-LIMIT
   missed money COACTUPC ACCT-CREDIT-LIMIT
   missed money COACTUPC ACCT-CURR-BAL
@@ -167,24 +99,8 @@ rule money.packed-v99-added v1 facts 1 true 1 key 116 precision 1.000 recall 0.0
   missed money COACTUPC ACCT-UPDATE-CURR-BAL
   missed money COACTUPC ACCT-UPDATE-CURR-CYC-CREDIT
   missed money COACTUPC ACCT-UPDATE-CURR-CYC-DEBIT
-  missed money COACTUPC ACUP-NEW-CASH-CREDIT-LIMIT-N
-  missed money COACTUPC ACUP-NEW-CREDIT-LIMIT-N
-  missed money COACTUPC ACUP-NEW-CURR-BAL-N
-  missed money COACTUPC ACUP-NEW-CURR-CYC-CREDIT-N
-  missed money COACTUPC ACUP-NEW-CURR-CYC-DEBIT-N
-  missed money COACTUPC ACUP-OLD-CASH-CREDIT-LIMIT-N
-  missed money COACTUPC ACUP-OLD-CREDIT-LIMIT-N
-  missed money COACTUPC ACUP-OLD-CURR-BAL-N
-  missed money COACTUPC ACUP-OLD-CURR-CYC-CREDIT-N
-  missed money COACTUPC ACUP-OLD-CURR-CYC-DEBIT-N
-  missed money COACTVWC ACCT-CASH-CREDIT-LIMIT
-  missed money COACTVWC ACCT-CREDIT-LIMIT
-  missed money COACTVWC ACCT-CURR-BAL
-  missed money COACTVWC ACCT-CURR-CYC-CREDIT
-  missed money COACTVWC ACCT-CURR-CYC-DEBIT
   missed money COBIL00C ACCT-CASH-CREDIT-LIMIT
   missed money COBIL00C ACCT-CREDIT-LIMIT
-  missed money COBIL00C ACCT-CURR-BAL
   missed money COBIL00C ACCT-CURR-CYC-CREDIT
   missed money COBIL00C ACCT-CURR-CYC-DEBIT
   missed money COBIL00C TRAN-AMT

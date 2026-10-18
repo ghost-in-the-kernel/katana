@@ -132,20 +132,24 @@ class RulesBenchIntegrationTest {
         assertEquals(recorded, report);
     }
 
-    /** Each recorded precision or recall the report falls below. */
+    /** Each recorded precision or recall the report falls below, a rule's versions compared by the kind they infer, whatever their names (R-065). */
     static List<String> lower(String recorded, String report) {
         Map<String, String[]> before = new TreeMap<>();
         Matcher m = SCORE.matcher(recorded);
-        while (m.find()) before.put(m.group(1), new String[] {m.group(2), m.group(3)});
+        while (m.find()) before.put(kindOf(m.group(1)), new String[] {m.group(2), m.group(3)});
         List<String> lower = new ArrayList<>();
         m = SCORE.matcher(report);
         while (m.find()) {
-            String[] was = before.get(m.group(1));
+            String[] was = before.get(kindOf(m.group(1)));
             if (was == null) continue;
             if (below(m.group(2), was[0])) lower.add(m.group(1) + " precision " + was[0] + " to " + m.group(2));
             if (below(m.group(3), was[1])) lower.add(m.group(1) + " recall " + was[1] + " to " + m.group(3));
         }
         return lower;
+    }
+
+    private static String kindOf(String rule) {
+        return rule.substring(0, rule.indexOf('.'));
     }
 
     private static boolean below(String now, String was) {

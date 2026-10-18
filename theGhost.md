@@ -1269,9 +1269,10 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   them zoned; enum's version 1 marked 69 yes-or-no pairs as enums. A bank's chart of accounts is
   money by what the program does with it; COMP-3 is the common packing, not the meaning. A person
   confirms or refutes the fact; the rule's job is to put the likely ones in front of them.
-- **Claims:** C-1 money version 2 raises recall on CardDemo without lowering precision: `hypothesis`;
-  the key is the trial. C-2 a flag rule before enum lifts enum's precision past 0.9 on CardDemo:
-  `hypothesis`; same trial.
+- **Claims:** C-1 money version 2 raises recall on CardDemo without lowering precision: `verified`
+  (J-202: money.used v2, recall 0.009 to 0.250, precision 1.000 to 1.000). C-2 a flag rule before enum
+  lifts enum's precision past 0.9 on CardDemo: `verified` (J-202: enum v2 0.588 to 0.932, recall 0.973
+  kept; flag.yes-no v1 0.986, recall 0.861).
 - **Held by:** `intent/rules` (each rule's version, its measured precision and recall in research
   §29); `test/katana/intent/carddemo.key`.
 - **Source:** Opus's measurements (J-195); decided by Fable, 2026-10-17.

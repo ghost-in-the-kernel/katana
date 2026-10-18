@@ -736,9 +736,6 @@ unchanged, R-042):
   three columns filled, the agreements counted in research §29.
 - R-066 C-2 (a reviewer who does not read COBOL can judge most facts from the evidence line): Ghost's
   review of CBTRN02C, the "could not tell" count recorded as the review file's usability result.
-- R-065 C-1 (money version 2 raises recall on CardDemo without lowering precision): run version 2
-  against `test/katana/intent/carddemo.key`, both figures recorded in research §29 beside version 1's.
-- R-065 C-2 (a FLAG rule before ENUM lifts enum's precision past 0.9 on CardDemo): same run, same key.
 - R-015 C-1 (IBM's CICS and SQL syntax documented well enough to parse from): phase 7.2's first step.
 - R-017 C-3 (the no-token test suffices for completeness): phase 3.3's lowering of NIST without
   consulting the tree.
@@ -775,7 +772,7 @@ unchanged, R-042):
 - R-059 C-2 (for MULTIPLY and DIVIDE the temporary is the multiplier or divisor): a mainframe run, or a
   further IBM example.
 
-(run: RECFM=V J-062, stderr J-059, NC124A J-072)
+(run: R-065 C-1 and C-2 J-202, RECFM=V J-062, stderr J-059, NC124A J-072)
 
 ## Waiting on Ghost
 

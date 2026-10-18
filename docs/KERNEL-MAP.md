@@ -1631,3 +1631,15 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Emitter.java:Emitter.leave` |  | 2026-10-17 |  |
 | lower | `lower/Emitter.java:Emitter.symbol` |  | 2026-10-17 |  |
 | lower | `lower/Emitter.java:Emitter.symbols` |  | 2026-10-17 |  |
+| sir | `sir/contract/Contract.java:Contract.exitProgram` |  | 2026-10-18 |  |
+| intent | `intent/rules/FlagRule.java:FlagRule.name` |  | 2026-10-18 |  |
+| intent | `intent/rules/FlagRule.java:FlagRule.version` |  | 2026-10-18 |  |
+| intent | `intent/rules/FlagRule.java:FlagRule.confidence` |  | 2026-10-18 |  |
+| intent | `intent/rules/FlagRule.java:FlagRule.infer` |  | 2026-10-18 |  |
+| intent | `intent/rules/FlagRule.java:FlagRule.flag` |  | 2026-10-18 |  |
+| intent | `intent/rules/FlagRule.java:FlagRule.keys` |  | 2026-10-18 |  |
+| intent | `intent/rules/FlagRule.java:FlagRule.nothingUsed` |  | 2026-10-18 |  |
+| intent | `intent/rules/FlagRule.java:FlagRule.compared` |  | 2026-10-18 |  |
+| intent | `intent/rules/FlagRule.java:FlagRule.nothing` |  | 2026-10-18 |  |
+| intent | `intent/rules/MoneyRule.java:MoneyRule.twoPlaces` |  | 2026-10-18 |  |
+| intent | `intent/rules/MoneyRule.java:MoneyRule.edited` |  | 2026-10-18 |  |

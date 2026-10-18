@@ -467,7 +467,7 @@ paragraph IC237A-1 2 "IC237A-EXIT" "SECT-IC237A-1-001"
 paragraph IC237A-1 3 "END-OF-PROGRAM" "SECT-IC237A-1-001"
 falls IC237A-1 0 1
 falls IC237A-1 1 2
-falls IC237A-1 2 3
+falls IC237A-1 2 3 returns-if-called
 statement IC237A-1 1.0 MOVE move-to-sending-area=#4 move-to-statement=keyword:TO move-to-statement=#6
 statement IC237A-1 2.0 EXIT exit-statement=keyword:PROGRAM
 using IC237A-1 [3, 5, 6] 0

@@ -37,8 +37,8 @@ class ReviewTest {
             """;
     private static final String PROCEDURE = """
             MAIN.
-                ADD 1 TO TOTAL OF GRP.
-                ADD 1 TO TOTAL OF OTHER-GRP.
+                ADD TOTAL OF OTHER-GRP TO TOTAL OF GRP.
+                ADD TOTAL OF GRP TO TOTAL OF OTHER-GRP.
                 PERFORM WORK.
                 STOP RUN.
             WORK.
@@ -57,8 +57,8 @@ class ReviewTest {
 
     /** A person's edits to a first review: money confirmed, a flag refuted, a function confirmed, a counter of their own. */
     private static String edited(String first) {
-        return first.replace("inferred | money | TOTAL OF GRP | money.packed-v99-added v1 | 0.5", "confirmed | money | TOTAL OF GRP | money.packed-v99-added v1 | 0.5 | Ghost 2026-10-17")
-                .replace("inferred | enum | FLAG-X: F-Y, F-N | enum.disjoint-88s v1 | 0.5", "refuted | enum | FLAG-X: F-Y, F-N | enum.disjoint-88s v1 | 0.5 | Ghost 2026-10-17 | a flag")
+        return first.replace("inferred | money | TOTAL OF GRP | money.used v2 | 0.9", "confirmed | money | TOTAL OF GRP | money.used v2 | 0.9 | Ghost 2026-10-17")
+                .replace("inferred | flag | FLAG-X | flag.yes-no v1 | 0.9", "refuted | flag | FLAG-X | flag.yes-no v1 | 0.9 | Ghost 2026-10-17 | the trial's refutation")
                 .replace("inferred | function | WORK | function.perform-range v1 | 1", "confirmed | function | WORK | function.perform-range v1 | 1 | Ghost 2026-10-17")
                 + "confirmed | counter | COUNT-X | person v1 | 1 | Ghost 2026-10-17\n";
     }
@@ -70,8 +70,8 @@ class ReviewTest {
     @Test
     void aFirstReviewNamesEveryFactByTheProgramsNames() {
         String text = rebuild(program(DATA, PROCEDURE), "").text();
-        for (String line : List.of("inferred | enum | STATUS-CODE: S-A, S-B | enum.disjoint-88s v1 | 0.5", "inferred | money | TOTAL OF GRP | money.packed-v99-added v1 | 0.5",
-                "inferred | money | TOTAL OF OTHER-GRP | money.packed-v99-added v1 | 0.5", "inferred | function | WORK | function.perform-range v1 | 1")) {
+        for (String line : List.of("inferred | enum | STATUS-CODE: S-A, S-B | enum.disjoint-88s v2 | 0.9", "inferred | flag | FLAG-X | flag.yes-no v1 | 0.9", "inferred | money | TOTAL OF GRP | money.used v2 | 0.9",
+                "inferred | money | TOTAL OF OTHER-GRP | money.used v2 | 0.9", "inferred | function | WORK | function.perform-range v1 | 1")) {
             assertTrue(text.contains(line + "\n"), line + " in\n" + text);
         }
     }
@@ -83,9 +83,9 @@ class ReviewTest {
         Review.Result again = rebuild(p, review);
         assertEquals(List.of(), again.reported());
         assertEquals(State.Status.CONFIRMED, state(again, Kind.MONEY, "money item 4").status());
-        assertEquals(State.Status.REFUTED, state(again, Kind.ENUM, "enum item 2 F-Y,F-N").status());
+        assertEquals(State.Status.REFUTED, state(again, Kind.FLAG, "flag item 2").status());
         assertEquals(State.Status.CONFIRMED, state(again, Kind.COUNTER, "counter item 7").status());
-        assertTrue(again.text().contains("refuted | enum | FLAG-X: F-Y, F-N | enum.disjoint-88s v1 | 0.5 | Ghost 2026-10-17 | a flag\n"), again.text());
+        assertTrue(again.text().contains("refuted | flag | FLAG-X | flag.yes-no v1 | 0.9 | Ghost 2026-10-17 | the trial's refutation\n"), again.text());
         Program renumbered = program("01 ADDED-ABOVE PIC X.\n" + DATA, PROCEDURE);
         Review.Result moved = rebuild(renumbered, again.text());
         assertEquals(again.text(), moved.text());
@@ -111,11 +111,11 @@ class ReviewTest {
         String review = rebuild(p, edited(rebuild(p, "").text())).text();
         List<Fact> v2 = new ArrayList<>();
         for (Fact f : Rules.infer(p).facts()) {
-            v2.add(f.kind() != Kind.ENUM ? f : new Fact(f.kind(), f.subject(), new Evidence(f.evidence().rule(), 2, f.evidence().nodes()), f.confidence(), f.state()));
+            v2.add(f.kind() != Kind.FLAG ? f : new Fact(f.kind(), f.subject(), new Evidence(f.evidence().rule(), 2, f.evidence().nodes()), f.confidence(), f.state()));
         }
         Review.Result newer = Review.merge(p, new Intent("P", HASH, v2), review);
-        assertEquals(State.Status.INFERRED, state(newer, Kind.ENUM, "enum item 2 F-Y,F-N").status());
-        assertTrue(newer.text().contains("inferred | enum | FLAG-X: F-Y, F-N | enum.disjoint-88s v2 | 0.5 |  | was refuted by Ghost 2026-10-17 under enum.disjoint-88s v1: a flag\n"), newer.text());
+        assertEquals(State.Status.INFERRED, state(newer, Kind.FLAG, "flag item 2").status());
+        assertTrue(newer.text().contains("inferred | flag | FLAG-X | flag.yes-no v2 | 0.9 |  | was refuted by Ghost 2026-10-17 under flag.yes-no v1: the trial's refutation\n"), newer.text());
         assertEquals(List.of(), new Intent("P", HASH, newer.intent().actionable()).facts().stream().filter(f -> f.state().status() == State.Status.REFUTED).toList());
     }
 

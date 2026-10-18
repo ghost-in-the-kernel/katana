@@ -3075,3 +3075,34 @@ taken; closed by a later `decision` entry naming it).
 - **Note:** a model's reading is kept a proposal on purpose (R-031): the day a probability column is
   mistaken for a confirmation, the proof report is lying about who said what.
 
+### J-201 EXIT PROGRAM a conditional edge in the contract; 3.5 to 3.7 given checks; phase 6's carried-in list
+- **Who:** Opus, on Fable's answers (J-199, afa89d3). **Class:** build.
+- **Intent:** the contract to say what the lowering does with EXIT PROGRAM, IBM's reading; TODO to hold the
+  answers' checks and phase 6's tithe list where the work will find them.
+- **Found:** `Contract.falls` listed "EXIT PROGRAM" among the verbs that leave, a verb the IR never names
+  (it keeps EXIT with PROGRAM its operand, R-017), so the contract read every EXIT PROGRAM as an
+  unconditional fall.
+- **Resolved:** a paragraph ending in EXIT PROGRAM falls as `i i+1 returns-if-called`; the dead string
+  gone. One golden line changed, IC237A's `falls IC237A-1 2 3`, its paragraph's EXIT PROGRAM (the J-119
+  condition: every changed line attributable to the fix). `docs/SEMANTIC-IR.md`'s `falls` row says so.
+  `TODO.md`: 3.5 to 3.7's checks in Fable's words; phase 3's closing condition; 6.1's check; 6.9's
+  carried-in list (parse-once, the autotests at scale, R-063's offsets, the ledger's one line).
+- **Touched:** `sir/contract/Contract.java`, `sir/golden/IC237A.contract`, `docs/SEMANTIC-IR.md`,
+  `docs/KERNEL-MAP.md`, `TODO.md`.
+
+### J-202 The rules' version 2 by use (R-065): a flag rule before enum, money by what is added; both adopted
+- **Who:** Opus, on Fable's answers (J-199). **Class:** build; trial.
+- **Intent:** R-065's two claims tried on CardDemo's key; prediction and the key's flag lines before the
+  rules (research §32, ef292d8).
+- **Found:** the key had no flag lines; its version-1 scope judged 69 pairs flags without writing them.
+  Seventy-nine flags written before the rule. The bench's guard compared versions by rule name, and money's
+  name changed with its reading, so it now compares by kind.
+- **Resolved:** `FlagRule` (flag.yes-no v1), `EnumRule` v2 (leaving what flag takes), `MoneyRule` v2
+  (money.used: stored into with another two-place item, or moved to a currency-edited picture). flag 0.986 /
+  0.861; enum v2 0.932 / 0.973; money v2 1.000 / 0.250; function unchanged. R-065 C-1 and C-2 verified;
+  both versions adopted, neither figure falling. `RulesTest` gains the flag cases; `ReviewTest` and the
+  CBTRN02C review trial follow the new versions (the trial's refutation now of a flag).
+- **Touched:** `intent/rules/*`; `test/katana/intent/RulesTest.java`, `ReviewTest.java`,
+  `Cbtrn02cReviewIntegrationTest.java`, `RulesBenchIntegrationTest.java`, `carddemo.key`;
+  `intent/rules/carddemo.scores`; `theGhost.md` (R-065's claims), `docs/HANDOFF.md`, `docs/INTENT-IR.md`,
+  `docs/KERNEL-MAP.md`, research §32.

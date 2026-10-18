@@ -49,7 +49,7 @@ pair is no fact, and as a tagged union it is refused (INT-08).
 `intent/rules` makes facts from the Semantic IR, one rule a file, each named (`kind.reading`), versioned,
 citing the nodes it read, its confidence never above the precision recorded for it on CardDemo's
 hand-written key (`RulesBenchIntegrationTest`, intent/rules/carddemo.scores; a lower score is refused):
-enum.disjoint-88s, money.packed-v99-added and function.perform-range, as docs/ROADMAP.md 5.2 words them.
+flag.yes-no (run first), enum.disjoint-88s v2, money.used v2 and function.perform-range; version 1 of enum and of money as docs/ROADMAP.md 5.2 words them, version 2 by use as evidence (R-065), adopted because neither its precision nor its recall fell.
 
 ## The review file
 

@@ -8,7 +8,7 @@ import katana.sir.types.Program;
 
 /** Every rule, in the order they are run, and a program's Intent IR from them. */
 public final class Rules {
-    public static final List<Rule> ALL = List.of(new EnumRule(), new MoneyRule(), new FunctionRule());
+    public static final List<Rule> ALL = List.of(new FlagRule(), new EnumRule(), new MoneyRule(), new FunctionRule());
 
     private Rules() {}
 
