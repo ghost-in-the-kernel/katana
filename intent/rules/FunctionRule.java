@@ -46,6 +46,7 @@ final class FunctionRule implements Rule {
         }
     }
 
+    /** Each distinct PERFORM range, by the edges naming it, kept where only a PERFORM enters it, it leaves only at its end and it does not PERFORM itself. */
     public List<Fact> infer(Program p) {
         List<Procedure.Edge> edges = p.procedure().edges();
         Map<List<Integer>, Range> ranges = new LinkedHashMap<>();

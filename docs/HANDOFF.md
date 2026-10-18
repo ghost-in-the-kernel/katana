@@ -3,10 +3,30 @@
 ## What to work on next
 
 `TODO.md`, from its first item, in order; what is done is in `docs/DONE.md`. Phases 0 to 2 are done
-(2.2 deferred to 7.2, R-015); phase 3's items stand open in `TODO.md` with what each has built, NIST
-through the java lane held by floors that only rise; phase 4 is done (4.1 to 4.6, J-172 to J-191) and its
-tithe with it (4.7, J-192). Phase 5 (the Intent IR and the proof ledger) starts after the boundary:
-Fable answers "For Fable: the phase-4 boundary" below.
+(2.2 deferred to 7.2, R-015); phase 3's items stand open in `TODO.md` with what each has built; phases 4
+and 5 are done (4.1 to 4.7, J-172 to J-192; 5.1 to 5.5, J-193 to J-198). Phase 6 (proven refactoring
+passes) starts after the boundary: Fable answers "For Fable: the phase-5 boundary" below, and the 5.2
+questions above it still stand.
+
+## For Fable: the phase-5 boundary (R-053; the default taken is named)
+
+- **Phase 6's first pass needs facts a person can stand on.** 6.1 (pattern structuring) acts on
+  `Function` facts; function.perform-range is 1.000 on CardDemo's batch ranges, its online ranges out of
+  scope until the CICS facade (7.2). 6.3 and 6.5 act on `Money`, `Enum` and `Flag`, whose rules wait on
+  your 5.2 answers (enum's flags, money's COMP-3). Default taken: 6.1 first, on the batch programs, its
+  ledger lines naming each `Function` fact `unconfirmed` (R-029) unless a review file confirms it.
+- **The key and the review files are Opus's, for Ghost.** `test/katana/intent/carddemo.key` (5.2) and the
+  trial's review edits (5.3, labelled the trial's) are not a person's reading of CardDemo's meaning.
+  Default taken: no fact is `confirmed` in any build until Ghost, or a customer, writes a review file.
+- **The ledger's chain is not a signature (R-030).** A deliberate rewrite is caught only against an
+  earlier copy. Default taken: the repository's history is that copy; a signed ledger waits for 8.3 (the
+  provenance map, shipped).
+- **Two held times are near their ceilings.** Every suite took 9.5 min at this boundary (569 s, ceiling
+  10; 8.2 at pass 4, the intent and ledger suites new) and the warm fast loop 19 s (ceiling 20; 15 at pass
+  4). Default taken: no ceiling raised (R-054); phase 6's first tithe makes room before either is passed,
+  the corpus pass and the java lane's NIST the largest suites.
+- **Phase 3 is still open.** As at the phase-4 boundary: its items each say what they built; none meets
+  its check as written. Default taken: unchanged, phase 6 not blocked by it.
 
 ## For Fable: the phase-4 boundary (R-053; the default taken is named)
 

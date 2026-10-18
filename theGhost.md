@@ -573,6 +573,25 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-007, R-029, R-024
 - **subject:** architecture
 
+### R-031: A model may only propose intent facts, for a person to confirm, and not in v1
+- **Decision:** no language model takes part in a build (R-004). The one place one could ever appear is
+  proposing Intent IR facts, each written to the review file as `inferred` under a rule named for the model
+  and its version, never confirmed by itself and never acted on until a person confirms it; and not in v1:
+  every fact v1 holds comes from a rule in `intent/rules`, measured against a hand-written key, or from a
+  person.
+- **Why:** determinism is the product (R-004), and the Intent IR is where meaning is inferred, so it is the
+  only place a model's guess could ever help; R-029 and the review file (R-064) already make every proposal
+  a person's to accept. Recording it as refused for v1 stops the question being asked again (docs/ROADMAP.md
+  3.2).
+- **Held by:** `modules.json` (no module may import a model client); `intent/rules` (`Rules.ALL`, each rule
+  scored by `RulesBenchIntegrationTest`); `intent/review` (`Review.merge` keeps a fact unconfirmed until a
+  person's line says otherwise).
+- **Source:** Ghost and Reviewer G, 2026-10-04 (reserved in the roadmap); recorded by Opus, 2026-10-18, at
+  the phase-5 boundary (5.5).
+- **Status:** in force
+- **See also:** R-004, R-007, R-029, R-064
+- **subject:** determinism
+
 ### R-037: Patent protection is intended; nothing public before a provisional is filed
 - **Decision:** Ghost intends to seek patent protection. Candidate claims: per-pass translation
   validation for legacy migration with an append-only provenance ledger; the double-run determinism
@@ -1238,7 +1257,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
-the attribute tuple; R-028 coverage in every proof; R-031 models propose intent only, later, never v1; R-032 passes apply only when
+the attribute tuple; R-028 coverage in every proof; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual
 dispatcher is acceptable output; R-035 the refactoring-distance report; R-036 the Hercules lane's
 legal status.

@@ -3032,3 +3032,20 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `lower/Emitter.java`, `Lower.java`, `Flow.java`; `ledger/*`; `test/katana/ledger/*`,
   `test/katana/lower/ManifestTest.java`; `docs/LEDGER.md`, `docs/checks.json`, `docs/KERNEL-MAP.md`,
   `theGhost.md` (R-030), `scripts/prepush.sh`, `CLAUDE.md`, research §31, `TODO.md`.
+
+### J-198 Tithe pass 5, the phase-5 boundary: phase 5's functions named, its words and its last decision, the roadmap and handoff current
+- **Who:** Opus, on Ghost's go-ahead ("go ahead with 5.5 next"). **Class:** tithe.
+- **Intent:** phase 5.5, no behaviour changed and no golden (P-02); its check written in `TODO.md` first.
+- **Found:** four main-code functions of phase 5 long and uncommented (`FunctionRule.infer`,
+  `MoneyRule.infer`, the `Intent` and `Subject.Union` constructors); phase 5's words (rule, review file,
+  key, manifest) not in the glossary; R-031 still reserved; 5.1 to 5.4 done but in `TODO.md`. The cold fast
+  loop is 36 s (31 at pass 4; reported, not held), the warm 18.
+- **Resolved:** the four commented; the glossary gains the four words; R-031 recorded; 5.1 to 5.4 moved to
+  `docs/DONE.md`; HANDOFF names the phase-5 boundary's questions for Fable, each with its default.
+- **Touched:** `intent/rules/FunctionRule.java`, `MoneyRule.java`; `intent/types/Intent.java`,
+  `Subject.java`; `docs/GLOSSARY.md`, `theGhost.md` (R-031), `TODO.md`, `docs/DONE.md`, `docs/HANDOFF.md`,
+  `docs/KERNEL-MAP.md`.
+- **Measured:** the pre-push check over every suite passed in 569 s (9.5 min, ceiling 10; 8.2 at pass 4) on
+  5516d15, the warm fast loop 19 s (ceiling 20), cold 36 (unheld). `docs/AGENT.md` gains pass 5's column;
+  HANDOFF says both held times are near their ceilings, with the default: none raised, room made in phase
+  6's first tithe.

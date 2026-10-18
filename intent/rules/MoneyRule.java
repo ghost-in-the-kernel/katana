@@ -31,6 +31,7 @@ final class MoneyRule implements Rule {
         return 0.5;
     }
 
+    /** Each numeric `V99` packed-decimal item an ADD or SUBTRACT stores into and none multiplies by itself. */
     public List<Fact> infer(Program p) {
         List<Statement> all = Walk.statements(p);
         List<Fact> facts = new ArrayList<>();

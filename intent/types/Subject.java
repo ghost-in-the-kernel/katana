@@ -35,6 +35,7 @@ public sealed interface Subject {
 
     /** An item and the items that REDEFINES it, each one alternative; `tag` the item whose value says which (INT-08). */
     record Union(int item, List<Integer> alternatives, int tag) implements Subject {
+        /** INT-08 before INT-02: a tag named, then an item, alternatives distinct and none the item or the tag. */
         public Union {
             alternatives = List.copyOf(alternatives);
             if (tag < 1) throw new Invalid("INT-08", "item " + item + " with alternatives " + alternatives + " names no tag");

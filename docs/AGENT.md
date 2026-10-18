@@ -33,18 +33,18 @@ the pre-push check are held on every push (R-054 amended, J-163): `scripts/prepu
 `scripts/Ceilings.java` refuses a push past the ceiling in the target column; `MetricsTest` refuses a
 recorded time past it. The cold fast loop and the skipped tests are reported, not held.
 
-| Metric | Phase 0 target | Measured (tithe pass 4, 2026-10-17) | Why it matters to the agent | Pass 3a | Pass 2 | Pass 2a | Pass 1 | Pass 0 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Mandatory context (words) | < 1,500 | 804 | every task pays it | 804 | 804 | 795 | 872 | 636 |
-| Fast loop (s) | ≤ 25 (20 from tithe pass 3's close; held, R-054 amended) | 15 (warm, in the pre-push container at cf630c6; 17 by `gradle metrics`) | the agent runs it after every edit | 17 | 14 | 11 | 9 | 12 |
-| Fast loop, cold (s) | < 30 | 31 (reported, not held: R-054) | a fresh session pays it once | 26 | 22 | 20 | 24 | — |
-| Pre-push check, every suite (min) | ≤ 10 (held; ratcheted from 15 on 2026-10-17, 8.2 measured, R-054; "under 3" retired; 12 corrected to 15, R-054 amended) | 8.2 (491 s at cf630c6, all eight suites; J-189's lexer fix the most of the cut) | paid before every push while CI has no minutes (R-050) | 10.5 | 3.5 | 3.4 | — | — |
-| Pre-push check, the suites a push selects (min) | ≤ 10 (held, R-054 amended) | 8.2 at most (every suite, above, is the most a push can select) | what each push waits | 5.7 | — | — | — | — |
-| Largest source file (lines) | < 400 | 360 (lower/Verbs.java; lower/FileVerbs split at 399 into FileDecls, 4.7) | fits a read without paging | 327 | 258 | 344 | 241 | 179 |
-| Files a routing row opens | ≤ 5 | 4 | first five reads decide the task | 4 | 4 | 4 | 4 | 4 |
-| Functions over 20 paths | 0 new | 0 | branching is where agents misread | 0 | 0 | 0 | 0 | 0 |
-| Duplicate helpers (same body, two names) | 0 | 0 | the agent edits one and misses the other | 0 | 0 | 0 | 0 | 0 |
-| Decisions without `See also` | 0 | 0 | grep misses what links find (T-18) | 0 | 0 | 0 | 0 | 0 |
-| Docs lines per source line | < 0.35 | 0.24 | Suite Builder reached 0.37 and it hurt | 0.26 | 0.32 | 0.33 | 0.45 | 1.13 |
-| Stale generated artifacts | 0 | 0 | detected by test | 0 | 0 | 0 | 0 | 0 |
-| Skipped tests reported on the fast loop | 0 | 0 | a real skip hides among 119 (T-15) | 0 | 0 | 0 | 0 | 0 |
+| Metric | Phase 0 target | Measured (tithe pass 5, 2026-10-18) | Why it matters to the agent | Pass 4 | Pass 3a | Pass 2 | Pass 2a | Pass 1 | Pass 0 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Mandatory context (words) | < 1,500 | 861 | every task pays it | 804 | 804 | 804 | 795 | 872 | 636 |
+| Fast loop (s) | ≤ 25 (20 from tithe pass 3's close; held, R-054 amended) | 19 (warm, in the pre-push container at 5516d15; 18 by `gradle metrics`; 1 under its ceiling, HANDOFF) | the agent runs it after every edit | 15 | 17 | 14 | 11 | 9 | 12 |
+| Fast loop, cold (s) | < 30 | 36 (reported, not held: R-054) | a fresh session pays it once | 31 | 26 | 22 | 20 | 24 | — |
+| Pre-push check, every suite (min) | ≤ 10 (held; ratcheted from 15 on 2026-10-17, 8.2 measured, R-054; "under 3" retired; 12 corrected to 15, R-054 amended) | 9.5 (569 s at 5516d15, all ten suites; intent and ledger new; 0.5 under its ceiling, HANDOFF) | paid before every push while CI has no minutes (R-050) | 8.2 | 10.5 | 3.5 | 3.4 | — | — |
+| Pre-push check, the suites a push selects (min) | ≤ 10 (held, R-054 amended) | 9.5 at most (every suite, above) | what each push waits | 8.2 | 5.7 | — | — | — | — |
+| Largest source file (lines) | < 400 | 360 (lower/Verbs.java) | fits a read without paging | 360 | 327 | 258 | 344 | 241 | 179 |
+| Files a routing row opens | ≤ 5 | 4 | first five reads decide the task | 4 | 4 | 4 | 4 | 4 | 4 |
+| Functions over 20 paths | 0 new | 0 | branching is where agents misread | 0 | 0 | 0 | 0 | 0 | 0 |
+| Duplicate helpers (same body, two names) | 0 | 0 | the agent edits one and misses the other | 0 | 0 | 0 | 0 | 0 | 0 |
+| Decisions without `See also` | 0 | 0 | grep misses what links find (T-18) | 0 | 0 | 0 | 0 | 0 | 0 |
+| Docs lines per source line | < 0.35 | 0.24 | Suite Builder reached 0.37 and it hurt | 0.24 | 0.26 | 0.32 | 0.33 | 0.45 | 1.13 |
+| Stale generated artifacts | 0 | 0 | detected by test | 0 | 0 | 0 | 0 | 0 | 0 |
+| Skipped tests reported on the fast loop | 0 | 0 | a real skip hides among 119 (T-15) | 0 | 0 | 0 | 0 | 0 | 0 |
