@@ -16,7 +16,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * R-066's doc test for the first review file: every fact line is a fact the rules infer on its program,
- * every fact they infer has its line, each line carries its four readings, and the file loads as a review
+ * every fact they infer has its line, each line carries its readings and each built test's verdict as the test
+ * computes it now, and the file loads as a review
  * with nothing orphaned. Under `-Dkatana.record=true` it writes the file, refusing to when any line
  * holds a person's or Fable's word.
  */
@@ -54,13 +55,17 @@ class BatchReviewIntegrationTest {
             assertEquals(List.of(), loaded.reported(), p.header().program());
             List<String> lines = part.lines().filter(l -> !l.isBlank() && !l.startsWith("#")).toList();
             assertEquals(Rules.infer(p).facts().size(), lines.size(), p.header().program() + ": a line a fact");
+            Map<String, katana.intent.types.Fact> byLine = BatchReview.byLine(p);
             for (String fact : lines) {
-                List<String> after = part.lines().dropWhile(l -> !l.equals(fact)).skip(1).limit(5).toList();
-                assertTrue(after.size() == 5 && after.get(0).startsWith("#   evidence: ") && after.get(1).startsWith("#   rule: ") && after.get(2).matches("#   Fable \\(proposal, R-031\\): \\d+% because .+")
-                        && after.get(3).startsWith("#   tests: ") && after.get(4).startsWith("#   docs: "), fact + " has its readings, its proposal and the tests it names");
+                List<String> after = part.lines().dropWhile(l -> !l.equals(fact)).skip(1).takeWhile(l -> l.startsWith("#")).toList();
+                List<String> verdicts = after.stream().skip(4).takeWhile(l -> l.startsWith("#   T-")).toList();
+                assertTrue(after.size() >= 5 + verdicts.size() && after.get(0).startsWith("#   evidence: ") && after.get(1).startsWith("#   rule: ") && after.get(2).matches("#   Fable \\(proposal, R-031\\): \\d+% because .+")
+                        && after.get(3).startsWith("#   tests: ") && after.get(4 + verdicts.size()).startsWith("#   docs: "), fact + " has its readings, its proposal, the tests it names and their verdicts");
                 for (String id : after.get(3).replaceAll("\\([^)]*\\)", "").replaceAll(";.*", "").replace("#   tests: ", "").split(",\\s*")) {
                     assertTrue(id.isBlank() || java.util.regex.Pattern.compile("\\*\\*" + id.strip() + "[ *]").matcher(CATALOGUE).find(), id + " is in research section 33's catalogue");
                 }
+                String named = BatchReview.proposals().get(p.header().program() + " | " + fact.split("\\s*\\|\\s*")[1] + " | " + fact.split("\\s*\\|\\s*")[2])[2];
+                assertEquals(ReviewTests.verdicts(p, byLine.get(fact), named).stream().map(v -> "#   " + v.line()).toList(), verdicts, fact + ": each built test's verdict is what it computes now");
             }
             facts += lines.size();
             assertTrue(loaded.intent().facts().stream().noneMatch(f -> f.state().status() == State.Status.CONFIRMED && !f.state().who().equals("Ghost")), "only a person confirms");

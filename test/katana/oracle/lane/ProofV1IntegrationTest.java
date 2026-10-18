@@ -38,6 +38,7 @@ class ProofV1IntegrationTest {
         Map<String, Map<String, Report.Coverage>> byJob = new LinkedHashMap<>();
         Map<String, List<String>> differ = new TreeMap<>();
         for (String job : JOBS) prove(job, runA, runB, byJob, differ);
+        katana.intent.PerformTraces.hold(performs(), JOBS);
         assertEquals(Map.of(), differ, "datasets that differ, and programs whose java trace is not the cobc trace");
         hold("CARDDEMO.coverage.md", ProofReport.coverage(byJob));
     }
@@ -135,6 +136,19 @@ class ProofV1IntegrationTest {
     private static Path source(String program) {
         Path lower = CARDDEMO.resolve("app/cbl/" + program + ".cbl");
         return Files.exists(lower) ? lower : CARDDEMO.resolve("app/cbl/" + program + ".CBL");
+    }
+
+    /** Each java-lane step's PERFORM trace (rt/PerformTrace), the jobs in order, each job's steps by name (T-F3, research §34). */
+    private static List<List<String>> performs() throws Exception {
+        List<List<String>> out = new ArrayList<>();
+        for (String job : JOBS) {
+            Path dir = ROOT.resolve("build/proof1-java/" + job + "/perform");
+            if (!Files.exists(dir)) continue;
+            try (var files = Files.list(dir)) {
+                for (Path f : files.sorted().toList()) out.add(Files.readAllLines(f, java.nio.charset.StandardCharsets.ISO_8859_1));
+            }
+        }
+        return out;
     }
 
     private static void hold(String name, String report) throws Exception {

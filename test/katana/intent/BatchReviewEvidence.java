@@ -142,7 +142,7 @@ final class BatchReviewEvidence {
     }
 
     /** The paragraphs whose IF, EVALUATE, PERFORM UNTIL or SEARCH, or a branch's condition, reads the item. */
-    private static Set<String> checked(Program p, int item) {
+    static Set<String> checked(Program p, int item) {
         Set<String> checked = new LinkedHashSet<>();
         for (At a : statements(p)) {
             Statement s = a.s();

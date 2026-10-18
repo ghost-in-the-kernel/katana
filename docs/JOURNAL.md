@@ -3158,3 +3158,34 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `sir/contract/Contract.java`, `sir/ir.golden`; `test/katana/intent/BatchReview*.java`,
   `FunctionRangeStructure*.java`, `BatchReviewIntegrationTest.java`, `carddemo-batch.review`, `.notes`,
   `.proposals`; `docs/checks.json`, `docs/KERNEL-MAP.md`, `docs/HANDOFF.md`, research section 33.
+
+### J-205 Every test the review advisor named, built, its verdict under each fact
+- **Who:** Opus, on Ghost's word ("go ahead and build the remaining tests"). **Class:** build; trial.
+- **Intent:** the seven tests research section 33 named and J-204 left unbuilt (T-F2, T-F3, T-E1, T-E2,
+  T-E3, T-M1, T-M2), each with its killer mutation, and each one's word on the review file's facts;
+  predicted in research section 34 before the tests.
+- **Found:** as predicted but one: CODATECN's two condition sets cannot be told by T-E1 (CBACT01C stores only
+  named values, but hands the record to COBDATFT, assembler), where the advisor expected them to hold.
+  Refuted, as the kinds are defined: APPL-RESULT in all eight programs (T-E1, 8 and 12 stored), the six file
+  statuses (T-E3: '35' on OPEN INPUT of an absent file, cobc and the java lane alike), HTML-FIXED-LN (T-E2,
+  never tested). Everything else holds or cannot be told: all 175 function facts on sir/'s graph and on
+  cobc's listing; 84 of the 91 ranges T-F3 is named for entered in the proven jobs' runs, only by PERFORM;
+  all 13 money facts' partners amounts; every copybook amount named for T-M2 printed by some CardDemo
+  program. T-F2's guard, cobc's PERFORM and GO TO references against the IR's edge count, refused the
+  reader twice before it read the listing right (a name cut at 28 characters, a count on its own line).
+- **Resolved:** `rt/PerformTrace`: with `KATANA_PERFORM_TRACE_FILE` set, `Dispatcher` writes each PERFORM,
+  return, drop, fall and exit, and `Trace.paragraph` each entry, to a file of its own (the paragraph trace
+  stays cobc's form, held by ProofV1); the java lane sets it beside the paragraph trace, under perform/.
+  ProofV1IntegrationTest holds the traces' summary, test/katana/intent/carddemo-batch.performs. In
+  test/katana/intent: `EnumValuesStored` (T-E1), `EnumIsRead` (T-E2), `CallEnds` (a CALL's other end in
+  CardDemo, by offset in the group handed), `FileStatusAbsent` (T-E3's word), `MoneyFlow` (T-M1),
+  `MoneyEditedElsewhere` (T-M2), `FunctionRangeXref` (T-F2, cobc's listing read), `PerformTraces` (T-F3),
+  `ReviewTests` (the built tests by id and each verdict), `Verdict`, `Small`; a unit test each on programs
+  small enough to read, carrying the advisor's mutation; `FunctionRangeXrefIntegrationTest`; in
+  test/katana/lower `FileStatusAbsentIntegrationTest` on `status/STATUS35.cbl`. The review file shows each
+  built test's verdict under the fact's tests line; BatchReviewIntegrationTest holds each to what the test
+  computes now.
+- **Touched:** `rt/katana/rt/PerformTrace.java`, `Dispatcher.java`, `Trace.java`; `oracle/lane/JavaPrograms.java`;
+  `test/katana/intent/*` as above, `carddemo-batch.review`, `carddemo-batch.performs`;
+  `test/katana/oracle/lane/ProofV1IntegrationTest.java`; `test/katana/lower/FileStatusAbsentIntegrationTest.java`,
+  `test/katana/lower/status/STATUS35.cbl`; `docs/checks.json`, `docs/HANDOFF.md`, research sections 33 and 34.

@@ -28,14 +28,16 @@ questions above it still stand.
    Ghost reads it. CBTRN02C first in the file, since the trial read it; 6.1 starts after Ghost's review
    or on his word to go ahead without it.
 
-## For Ghost: the review file is ready to read (R-066; J-204)
+## For Ghost: the review file is ready to read (R-066; J-204, J-205)
 
 test/katana/intent/carddemo-batch.review, CBTRN02C first: every fact with its evidence in plain words, the
 rule's confidence, a Fable advisor's proposal (a proposal, never a confirmation), the tests or documents
 named for it, and what CardDemo's authors wrote. Answer on the fact line: `confirmed`, `refuted` with what
-it is instead, or `could not tell:` and what you would have needed. Still open before the file is complete
-in R-066's terms: T-F2, T-F3 (a change to rt/ to decide), T-E1 to T-E3, T-M1, T-M2 to build; D-F1, D-E1,
-D-E2 are IBM pages the network here refuses, to quote when reachable; D-M1 and D-M2 to make.
+it is instead, or `could not tell:` and what you would have needed. Every test the advisor named is built,
+its verdict under the fact (holds, refutes, cannot tell, and why; evidence for your answer, never the
+answer): 8 enum facts are refuted by T-E1 (APPL-RESULT), 6 by T-E3 (the file statuses), 1 by T-E2
+(HTML-FIXED-LN); nothing else is refuted. Still open: D-F1, D-E1, D-E2 are IBM pages the network here
+refuses, to quote when reachable; D-M1 and D-M2 to make.
 
 ## For Fable: the phase-5 boundary (R-053; the default taken is named)
 
