@@ -1795,3 +1795,40 @@ are few (CBSTM03B's `GO TO nnnn-EXIT` jumps to the end of its own range's last p
 ends, so obligation 6 keeps it). On NIST, every report the same. The rival: an obligation the graph
 discharges that the run disproves, which shows as a dataset or trace that differs, or a NIST report that
 changes, and stops the pass where it shows.
+
+## 36. 6.1's third pattern: a PERFORM VARYING with a monotone counter becomes a `for` (R-032; J-211)
+
+**What it changes.** A PERFORM VARYING is lowered today always as stretches (`Performs.varying`): the FROM
+moves, a test stretch per phrase, a step stretch, each a `s<label>` the switch steps. Structured, a loop of
+one phrase becomes a Java `for` over the COBOL field itself, in the caller's own stretch:
+
+```
+<FROM moved into the counter>;
+for (; !(<UNTIL>); <the counter stepped BY>) { <the inline body, or perform<first>();> }      // TEST BEFORE
+for (;; <the counter stepped BY>) { <body>; if (<UNTIL>) break; }                            // TEST AFTER
+```
+
+The same moves, tests and steps in the same order as the stretches (LR 6.4 pp. 419-421, as research §16's
+reading and `Performs` already have them), so it holds whatever the body does; the obligations are what make
+it honest to call it a `for`, the counter the loop's own.
+
+**Obligations** (R-032; the PERFORM is left as it was where one fails, and the pass says why):
+
+1. One VARYING phrase. With AFTER, COBOL sets every inner identifier FROM before the outer test, and after
+   stepping the outer one sets the inner FROM again before testing the outer condition, so at the end each
+   inner identifier holds its FROM value (`Performs.varying`'s comment, NC201A); nested `for` loops leave it
+   where its own test stopped it. Not the same; refused.
+2. Its body is structured Java: an inline body that holds no out-of-line PERFORM but of a range the plan makes
+   a method, no other VARYING but one the plan makes a `for` (inner loops first), no SEARCH and no SORT or MERGE
+   procedure; or an out-of-line PERFORM of a range the plan makes a method.
+3. The counter is monotone: BY is a numeric literal other than zero (or absent, 1), and nothing in the body,
+   nor in any paragraph a PERFORM in it reaches, stores into the counter or a group holding it, or hands it
+   to a CALL.
+
+No intent fact licenses it; its proof is the run's. The ledger has a removal line for each stretch it removes.
+
+**Predicted, before the build.** CardDemo's batch programs hold two PERFORM VARYINGs, both CBSTM03A's
+4000-TRNXFILE-GET, the second inside the first, its body PERFORMing 6000-WRITE-TRANS (a method since J-210):
+both become `for` loops, and CREASTMT reports and traces as literal. NIST: many become `for` loops, every run
+reporting what it reports literal; those with AFTER stay stretches. The rival: a loop the obligations admit
+whose run differs, which the comparison of each run with its literal self shows.
