@@ -1654,3 +1654,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/PerformTrace.java:PerformTrace.caller` |  | 2026-10-18 |  |
 | rt | `rt/katana/rt/PerformTrace.java:PerformTrace.program` |  | 2026-10-18 |  |
 | rt | `rt/katana/rt/PerformTrace.java:PerformTrace.line` |  | 2026-10-18 |  |
+| oracle | `oracle/nist/ModuleRun.java:ModuleRun.run#2` |  | 2026-10-18 |  |

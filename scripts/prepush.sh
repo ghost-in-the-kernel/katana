@@ -6,11 +6,12 @@
 # A change to sir/, lower/ or rt/ runs the quick NIST (NC and IF, about 140 programs; tithe pass 2,
 # C2); a change to oracle/nist/ or the profile runs all of it, which then covers the quick one.
 # The corpus is copied from this checkout's verified clones (hard links), not fetched; fetch.sh then
-# checks each pinned one is at its commit. One container runs `gradle build` and every chosen suite.
+# checks each pinned one is at its commit. One container builds, runs every chosen suite, then the fast loop.
 # First, R-008's gate (J-154): past sixteen commits since the last "Tithe" commit, a non-tithe head is
 # refused unless theGhost.md records `Tithe deferred through <commit>` (scripts/TitheGate.java).
-# Last, R-054's ceilings (J-163): the fast loop is run again warm in the same container and timed, and
-# it and the check's own time are held to docs/AGENT.md's ceilings (scripts/Ceilings.java).
+# Last, R-054's ceilings (J-163): the fast loop is run once, last, warm in the same container, and timed
+# (`gradle build` ran it a first time too, for nothing: J-206), and it and the check's own time are held
+# to docs/AGENT.md's ceilings (scripts/Ceilings.java).
 set -e
 cd "$(dirname "$0")/.."
 ROOT=$(pwd)
@@ -74,7 +75,7 @@ git clone -q "$ROOT" "$WORK/katana"
 for c in nist-cobol85-test-suite carddemo omp-cobol-course gnucobol-autotests; do cp -al "$ROOT/corpus/$c" "$WORK/katana/corpus/$c"; done
 sh "$WORK/katana/corpus/fetch.sh" nist-cobol85-test-suite carddemo omp-cobol-course gnucobol-autotests >/dev/null
 cd "$WORK/katana"
-TASKS="build"; [ -n "$tests" ] && TASKS="build integration $tests"
+TASKS="assemble testClasses"; [ -n "$tests" ] && TASKS="assemble testClasses integration $tests"
 status=0
 docker run --rm --network none -u "$(id -u)" -v "$PWD":/katana katana sh -c \
   "gradle $TASKS $PROPS --offline --warning-mode fail && s=\$(date +%s) && gradle test --offline --rerun-tasks -q && echo warm-fast-loop=\$((\$(date +%s) - s))" >"$WORK/gate.log" 2>&1 || status=$?

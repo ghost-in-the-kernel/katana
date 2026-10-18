@@ -3189,3 +3189,32 @@ taken; closed by a later `decision` entry naming it).
   `test/katana/intent/*` as above, `carddemo-batch.review`, `carddemo-batch.performs`;
   `test/katana/oracle/lane/ProofV1IntegrationTest.java`; `test/katana/lower/FileStatusAbsentIntegrationTest.java`,
   `test/katana/lower/status/STATUS35.cbl`; `docs/checks.json`, `docs/HANDOFF.md`, research sections 33 and 34.
+
+### J-206 Tithe: the NIST goldens' two dialects at once, so the pre-push check ends under its ceiling again
+- **Who:** Opus, on Ghost's word ("go ahead with the tithe"). **Class:** tithe.
+- **Intent:** make room under the 10-minute ceiling of the pre-push check, every suite (R-054), which J-205's
+  commit and the code before it both missed on this machine (10.1 to 11.4 minutes, and 10.6 on b0ba390);
+  the ceiling is not raised.
+- **Found:** the gate's timeline, from the test reports' start times: the integration classes start in
+  package order, four at once, and ModuleRunIntegrationTest, last of the long ones, started at 411 s and
+  ran its two dialects one after the other, each ending on NC alone; from 450 s to 579 s it ran by itself
+  with three of the four processors idle. J-205's review doc test was itself made linear (105 s to 19 s:
+  one merge a fact, CardDemo's programs parsed only when a test asks for one).
+  The gate also ran the fast loop twice: in `gradle build` (through `check`), then again to time it warm,
+  the second failing the gate as the first did.
+- **Resolved:** ModuleRunIntegrationTest runs the dialects at once, each in its own folders as before; alone,
+  121 s for both (the integration suites then ended at 565 s, from 595). scripts/prepush.sh builds with
+  `assemble testClasses` and runs the fast loop once, last, timed. Still 10.4 minutes: the tail was each
+  dialect's NC, run in turn in one folder. `ModuleRun.run` takes a part of a module's main programs, and the
+  golden run cuts NC in two, each half in a folder of its own; both goldens hold to the byte, so NC's
+  programs share no file. Tried and taken out: the goldens run from the start in a clone and a container
+  of their own; the check took 10.6 minutes, the machine being short of processors throughout, not idle
+  at the end. That run found a race: ProofV1IntegrationTest and CardDemoJavaLaneIntegrationTest both
+  took the cobc runs their `job:` sources come from under build/carddemo-java-sources, and run at once
+  each removed the other's folder; each now has its own. Looked at and left: CardDemo's online programs
+  fall back from SLL to full LL, where one EVALUATE decision looks up to 1,296 tokens ahead (CORPT00C:
+  5.3 s of LL, 4.3 of them there), about 50 s of the check's processor time, and a grammar change is not
+  a tithe's; NIST parses in 10 s in all, 3 programs of 437 falling back, so the Java lane's time is its
+  javac and JVM per run, not parsing (J-188's comment no longer holds). No behaviour and no golden changed.
+- **Touched:** `test/katana/oracle/nist/ModuleRunIntegrationTest.java`, `oracle/nist/ModuleRun.java`,
+  `scripts/prepush.sh`, `test/katana/oracle/lane/CardDemoJavaLaneIntegrationTest.java`.
