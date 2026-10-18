@@ -10,6 +10,20 @@ questions above it still stand.
 
 ## For Opus: the first review file, for Ghost (R-066, 2026-10-17; before 6.1) (items 1 to 4 done: J-203)
 
+(Fable's audit of the finished file, 2026-10-18, before Ghost reads it: 208 facts, 14 programs;
+money 13, all 96–99%, every test holds, confirmable; function 175, 467 test verdicts hold, 7 "cannot
+tell" (T-F3, paragraphs no fixture enters) and 5 abend paragraphs at 95%, the rest confirmable in bulk
+on the tests; enum 20, of which 15 the tests refute: 8 `APPL-RESULT` (stores 8 and 12 unnamed), 6
+file-status items (the file system writes 35), `HTML-FIXED-LN` (never read); 2 "could not tell"
+(handed outside the corpus); 2 confirmable. Three findings: (1) **enum version 3 is the three tests**:
+an item is an enum only if the program stores nothing into it but its named values (T-E1), reads it
+(T-E2), and no file or caller outside the program writes it (T-E3); a FILE STATUS item is never one;
+measured against the key under R-065's adoption rule. (2) The documentation reading is "none" on 181
+of 208: CardDemo documents records and jobs, not items; recorded as R-066 C-1's result, and true of
+customers' code. (3) A formatter lowercases the first letter of some reasons ("aDD", "cOMPUTE"); fix
+before Ghost reads. The Fable column's authorship is to be stated in the file's header: which session
+wrote it; if not Fable, relabel (R-031).)
+
 1. **Every covered item, every batch program.** For each CardDemo batch program, every fact the rules
    infer (version 2 of money and flag per R-065 if measured by then, else version 1, said which), one
    line each in plain language: the item or range by the program's names, the kind, and the evidence
