@@ -10,6 +10,7 @@ import katana.sir.types.Program;
 
 /** One program's Intent IR (R-007): its facts, under the profile its Semantic IR was built with. */
 public record Intent(String program, String profileHash, List<Fact> facts) {
+    /** INT-06: the program and its profile hash named, and no two facts of one kind about one subject. */
     public Intent {
         facts = List.copyOf(facts);
         if (program == null || program.isBlank() || profileHash == null || !profileHash.matches("sha256:[0-9a-f]{64}")) throw new Invalid("INT-06", "program '" + program + "' under '" + profileHash + "'");

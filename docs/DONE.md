@@ -344,3 +344,57 @@ by the fixtures, every paragraph none entered listed (J-191).
 CREASTMT (PROOF-04), every dataset compared the same; CREASTMT's statements said not compared (R-027).
 `oracle/proof/CARDDEMO.coverage.md`: 106 of 113 paragraphs of the five programs entered; the seven left are
 each program's abend and I/O-error paragraphs, which no fixture's data reaches.
+
+## Phase 5: the Intent IR and the proof ledger
+
+### 5.1 `intent/types`
+
+Check: none in the roadmap; written here before the item starts. The fact kinds with their evidence,
+confidence and state (docs/INTENT-IR.md, held to `intent/types` by a test, as SEMANTIC-IR.md is); each
+invariant refuses a violation; the facts a person writes for CardDemo's CBTRN02C accepted against its IR
+and refused with a node moved; R-029 recorded, a refuted fact never among those a pass may act on
+(research §28).
+
+*Done (J-193):* `intent/types`: `Fact` (its `Kind`, `Subject`, `Evidence`, confidence and `State`) and
+`Intent`, one program's facts under its profile hash, checked against its IR (INT-01 to INT-07,
+docs/INTENT-IR.md, `IntentDocTest`). The thirteen facts written for CBTRN02C accepted, and refused with a
+node moved (`Cbtrn02cIntentIntegrationTest`). R-029 recorded.
+
+### 5.2 `intent/rules`
+
+Check: none in the roadmap; written here before the item starts. The roadmap's first three rules (enum,
+money, function), one file each, their precision and recall on CardDemo against the hand-written key
+(`test/katana/intent/carddemo.key`), recorded and held by a test that refuses a lower score; each rule's
+facts accepted against its program's IR (INT-07) and its confidence no more than its recorded precision
+(research §29).
+
+*Done (J-195):* `intent/rules`: enum.disjoint-88s (precision 0.588, recall 0.973), money.packed-v99-added
+(1.000 on its one fact, recall 0.009: CardDemo's money is zoned), function.perform-range (1.000, 1.000 on
+the batch programs' 175 ranges), held by `RulesBenchIntegrationTest` against `test/katana/intent/carddemo.key`
+in intent/rules/carddemo.scores; `RulesTest` keeps and breaks each condition. Each rule's next version waits
+on Fable (HANDOFF).
+
+### 5.3 The review file
+
+Check: none in the roadmap; written here before the item starts. A program's facts written to a plain
+`<PROGRAM>.review` beside it by the program's names, a person's confirmations, refutations and own facts
+read back and surviving a rebuild, a renumbering included; a renamed subject's line kept as orphaned and
+reported, never rebound; a refuted fact staying refuted under the rule version that refuted it (R-029); the
+trial on CBTRN02C (research §30).
+
+*Done (J-196):* `intent/review` (R-064): `<PROGRAM>.review` by the program's names; a person's confirmations,
+refutations and own facts kept across a rebuild; a renumbering leaves CBTRN02C's review byte for byte the
+same, a rename orphans its one line and reports it; a refuted fact returns only under a newer rule version
+(`ReviewTest`, `Cbtrn02cReviewIntegrationTest`).
+
+### 5.4 `ledger/`
+
+Check: `ledger.test` refuses an edit to an existing line; every Java symbol in a build has at least
+one line; a symbol removed by a pass has a `superseded-by`. The Java symbols are those the lowering's manifest names
+(research §31); the trial is the four proven jobs' programs.
+
+*Done (J-197):* `ledger/` (R-030, docs/LEDGER.md, LED-01 to LED-04): lines chained by hash and an `end` line,
+an edit, deletion, insertion or reorder refused (`LedgerTest`); the lowering's manifest of the symbols it
+writes (`ManifestTest`); the proven jobs' five programs each a literal ledger covering every symbol, a
+removal refused until superseded (`LiteralLedgerIntegrationTest`); the provenance map and the report's
+ledger section written from the live lines.

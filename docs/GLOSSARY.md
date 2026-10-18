@@ -18,6 +18,10 @@ have caught a real slip (R-039).
 | **Semantic IR** | what the program does: data map, paragraph graph, statements over Fields, files, the profile header; exact, complete, mechanically derived | AST (that is the front end's tree), model, IR (alone) |
 | **Intent IR** | what the program means: inferred facts with evidence, confidence and confirmation state | directive, annotations, hints, inference map |
 | **fact** | one line of the Intent IR | annotation, tag, label |
+| **rule** | an inference rule of `intent/rules`, named `kind.reading` and versioned, that makes facts from the Semantic IR | heuristic, detector |
+| **review file** | `<PROGRAM>.review`: a person's confirmations and refutations of a program's facts, written by its names (R-064) | annotations file, overrides |
+| **key** | the hand-written answers a rule's precision is measured against, written before the rule (`test/katana/intent/carddemo.key`) | ground truth, labels |
+| **manifest** | the lowering's list of the Java symbols it wrote, each on the COBOL node it stands on | symbol table (that is a compiler's), index |
 | **ledger** | the proof ledger: append-only record of pass, fact, run, symbol, COBOL node, profile | log, history, audit trail (use only when quoting a regulator) |
 | **map** | the provenance map written from the ledger: per Java symbol, what it stands on | trace, lineage, kernel map (that is the tool's own: see below) |
 | **kernel map** | the tool's own append-only function ledger, `docs/KERNEL-MAP.md` | map |
