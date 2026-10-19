@@ -46,6 +46,11 @@ class DocTests {
     }
 
     @Test
+    void supplyChain() {
+        assertEquals(List.of(), SupplyChainTest.run().problems());
+    }
+
+    @Test
     void todo() {
         assertEquals(List.of(), TodoTest.run().problems());
     }
