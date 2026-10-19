@@ -3403,3 +3403,31 @@ taken; closed by a later `decision` entry naming it).
   by version only, and the account settings that are not code.
 - **Touched:** `.github/workflows/ci.yml`; `test/SupplyChainTest.java`, `test/DocTests.java`;
   `theGhost.md`; `CLAUDE.md`; `docs/JOURNAL.md`.
+
+### J-215 6.3: scalar promotion, an item no bytes alias a Java variable, every store exact
+- **Who:** Opus, on Ghost's word ("lets move on to 6.3"; the choices "Exact always" and "long, BigDecimal if
+  scaled", R-068). **Class:** build; trial; decision.
+- **Intent:** research §39, before the build: a numeric item whose bytes only its own reads and stores touch
+  becomes a `long` (integer, at most 18 digits) or a `BigDecimal` at its scale, named for the item, its `Field`
+  gone; a store from arithmetic through `Decimal.store` (`rt/Scalars.store`), a MOVE through a field of the item's
+  attributes read back (`Scalars.received`), a literal the item holds as written a plain assignment, a read that
+  needs bytes a field the value is encoded into (`Scalars.field`).
+- **Found:** as predicted on CardDemo's batch: 40 of 292 numeric items (32 `long`, 8 `BigDecimal`), every job's
+  report and trace as literal; NIST 3,844 of 10,470 (predicted about 4,000), every module's runs as literal.
+  Three faults before that, each caught by the proof: CBSTM03A's PERFORM VARYING counters were promoted,
+  the pass reading the VARYING identifier only among a PERFORM's operands while an inline PERFORM holds it in
+  its branch's condition, and 6.1's `for` moved FROM into a field it then dropped (an index of -318); SG's
+  segmented programs, which structuring refuses, did not compile, the lowering taking a plan that only promotes
+  for a structured one (`Halt` undeclared); IC226A's EXT-DATA-3 and -4 were promoted under an EXTERNAL record
+  the program it CALLs shares, the pass reading EXTERNAL on the item and not on its record.
+- **Resolved:** the pass reads VARYING where `lower/Performs` does; `Plan.structured()` says whether the plan
+  changes the flow, and the lowering asks it, not whether the plan is literal; an EXTERNAL or GLOBAL group
+  refuses. A MOVE into a promoted item by any path not converted now stops the lowering
+  (`Exprs.moveInto`, `receiving`), where the first fault had silently written into a scratch field.
+  `rt/ScalarsTest` holds `Scalars.store` to `Arithmetic.store` over each usage, sign, rounding and size-error
+  phrase, a division by zero among the results.
+- **Touched:** `rt/katana/rt/Scalars.java`; `lower/Promoted.java` (new), `Lower.java`, `Exprs.java`,
+  `Arith.java`, `ArithVerbs.java`, `Performs.java`, `Verbs.java`, `Values.java`, `Flow.java`;
+  `passes/Scalars.java` (new), `Structuring.java`, `StructuringLedger.java`; `test/katana/passes/ScalarsTest.java`,
+  `test/katana/rt/ScalarsTest.java`, `test/katana/lower/ManifestTest.java`; `docs/LEDGER.md`, `docs/KERNEL-MAP.md`;
+  `TODO.md`; `theGhost.md` (R-068's Held by).

@@ -65,7 +65,8 @@ public final class Structuring {
         Map<Integer, Integer> cycles = new HashMap<>();
         Set<Integer> inline = program.isEmpty() ? Inline.inline(p, methods, loops, cycles, refused) : Set.of();
         Set<Integer> main = program.isEmpty() ? MainLine.main(p, methods, loops, cycles, refused) : Set.of();
-        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles), applied, refused);
+        Set<Integer> scalars = Scalars.promote(p, refused);
+        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles, scalars), applied, refused);
     }
 
     /** What keeps a whole program literal: an independent segment with an ALTER, whose state the dispatcher keeps (research §16); declaratives, which run as PERFORMs of their own. */

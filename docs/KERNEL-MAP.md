@@ -1727,3 +1727,39 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/MainLine.java:MainLine.MainLine` |  | 2026-10-18 |  |
 | passes | `passes/MainLine.java:MainLine.main` | R-032 | 2026-10-18 |  |
 | passes | `passes/MainLine.java:MainLine.entries` |  | 2026-10-18 |  |
+| lower | `lower/Exprs.java:Exprs.store` |  | 2026-10-19 |  |
+| lower | `lower/Lower.java:Lower.Plan.structured` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.Promoted` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.has` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.name` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.name#2` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.item` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.big` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.declaration` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.attr` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.decimal` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.field` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.assign` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.receive` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.constant` | R-068 | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.store` | R-068 | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.Scalars` |  | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.promote` | R-032 | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.item` |  | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.aliases` |  | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.own` |  | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.named` |  | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.fields` |  | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.Uses.statement` |  | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.Uses.varying` |  | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.Uses.value` |  | 2026-10-19 |  |
+| passes | `passes/StructuringLedger.java:StructuringLedger.pass` |  | 2026-10-19 |  |
+| rt | `rt/katana/rt/Scalars.java:Scalars.Scalars` |  | 2026-10-19 |  |
+| rt | `rt/katana/rt/Scalars.java:Scalars.of` |  | 2026-10-19 |  |
+| rt | `rt/katana/rt/Scalars.java:Scalars.of#2` |  | 2026-10-19 |  |
+| rt | `rt/katana/rt/Scalars.java:Scalars.longOf` |  | 2026-10-19 |  |
+| rt | `rt/katana/rt/Scalars.java:Scalars.bigOf` |  | 2026-10-19 |  |
+| rt | `rt/katana/rt/Scalars.java:Scalars.field` |  | 2026-10-19 |  |
+| rt | `rt/katana/rt/Scalars.java:Scalars.received` |  | 2026-10-19 |  |
+| rt | `rt/katana/rt/Scalars.java:Scalars.store` | R-068 | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.group` |  | 2026-10-19 |  |

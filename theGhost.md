@@ -1358,8 +1358,9 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Why:** an item backed only by the corpus's evidence that it never overflows would, written as plain
   arithmetic, stop truncating when a later input overflows it: different behaviour from the COBOL,
   which no proof run would see. Keeping the store exact makes the promotion independent of any fact.
-- **Held by:** `passes/Scalars.java` (the obligations); `lower/`'s promoted stores through
-  `Decimal.store`; the proof runs (every CardDemo job and NIST module promoted, as literal).
+- **Held by:** `passes/Scalars.java` (the obligations); `rt/katana/rt/Scalars.java` (`store`, through
+  `Decimal.store`) and `test/katana/rt/ScalarsTest.java` (it against `Arithmetic.store`); the proof runs
+  (every CardDemo job and NIST module promoted, as literal).
 - **Source:** Ghost, 2026-10-19 (research §39's choice, "Exact always"; the type "long, BigDecimal if
   scaled").
 - **Status:** in force

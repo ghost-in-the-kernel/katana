@@ -226,7 +226,7 @@ final class Performs {
         Value by = p.by == null ? new Value.Literal("1", Value.Literal.Kind.NUMERIC, "1", 0) : p.by;
         Value increment = new Value.Expression("+", List.of(p.id, by));
         int dmax = f.arith.dmax(List.of(f.x.item(p.id.item())), List.of(increment));
-        return "Arithmetic.store(" + f.x.field(p.id) + ", " + f.arith.result(increment, dmax, false) + ", false, false)";
+        return f.x.store(p.id, f.arith.result(increment, dmax, false), "false", "false");
     }
 
     /**

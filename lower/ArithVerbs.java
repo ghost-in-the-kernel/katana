@@ -63,7 +63,7 @@ final class ArithVerbs {
     private void store(List<Receiver> rs, java.util.function.BiFunction<Receiver, Boolean, String> value, boolean phrase) {
         for (Receiver r : rs) {
             String v = value.apply(r, r.rounded());
-            f.e.line("sz |= Arithmetic.store(" + f.x.field(r.field()) + ", " + v + ", " + (r.rounded() || v.startsWith("Floats.term(")) + ", " + phrase + ");");
+            f.e.line("sz |= " + f.x.store(r.field(), v, String.valueOf(r.rounded() || v.startsWith("Floats.term(")), String.valueOf(phrase)) + ";");
         }
     }
 
@@ -211,12 +211,12 @@ final class ArithVerbs {
         String quotient = op("divide", f.arith.operand(dividend), f.arith.operand(divisor), dmax, q.rounded());
         f.e.open("");
         f.e.line("Decimal.Term qt = " + quotient + ";");
-        f.e.line("boolean qs = Arithmetic.store(" + f.x.field(q.field()) + ", qt, " + q.rounded() + ", " + phrase + ");");
+        f.e.line("boolean qs = " + f.x.store(q.field(), "qt", String.valueOf(q.rounded()), String.valueOf(phrase)) + ";");
         f.e.line("sz |= qs;");
         f.e.open("if (!qt.divisionByZero()" + (phrase ? " && !qs" : "") + ")");
         f.e.line("Decimal.Term tq = Decimal.operand(Decimal.store(qt, " + Lower.stored(qi.attributes()) + ", " + qi.attributes().scale() + ", true, false).value(), " + Arith.integerPlaces(qi) + ");");
         f.e.line("Decimal.Term rt = Decimal.subtract(P, " + f.arith.operand(dividend) + ", Decimal.multiply(P, tq, " + f.arith.operand(divisor) + ", " + dmax + ", false, false), " + dmax + ", true, false);");
-        f.e.line("sz |= Arithmetic.store(" + f.x.field(r.field()) + ", rt, false, " + phrase + ");");
+        f.e.line("sz |= " + f.x.store(r.field(), "rt", "false", String.valueOf(phrase)) + ";");
         f.e.close();
         f.e.close();
     }

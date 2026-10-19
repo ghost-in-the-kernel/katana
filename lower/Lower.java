@@ -31,12 +31,13 @@ public final class Lower {
      * paragraphs whose last statement, a GO TO to the next, is left to fall, and the PERFORM VARYINGs written as
      * a `for` (research §36), and the methods, by their first paragraph, whose paragraphs are the method's own
      * code, out of the switch (6.2, research §37); the main line's paragraphs when they are `run`'s own code, and the
-     * loops of either, each header paragraph to the last of its loop (research §38). Empty, the literal lowering; it
-     * decides nothing (passes/Structuring discharges the obligations).
+     * loops of either, each header paragraph to the last of its loop (research §38); the items promoted to Java
+     * variables (6.3, research §39, R-068). Empty, the literal lowering; it decides nothing (passes/Structuring and
+     * passes/Scalars discharge the obligations).
      */
     public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls, java.util.Set<String> loops, java.util.Set<Integer> inline,
-                       java.util.Set<Integer> main, java.util.Map<Integer, Integer> cycles) {
-        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Map.of());
+                       java.util.Set<Integer> main, java.util.Map<Integer, Integer> cycles, java.util.Set<Integer> scalars) {
+        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Map.of(), java.util.Set.of());
 
         public Plan {
             methods = java.util.Map.copyOf(methods);
@@ -45,6 +46,12 @@ public final class Lower {
             inline = java.util.Set.copyOf(inline);
             main = java.util.Set.copyOf(main);
             cycles = java.util.Map.copyOf(cycles);
+            scalars = java.util.Set.copyOf(scalars);
+        }
+
+        /** Whether the plan changes the procedure's flow (6.1, 6.2), apart from the items it promotes: a promotion alone leaves the dispatcher as it is. */
+        public boolean structured() {
+            return !methods.isEmpty() || !falls.isEmpty() || !loops.isEmpty() || !inline.isEmpty() || !main.isEmpty() || !cycles.isEmpty();
         }
 
         /** A PERFORM VARYING the plan writes as a `for`, by where its statement starts: `file:line:column`. */
@@ -79,7 +86,7 @@ public final class Lower {
     public static Result java(Program p, String className, Plan plan) {
         Emitter e = new Emitter();
         List<String> findings = new ArrayList<>();
-        e.line("// Lowered by Katana from " + p.header().source() + " (" + p.header().profileHash() + "). " + (plan.equals(Plan.LITERAL) ? "Literal" : "Structured (passes/, 6.1)") + ": not for editing.");
+        e.line("// Lowered by Katana from " + p.header().source() + " (" + p.header().profileHash() + "). " + (plan.equals(Plan.LITERAL) ? "Literal" : "Structured (passes/, phase 6)") + ": not for editing.");
         e.line("import katana.rt.*;");
         e.line("import katana.rt.Record;");
         e.line("import java.util.List;");
@@ -94,6 +101,7 @@ public final class Lower {
     // Decision: R-024
     private static void program(Emitter e, Program p, String className, List<Program> containers, List<String> findings, Plan plan) {
         Exprs x = new Exprs(p, findings);
+        x.promoted = new Promoted(p, plan.scalars());
         boolean top = containers.isEmpty();
         e.open((top ? "public final class " : "static final class ") + className + " implements Subprogram");
         e.enter(className);
@@ -108,7 +116,7 @@ public final class Lower {
         e.line("private final Field rc;");
         if (Debugging.held(p)) e.line("private final Debug dbg;");
         e.line("private final Dispatcher d = new Dispatcher(" + (Flow.segmented(p) ? Flow.segments(p) : String.valueOf(Math.max(1, p.procedure().paragraphs().size()))) + ");");
-        declareItems(e, p);
+        declareItems(e, p, x);
         FileDecls.declare(e, p);
         if (top) {
             e.open("public " + className + "(Codepage cp, Upsi upsi, Sysin in, Sysout out, Sysout err)");
@@ -205,11 +213,18 @@ public final class Lower {
         return Character.isJavaIdentifierStart(name.charAt(0)) ? name : "P" + name;
     }
 
-    private static void declareItems(Emitter e, Program p) {
+    /** Each item's members: its record if it is one, and its Field, or for a promoted item its variable (6.3). */
+    private static void declareItems(Emitter e, Program p, Exprs x) {
         for (Item i : p.items()) {
             if (i.record() == i.id()) {
                 e.line("private Record r" + i.id() + ";");
                 e.symbol("r" + i.id(), "item " + i.id());
+            }
+            // A promoted item (6.3): a Java variable for its value, no Field over its bytes (R-068).
+            if (x.promoted.has(i.id())) {
+                e.line(x.promoted.declaration(i.id(), x));
+                e.symbol(x.promoted.name(i.id()), "item " + i.id());
+                continue;
             }
             e.line("private Field f" + i.id() + "; // " + i.name());
             e.symbol("f" + i.id(), "item " + i.id());
@@ -224,7 +239,7 @@ public final class Lower {
             e.open("private void items" + c + "()");
             for (Item i : chunk) {
                 if (i.record() == i.id()) e.line("r" + i.id() + " = " + area(p, i) + ";");
-                e.line("f" + i.id() + " = new Field(r" + i.record() + ", " + i.offset() + ", " + attr(p, i, x) + ");");
+                if (!x.promoted.has(i.id())) e.line("f" + i.id() + " = new Field(r" + i.record() + ", " + i.offset() + ", " + attr(p, i, x) + ");");
             }
             e.close();
             e.open("private void values" + c + "()");

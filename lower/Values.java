@@ -27,7 +27,14 @@ final class Values {
         if (i.value() == null && (group || isText(i))) return;
         String each = x.occurrences(i), target = each == null ? "f" + i.id() : "t";
         if (i.flags().contains(Item.Flag.JUSTIFIED)) target = "Table.ref(" + target + ", 1, 0)";
+        if (x.promoted.has(i.id())) target = "scratch";
         String move = i.value() == null ? "Move.move(Literal.number(\"0\", 0, cp), " + target + ")" : edited(i) ? placed(i.value(), target, x) : x.moveInto(i.value(), target, i);
+        // A promoted item: its VALUE as a MOVE into a field of its attributes leaves it (R-068).
+        if (x.promoted.has(i.id())) {
+            katana.sir.types.Value zero = new katana.sir.types.Value.Literal("0", katana.sir.types.Value.Literal.Kind.NUMERIC, "0", 0);
+            String constant = x.promoted.constant(i.id(), i.value() == null ? zero : i.value());
+            move = constant != null ? constant : x.promoted.receive(i.id(), move);
+        }
         e.line(each == null ? move + ";" : each + "t -> " + move + ");");
     }
 

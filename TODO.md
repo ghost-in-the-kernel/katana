@@ -152,11 +152,21 @@ loops nest and nothing enters the line from elsewhere; a PERFORM of a range no m
 batch: 11 of 14 programs with no switch, 986 cases to 17 (CBSTM03A's ALTERs, CSUTLDTC's PERFORM over its main
 line, CBTRN03C's NEXT SENTENCE); NIST: 46 of 436 main lines, 106,661 cases to 47,896; every run as literal.
 Open, Ghost's to decide: a main-line paragraph entered from elsewhere kept in both forms (232 NIST main lines
-blocked only by entries, theirs or a loop's), or the paragraphs reordered so such loops nest.
+blocked only by entries, theirs or a loop's), or the paragraphs reordered so such loops nest. Ghost moved on to 6.3
+(2026-10-19) with both left open.
 
 ### 6.3 Scalar promotion
 
 Check: as above.
+
+Built (J-215, research §39, R-068): a numeric item whose bytes nothing else reads or writes (no REDEFINES,
+OCCURS, reference modification, RENAMES, group used whole or with a VALUE, EXTERNAL or GLOBAL record, file,
+table or CALL naming it; used only by MOVE, the arithmetic verbs, DISPLAY and conditions; not varied by a
+PERFORM) becomes a `long`, or a `BigDecimal` at its scale, every store keeping COBOL's truncation and size error
+(Ghost's choice, "exact always"). CardDemo's batch: 40 of 292 numeric items; NIST: 3,844 of 10,470; every
+CardDemo job and NIST module as literal, the autotests as before. Open: the interval rule for `NeverOverflows`,
+which would let a store be plain arithmetic (waits on loop bounds); the verbs kept out (INITIALIZE, SET, CALL,
+STRING, the I/O verbs) through a field of the item's own; tables as arrays.
 
 ### 6.4 Exact-arithmetic substitution
 

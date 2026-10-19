@@ -110,7 +110,7 @@ final class Flow {
         regions.methods();
         // A switch with no case left is no switch (research §38): `step` and `dispatch` go with it.
         if (!labels.isEmpty()) step();
-        if (!labels.isEmpty() && !plan.equals(Lower.Plan.LITERAL)) regions.dispatch();
+        if (!labels.isEmpty() && plan.structured()) regions.dispatch();
         if (counters > 0) e.line("private final long[] t = new long[" + counters + "];");
     }
 
@@ -170,7 +170,7 @@ final class Flow {
 
     /** Whether a PERFORM of the range is a call: under a pass's plan, of its method or through `dispatch` (research §38). */
     boolean called(Value.Target target) {
-        return target != null && !plan.equals(Lower.Plan.LITERAL);
+        return target != null && plan.structured();
     }
 
     /** The call of a PERFORMed range: its method, or `dispatch`. */
