@@ -3384,3 +3384,22 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `passes/Cycles.java`, `MainLine.java` (new), `Inline.java`, `Loops.java`, `Structuring.java`;
   `lower/Regions.java` (new), `Lower.java`, `Flow.java`, `Performs.java`; `test/katana/passes/StructuringTest.java`;
   `docs/KERNEL-MAP.md`; `TODO.md`.
+
+### J-214 Tithe: the supply-chain baseline applied to Katana, held by a test (R-067)
+- **Who:** Opus, on Ghost's word ("the settings for this needs to be applied to katana"; the baseline
+  from the Labs-wide remediation, "this goes into tests, and gets institutionalized"). **Class:** decision;
+  tithe (R-008's gate stood at 17 commits; this one changes no behaviour and no golden: a check, a pin, documents).
+- **Intent:** the baseline's rules that bear on Katana, each held by a check with a case it must refuse:
+  vendored jars against the manifest's hashes (Katana's checksum verification: R-001 declares no
+  repository, so Gradle's own verification has nothing to verify), the image pinned by digest, the
+  workflow's action at a commit and `permissions: contents: read`, no agent or editor config that runs
+  anything, no git hook, no worm's file name, the binding rules in CLAUDE.md and theGhost.md alike.
+- **Found:** the jars match the hashes the manifest has recorded since 2026-10-04, which no test had read
+  until now; `ci.yml` named `actions/checkout@v4`, a tag, and had no `permissions`; no hook, config, git
+  hook or worm file anywhere in the tree, `corpus/` included.
+- **Resolved:** `actions/checkout` pinned to the commit `v4` named (v4.4.0, July 2026, past the cooldown)
+  and `permissions: contents: read`; `test/SupplyChainTest.java` in `DocTests`; R-067. Left to review,
+  recorded there: `corpus/fetch.sh`'s unpinned clones (read as data, never run), the apt package pinned
+  by version only, and the account settings that are not code.
+- **Touched:** `.github/workflows/ci.yml`; `test/SupplyChainTest.java`, `test/DocTests.java`;
+  `theGhost.md`; `CLAUDE.md`; `docs/JOURNAL.md`.
