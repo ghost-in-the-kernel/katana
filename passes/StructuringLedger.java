@@ -11,7 +11,7 @@ import katana.ledger.Ledger;
 import katana.lower.Lower;
 
 /**
- * The structuring pass's ledger lines (R-030, docs/LEDGER.md): a line for each symbol the structured build
+ * The passes' ledger lines (R-030, docs/LEDGER.md), structuring's and scalar promotion's: a line for each symbol the structured build
  * declares that the literal one did not, a range's method on the `Function` fact that licensed it with that
  * fact's state (R-029); and a removal superseding the live line of each symbol it no longer declares, a stretch
  * a PERFORM no longer splits off. Appended to the literal build's ledger, LED-04 holds against the structured build.
@@ -31,13 +31,18 @@ public final class StructuringLedger {
             if (live.containsKey(s.name())) continue;
             Structuring.Applied a = byMethod.get(s.name().substring(s.name().lastIndexOf('.') + 1));
             String fact = a == null ? "-" : a.fact().id().replace("|", "/"), state = a == null ? "-" : a.fact().unconfirmed() ? "unconfirmed" : "confirmed";
-            out.add(new Ledger.Draft(Structuring.PASS, fact, state, run, s.name(), s.node(), profile, time, 0));
+            out.add(new Ledger.Draft(pass(s.node()), fact, state, run, s.name(), s.node(), profile, time, 0));
         }
         for (Map.Entry<String, List<Entry>> e : live.entrySet()) {
             if (now.contains(e.getKey())) continue;
             Entry last = e.getValue().get(e.getValue().size() - 1);
-            out.add(new Ledger.Draft(Structuring.PASS, "-", "-", run, "-", last.node(), profile, time, last.seq()));
+            out.add(new Ledger.Draft(pass(last.node()), "-", "-", run, "-", last.node(), profile, time, last.seq()));
         }
         return out;
+    }
+
+    /** The pass a symbol's change is the work of: an item's, scalar promotion (6.3); any other, structuring. */
+    private static String pass(String node) {
+        return node.startsWith("item ") ? Scalars.PASS : Structuring.PASS;
     }
 }

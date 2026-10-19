@@ -1917,3 +1917,73 @@ DEPENDING, SORT procedures, segmentation, or a PERFORM running through the main 
 `PERFORM A THRU Z` over the line), and a handful of irreducible loops, perhaps none. Every run as literal.
 The rival: a main line the obligations admit that the run disproves, an entry the graph does not show
 (J-212's SORT procedure was one), seen as a report or trace that differs or a `pc` no case takes.
+
+## 39. 6.3, scalar promotion: an item no bytes alias becomes a typed Java variable (R-032, R-068; J-215)
+
+**What 6.3 asks** (ROADMAP 6.3): an item with no REDEFINES, RENAMES, reference modification, ODO,
+group MOVE or raw I/O touching it, and `NeverOverflows` proven, becomes a typed field (`long` with
+scale, or `BigDecimal` with an explicit scale).
+
+**The survey, before the design.** Numeric elementary items, and what keeps each from being a value
+the program alone holds: CardDemo's 14 batch programs have 292, of which 43 pass every aliasing
+obligation below (62 are never referenced; the rest are blocked by a group around them that is READ,
+WRITTEN, DISPLAYed, MOVEd, INITIALIZEd or passed by CALL, by FILE or LINKAGE, REDEFINES, reference
+modification, or a CALL or STRING of the item itself). NIST's 437 programs have 10,470, of which 4,938
+pass. The 43 are used by ADD 33, MOVE 23, DISPLAY 17, IF 15, SUBTRACT 5, PERFORM's condition 3, COMPUTE
+2; NIST's 4,938 by MOVE, ADD, IF, SUBTRACT, COMPUTE, DIVIDE, MULTIPLY, a few SEARCH, EVALUATE and
+PERFORM. 33 of CardDemo's are DISPLAY usage, 12 BINARY, 3 PACKED; 8 have decimal places.
+
+**What makes it exact.** Every store into a numeric item is already a function of a value: an
+arithmetic result is `Decimal.store(result, digits, scale, signed, rounded)` (R-020), a MOVE of a
+number `Move.number`, the same function unrounded; the bytes only hold what it returns, and `get()`
+returns it again, for every usage under `ibm.trunc STD` (binary items truncated to their PICTURE). A
+numeric item starts at zero (R-057). So an item whose bytes nothing else reads or writes can be a
+Java variable holding that value, every store computing it by the same function: what the program
+does is unchanged whatever is proven about it.
+
+**Ghost's choice (2026-10-19, R-068): exact always.** A promoted item's every store keeps COBOL's
+truncation and size error, as the byte form does; `NeverOverflows`, proven by interval analysis, only
+simplifies a store to plain arithmetic, and the corpus's evidence alone never does (an item an input
+could overflow would stop truncating: different behaviour). This departs from the roadmap's wording,
+where `NeverOverflows` gated the promotion. The type: an integer item of up to 18 digits a `long`, an
+item with decimal places a `BigDecimal` at its PICTURE's scale; over 18 digits, not promoted.
+
+**This step's set.** The variable is named for the item (`wsTranCount`), its PICTURE and usage in a
+comment, the item's `Field` gone from the class, so a use the lowering has not converted fails to
+compile rather than read stale bytes. A read in an arithmetic expression or a numeric comparison is
+the value; a read anywhere else (DISPLAY, a MOVE to text or to an item not promoted, an alphanumeric
+comparison) is a scratch field the value is encoded into at that point (`Scalars.field`), so the
+runtime's own rendering decides the bytes. A store from arithmetic is `Decimal.store` with its size
+error into the statement's flag, the variable unchanged where IBM leaves the receiver unchanged; a
+MOVE of a number is `Move`'s function; a MOVE of anything else, and the initial value, go through a
+scratch field and are read back.
+
+**Obligations** (R-032; an item that fails one keeps its bytes, and the pass says why):
+
+1. Numeric, elementary, DISPLAY, BINARY or PACKED usage (not native binary, not floating), at most 18
+   digits; WORKING-STORAGE or LOCAL-STORAGE; not EXTERNAL or GLOBAL.
+2. No REDEFINES of it or of a group holding it, or by it; no OCCURS on it or a group holding it; no
+   RENAMES over it; no reference modification of it or a group holding it.
+3. No group holding it is referenced as a whole, by any statement (its bytes would be read or written
+   around the variable).
+4. It is referenced only by MOVE, ADD, SUBTRACT, MULTIPLY, DIVIDE, COMPUTE, DISPLAY, IF, EVALUATE and
+   PERFORM's conditions; it receives only from MOVE and the arithmetic verbs. Not CALL, ACCEPT, READ,
+   WRITE, STRING, UNSTRING, INSPECT, SET, SEARCH, INITIALIZE (each reads or writes its bytes; a later
+   step may take them through a scratch field).
+5. Referenced at all (an item never referenced is left; it changes nothing).
+
+**Not this step.** The interval rule for `NeverOverflows`: an arithmetic store simplifies only when its
+value provably fits, and the items here are mostly counters a loop adds to, which no interval bounds
+without the loop's trip count (reasoned, not measured: an ADD to an item whose interval is already
+its whole PICTURE can overflow it, so no ADD of CardDemo's 33 is provable without the loop's bound). The rule waits
+until the loop bounds are read (6.6's dataflow). Tables (OCCURS) as arrays, and the verbs of 4.
+
+**Proof**: as §37's: every CardDemo job and every NIST module, structured and promoted, reporting and
+tracing what it does literal; the ledger a line per promoted item (the variable new, the `Field` gone).
+
+**Predicted, before the build.** CardDemo's batch: about 40 of the 43 promoted (a few fall to
+obligation 4); every job's report and trace as literal. NIST: most of the 4,938, perhaps 4,000 (those
+in SEARCH, SET or INITIALIZE, or receiving from another verb, fall); every run as literal. The rival:
+a read the scratch field renders otherwise than the item's bytes did (a sign, a BINARY item's value
+over its PICTURE, a codepage), or a size error a variable takes otherwise than its bytes (DIVIDE's
+REMAINDER, several receivers), seen as a report or trace that differs.

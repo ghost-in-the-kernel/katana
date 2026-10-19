@@ -89,6 +89,7 @@ final class Arith {
         if (size.refused() != null) return x.unsupported("arithmetic operand " + size.refused());
         if (x.counter(v) != null) return "Decimal.operand(" + x.counter(v) + ".get(), " + size.places() + ")";
         return switch (v) {
+            case Value.Field f when x.promoted.has(f.item()) -> "Decimal.operand(" + x.promoted.decimal(f.item()) + ", " + size.places() + ")";
             case Value.Field f -> "Decimal.operand(" + x.field(f) + ".get(), " + size.places() + ")";
             case Value.Literal l when l.numeric() -> "Decimal.operand(new Decimal(new java.math.BigInteger(" + Emitter.quote(l.payload()) + "), " + l.scale() + "), " + size.places() + ")";
             case Value.Figurative f when x.numeric(f) -> "Decimal.operand(new Decimal(java.math.BigInteger.ZERO, 0), " + size.places() + ")";

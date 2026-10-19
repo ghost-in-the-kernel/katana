@@ -137,7 +137,10 @@ final class Verbs {
                 f.e.line(f.x.unsupported("MOVE to " + to) + ";");
                 continue;
             }
-            f.e.line(f.x.moveInto(from, f.x.receiving(t), f.x.item(t.item())) + ";");
+            // A promoted item: what the MOVE leaves in a field of its attributes, as its value (R-068).
+            if (f.x.promoted.has(t.item()) && f.x.promoted.constant(t.item(), from) != null) f.e.line(f.x.promoted.constant(t.item(), from) + ";");
+            else if (f.x.promoted.has(t.item())) f.e.line(f.x.promoted.receive(t.item(), f.x.moveInto(from, "scratch", f.x.item(t.item()))) + ";");
+            else f.e.line(f.x.moveInto(from, f.x.receiving(t), f.x.item(t.item())) + ";");
         }
     }
 
@@ -287,7 +290,7 @@ final class Verbs {
             else if (t instanceof Value.ConditionName c && value instanceof Value.Literal l && l.payload().equals("TRUE")) setTrue(c);
             else if (t instanceof Value.Field target && by != null) {
                 Value step = keyword(s, "DOWN") ? new Value.Expression("-", List.of(target, by)) : new Value.Expression("+", List.of(target, by));
-                f.e.line("Arithmetic.store(" + f.x.field(target) + ", " + f.arith.result(step, 0, false) + ", false, false);");
+                f.e.line(f.x.store(target, f.arith.result(step, 0, false), "false", "false") + ";");
             } else if (t instanceof Value.Field target && value != null && !(value instanceof Value.Literal l && l.kind() == Value.Literal.Kind.BOOLEAN)) {
                 f.e.line(f.x.moveInto(value, f.x.field(target), f.x.item(target.item())) + ";");
             } else f.e.line(f.x.unsupported("SET at " + s.origin() + " " + s.operands()) + ";");

@@ -20,9 +20,22 @@ final class Exprs {
     }
     private final List<String> findings;
 
+    /** The items 6.3 promotes in this program (none in a literal build, or a nested program). */
+    Promoted promoted;
+
     Exprs(Program p, List<String> findings) {
         this.p = p;
         this.findings = findings;
+        this.promoted = new Promoted(p, java.util.Set.of());
+    }
+
+    /**
+     * A store of an arithmetic result into a receiver, a boolean (the size error): `Arithmetic.store` into its
+     * bytes, or a promoted item's own store, which leaves the same value (R-068).
+     */
+    String store(Value.Field target, String term, String rounded, String onSizeError) {
+        if (promoted.has(target.item())) return promoted.store(target.item(), term, rounded, onSizeError);
+        return "Arithmetic.store(" + field(target) + ", " + term + ", " + rounded + ", " + onSizeError + ")";
     }
 
     Item item(int id) {
@@ -70,7 +83,11 @@ final class Exprs {
         return field(v, false);
     }
 
+    /** A reference as a Java Field: subscripted, reference-modified, an ODO group at its length; a promoted item's value encoded into a field of its own. */
     private String field(Value.Field v, boolean receiving) {
+        // A promoted item has no bytes to write: a statement that receives into it is converted before here (Verbs.move, store), and passes/Scalars keeps every other receiver literal.
+        if (promoted.has(v.item()) && receiving) throw new IllegalStateException("promoted item " + item(v.item()).name() + " reached a receiving path not converted");
+        if (promoted.has(v.item())) return promoted.field(v.item());
         Item i = item(v.item());
         String f = "f" + v.item();
         if (!v.subscripts().isEmpty()) {
@@ -177,6 +194,8 @@ final class Exprs {
     /** `value` MOVEd into `target` (a Java Field expression), whose item is `into`. */
     // Decision: R-019
     String moveInto(Value value, String target, Item into) {
+        // A promoted item is moved into only through a field of its own read back (Promoted.receive); any other path would write bytes it does not have.
+        if (promoted.has(into.id()) && !target.equals("scratch")) throw new IllegalStateException("a MOVE into promoted item " + into.name() + " not converted");
         String pattern = pattern(value);
         if (pattern != null) return "Move.fill(" + target + ", " + pattern + ", " + (value instanceof Value.Figurative f && singular(f.name()).equals("ZERO") && f.all() == null) + ")";
         boolean group = into.attributes().category() == Attributes.Category.GROUP || (value instanceof Value.Field f && item(f.item()).attributes().category() == Attributes.Category.GROUP);
