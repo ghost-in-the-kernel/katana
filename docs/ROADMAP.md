@@ -691,14 +691,20 @@ it and reports why. Order by provability:
     with a finding naming it. (Böhm–Jacopini removed 79%; Erosa–Hendren's 100% at +232% nesting is
     refused as a decision.)
 6.3 **Scalar promotion**: an item with no REDEFINES, RENAMES, reference modification, ODO, group
-    MOVE or raw I/O touching it, and `NeverOverflows` proven (interval analysis plus the corpus
-    never setting SIZE ERROR), becomes a typed field (`long` with scale, or `BigDecimal` with an
-    explicit scale and the profile's rounding mode).
+    MOVE or raw I/O touching it becomes a typed field (`long`, or `BigDecimal` at its PICTURE's
+    scale), every store keeping COBOL's truncation and size error (R-068: `NeverOverflows` no longer
+    gates the promotion; it only lets a store be plain arithmetic, and that proof moved to 6.6). Its
+    verbs include INITIALIZE, SET, ACCEPT, STRING and UNSTRING's receivers, and CALL (a value copied
+    out and back for BY REFERENCE). Tables and items in records used whole moved to 6.7.
 6.4 **Exact-arithmetic substitution**: step-wise IBM arithmetic becomes exact arithmetic only where
     no division or non-integer exponent can trigger dmax truncation.
 6.5 **Enum and flag types** from `Enum`/`Flag` facts; **money** as a dedicated type from `Money`.
-6.6 **Stateless subprograms** where every WORKING-STORAGE item is written before read on every path.
-6.7 **Record classes** from 01-levels with no aliasing, keeping the byte codec at the I/O boundary.
+6.6 **Stateless subprograms** where every WORKING-STORAGE item is written before read on every path;
+    on the same dataflow, with loops' bounds, the interval rule for `NeverOverflows` that lets a
+    promoted item's store be plain arithmetic (moved from 6.3, Ghost, 2026-10-19).
+6.7 **Record classes** from 01-levels with no aliasing, keeping the byte codec at the I/O boundary;
+    with them, the items 6.3 leaves in bytes because a record holding them is read, written or moved
+    whole, and tables (OCCURS) as arrays (moved from 6.3, Ghost, 2026-10-19).
 6.8 **Refactoring distance, per pass and cumulative**, in the proof report: lines, nesting,
     dispatcher cases remaining, scalars promoted, obligations not discharged and why.
     *Check for every pass:* all phase-3 and phase-4 goldens byte-identical; paragraph-entry trace

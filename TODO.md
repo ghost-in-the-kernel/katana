@@ -164,9 +164,10 @@ OCCURS, reference modification, RENAMES, group used whole or with a VALUE, EXTER
 table or CALL naming it; used only by MOVE, the arithmetic verbs, DISPLAY and conditions; not varied by a
 PERFORM) becomes a `long`, or a `BigDecimal` at its scale, every store keeping COBOL's truncation and size error
 (Ghost's choice, "exact always"). CardDemo's batch: 40 of 292 numeric items; NIST: 3,844 of 10,470; every
-CardDemo job and NIST module as literal, the autotests as before. Open: the interval rule for `NeverOverflows`,
-which would let a store be plain arithmetic (waits on loop bounds); the verbs kept out (INITIALIZE, SET, CALL,
-STRING, the I/O verbs) through a field of the item's own; tables as arrays.
+CardDemo job and NIST module as literal, the autotests as before. Moved by Ghost (2026-10-19): the interval rule
+for `NeverOverflows` to 6.6 (it needs loop bounds, 6.6's dataflow); tables and items in records used whole to 6.7
+(record classes). Open here: INITIALIZE, SET, ACCEPT, STRING and UNSTRING's receivers, and CALL, through a field
+of the item's own (research §40).
 
 ### 6.4 Exact-arithmetic substitution
 
@@ -180,9 +181,15 @@ Check: as above.
 
 Check: as above.
 
+With it (moved from 6.3): the interval rule for `NeverOverflows`, on 6.6's dataflow with loops' bounds, which lets
+a promoted item's store be plain arithmetic (R-068).
+
 ### 6.7 Record classes
 
 Check: as above.
+
+With it (moved from 6.3): the items 6.3 leaves in bytes because a record holding them is read, written or moved
+whole (NIST's largest group, 793 by a group MOVE), and tables (OCCURS) as arrays.
 
 ### 6.8 Refactoring distance, per pass and cumulative
 
