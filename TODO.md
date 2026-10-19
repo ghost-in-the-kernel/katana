@@ -166,8 +166,10 @@ PERFORM) becomes a `long`, or a `BigDecimal` at its scale, every store keeping C
 (Ghost's choice, "exact always"). CardDemo's batch: 40 of 292 numeric items; NIST: 3,844 of 10,470; every
 CardDemo job and NIST module as literal, the autotests as before. Moved by Ghost (2026-10-19): the interval rule
 for `NeverOverflows` to 6.6 (it needs loop bounds, 6.6's dataflow); tables and items in records used whole to 6.7
-(record classes). Open here: INITIALIZE, SET, ACCEPT, STRING and UNSTRING's receivers, and CALL, through a field
-of the item's own (research §40).
+(record classes). Built (J-216, research §40): INITIALIZE, SET, STRING, UNSTRING and ACCEPT FROM DATE or TIME
+through a field of the item's own, its value taken back, and CALL BY CONTENT; CardDemo 41 promoted, NIST 3,900,
+every run as literal. Kept out, each with why: ACCEPT from the input device and CALL BY REFERENCE (their bytes may
+be no number), and a statement with ON OVERFLOW or ON EXCEPTION statements.
 
 ### 6.4 Exact-arithmetic substitution
 

@@ -63,7 +63,7 @@ final class Initialize {
 
     /** One receiver given REPLACING's sender for its category, each occurrence. */
     private static void replace(Flow f, Item i, Value from) {
-        String each = f.x.occurrences(i), target = each == null ? "f" + i.id() : "t";
+        String each = f.x.occurrences(i), target = each == null ? f.x.promoted.fieldName(i.id()) : "t";
         String move = f.x.moveInto(from, target, i);
         f.e.line(each == null ? move + ";" : each + "t -> " + move + ");");
     }
@@ -80,7 +80,7 @@ final class Initialize {
 
     private static void move(Flow f, Item i) {
         boolean zero = List.of(Attributes.Category.NUMERIC, Attributes.Category.NUMERIC_EDITED).contains(i.attributes().category());
-        String each = f.x.occurrences(i), target = each == null ? "f" + i.id() : "t";
+        String each = f.x.occurrences(i), target = each == null ? f.x.promoted.fieldName(i.id()) : "t";
         String move = zero ? "Move.move(Literal.number(\"0\", 0, cp), " + target + ")" : "Move.fill(" + target + ", new byte[] {Literal.figurative(\"SPACE\", cp)}, false)";
         f.e.line(each == null ? move + ";" : each + "t -> " + move + ");");
     }

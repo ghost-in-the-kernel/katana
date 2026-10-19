@@ -26,8 +26,53 @@ final class Promoted {
         for (Item i : p.items()) if (items.contains(i.id())) names.put(i.id(), name(i, used));
     }
 
+    /** A promoted item a statement has as a field of its own for now (`p<id>`, research §40). */
+    private final Set<Integer> bound = new HashSet<>();
+
+    /** Whether the item is a variable here: promoted, and not a field for the statement being written. */
     boolean has(int item) {
-        return names.containsKey(item);
+        return names.containsKey(item) && !bound.contains(item);
+    }
+
+    /** The name of the Field an item is reached by: its own `f<id>`, or for a statement that has a promoted item as a field, `p<id>`. */
+    String fieldName(int item) {
+        return (bound.contains(item) ? "p" : "f") + item;
+    }
+
+    /** The promoted items a statement names itself (not in its branches' statements). */
+    Set<Integer> in(katana.sir.types.Statement s) {
+        Set<Integer> out = new java.util.TreeSet<>();
+        for (katana.sir.types.Statement.Operand o : s.operands()) items(o.value(), out);
+        out.retainAll(names.keySet());
+        return out;
+    }
+
+    private static void items(katana.sir.types.Value v, Set<Integer> out) {
+        switch (v) {
+            case katana.sir.types.Value.Field f -> {
+                out.add(f.item());
+                f.subscripts().forEach(x -> items(x, out));
+            }
+            case katana.sir.types.Value.ConditionName c -> out.add(c.item());
+            case katana.sir.types.Value.Expression e -> e.operands().forEach(x -> items(x, out));
+            case null, default -> {}
+        }
+    }
+
+    /**
+     * A statement that writes promoted items' bytes, run on a field of each item's own holding its value, the
+     * value taken back after it (research §40): exact for the verbs passes/Scalars lets through, each leaving
+     * bytes that encode a number.
+     */
+    // Decision: R-068
+    void through(Set<Integer> items, Emitter e, Runnable statement) {
+        e.open("");
+        for (int id : items) e.line("Field p" + id + " = " + field(id) + ";");
+        bound.addAll(items);
+        statement.run();
+        bound.removeAll(items);
+        for (int id : items) e.line(assign(id, "p" + id + ".get()") + ";");
+        e.close();
     }
 
     String name(int item) {

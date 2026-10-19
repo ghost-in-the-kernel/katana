@@ -46,6 +46,20 @@ class ScalarsTest {
         assertTrue(java.contains("Scalars.field(A" + count + ", cp, Scalars.of(wsCount, 0))"), "a DISPLAY reads a field the value is encoded into");
     }
 
+    /** Research §40: the verbs that write it through a field of its own, and CALL BY CONTENT, which only reads it. */
+    @Test
+    void initializeSetStringUnstringAcceptFromDateAndCallByContentPromote() {
+        Program p = program("01 A PIC 9(3) VALUE 5.\n01 B PIC 9(3).\n   88 B-DONE VALUE 9.\n01 C PIC 99 VALUE 1.\n01 D PIC 9(6).\n01 E PIC 9(4).\n01 S PIC X(20).\n",
+                "    INITIALIZE A.\n    SET B-DONE TO TRUE.\n    SET A UP BY 2.\n    STRING 'AB' DELIMITED BY SIZE INTO S WITH POINTER C.\n"
+                        + "    UNSTRING S DELIMITED BY ' ' INTO E.\n    ACCEPT D FROM DATE.\n    CALL 'SUB' USING BY CONTENT A.\n    DISPLAY A B C D E.\n");
+        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        assertEquals(Set.of(id(p, "A"), id(p, "B"), id(p, "C"), id(p, "D"), id(p, "E")), r.plan().scalars(), r.refused().toString());
+        String java = Lower.java(p, "P", r.plan()).java();
+        int a = id(p, "A");
+        assertTrue(java.contains("Field p" + a + " = Scalars.field(A" + a + ", cp, Scalars.of(a, 0));") && java.contains("a = Scalars.longOf(p" + a + ".get());"), "INITIALIZE runs on a field of A's own, its value taken back: " + java);
+        assertTrue(java.contains("RunUnit.content(Scalars.field(A" + a + ", cp, Scalars.of(a, 0)))"), "CALL BY CONTENT copies a field the value is encoded into");
+    }
+
     /** Each obligation broken on purpose: the item keeps its bytes, and the pass says why. */
     @Test
     void eachObligationBrokenKeepsTheItemsBytes() {
@@ -53,15 +67,15 @@ class ScalarsTest {
         assertRefused("01 G.\n   05 N PIC 9(3) OCCURS 3.\n", "    ADD 1 TO N (1).\n", "occurs");
         assertRefused("01 G.\n   05 N PIC 9(3).\n01 X PIC X(3).\n", "    ADD 1 TO N.\n    MOVE G TO X.\n", "a group holding it");
         assertRefused("01 G VALUE '123'.\n   05 N PIC 9(3).\n", "    ADD 1 TO N.\n", "has a VALUE");
-        assertRefused("01 N PIC 9(3).\n", "    ADD 1 TO N.\n    CALL 'SUB' USING N.\n", "CALL");
         assertRefused("01 N PIC 9(3).\n", "    PERFORM VARYING N FROM 1 BY 1 UNTIL N > 3\n        DISPLAY N\n    END-PERFORM.\n", "varied by a PERFORM");
-        assertRefused("01 N PIC 9(3).\n   88 DONE VALUE 9.\n", "    SET DONE TO TRUE.\n", "SET");
         assertRefused("01 N PIC 9(3).\n", "    ADD 1 TO N.\n    DISPLAY N (1:1).\n", "reference-modified");
         assertRefused("01 N PIC 9(3)PP.\n", "    ADD 1 TO N.\n", "P");
         assertRefused("01 N PIC 9(19).\n", "    ADD 1 TO N.\n", "18");
         assertRefused("01 N PIC 9(3) COMP-5.\n", "    ADD 1 TO N.\n", "usage");
         assertRefused("01 N PIC 9(3).\n", "    DISPLAY 'X'.\n", "never referenced");
-        assertRefused("01 N PIC 9(3).\n", "    INITIALIZE N.\n", "INITIALIZE");
+        assertRefused("01 N PIC 9(3).\n", "    ADD 1 TO N.\n    CALL 'SUB' USING N.\n", "named by a file, a table or a CALL");
+        assertRefused("01 N PIC 9(3).\n", "    ACCEPT N.\n", "input device");
+        assertRefused("01 N PIC 99.\n01 T PIC X(10) VALUE 'AB'.\n01 S PIC X(20).\n", "    STRING T DELIMITED BY SIZE INTO S WITH POINTER N\n        ON OVERFLOW DISPLAY 'O'\n    END-STRING.\n", "ON OVERFLOW");
         assertRefused("01 G EXTERNAL.\n   05 N PIC 9(3).\n", "    ADD 1 TO N.\n", "EXTERNAL");
         assertRefused("01 G GLOBAL.\n   05 N PIC 9(3).\n", "    ADD 1 TO N.\n", "GLOBAL");
     }
