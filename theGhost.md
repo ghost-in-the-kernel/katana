@@ -1347,6 +1347,24 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Status:** in force
 - **See also:** R-001, R-037, R-038
 - **subject:** process
+
+### R-068: A promoted item keeps COBOL's truncation on every store; a proof only simplifies a store
+- **Decision:** In 6.3 an item no bytes alias becomes a Java variable (`long` for an integer item of up
+  to 18 digits, `BigDecimal` at its PICTURE's scale for one with decimal places), and every store into it
+  keeps COBOL's semantics exactly: `Decimal.store`'s truncation, rounding and size error, the variable
+  unchanged where IBM leaves a receiver unchanged. `NeverOverflows`, proven by interval analysis, only
+  lets a store be written as plain arithmetic; evidence from the corpus never removes the truncation.
+  This replaces the roadmap's wording, where `NeverOverflows` gated the promotion.
+- **Why:** an item backed only by the corpus's evidence that it never overflows would, written as plain
+  arithmetic, stop truncating when a later input overflows it: different behaviour from the COBOL,
+  which no proof run would see. Keeping the store exact makes the promotion independent of any fact.
+- **Held by:** `passes/Scalars.java` (the obligations); `lower/`'s promoted stores through
+  `Decimal.store`; the proof runs (every CardDemo job and NIST module promoted, as literal).
+- **Source:** Ghost, 2026-10-19 (research §39's choice, "Exact always"; the type "long, BigDecimal if
+  scaled").
+- **Status:** in force
+- **See also:** R-020, R-029, R-032, R-057
+- **subject:** process
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
