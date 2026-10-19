@@ -89,7 +89,7 @@ final class Exprs {
         if (promoted.has(v.item()) && receiving) throw new IllegalStateException("promoted item " + item(v.item()).name() + " reached a receiving path not converted");
         if (promoted.has(v.item())) return promoted.field(v.item());
         Item i = item(v.item());
-        String f = "f" + v.item();
+        String f = promoted.fieldName(v.item());
         if (!v.subscripts().isEmpty()) {
             List<String> subs = new ArrayList<>();
             for (Value s : v.subscripts()) subs.add(index(s));

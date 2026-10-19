@@ -3431,3 +3431,22 @@ taken; closed by a later `decision` entry naming it).
   `passes/Scalars.java` (new), `Structuring.java`, `StructuringLedger.java`; `test/katana/passes/ScalarsTest.java`,
   `test/katana/rt/ScalarsTest.java`, `test/katana/lower/ManifestTest.java`; `docs/LEDGER.md`, `docs/KERNEL-MAP.md`;
   `TODO.md`; `theGhost.md` (R-068's Held by).
+
+### J-216 6.3's remaining verbs: a statement that writes a promoted item runs on a field of its own
+- **Who:** Opus, on Ghost's word ("yes move them, and do part 3 now"). **Class:** build; trial; decision.
+- **Intent:** Ghost moved 6.3's `NeverOverflows` interval rule to 6.6 and its tables and items in records used
+  whole to 6.7 (ROADMAP, TODO). Research §40, before the build: INITIALIZE, SET, STRING, UNSTRING and ACCEPT FROM
+  DATE, DAY or TIME have the item as a field of its own for the statement (`Field p<id>`, `Promoted.through`),
+  every lowering path using it as any field, the value taken back after; CALL BY CONTENT copies a field the
+  value is encoded into. ACCEPT from the input device and CALL BY REFERENCE stay out: their bytes may be no
+  number, which a promoted item would show decoded. So does a statement with ON OVERFLOW or ON EXCEPTION
+  statements, which could read the item before its value is taken back.
+- **Found:** CardDemo's batch 40 promoted to 41 (predicted "a few more"); NIST 3,844 to 3,900 (predicted about
+  3,950: the rest of SET's and CALL's items have other holds, a group used whole or a file naming them); every
+  CardDemo job and NIST module as literal, the autotests and the ledger as before, at the first run.
+- **Resolved:** `Promoted.through`, `fieldName` and `in`; `Verbs.statement` routes the five verbs through it;
+  `Initialize` reaches an item by `fieldName`; `passes/Scalars` lets the verbs and CALL BY CONTENT through and
+  refuses the three cases above; `ScalarsTest` a program using each verb, and each refusal.
+- **Touched:** `lower/Promoted.java`, `Verbs.java`, `Exprs.java`, `Initialize.java`; `passes/Scalars.java`;
+  `test/katana/passes/ScalarsTest.java`; `docs/ROADMAP.md`, `docs/research/ibm-options.md`, `docs/KERNEL-MAP.md`;
+  `TODO.md`.

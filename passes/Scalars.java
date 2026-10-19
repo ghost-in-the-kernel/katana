@@ -24,7 +24,10 @@ import katana.sir.types.Value;
 public final class Scalars {
     public static final String PASS = "scalars-v1";
     /** The verbs a promoted item may appear in: their reads go through its value or a field encoding it, their stores through `Decimal.store`. */
-    private static final Set<String> VERBS = Set.of("MOVE", "ADD", "SUBTRACT", "MULTIPLY", "DIVIDE", "COMPUTE", "DISPLAY", "IF", "EVALUATE", "PERFORM");
+    private static final Set<String> VERBS = Set.of("MOVE", "ADD", "SUBTRACT", "MULTIPLY", "DIVIDE", "COMPUTE", "DISPLAY", "IF", "EVALUATE", "PERFORM",
+            "INITIALIZE", "SET", "STRING", "UNSTRING", "ACCEPT", "CALL");
+    /** The verbs that write it through a field of its own (research §40): a statement of theirs with statements of its own would let them read it before its value is taken back. */
+    private static final Set<String> THROUGH = Set.of("INITIALIZE", "SET", "STRING", "UNSTRING", "ACCEPT");
 
     private Scalars() {}
 
@@ -91,9 +94,11 @@ public final class Scalars {
         }
         for (String v : verbs) if (!VERBS.contains(v)) why.add("used by " + v);
         if (uses.varied.contains(i.id())) why.add("varied by a PERFORM");
+        if (uses.raw.contains(i.id())) why.add("ACCEPTed from the input device, whose bytes may be no number");
+        if (uses.phrased.contains(i.id())) why.add("written by a statement with ON OVERFLOW or ON EXCEPTION statements");
     }
 
-    /** Every item named outside the procedure's statements: REDEFINES, ODO objects, table keys and indexes, a file's keys, status, record length and LINAGE, a CALL's arguments. */
+    /** Every item named outside the procedure's statements: REDEFINES, ODO objects, table keys and indexes, a file's keys, status, record length and LINAGE, a CALL's arguments but BY CONTENT. */
     private static Set<Integer> named(Program p) {
         Set<Integer> out = new HashSet<>();
         for (Item i : p.items()) if (i.occurs() != null) {
@@ -110,8 +115,9 @@ public final class Scalars {
                 if (l != null) for (Value v : java.util.Arrays.asList(l.body(), l.footing(), l.top(), l.bottom())) fields(v, out);
             }
         }
+        // A CALL's argument BY CONTENT is a copy the called program cannot write; BY REFERENCE (or BY VALUE) is not.
         for (Call c : p.calls()) {
-            for (Call.Argument a : c.using()) fields(a.value(), out);
+            for (Call.Argument a : c.using()) if (a.mode() != Call.Mode.CONTENT) fields(a.value(), out);
             fields(c.returning(), out);
         }
         out.remove(0);
@@ -126,9 +132,10 @@ public final class Scalars {
     /** Each item's verbs (an 88's under `SET` when set), its reference modifications, and the identifiers PERFORM varies. */
     private static final class Uses {
         final Map<Integer, Set<String>> verbs = new HashMap<>();
-        final Set<Integer> refmod = new HashSet<>(), varied = new HashSet<>();
+        final Set<Integer> refmod = new HashSet<>(), varied = new HashSet<>(), raw = new HashSet<>(), phrased = new HashSet<>();
 
         void statement(Statement s) {
+            through(s);
             for (Statement.Operand o : s.operands()) {
                 if (s.verb().equals("PERFORM")) varying(o.role(), o.value());
                 value(o.value(), s.verb());
@@ -139,6 +146,16 @@ public final class Scalars {
                 value(b.condition(), s.verb());
                 for (Statement t : b.statements()) statement(t);
             }
+        }
+
+        /** The items a verb writing through a field names, when it has statements of its own; an ACCEPT's from the input device (no FROM DATE, DAY or TIME). */
+        void through(Statement s) {
+            if (!THROUGH.contains(s.verb())) return;
+            Set<Integer> named = new HashSet<>();
+            for (Statement.Operand o : s.operands()) fields(o.value(), named);
+            for (Statement.Operand o : s.operands()) if (o.value() instanceof Value.ConditionName c) named.add(c.item());
+            if (s.branches().stream().anyMatch(b -> !b.statements().isEmpty())) phrased.addAll(named);
+            if (s.verb().equals("ACCEPT") && s.operands().stream().noneMatch(o -> o.role().equals("accept-from-date-statement"))) raw.addAll(named);
         }
 
         /** A PERFORM's VARYING and AFTER identifiers: a field directly under a `perform-varying-phrase`, as `lower/Performs` reads them. */

@@ -1763,3 +1763,9 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Scalars.java:Scalars.received` |  | 2026-10-19 |  |
 | rt | `rt/katana/rt/Scalars.java:Scalars.store` | R-068 | 2026-10-19 |  |
 | passes | `passes/Scalars.java:Scalars.group` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.fieldName` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.in` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.items` |  | 2026-10-19 |  |
+| lower | `lower/Promoted.java:Promoted.through` | R-068 | 2026-10-19 |  |
+| lower | `lower/Verbs.java:Verbs.verb` |  | 2026-10-19 |  |
+| passes | `passes/Scalars.java:Scalars.Uses.through` |  | 2026-10-19 |  |

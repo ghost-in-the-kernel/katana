@@ -1987,3 +1987,42 @@ in SEARCH, SET or INITIALIZE, or receiving from another verb, fall); every run a
 a read the scratch field renders otherwise than the item's bytes did (a sign, a BINARY item's value
 over its PICTURE, a codepage), or a size error a variable takes otherwise than its bytes (DIVIDE's
 REMAINDER, several receivers), seen as a report or trace that differs.
+
+## 40. 6.3's remaining verbs: a statement that writes a promoted item's bytes runs on a field of its own (R-068; J-216)
+
+**Ghost's decision (2026-10-19).** Of 6.3's open parts, the `NeverOverflows` interval rule moves to 6.6 (it
+needs loops' bounds, 6.6's dataflow), tables and items in records used whole to 6.7 (record classes); the verbs
+§39's obligation 4 kept out are done now.
+
+**The mechanism.** For one statement, a promoted item it names is a `Field` again: a field of the item's own
+attributes, `p<id>`, holding its value, which every lowering path uses as it uses any field; after the
+statement, the item takes the value the field then holds. That is exact when the statement leaves bytes that
+are a valid encoding of a number (what `get()` reads back, re-encoded, is the same bytes): a MOVE, a numeric
+store, INITIALIZE's zero or REPLACING value, all leave such bytes.
+
+**Each verb.**
+
+- INITIALIZE of the item itself (a group holding it is still a group used whole): zero, or REPLACING's
+  value, MOVEd; through the field.
+- SET: TO a value (a MOVE), UP or DOWN BY (a store, already the item's own), an 88 TO TRUE (its first
+  value MOVEd); through the field.
+- STRING: its senders are reads (a field the value is encoded into, as any read); its POINTER a numeric
+  store; through the field.
+- UNSTRING: its receivers (INTO, DELIMITER IN, COUNT IN), POINTER and TALLYING, each a MOVE or a numeric
+  store; through the field.
+- ACCEPT FROM DATE, DAY, DAY-OF-WEEK or TIME: digits MOVEd (`Accept.from`); through the field.
+- CALL ... BY CONTENT: a copy of the field the value is encoded into; the called program cannot write it.
+
+**Kept out, and why.** ACCEPT from the input device copies the record's bytes into the item as they are, and
+CALL ... BY REFERENCE gives the called program the item's bytes to write as it likes: either can leave bytes
+that are no valid number, which the literal program would DISPLAY as they are and a promoted item would show
+decoded. A statement among the five above with statements of its own (ON OVERFLOW, ON EXCEPTION) is kept out
+too: those statements may PERFORM a paragraph that reads the item before the field's value is taken back.
+
+**Proof**: as §39's: every CardDemo job and NIST module structured and promoted, as literal; the ledger.
+
+**Predicted, before the build.** CardDemo's batch: from 40 promoted to a few more (STRING's senders such as
+WS-TRANID-SUFFIX's, if nothing else holds them; its CALL arguments are BY REFERENCE and stay). NIST: from 3,844
+to about 3,950 (SET's 96, some of CALL's 45 BY CONTENT, a few STRING, UNSTRING and INITIALIZE), every run as
+literal. The rival: a verb that leaves bytes no number encodes in a way this reading missed (an UNSTRING
+receiver given a delimiter's characters, a SET of an 88 whose value is text), seen as a report that differs.
