@@ -83,6 +83,57 @@ final class Arith {
         return e.operands().stream().anyMatch(o -> holds(o, operators));
     }
 
+    /**
+     * An expression passes/Exact holds exact (6.4, research §41) as plain arithmetic, a term: `long` when every
+     * operand is an integer and every operation's integer places are at most 18 (no `long` overflows), else
+     * `BigDecimal`'s.
+     */
+    // Decision: R-020
+    String exact(Value v) {
+        return "Decimal.exact(" + (integers(v) <= 18 ? whole(v) : big(v)) + ")";
+    }
+
+    /** The most integer places any operation of an all-integer expression carries; past 18 when an operand has decimal places. */
+    private int integers(Value v) {
+        return switch (v) {
+            case Value.Field f -> x.item(f.item()).attributes().scale() > 0 ? 99 : Lower.stored(x.item(f.item()).attributes());
+            case Value.Literal l -> l.scale() > 0 ? 99 : l.payload().replace("-", "").length();
+            case Value.Expression e when e.operands().size() == 1 -> integers(e.operands().get(0));
+            case Value.Expression e when e.operator().equals("*") -> integers(e.operands().get(0)) + integers(e.operands().get(1));
+            case Value.Expression e -> Math.max(Math.max(integers(e.operands().get(0)), integers(e.operands().get(1))) + 1, 0);
+            default -> 1;
+        };
+    }
+
+    /** As `long` arithmetic: a promoted item's name, a literal, `(a + b)`. */
+    private String whole(Value v) {
+        return switch (v) {
+            case Value.Field f -> x.promoted.name(f.item());
+            case Value.Literal l -> l.payload() + (new java.math.BigInteger(l.payload()).bitLength() > 31 ? "L" : "");
+            case Value.Expression e when e.operator().equals("neg") -> "(-" + whole(e.operands().get(0)) + ")";
+            case Value.Expression e when e.operator().equals("pos") -> whole(e.operands().get(0));
+            case Value.Expression e -> "(" + whole(e.operands().get(0)) + " " + e.operator() + " " + whole(e.operands().get(1)) + ")";
+            default -> "0";
+        };
+    }
+
+    /** As `BigDecimal` arithmetic: `a.add(b)`, a `long` item `BigDecimal.valueOf(it)`, a literal at its scale. */
+    private String big(Value v) {
+        return switch (v) {
+            case Value.Field f when x.item(f.item()).attributes().scale() > 0 -> x.promoted.name(f.item());
+            case Value.Field f -> "java.math.BigDecimal.valueOf(" + x.promoted.name(f.item()) + ")";
+            case Value.Literal l -> "new java.math.BigDecimal(\"" + new java.math.BigDecimal(new java.math.BigInteger(l.payload()), l.scale()).toPlainString() + "\")";
+            case Value.Expression e when e.operator().equals("neg") -> big(e.operands().get(0)) + ".negate()";
+            case Value.Expression e when e.operator().equals("pos") -> big(e.operands().get(0));
+            case Value.Expression e -> big(e.operands().get(0)) + "." + switch (e.operator()) {
+                case "+" -> "add";
+                case "-" -> "subtract";
+                default -> "multiply";
+            } + "(" + big(e.operands().get(1)) + ")";
+            default -> "java.math.BigDecimal.ZERO";
+        };
+    }
+
     /** One operand as a term: its value with the integer places `Places` states for it. */
     String operand(Value v) {
         Places.Size size = Places.of(v, x);

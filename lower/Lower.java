@@ -32,12 +32,13 @@ public final class Lower {
      * a `for` (research §36), and the methods, by their first paragraph, whose paragraphs are the method's own
      * code, out of the switch (6.2, research §37); the main line's paragraphs when they are `run`'s own code, and the
      * loops of either, each header paragraph to the last of its loop (research §38); the items promoted to Java
-     * variables (6.3, research §39, R-068). Empty, the literal lowering; it decides nothing (passes/Structuring and
+     * variables (6.3, research §39, R-068); the arithmetic statements written as exact arithmetic, by where each
+     * starts (6.4, research §41). Empty, the literal lowering; it decides nothing (passes/Structuring and
      * passes/Scalars discharge the obligations).
      */
     public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls, java.util.Set<String> loops, java.util.Set<Integer> inline,
-                       java.util.Set<Integer> main, java.util.Map<Integer, Integer> cycles, java.util.Set<Integer> scalars) {
-        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Map.of(), java.util.Set.of());
+                       java.util.Set<Integer> main, java.util.Map<Integer, Integer> cycles, java.util.Set<Integer> scalars, java.util.Set<String> exact) {
+        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Map.of(), java.util.Set.of(), java.util.Set.of());
 
         public Plan {
             methods = java.util.Map.copyOf(methods);
@@ -47,6 +48,7 @@ public final class Lower {
             main = java.util.Set.copyOf(main);
             cycles = java.util.Map.copyOf(cycles);
             scalars = java.util.Set.copyOf(scalars);
+            exact = java.util.Set.copyOf(exact);
         }
 
         /** Whether the plan changes the procedure's flow (6.1, 6.2), apart from the items it promotes: a promotion alone leaves the dispatcher as it is. */
@@ -324,7 +326,7 @@ public final class Lower {
     }
 
     /** The digits an item stores: the IR counts each P as a digit (sir/build/Pictures), `rt/` only those it holds. */
-    static int stored(Attributes a) {
+    public static int stored(Attributes a) {
         return a.digits() - (int) a.picture().chars().filter(c -> c == 'P').count();
     }
 

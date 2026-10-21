@@ -34,6 +34,21 @@ public record Decimal(BigInteger unscaled, int scale) {
     /** A value in an arithmetic statement and the places it carries; `divisionByZero` once a division by zero has been met. */
     public record Term(Decimal value, ArithProfile.Places places, boolean divisionByZero) {}
 
+    /**
+     * An exact value as a term (6.4, research §41): what Appendix A's step-wise `+ - *` carries when no step
+     * passes the cap, written as plain arithmetic; its places the value's own.
+     */
+    // Decision: R-020
+    public static Term exact(BigDecimal value) {
+        BigInteger whole = value.setScale(0, RoundingMode.DOWN).abs().toBigInteger();
+        return new Term(new Decimal(value.unscaledValue(), value.scale()), new ArithProfile.Places(Math.max(1, whole.toString().length()), Math.max(0, value.scale())), false);
+    }
+
+    /** An exact integer value as a term. */
+    public static Term exact(long value) {
+        return exact(BigDecimal.valueOf(value));
+    }
+
     /** An operand: a data item or literal with the integer places its PICTURE (or its digits) gives it. */
     public static Term operand(Decimal value, int integerPlaces) {
         return new Term(value, new ArithProfile.Places(integerPlaces, value.scale()), false);

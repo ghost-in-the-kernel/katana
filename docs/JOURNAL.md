@@ -3450,3 +3450,23 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `lower/Promoted.java`, `Verbs.java`, `Exprs.java`, `Initialize.java`; `passes/Scalars.java`;
   `test/katana/passes/ScalarsTest.java`; `docs/ROADMAP.md`, `docs/research/ibm-options.md`, `docs/KERNEL-MAP.md`;
   `TODO.md`.
+
+### J-217 6.4: exact-arithmetic substitution, where IBM's step-wise arithmetic cuts nothing
+- **Who:** Opus, on Ghost's word ("lets move on to 6.4"). **Class:** build; trial.
+- **Intent:** research §41, before the build: Appendix A carries `+ - *` with the theoretical places and cuts only
+  past the cap, so an expression of them over operands within their places, every step within the cap, carries the
+  exact value; written as plain arithmetic (`Decimal.exact`), the store unchanged. Operands: promoted items, numeric
+  literals and ZERO only, since a record field's bytes may decode past its PICTURE and IBM's cut wraps what exact
+  arithmetic would not. `passes/Exact` decides by statement (its origin, in the plan), `lower/Forms` reads a
+  statement's expression for both, `Arith.exact` writes it.
+- **Found:** CardDemo's batch: 64 of 79 arithmetic statements exact (predicted about 50: ZERO and the GIVING forms
+  added more than the survey's 46); NIST 5,659 exact, 3,240 kept (predicted about 5,500); every CardDemo job and
+  NIST module as literal, the autotests and the ledger as before, at the first run. Kept: a record field 2,492
+  (CardDemo 10), a division 219, several receivers 80, the functions, LENGTH OF (CardDemo 4).
+- **Resolved:** `rt/Decimal.exact`; `lower/Forms` (`ArithVerbs` now adds through its `sum`, one helper, the
+  metrics' duplicate); `Lower.Plan.exact`; `test/katana/rt/ExactArithmeticTest` holds the step-wise `+ - *` to
+  the exact value over 5,000 seeded cases within the cap, the stored value and size error with them;
+  `test/katana/passes/ExactTest` the forms and each refusal.
+- **Touched:** `rt/katana/rt/Decimal.java`; `lower/Forms.java` (new), `Arith.java`, `ArithVerbs.java`,
+  `Lower.java`; `passes/Exact.java` (new), `Structuring.java`; `test/katana/passes/ExactTest.java`,
+  `test/katana/rt/ExactArithmeticTest.java`; `docs/KERNEL-MAP.md`; `TODO.md`.
