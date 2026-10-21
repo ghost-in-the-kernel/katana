@@ -2026,3 +2026,44 @@ WS-TRANID-SUFFIX's, if nothing else holds them; its CALL arguments are BY REFERE
 to about 3,950 (SET's 96, some of CALL's 45 BY CONTENT, a few STRING, UNSTRING and INITIALIZE), every run as
 literal. The rival: a verb that leaves bytes no number encodes in a way this reading missed (an UNSTRING
 receiver given a delimiter's characters, a SET of an 88 whose value is text), seen as a report that differs.
+
+## 41. 6.4, exact-arithmetic substitution: an expression IBM carries without a cut is plain arithmetic (R-020, R-032; J-217)
+
+**What 6.4 asks** (ROADMAP 6.4): step-wise IBM arithmetic becomes exact arithmetic only where no division or
+non-integer exponent can trigger dmax truncation.
+
+**When IBM's step-wise result is the exact one.** Appendix A (PG 6.4 p. 795, `rt/ArithProfile`, R-049) carries
+`op1 + op2` and `op1 - op2` with one integer place more than the greater and the greater decimal places, `op1 *
+op2` with the places summed; `carried` cuts only when integer and decimal places together pass the cap (30 under
+IBM_COMPAT, the lane's). An operand whose value fits its places (its PICTURE's, a literal's digits) then gives an
+exact sum, difference or product that fits the places carried, so `Decimal.cut` loses nothing at any step; ROUNDED
+adds one decimal place to the last operation, which the exact value also holds. The store (`Decimal.store`)
+rounds or truncates the exact value as it would the carried one: HALF_UP looks at the first digit dropped, which
+the two share. A division cuts to dmax (p. 795) and a negative or non-integer exponent divides or goes to
+floating point (pp. 796-797, 800): those keep the step-wise form.
+
+**Which operands.** A promoted item (6.3) or a literal, ZERO among them, always holds a value within its places.
+A data item's bytes need not: a packed or zoned field holding no valid number (after a READ into its record) can
+decode to more digits than its PICTURE, which IBM's step-wise cut wraps and exact arithmetic would not. So this
+step takes only promoted items, numeric literals and ZERO; an expression reading any other field keeps the
+step-wise form (the survey: CardDemo's batch 10 statements, NIST 2,666). A later step may take such a field with
+a check that its value fits.
+
+**Survey, before the design.** Arithmetic statements: CardDemo's batch 79, of which 46 use only promoted items
+and literals, 22 ZERO or a function, 10 another field, 1 a division; NIST 8,966: 5,629 only promoted items and
+literals, 345 a function or ZERO, 2,666 another field, 326 a division or exponent.
+
+**This step's set** (the pass decides, by statement, `passes/Exact`; the lowering writes): ADD, SUBTRACT,
+MULTIPLY and COMPUTE whose expression is `+`, `-`, `*`, unary minus and plus over promoted items, numeric
+literals and ZERO, every operation's places within the cap; ADD TO, SUBTRACT FROM and MULTIPLY BY with one
+receiver (several share a temporary taken before any receiver changes, R-059, kept step-wise); no CORRESPONDING.
+The value is written as Java: `long` arithmetic when every operand is an integer and every operation's integer
+places are at most 18 (`wsRecordCount + 1`), else `BigDecimal`'s (`wsTotalInt.add(wsMonthlyInt)`), handed to
+the store as `Decimal.exact(...)`; the store, its truncation, rounding and size error, is unchanged (R-068).
+
+**Proof**: as §39's: every CardDemo job and NIST module, structured and promoted, as literal.
+
+**Predicted, before the build.** CardDemo's batch: about 50 of its 79 arithmetic statements exact (the 46 and
+those with ZERO); every job as literal. NIST: about 5,500 of 8,966 (the 5,629 less ADDs and SUBTRACTs of several
+receivers), every run as literal. The rival: an operand whose value passes its places after all, or a ROUNDED
+result the exact value rounds otherwise, seen as a report that differs.
