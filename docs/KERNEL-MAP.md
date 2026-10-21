@@ -827,6 +827,7 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/ArithVerbs.java:ArithVerbs.op` |  | 2026-10-06 |  |
 | lower | `lower/ArithVerbs.java:ArithVerbs.add` |  | 2026-10-06 |  |
 | lower | `lower/ArithVerbs.java:ArithVerbs.sumExpression` |  | 2026-10-06 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.sumExpression` | moved in 6.4, one helper for the passes and the lowering | 2026-10-21 | superseded-by: `lower/Forms.java:Forms.sum` |
 | lower | `lower/ArithVerbs.java:ArithVerbs.subtract` |  | 2026-10-06 |  |
 | lower | `lower/ArithVerbs.java:ArithVerbs.multiply` |  | 2026-10-06 |  |
 | lower | `lower/ArithVerbs.java:ArithVerbs.divide` |  | 2026-10-06 |  |
@@ -1769,3 +1770,20 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Promoted.java:Promoted.through` | R-068 | 2026-10-19 |  |
 | lower | `lower/Verbs.java:Verbs.verb` |  | 2026-10-19 |  |
 | passes | `passes/Scalars.java:Scalars.Uses.through` |  | 2026-10-19 |  |
+| lower | `lower/Arith.java:Arith.exact` | R-020 | 2026-10-21 |  |
+| lower | `lower/Arith.java:Arith.integers` |  | 2026-10-21 |  |
+| lower | `lower/Arith.java:Arith.whole` |  | 2026-10-21 |  |
+| lower | `lower/Arith.java:Arith.big` |  | 2026-10-21 |  |
+| lower | `lower/Forms.java:Forms.Forms` |  | 2026-10-21 |  |
+| lower | `lower/Forms.java:Forms.of` |  | 2026-10-21 |  |
+| lower | `lower/Forms.java:Forms.add` |  | 2026-10-21 |  |
+| lower | `lower/Forms.java:Forms.subtract` |  | 2026-10-21 |  |
+| lower | `lower/Forms.java:Forms.multiply` |  | 2026-10-21 |  |
+| lower | `lower/Forms.java:Forms.sum` |  | 2026-10-21 |  |
+| lower | `lower/Forms.java:Forms.fields` |  | 2026-10-21 |  |
+| passes | `passes/Exact.java:Exact.Exact` |  | 2026-10-21 |  |
+| passes | `passes/Exact.java:Exact.exact` | R-032 | 2026-10-21 |  |
+| passes | `passes/Exact.java:Exact.statement` |  | 2026-10-21 |  |
+| passes | `passes/Exact.java:Exact.places` |  | 2026-10-21 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.exact` | R-020 | 2026-10-21 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.exact#2` |  | 2026-10-21 |  |

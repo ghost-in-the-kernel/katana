@@ -175,6 +175,13 @@ be no number), and a statement with ON OVERFLOW or ON EXCEPTION statements.
 
 Check: as above.
 
+Built (J-217, research §41): ADD, SUBTRACT, MULTIPLY and COMPUTE whose expression is `+ - *` over promoted items,
+numeric literals and ZERO, every step within the 30-digit cap, written as plain arithmetic (`long`, or `BigDecimal`
+with a decimal operand) into the unchanged store. CardDemo's batch: 64 of 79 arithmetic statements; NIST: 5,659,
+3,240 kept step-wise; every CardDemo job and NIST module as literal. Open: an operand that is a record field (2,492
+of NIST's kept, 10 of CardDemo's), whose bytes may decode past its PICTURE, which a check that its value fits could
+admit; ADD TO, SUBTRACT FROM and MULTIPLY BY with several receivers (R-059's temporary).
+
 ### 6.5 Enum and flag types
 
 Check: as above.

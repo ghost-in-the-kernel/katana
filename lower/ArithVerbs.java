@@ -26,7 +26,10 @@ final class ArithVerbs {
         boolean phrase = !Verbs.branch(s, "on-size-error-phrase").isEmpty() || !Verbs.branch(s, "not-on-size-error-phrase").isEmpty();
         f.e.line("sz = false;");
         f.e.open("");
-        switch (s.verb()) {
+        // 6.4: a statement passes/Exact holds exact, its one expression as plain arithmetic into its receivers (research §41).
+        Forms.Form form = Forms.of(s);
+        if (form != null && f.plan.exact().contains(Lower.Plan.loop(s.origin()))) storeOnce(receivers(s, form.receivers()), (r, rd) -> f.arith.exact(form.expression()), phrase);
+        else switch (s.verb()) {
             case "ADD" -> add(s, phrase);
             case "SUBTRACT" -> subtract(s, phrase);
             case "MULTIPLY" -> multiply(s, phrase);
@@ -101,7 +104,7 @@ final class ArithVerbs {
 
     /** The values added together, as one term that is not the last operation: `a + b + c`. */
     private String sum(List<Value> values, int dmax) {
-        return f.arith.term(sumExpression(values), dmax);
+        return f.arith.term(Forms.sum(values), dmax);
     }
 
     private String op(String name, String a, String b, int dmax, boolean rounded) {
@@ -125,14 +128,9 @@ final class ArithVerbs {
         List<Value> all = new ArrayList<>(from);
         all.addAll(Verbs.operands(s, "add-to-giving"));
         int dmax = f.arith.dmax(items(giving), all);
-        storeOnce(giving, (r, rd) -> all.size() == 1 ? f.arith.operand(all.get(0)) : f.arith.result(sumExpression(all), dmax, rd), phrase);
+        storeOnce(giving, (r, rd) -> all.size() == 1 ? f.arith.operand(all.get(0)) : f.arith.result(Forms.sum(all), dmax, rd), phrase);
     }
 
-    private static Value sumExpression(List<Value> values) {
-        Value total = values.get(0);
-        for (int k = 1; k < values.size(); k++) total = new Value.Expression("+", List.of(total, values.get(k)));
-        return total;
-    }
 
     private void subtract(Statement s, boolean phrase) {
         List<Value> subtrahends = Verbs.operands(s, "subtract-subtrahend");
