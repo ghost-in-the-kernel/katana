@@ -64,7 +64,7 @@ class AttributionIntegrationTest {
     }
 
     /** Each kind's probe: the lowered program with that kind's rule broken (LANE-23). */
-    private static Map<Divergence.Kind, Map<String, List<String>>> probes(String program, String className, Path classes) {
+    static Map<Divergence.Kind, Map<String, List<String>>> probes(String program, String className, Path classes) {
         Map<Divergence.Kind, Map<String, List<String>>> out = new LinkedHashMap<>();
         for (Divergence.Kind k : Divergence.Kind.values())
             out.put(k, Map.of(program, List.of(java(), "-Dkatana.mutate=" + k.code, "-cp", classes + java.io.File.pathSeparator + System.getProperty("java.class.path"), className)));
@@ -72,16 +72,16 @@ class AttributionIntegrationTest {
     }
 
     /** The lanes' setup: `repo` the fixture's sources, `dir` its programs and copybooks, `work` under build/. */
-    private static Prove.Setup setup(Path repo, Path dir, Path work) {
+    static Prove.Setup setup(Path repo, Path dir, Path work) {
         return new Prove.Setup(ROOT, Map.of("repo", repo), dir.resolve("cbl"), List.of(dir.resolve("cpy")), work, Duration.ofSeconds(60));
     }
 
-    private static String java() {
+    static String java() {
         return Path.of(System.getProperty("java.home"), "bin", "java").toString();
     }
 
     /** A COBOL program lowered literal and compiled into `classes`; its class name. */
-    private static String lowered(Path cbl, Path cpy, Path classes) throws Exception {
+    static String lowered(Path cbl, Path cpy, Path classes) throws Exception {
         Files.createDirectories(classes);
         Program program = Build.programs(Parse.file(cbl, new Copybooks(List.of(cpy), n -> 8), 8), "sha256:" + "0".repeat(64)).get(0).program();
         String className = Lower.className(program);

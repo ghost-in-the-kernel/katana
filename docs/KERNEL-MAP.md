@@ -1920,3 +1920,25 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | oracle | `oracle/prove/Attribute.java:Attribute.text` |  | 2026-10-22 |  |
 | oracle | `oracle/prove/Attribute.java:Attribute.text#2` |  | 2026-10-22 |  |
 | rt | `rt/katana/rt/Decimal.java:Decimal.leading` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.Divergences` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.entries` | R-072 | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.line` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.proven` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.cause` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.storing` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.receiver` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.reads` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.fields` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.unexercised` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.divides` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.paragraph` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.aligned` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.origin` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.record` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.trace` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.fix` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Divergences.java:Divergences.leaf` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Report.java:Report.Report` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Report.java:Report.write` | R-072 | 2026-10-22 |  |
+| oracle | `oracle/prove/Report.java:Report.entry` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Report.java:Report.refusals` |  | 2026-10-22 |  |

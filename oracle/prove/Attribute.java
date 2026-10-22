@@ -27,8 +27,8 @@ public final class Attribute {
     /** A kind and the cells its probe reproduces, of all those to explain. */
     public record Rank(Divergence.Kind kind, int reproduced, int cells) {}
 
-    /** The cells to explain, the kinds that explain any ranked first to last, the cells none explains, and the text. */
-    public record Result(List<Cell> cells, List<Rank> ranks, List<Cell> unattributed, String text) {
+    /** The cells to explain, the kinds that explain any ranked first to last, the cells none explains, each cell's kinds, and the text. */
+    public record Result(List<Cell> cells, List<Rank> ranks, List<Cell> unattributed, Map<Cell, List<Divergence.Kind>> kinds, String text) {
         public Divergence.Kind first() {
             return ranks.isEmpty() ? null : ranks.get(0).kind();
         }
@@ -45,15 +45,18 @@ public final class Attribute {
         for (var p : probes.entrySet()) runs.put(p.getKey(), run(fixture, s, "probe-" + p.getKey().code, p.getValue()));
         Map<Divergence.Kind, Integer> reproduced = new LinkedHashMap<>();
         List<Cell> unattributed = new ArrayList<>();
+        Map<Cell, List<Divergence.Kind>> kinds = new LinkedHashMap<>();
         for (var o : Prove.outputs(fixture).entrySet()) {
             Layout layout = Layout.read(Files.readString(Prove.copybook(s, o.getValue().copybook())));
             byte[] a = unload(cobol, o.getKey()), b = unload(ported, o.getKey());
             for (Cell c : differing(o.getKey(), o.getValue().lrecl(), layout, a, b)) {
                 cells.add(c);
+                kinds.put(c, new ArrayList<>());
                 boolean any = false;
                 for (var r : runs.entrySet()) {
                     if (!c.port().equals(cell(unload(r.getValue(), o.getKey()), o.getValue().lrecl(), layout, c))) continue;
                     reproduced.merge(r.getKey(), 1, Integer::sum);
+                    kinds.get(c).add(r.getKey());
                     any = true;
                 }
                 if (!any) unattributed.add(c);
@@ -62,7 +65,7 @@ public final class Attribute {
         List<Rank> ranks = new ArrayList<>();
         reproduced.forEach((k, n) -> ranks.add(new Rank(k, n, cells.size())));
         ranks.sort(Comparator.comparingInt(Rank::reproduced).reversed());
-        return new Result(cells, ranks, unattributed, text(cells, ranks, unattributed));
+        return new Result(cells, ranks, unattributed, kinds, text(cells, ranks, unattributed));
     }
 
     /** A java-lane run of the commands (`null`, the cobc lane) under the fixture, in its own folder. */

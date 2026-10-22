@@ -319,6 +319,12 @@ and the fix as Katana's emitted Java for the statement; NE- and HY- findings apa
 PROOF-01's quote present (the oracle is cobc -std=ibm, R-013); a `proven` line whose fixture is missing refused; two
 runs write identical reports.
 
+Built ahead of the chain (J-237, research §53): `oracle/prove/Report` and `Divergences`. On ACCRUE's hand-written
+HALF_UP port: ACCT-INT proven at its COMPUTE, DV-02, aligned by literal, Katana's Java as the reference fix; ACCT-BAL
+following from it; two runs identical; a proof whose fixture is missing or changed refused. Open: a per-record trace
+for a program with no named paragraph, and a first report on a real port of a CardDemo program (8A.1's runtime
+question for the oc4j reference).
+
 ### 8A.7 Tithe pass 8A
 
 Check: none in the roadmap; written here before the item starts. With it, the first report read outside the project

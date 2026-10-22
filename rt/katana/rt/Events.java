@@ -10,8 +10,9 @@ import java.nio.charset.StandardCharsets;
  * The divergence report's execution counters (8A.3, research §50): with `-Dkatana.events=<file>`, each event a store
  * or a division meets is a line, `Event: KIND PROGRAM PARAGRAPH`, the paragraph the one control last entered
  * (`Trace`); without it, nothing. The kinds: a size error met (`SIZE_ERROR`), one stored without ON SIZE ERROR so
- * high-order digits are lost (`TRUNCATED`), a negative value stored into an unsigned receiver (`SIGN_DROPPED`), and
- * a quotient cut at the places Appendix A carries (`DMAX_CUT`).
+ * high-order digits are lost (`TRUNCATED`), a negative value stored into an unsigned receiver (`SIGN_DROPPED`), a
+ * quotient cut at the places Appendix A carries (`DMAX_CUT`), and low-order digits dropped by a store without
+ * ROUNDED (`SCALE_CUT`, 8A.6, research §53).
  */
 public final class Events {
     static final String FILE = System.getProperty("katana.events");

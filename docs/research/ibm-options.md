@@ -2509,3 +2509,46 @@ a kind that reproduces none is not listed; a difference no probe reproduces is `
 
 The rival: kinds that overlap, where one rule's break reproduces another's cells. The ranking would then show two
 kinds for one cause, and the report must show both rather than pick one.
+
+## 53. 8A.6, the divergence report: each divergence proven or possible, its statement, cause, trace and fix (J-237)
+
+**Ghost's word (2026-10-22).** "yes, continue into 8A.6".
+
+**What the report says**, for a foreign port and its COBOL under one fixture (R-072): a header and the entries.
+
+The header quotes docs/PROOF.md's "What it never covers" verbatim, as PROOF-01 has every proof do, since the oracle
+is cobc -std=ibm and not IBM (R-013). It names the fixture by path and hash and the port by its command.
+
+Then one entry per divergence, each with:
+- **status:** `proven`, where a run differed and the report cites the fixture by path and hash and the input record
+  that produced it by hash; or `possible`, a statement of a kind's shape that this fixture never took across the
+  kind's boundary (no event of that kind at its paragraph in Katana's own run, LANE-22). A possible entry is a place
+  to look, which 8A.3's boundary inputs can turn into a proof.
+- **where:** the field, the dataset and its records.
+- **the statement:** the COBOL statement that stores the field, named as the alignment names it, with its origin.
+  When a statement reads another differing field, the entry says it follows from that field's divergence, rather
+  than claiming a second cause.
+- **the aligned Java:** the place, its state and evidence from the `.align` (8A.4), or `unaligned`.
+- **the cause:** the kind attribution ranks first, with the cells it reproduces (8A.5), its rule, the IBM text, and
+  the wrong shape. Or `unattributed`.
+- **the trace:** the paragraphs Katana's own run entered on that record's pass, up to the statement's paragraph.
+- **the fix:** Katana's literal Java for the statement, sliced from the lowering by its provenance comment, with the
+  kind's exact-Java description. It is a reference, never a patch to the port (R-072).
+
+Last, the program's NE- and HY- findings, apart, as "no port can be exact here".
+
+**Refusals.** A `proven` entry whose fixture is missing, or whose hash is not the fixture's, is refused. The report
+writes nothing that varies between runs: no time, no absolute path, entries in the program's order. Two runs write
+identical reports.
+
+**Predicted, before the run** (8A.1's hand-written HALF_UP port of ACCRUE):
+- one proven root divergence: `ACCT-INT` on records 1 and 3, stored by `COMPUTE #1 IN PROCEDURE DIVISION`
+  (ACCRUE.cbl:28), aligned to `AccruePorts.java` by its literal, cause DV-02 reproducing all its cells, and the fix
+  Katana's `Arithmetic.store` of the step-by-step product;
+- `ACCT-BAL` on the same records, following from `ACCT-INT`'s divergence, through the ADD that reads it;
+- no possible entry: the ADD's overflow is reached by record 4, so DV-01's boundary is exercised;
+- no NE- or HY- finding;
+- two runs identical.
+
+The rival: the trace by record. A program whose paragraphs are entered other than once a record has no pass per
+record; such a trace is given for the run and says so.
