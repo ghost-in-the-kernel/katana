@@ -359,6 +359,13 @@ public final class Lower {
         return String.format("%04d%02d%02d%02d%02d%02d%02d+0000", t.getYear(), t.getMonthValue(), t.getDayOfMonth(), t.getHour(), t.getMinute(), t.getSecond(), t.getNano() / 10_000_000);
     }
 
+    /**
+     * The verbs that write a promoted item's bytes through a field of the item's own (research §40): `Verbs` runs
+     * them through `Promoted.through`, and passes/Scalars keeps out an item one of them writes with statements of
+     * its own, since `through` holds no statement inside another. One set, read by both.
+     */
+    public static final java.util.Set<String> THROUGH = java.util.Set.of("INITIALIZE", "SET", "STRING", "UNSTRING", "ACCEPT");
+
     /** The digits an item stores: the IR counts each P as a digit (sir/build/Pictures), `rt/` only those it holds. */
     public static int stored(Attributes a) {
         return a.digits() - (int) a.picture().chars().filter(c -> c == 'P').count();

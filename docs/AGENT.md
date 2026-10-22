@@ -11,7 +11,8 @@ code at its value there (R-042, R-054); until then it is "not armed" and not com
 
 - **AGT-01 A clean clone builds offline.** `gradle build --offline` in the image with `--network none`, from
   `third_party/` (R-001).
-- **AGT-02 The fast loop runs under 20 s, warm (R-054).** Unit tests only: no `cobc`, no `javac` of generated Java.
+- **AGT-02 The fast loop runs within its ceiling, warm (R-054 amended).** The table's first number is the ceiling
+  `scripts/Ceilings.java` holds on every push (25 s); a tithe aims it at 20. Unit tests only: no `cobc`, no `javac` of generated Java.
   Integration is its own target with its own budget: NIST in full under 3 minutes, CardDemo under 1.
 - **AGT-03 Mandatory context stays under 1,500 words.** `CLAUDE.md` plus whatever an agent must read
   before a task.

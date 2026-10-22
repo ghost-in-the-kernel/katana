@@ -164,7 +164,7 @@ final class Metrics {
         lines.add("\nOver 15 lines or 6 paths, with no comment saying what it is for:");
         functions.stream().filter(f -> !f.documented() && (f.lines() > 15 || f.paths() > 6))
                 .forEach(f -> lines.add("  " + f.key() + " (line " + f.line() + "): " + f.lines() + " lines, " + f.paths() + " paths"));
-        lines.add("\nTithe cadence (R-008: every eighth commit):");
+        lines.add("\nTithe cadence (R-008: one commit in eight; the gate refuses past " + TitheGate.GRACE + "):");
         lines.add("  " + cadence());
         lines.add("\n`// Unsure:` lines (doubts written down; never failed):");
         Repo.files(".java").forEach((path, text) -> {

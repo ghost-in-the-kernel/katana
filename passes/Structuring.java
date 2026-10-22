@@ -33,8 +33,10 @@ public final class Structuring {
     /** A range made a method, and the fact that licenses it. */
     public record Applied(int first, int last, Fact fact) {}
 
-    /** The plan lower/ takes, what was applied, each range or item not changed with why, and the fact behind each item 6.5 names or types. */
-    /** `viewed`: the items 6.7's record classes name, each a member of a record written as a class (research §46). */
+    /**
+     * The plan lower/ takes, what was applied, each range or item not changed with why, the fact behind each item 6.5
+     * names or types, and `viewed`, the items 6.7's record classes name (research §46).
+     */
     public record Result(Lower.Plan plan, List<Applied> applied, Map<String, List<String>> refused, Map<Integer, Fact> typed, Set<Integer> viewed) {}
 
     private Structuring() {}
@@ -66,6 +68,9 @@ public final class Structuring {
         Map<Integer, Integer> cycles = new HashMap<>();
         Set<Integer> inline = program.isEmpty() ? Inline.inline(p, methods, loops, cycles, refused) : Set.of();
         Set<Integer> main = program.isEmpty() ? MainLine.main(p, methods, loops, cycles, refused) : Set.of();
+        // The passes after structuring, in the order each needs the one before (docs/PASSES.md): 1. Scalars promotes
+        // items; 2. Exact takes their statements; 3. Fits only Exact's; 4. Types names and types promoted items; 5. Records
+        // views the records left in bytes; 6. Stateless reads the whole program.
         Set<Integer> scalars = Scalars.promote(p, refused);
         Set<String> exact = Exact.exact(p, scalars, refused);
         Set<String> fits = Fits.fits(p, scalars, exact, refused);

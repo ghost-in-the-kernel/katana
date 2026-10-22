@@ -34,6 +34,7 @@ at the plan.
 | The literal lowering: a statement to Java | `lower/Lower.java` (a program's class), `lower/Verbs.java` (each verb), `lower/Exprs.java` (a field reference), `lower/Emitter.java` | `docs/SEMANTIC-IR.md`, R-024 | `test/katana/lower/`, `test/katana/lower/NistJavaLaneIntegrationTest.java` |
 | The Intent IR: what a program means, as facts with evidence and a state | `intent/types/Fact.java`, `intent/types/Intent.java`, `intent/rules/Rules.java`, `intent/review/Review.java` | `docs/INTENT-IR.md` (INT-01 onward), R-029, R-064 | `test/katana/intent/IntentDocTest.java`, `test/katana/intent/IntentTypesTest.java` |
 | The proof ledger: what was done to the Java and why, and the provenance map | `ledger/Ledger.java`, `ledger/Entry.java`, `ledger/ProvenanceMap.java`, `lower/Lower.java` (its manifest) | `docs/LEDGER.md` (LED-01 onward), R-030 | `test/katana/ledger/LedgerTest.java`, `test/katana/ledger/LiteralLedgerIntegrationTest.java` |
+| What a pass writes in `lower/`: a numeric item as a Java variable, a record as a class, exact arithmetic | `docs/PASSES.md` (its row's "Written by"), then that file | `docs/PASSES.md` | its row's unit test |
 | A pass: what it proves and where the lowering writes it | `docs/PASSES.md` (its row), `passes/Structuring.java` (the order), the pass's file | `docs/PASSES.md`, R-032 | its row's unit test; `test/katana/passes/StructuringLedgerIntegrationTest.java` and the structured runs |
 | The agent's environment: metrics, the kernel map | `docs/AGENT.md`, `docs/KERNEL-MAP.md`, `scripts/Metrics.java`, `scripts/KernelMap.java` | `docs/ROADMAP.md` §4.3, §5 | `test/MetricsTest.java`, `test/KernelMapTest.java` |
 | The corpus | `corpus/MANIFEST.md`, `corpus/fetch.sh`, `corpus/scan.sh` | licenses in the manifest | a file with no license fails |
@@ -53,7 +54,7 @@ clone, the suites the change touches and why (`--all` at a phase boundary), quot
 
 The fast loop always; `scripts/prepush.sh` before a push. A refactor changes no golden (P-02). A
 construct the lowering cannot make exact is a finding, never silent output (P-03). A function that
-holds a decision cites it, `// Decision: R-021`. Every eighth commit is a tithe (R-008). A finished
+holds a decision cites it, `// Decision: R-021`. One commit in eight is a tithe; the gate refuses a push past sixteen since the last (R-008). A finished
 step is merged to `main` at once, after fetching it (R-040).
 
 ## Two rules

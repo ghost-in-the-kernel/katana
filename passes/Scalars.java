@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import katana.lower.Lower;
 import katana.sir.types.Attributes;
 import katana.sir.types.Call;
 import katana.sir.types.FileDescriptor;
@@ -26,8 +27,8 @@ public final class Scalars {
     /** The verbs a promoted item may appear in: their reads go through its value or a field encoding it, their stores through `Decimal.store`. */
     private static final Set<String> VERBS = Set.of("MOVE", "ADD", "SUBTRACT", "MULTIPLY", "DIVIDE", "COMPUTE", "DISPLAY", "IF", "EVALUATE", "PERFORM",
             "INITIALIZE", "SET", "STRING", "UNSTRING", "ACCEPT", "CALL");
-    /** The verbs that write it through a field of its own (research §40): a statement of theirs with statements of its own would let them read it before its value is taken back. */
-    private static final Set<String> THROUGH = Set.of("INITIALIZE", "SET", "STRING", "UNSTRING", "ACCEPT");
+    /** The verbs that write it through a field of its own (research §40), `lower/`'s one set: a statement of theirs with statements of its own would let them read it before its value is taken back. */
+    private static final Set<String> THROUGH = Lower.THROUGH;
 
     private Scalars() {}
 

@@ -10,7 +10,7 @@ import katana.sir.types.Item;
 import katana.sir.types.Program;
 
 /**
- * The items 6.3 promotes (R-068), as Java: each a `long` (an integer item), a `BigDecimal` (an item with
+ * Declares, reads and stores the items 6.3 promotes (R-068), as Java: each a `long` (an integer item), a `BigDecimal` (an item with
  * decimal places) or a `Money` (6.5, R-070) named for the item, its `Field` gone; its value read directly in
  * arithmetic, encoded into a field of its own where a read needs bytes; every store the function the byte form
  * stores by. With them, the names 6.5 gives an Enum or Flag item's condition names.
@@ -142,11 +142,18 @@ final class Promoted {
      */
     // Decision: R-068
     void through(Set<Integer> items, Emitter e, Runnable statement) {
+        // A statement inside another (a phrase's statements) may go through other items; one item twice cannot, its
+        // field `p<id>` declared in both blocks. passes/Scalars keeps out the items a phrased statement names itself,
+        // not those in its subscripts, so the overlap is refused here, loudly.
+        if (!java.util.Collections.disjoint(bound, items)) throw new IllegalStateException("promoted items " + items + " through a statement inside one already through " + bound);
         e.open("");
         for (int id : items) e.line("Field p" + id + " = " + field(id) + ";");
         bound.addAll(items);
-        statement.run();
-        bound.removeAll(items);
+        try {
+            statement.run();
+        } finally {
+            bound.removeAll(items);
+        }
         for (int id : items) e.line(assign(id, "p" + id + ".get()") + ";");
         e.close();
     }

@@ -51,6 +51,11 @@ class DocTests {
     }
 
     @Test
+    void duplicates() {
+        assertEquals(List.of(), DuplicatesDocTest.run().problems());
+    }
+
+    @Test
     void passes() {
         assertEquals(List.of(), PassesDocTest.run().problems());
     }
