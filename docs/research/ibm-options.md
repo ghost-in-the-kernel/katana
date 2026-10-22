@@ -2217,3 +2217,47 @@ receiver drop a few). NIST: about 50 (the measurement's 63, less those with an u
 plus a few among the 130 with ON SIZE ERROR's phrase, which the measurement left out). Every run as literal. The
 rival: an operand whose value passes its PICTURE (a promoted item a store left otherwise, a BINARY field), seen as a
 report that differs.
+
+## 46. 6.7, record classes as typed views over a record's bytes, with fixed tables (J-223)
+
+**Ghost's choice (2026-10-22).** The survey: CardDemo's batch has 239 01-level records. 194 have no aliasing
+(no REDEFINES in or of them, no RENAMES, no reference modification of a member, no OCCURS DEPENDING ON, no
+pointer, float, national or native-binary usage, not EXTERNAL or GLOBAL): 48 file records, 139 in
+WORKING-STORAGE, 7 in LINKAGE. Their group uses are mostly MOVE (57), READ INTO (18), WRITE and REWRITE FROM, IF
+and DISPLAY, and they hold 172 numeric items still in bytes. NIST: 13,881 of 15,049 records have no aliasing.
+Ghost chose a typed view, and fixed OCCURS in the same step.
+
+**What a record class is.** A Java class per record, over the record's bytes, which stay the truth. Each member
+of the record is a named `Field` of the class, its name the item's (TRAN-AMT `tranAmt`), and the program reaches
+it as `tranRecord.tranAmt`, not `f12`. A numeric member also has a typed getter, `long tranAmt()` or
+`BigDecimal`, returning what IBM's read of the bytes gives (`Field.get()`, so NUMPROC and invalid data stay
+IBM's). The exact form reads through the getter. Every store goes through the `Field`, as before, so every store
+keeps COBOL's truncation and size error. Group MOVE, READ INTO and WRITE FROM stay byte copies of the record, so
+the byte codec stays at the boundary. The view changes no byte and no operation: exact by construction.
+
+No setters. Every store already goes through a `Field` operation (`Arithmetic.store`, the MOVE rules), and a
+setter no lowering calls would be dead code.
+
+**Tables.** A member under a fixed OCCURS gets an accessor, `Field entryAmt(long i)` (one argument per
+dimension), which is `Table.at` over the first element. A subscript out of range reads the neighbouring bytes,
+as IBM's does with SSRANGE off.
+
+**Obligations** (a record that fails one keeps its `r`/`f` fields, and the pass says why):
+1. A group 01-level in WORKING-STORAGE or the FILE SECTION. LINKAGE is left out: its bytes are the caller's,
+   bound at each CALL.
+2. No aliasing, as above.
+3. Not in a program the structuring pass leaves literal (declaratives, independent segments with ALTER).
+
+A promoted member (6.3) stays the program's variable and is not in the class.
+
+**The ledger.** The class instance is a symbol of a new node form, `record <id>`; each member's new name
+(`tranRecord.tranAmt`) supersedes its `f<id>`, under `records-v1`.
+
+**Proof**: as §45's: every CardDemo job and NIST module as literal; the ledger holds against the build (LED-04).
+A unit test holds the class, the getters and a table's accessor, and each obligation broken.
+
+**Predicted, before the build.** CardDemo's batch: about 130 records as classes (the 187 clean ones in
+WORKING-STORAGE and files, less the elementary 01s). NIST: some thousands (most NIST 01s are elementary
+counters and messages). Every run as literal. The rival: a name the class gives that two members share (the
+same name under two groups of one record, qualified in COBOL), or a constructor past the JVM's method size on a
+large record, seen as a compile failure.
