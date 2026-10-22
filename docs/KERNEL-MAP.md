@@ -1834,3 +1834,9 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/Dataflow.java:Dataflow.entering` |  | 2026-10-22 |  |
 | passes | `passes/Dataflow.java:Dataflow.writes` |  | 2026-10-22 |  |
 | passes | `passes/Dataflow.java:Dataflow.transfer` |  | 2026-10-22 |  |
+| lower | `lower/Arith.java:Arith.assign` | R-068 | 2026-10-22 |  |
+| passes | `passes/Fits.java:Fits.Fits` |  | 2026-10-22 |  |
+| passes | `passes/Fits.java:Fits.fits` | R-068 | 2026-10-22 |  |
+| passes | `passes/Fits.java:Fits.statement` |  | 2026-10-22 |  |
+| passes | `passes/Fits.java:Fits.refusals` |  | 2026-10-22 |  |
+| passes | `passes/Fits.java:Fits.signed` |  | 2026-10-22 |  |

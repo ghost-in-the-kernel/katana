@@ -35,7 +35,9 @@ final class ArithVerbs {
                 f.x.guarded = true;
                 f.e.open("if (valid(" + String.join(", ", guards) + "))");
             }
-            storeOnce(receivers(s, form.receivers()), (r, rd) -> f.arith.exact(form.expression()), phrase);
+            // 6.6b: a value passes/Fits proves always fits its one receiver, assigned (research §45, R-068).
+            if (f.plan.fits().contains(Lower.Plan.loop(s.origin()))) f.e.line(f.arith.assign(receivers(s, form.receivers()).get(0).field().item(), form.expression()) + ";");
+            else storeOnce(receivers(s, form.receivers()), (r, rd) -> f.arith.exact(form.expression()), phrase);
             if (!guards.isEmpty()) {
                 f.e.close();
                 f.e.open("else");

@@ -55,7 +55,7 @@ public final class Exact {
     }
 
     /** An operand's or operation's places as IBM carries them, {integer, decimal}; a reason in `why` for anything exact arithmetic does not hold. */
-    private static int[] places(Program p, Value v, Set<Integer> scalars, List<String> why) {
+    static int[] places(Program p, Value v, Set<Integer> scalars, List<String> why) {
         switch (v) {
             case Value.Field f when scalars.contains(f.item()) && f.subscripts().isEmpty() && f.start() == null -> {
                 Attributes a = p.items().get(f.item() - 1).attributes();

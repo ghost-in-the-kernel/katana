@@ -2179,3 +2179,41 @@ run). NIST: most of the about 12 subprograms without files, several of them triv
 those that count their calls in WORKING-STORAGE (a test of state kept between CALLs, which IC tests) refused,
 correctly. Every run as literal. The rival: a read the model misses (a write it counts that a path skips), seen as
 an IC test whose second call reports otherwise.
+
+## 45. 6.6b, the PICTURE rule: a store whose value always fits, written as plain arithmetic (R-068; J-222)
+
+**Ghost's choice (2026-10-22).** J-221 measured what proves a store into a promoted item never passes the receiver.
+Loop bounds would prove none of CardDemo's 67 stores and at most 196 of NIST's 6,194; the operands' PICTUREs alone
+would prove 18 and 63. Ghost: "yes, build 6.6b with the PICTURE rule". Loop bounds are not built.
+
+**The rule.** An exact statement (6.4, research §41) computes its expression as IBM does, without a cut, then stores
+it with `Decimal.store`'s truncation, rounding and size error. R-068 lets a proof simplify that store: when the
+value can never pass the receiver, the store truncates nothing, rounds nothing and raises no size error, so
+`receiver = expression` is the same assignment. The interval is the operands' PICTUREs: a promoted item holds a
+value within its PICTURE (every store into it is the byte form's), a record field under 6.4b's guard is valid
+within its PICTURE (R-069), and a literal is itself. `a + b` and `a - b` carry max(integer places) + 1 integer
+places and max(decimal places); `a * b` the sums.
+
+**Obligations**, each statement in `exact` (a statement that fails one keeps the store, and the pass says why):
+1. One receiver: a promoted item, whole and unsubscripted.
+2. The expression's integer places at most the receiver's integer digits (its PICTURE's, scale off).
+3. Its decimal places at most the receiver's scale, so neither truncation nor ROUNDED changes a digit.
+4. An unsigned receiver stores the absolute value: so for one, every operand unsigned (an unsigned item, a literal
+   with no minus sign, ZERO) and no subtraction or negation anywhere in the expression.
+
+An ADD or SUBTRACT whose receiver is among the operands (an accumulator) can never pass obligation 2: its sum has
+one place more than the receiver. That is J-221's measurement, and why loop bounds would be needed for them.
+
+**What it writes.** `wsCount = (a + b);` for a `long` receiver over `long` operands, the `BigDecimal` expression
+`setScale`d to the receiver's scale for a scaled one (exact, by obligation 3), `new Money(...)` of it for a Money
+item; under 6.4b's guard, inside its `if (valid(...))`. ON SIZE ERROR's phrase, if any, sees `sz` false, as the
+store would have left it.
+
+**Proof**: as §44's: every CardDemo job and NIST module as literal (the structured, promoted and exact lowering).
+A unit test holds each obligation kept and broken on small programs.
+
+**Predicted, before the build.** CardDemo's batch: 12 to 18 of the 18 the measurement found (obligation 4 and one
+receiver drop a few). NIST: about 50 (the measurement's 63, less those with an unsigned receiver and a subtraction,
+plus a few among the 130 with ON SIZE ERROR's phrase, which the measurement left out). Every run as literal. The
+rival: an operand whose value passes its PICTURE (a promoted item a store left otherwise, a BINARY field), seen as a
+report that differs.
