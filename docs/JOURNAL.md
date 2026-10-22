@@ -3820,3 +3820,24 @@ taken; closed by a later `decision` entry naming it).
   `lower/Lower.java`, `lower/Promoted.java`, `lower/Verbs.java`, `passes/Scalars.java`, `passes/Dataflow.java`,
   `passes/Fits.java`, `passes/Structuring.java`, `test/DuplicatesDocTest.java`, `test/DocTests.java`,
   `test/katana/passes/ScalarsTest.java`, `docs/KERNEL-MAP.md`, `docs/JOURNAL.md`.
+
+### J-232 The tithe review's four small items: job lists held to the fixtures, NextId, qualified names, the longest line
+- **Who:** Opus, on Ghost's word ("do the four small items first, then 8A.3"), from J-231's reviewer. **Class:**
+  tithe-sized. It changes no behaviour and no golden.
+- **Found:** six tests each kept their own list of CardDemo jobs, unchecked against `oracle/fixture/carddemo/`, so a
+  job added there that a test forgot would run nowhere, silently. Ids were taken by eye: R-069 was taken twice.
+  `ModulesTest` read only `import` lines, so a module named by its qualified name went unchecked. And no metric
+  measured a line's length: the longest is 393 characters, and 219 pass 200.
+- **Resolved:**
+  - `CardDemoJobs.held` (test support) holds each of the six lists, kept in its own order, to the folder. Every
+    fixture is run or left out by name with why: POSTTRAN-STUDY, the study's reading (J-183), in the Java-lane,
+    structuring and proof-v1 tests; the four later jobs in proof v1. `FixtureTest` shows it refusing a forgotten
+    job and a job with no fixture.
+  - `scripts/NextId.java` (`gradle nextId`) prints the next free R, J and research section. Each is one past the
+    highest in the tree and in `origin/main` as last fetched. CLAUDE.md says to fetch first.
+  - `ModulesTest` also reads `katana.<module>.` names in code (strings, text blocks and comments stripped), shown
+    to refuse one and to pass one inside a string.
+  - `gradle metrics` reports the longest line, with no ceiling yet, and AGENT.md has the row.
+- **Touched:** `test/katana/oracle/fixture/CardDemoJobs.java`, `FixtureTest.java`, five lane and proof tests,
+  `test/ModulesTest.java`, `scripts/NextId.java`, `scripts/Metrics.java`, `build.gradle` (the `nextId` task, no
+  dependency), `CLAUDE.md`, `docs/AGENT.md`, `docs/KERNEL-MAP.md`, `docs/JOURNAL.md`.

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 @Tag("integration")
 class StructuringCardDemoIntegrationTest {
     private static final Path ROOT = LaneRuns.ROOT;
-    private static final List<String> JOBS = List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST", "CREASTMT");
+    private static final List<String> JOBS = katana.oracle.fixture.CardDemoJobs.held(ROOT, List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST", "CREASTMT"), java.util.Map.of("POSTTRAN-STUDY", "the study's reading of POSTTRAN (J-183), held by its own frozen checks, not a run of its own here"));
 
     @Test
     void everyJobStructuredReportsAndTracesWhatItDoesLiteral() throws Exception {

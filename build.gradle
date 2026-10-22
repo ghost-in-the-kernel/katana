@@ -140,6 +140,14 @@ tasks.register('prove', JavaExec) {
     mainClass = 'katana.oracle.prove.Prove'
 }
 
+// J-232: the next free R, J and research section, against the tree and origin/main (fetch first).
+tasks.register('nextId', JavaExec) {
+    description = 'Prints the next free decision, journal entry and research section.'
+    classpath = sourceSets.scripts.runtimeClasspath
+    mainClass = 'NextId'
+    systemProperty 'katana.root', rootDir.absolutePath
+}
+
 tasks.register('kernelMap', JavaExec) {
     description = 'Appends to docs/KERNEL-MAP.md a row for every function in a module it does not hold.'
     classpath = sourceSets.scripts.runtimeClasspath

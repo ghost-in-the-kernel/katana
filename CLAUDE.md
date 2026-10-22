@@ -44,7 +44,7 @@ at the plan.
 
 Everything runs in the pinned image (`Dockerfile`, built once): `docker run --rm --network none -u
 "$(id -u)" -v "$PWD":/katana katana gradle test --offline` is the fast loop (doc and unit tests).
-`gradle metrics` prints `docs/AGENT.md`'s numbers and warnings; `gradle kernelMap` adds new functions
+`gradle nextId` prints the next free R-, J- and research number, after `git fetch origin main`. `gradle metrics` prints `docs/AGENT.md`'s numbers and warnings; `gradle kernelMap` adds new functions
 to the kernel map. `gradle integration` runs what needs `cobc` and the corpus (`corpus/fetch.sh`
 first): NIST, the CardDemo lane, the parser and the IR over the corpus, each held by a golden
 (`-Dkatana.record=true` rewrites them). `scripts/prepush.sh` is the check before a push: a fresh

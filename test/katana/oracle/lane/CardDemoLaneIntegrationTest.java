@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 @Tag("integration")
 class CardDemoLaneIntegrationTest {
     private static final Path ROOT = LaneRuns.ROOT;
-    private static final List<String> JOBS = List.of("POSTTRAN", "POSTTRAN-STUDY", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST");
+    private static final List<String> JOBS = katana.oracle.fixture.CardDemoJobs.held(ROOT, List.of("POSTTRAN", "POSTTRAN-STUDY", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST"), java.util.Map.of());
     private final LaneRuns lane = new LaneRuns("lane");
 
     private Report run(String job) {

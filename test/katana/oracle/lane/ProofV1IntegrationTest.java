@@ -30,7 +30,8 @@ import org.junit.jupiter.api.Test;
 class ProofV1IntegrationTest {
     private static final Path ROOT = LaneRuns.ROOT, CARDDEMO = ROOT.resolve("corpus/carddemo");
     /** The four jobs of 4.5, and TRANREPT-STUDY, the run of TRANREPT that reaches CBTRN03C (TRANREPT as its JCL is written stops at its first step, J-035). */
-    private static final List<String> JOBS = List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT");
+    private static final List<String> JOBS = katana.oracle.fixture.CardDemoJobs.held(ROOT, List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT"), java.util.Map.of("POSTTRAN-STUDY", "the study's reading of POSTTRAN (J-183), held by its own frozen checks, not a run of its own here",
+            "PRTCATBL", "not one of 4.5's four jobs, which proof v1 reports", "PRTCATBL-INLINE", "not one of 4.5's four jobs, which proof v1 reports", "COMBTRAN", "not one of 4.5's four jobs, which proof v1 reports", "SORTTEST", "not one of 4.5's four jobs, which proof v1 reports"));
 
     @Test
     void theFourJobsProvenAndCardDemosCoverage() throws Exception {

@@ -22,6 +22,10 @@ final class ModulesTest {
             List.of("purpose", "inputs", "outputs", "mayImport", "mustNotImport", "importsFrom", "phase", "entryPoints");
     private static final Pattern IMPORT = Pattern.compile("(?m)^import (?:static )?([\\w.]+)");
     private static final Pattern PACKAGE = Pattern.compile("(?m)^package ([\\w.]+);");
+    /** A module named by its qualified name in code (J-232: `katana.lower.Lower.THROUGH` with no import line). */
+    private static final Pattern QUALIFIED = Pattern.compile("(?<![\\w.])katana\\.([a-z]+)\\.");
+    /** What a qualified name inside is not a reference: text blocks, strings, characters, comments. */
+    private static final Pattern NOT_CODE = Pattern.compile("(?s)\"\"\".*?\"\"\"|\"(?:\\\\.|[^\"\\\\\n])*\"|'(?:\\\\.|[^'\\\\\n])+'|/\\*.*?\\*/|//[^\n]*|(?m)^(?:import|package) [^\n]*");
     private static final List<String> MODEL_CLIENTS =
             List.of("com.anthropic", "com.openai", "dev.langchain4j", "com.google.cloud.vertexai", "software.amazon.awssdk.services.bedrock");
     private static final Set<String> NOT_SOURCE = Set.of("test", "scripts", "build", "third_party", "corpus", "docs");
@@ -42,6 +46,8 @@ final class ModulesTest {
                 .rejects("rt/ importing a library", () -> check(json, Map.of("rt/Field.java", "package katana.rt;\nimport org.antlr.v4.runtime.Token;\n", "rt/LICENSE", "")))
                 .rejects("rt/ without its own LICENSE", () -> check(json, Map.of("rt/Field.java", "package katana.rt;\nimport java.math.BigDecimal;\n")))
                 .rejects("lower/ importing front/", () -> check(json, Map.of("lower/Emit.java", "package katana.lower;\nimport katana.front.Parse;\n")))
+                .rejects("lower/ naming oracle/ by its qualified name", () -> check(json, Map.of("lower/Emit.java", "package katana.lower;\nclass E { Object o = katana.oracle.Lane.run(); }\n")))
+                .accepts("a qualified name in a string or a comment", () -> check(json, Map.of("lower/Emit.java", "package katana.lower;\n// katana.oracle.Lane\nclass E { String s = \"katana.rt.Field\"; }\n")))
                 .accepts("rt/ on the JDK alone, licensed", () -> check(json, Map.of("rt/Field.java", "package katana.rt;\nimport java.math.BigDecimal;\n", "rt/LICENSE", "")))
                 .accepts("an allowed import", () -> check(json, Map.of("sir/Build.java", "package katana.sir;\nimport katana.front.Tree;\nimport java.util.List;\n")));
     }
@@ -117,6 +123,11 @@ final class ModulesTest {
             if (!target.equals(module) && !names(modules.get(module), "mayImport").contains(target)) {
                 failures.add(path + " imports " + name + ", but " + module + " may not import " + target);
             }
+        }
+        Matcher q = QUALIFIED.matcher(NOT_CODE.matcher(text).replaceAll(""));
+        while (q.find()) {
+            String target = q.group(1);
+            if (!target.equals(module) && !names(modules.get(module), "mayImport").contains(target)) failures.add(path + " names katana." + target + " by its qualified name, but " + module + " may not import " + target);
         }
     }
 

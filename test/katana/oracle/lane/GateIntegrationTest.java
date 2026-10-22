@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
  */
 @Tag("integration")
 class GateIntegrationTest {
-    private static final List<String> JOBS = List.of("POSTTRAN", "POSTTRAN-STUDY", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST");
+    private static final List<String> JOBS = katana.oracle.fixture.CardDemoJobs.held(LaneRuns.ROOT, List.of("POSTTRAN", "POSTTRAN-STUDY", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST"), java.util.Map.of());
 
     private static Gate.Result twice(String job, LaneRuns first, LaneRuns second) throws Exception {
         Fixture fixture = Fixture.read(Files.readString(LaneRuns.ROOT.resolve("oracle/fixture/carddemo/" + job + ".fixture")));
