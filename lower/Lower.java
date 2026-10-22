@@ -34,14 +34,15 @@ public final class Lower {
      * loops of either, each header paragraph to the last of its loop (research §38); the items promoted to Java
      * variables (6.3, research §39, R-068); the arithmetic statements written as exact arithmetic, by where each
      * starts (6.4, research §41); the items whose condition names an Enum or Flag fact names, and the promoted
-     * items a Money fact makes `Money` (6.5, research §42, R-070). Empty, the literal lowering; it decides nothing (passes/Structuring and
+     * items a Money fact makes `Money` (6.5, research §42, R-070); whether the program is stateless, lowered as
+     * INITIAL (6.6, research §44). Empty, the literal lowering; it decides nothing (passes/Structuring and
      * passes/Scalars discharge the obligations).
      */
     public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls, java.util.Set<String> loops, java.util.Set<Integer> inline,
                        java.util.Set<Integer> main, java.util.Map<Integer, Integer> cycles, java.util.Set<Integer> scalars, java.util.Set<String> exact,
-                       java.util.Set<Integer> enums, java.util.Set<Integer> money) {
+                       java.util.Set<Integer> enums, java.util.Set<Integer> money, boolean stateless) {
         public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Map.of(), java.util.Set.of(), java.util.Set.of(),
-                java.util.Set.of(), java.util.Set.of());
+                java.util.Set.of(), java.util.Set.of(), false);
 
         public Plan {
             methods = java.util.Map.copyOf(methods);
@@ -154,7 +155,7 @@ public final class Lower {
         if (top) main(e, className, !p.procedure().using().isEmpty());
         if (top) parm(e, p);
         FileDecls.closer(e, p);
-        Programs.entry(e, p, x, containers);
+        Programs.entry(e, p, x, containers, plan.stateless());
         Flow flow = new Flow(e, p, x, containers, plan);
         flow.procedure();
         x.promoted.predicates(e, flow.conditions);

@@ -1806,3 +1806,31 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Lower.java:Lower.guard` | R-069 | 2026-10-22 |  |
 | passes | `passes/Exact.java:Exact.guardable` |  | 2026-10-22 |  |
 | rt | `rt/katana/rt/Classes.java:Classes.exact` | R-069 | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.Dataflow` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.bytes` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.collect` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.receives` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.target` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.initializes` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.initialized` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.table` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.fields` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.varied` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.solve` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.meet` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.flow` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.perform` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.loops` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.definite` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.plainInitialize` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.divides` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.holds` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.reads` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.check` |  | 2026-10-22 |  |
+| passes | `passes/Stateless.java:Stateless.Stateless` |  | 2026-10-22 |  |
+| passes | `passes/Stateless.java:Stateless.refusals` | R-032 | 2026-10-22 |  |
+| passes | `passes/Stateless.java:Stateless.unmodelled` |  | 2026-10-22 |  |
+| passes | `passes/Stateless.java:Stateless.address` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.entering` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.writes` |  | 2026-10-22 |  |
+| passes | `passes/Dataflow.java:Dataflow.transfer` |  | 2026-10-22 |  |

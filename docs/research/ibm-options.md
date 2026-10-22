@@ -2133,3 +2133,49 @@ reference-modified operand, or another hold, stay), every run as literal; where 
 guard sends it step-by-step. The rival: a field whose bytes pass the guard and still decode otherwise than the
 step-by-step cut reads them (a sign the NUMERIC test admits that `get()` reads differently), seen as a report that
 differs.
+
+## 44. 6.6, the dataflow, and stateless subprograms (J-221)
+
+**Ghost's choice (2026-10-22).** The survey found few candidates: of the programs CALLed as subprograms,
+CardDemo's batch has CSUTLDTC alone without a file (CBSTM03B keeps four open between calls), NIST about 12 of 24
+plus 6 nested programs, several with no WORKING-STORAGE item at all. So: the dataflow first, as 6.6's core, applied
+to those subprograms; what the `NeverOverflows` interval rule with loops' bounds would unlock measured before it is
+built, for Ghost to decide with the numbers.
+
+**What a stateless subprogram is.** WORKING-STORAGE keeps its contents between CALLs (LR 6.4: a program's state is
+kept until a CANCEL, unless IS INITIAL). If every byte of WORKING-STORAGE that any statement writes is written
+before it is read on every path of every call, and every other byte holds its initial value forever, no call can
+observe what an earlier call left. The program is then lowered as if INITIAL: `initial()` true, so the run unit
+drops the instance after each call and the next starts fresh (`RunUnit.call`). Exact by the proof, and the Java
+says the program carries no state between calls.
+
+**The dataflow: written before read, by byte.** A must-analysis over the bytes of each WORKING-STORAGE record:
+the state at a point is the set of bytes written on every path from the program's entry to it. Bytes, not items,
+so a group, its subordinates, FILLER, a REDEFINES and a RENAMES are one model. Paragraph entry states meet
+(intersect) over every edge that may reach them: the fall from the paragraph before, every GO TO (DEPENDING: every
+target), and every PERFORM whose range starts there; a PERFORM statement is followed by its state united with the
+state at its range's last paragraph's end (the range's own writes on every path to its end), and if the PERFORM may
+run its range no times (TIMES, UNTIL before, VARYING) by its state alone. An IF, EVALUATE or a phrase (ON SIZE
+ERROR, AT END, INVALID KEY, ON OVERFLOW, ON EXCEPTION) meets its branches with the way past them. Extra edges only
+shrink the sets, so every place the model is not exact errs towards "not written".
+
+What a statement writes for certain: a MOVE's, INITIALIZE's, SET ... TO's and ACCEPT FROM DATE's receivers, and an
+arithmetic receiver without SIZE ERROR's phrase; each whole, unsubscripted and not reference-modified. Nothing else
+counts as a write (a READ INTO, ACCEPT from the input device, STRING, UNSTRING, CALL BY REFERENCE, a subscripted
+or reference-modified receiver), though each may write. What a statement reads: every operand not only received,
+an arithmetic TO receiver, a CALL's argument by any mode (the called program reads it), a subscript, and a
+subscripted element as its whole table.
+
+**Obligations** (a subprogram that fails one keeps its state, and the pass says why): CALLed (its PROCEDURE
+DIVISION has USING, or a CALL in the corpus names it); no file, no EXTERNAL or GLOBAL item, no POINTER, no
+declaratives, no ALTER, no segmentation, no nested program, no NEXT SENTENCE or EXIT PARAGRAPH or SECTION; and no
+read of a WORKING-STORAGE byte that some statement writes, where the byte is not written on every path to the read.
+
+**Proof**: as §43's: every CardDemo job and NIST module as literal; IC's modules, which CALL the subprograms many
+times, are the trial. `DataflowTest` holds the analysis to small programs, each rule kept and each broken.
+
+**Predicted, before the build.** CardDemo: CSUTLDTC, if its date work writes before it reads (unknown before the
+run). NIST: most of the about 12 subprograms without files, several of them trivially (no WORKING-STORAGE item);
+those that count their calls in WORKING-STORAGE (a test of state kept between CALLs, which IC tests) refused,
+correctly. Every run as literal. The rival: a read the model misses (a write it counts that a path skips), seen as
+an IC test whose second call reports otherwise.
