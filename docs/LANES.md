@@ -128,6 +128,10 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
   when its setup is traced, one file a step, as COB_TRACE_FILE is), each section and paragraph a lowered
   program enters is a `Program-Id: NAME Paragraph: NAME` line (`rt/Trace`), so coverage is read from either
   lane's trace alike (PROOF-04, J-191).
+- **LANE-22 The java lane counts the events a divergence turns on, when asked.** With `-Dkatana.events=<file>` on
+  a program's command, each size error, high-order truncation, negative value stored into an unsigned receiver and
+  quotient cut at dmax is an `Event: KIND PROGRAM PARAGRAPH` line (`rt/Events`, at the paragraph `rt/Trace` last
+  saw entered); without it, nothing is written and nothing runs differently (research §50, J-233).
 
 ## The check
 

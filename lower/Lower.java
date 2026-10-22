@@ -108,7 +108,10 @@ public final class Lower {
 
     /**
      * One program's class: a top-level one (`containers` empty) public, with `main`; a nested one a static
-     * class inside its container's, which it reaches as `up` (LANE-19).
+     * class inside its container's, which it reaches as `up` (LANE-19). The order is load-bearing (J-235): the names
+     * first (promoted items, then record classes, which take theirs after), then the members and the constructor,
+     * the items' definitions, the entry, the procedure, and only then the predicates and the guard, which the
+     * procedure's lowering asks for (`x.guarded`), then the nested programs.
      */
     // Decision: R-024
     private static void program(Emitter e, Program p, String className, List<Program> containers, List<String> findings, Plan plan) {
