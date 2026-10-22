@@ -2067,3 +2067,33 @@ the store as `Decimal.exact(...)`; the store, its truncation, rounding and size 
 those with ZERO); every job as literal. NIST: about 5,500 of 8,966 (the 5,629 less ADDs and SUBTRACTs of several
 receivers), every run as literal. The rival: an operand whose value passes its places after all, or a ROUNDED
 result the exact value rounds otherwise, seen as a report that differs.
+
+## 42. 6.5, enum, flag and money types from the intent facts, behaviour kept whatever a fact says (R-029, R-069; J-218)
+
+**What 6.5 asks** (ROADMAP 6.5): enum and flag types from `Enum` and `Flag` facts; money as a dedicated type from
+`Money`.
+
+**The survey, before the design.** CardDemo's batch has 32 such facts, every one `unconfirmed` (R-029: acted on,
+flagged in the ledger): 20 Enum, 13 Money, no Flag. Of the Enum facts, 8 are APPL-RESULT's (a promoted `long`,
+its 88s APPL-AOK 0 and APPL-EOF 16), and the code MOVEs 8 and 12 into it too: a closed Java `enum` could not hold
+them. The other 12 are PIC X items or a group (file statuses, an operation code, HTML-FIXED-LN's 34 condition
+names), in bytes (6.3 promotes numeric items only), several written by the I/O as FILE STATUS. Of the Money
+facts, 7 are promoted `BigDecimal` items (WS-TOTAL-INT, WS-GRAND-TOTAL), 6 record fields (ACCT-CURR-BAL,
+TRAN-AMT), in bytes until 6.7.
+
+**Ghost's choice (2026-10-22, R-069).** An Enum or Flag fact gives its item names, not a closed type: each
+condition name a predicate method (`applAok()`), the condition tests that name it without a subscript calling it;
+a promoted numeric item's single-valued conditions also constants (`APPL_AOK = 0`), which a MOVE or SET ... TO
+TRUE of that value assigns by name. The item keeps its own type and every value it can hold, so a wrong fact gives
+a misleading name and nothing else. A Money fact on a promoted item makes it an `rt` `Money` (an amount at its
+PICTURE's scale) in place of `BigDecimal`, every store still `Decimal.store`'s (R-068); a Money fact on a record
+field waits for 6.7.
+
+**Proof**: as §41's: every CardDemo job and NIST module as literal; the ledger a line for each new name, carrying
+the fact and its state.
+
+**Predicted, before the build.** CardDemo's batch: the 20 Enum items each with a predicate per condition name
+(APPL-RESULT's two also constants, in 8 programs), the 7 promoted Money items `Money`, the 6 in records refused;
+every job as literal. NIST: few facts (its names carry little meaning, the rules read names and use), every run
+as literal. The rival: a condition test the predicate changes (a subscripted reference, a condition on a group
+whose test reads otherwise), seen as a report that differs.

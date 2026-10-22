@@ -1366,6 +1366,23 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Status:** in force
 - **See also:** R-020, R-029, R-032, R-057
 - **subject:** process
+
+### R-069: An enum or flag fact names an item's values; a money fact types a promoted item; neither changes what it holds
+- **Decision:** In 6.5 an `Enum` or `Flag` fact gives its item names, not a closed type: each condition name a
+  predicate method, and a promoted numeric item's single-valued conditions constants; the item keeps its own type
+  and every value it can hold. A `Money` fact on a promoted item (6.3) makes it an `rt` `Money`, an amount at its
+  PICTURE's scale, in place of `BigDecimal`, every store still COBOL's (R-068); a Money fact on an item in bytes
+  waits for 6.7's record classes.
+- **Why:** CardDemo's APPL-RESULT has the 88s APPL-AOK (0) and APPL-EOF (16) and is also MOVEd 8 and 12: a closed
+  `enum` would change what the program does, and every fact is `unconfirmed` (R-029). Names and a value type
+  cannot: a wrong fact leaves a misleading name, which the ledger flags with the fact's state.
+- **Held by:** `passes/Types.java`; `lower/Promoted.java` (the names, `Money`), `lower/Conditions.java` (the
+  predicates); `rt/katana/rt/Money.java`; the proof runs, as literal; the ledger's lines with each fact's state.
+- **Source:** Ghost, 2026-10-22 (research §42's choices, "Open: names, not a type" and "A Money type, promoted
+  only").
+- **Status:** in force
+- **See also:** R-029, R-030, R-065, R-068
+- **subject:** intent
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
