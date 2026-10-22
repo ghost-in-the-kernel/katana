@@ -34,11 +34,23 @@ class RecordsTest {
         assertTrue(java.contains("private TranRecord tranRecord; // TRAN-RECORD") && java.contains("private static final class TranRecord {"), java);
         assertTrue(java.contains("Field tranAmt; // TRAN-AMT") && java.contains("java.math.BigDecimal tranAmt() {") && java.contains("long tranQty() {"), "a numeric member's getter");
         assertTrue(java.contains("Field lineQty(long s0) {") && java.contains("tranRecord.lineQty(3L)"), "a table member's accessor");
-        assertTrue(java.contains("tranRecord.whole") && java.contains("tranRecord = new TranRecord(r1);"), "the 01 itself is `whole`");
+        assertTrue(java.contains("tranRecord.whole") && java.contains("tranRecord = new TranRecord(r1, 0);"), "the 01 itself is `whole`");
         assertTrue(java.contains("tranRecord.tranQty()"), "exact arithmetic reads through the getter");
         assertTrue(!java.contains("private Field f2;"), "no program field for a member");
         assertEquals(ManifestTest.declared(java), ManifestTest.members(lowered.symbols()));
         assertTrue(lowered.symbols().stream().anyMatch(s -> s.name().equals("P.tranRecord") && s.node().equals("record 1")), lowered.symbols().toString());
+    }
+
+    /** 6.7b (research §47): a LINKAGE record's class is built where its CALL binds it, at the argument's start. */
+    @Test
+    void aLinkageRecordIsBoundWhole() {
+        String source = List.of("IDENTIFICATION DIVISION.", "PROGRAM-ID. P.", "DATA DIVISION.", "LINKAGE SECTION.", "01 PARM.", "   05 PARM-CODE PIC 9(2).", "   05 PARM-TEXT PIC X(8).",
+                "PROCEDURE DIVISION USING PARM.", "MAIN.", "    MOVE 7 TO PARM-CODE.", "    GOBACK.").stream().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
+        Program p = Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
+        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        assertEquals(1, r.plan().records().size(), r.refused().toString());
+        String java = Lower.java(p, "P", r.plan()).java();
+        assertTrue(java.contains("parm = new Parm(a.record(), a.offset());") && java.contains("parmCode = new Field(r, base + 0, ") && java.contains("parm.parmCode"), java);
     }
 
     @Test

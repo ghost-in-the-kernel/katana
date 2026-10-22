@@ -14,7 +14,7 @@ import katana.sir.types.Statement;
 import katana.sir.types.Value;
 
 /**
- * 6.7, record classes (research §46): the group 01-levels of WORKING-STORAGE and the FILE SECTION nothing
+ * 6.7, record classes (research §46, §47): the group 01-levels of WORKING-STORAGE, the FILE SECTION and LINKAGE nothing
  * aliases, which `lower/` writes as a class over the record's bytes, each member a named `Field`, a numeric one
  * with a typed getter and a table's with an accessor. The bytes stay the truth: no byte and no operation
  * changes. A record that fails an obligation keeps its fields, and the pass says why.
@@ -43,10 +43,11 @@ public final class Records {
         return out;
     }
 
-    /** The obligations: WORKING-STORAGE or a file's; nothing aliasing its bytes. */
+    /** The obligations: not LOCAL-STORAGE; nothing aliasing its bytes. */
     private static List<String> refusals(Program p, Item r, Set<Integer> refmod) {
         List<String> why = new ArrayList<>();
-        if (r.section() != Item.Section.WORKING_STORAGE && r.section() != Item.Section.FILE) why.add("in " + r.section() + ", whose bytes another program binds");
+        // 6.7b (research §47): a LINKAGE record's class is built where each CALL or SET ADDRESS OF binds it.
+        if (r.section() == Item.Section.LOCAL_STORAGE) why.add("in LOCAL-STORAGE");
         if (!r.flags().isEmpty()) why.add("it is " + r.flags());
         for (Item i : p.items()) {
             if (i.redefines() == r.id()) why.add(i.name() + " redefines it");

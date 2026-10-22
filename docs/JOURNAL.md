@@ -3639,3 +3639,22 @@ taken; closed by a later `decision` entry naming it).
   `Promoted.java`, `Exprs.java`, `Arith.java`, `FileDecls.java`, `FileVerbs.java`, `Search.java`, `SortVerbs.java`,
   `Values.java`; `test/katana/passes/RecordsTest.java`, `ExactTest.java`, `test/katana/lower/ManifestTest.java`;
   `docs/LEDGER.md`, `docs/KERNEL-MAP.md`; `TODO.md`.
+
+### J-224 6.7b: LINKAGE records as record classes, bound where each CALL binds them
+- **Who:** Opus, on Ghost's word ("The linkage records, if those cannot be done now, lets move them later"); they
+  could be done now. **Class:** build; trial.
+- **Intent:** research §47, before the build. A record class's constructor takes the storage and the record's start.
+  A LINKAGE record's class is built in `bind<id>`, at the argument's start, wherever a CALL or SET ADDRESS OF binds it.
+- **Found:**
+  - CardDemo's batch: 3 of its 6 LINKAGE group records are classes (predicted 6 of 7: J-223's "LINKAGE 6" counted
+    reasons, not records refused for that reason alone). CBSTM03A's two hold a POINTER, and CBSTM03B's key is
+    reference-modified.
+  - NIST: 17 of 21 (predicted about 20). IC107A and IC217A keep theirs for a REDEFINES, and IC208A for an OCCURS
+    DEPENDING ON.
+  - Classes in all: CardDemo 146, NIST 4,804.
+  - The proofs run as literal: NIST's Java lane, including the IC modules that CALL their subprograms repeatedly;
+    CardDemo's structured jobs; the ledger. So the rival did not appear.
+- **Resolved:** `Records` admits LINKAGE. `Views` builds a class at `(Record r, int base)`: at 0 for its own
+  storage, and in `bind` at `a.record(), a.offset()`.
+- **Touched:** `passes/Records.java`; `lower/Views.java`, `Programs.java`; `test/katana/passes/RecordsTest.java`;
+  `docs/KERNEL-MAP.md`; `TODO.md`.

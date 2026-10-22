@@ -1858,3 +1858,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/Records.java:Records.refusals` |  | 2026-10-22 |  |
 | passes | `passes/Records.java:Records.refmod` |  | 2026-10-22 |  |
 | passes | `passes/Records.java:Records.refmod#2` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.bind` |  | 2026-10-22 |  |

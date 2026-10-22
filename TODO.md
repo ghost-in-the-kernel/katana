@@ -226,9 +226,10 @@ whole (NIST's largest group, 793 by a group MOVE), and tables (OCCURS) as arrays
 
 Built (J-223, research §46): record classes as typed views (Ghost's choice), each group 01 of WORKING-STORAGE or a
 file that nothing aliases a class over its bytes: named `Field` members, numeric getters, fixed tables' accessors.
-CardDemo's batch 143 of 178 group records, NIST 4,787 of 7,205; every run as literal. Open: LINKAGE records (bound
-per CALL), records with a REDEFINES (768 of NIST's refusals), and storage other than the bytes, which a later step
-may swap in behind the same class.
+CardDemo's batch 143 of 178 group records, NIST 4,787 of 7,205; every run as literal. Built (J-224, research §47,
+6.7b): LINKAGE records, each class built where its CALL binds it (CardDemo 3 of 6, NIST 17 of 21). Open: records
+with a REDEFINES (768 of NIST's refusals), and storage other than the bytes, which a later step may swap in behind
+the same class.
 
 ### 6.8 Refactoring distance, per pass and cumulative
 

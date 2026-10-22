@@ -96,13 +96,13 @@ final class Views {
             e.line("Field " + members.get(i.id()) + "; // " + i.name());
             e.symbol(members.get(i.id()), "item " + i.id());
         }
-        e.open(type + "(Record r)");
-        for (int c = 0; c * Lower.CHUNK < own.size(); c++) e.line("members" + c + "(r);");
+        e.open(type + "(Record r, int base)");
+        for (int c = 0; c * Lower.CHUNK < own.size(); c++) e.line("members" + c + "(r, base);");
         e.close();
         for (int c = 0; c * Lower.CHUNK < own.size(); c++) {
-            e.open("private void members" + c + "(Record r)");
+            e.open("private void members" + c + "(Record r, int base)");
             for (Item i : own.subList(c * Lower.CHUNK, Math.min(own.size(), (c + 1) * Lower.CHUNK)))
-                e.line(members.get(i.id()) + " = new Field(r, " + i.offset() + ", " + Lower.attr(p, i, x) + ");");
+                e.line(members.get(i.id()) + " = new Field(r, base + " + i.offset() + ", " + Lower.attr(p, i, x) + ");");
             e.close();
         }
         for (Item i : own) accessors(e, i);
@@ -131,8 +131,13 @@ final class Views {
         e.close();
     }
 
-    /** The statement building a record's instance over its bytes, once its record exists. */
+    /** The statement building a record's instance over its bytes, once its record exists: its own storage at 0. */
     String create(int record) {
-        return instances.get(record) + " = new " + classes.get(record) + "(r" + record + ");";
+        return instances.get(record) + " = new " + classes.get(record) + "(r" + record + ", 0);";
+    }
+
+    /** A LINKAGE record's instance bound to the storage `a` names, at its start (6.7b, research §47). */
+    String bind(int record) {
+        return instances.get(record) + " = new " + classes.get(record) + "(a.record(), a.offset());";
     }
 }
