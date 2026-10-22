@@ -1,13 +1,21 @@
 package katana.lower;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import javax.lang.model.SourceVersion;
 import katana.sir.types.Attributes;
 import katana.sir.types.Item;
 import katana.sir.types.Program;
+import katana.sir.types.Statement;
+import katana.sir.types.Value;
 
 /**
  * Declares, reads and stores the items 6.3 promotes (R-068), as Java: each a `long` (an integer item), a `BigDecimal` (an item with
@@ -44,7 +52,7 @@ final class Promoted {
                 String key = i.id() + "|" + k.name();
                 if (predicates.containsKey(key)) continue;
                 predicates.put(key, name(k.name(), i.id(), used));
-                String value = names.containsKey(i.id()) && !big(i.id()) && k.values().size() == 1 && k.values().get(0) instanceof katana.sir.types.Value.Literal l && l.kind() == katana.sir.types.Value.Literal.Kind.NUMERIC && l.scale() == 0 ? l.payload() : null;
+                String value = names.containsKey(i.id()) && !big(i.id()) && k.values().size() == 1 && k.values().get(0) instanceof Value.Literal l && l.kind() == Value.Literal.Kind.NUMERIC && l.scale() == 0 ? l.payload() : null;
                 String constant = k.name().toUpperCase().replaceAll("[^A-Z0-9]+", "_");
                 if (value != null && SourceVersion.isName(constant) && used.add(constant)) {
                     constants.put(key, constant);
@@ -60,8 +68,8 @@ final class Promoted {
     }
 
     /** A promoted item's constants: each its name, its value and its condition name. */
-    java.util.List<String[]> constants(int item) {
-        java.util.List<String[]> out = new java.util.ArrayList<>();
+    List<String[]> constants(int item) {
+        List<String[]> out = new ArrayList<>();
         for (Map.Entry<String, String> c : constants.entrySet()) if (c.getKey().startsWith(item + "|")) out.add(new String[] {c.getValue(), values.get(c.getKey()), c.getKey().substring(c.getKey().indexOf('|') + 1)});
         return out;
     }
@@ -73,19 +81,19 @@ final class Promoted {
             int item = Integer.parseInt(k.getKey().substring(0, k.getKey().indexOf('|')));
             String condition = k.getKey().substring(k.getKey().indexOf('|') + 1);
             e.open("private boolean " + k.getValue() + "()");
-            e.line("return " + conditions.test(new katana.sir.types.Value.ConditionName(item, condition, java.util.List.of())) + ";");
+            e.line("return " + conditions.test(new Value.ConditionName(item, condition, List.of())) + ";");
             e.close();
             e.symbol(k.getValue(), "condition " + item);
         }
     }
 
     /** SET ... TO TRUE where every condition is a promoted item's with a constant: `applResult = APPL_AOK`, its first value MOVEd by name; null otherwise. */
-    String setTrue(katana.sir.types.Statement s) {
-        java.util.List<String> out = new java.util.ArrayList<>();
+    String setTrue(Statement s) {
+        List<String> out = new ArrayList<>();
         boolean isTrue = false;
-        for (katana.sir.types.Statement.Operand o : s.operands()) {
-            if (o.role().equals("set-to-value") && o.value() instanceof katana.sir.types.Value.Literal l && l.payload().equals("TRUE")) isTrue = true;
-            else if (o.role().equals("set-to") && o.value() instanceof katana.sir.types.Value.ConditionName c && c.subscripts().isEmpty() && has(c.item()) && constants.containsKey(c.item() + "|" + c.name())) out.add(name(c.item()) + " = " + constants.get(c.item() + "|" + c.name()) + ";");
+        for (Statement.Operand o : s.operands()) {
+            if (o.role().equals("set-to-value") && o.value() instanceof Value.Literal l && l.payload().equals("TRUE")) isTrue = true;
+            else if (o.role().equals("set-to") && o.value() instanceof Value.ConditionName c && c.subscripts().isEmpty() && has(c.item()) && constants.containsKey(c.item() + "|" + c.name())) out.add(name(c.item()) + " = " + constants.get(c.item() + "|" + c.name()) + ";");
             else if (o.role().equals("set-to")) return null;
         }
         return isTrue && !out.isEmpty() ? String.join(" ", out) : null;
@@ -116,21 +124,21 @@ final class Promoted {
     }
 
     /** The promoted items a statement names itself (not in its branches' statements). */
-    Set<Integer> in(katana.sir.types.Statement s) {
-        Set<Integer> out = new java.util.TreeSet<>();
-        for (katana.sir.types.Statement.Operand o : s.operands()) items(o.value(), out);
+    Set<Integer> in(Statement s) {
+        Set<Integer> out = new TreeSet<>();
+        for (Statement.Operand o : s.operands()) items(o.value(), out);
         out.retainAll(names.keySet());
         return out;
     }
 
-    private static void items(katana.sir.types.Value v, Set<Integer> out) {
+    private static void items(Value v, Set<Integer> out) {
         switch (v) {
-            case katana.sir.types.Value.Field f -> {
+            case Value.Field f -> {
                 out.add(f.item());
                 f.subscripts().forEach(x -> items(x, out));
             }
-            case katana.sir.types.Value.ConditionName c -> out.add(c.item());
-            case katana.sir.types.Value.Expression e -> e.operands().forEach(x -> items(x, out));
+            case Value.ConditionName c -> out.add(c.item());
+            case Value.Expression e -> e.operands().forEach(x -> items(x, out));
             case null, default -> {}
         }
     }
@@ -145,7 +153,7 @@ final class Promoted {
         // A statement inside another (a phrase's statements) may go through other items; one item twice cannot, its
         // field `p<id>` declared in both blocks. passes/Scalars keeps out the items a phrased statement names itself,
         // not those in its subscripts, so the overlap is refused here, loudly.
-        if (!java.util.Collections.disjoint(bound, items)) throw new IllegalStateException("promoted items " + items + " through a statement inside one already through " + bound);
+        if (!Collections.disjoint(bound, items)) throw new IllegalStateException("promoted items " + items + " through a statement inside one already through " + bound);
         e.open("");
         for (int id : items) e.line("Field p" + id + " = " + field(id) + ";");
         bound.addAll(items);
@@ -224,18 +232,18 @@ final class Promoted {
      * what MOVE's truncation leaves; null for any other value.
      */
     // Decision: R-068
-    String constant(int id, katana.sir.types.Value v) {
+    String constant(int id, Value v) {
         Attributes a = item(id).attributes();
-        java.math.BigDecimal n;
-        if (v instanceof katana.sir.types.Value.Literal l && l.numeric() && l.kind() == katana.sir.types.Value.Literal.Kind.NUMERIC) n = new java.math.BigDecimal(new java.math.BigInteger(l.payload()), l.scale());
-        else if (v instanceof katana.sir.types.Value.Figurative f && Exprs.singular(f.name()).equals("ZERO") && f.all() == null) n = java.math.BigDecimal.ZERO;
+        BigDecimal n;
+        if (v instanceof Value.Literal l && l.numeric() && l.kind() == Value.Literal.Kind.NUMERIC) n = new BigDecimal(new BigInteger(l.payload()), l.scale());
+        else if (v instanceof Value.Figurative f && Exprs.singular(f.name()).equals("ZERO") && f.all() == null) n = BigDecimal.ZERO;
         else return null;
         if (n.scale() > a.scale() || n.signum() < 0 && !a.signed()) return null;
-        java.math.BigDecimal held = n.setScale(a.scale());
-        if (held.unscaledValue().abs().compareTo(java.math.BigInteger.TEN.pow(Lower.stored(a))) >= 0) return null;
+        BigDecimal held = n.setScale(a.scale());
+        if (held.unscaledValue().abs().compareTo(BigInteger.TEN.pow(Lower.stored(a))) >= 0) return null;
         if (money(id)) return name(id) + " = new Money(new java.math.BigDecimal(\"" + held.toPlainString() + "\"))";
         if (big(id)) return name(id) + " = new java.math.BigDecimal(\"" + held.toPlainString() + "\")";
-        for (Map.Entry<String, String> c : values.entrySet()) if (c.getKey().startsWith(id + "|") && new java.math.BigInteger(c.getValue()).equals(held.unscaledValue())) return name(id) + " = " + constants.get(c.getKey());
+        for (Map.Entry<String, String> c : values.entrySet()) if (c.getKey().startsWith(id + "|") && new BigInteger(c.getValue()).equals(held.unscaledValue())) return name(id) + " = " + constants.get(c.getKey());
         return name(id) + " = " + held.unscaledValue() + (held.unscaledValue().bitLength() > 31 ? "L" : "");
     }
 

@@ -3906,3 +3906,23 @@ taken; closed by a later `decision` entry naming it).
     trial's.
 - **Touched:** `oracle/prove/Align.java`; `test/katana/oracle/prove/AlignTest.java`, `AlignIntegrationTest.java`;
   `docs/checks.json`, `docs/KERNEL-MAP.md`, `TODO.md`.
+
+### J-235 Tithe: phase 8A routed, the events in the lane contract, the lowering's order written down
+- **Who:** Opus, on Ghost's word ("do the tithe first, then 8A.5"). **Class:** tithe (R-008). It changes no
+  behaviour and no golden: the full gate passed with every suite.
+- **Found:**
+  - Phase 8A's code (`oracle/prove/`, `findings/Divergence`) had no routing row in CLAUDE.md.
+  - `rt/Events` (J-233) was in no lane invariant.
+  - HANDOFF's head stopped at 8A.2.
+  - `Lower.program`'s emission order holds two invariants that nothing said: record classes take their names after
+    promoted items, and the guard is written only after the procedure asks for it.
+  - `lower/Promoted` wrote 27 types by their qualified names. That is the advisor's readability item, and the
+    reviewer's, from J-227 and J-231.
+- **Resolved:**
+  - A CLAUDE.md row for the divergence report.
+  - LANE-22 states the events and that nothing runs differently without them.
+  - HANDOFF's head says 8A.1 to 8A.4 are built and 8A.5 is next.
+  - `Lower.program`'s doc comment states the order and why.
+  - `Promoted` imports what it names in code. The names inside the Java it emits stay qualified, as they must.
+- **Touched:** `CLAUDE.md`, `docs/LANES.md`, `docs/HANDOFF.md`, `lower/Lower.java`, `lower/Promoted.java`,
+  `docs/JOURNAL.md`.

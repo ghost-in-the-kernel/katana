@@ -6,8 +6,8 @@
 (2.2 moved into 7.2, R-071); phase 3's items stand open in `TODO.md` with what each has built, each saying
 whether it can be done now; phases 4 and 5 are done (4.1 to 4.7, J-172 to J-192; 5.1 to 5.5, J-193 to J-198).
 Phase 6's passes 6.1 to 6.7 are built (J-210 to J-224, docs/PASSES.md), 6.8 and 6.9 open. Phase 8A, the
-divergence report (R-072), runs after 7.1; Ghost had 8A.1's trial and 8A.2's first kinds built ahead of the
-chain (J-229, J-230). The sections below that say "done" are kept as the plans they were; what still waits on
+divergence report (R-072), runs after 7.1; Ghost had 8A.1 to 8A.4 built ahead of the chain (J-229, J-230,
+J-233, J-234), 8A.5 next. The sections below that say "done" are kept as the plans they were; what still waits on
 someone is under "Waiting on Ghost" and "Waiting on a run" at the end.
 
 ## For Opus: 6.4b, the record fields (R-069, 2026-10-21; before 6.5) (done: J-219, after 6.5, J-218)
