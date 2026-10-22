@@ -1869,3 +1869,14 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | oracle | `oracle/prove/Prove.java:Prove.lane` |  | 2026-10-22 |  |
 | oracle | `oracle/prove/Prove.java:Prove.text` |  | 2026-10-22 |  |
 | oracle | `oracle/prove/Prove.java:Prove.main` |  | 2026-10-22 |  |
+| findings | `findings/Divergence.java:Divergence.Divergence` |  | 2026-10-22 |  |
+| findings | `findings/Divergence.java:Divergence.Kind.Kind` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Generators.java:Generators.Generators` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Generators.java:Generators.generate` | R-072 | 2026-10-22 |  |
+| oracle | `oracle/prove/Generators.java:Generators.write` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Generators.java:Generators.program` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Generators.java:Generators.copybook` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Generators.java:Generators.id` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Generators.java:Generators.digits` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Generators.java:Generators.bytes` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Generators.java:Generators.sha256` |  | 2026-10-22 |  |
