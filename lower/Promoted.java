@@ -24,6 +24,10 @@ final class Promoted {
     private final Set<Integer> money;
     private final Map<String, String> predicates = new LinkedHashMap<>(), constants = new LinkedHashMap<>();
     private final Map<String, String> values = new LinkedHashMap<>();
+    /** Every name the program's members take, so 6.7's record classes take none of them (research §46). */
+    private final Set<String> used = new HashSet<>();
+    /** 6.7's record classes, whose members a field is reached by (research §46); none until `Lower` sets them. */
+    Views views;
 
     Promoted(Program p, Set<Integer> items) {
         this(p, items, Set.of(), Set.of());
@@ -33,7 +37,6 @@ final class Promoted {
     Promoted(Program p, Set<Integer> items, Set<Integer> money, Set<Integer> enums) {
         this.p = p;
         this.money = Set.copyOf(money);
-        Set<String> used = new HashSet<>();
         for (Item i : p.items()) if (items.contains(i.id())) names.put(i.id(), name(i.name(), i.id(), used));
         for (Item i : p.items()) {
             if (!enums.contains(i.id())) continue;
@@ -100,9 +103,16 @@ final class Promoted {
         return names.containsKey(item) && !bound.contains(item);
     }
 
-    /** The name of the Field an item is reached by: its own `f<id>`, or for a statement that has a promoted item as a field, `p<id>`. */
+    /** The name of the Field an item is reached by: its own `f<id>`, its record class's member (6.7), or for a statement that has a promoted item as a field, `p<id>`. */
     String fieldName(int item) {
-        return (bound.contains(item) ? "p" : "f") + item;
+        if (bound.contains(item)) return "p" + item;
+        String member = views == null ? null : views.path(item);
+        return member != null ? member : "f" + item;
+    }
+
+    /** A name for a program member no other takes, from a COBOL name. */
+    String reserve(String cobol, int id) {
+        return name(cobol, id, used);
     }
 
     /** The promoted items a statement names itself (not in its branches' statements). */
@@ -146,7 +156,7 @@ final class Promoted {
     }
 
     /** `wsTranCount` for WS-TRAN-COUNT: lower camel case, a clash or a keyword given the item's number. */
-    private static String name(String cobol, int id, Set<String> used) {
+    static String name(String cobol, int id, Set<String> used) {
         StringBuilder b = new StringBuilder();
         for (String w : cobol.toLowerCase().split("[^a-z0-9]+")) {
             if (w.isEmpty()) continue;

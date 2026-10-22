@@ -36,14 +36,15 @@ public final class Lower {
      * starts (6.4, research §41); the items whose condition names an Enum or Flag fact names, and the promoted
      * items a Money fact makes `Money` (6.5, research §42, R-070); whether the program is stateless, lowered as
      * INITIAL (6.6, research §44); the exact statements whose value always fits their receiver, stored by plain
-     * assignment (6.6b, research §45). Empty, the literal lowering; it decides nothing (passes/Structuring and
+     * assignment (6.6b, research §45); the records written as classes over their bytes (6.7, research §46). Empty, the literal lowering; it decides nothing (passes/Structuring and
      * passes/Scalars discharge the obligations).
      */
     public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls, java.util.Set<String> loops, java.util.Set<Integer> inline,
                        java.util.Set<Integer> main, java.util.Map<Integer, Integer> cycles, java.util.Set<Integer> scalars, java.util.Set<String> exact,
-                       java.util.Set<Integer> enums, java.util.Set<Integer> money, boolean stateless, java.util.Set<String> fits) {
+                       java.util.Set<Integer> enums, java.util.Set<Integer> money, boolean stateless, java.util.Set<String> fits,
+                       java.util.Set<Integer> records) {
         public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Map.of(), java.util.Set.of(), java.util.Set.of(),
-                java.util.Set.of(), java.util.Set.of(), false, java.util.Set.of());
+                java.util.Set.of(), java.util.Set.of(), false, java.util.Set.of(), java.util.Set.of());
 
         public Plan {
             methods = java.util.Map.copyOf(methods);
@@ -57,6 +58,7 @@ public final class Lower {
             enums = java.util.Set.copyOf(enums);
             money = java.util.Set.copyOf(money);
             fits = java.util.Set.copyOf(fits);
+            records = java.util.Set.copyOf(records);
         }
 
         /** Whether the plan changes the procedure's flow (6.1, 6.2), apart from the items it promotes: a promotion alone leaves the dispatcher as it is. */
@@ -112,6 +114,9 @@ public final class Lower {
     private static void program(Emitter e, Program p, String className, List<Program> containers, List<String> findings, Plan plan) {
         Exprs x = new Exprs(p, findings);
         x.promoted = new Promoted(p, plan.scalars(), plan.money(), plan.enums());
+        java.util.Set<String> types = new java.util.HashSet<>(java.util.Set.of(className));
+        for (Program n : p.nested()) types.add(Lower.className(n));
+        x.promoted.views = new Views(p, plan.records(), x, types);
         boolean top = containers.isEmpty();
         e.open((top ? "public final class " : "static final class ") + className + " implements Subprogram");
         e.enter(className);
@@ -242,6 +247,7 @@ public final class Lower {
             if (i.record() == i.id()) {
                 e.line("private Record r" + i.id() + ";");
                 e.symbol("r" + i.id(), "item " + i.id());
+                if (x.promoted.views.record(i.id())) x.promoted.views.declare(e, i);
             }
             // A promoted item (6.3): a Java variable for its value, no Field over its bytes (R-068).
             if (x.promoted.has(i.id())) {
@@ -253,6 +259,8 @@ public final class Lower {
                 }
                 continue;
             }
+            // A member of a record class (6.7) is the class's, not the program's.
+            if (x.promoted.views.path(i.id()) != null) continue;
             e.line("private Field f" + i.id() + "; // " + i.name());
             e.symbol("f" + i.id(), "item " + i.id());
         }
@@ -266,7 +274,8 @@ public final class Lower {
             e.open("private void items" + c + "()");
             for (Item i : chunk) {
                 if (i.record() == i.id()) e.line("r" + i.id() + " = " + area(p, i) + ";");
-                if (!x.promoted.has(i.id())) e.line("f" + i.id() + " = new Field(r" + i.record() + ", " + i.offset() + ", " + attr(p, i, x) + ");");
+                if (i.record() == i.id() && x.promoted.views.record(i.id())) e.line(x.promoted.views.create(i.id()));
+                if (!x.promoted.has(i.id()) && x.promoted.views.path(i.id()) == null) e.line("f" + i.id() + " = new Field(r" + i.record() + ", " + i.offset() + ", " + attr(p, i, x) + ");");
             }
             e.close();
             e.open("private void values" + c + "()");

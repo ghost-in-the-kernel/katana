@@ -66,7 +66,7 @@ final class Exprs {
     String occurrences(Item i) {
         List<Item> dims = dimensions(i);
         if (dims.isEmpty()) return null;
-        return "Table.each(f" + i.id() + ", " + ints(dims, true) + ", " + ints(dims, false) + ", ";
+        return "Table.each(" + promoted.fieldName(i.id()) + ", " + ints(dims, true) + ", " + ints(dims, false) + ", ";
     }
 
     private static String ints(List<Item> dims, boolean counts) {
@@ -95,7 +95,8 @@ final class Exprs {
         if (!v.subscripts().isEmpty()) {
             List<String> subs = new ArrayList<>();
             for (Value s : v.subscripts()) subs.add(index(s));
-            f = "Table.at(" + f + ", " + ints(dimensions(i), false) + ", " + String.join(", ", subs) + ")";
+            // 6.7: a record class's table member by its accessor (research §46), the same `Table.at`.
+            f = promoted.views != null && promoted.views.path(v.item()) != null ? promoted.views.at(v.item(), subs) : "Table.at(" + f + ", " + ints(dimensions(i), false) + ", " + String.join(", ", subs) + ")";
         }
         if (v.start() == null) f = variable(i, f, receiving);
         if (v.start() != null) f = "Table.ref(" + f + ", " + index(v.start()) + ", " + (v.length() == null ? "0" : index(v.length())) + ")";
@@ -119,7 +120,7 @@ final class Exprs {
         boolean last = before + t.occurs().max() * t.length() == group.length();
         boolean inside = object.record() == group.record() && object.offset() >= group.offset() && object.offset() < group.offset() + group.length();
         if (!last || dimensions(t).size() != 1 || (receiving && inside)) return f;
-        return "Table.current(" + f + ", " + before + " + Table.index(f" + object.id() + ") * " + t.length() + ")";
+        return "Table.current(" + f + ", " + before + " + Table.index(" + promoted.fieldName(object.id()) + ") * " + t.length() + ")";
     }
 
     private boolean under(Item i, Item group) {

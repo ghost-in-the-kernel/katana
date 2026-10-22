@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 /** The lowering's manifest (research §31): every field, record and stretch method the Java declares, each on its COBOL node, a nested program's inside its container's class. */
 public class ManifestTest {
-    private static final Pattern DECLARED = Pattern.compile("private (?:Field|Record) ([fr]\\d+);|private int (s\\d+)\\(\\)|private void (perform\\d+)\\(\\)|private (?:long|java\\.math\\.BigDecimal|Money) (\\w+)[ ;]|private static final long ([A-Z0-9_]+) = |private boolean (\\w+)\\(\\)|private static boolean (valid)\\(");
+    private static final Pattern DECLARED = Pattern.compile("private (?:Field|Record) ([fr]\\d+);|private int (s\\d+)\\(\\)|private void (perform\\d+)\\(\\)|private (?:long|java\\.math\\.BigDecimal|Money) (\\w+)[ ;]|private static final long ([A-Z0-9_]+) = |private boolean (\\w+)\\(\\)|private static boolean (valid)\\(|private (?!final |static )[A-Z]\\w* (\\w+); //|\n {8}Field (\\w+); //");
 
     /** The members the Java text declares, in order. */
     public static List<String> declared(String java) {

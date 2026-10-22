@@ -41,8 +41,8 @@ class ExactTest {
         Structuring.Result r = Structuring.plan(p, Rules.infer(p));
         assertEquals(1, r.plan().exact().size(), r.refused().toString());
         String java = Lower.java(p, "P", r.plan()).java();
-        int f = p.items().stream().filter(i -> i.name().equals("F")).findFirst().orElseThrow().id();
-        assertTrue(java.contains("if (valid(f" + f + ")) {") && java.contains("Decimal.exact((c + Scalars.longOf(f" + f + ".get())))") && java.contains("else {"), java);
+        // R is a record class (6.7): F is its member `r.f`, read in the exact form through its getter.
+        assertTrue(java.contains("if (valid(r.f)) {") && java.contains("Decimal.exact((c + r.f()))") && java.contains("else {"), java);
         assertTrue(java.contains("private static boolean valid(Field... operands) {") && java.contains("if (!Classes.exact(f)) return false;"), "one guard per program");
     }
 

@@ -224,6 +224,12 @@ Check: as above.
 With it (moved from 6.3): the items 6.3 leaves in bytes because a record holding them is read, written or moved
 whole (NIST's largest group, 793 by a group MOVE), and tables (OCCURS) as arrays.
 
+Built (J-223, research §46): record classes as typed views (Ghost's choice), each group 01 of WORKING-STORAGE or a
+file that nothing aliases a class over its bytes: named `Field` members, numeric getters, fixed tables' accessors.
+CardDemo's batch 143 of 178 group records, NIST 4,787 of 7,205; every run as literal. Open: LINKAGE records (bound
+per CALL), records with a REDEFINES (768 of NIST's refusals), and storage other than the bytes, which a later step
+may swap in behind the same class.
+
 ### 6.8 Refactoring distance, per pass and cumulative
 
 Check: as above.

@@ -56,12 +56,12 @@ final class FileDecls {
     static void keys(Emitter e, katana.sir.types.Program p, Exprs x) {
         for (FileDescriptor d : p.files()) {
             if (!FileVerbs.indexed(d) || d.records().isEmpty()) continue;
-            StringBuilder fields = new StringBuilder("f" + d.recordKey()), dups = new StringBuilder("false");
+            StringBuilder fields = new StringBuilder(x.promoted.fieldName(d.recordKey())), dups = new StringBuilder("false");
             for (FileDescriptor.AlternateKey a : d.alternateKeys()) {
-                fields.append(", f").append(a.item());
+                fields.append(", ").append(x.promoted.fieldName(a.item()));
                 dups.append(", ").append(a.duplicates());
             }
-            e.line(FileVerbs.name(d.name()) + ".keys(f" + d.records().get(0) + ", " + d.maxRecord() + ", new Field[] {" + fields + "}, new boolean[] {" + dups + "});");
+            e.line(FileVerbs.name(d.name()) + ".keys(" + x.promoted.fieldName(d.records().get(0)) + ", " + d.maxRecord() + ", new Field[] {" + fields + "}, new boolean[] {" + dups + "});");
         }
     }
 
@@ -92,7 +92,7 @@ final class FileDecls {
         for (FileDescriptor d : p.files()) {
             int[] s = sizes(p, d, x);
             if (s == null) continue;
-            String depending = d.fd().recordDepending() == 0 ? "null" : "f" + d.fd().recordDepending();
+            String depending = d.fd().recordDepending() == 0 ? "null" : x.promoted.fieldName(d.fd().recordDepending());
             e.line(FileVerbs.name(d.name()) + ".varying(" + s[0] + ", " + s[1] + ", " + d.fd().varying() + ", " + s[2] + ", " + s[3] + ", " + depending + ");");
         }
     }

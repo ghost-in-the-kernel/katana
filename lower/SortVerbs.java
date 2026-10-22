@@ -33,7 +33,7 @@ final class SortVerbs {
 
     /** The SD's record area: its first 01. */
     private String area(FileDescriptor d) {
-        return "f" + d.records().get(0);
+        return f.x.promoted.fieldName(d.records().get(0));
     }
 
     /** The SD's largest record: its record area's length. */
@@ -101,7 +101,7 @@ final class SortVerbs {
      * (spaces past a shorter record) and released at the length it was read, the file closed (LR p. 452).
      */
     private void read(FileDescriptor u, FileDescriptor sd) {
-        String in = FileVerbs.name(u.name()), rec = "f" + u.records().get(0);
+        String in = FileVerbs.name(u.name()), rec = f.x.promoted.fieldName(u.records().get(0));
         f.e.line(in + ".open(SeqFile.Mode.INPUT);");
         // "If EXCEPTION/ERROR procedures are specified for these files, the compiler makes the necessary linkage" (LR p. 452): an OPEN that fails is the OPEN's error.
         files.after("OPEN", u.name(), false);
@@ -122,7 +122,7 @@ final class SortVerbs {
      * past a shorter one); the file closed.
      */
     private void write(FileDescriptor sd, FileDescriptor g) {
-        String out = FileVerbs.name(g.name()), rec = "f" + g.records().get(0), file = FileVerbs.name(sd.name());
+        String out = FileVerbs.name(g.name()), rec = f.x.promoted.fieldName(g.records().get(0)), file = FileVerbs.name(sd.name());
         f.e.line(file + ".rewind();");
         f.e.line(out + ".open(SeqFile.Mode.OUTPUT);");
         files.after("OPEN", g.name(), false);
