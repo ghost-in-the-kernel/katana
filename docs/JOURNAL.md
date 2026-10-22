@@ -3518,3 +3518,18 @@ taken; closed by a later `decision` entry naming it).
   `Promoted.java`; `passes/Exact.java`, `StructuringLedger.java`; `test/katana/passes/ExactTest.java`,
   `test/katana/rt/ExactArithmeticTest.java`, `test/katana/lower/ManifestTest.java`; `docs/LEDGER.md`,
   `docs/HANDOFF.md`, `docs/KERNEL-MAP.md`; `TODO.md`.
+
+### J-220 Tithe: a merge pushed past a refused gate, and the uncommented functions the metrics list
+- **Who:** Opus. **Class:** miss; tithe (R-008: 18 commits since the last; this one changes no behaviour and no
+  golden, comments only).
+- **Found:** J-219's pre-push gate refused the push (18 commits since the last tithe, past 16), and the merge to main
+  and the push went ahead anyway (7939786): the wait printed the wrapper's own exit, 0, and the gate's line was not
+  read before merging. What had run before it: the fast loop, the NIST, CardDemo, ledger and autotest proofs and the
+  property tests, each passing; the gate's own suites had not run on that commit. Caught by reading the log after the
+  push.
+- **Resolved:** this tithe, then the full gate on it, read before the push. The six functions the metrics list as
+  over 15 lines or 6 paths with no comment saying what they are for (`Performs.statement`, `Regions.gotos`,
+  `Exact.statement`, `Loops.refusals`, `Structuring.Obligations.refusals`, `StructuringLedger.lines`) now say it. A
+  wait on the gate reports the gate's own line, `pre-push check: passed`, never the wrapper's exit.
+- **Touched:** `lower/Performs.java`, `lower/Regions.java`; `passes/Exact.java`, `passes/Loops.java`,
+  `passes/Structuring.java`, `passes/StructuringLedger.java`; `docs/JOURNAL.md`.

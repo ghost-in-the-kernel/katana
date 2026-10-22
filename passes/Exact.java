@@ -34,6 +34,7 @@ public final class Exact {
         return out;
     }
 
+    /** One arithmetic statement held to the obligations (its branches' statements after it): written exact, or refused with why. */
     private static void statement(Program p, Statement s, Set<Integer> scalars, Set<String> out, Map<String, List<String>> refused) {
         if (Set.of("ADD", "SUBTRACT", "MULTIPLY", "COMPUTE", "DIVIDE").contains(s.verb())) {
             List<String> why = new ArrayList<>();
