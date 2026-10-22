@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 @Tag("integration")
 class CardDemoJavaLaneIntegrationTest {
     private static final Path ROOT = LaneRuns.ROOT, CARDDEMO = ROOT.resolve("corpus/carddemo");
-    private static final List<String> JOBS = List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST", "CREASTMT");
+    private static final List<String> JOBS = katana.oracle.fixture.CardDemoJobs.held(ROOT, List.of("POSTTRAN", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST", "CREASTMT"), java.util.Map.of("POSTTRAN-STUDY", "the study's reading of POSTTRAN (J-183), held by its own frozen checks, not a run of its own here"));
     /** The utilities the lanes run themselves; every other PGM, and every module, is a CardDemo program lowered for the job. */
     private static final java.util.Set<String> UTILITIES = java.util.Set.of("IDCAMS", "SORT", "IEFBR14", "IEBGENER");
     /** The java lane's own golden: CREASTMT, whose STEP040 the cobc lane cannot run (R-027), as this lane ran it (research §26). */

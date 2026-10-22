@@ -44,6 +44,7 @@ final class Metrics {
         metrics.put("Fast loop, cold (s)", cold);
         metrics.put("Pre-push check, every suite (min)", "timed by scripts/prepush.sh --all");
         metrics.put("Largest source file (lines)", largest(java));
+        metrics.put("Longest line (characters)", longestLine(java));
         metrics.put("Files a routing row opens", routing(Repo.read("CLAUDE.md")));
         metrics.put("Functions over 20 paths", String.valueOf(functions.stream().filter(f -> f.paths() > 20).count()));
         metrics.put("Duplicate helpers (same body, two names)", String.valueOf(duplicates(functions)));
@@ -61,6 +62,24 @@ final class Metrics {
     private static String largest(Map<String, String> java) {
         var biggest = java.entrySet().stream().max(Comparator.comparingInt(e -> Repo.lines(e.getValue())));
         return biggest.map(e -> Repo.lines(e.getValue()) + " (" + e.getKey() + ")").orElse("0");
+    }
+
+    /** The longest line of Java and where, and how many pass 200 characters (J-232: reported, held by no ceiling yet; a line can hold six decisions under the 20-path metric). */
+    private static String longestLine(Map<String, String> java) {
+        String where = "";
+        int most = 0;
+        long over = 0;
+        for (var file : java.entrySet()) {
+            String[] lines = file.getValue().split("\n", -1);
+            for (int i = 0; i < lines.length; i++) {
+                if (lines[i].length() > 200) over++;
+                if (lines[i].length() > most) {
+                    most = lines[i].length();
+                    where = file.getKey() + ":" + (i + 1);
+                }
+            }
+        }
+        return most + " (" + where + "); " + over + " lines over 200";
     }
 
     /** The most paths a row of CLAUDE.md's routing table names under "Start here". */

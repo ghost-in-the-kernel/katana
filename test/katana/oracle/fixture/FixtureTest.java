@@ -27,7 +27,7 @@ class FixtureTest {
 
     @Test
     void theFourCardDemoJobsAreExpressible() throws Exception {
-        for (String job : List.of("POSTTRAN", "POSTTRAN-STUDY", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST")) assertEquals(List.of(), refusals(carddemo(job)), job);
+        for (String job : CardDemoJobs.held(Path.of(System.getProperty("katana.root", ".")), List.of("POSTTRAN", "POSTTRAN-STUDY", "TRANREPT", "TRANREPT-STUDY", "INTCALC", "CREASTMT", "PRTCATBL", "PRTCATBL-INLINE", "COMBTRAN", "SORTTEST"), java.util.Map.of())) assertEquals(List.of(), refusals(carddemo(job)), job);
     }
 
     @Test
@@ -132,5 +132,14 @@ class FixtureTest {
     private static void assertRefused(String text, String expected) {
         List<String> refusals = refusals(text);
         assertTrue(refusals.stream().anyMatch(r -> r.contains(expected)), "expected a refusal containing '" + expected + "', got " + refusals);
+    }
+
+    /** J-232: a test's CardDemo jobs are every fixture, run or left out by name; one the test forgets is refused. */
+    @Test
+    void aJobListMissingAFixtureIsRefused() {
+        Path root = Path.of(System.getProperty("katana.root", "."));
+        IllegalStateException e = org.junit.jupiter.api.Assertions.assertThrows(IllegalStateException.class, () -> CardDemoJobs.held(root, List.of("POSTTRAN"), java.util.Map.of()));
+        org.junit.jupiter.api.Assertions.assertTrue(e.getMessage().contains("SORTTEST is in oracle/fixture/carddemo/ but neither run nor left out with why"), e.getMessage());
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalStateException.class, () -> CardDemoJobs.held(root, CardDemoJobs.all(root), java.util.Map.of("NOJOB", "no fixture")));
     }
 }

@@ -42,6 +42,7 @@ recorded time past it. The cold fast loop and the skipped tests are reported, no
 | Pre-push check, every suite (min) | ≤ 15 (held; set up from 10 by Ghost on 2026-10-18, main measuring 10.6 on the gating machine; the rule is the best plus a fifth, rounded up, R-054 amended, J-207) | 10.3 (617 s at b1d91ea, all ten suites, on the gating machine, 4 cores; J-206) | paid before every push while CI has no minutes (R-050) | 8.2 | 10.5 | 3.5 | 3.4 | — | — |
 | Pre-push check, the suites a push selects (min) | ≤ 10 (held, R-054 amended) | 9.5 at most (every suite, above) | what each push waits | 8.2 | 5.7 | — | — | — | — |
 | Largest source file (lines) | < 400 | 360 (lower/Verbs.java) | fits a read without paging | 360 | 327 | 258 | 344 | 241 | 179 |
+| Longest line (characters) | reported, no ceiling yet (J-232) | 393 (test/katana/lower/ManifestTest.java:18); 219 over 200 (J-232) | a line holding six decisions passes the paths metric | — | — | — | — | — | — |
 | Files a routing row opens | ≤ 5 | 4 | first five reads decide the task | 4 | 4 | 4 | 4 | 4 | 4 |
 | Functions over 20 paths | 0 new | 0 | branching is where agents misread | 0 | 0 | 0 | 0 | 0 | 0 |
 | Duplicate helpers (same body, two names) | 0 | 0 | the agent edits one and misses the other | 0 | 0 | 0 | 0 | 0 | 0 |
