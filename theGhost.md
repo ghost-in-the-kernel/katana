@@ -1436,6 +1436,33 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** process
 ---
 
+### R-072: The divergence report: a foreign Java port held to its COBOL, each divergence proven by an input or marked possible
+- **Decision:** Katana's goal gains a product (Ghost, 2026-10-22): given a finished Java port Katana did not write and
+  the COBOL it came from, a report of each place the Java may diverge from the COBOL, why, the logic mapped step by
+  step through the conversion, and a fix where one is possible. It is phase 8A, run after 7.1 and before 7.2, and it
+  absorbs 8.5. As the advice recommended: dynamic first, static reading only proposing where to look; a divergence
+  `proven` only by a cited input record that reproduces it in the lanes, `possible` otherwise, none reported without
+  a reproducer; the test data the customer's fixture and inputs generated from the IR to cross each receiver's
+  boundaries; the mapping by statement for the cause, paragraph for the trace, field for the symptom; the alignment
+  of their Java to the COBOL inferred and `unconfirmed` until a person confirms (R-064's pattern); the "why" a
+  catalogue entry keyed by divergence kind (`DV-`) and the fix Katana's own literal Java for the statement with its
+  description, never a patch to their code; R-004 extended to the report, no model at report time (a model may draft
+  a catalogue entry offline, for a person to review); the oc4j CardDemo reference used as a first foreign port, run as
+  a process only and never shipped. Customer Java never enters the repository (R-037), and a report that shows the
+  lowering's shape leaves the project only under NDA until the provisional is filed.
+- **Why:** the harness, the two oracles, the comparator, the paragraph traces and the IR's statement origins already
+  detect a divergence; what the market lacks is the cause, the trace and the fix, and only a reproduced input makes
+  a claim about someone else's code credible.
+- **Held by:** TODO.md's phase 8A, each item's check; `test/TodoTest.java` (a lettered phase in the chain after the item
+  it names); docs/ROADMAP.md's phase 8A.
+- **Source:** Ghost, 2026-10-22: the goal ("We want to be able to take in a finished java implementation, and a cobol
+  source code..."), then "follow the advisor's recommendations, phase 8A after 7.1"; the advice in
+  docs/research/reviews/2026-10-22-divergence-report-goal.md.
+- **Status:** in force
+- **See also:** R-004, R-013, R-037, R-064, R-071
+- **subject:** product
+---
+
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
 the attribute tuple; R-028 coverage in every proof; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual

@@ -3707,3 +3707,20 @@ taken; closed by a later `decision` entry naming it).
     its claims against the code and corrected one line number.
   - Each is a model's reading. None is acted on until Ghost places it.
 - **Touched:** `docs/research/reviews/` (three files), `docs/JOURNAL.md`.
+
+### J-228 Phase 8A, the divergence report, placed after 7.1 (R-072)
+- **Who:** Opus, on Ghost's word: the goal ("take in a finished java implementation, and a cobol source code ...
+  generate a report about potential diversions"), then "follow the advisor's recommendations, phase 8A after 7.1".
+  **Class:** process; roadmap.
+- **Found:**
+  - The chain could not hold a phase between two items of another: `TodoTest` read phases and items as integers.
+  - 8.5, the closest item, gave only a SAME or DIFFER verdict for a foreign Java.
+- **Resolved:**
+  - R-072 records the goal and every choice the advice recommended: dynamic first, `proven` or `possible`, the
+    catalogue and Katana's Java as the fix, R-004 extended to the report, the alignment `unconfirmed` until
+    confirmed, and the oc4j reference as a process only.
+  - TODO.md gains phase 8A (8A.1 to 8A.7), each item with its check, after 7.1, with phase 7 continuing after it.
+    8.5 is absorbed. ROADMAP.md gains the phase.
+  - `TodoTest` now accepts a lettered phase whose `Runs after:` line names the item it follows, and refuses one
+    placed before that item.
+- **Touched:** `TODO.md`, `docs/ROADMAP.md`, `theGhost.md` (R-072), `test/TodoTest.java`, `docs/JOURNAL.md`.

@@ -733,6 +733,16 @@ output and is reported; R-035 the refactoring-distance report.
     behaviour, as a validation lane only, with its legal status recorded (R-036).
 7.6 **Tithe pass 7.**
 
+### Phase 8A: the divergence report (runs after 7.1; R-072)
+
+Ghost's goal (2026-10-22): given a finished Java port Katana did not write and the COBOL it came from, a report of
+each place the Java may diverge, why, the logic mapped step by step through the conversion, and a fix where one is
+possible. Dynamic first (a divergence is `proven` only by a cited input that reproduces it, `possible` otherwise); the
+"why" a reviewed catalogue entry and the fix Katana's own literal Java, no model at report time (R-004). Its items,
+each with its check, are in TODO.md (8A.1 the DD adapter, 8A.2 the trap catalogue, 8A.3 boundary inputs from the IR,
+8A.4 the alignment file, 8A.5 attribution, 8A.6 the report, 8A.7 tithe). It absorbs 8.5, and its generators and
+execution counters serve the project's own proofs (the hostile review of 2026-10-22, §1 and §2).
+
 ### Phase 8: the product surface (about four weeks)
 
 8.1 **CLI** in Suite Builder's style: flags choose, the default acts, output informs; `katana
@@ -744,7 +754,7 @@ output and is reported; R-035 the refactoring-distance report.
 8.4 **`pack`**: the deliverable as a zip with the Java, `rt/` as a jar with its license, the
     manifest, the report, the map, the fixture with the customer's data removed and a README saying
     how to re-run the proof on their own inputs. Nothing of the tool's personality (P-07).
-8.5 **The harness as a standalone product**: `katana prove --java <theirs>`: anyone's Java
+8.5 (absorbed into phase 8A by R-072) **The harness as a standalone product**: `katana prove --java <theirs>`: anyone's Java
     against the COBOL under the same fixture. This is the artifact for the hyperscalers and IBM.
 8.6 **Tithe pass 8**, and the first external review of the generated output by letter (G-100's
     rule carried over).

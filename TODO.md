@@ -238,6 +238,67 @@ not the process), and the EVALUATE decision that sends CardDemo's online program
 
 Check: parses with no error nodes; data map built; Java compiles; time and memory recorded.
 
+## Phase 8A: the divergence report
+
+Runs after: 7.1.
+
+Ghost's goal (2026-10-22, R-072): take a finished Java port Katana did not write and the COBOL it came from, and
+report each place the Java may diverge: why (the COBOL semantic it misses), the logic traced step by step from the
+COBOL statement through the conversion, and a fix where one is possible. Each divergence `proven` (a cited input
+record reproduces it, the lanes' bytes shown) or `possible` (static only); none reported without a reproducer.
+Dynamic first: static reading proposes where to look, a lane run confirms. The "why" is a catalogue entry and the
+fix Katana's own literal Java for the statement with its description, never a patch to theirs; no model runs at
+report time (R-004). Advice: docs/research/reviews/2026-10-22-divergence-report-goal.md. Absorbs 8.5.
+
+### 8A.1 The DD adapter and refusal
+
+Check: `katana prove --java <cmd>` runs a foreign command as the java lane's program step; one oc4j CardDemo program
+(`lower/prototypes/oc4j-carddemo-reference/`, run as a process only, never shipped) or a hand-written port of COPYREC
+runs a fixture through the lane and the comparator, and what had to be adapted is recorded; a port that ignores the
+`DD_` contract (LANE-01 to 04) is refused with a finding naming what it did not honour.
+
+### 8A.2 The trap catalogue as data
+
+Check: divergence kinds `DV-01` onward, from `docs/research/semantic_traps.md`, each with IBM's text, the COBOL rule,
+the wrong Java shape, Katana's exact Java and a generator, held by a doc test; every kind's generator gives a COBOL
+program and inputs on which its wrong shape differs from cobc. The first three: high-order truncation, scale
+truncation against HALF_UP, and dmax division, each caught by a mutation, the catch rate predicted first.
+
+### 8A.3 Boundary inputs from the IR
+
+Check: for each statement, inputs crossing its receivers' boundaries, written as a fixture under the program's
+copybooks; on CardDemo the generated fixture enters every paragraph the sample data does, and drives at least one SIZE
+ERROR, one high-order truncation, one negative store into an unsigned item and one dmax division the sample data never
+does, counted by execution counters at the sites (the hostile review's §1, 2026-10-22).
+
+### 8A.4 The alignment file
+
+Check: `<PROGRAM>.align` maps a COBOL node, by the program's own names (R-064), to a Java symbol or line range,
+inferred where a name or literal matches and `unconfirmed` until a person confirms; its coverage on the oc4j
+reference predicted before it is measured; an alignment naming a node the IR does not hold is refused.
+
+### 8A.5 Attribution
+
+Check: for each differing field, the catalogue kinds whose probe reproduces it, ranked, "unattributed" when none
+does; a mutation harness takes Katana's literal Java, breaks one rule per kind (truncation dropped, a store HALF_UP,
+an exact division), runs it as the foreign port, and the report names that kind first; each mutation red before the
+kind is built.
+
+### 8A.6 The report
+
+Check: per divergence: `proven` with the fixture record by hash or `possible`, the COBOL statement and origin, the
+aligned Java or "unaligned", the cause kind and its text, the paragraphs entered up to the statement on that record,
+and the fix as Katana's emitted Java for the statement; NE- and HY- findings apart as "no port can be exact here";
+PROOF-01's quote present (the oracle is cobc -std=ibm, R-013); a `proven` line whose fixture is missing refused; two
+runs write identical reports.
+
+### 8A.7 Tithe pass 8A
+
+Check: none in the roadmap; written here before the item starts. With it, the first report read outside the project
+(8.6's rule), under NDA (R-037): the fix shows the lowering's shape.
+
+## Phase 7: scale and the facades, continued
+
 ### 7.2 CICS facade
 
 Check: none in the roadmap; written here before the item starts.
@@ -278,10 +339,6 @@ Check: none in the roadmap; written here before the item starts.
 Check: none in the roadmap; written here before the item starts.
 
 ### 8.4 `pack`
-
-Check: none in the roadmap; written here before the item starts.
-
-### 8.5 The harness as a standalone product
 
 Check: none in the roadmap; written here before the item starts.
 
