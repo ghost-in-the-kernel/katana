@@ -80,12 +80,25 @@ public record Decimal(BigInteger unscaled, int scale) {
         return new Term(new Decimal(a.value().unscaled().negate(), a.value().scale()), a.places(), a.divisionByZero());
     }
 
+    /**
+     * 8A.5's probes (research §52, LANE-23): `-Dkatana.mutate=DV-01`, `DV-02` or `DV-03` breaks that one divergence
+     * kind's rule, so the report can ask whether a foreign port's output is the COBOL's with that rule broken. Read
+     * once, empty by default; a probe's switch, never set in a run that is meant to be the COBOL's.
+     */
+    static final String MUTATE = System.getProperty("katana.mutate", "");
+
     /** `a / b`: the divisor is IBM's op1 and the dividend op2; the quotient computed to the places carried and truncated; a zero divisor a status. */
     // Decision: R-020
     public static Term divide(ArithProfile p, Term a, Term b, int dmax, boolean last, boolean rounded) {
         ArithProfile.Places places = p.divide(b.places().integer(), b.places().decimal(), a.places().integer(), a.places().decimal(), dmax);
         if (last) places = p.last(places, rounded);
         if (b.value().unscaled().signum() == 0 || a.divisionByZero() || b.divisionByZero()) return new Term(new Decimal(BigInteger.ZERO, places.decimal()), places, true);
+        // DV-03's probe: the quotient carried to 34 places, past Appendix A's, as a port's DECIMAL128 does (research §52;
+        // rt/ names no precision by significant digits, R-020, so the places are a scale).
+        if (MUTATE.equals("DV-03")) {
+            BigDecimal whole = a.value().toBigDecimal().divide(b.value().toBigDecimal(), 34, RoundingMode.DOWN).stripTrailingZeros();
+            return new Term(new Decimal(whole.unscaledValue(), whole.scale()), places, false);
+        }
         BigDecimal quotient = a.value().toBigDecimal().divide(b.value().toBigDecimal(), places.decimal(), RoundingMode.DOWN);
         if (Events.ON && quotient.multiply(b.value().toBigDecimal()).compareTo(a.value().toBigDecimal()) != 0) Events.note("DMAX_CUT");
         return cut(quotient, places, a, b);
@@ -130,12 +143,22 @@ public record Decimal(BigInteger unscaled, int scale) {
     // Decision: R-020
     public static Stored store(Term result, int digits, int scale, boolean signed, boolean rounded) {
         if (result.divisionByZero()) return new Stored(null, true, false);
-        BigDecimal aligned = result.value().toBigDecimal().setScale(scale, rounded ? RoundingMode.HALF_UP : RoundingMode.DOWN);
+        // DV-02's probe rounds where the COBOL truncates (research §52).
+        BigDecimal aligned = result.value().toBigDecimal().setScale(scale, rounded || MUTATE.equals("DV-02") ? RoundingMode.HALF_UP : RoundingMode.DOWN);
         BigInteger unscaled = aligned.unscaledValue();
         boolean signDropped = !signed && unscaled.signum() < 0;
         if (!signed) unscaled = unscaled.abs();
         BigInteger limit = BigInteger.TEN.pow(digits);
         boolean sizeError = unscaled.abs().compareTo(limit) >= 0;
+        // DV-01's probe keeps the leading digits, a fixed-width writer cutting the value at its right end (research §52).
+        if (sizeError && MUTATE.equals("DV-01")) return new Stored(new Decimal(leading(unscaled, digits), scale), true, signDropped);
         return new Stored(new Decimal(unscaled.remainder(limit), scale), sizeError, signDropped);
+    }
+
+    /** A value's first `digits` digits, its sign kept: what DV-01's probe stores. */
+    private static BigInteger leading(BigInteger unscaled, int digits) {
+        String abs = unscaled.abs().toString();
+        BigInteger kept = new BigInteger(abs.substring(0, Math.min(digits, abs.length())));
+        return unscaled.signum() < 0 ? kept.negate() : kept;
     }
 }

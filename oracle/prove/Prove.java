@@ -62,10 +62,10 @@ public final class Prove {
     }
 
     /** An output DD: its name, record length, copybook and encoding. */
-    private record Dd(String name, int lrecl, String copybook, String encoding) {}
+    record Dd(String name, int lrecl, String copybook, String encoding) {}
 
     /** Each dataset a step creates (disposition NEW), by its name. */
-    private static Map<String, Dd> outputs(Fixture fixture) {
+    static Map<String, Dd> outputs(Fixture fixture) {
         Map<String, Dd> out = new LinkedHashMap<>();
         for (Fixture.Step step : fixture.steps())
             for (Fixture.Dd dd : step.dds()) {
@@ -83,7 +83,7 @@ public final class Prove {
         return new Dataset(dsn, r.same(), r.findings());
     }
 
-    private static Path copybook(Setup s, String name) {
+    static Path copybook(Setup s, String name) {
         for (Path dir : s.copybooks()) for (String ext : List.of(".cpy", ".CPY", "")) if (Files.exists(dir.resolve(name + ext))) return dir.resolve(name + ext);
         throw new IllegalArgumentException("no copybook " + name + " in " + s.copybooks());
     }
@@ -93,7 +93,7 @@ public final class Prove {
         return Files.exists(f) ? Files.readString(f) : "";
     }
 
-    private static CobcLane.Setup lane(Setup s, Path work, Map<String, List<String>> port) {
+    static CobcLane.Setup lane(Setup s, Path work, Map<String, List<String>> port) {
         return new CobcLane.Setup(s.root(), s.sources(), s.programs(), s.copybooks(), work, s.root().resolve("build/lane-cache"), s.limit(), (x, d) -> null, null, port, false);
     }
 

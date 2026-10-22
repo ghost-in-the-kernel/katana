@@ -307,6 +307,10 @@ does; a mutation harness takes Katana's literal Java, breaks one rule per kind (
 an exact division), runs it as the foreign port, and the report names that kind first; each mutation red before the
 kind is built.
 
+Built ahead of the chain (J-236, research §52): `oracle/prove/Attribute` with `rt/`'s probe switch (LANE-23). Each
+kind's mutant attributed to its kind alone, every cell reproduced (10, 9, 12); unattributed with its probe withheld;
+ACCRUE's hand-written HALF_UP port attributed to DV-02, 4 of 4.
+
 ### 8A.6 The report
 
 Check: per divergence: `proven` with the fixture record by hash or `possible`, the COBOL statement and origin, the
