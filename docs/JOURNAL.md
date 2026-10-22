@@ -3579,3 +3579,27 @@ taken; closed by a later `decision` entry naming it).
   - Stateless writes no ledger line: it changes no symbol, and the ledger records symbols.
 - **Touched:** `passes/Dataflow.java`, `Stateless.java`, `Structuring.java`; `lower/Lower.java`, `Programs.java`;
   `test/katana/passes/DataflowTest.java`; `docs/KERNEL-MAP.md`; `TODO.md`.
+
+### J-222 6.6b: the PICTURE rule, a store whose value always fits written as plain assignment
+- **Who:** Opus, on Ghost's word ("yes, build 6.6b with the PICTURE rule"). **Class:** build; trial.
+- **Intent:** research §45, before the build. An exact statement (6.4) whose value can never pass its one
+  promoted receiver is stored by plain assignment, as R-068 allows a proof to do. The proof uses only the operands'
+  PICTUREs: integer places within the receiver's digits, decimal places within its scale, and nothing negative into
+  an unsigned receiver.
+- **Found:**
+  - CardDemo's batch: 18 of 72 exact statements (predicted 12 to 18). Every one is the status-code idiom, a small
+    literal added to ZERO GIVING a two-digit result. The other 48 carry a place more than their receiver (the
+    accumulators), and 6 have no single promoted receiver.
+  - NIST: 31 of 8,177 (predicted about 50). The measurement in J-221 counted stores that are not exact, and stores
+    with several receivers, which the rule's obligations leave out.
+  - NIST's refusals: integer places 5,365, not one promoted receiver 2,403, an unsigned receiver of a value that may
+    be negative 108, decimal places 94.
+  - The proofs run as literal (the gate's NIST, CardDemo, autotest and ledger suites).
+- **Resolved:**
+  - `passes/Fits` (`fits-v1`) holds the obligations and reuses `Exact.places`.
+  - `Lower.Plan.fits` carries the result. `Arith.assign` writes `c = (a + b);`, or the `BigDecimal` form at the
+    receiver's scale (`new Money(...)` for a Money item).
+  - Stores the rule does not prove keep `Scalars.store`.
+  - No ledger line: the rule changes a statement, not a symbol.
+- **Touched:** `passes/Fits.java`, `Exact.java`, `Structuring.java`; `lower/Arith.java`, `ArithVerbs.java`,
+  `Lower.java`; `test/katana/passes/FitsTest.java`; `docs/KERNEL-MAP.md`; `TODO.md`.

@@ -35,14 +35,15 @@ public final class Lower {
      * variables (6.3, research §39, R-068); the arithmetic statements written as exact arithmetic, by where each
      * starts (6.4, research §41); the items whose condition names an Enum or Flag fact names, and the promoted
      * items a Money fact makes `Money` (6.5, research §42, R-070); whether the program is stateless, lowered as
-     * INITIAL (6.6, research §44). Empty, the literal lowering; it decides nothing (passes/Structuring and
+     * INITIAL (6.6, research §44); the exact statements whose value always fits their receiver, stored by plain
+     * assignment (6.6b, research §45). Empty, the literal lowering; it decides nothing (passes/Structuring and
      * passes/Scalars discharge the obligations).
      */
     public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls, java.util.Set<String> loops, java.util.Set<Integer> inline,
                        java.util.Set<Integer> main, java.util.Map<Integer, Integer> cycles, java.util.Set<Integer> scalars, java.util.Set<String> exact,
-                       java.util.Set<Integer> enums, java.util.Set<Integer> money, boolean stateless) {
+                       java.util.Set<Integer> enums, java.util.Set<Integer> money, boolean stateless, java.util.Set<String> fits) {
         public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Map.of(), java.util.Set.of(), java.util.Set.of(),
-                java.util.Set.of(), java.util.Set.of(), false);
+                java.util.Set.of(), java.util.Set.of(), false, java.util.Set.of());
 
         public Plan {
             methods = java.util.Map.copyOf(methods);
@@ -55,6 +56,7 @@ public final class Lower {
             exact = java.util.Set.copyOf(exact);
             enums = java.util.Set.copyOf(enums);
             money = java.util.Set.copyOf(money);
+            fits = java.util.Set.copyOf(fits);
         }
 
         /** Whether the plan changes the procedure's flow (6.1, 6.2), apart from the items it promotes: a promotion alone leaves the dispatcher as it is. */

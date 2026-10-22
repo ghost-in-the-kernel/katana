@@ -210,6 +210,10 @@ nested program, declaratives or ALTER, is lowered as INITIAL. NIST: 9 of its 23 
 none (CSUTLDTC passes CEEDAYS an argument nothing wrote first). Measured, not built: loop bounds would prove at most
 196 of NIST's 6,194 promoted stores and none of CardDemo's 67; PICTURE ranges alone would prove 63 and 18.
 
+Built (J-222, research §45, 6.6b): the PICTURE rule, `passes/Fits`. An exact store whose value always fits its one
+promoted receiver is a plain assignment: 18 of CardDemo's 72 exact statements, 31 of NIST's 8,177. Loop bounds
+are not built (Ghost, 2026-10-22).
+
 With it (moved from 6.3): the interval rule for `NeverOverflows`, on 6.6's dataflow with loops' bounds, which lets
 a promoted item's store be plain arithmetic (R-068).
 

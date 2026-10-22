@@ -93,6 +93,19 @@ final class Arith {
         return "Decimal.exact(" + (integers(v) <= 18 ? whole(v) : big(v)) + ")";
     }
 
+    /**
+     * A store passes/Fits proves always fits (6.6b, research §45, R-068) as plain assignment into the promoted item:
+     * `long` arithmetic when every operation stays within 18 integer places, else `BigDecimal`'s at the item's scale
+     * (exact: the value has no more decimal places).
+     */
+    // Decision: R-068
+    String assign(int id, Value v) {
+        String name = x.promoted.name(id);
+        if (!x.promoted.big(id) && integers(v) <= 18) return name + " = " + whole(v);
+        String b = big(v) + ".setScale(" + x.item(id).attributes().scale() + ")";
+        return name + " = " + (x.promoted.money(id) ? "new Money(" + b + ")" : x.promoted.big(id) ? b : b + ".longValueExact()");
+    }
+
     /** The record fields an exact expression reads, as Java Fields: what 6.4b's guard checks before the exact form runs (R-069). */
     List<String> guards(Value v) {
         List<String> out = new java.util.ArrayList<>();

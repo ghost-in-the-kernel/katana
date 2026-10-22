@@ -67,10 +67,11 @@ public final class Structuring {
         Set<Integer> main = program.isEmpty() ? MainLine.main(p, methods, loops, cycles, refused) : Set.of();
         Set<Integer> scalars = Scalars.promote(p, refused);
         Set<String> exact = Exact.exact(p, scalars, refused);
+        Set<String> fits = Fits.fits(p, scalars, exact, refused);
         Types.Result types = Types.types(p, intent, scalars, refused);
         List<String> stateful = Stateless.refusals(p);
         if (!stateful.isEmpty()) refused.put("program " + p.header().program() + " stateless", stateful);
-        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles, scalars, exact, types.enums(), types.money(), stateful.isEmpty()),
+        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles, scalars, exact, types.enums(), types.money(), stateful.isEmpty(), fits),
                 applied, refused, types.facts());
     }
 
