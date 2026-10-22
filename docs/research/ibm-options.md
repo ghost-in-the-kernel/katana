@@ -2327,3 +2327,48 @@ that overflows, and one cent.
 
 The rival: the comparator's field report does not name the field, or a port's stdout is held against cobc's in a
 way that hides the difference.
+
+## 49. 8A.2, the divergence catalogue as data: the first three kinds, each a generator and a mutation (J-230)
+
+**Ghost's word (2026-10-22).** "continue into 8A.2", after 8A.1's trial (J-229).
+
+**What a kind is.** A divergence kind (`DV-`) is one way a Java port departs from the COBOL it was written from. It
+is a catalogue row, `findings/Divergence.Kind`, with:
+- its title;
+- the COBOL rule and the IBM text it rests on;
+- the wrong Java shape a port takes;
+- the exact Java, `rt/`'s call that keeps the rule (what the report will offer as the fix, R-072).
+
+`docs/DIVERGENCES.md` is the table, held to the enum by a doc test, as FINDINGS.md is. The seed is
+`docs/research/semantic_traps.md` §1, numeric semantics.
+
+**What a generator is.** `oracle/prove/Generators` writes, for a kind and a seed, the parts of a case:
+- a COBOL program, one statement of the kind's shape in a read-compute-write loop;
+- its copybook;
+- twenty input records drawn so that about half cross the kind's boundary;
+- a fixture.
+
+Two ports run each case through `Prove` (8A.1): the exact one, which keeps the rule, and the wrong one, the same
+port with that one rule broken, which is the kind's mutation. A kind is held when its exact port is the SAME and its
+wrong port DIFFERS. The catch rate is the share of records whose fields differ.
+
+**The first three** (TODO.md 8A.2):
+
+| Kind | Statement | Rule and authority | Exact Java | Wrong Java shape |
+| --- | --- | --- | --- | --- |
+| DV-01, high-order truncation | `ADD A TO B`, B `PIC 9(3)V99`, no SIZE ERROR | a result too large for the receiver loses its high-order digits (LR 6.4 p. 285; PG Appendix A; TRUNC(STD)) | the sum modulo 10^3, `Arithmetic.store` without the phrase | a fixed-width writer cutting the formatted value at its right end (`substring(0, width)`) |
+| DV-02, scale truncation | `COMPUTE R = A * K`, R `PIC 9(5)V99`, no ROUNDED | excess low-order digits are dropped, not rounded (LR 6.4 p. 263) | `setScale(2, DOWN)` | `HALF_UP`, the common reading |
+| DV-03, intermediate precision (dmax) | `COMPUTE R = A / B * C`, R `PIC 9(5)V99`, A, B and C integers | a quotient is carried to dmax decimal places, the most decimals of any operand or receiver, before the next operation (PG Appendix A; §41; the reproducer `1 / 3 * 300` = 99.00) | the quotient set to scale 2 DOWN, then the product | the whole quotient in `MathContext.DECIMAL128`, cut only at the store |
+
+**Predicted, before the run.**
+- Each kind's exact port is the SAME on all twenty records.
+- Each kind's wrong port differs on between 30% and 70% of them:
+  - DV-01 on the records whose sum passes 999.99, about half by the draw;
+  - DV-02 on those whose dropped part is at least half a cent, about half;
+  - DV-03 on those whose quotient does not end within two places and whose multiplier makes the cut reach a cent,
+    about half.
+- Prove's report names the receiver field and no other.
+
+The rival is DV-03: cobc's `-std=ibm` arithmetic departs from Appendix A in places (D-019, D-023). If its division
+keeps more places than dmax, the exact port differs and the wrong one does not, and the kind is held against IBM's
+text with a discovery, not against cobc.
