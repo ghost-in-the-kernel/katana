@@ -3926,3 +3926,31 @@ taken; closed by a later `decision` entry naming it).
   - `Promoted` imports what it names in code. The names inside the Java it emits stay qualified, as they must.
 - **Touched:** `CLAUDE.md`, `docs/LANES.md`, `docs/HANDOFF.md`, `lower/Lower.java`, `lower/Promoted.java`,
   `docs/JOURNAL.md`.
+
+### J-236 8A.5: attribution by probe, each kind's mutant named first and unattributed without its probe
+- **Who:** Opus, on Ghost's word ("do the tithe first, then 8A.5"). **Class:** build; trial.
+- **Intent:** research §52, before the build. A kind's probe is Katana's literal Java for the program, run with that
+  one rule broken (`-Dkatana.mutate`, LANE-23). A kind is credited with each differing cell where its probe writes
+  the port's bytes.
+- **Found:**
+  - Each kind's mutant, from its 8A.2 case, is attributed to its own kind alone, which reproduces every differing
+    cell: DV-01 10 of 10, DV-02 9 of 9, DV-03 12 of 12. The other probes reproduce none, so no rival overlap.
+  - These are the same counts the hand-written wrong ports of 8A.2 differed on. `rt/` with a rule broken and a port
+    written that way agree.
+  - With its own probe withheld, each mutant's cells are all unattributed (3 of 3): the mutation is red before its
+    kind is built.
+  - 8A.1's hand-written HALF_UP port of ACCRUE, a real foreign port, is attributed to DV-02 scale truncation,
+    4 of 4 cells.
+  - Every prediction held.
+  - R-020's source rule refused the first DV-03 probe, which used `MathContext` (the port's shape) inside `rt/`.
+    The probe now carries the quotient to 34 places, a scale, with the same result at the store.
+  - The first run also wrote a work folder into `oracle/fixture/`. It was removed, and every run is under `build/`.
+- **Resolved:**
+  - `rt/Decimal.MUTATE` breaks DV-01's, DV-02's or DV-03's rule when told (LANE-23).
+  - `oracle/prove/Attribute` ranks the kinds by the cells they reproduce and lists the unattributed cells. Prove's
+    output helpers are package-visible to it.
+  - `AttributionIntegrationTest` holds the harness and the hand port. `docs/checks.json` registers it, and the lane
+    suite gates it.
+- **Touched:** `rt/katana/rt/Decimal.java`, `oracle/prove/Attribute.java`, `oracle/prove/Prove.java`,
+  `test/katana/oracle/prove/AttributionIntegrationTest.java`, `docs/LANES.md`, `docs/checks.json`,
+  `docs/KERNEL-MAP.md`, `TODO.md`.

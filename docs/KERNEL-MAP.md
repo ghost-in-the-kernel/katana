@@ -1910,3 +1910,13 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | oracle | `oracle/prove/Align.java:Align.line` |  | 2026-10-22 |  |
 | oracle | `oracle/prove/Align.java:Align.write` |  | 2026-10-22 |  |
 | oracle | `oracle/prove/Align.java:Align.read` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Attribute.java:Attribute.Result.first` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Attribute.java:Attribute.Attribute` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Attribute.java:Attribute.attribute` | R-072 | 2026-10-22 |  |
+| oracle | `oracle/prove/Attribute.java:Attribute.run` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Attribute.java:Attribute.unload` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Attribute.java:Attribute.differing` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Attribute.java:Attribute.cell` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Attribute.java:Attribute.text` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Attribute.java:Attribute.text#2` |  | 2026-10-22 |  |
+| rt | `rt/katana/rt/Decimal.java:Decimal.leading` |  | 2026-10-22 |  |

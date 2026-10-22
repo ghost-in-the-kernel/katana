@@ -132,6 +132,9 @@ What `lower/` emits for each program, and what `rt/` and the java lane hold it t
   a program's command, each size error, high-order truncation, negative value stored into an unsigned receiver and
   quotient cut at dmax is an `Event: KIND PROGRAM PARAGRAPH` line (`rt/Events`, at the paragraph `rt/Trace` last
   saw entered); without it, nothing is written and nothing runs differently (research §50, J-233).
+- **LANE-23 A probe breaks one divergence kind's rule, only when told.** `-Dkatana.mutate=DV-01`, `DV-02` or `DV-03`
+  on a program's command runs it with that kind's rule broken (docs/DIVERGENCES.md): the divergence report's
+  probes and its mutation harness, nothing else (research §52, J-236). Unset, `rt/` keeps every rule.
 
 ## The check
 
