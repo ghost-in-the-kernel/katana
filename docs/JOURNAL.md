@@ -3954,3 +3954,40 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `rt/katana/rt/Decimal.java`, `oracle/prove/Attribute.java`, `oracle/prove/Prove.java`,
   `test/katana/oracle/prove/AttributionIntegrationTest.java`, `docs/LANES.md`, `docs/checks.json`,
   `docs/KERNEL-MAP.md`, `TODO.md`.
+
+### J-237 8A.6: the divergence report, each divergence proven or possible, with its statement, cause, trace and fix
+- **Who:** Opus, on Ghost's word ("yes, continue into 8A.6"). **Class:** build; trial.
+- **Intent:** research §53, before the build. For a foreign port and its COBOL under one fixture, one entry per
+  divergence with:
+  - its status: `proven` (the fixture and the input record cited by hash) or `possible` (a statement of a kind's
+    shape the fixture never took across the kind's boundary);
+  - its field and records, and the statement with its origin;
+  - the aligned Java, and the cause by attribution;
+  - the trace, and the fix: Katana's own Java for the statement.
+
+  Then the NE- and HY- findings apart, and PROOF-01's quote. Nothing in it varies between runs.
+- **Found** (8A.1's hand-written HALF_UP port of ACCRUE):
+  - The prediction held:
+    - one root divergence, ACCT-INT on records 1 and 3, by `COMPUTE #1 IN PROCEDURE DIVISION` (ACCRUE.cbl:28),
+      aligned to `AccruePorts.java:17` by its literal, cause DV-02 reproducing 2 of 2 cells, with Katana's
+      `Arithmetic.store` of the step-by-step product as the reference fix;
+    - ACCT-BAL on the same records, following from ACCT-INT through the ADD that reads it;
+    - no possible entry, no NE- or HY- finding;
+    - two runs identical;
+    - each proven entry refused when its fixture is missing or its hash is not the fixture's address.
+  - The first build had each field "following" the other: the COMPUTE reads ACCT-BAL, but before the ADD changes
+    it. A field now follows another only when that field's statement runs first.
+  - The rival appeared in a milder form. ACCRUE has no named paragraph, so its trace by record is none, and the
+    entry says so rather than inventing one.
+  - Making `possible` decidable for DV-02 needed one more event, `SCALE_CUT`: a store without ROUNDED that dropped
+    digits (LANE-22).
+- **Resolved:**
+  - `oracle/prove/Report` writes the report and refuses a proof whose fixture is missing or changed.
+  - `oracle/prove/Divergences` assembles the entries from attribution, the alignment and Katana's own run (its
+    Java, trace and events). `Attribute` keeps each cell's kinds.
+  - `ReportTest` holds the possible and unattributed forms and the findings section. `ReportIntegrationTest`, in
+    the lane suite, holds the trial.
+  - The trial's report is written to `build/divergence-report/ACCRUE.md`.
+- **Touched:** `oracle/prove/Report.java`, `Divergences.java`, `Attribute.java`; `rt/katana/rt/Decimal.java`,
+  `Events.java`; `test/katana/oracle/prove/ReportTest.java`, `ReportIntegrationTest.java`,
+  `AttributionIntegrationTest.java`; `docs/LANES.md`, `docs/checks.json`, `docs/KERNEL-MAP.md`, `TODO.md`.

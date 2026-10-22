@@ -145,6 +145,7 @@ public record Decimal(BigInteger unscaled, int scale) {
         if (result.divisionByZero()) return new Stored(null, true, false);
         // DV-02's probe rounds where the COBOL truncates (research §52).
         BigDecimal aligned = result.value().toBigDecimal().setScale(scale, rounded || MUTATE.equals("DV-02") ? RoundingMode.HALF_UP : RoundingMode.DOWN);
+        if (Events.ON && !rounded && aligned.compareTo(result.value().toBigDecimal()) != 0) Events.note("SCALE_CUT");
         BigInteger unscaled = aligned.unscaledValue();
         boolean signDropped = !signed && unscaled.signum() < 0;
         if (!signed) unscaled = unscaled.abs();
