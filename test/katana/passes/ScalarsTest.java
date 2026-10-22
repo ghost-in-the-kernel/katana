@@ -87,4 +87,20 @@ class ScalarsTest {
         assertFalse(promoted.contains(id(p, "N")), data + procedure);
         assertTrue(refused.getOrDefault("item N", List.of()).stream().anyMatch(w -> w.contains(why)), why + ": " + refused);
     }
+
+    /**
+     * A statement through a promoted subscript, with a phrase whose statement goes through another promoted item
+     * (J-231): the phrase is lowered after the statement's block closes, so the two blocks follow each other, each
+     * item its own field once. The review's nesting (a phrase inside the block) does not arise.
+     */
+    @Test
+    void aPhrasesStatementGoesThroughItsOwnItemsAfterTheStatementsBlock() {
+        Program p = program("01 I PIC 9 VALUE 1.\n01 K PIC 9(3) VALUE 0.\n01 A PIC X(5) VALUE 'HELLO'.\n01 G.\n   05 T PIC X(3) OCCURS 2.\n",
+                "    STRING A DELIMITED BY SIZE INTO T (I) ON OVERFLOW SET K UP BY 1 END-STRING.\n    DISPLAY K.\n");
+        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        int i = p.items().stream().filter(x -> x.name().equals("I")).findFirst().orElseThrow().id(), k = p.items().stream().filter(x -> x.name().equals("K")).findFirst().orElseThrow().id();
+        assertTrue(r.plan().scalars().containsAll(java.util.Set.of(i, k)), "I and K promoted: " + r.refused());
+        String java = Lower.java(p, "P", r.plan()).java();
+        assertTrue(java.contains("Field p" + i + " = ") && java.contains("Field p" + k + " = "), java);
+    }
 }

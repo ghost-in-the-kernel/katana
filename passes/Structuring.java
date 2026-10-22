@@ -68,6 +68,9 @@ public final class Structuring {
         Map<Integer, Integer> cycles = new HashMap<>();
         Set<Integer> inline = program.isEmpty() ? Inline.inline(p, methods, loops, cycles, refused) : Set.of();
         Set<Integer> main = program.isEmpty() ? MainLine.main(p, methods, loops, cycles, refused) : Set.of();
+        // The passes after structuring, in the order each needs the one before (docs/PASSES.md): 1. Scalars promotes
+        // items; 2. Exact takes their statements; 3. Fits only Exact's; 4. Types names and types promoted items; 5. Records
+        // views the records left in bytes; 6. Stateless reads the whole program.
         Set<Integer> scalars = Scalars.promote(p, refused);
         Set<String> exact = Exact.exact(p, scalars, refused);
         Set<String> fits = Fits.fits(p, scalars, exact, refused);

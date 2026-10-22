@@ -368,7 +368,7 @@ recorded by the tithe.
 
 ## 5. The navigation tithe
 
-**Cadence.** Every eighth commit is a tithe commit: it changes no behaviour (goldens identical) and
+**Cadence.** One commit in eight is a tithe commit (the gate refuses a push past sixteen since the last, R-008): it changes no behaviour (goldens identical) and
 improves the agent's environment or the code's navigability. Every phase ends with a tithe pass of
 one to two days. Phase 0 is itself mostly tithe.
 

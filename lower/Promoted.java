@@ -142,15 +142,17 @@ final class Promoted {
      */
     // Decision: R-068
     void through(Set<Integer> items, Emitter e, Runnable statement) {
-        // Not re-entrant: passes/Scalars keeps out a statement with statements of its own, so none runs inside another.
-        if (!bound.isEmpty()) throw new IllegalStateException("a statement through promoted items " + bound + " inside another");
+        // A statement inside another (a phrase's statements) may go through other items; one item twice cannot, its
+        // field `p<id>` declared in both blocks. passes/Scalars keeps out the items a phrased statement names itself,
+        // not those in its subscripts, so the overlap is refused here, loudly.
+        if (!java.util.Collections.disjoint(bound, items)) throw new IllegalStateException("promoted items " + items + " through a statement inside one already through " + bound);
         e.open("");
         for (int id : items) e.line("Field p" + id + " = " + field(id) + ";");
         bound.addAll(items);
         try {
             statement.run();
         } finally {
-            bound.clear();
+            bound.removeAll(items);
         }
         for (int id : items) e.line(assign(id, "p" + id + ".get()") + ";");
         e.close();

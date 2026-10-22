@@ -3778,3 +3778,45 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `findings/Divergence.java`, `docs/DIVERGENCES.md`, `oracle/prove/Generators.java`,
   `test/katana/findings/DivergencesDocTest.java`, `test/katana/oracle/prove/`, `docs/checks.json`,
   `docs/KERNEL-MAP.md`, `TODO.md`.
+
+### J-231 Tithe: the reviews' small items taken, and an Opus agent's review of the tithe acted on
+- **Who:** Opus, on Ghost's word ("lets do the tithe, and during the tithe lets have another opus agent review the
+  tithes actions and what it could have done extra"). **Class:** tithe (R-008). It changes no behaviour and no
+  golden: the full gate passed with every suite, every golden the same.
+- **Found:**
+  - From J-227's three reviews:
+    - HANDOFF.md held a 100-line section twice, a second "For Ghost" section, a head that still said phase 6
+      had not started, Appendix A as "waiting on Ghost" though J-095 read it, and che4z under phase 2.2 though
+      R-071 moved it.
+    - The tithe cadence and the fast loop's ceiling were each stated two ways.
+    - `THROUGH` was one set written twice, in `lower/Verbs` and `passes/Scalars`.
+    - `Promoted.through` toggled `bound` with no finally, and `Dataflow` carried a flag in a field.
+  - The Opus reviewer of the first commit (a04dcfb) found four things:
+    - J-231 itself was missing.
+    - A second HANDOFF duplicate and stale lines remained.
+    - Scalars named `katana.lower.Lower` fully qualified, which `ModulesTest`'s import check cannot see.
+    - The new guard refused any nested `through`, where only a shared item breaks the Java.
+
+    Its scenario for the last, a STRING over a promoted subscript with an ON OVERFLOW SET of another promoted item,
+    was run: the phrase's statement is lowered after the STRING's block closes, so nothing nests there and the old
+    guard did not fire. The guard is narrowed to the overlap all the same, which is the case it can break.
+- **Resolved:**
+  - HANDOFF.md: one copy of each section, its head current, its waiting lists current.
+  - CLAUDE.md, ROADMAP.md and `scripts/Metrics.java` state the cadence one way (`TitheGate.GRACE`). AGENT.md's
+    AGT-02 names the held ceiling.
+  - `lower/Lower.THROUGH` is the one set, which Scalars imports.
+  - `Promoted.through` refuses an item already through, clearing it in a finally.
+  - `Dataflow.target` takes the INITIALIZE flag as a parameter.
+  - `passes/Fits` states its precondition. `Structuring.plan` numbers the passes' order. CLAUDE.md has a row for
+    what a pass writes in `lower/`.
+  - `test/DuplicatesDocTest.java`, in `DocTests`, refuses a long paragraph or a `## ` heading twice in the five
+    documents an agent reads first. It is shown to fail, and on main's old HANDOFF it finds 8.
+  - `ScalarsTest` holds the phrase case.
+  - Left for Ghost to place, listed in the reviewer's report: the CardDemo job lists derived from fixtures, a
+    NextId script, the Exprs/Promoted/Views construction order, the longest-line metric, imports for
+    fully-qualified names, ModulesTest reading qualified names, and TODO status lines. The reviewer marked these
+    tithe-sized. The behaviour changes and the hostile review's proof-strength items are not tithe-sized.
+- **Touched:** `docs/HANDOFF.md`, `CLAUDE.md`, `docs/AGENT.md`, `docs/ROADMAP.md`, `TODO.md`, `scripts/Metrics.java`,
+  `lower/Lower.java`, `lower/Promoted.java`, `lower/Verbs.java`, `passes/Scalars.java`, `passes/Dataflow.java`,
+  `passes/Fits.java`, `passes/Structuring.java`, `test/DuplicatesDocTest.java`, `test/DocTests.java`,
+  `test/katana/passes/ScalarsTest.java`, `docs/KERNEL-MAP.md`, `docs/JOURNAL.md`.

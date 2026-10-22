@@ -630,10 +630,7 @@ Fable recorded R-019 to R-024 the same hour; R-020's condition for the IBM profi
 Appendix A is read", is met: `rt/ArithProfile` holds the IBM tables, and R-020's text is Fable's to
 update; updated the same day, and again after J-097 settled truncation and ROUNDED's place.)
 
-## For Ghost (R-053: answered at the phase boundary; a default is named, or "stopped")
-
-(phase 2's two answered 2026-10-05: the ANTLR tool jar accepted under R-001; che4z parked for good,
-R-015)
+(The phase-2 boundary's questions as they were put, both answered above:)
 
 - **The GnuCOBOL autotests against R-045 (tithe pass 2, B3).** Fable's B3 asked to fetch the
   autotests now and extract them into `oracle/fixture/autotest/*.fixture`. R-045 says `fetch.sh`
@@ -721,10 +718,6 @@ unchanged, R-042):
 
 ## Waiting on Ghost
 
-- **Appendix A of the Enterprise COBOL Programming Guide** ("Intermediate results and arithmetic
-  precision"): the one IBM semantic still unverified (R-049, `docs/PROFILE.md`). Blocks phase 3.1.
-  Closes when Ghost pastes the topic URL (path-style `ibm.com/docs/en/SS6SG3_6.4.0/pg/ref/<topic>.html`
-  URLs are reachable when the id is known) or attaches the PDF (SC27-8714) for a full read.
 - **Two more IBM texts to confirm when reachable**, neither blocking: IDCAMS reads columns 2–72
   (DFSMS Access Method Services Commands; the lane applies it, J-035, two secondary sources); the
   Enterprise COBOL rule for tab characters in source (R-016: fixture-declared width, default 8, as a
@@ -758,5 +751,5 @@ unchanged, R-042):
   are what `rt/Decimal` and the profile must model before phase 3.1 freezes the numeric runtime:
   IBM's intermediate precision (`-farithmetic-osvs`, 61 failures), binary items not truncated
   (`-fno-binary-truncate`, 8) and segment numbers ignored (`-fsection-segments=ignore`, 31).
-- che4z's CICS and DB2 grammars driven over CardDemo and BankDemo (phase 2.2): generated, never run;
-  about 30 minutes.
+- che4z's CICS and DB2 grammars driven over CardDemo and BankDemo (moved with 2.2 into 7.2, R-071; waits on
+  counsel, R-015): generated, never run; about 30 minutes.
