@@ -3658,3 +3658,18 @@ taken; closed by a later `decision` entry naming it).
   storage, and in `bind` at `a.record(), a.offset()`.
 - **Touched:** `passes/Records.java`; `lower/Views.java`, `Programs.java`; `test/katana/passes/RecordsTest.java`;
   `docs/KERNEL-MAP.md`; `TODO.md`.
+
+### J-225 The open items read against what is built (R-071)
+- **Who:** Opus, on Ghost's word ("lets do a pass over any items that are not marked as done on the roadmap").
+  **Class:** process.
+- **Found:**
+  - Of TODO.md's open items, only two waited on something not built:
+    - 2.2 waits on counsel, so it moves into 7.2, which needs it;
+    - 3.6's baseline is 6.8's first column, so it moves there.
+  - 3.2's check is met by 3.4's runs, so it folds into 3.4.
+  - 4.7 and 5.5 were done (J-192, J-198) but never moved to DONE.md; they are now.
+  - Everything else can be done now and says so: 3.1's autotests through the lowering, 3.3's DB205A defect, 6.4's
+    several receivers, 6.5's closed enum, and 6.7's REDEFINES records. 6.7's LINKAGE records were built (J-224).
+  - One open part has no item that builds what it needs: money in records, with storage behind a record class.
+    It is left to Ghost.
+- **Touched:** `TODO.md`, `docs/DONE.md`, `docs/ROADMAP.md`, `theGhost.md` (R-071), `docs/JOURNAL.md`.

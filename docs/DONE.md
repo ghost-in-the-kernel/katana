@@ -345,6 +345,16 @@ CREASTMT (PROOF-04), every dataset compared the same; CREASTMT's statements said
 `oracle/proof/CARDDEMO.coverage.md`: 106 of 113 paragraphs of the five programs entered; the seven left are
 each program's abend and I/O-error paragraphs, which no fixture's data reaches.
 
+### 4.7 Tithe pass 4
+
+Check: none in the roadmap; written here before the item starts. No change of behaviour and no golden
+changed (P-02): the largest file well under 400 lines, every main-code function the metrics name as long
+and uncommented commented or split, 4.1 to 4.6 moved to docs/DONE.md, HANDOFF's next work and the
+phase-4 boundary's open hypotheses current, pass 4 measured in AGENT.md, and the pre-push check over every
+suite timed at the boundary (J-192).
+
+*Done (J-192), moved by R-071.*
+
 ## Phase 5: the Intent IR and the proof ledger
 
 ### 5.1 `intent/types`
@@ -398,3 +408,13 @@ an edit, deletion, insertion or reorder refused (`LedgerTest`); the lowering's m
 writes (`ManifestTest`); the proven jobs' five programs each a literal ledger covering every symbol, a
 removal refused until superseded (`LiteralLedgerIntegrationTest`); the provenance map and the report's
 ledger section written from the live lines.
+
+### 5.5 Tithe pass 5
+
+Check: none in the roadmap; written here before the item starts. No change of behaviour and no golden
+changed (P-02): every main-code function the metrics name as long and uncommented commented; phase 5's new
+words in the glossary; R-031 recorded (the roadmap's last phase-5 decision); 5.1 to 5.4 moved to
+docs/DONE.md; HANDOFF's next work and the phase-5 boundary's questions current; pass 5 measured in AGENT.md;
+the pre-push check over every suite timed at the boundary (J-198).
+
+*Done (J-198), moved by R-071.*

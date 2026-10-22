@@ -1413,6 +1413,29 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** intent
 ---
 
+### R-071: An open item waits where what it needs is built; an item that can be done now stays in the chain
+- **Decision:** Every item TODO.md holds open was read against what is built (Ghost, 2026-10-22). An item whose
+  check needs something no step has built yet, or something outside the code, moves into the item that builds or
+  needs it, its text kept and marked "Moved from": 2.2's CICS and DB2 grammars into 7.2 (counsel, R-015, R-053);
+  3.2's check, which 3.4's runs meet, into 3.4; 3.6's literal baseline into 6.8, its first column. Items done but
+  not moved are moved: 4.7 (J-192) and 5.5 (J-198) to docs/DONE.md. What can be done now stays where it is and
+  says so: 3.1's autotests through the lowering at scale (every pass's unit corpus), 3.3's DB205A defect, 6.4's
+  several receivers, 6.5's closed enum on 6.6's dataflow, 6.7's records with a REDEFINES (a view over shared bytes
+  is still exact), and 6.7b's LINKAGE records, built at once (J-224). The loop-bounds interval rule is not built
+  (J-221, J-222). Money in records and storage other than the bytes behind a record class wait on a proof that
+  nothing reaches a record's bytes but its class, which no item builds yet; where it goes is Ghost's.
+- **Why:** the chain (TODO.md's head) stops at an item that cannot be done as written; an item blocked by a missing
+  architecture or by counsel sat ahead of work that could proceed, and phase 3's open items read as stopped when
+  they are not.
+- **Held by:** TODO.md and docs/DONE.md (`TodoTest`: numeric order, no item both open and done); docs/ROADMAP.md's
+  notes at 2.2, 3.2 and 3.6.
+- **Source:** Ghost, 2026-10-22: "lets do a pass over any items that are not marked as done on the roadmap, and see
+  if they can be reinserted later, when necessary architecture to handle them is live".
+- **Status:** in force
+- **See also:** R-015, R-053, R-068
+- **subject:** process
+---
+
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
 the attribute tuple; R-028 coverage in every proof; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual

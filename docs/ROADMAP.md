@@ -536,7 +536,7 @@ evaluation license until R-037's provisional is filed.
     *Check:* every program `cobc` accepts parses to a tree with no error nodes — 31/31 CardDemo,
     82/82 BankDemo (privately), 29 of 30 OMP plus CBL0007 named (the course's deliberate error), 437
     NIST; a test holds those counts and may only rise (R-055).
-2.2 **Drive che4z's CICS and DB2 grammars** over CardDemo and BankDemo from a clone outside the
+2.2 **Drive che4z's CICS and DB2 grammars** (moved to 7.2 by R-071, waiting on counsel) over CardDemo and BankDemo from a clone outside the
     tree (done: 220/220 and 32/32; 351/351 and 120/120), the evidence for the graft (R-014). The graft
     itself does not happen (R-015: no counsel, the grammars stay out); EXEC blocks are opaque tagged
     text in the IR, which phases 2–6 need nothing more of (R-005, R-055). Phase 7.2 writes Katana's own
@@ -587,7 +587,7 @@ from an unblocked network, before `rt/Decimal` is frozen.
     HIGH-VALUES as 0xFF.
     *Check:* the 359 GnuCOBOL autotests, run as unit tests of `rt/` through hand-lowered programs
     first, then through the lowering; each tests one rule, which is why they come first.
-3.2 **`rt/Dispatcher`**: `for(;;) switch(pc)` with a PERFORM continuation table, IBM
+3.2 **`rt/Dispatcher`** (its check met by 3.4, R-071): `for(;;) switch(pc)` with a PERFORM continuation table, IBM
     `perform-osvs` return semantics (reaching any active range's exit returns), textual
     fall-through, GO TO as a pc assignment, ALTER as a table update with a finding, EXIT PARAGRAPH,
     STOP RUN versus GOBACK, declaratives.
@@ -606,7 +606,7 @@ from an unblocked network, before `rt/Decimal` is frozen.
     a test that may only rise (the bench discipline, P-01).
 3.5 **Findings, second set:** anything the lowering approximates (COMP-1/2 as IEEE with a finding;
     TRUNC(OPT) lowered as STD with a finding).
-3.6 **Refactoring distance, v0.** The literal Java's line count, nesting and dispatcher size per
+3.6 **Refactoring distance, v0** (moved to 6.8 by R-071, its first column). The literal Java's line count, nesting and dispatcher size per
     program, recorded as the baseline every later pass is measured against. No one in the field
     publishes this number; from here on the project does.
 3.7 **Tithe pass 3.** This phase produces the most code; expect the pass to split `rt/Decimal` and
