@@ -2261,3 +2261,27 @@ WORKING-STORAGE and files, less the elementary 01s). NIST: some thousands (most 
 counters and messages). Every run as literal. The rival: a name the class gives that two members share (the
 same name under two groups of one record, qualified in COBOL), or a constructor past the JVM's method size on a
 large record, seen as a compile failure.
+
+## 47. 6.7b, LINKAGE records as record classes (J-224)
+
+**Ghost's word (2026-10-22).** "The linkage records, if those cannot be done now, lets move them later in the
+roadmap where they can be done." They can be done now: 6.7's classes are views, and a view needs only its
+record's storage and where in it the record starts.
+
+**How a LINKAGE record is bound.** A LINKAGE record has no storage of its own: each CALL binds it to the caller's
+argument, "the same storage area" (LR 6.4 p. 320), or SET ADDRESS OF binds it to an address (p. 443). The literal
+lowering rebuilds each item's `Field` in `bind<id>(Field a)`, at `a.offset()` plus the item's offset. A record class
+does the same in one step: its constructor takes the storage and the record's start, `new TranRecord(a.record(),
+a.offset())`, and each member is built at that start plus its offset. A WORKING-STORAGE or file record's class is
+built at start 0, as before.
+
+**Obligations.** 6.7's, with LINKAGE admitted: a group 01-level, nothing aliasing it (no 01 redefining it, which
+`bind` would bind with it), not EXTERNAL or GLOBAL.
+
+**Proof**: as §46's. NIST's IC modules CALL subprograms whose LINKAGE records are bound on every call, and CardDemo's
+CSUTLDTC and CBSTM03B take their arguments the same way.
+
+**Predicted, before the build.** CardDemo's batch: 6 of its 7 LINKAGE group records become classes (J-223 refused 6
+for LINKAGE alone). NIST: about 20 of the 21 refused for LINKAGE alone. Every run as literal. The rival: a call that
+binds the record before its class exists, or a member that keeps the start of an earlier call, seen as an IC module
+that reports otherwise.
