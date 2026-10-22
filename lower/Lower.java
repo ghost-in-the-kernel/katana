@@ -33,12 +33,15 @@ public final class Lower {
      * code, out of the switch (6.2, research §37); the main line's paragraphs when they are `run`'s own code, and the
      * loops of either, each header paragraph to the last of its loop (research §38); the items promoted to Java
      * variables (6.3, research §39, R-068); the arithmetic statements written as exact arithmetic, by where each
-     * starts (6.4, research §41). Empty, the literal lowering; it decides nothing (passes/Structuring and
+     * starts (6.4, research §41); the items whose condition names an Enum or Flag fact names, and the promoted
+     * items a Money fact makes `Money` (6.5, research §42, R-070). Empty, the literal lowering; it decides nothing (passes/Structuring and
      * passes/Scalars discharge the obligations).
      */
     public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls, java.util.Set<String> loops, java.util.Set<Integer> inline,
-                       java.util.Set<Integer> main, java.util.Map<Integer, Integer> cycles, java.util.Set<Integer> scalars, java.util.Set<String> exact) {
-        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Map.of(), java.util.Set.of(), java.util.Set.of());
+                       java.util.Set<Integer> main, java.util.Map<Integer, Integer> cycles, java.util.Set<Integer> scalars, java.util.Set<String> exact,
+                       java.util.Set<Integer> enums, java.util.Set<Integer> money) {
+        public static final Plan LITERAL = new Plan(java.util.Map.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Set.of(), java.util.Map.of(), java.util.Set.of(), java.util.Set.of(),
+                java.util.Set.of(), java.util.Set.of());
 
         public Plan {
             methods = java.util.Map.copyOf(methods);
@@ -49,6 +52,8 @@ public final class Lower {
             cycles = java.util.Map.copyOf(cycles);
             scalars = java.util.Set.copyOf(scalars);
             exact = java.util.Set.copyOf(exact);
+            enums = java.util.Set.copyOf(enums);
+            money = java.util.Set.copyOf(money);
         }
 
         /** Whether the plan changes the procedure's flow (6.1, 6.2), apart from the items it promotes: a promotion alone leaves the dispatcher as it is. */
@@ -103,7 +108,7 @@ public final class Lower {
     // Decision: R-024
     private static void program(Emitter e, Program p, String className, List<Program> containers, List<String> findings, Plan plan) {
         Exprs x = new Exprs(p, findings);
-        x.promoted = new Promoted(p, plan.scalars());
+        x.promoted = new Promoted(p, plan.scalars(), plan.money(), plan.enums());
         boolean top = containers.isEmpty();
         e.open((top ? "public final class " : "static final class ") + className + " implements Subprogram");
         e.enter(className);
@@ -150,7 +155,9 @@ public final class Lower {
         if (top) parm(e, p);
         FileDecls.closer(e, p);
         Programs.entry(e, p, x, containers);
-        new Flow(e, p, x, containers, plan).procedure();
+        Flow flow = new Flow(e, p, x, containers, plan);
+        flow.procedure();
+        x.promoted.predicates(e, flow.conditions);
         List<Program> inside = new ArrayList<>(containers);
         inside.add(p);
         for (Program n : p.nested()) program(e, n, Lower.className(n), inside, findings, Plan.LITERAL);
@@ -226,6 +233,10 @@ public final class Lower {
             if (x.promoted.has(i.id())) {
                 e.line(x.promoted.declaration(i.id(), x));
                 e.symbol(x.promoted.name(i.id()), "item " + i.id());
+                for (String[] c : x.promoted.constants(i.id())) {
+                    e.line("private static final long " + c[0] + " = " + c[1] + "; // 88 " + c[2]);
+                    e.symbol(c[0], "condition " + i.id());
+                }
                 continue;
             }
             e.line("private Field f" + i.id() + "; // " + i.name());

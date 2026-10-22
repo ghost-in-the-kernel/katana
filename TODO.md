@@ -186,6 +186,14 @@ admit; ADD TO, SUBTRACT FROM and MULTIPLY BY with several receivers (R-059's tem
 
 Check: as above.
 
+Built (J-218, research §42, R-070): an Enum or Flag fact gives its item names, not a closed type: each condition
+name a predicate method the condition tests call, a promoted item's single values constants a MOVE or SET ... TO
+TRUE assigns by name; a Money fact makes a promoted item an `rt` `Money`, every store still COBOL's. CardDemo's
+batch: 20 items named (87 predicates, 16 constants), 7 Money, 6 money record fields refused (6.7); NIST: 29 named
+(62 predicates), 20 Money; every CardDemo job and NIST module as literal, each new name in the ledger with its
+fact's state (all `unconfirmed`). Open: a closed enum, where a pass proves an item holds only its 88 values (PIC X
+items promoted first); money in records with 6.7.
+
 ### 6.6 Stateless subprograms
 
 Check: as above.

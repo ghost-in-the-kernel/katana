@@ -30,7 +30,8 @@ public final class StructuringLedger {
             now.add(s.name());
             if (live.containsKey(s.name())) continue;
             Structuring.Applied a = byMethod.get(s.name().substring(s.name().lastIndexOf('.') + 1));
-            String fact = a == null ? "-" : a.fact().id().replace("|", "/"), state = a == null ? "-" : a.fact().unconfirmed() ? "unconfirmed" : "confirmed";
+            katana.intent.types.Fact licence = a != null ? a.fact() : typed(pass, s.node());
+            String fact = licence == null ? "-" : licence.id().replace("|", "/"), state = licence == null ? "-" : licence.unconfirmed() ? "unconfirmed" : "confirmed";
             out.add(new Ledger.Draft(pass(s.node()), fact, state, run, s.name(), s.node(), profile, time, 0));
         }
         for (Map.Entry<String, List<Entry>> e : live.entrySet()) {
@@ -41,8 +42,14 @@ public final class StructuringLedger {
         return out;
     }
 
-    /** The pass a symbol's change is the work of: an item's, scalar promotion (6.3); any other, structuring. */
+    /** The pass a symbol's change is the work of: a condition's name, 6.5's types; an item's, scalar promotion (6.3); any other, structuring. */
     private static String pass(String node) {
-        return node.startsWith("item ") ? Scalars.PASS : Structuring.PASS;
+        return node.startsWith("condition ") ? Types.PASS : node.startsWith("item ") ? Scalars.PASS : Structuring.PASS;
+    }
+
+    /** The Enum, Flag or Money fact behind an item's or a condition's new name (6.5), whose state the line carries (R-029); null for none. */
+    private static katana.intent.types.Fact typed(Structuring.Result pass, String node) {
+        if (!node.startsWith("item ") && !node.startsWith("condition ")) return null;
+        return pass.typed().get(Integer.parseInt(node.substring(node.indexOf(' ') + 1)));
     }
 }
