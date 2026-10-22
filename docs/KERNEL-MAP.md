@@ -1889,3 +1889,24 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Events.java:Events.Events` |  | 2026-10-22 |  |
 | rt | `rt/katana/rt/Events.java:Events.note` |  | 2026-10-22 |  |
 | rt | `rt/katana/rt/Events.java:Events.stored` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.Line.text` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.Align` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.nodes` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.paragraph` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.item` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.count` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.qualifiedMatches` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.flat` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.infer` | R-072 | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.referenced` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.items` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.statement` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.literalsOf` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.literals` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.digits` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.byName` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.spellings` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.paragraphRanges` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.line` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.write` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Align.java:Align.read` |  | 2026-10-22 |  |

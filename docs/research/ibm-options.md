@@ -2428,3 +2428,46 @@ The rivals:
 - a boundary value that sends a record down a reject path, losing a paragraph the sample enters;
 - a lane difference on boundary data, which would be a defect the sample never reached and a finding, not a failure
   of the step.
+
+## 51. 8A.4, the alignment file: a foreign port's Java mapped onto the COBOL by the program's own names (J-234)
+
+**Ghost's word (2026-10-22).** "yes, continue into 8A.4".
+
+**What it is.** `<PROGRAM>.align` maps each COBOL node to the place in a foreign port's Java that does it, so the
+report can trace a difference from a field to a statement to the Java that ran it (R-072). A node is named by the
+program's own names, never by the IR's numbers (R-064):
+- `paragraph NAME`, with `IN SECTION` where two paragraphs share a name;
+- `item NAME`, with `OF PARENT` as far as makes it unique;
+- `statement VERB #k IN PARAGRAPH`, the k-th statement of that verb in the paragraph.
+
+Each line reads `node | Java place | state | evidence`:
+- the place is `File.java:line` or `File.java:first-last`, or an identifier with its line;
+- the state is `unconfirmed`, `confirmed` or `refuted`;
+- the evidence says how the line was inferred.
+
+Inference marks every line `unconfirmed`; only a person changes a state (R-029). Reading an alignment refuses a line
+whose node the IR does not hold, so a renamed paragraph cannot carry a person's word to the wrong place.
+
+**How it is inferred** (`oracle/prove/Align`), evidence by evidence, the strongest first:
+1. `source`: a comment naming the COBOL source file and a statement's line (`CBACT04C.cbl:464:`), which generated
+   ports carry.
+2. `name`: a paragraph's or an item's name in a comment or an identifier, in any of the spellings a port uses
+   (`ACCT-CURR-BAL`, `ACCT_CURR_BAL`, `acctCurrBal`, a prefix or a qualifier around it).
+3. `literal`: a statement's literal (an alphanumeric literal's text, a numeric literal's digits) found at exactly
+   one place in the Java's literals.
+
+A paragraph's place runs from its line to the next aligned paragraph's.
+
+**Predicted, before the run.**
+- On opensourcecobol4j's Java for the CardDemo batch programs it compiled (`lower/prototypes/oc4j-carddemo-reference/`,
+  read as text, never run or shipped):
+  - paragraphs at least 95%, by name;
+  - statements at least 90%, by source line;
+  - items at least 80%, by name.
+- On 8A.1's hand-written port of ACCRUE (`AccruePorts`), whose Java names nothing as the COBOL does:
+  - no paragraph or item;
+  - statements only by literal, the COMPUTE's 0.0375 and the DISPLAY's 'ACCRUED ', 2 of its statements.
+
+Which is the point: for a hand port, the alignment is mostly a person's to write, and the file says so line by line.
+The rival: an identifier match that is wrong (a name the port reuses for another field), which only a person's
+review catches. Hence `unconfirmed`.

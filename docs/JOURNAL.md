@@ -3876,3 +3876,33 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `rt/katana/rt/Events.java`, `Trace.java`, `Decimal.java`, `Arithmetic.java`, `Scalars.java`;
   `oracle/prove/Boundary.java`; `test/katana/oracle/lane/BoundaryIntegrationTest.java`; `docs/checks.json`,
   `docs/KERNEL-MAP.md`, `TODO.md`.
+
+### J-234 8A.4: the alignment file, a foreign port's Java mapped onto the COBOL by the program's own names
+- **Who:** Opus, on Ghost's word ("yes, continue into 8A.4"). **Class:** build; trial.
+- **Intent:** research §51, before the build. `<PROGRAM>.align` maps each paragraph, statement and item, named as
+  R-064 names them, to a place in the port's Java, by the strongest evidence found: `source`, `name` or `literal`.
+  Every line is `unconfirmed` until a person says otherwise.
+- **Found:**
+  - opensourcecobol4j's Java for the 11 CardDemo batch programs it compiled, read as text:
+    - paragraphs 139 of 139 and statements 1,629 of 1,629, its comments naming each paragraph and each statement's
+      source line;
+    - items 537 of 769, 70%, short of the 80% predicted. oc4j writes no Java for an item nothing names (most of a
+      copybook's fields), so there is nothing to align. Of the items the procedure does name, 405 of 412 align,
+      98%. The file reports both.
+  - 8A.1's hand-written port of ACCRUE: statements 2 of 11, by literal (the COMPUTE's 0.0375 and the DISPLAY's
+    `ACCRUED `), with no item and no paragraph (it has none). This is as predicted: for a hand port, the alignment
+    is mostly a person's to write, and the file says so line by line.
+  - The rival appeared at once. The first run aligned the item ACCRUED to the text `"ACCRUED "` in the port's
+    DISPLAY string. Names are no longer matched inside string literals; that one is gone, and it is why every line
+    stays `unconfirmed`.
+  - A statement in a program's unnamed lead paragraph is named `IN PROCEDURE DIVISION`, not by an index (R-064).
+- **Resolved:**
+  - `oracle/prove/Align`: `nodes`, `infer`, `write`, and `read`. `read` refuses a line naming a node the IR does not
+    hold, or a state other than the three.
+  - `AlignTest` holds each evidence and the refusals.
+  - `AlignIntegrationTest` holds oc4j's and the hand port's coverage; `docs/checks.json` registers it, and the lane
+    suite gates it.
+  - The `.align` files are written under `build/align/`, never into the tree. They are another tool's output and a
+    trial's.
+- **Touched:** `oracle/prove/Align.java`; `test/katana/oracle/prove/AlignTest.java`, `AlignIntegrationTest.java`;
+  `docs/checks.json`, `docs/KERNEL-MAP.md`, `TODO.md`.
