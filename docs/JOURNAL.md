@@ -3755,3 +3755,26 @@ taken; closed by a later `decision` entry naming it).
     the lane suite selects them.
 - **Touched:** `oracle/prove/Prove.java`, `oracle/fixture/foreign/`, `test/katana/oracle/prove/`, `build.gradle`
   (the `prove` task, no dependency), `scripts/prepush.sh`, `docs/checks.json`, `docs/KERNEL-MAP.md`, `TODO.md`.
+
+### J-230 8A.2: the divergence catalogue as data, its first three kinds held by generators and mutations
+- **Who:** Opus, on Ghost's word ("continue into 8A.2"). **Class:** build; trial.
+- **Intent:** research §49, before the build. A divergence kind is a catalogue row: the COBOL rule and its IBM
+  text, the exact Java, and the wrong Java shape. Each kind has a generator and a mutation. The first three are
+  high-order truncation, scale truncation and intermediate precision (dmax).
+- **Found** (seed 49, twenty records a case):
+  - Every kind's exact port is the SAME as the cobc lane.
+  - Each mutation differs in the receiving field alone, on 10 of 20 records (DV-01), 9 of 20 (DV-02) and 12 of 20
+    (DV-03). All are inside the predicted 30% to 70%.
+  - The rival did not appear: cobc's `-std=ibm` division keeps dmax's two places, as Appendix A says, so the full
+    quotient (`DECIMAL128`) is the wrong shape against cobc too.
+- **Resolved:**
+  - `findings/Divergence.Kind` holds the catalogue (DV-01 to DV-03). `docs/DIVERGENCES.md` is its table, held by
+    `DivergencesDocTest`.
+  - `oracle/prove/Generators` writes a case: a COBOL program with one statement of the kind's shape, its copybook,
+    twenty records about half across the boundary, and a fixture.
+  - The ports are in `test/katana/oracle/prove/KindPorts.java`: `exact`, and `wrong` as the mutation.
+    `DivergenceKindsIntegrationTest` is registered in `docs/checks.json` and gated by the lane suite.
+  - What the catalogue does not do yet: probe a foreign port's difference to name its kind (8A.5).
+- **Touched:** `findings/Divergence.java`, `docs/DIVERGENCES.md`, `oracle/prove/Generators.java`,
+  `test/katana/findings/DivergencesDocTest.java`, `test/katana/oracle/prove/`, `docs/checks.json`,
+  `docs/KERNEL-MAP.md`, `TODO.md`.

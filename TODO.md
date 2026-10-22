@@ -269,6 +269,11 @@ the wrong Java shape, Katana's exact Java and a generator, held by a doc test; e
 program and inputs on which its wrong shape differs from cobc. The first three: high-order truncation, scale
 truncation against HALF_UP, and dmax division, each caught by a mutation, the catch rate predicted first.
 
+Begun ahead of the chain (J-230, research §49): `findings/Divergence` and `docs/DIVERGENCES.md` hold DV-01 to DV-03,
+each with a generator (`oracle/prove/Generators`) and a mutation; every exact port the SAME, the mutations caught in
+the receiver alone on 10, 9 and 12 of 20 records (30% to 70% predicted). Left: the rest of `semantic_traps.md` as
+kinds (sign, MOVE padding and alignment, collation, PERFORM fall-through, file status).
+
 ### 8A.3 Boundary inputs from the IR
 
 Check: for each statement, inputs crossing its receivers' boundaries, written as a fixture under the program's
