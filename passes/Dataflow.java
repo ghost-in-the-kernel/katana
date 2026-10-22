@@ -36,8 +36,6 @@ final class Dataflow {
     final BitSet written = new BitSet();
     /** Each read that the analysis cannot show written first: `NAME at line N`. */
     final List<String> findings = new ArrayList<>();
-    /** While an INITIALIZE without REPLACING's receivers are read: a group then writes its receivers, not its FILLER. */
-    private boolean initializing;
     private final BitSet[] in;
     private final BitSet[] end;
 
@@ -75,9 +73,8 @@ final class Dataflow {
 
     /** Every byte a statement may write, its branches' statements too. */
     private void collect(Statement s) {
-        initializing = plainInitialize(s);
-        for (Statement.Operand o : s.operands()) if (receives(s, o.role())) written.or(target(o.value()));
-        initializing = false;
+        boolean initializing = plainInitialize(s);
+        for (Statement.Operand o : s.operands()) if (receives(s, o.role())) written.or(target(o.value(), initializing));
         if (s.verb().equals("INSPECT") || s.verb().equals("CALL")) for (Statement.Operand o : s.operands()) fields(o.value(), written);
         if (s.verb().equals("PERFORM")) for (Statement.Branch b : s.branches()) varied(b.condition(), written);
         for (Statement.Operand o : s.operands()) varied(o.value(), written);
@@ -88,8 +85,9 @@ final class Dataflow {
         return WRITES.contains(role) || MAYBE.contains(role) || role.equals("divide-into");
     }
 
-    private BitSet target(Value v) {
-        if (v instanceof Value.Field f && initializes(f)) return initialized(f.item());
+    /** The bytes a receiver writes; `initializing`, an INITIALIZE without REPLACING's receiver, a group writing its receivers, not its FILLER. */
+    private BitSet target(Value v, boolean initializing) {
+        if (v instanceof Value.Field f && initializing && initializes(f)) return initialized(f.item());
         if (v instanceof Value.Field f) return bytes(f);
         if (v instanceof Value.ConditionName c) return bytes(new Value.Field(c.item(), c.subscripts(), null, null));
         return new BitSet();
@@ -97,7 +95,7 @@ final class Dataflow {
 
     /** Whether a field is an unsubscripted group INITIALIZE names: it writes the group's receivers, not its FILLER. */
     private boolean initializes(Value.Field f) {
-        return initializing && f.subscripts().isEmpty() && f.start() == null && p.items().get(f.item() - 1).attributes().category() == katana.sir.types.Attributes.Category.GROUP;
+        return f.subscripts().isEmpty() && f.start() == null && p.items().get(f.item() - 1).attributes().category() == katana.sir.types.Attributes.Category.GROUP;
     }
 
     /** The bytes INITIALIZE of a group writes (LR 6.4 p. 366, as `lower/Initialize` reads it): each elementary item under it but FILLER, none under a REDEFINES below it, every occurrence. */
@@ -127,7 +125,7 @@ final class Dataflow {
                 out.or(bytes(f));
                 f.subscripts().forEach(x -> fields(x, out));
             }
-            case Value.ConditionName c -> out.or(target(c));
+            case Value.ConditionName c -> out.or(target(c, false));
             case Value.Expression e -> e.operands().forEach(x -> fields(x, out));
             case null, default -> {}
         }
@@ -201,9 +199,8 @@ final class Dataflow {
     /** The state after a statement's own receivers, those it writes for certain. */
     private BitSet writes(Statement s, BitSet before) {
         BitSet after = (BitSet) before.clone();
-        initializing = plainInitialize(s);
-        for (Statement.Operand o : s.operands()) if (WRITES.contains(o.role()) && definite(s, o)) after.or(target(o.value()));
-        initializing = false;
+        boolean initializing = plainInitialize(s);
+        for (Statement.Operand o : s.operands()) if (WRITES.contains(o.role()) && definite(s, o)) after.or(target(o.value(), initializing));
         return after;
     }
 

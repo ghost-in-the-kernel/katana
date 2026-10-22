@@ -29,6 +29,8 @@ byte images (J-102), MOVE (J-103), editing and de-editing (J-104), INSPECT (J-10
 *The check by hand (J-110):* `AutotestRtIntegrationTest`, its golden `test/katana/rt/autotest/results.golden`
 (hand-lowered and passing counts); the cases `rt/` holds, then the rest through the lowering (HANDOFF).
 *Reached by hand (J-112):* 24 of 378, 19 passing the testsuite, all equal to cobc -std=ibm or a finding.
+(The check's 359 is the roadmap's count before the cases were extracted; J-093 counted 378 runnable of 1,446.
+3.2, next in number, is met by 3.4's runs and folded there, R-071.)
 
 Can be done now (R-071): the lowering it needs is live. Its check at scale, the runnable autotests through the
 lowering, is also every pass's unit corpus (6.1 to 6.7's "Open"), so it comes before 6.8; 6.9 carries it too.

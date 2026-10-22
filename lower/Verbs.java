@@ -40,15 +40,12 @@ final class Verbs {
             return;
         }
         // A verb that writes a promoted item's bytes has it as a field of its own for the statement (research §40).
-        if (THROUGH.contains(s.verb()) && !f.x.promoted.in(s).isEmpty()) {
+        if (Lower.THROUGH.contains(s.verb()) && !f.x.promoted.in(s).isEmpty()) {
             f.x.promoted.through(f.x.promoted.in(s), f.e, () -> verb(s));
             return;
         }
         verb(s);
     }
-
-    /** The verbs a promoted item goes through as a field (passes/Scalars keeps each one's statements with statements of their own out). */
-    private static final java.util.Set<String> THROUGH = java.util.Set.of("INITIALIZE", "SET", "STRING", "UNSTRING", "ACCEPT");
 
     /** The statement to its verb's lowering. */
     private void verb(Statement s) {

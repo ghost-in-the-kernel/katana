@@ -14,7 +14,8 @@ import katana.sir.types.Statement;
 import katana.sir.types.Value;
 
 /**
- * 6.6b, the PICTURE rule (research §45, R-068): an exact statement whose value always fits its one promoted
+ * 6.6b, the PICTURE rule (research §45, R-068), run after passes/Exact and only on its statements: an exact
+ * statement (the precondition, `Lower.Plan.exact`) whose value always fits its one promoted
  * receiver, by its operands' PICTUREs, stores it as plain assignment: the store would truncate nothing, round
  * nothing and raise no size error. Its obligations: one promoted receiver, whole; the expression's integer places
  * within the receiver's integer digits and its decimal places within its scale; for an unsigned receiver, every

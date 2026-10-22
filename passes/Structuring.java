@@ -33,8 +33,10 @@ public final class Structuring {
     /** A range made a method, and the fact that licenses it. */
     public record Applied(int first, int last, Fact fact) {}
 
-    /** The plan lower/ takes, what was applied, each range or item not changed with why, and the fact behind each item 6.5 names or types. */
-    /** `viewed`: the items 6.7's record classes name, each a member of a record written as a class (research §46). */
+    /**
+     * The plan lower/ takes, what was applied, each range or item not changed with why, the fact behind each item 6.5
+     * names or types, and `viewed`, the items 6.7's record classes name (research §46).
+     */
     public record Result(Lower.Plan plan, List<Applied> applied, Map<String, List<String>> refused, Map<Integer, Fact> typed, Set<Integer> viewed) {}
 
     private Structuring() {}
