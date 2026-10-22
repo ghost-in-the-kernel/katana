@@ -2372,3 +2372,59 @@ wrong port DIFFERS. The catch rate is the share of records whose fields differ.
 The rival is DV-03: cobc's `-std=ibm` arithmetic departs from Appendix A in places (D-019, D-023). If its division
 keeps more places than dmax, the exact port differs and the wrong one does not, and the kind is held against IBM's
 text with a discovery, not against cobc.
+
+## 50. 8A.3, boundary inputs from the IR, with the events each drives counted where it happens (J-233)
+
+**Ghost's word (2026-10-22).** "do the four small items first, then 8A.3". 8A.3's check (TODO.md): on CardDemo, the
+generated fixture enters every paragraph the sample data does, and drives at least one of each of these, counted at
+the sites, that the sample data never does:
+- a SIZE ERROR;
+- a high-order truncation;
+- a negative store into an unsigned item;
+- a dmax division.
+
+**The counters.** `rt/Events`, on only when `-Dkatana.events=<file>` names a file, as the paragraph trace is only
+with `KATANA_TRACE_FILE`. It writes one line per event: the kind, the program, and the paragraph control last
+entered (`Trace.paragraph`, which the lowering writes at every paragraph). The kinds:
+- `SIZE_ERROR`: the condition met by a store (`Arithmetic.store`, `Scalars.store`), with the phrase or without it;
+- `TRUNCATED`: a size error stored without ON SIZE ERROR, so high-order digits are lost;
+- `SIGN_DROPPED`: a negative value stored into an unsigned receiver;
+- `DMAX_CUT`: a quotient whose digits ran past the places Appendix A carries (`Decimal.divide`).
+
+The site is the paragraph; a statement-level site waits on a site id from the lowering. Nothing else in `rt/`
+changes, and without the property nothing is written.
+
+**The inputs, from the IR.** For a job:
+- each program it runs (a step's PGM, a module) is parsed and built;
+- every numeric item an arithmetic statement names (ADD, SUBTRACT, MULTIPLY, DIVIDE, COMPUTE: operands and
+  receivers) is taken by name;
+- in each input dataset whose copybook holds a field of that name, the field is set record by record, in turn:
+  - to its PICTURE's largest magnitude;
+  - to that magnitude negative (its overpunch, FIXTURE-10, for a signed field);
+  - to a value whose decimals are all nines;
+  - left as the sample has it, one record in four, so the paths the sample takes are still taken.
+
+Keys and every other field are untouched, so the records still meet across files. The generated datasets and a
+fixture naming their hashes are written under `build/`, never into the tree.
+
+**The runs.** Each CardDemo job the Java lane runs, with the sample fixture and with the boundary one, lowered
+literal and traced with the events on. Paragraphs entered and events counted, by site, are compared. On the boundary
+data, the java lane is compared with the cobc lane, and structured with literal: the proof the hostile review
+(2026-10-22, §1) found missing, on inputs that reach the obligations.
+
+**Predicted, before the run.**
+- Sample data: no SIZE_ERROR, TRUNCATED or SIGN_DROPPED anywhere. DMAX_CUT only in CBACT04C's
+  1300-COMPUTE-INTEREST (a balance times a rate, divided by 1200).
+- Boundary data:
+  - TRUNCATED and SIZE_ERROR at CBTRN02C's balance and cycle ADDs, and at CBACT04C's ADD of the interest. They are
+    equal in number, since no batch program has ON SIZE ERROR.
+  - DMAX_CUT where the sample has it, and more.
+  - No SIGN_DROPPED: CardDemo's receivers of signed amounts are signed. If so, that part of the check cannot be
+    driven by data, and the step says so, not silently.
+  - Every paragraph the sample enters is entered.
+  - The java lane is the same as the cobc lane, and structured the same as literal.
+
+The rivals:
+- a boundary value that sends a record down a reject path, losing a paragraph the sample enters;
+- a lane difference on boundary data, which would be a defect the sample never reached and a finding, not a failure
+  of the step.

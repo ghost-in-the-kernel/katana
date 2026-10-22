@@ -3841,3 +3841,38 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `test/katana/oracle/fixture/CardDemoJobs.java`, `FixtureTest.java`, five lane and proof tests,
   `test/ModulesTest.java`, `scripts/NextId.java`, `scripts/Metrics.java`, `build.gradle` (the `nextId` task, no
   dependency), `CLAUDE.md`, `docs/AGENT.md`, `docs/KERNEL-MAP.md`, `docs/JOURNAL.md`.
+
+### J-233 8A.3: boundary inputs from the IR, and the events they drive counted where they happen
+- **Who:** Opus, on Ghost's word ("do the four small items first, then 8A.3"). **Class:** build; trial.
+- **Intent:** research §50, before the build: counters in `rt/` for each size error, truncation, dropped sign and
+  dmax cut by paragraph, and boundary inputs that drive the fields the IR's arithmetic names.
+- **Found** (CardDemo's three jobs with arithmetic on their data):
+  - The sample data drives no event at all. The prediction said CBACT04C's interest division would cut at dmax on
+    the sample, and it does not: the sample's rates and balances divide evenly, or are zero. So the sample never
+    exercises any of the four boundaries.
+  - The boundary data drives:
+    - POSTTRAN: SIZE_ERROR and TRUNCATED at three of CBTRN02C's sites, 183, 49 and 42 times. These are
+      1500-B-LOOKUP-ACCT's COMPUTE of the temporary balance, 2700-B-UPDATE-TCATBAL-REC's ADD and
+      2800-UPDATE-ACCOUNT-REC's ADDs.
+    - INTCALC: DMAX_CUT 38 times and SIZE_ERROR and TRUNCATED 26 times, at CBACT04C's 1300-COMPUTE-INTEREST.
+
+    That is nine sites, every one new.
+  - No SIGN_DROPPED, as predicted: every CardDemo receiver of a signed amount is signed, so data cannot drive that
+    part of 8A.3's check on CardDemo. A generated case (8A.2's kind) can.
+  - Every paragraph the sample enters, the boundary run enters.
+  - On the boundary data the java lane reports what the cobc lane does: every dataset, every return code, every
+    stdout line (D-005's DISPLAY form aside). So the truncations Katana's `rt/` makes are cobc's.
+  - Structured reports and traces what literal does on the boundary data. This is the proof the hostile review's §1
+    found missing, now on inputs that reach the obligations.
+  - TRANREPT-STUDY drives nothing: its transactions are a `job:` source, POSTTRAN's output from the sample cobc run,
+    which the generator does not reach. That is left for when `job:` sources are generated too.
+  - The rival, a reject path losing a paragraph, did not appear.
+- **Resolved:**
+  - `rt/Events` writes events, on only with `-Dkatana.events`. `Trace.at` holds the paragraph control last entered.
+    `Decimal.Stored` says whether a sign was dropped. `Arithmetic.store`, `Scalars.store` and `Decimal.divide` note
+    their events.
+  - `oracle/prove/Boundary` takes the names from the IR and drives the fields.
+  - `BoundaryIntegrationTest` (25 s, the lane suite) holds the four runs alike and asserts the new events.
+- **Touched:** `rt/katana/rt/Events.java`, `Trace.java`, `Decimal.java`, `Arithmetic.java`, `Scalars.java`;
+  `oracle/prove/Boundary.java`; `test/katana/oracle/lane/BoundaryIntegrationTest.java`; `docs/checks.json`,
+  `docs/KERNEL-MAP.md`, `TODO.md`.

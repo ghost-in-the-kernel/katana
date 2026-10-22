@@ -283,6 +283,12 @@ copybooks; on CardDemo the generated fixture enters every paragraph the sample d
 ERROR, one high-order truncation, one negative store into an unsigned item and one dmax division the sample data never
 does, counted by execution counters at the sites (the hostile review's §1, 2026-10-22).
 
+Built ahead of the chain (J-233, research §50): `rt/Events` and `oracle/prove/Boundary`. On POSTTRAN and INTCALC the
+boundary data drives SIZE_ERROR, TRUNCATED and DMAX_CUT at nine paragraphs where the sample drives no event at all,
+enters every paragraph the sample does, and both lanes and both builds agree on it. Not met by data: a negative into
+an unsigned item (CardDemo has no such receiver). Open: `job:` sources (TRANREPT-STUDY's transactions) and sites by
+statement, not paragraph.
+
 ### 8A.4 The alignment file
 
 Check: `<PROGRAM>.align` maps a COBOL node, by the program's own names (R-064), to a Java symbol or line range,

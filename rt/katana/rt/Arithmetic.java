@@ -22,6 +22,7 @@ public final class Arithmetic {
         Attr a = to.attr();
         boolean edited = a.category() == Attr.Category.NUMERIC_EDITED;
         Decimal.Stored s = Decimal.store(result, a.digits(), a.scale(), a.signed() || edited, rounded);
+        Events.stored(s, onSizeError, result.divisionByZero());
         if (edited && !result.divisionByZero() && !(s.sizeError() && onSizeError)) {
             byte[] shown = Editor.number(a.edit(), a.scale(), s.value().toBigDecimal()).getBytes(to.record().codepage().charset);
             System.arraycopy(shown, 0, to.record().bytes(), to.offset(), a.length());
