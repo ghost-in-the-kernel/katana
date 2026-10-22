@@ -257,6 +257,11 @@ Check: `katana prove --java <cmd>` runs a foreign command as the java lane's pro
 runs a fixture through the lane and the comparator, and what had to be adapted is recorded; a port that ignores the
 `DD_` contract (LANE-01 to 04) is refused with a finding naming what it did not honour.
 
+Trial run ahead of the chain (J-229, research §48, Ghost 2026-10-22): `oracle/prove/Prove`, reached as `gradle prove`,
+held three hand-written ports of `ACCRUE` (`oracle/fixture/foreign/`) to the COBOL: the faithful one the SAME, the
+HALF_UP one differing in two fields on 2 of 5 records by a cent, and one ignoring `DD_OUTFILE` refused. The oc4j
+reference waits on its runtime, a dependency for Ghost to approve. Left for this item: the oc4j or another real port.
+
 ### 8A.2 The trap catalogue as data
 
 Check: divergence kinds `DV-01` onward, from `docs/research/semantic_traps.md`, each with IBM's text, the COBOL rule,

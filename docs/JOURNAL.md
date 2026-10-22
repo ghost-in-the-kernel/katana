@@ -3724,3 +3724,34 @@ taken; closed by a later `decision` entry naming it).
   - `TodoTest` now accepts a lettered phase whose `Runs after:` line names the item it follows, and refuses one
     placed before that item.
 - **Touched:** `TODO.md`, `docs/ROADMAP.md`, `theGhost.md` (R-072), `test/TodoTest.java`, `docs/JOURNAL.md`.
+
+### J-229 8A.1's trial: three foreign ports of ACCRUE held to the COBOL through the lanes
+- **Who:** Opus, on Ghost's word ("run the 8A.1 trial now"), ahead of the chain (8A runs after 7.1, R-072).
+  **Class:** build; trial.
+- **Intent:** research §48, before the run.
+- **Found:**
+  - The oc4j CardDemo reference cannot run: it imports opensourcecobol4j's runtime, which is in neither the tree
+    nor the image. Bringing it in is a dependency change, which waits on Ghost (the supply-chain rules). The trial
+    took R-072's other port, hand-written ports of a program written for it, `ACCRUE`. It has a 3.75% interest
+    COMPUTE without ROUNDED and an ADD without SIZE ERROR that overflows on one record.
+  - The faithful port (`RoundingMode.DOWN`, the sum modulo 100000) is the SAME on the dataset and on stdout. So
+    the COBOL's high-order truncation on record 4 and its low-order truncation are both reproduced.
+  - The naive port (`HALF_UP`) differs in `ACCT-INT` and `ACCT-BAL` on 2 of 5 records, by one cent, the first at
+    record 1 (0.37, then 0.38). It differs on nothing else, and its stdout is the same.
+  - The deaf port, which writes its own file and never reads `DD_OUTFILE`, is refused, naming `OUTFILE`, and its
+    datasets are not compared.
+  - All four predictions held. The only adaptation was LANE-06's shape: the DDs from `DD_` variables and the exit
+    code as the return code.
+  - The input's hash is over its records, not its file (`framing=lines` drops the newlines); the first run said
+    so and was refused.
+  - What 8A.1 does not do yet, and 8A.2 to 8A.6 must: say why the cents differ (the comparator gives the field and
+    both values), trace the statements, or offer a fix.
+- **Resolved:**
+  - `oracle/prove/Prove`: the cobc lane twice through the gate, the port once, each output dataset compared by its
+    copybook and stdout compared, and a refusal for an unwritten output. It is reached as
+    `gradle prove --args="<fixture> <PGM>=<command...>"` until 8.1's CLI.
+  - The fixture is `oracle/fixture/foreign/` (ACCRUE.cbl, ACCTREC.cpy, IN.txt).
+  - The ports and `ProveIntegrationTest` are in `test/katana/oracle/prove/`, registered in `docs/checks.json`, and
+    the lane suite selects them.
+- **Touched:** `oracle/prove/Prove.java`, `oracle/fixture/foreign/`, `test/katana/oracle/prove/`, `build.gradle`
+  (the `prove` task, no dependency), `scripts/prepush.sh`, `docs/checks.json`, `docs/KERNEL-MAP.md`, `TODO.md`.

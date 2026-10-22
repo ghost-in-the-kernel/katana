@@ -52,7 +52,7 @@ for s in $suites; do
   case $s in
     nist) tests="$tests --tests katana.oracle.nist.*" ;;
     fixture) tests="$tests --tests katana.oracle.fixture.*" ;;
-    lane) tests="$tests --tests katana.oracle.lane.* --tests katana.oracle.compare.*" ;;
+    lane) tests="$tests --tests katana.oracle.lane.* --tests katana.oracle.compare.* --tests katana.oracle.prove.*" ;;
     front) tests="$tests --tests katana.front.*" ;;
     sir) tests="$tests --tests katana.sir.* --tests katana.front.CorpusIntegrationTest" ;;
     quick) tests="$tests --tests katana.oracle.nist.ModuleRunIntegrationTest" ;;
