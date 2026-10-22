@@ -121,7 +121,7 @@ final class Conditions {
         return "Classes.alphabetic(" + x.sending(e.operands().get(0)) + ", " + upper + ", " + lower + ")";
     }
 
-    /** A condition name: the predicate 6.5 names it, when it has one and no subscript (R-069); else its test. */
+    /** A condition name: the predicate 6.5 names it, when it has one and no subscript (R-070); else its test. */
     private String conditionName(Value.ConditionName c) {
         String predicate = x.promoted.predicate(c.item(), c.name());
         return predicate != null && c.subscripts().isEmpty() ? predicate + "()" : test(c);

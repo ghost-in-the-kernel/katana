@@ -33,7 +33,7 @@ final class Verbs {
     /** Each statement to its verb's lowering; a verb not lowered is a finding, and stops the program where it runs. */
     // Decision: R-021
     void statement(Statement s) {
-        // SET a promoted item's condition TO TRUE, by the constant 6.5 names its value (R-069).
+        // SET a promoted item's condition TO TRUE, by the constant 6.5 names its value (R-070).
         String named = s.verb().equals("SET") ? f.x.promoted.setTrue(s) : null;
         if (named != null) {
             f.e.line(named);

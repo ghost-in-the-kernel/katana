@@ -34,7 +34,7 @@ public final class Lower {
      * loops of either, each header paragraph to the last of its loop (research §38); the items promoted to Java
      * variables (6.3, research §39, R-068); the arithmetic statements written as exact arithmetic, by where each
      * starts (6.4, research §41); the items whose condition names an Enum or Flag fact names, and the promoted
-     * items a Money fact makes `Money` (6.5, research §42, R-069). Empty, the literal lowering; it decides nothing (passes/Structuring and
+     * items a Money fact makes `Money` (6.5, research §42, R-070). Empty, the literal lowering; it decides nothing (passes/Structuring and
      * passes/Scalars discharge the obligations).
      */
     public record Plan(java.util.Map<Integer, Integer> methods, java.util.Set<Integer> falls, java.util.Set<String> loops, java.util.Set<Integer> inline,

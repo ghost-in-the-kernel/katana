@@ -2068,7 +2068,7 @@ those with ZERO); every job as literal. NIST: about 5,500 of 8,966 (the 5,629 le
 receivers), every run as literal. The rival: an operand whose value passes its places after all, or a ROUNDED
 result the exact value rounds otherwise, seen as a report that differs.
 
-## 42. 6.5, enum, flag and money types from the intent facts, behaviour kept whatever a fact says (R-029, R-069; J-218)
+## 42. 6.5, enum, flag and money types from the intent facts, behaviour kept whatever a fact says (R-029, R-070; J-218)
 
 **What 6.5 asks** (ROADMAP 6.5): enum and flag types from `Enum` and `Flag` facts; money as a dedicated type from
 `Money`.
@@ -2081,7 +2081,7 @@ names), in bytes (6.3 promotes numeric items only), several written by the I/O a
 facts, 7 are promoted `BigDecimal` items (WS-TOTAL-INT, WS-GRAND-TOTAL), 6 record fields (ACCT-CURR-BAL,
 TRAN-AMT), in bytes until 6.7.
 
-**Ghost's choice (2026-10-22, R-069).** An Enum or Flag fact gives its item names, not a closed type: each
+**Ghost's choice (2026-10-22, R-070).** An Enum or Flag fact gives its item names, not a closed type: each
 condition name a predicate method (`applAok()`), the condition tests that name it without a subscript calling it;
 a promoted numeric item's single-valued conditions also constants (`APPL_AOK = 0`), which a MOVE or SET ... TO
 TRUE of that value assigns by name. The item keeps its own type and every value it can hold, so a wrong fact gives

@@ -14,7 +14,7 @@ import katana.sir.types.Item;
 import katana.sir.types.Program;
 
 /**
- * 6.5 (research §42, R-069): the items an `Enum` or `Flag` fact gives names (a predicate per condition name,
+ * 6.5 (research §42, R-070): the items an `Enum` or `Flag` fact gives names (a predicate per condition name,
  * constants for a promoted item's values), and the promoted items a `Money` fact makes `Money`. A refuted fact
  * is never acted on (R-029, `Intent.actionable`); an unconfirmed one is, and the ledger says so.
  */
@@ -27,7 +27,7 @@ public final class Types {
     public record Result(Set<Integer> enums, Set<Integer> money, Map<Integer, Fact> facts) {}
 
     /** Each fact's item, named or typed; each one not acted on, by `item NAME`, with why. */
-    // Decision: R-069
+    // Decision: R-070
     public static Result types(Program p, Intent intent, Set<Integer> scalars, Map<String, List<String>> refused) {
         Set<Integer> enums = new TreeSet<>(), money = new TreeSet<>();
         Map<Integer, Fact> facts = new HashMap<>();

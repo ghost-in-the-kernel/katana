@@ -21,7 +21,7 @@ import katana.sir.types.Item;
 import katana.sir.types.Program;
 import org.junit.jupiter.api.Test;
 
-/** 6.5 on a program small enough to read (research §42, R-069): an Enum fact's names, a Money fact's type, each refusal, and a refuted fact never acted on. */
+/** 6.5 on a program small enough to read (research §42, R-070): an Enum fact's names, a Money fact's type, each refusal, and a refuted fact never acted on. */
 class TypesTest {
     private static final String SOURCE = "IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n"
             + "01 APPL-RESULT PIC S9(9) COMP.\n   88 APPL-AOK VALUE 0.\n   88 APPL-EOF VALUE 16.\n01 WS-STATUS PIC XX.\n   88 WS-OK VALUE '00'.\n   88 WS-EOF VALUE '10'.\n"

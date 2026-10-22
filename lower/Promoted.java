@@ -11,7 +11,7 @@ import katana.sir.types.Program;
 
 /**
  * The items 6.3 promotes (R-068), as Java: each a `long` (an integer item), a `BigDecimal` (an item with
- * decimal places) or a `Money` (6.5, R-069) named for the item, its `Field` gone; its value read directly in
+ * decimal places) or a `Money` (6.5, R-070) named for the item, its `Field` gone; its value read directly in
  * arithmetic, encoded into a field of its own where a read needs bytes; every store the function the byte form
  * stores by. With them, the names 6.5 gives an Enum or Flag item's condition names.
  */
@@ -29,7 +29,7 @@ final class Promoted {
         this(p, items, Set.of(), Set.of());
     }
 
-    /** The names, every one from one set so none clashes: the promoted items', then the predicates' and constants' (6.5, R-069). */
+    /** The names, every one from one set so none clashes: the promoted items', then the predicates' and constants' (6.5, R-070). */
     Promoted(Program p, Set<Integer> items, Set<Integer> money, Set<Integer> enums) {
         this.p = p;
         this.money = Set.copyOf(money);
@@ -63,8 +63,8 @@ final class Promoted {
         return out;
     }
 
-    /** Each predicate as a method of the class, its body the condition test as `Conditions` writes it (6.5, R-069). */
-    // Decision: R-069
+    /** Each predicate as a method of the class, its body the condition test as `Conditions` writes it (6.5, R-070). */
+    // Decision: R-070
     void predicates(Emitter e, Conditions conditions) {
         for (Map.Entry<String, String> k : predicates.entrySet()) {
             int item = Integer.parseInt(k.getKey().substring(0, k.getKey().indexOf('|')));

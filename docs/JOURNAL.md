@@ -3473,7 +3473,7 @@ taken; closed by a later `decision` entry naming it).
 
 ### J-218 6.5: enum, flag and money types from the intent facts, names and a value type
 - **Who:** Opus, on Ghost's word ("lets move on to 6.5"; the choices "Open: names, not a type" and "A Money type,
-  promoted only", R-069). **Class:** build; trial; decision.
+  promoted only", R-070). **Class:** build; trial; decision.
 - **Intent:** research §42, before the build: CardDemo's APPL-RESULT has the 88s 0 and 16 and is MOVEd 8 and 12, so a
   closed `enum` would change what the program does; every fact is `unconfirmed`. So an Enum or Flag fact names: a
   predicate per condition name (`applAok()`), the tests calling it, and a promoted item's single values constants
@@ -3487,6 +3487,10 @@ taken; closed by a later `decision` entry naming it).
   `Money`), `Conditions.test`, `Arith` reading a `Money` by its amount; `Structuring.Result.typed` and
   `StructuringLedger` (pass `types-v1` for a condition's name, the fact on an item's); `ManifestTest` reads the new
   declarations; `TypesTest` the names, the type, each refusal, a refuted fact never acted on.
+- **Missed:** the merge found main ahead: Ghost and Fable had recorded R-069 on 2026-10-21 (exact arithmetic over a
+  record field guarded by the bytes being a valid number; 6.4b planned before 6.5, HANDOFF). This step had not
+  pulled main before it began, so it took R-069 too and ran before 6.4b. Its decision is renumbered R-070; 6.4b goes
+  to Ghost, whose word "lets move on to 6.5" came after it. A step pulls main before it begins.
 - **Touched:** `rt/katana/rt/Money.java`; `lower/Promoted.java`, `Conditions.java`, `Arith.java`, `Verbs.java`,
   `Lower.java`; `passes/Types.java` (new), `Structuring.java`, `StructuringLedger.java`;
   `test/katana/passes/TypesTest.java`, `test/katana/lower/ManifestTest.java`; `docs/KERNEL-MAP.md`; `TODO.md`.
