@@ -231,7 +231,7 @@ final class FileVerbs {
     void read(Statement s) {
         Value.File file = (Value.File) Verbs.operand(s, "read-statement");
         FileDescriptor d = f.p.files().stream().filter(x -> x.name().equals(file.name())).findFirst().orElseThrow();
-        String record = "f" + d.records().get(0);
+        String record = f.x.promoted.fieldName(d.records().get(0));
         String fileVar = name(file.name());
         // A relative or indexed file is read by its key with random access, and with dynamic access without NEXT (LR pp. 427-428).
         boolean random = keyed(d) && (d.access() == FileDescriptor.Access.RANDOM || d.access() == FileDescriptor.Access.DYNAMIC && !Verbs.keyword(s, "NEXT"));

@@ -34,7 +34,8 @@ public final class Structuring {
     public record Applied(int first, int last, Fact fact) {}
 
     /** The plan lower/ takes, what was applied, each range or item not changed with why, and the fact behind each item 6.5 names or types. */
-    public record Result(Lower.Plan plan, List<Applied> applied, Map<String, List<String>> refused, Map<Integer, Fact> typed) {}
+    /** `viewed`: the items 6.7's record classes name, each a member of a record written as a class (research §46). */
+    public record Result(Lower.Plan plan, List<Applied> applied, Map<String, List<String>> refused, Map<Integer, Fact> typed, Set<Integer> viewed) {}
 
     private Structuring() {}
 
@@ -69,10 +70,13 @@ public final class Structuring {
         Set<String> exact = Exact.exact(p, scalars, refused);
         Set<String> fits = Fits.fits(p, scalars, exact, refused);
         Types.Result types = Types.types(p, intent, scalars, refused);
+        Set<Integer> records = Records.records(p, !program.isEmpty(), refused);
+        Set<Integer> viewed = new java.util.TreeSet<>();
+        for (katana.sir.types.Item i : p.items()) if (records.contains(i.record()) && !scalars.contains(i.id())) viewed.add(i.id());
         List<String> stateful = Stateless.refusals(p);
         if (!stateful.isEmpty()) refused.put("program " + p.header().program() + " stateless", stateful);
-        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles, scalars, exact, types.enums(), types.money(), stateful.isEmpty(), fits),
-                applied, refused, types.facts());
+        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles, scalars, exact, types.enums(), types.money(), stateful.isEmpty(), fits, records),
+                applied, refused, types.facts(), viewed);
     }
 
     /** What keeps a whole program literal: an independent segment with an ALTER, whose state the dispatcher keeps (research §16); declaratives, which run as PERFORMs of their own. */

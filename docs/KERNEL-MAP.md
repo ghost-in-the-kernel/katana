@@ -1840,3 +1840,21 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/Fits.java:Fits.statement` |  | 2026-10-22 |  |
 | passes | `passes/Fits.java:Fits.refusals` |  | 2026-10-22 |  |
 | passes | `passes/Fits.java:Fits.signed` |  | 2026-10-22 |  |
+| lower | `lower/Arith.java:Arith.getter` |  | 2026-10-22 |  |
+| lower | `lower/Promoted.java:Promoted.reserve` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.Views` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.javaLang` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.record` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.path` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.at` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.getter` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.big` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.typed` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.declare` | R-024 | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.accessors` |  | 2026-10-22 |  |
+| lower | `lower/Views.java:Views.create` |  | 2026-10-22 |  |
+| passes | `passes/Records.java:Records.Records` |  | 2026-10-22 |  |
+| passes | `passes/Records.java:Records.records` | R-032 | 2026-10-22 |  |
+| passes | `passes/Records.java:Records.refusals` |  | 2026-10-22 |  |
+| passes | `passes/Records.java:Records.refmod` |  | 2026-10-22 |  |
+| passes | `passes/Records.java:Records.refmod#2` |  | 2026-10-22 |  |

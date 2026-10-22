@@ -106,6 +106,11 @@ final class Arith {
         return name + " = " + (x.promoted.money(id) ? "new Money(" + b + ")" : x.promoted.big(id) ? b : b + ".longValueExact()");
     }
 
+    /** A record class's getter for a numeric member read whole (6.7, research §46), null for any other field. */
+    private String getter(Value.Field f) {
+        return x.promoted.views == null || !f.subscripts().isEmpty() || f.start() != null ? null : x.promoted.views.getter(f.item());
+    }
+
     /** The record fields an exact expression reads, as Java Fields: what 6.4b's guard checks before the exact form runs (R-069). */
     List<String> guards(Value v) {
         List<String> out = new java.util.ArrayList<>();
@@ -131,6 +136,7 @@ final class Arith {
     private String whole(Value v) {
         return switch (v) {
             case Value.Field f when x.promoted.has(f.item()) -> x.promoted.name(f.item());
+            case Value.Field f when getter(f) != null -> getter(f);
             case Value.Field f -> "Scalars.longOf(" + x.field(f) + ".get())";
             case Value.Literal l -> l.payload() + (new java.math.BigInteger(l.payload()).bitLength() > 31 ? "L" : "");
             case Value.Expression e when e.operator().equals("neg") -> "(-" + whole(e.operands().get(0)) + ")";
@@ -143,6 +149,7 @@ final class Arith {
     /** As `BigDecimal` arithmetic: `a.add(b)`, a `long` item `BigDecimal.valueOf(it)`, a literal at its scale. */
     private String big(Value v) {
         return switch (v) {
+            case Value.Field f when !x.promoted.has(f.item()) && getter(f) != null -> x.promoted.views.big(f.item()) ? getter(f) : "java.math.BigDecimal.valueOf(" + getter(f) + ")";
             case Value.Field f when !x.promoted.has(f.item()) -> x.field(f) + ".get().toBigDecimal()";
             case Value.Field f when x.promoted.money(f.item()) -> x.promoted.name(f.item()) + ".amount()";
             case Value.Field f when x.promoted.big(f.item()) -> x.promoted.name(f.item());

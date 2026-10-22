@@ -20,12 +20,12 @@ final class Values {
         if (governed(p, i)) return;
         // A POINTER starts NULL, "the value zero" (LR 6.4 p. 17), its VALUE NULL or none (research §25, H3).
         if (i.attributes().category() == Attributes.Category.POINTER && x.occurrences(i) == null) {
-            e.line("Move.move(Literal.hex(\"00000000\", cp), f" + i.id() + ");");
+            e.line("Move.move(Literal.hex(\"00000000\", cp), " + x.promoted.fieldName(i.id()) + ");");
             return;
         }
         boolean group = i.attributes().category() == Attributes.Category.GROUP;
         if (i.value() == null && (group || isText(i))) return;
-        String each = x.occurrences(i), target = each == null ? "f" + i.id() : "t";
+        String each = x.occurrences(i), target = each == null ? x.promoted.fieldName(i.id()) : "t";
         if (i.flags().contains(Item.Flag.JUSTIFIED)) target = "Table.ref(" + target + ", 1, 0)";
         if (x.promoted.has(i.id())) target = "scratch";
         String move = i.value() == null ? "Move.move(Literal.number(\"0\", 0, cp), " + target + ")" : edited(i) ? placed(i.value(), target, x) : x.moveInto(i.value(), target, i);

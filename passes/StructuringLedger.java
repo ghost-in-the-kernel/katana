@@ -33,18 +33,19 @@ public final class StructuringLedger {
             Structuring.Applied a = byMethod.get(s.name().substring(s.name().lastIndexOf('.') + 1));
             katana.intent.types.Fact licence = a != null ? a.fact() : typed(pass, s.node());
             String fact = licence == null ? "-" : licence.id().replace("|", "/"), state = licence == null ? "-" : licence.unconfirmed() ? "unconfirmed" : "confirmed";
-            out.add(new Ledger.Draft((s.name().equals("valid") || s.name().endsWith(".valid")) ? Exact.PASS : pass(s.node()), fact, state, run, s.name(), s.node(), profile, time, 0));
+            out.add(new Ledger.Draft((s.name().equals("valid") || s.name().endsWith(".valid")) ? Exact.PASS : pass(s.node(), pass.viewed()), fact, state, run, s.name(), s.node(), profile, time, 0));
         }
         for (Map.Entry<String, List<Entry>> e : live.entrySet()) {
             if (now.contains(e.getKey())) continue;
             Entry last = e.getValue().get(e.getValue().size() - 1);
-            out.add(new Ledger.Draft(pass(last.node()), "-", "-", run, "-", last.node(), profile, time, last.seq()));
+            out.add(new Ledger.Draft(pass(last.node(), pass.viewed()), "-", "-", run, "-", last.node(), profile, time, last.seq()));
         }
         return out;
     }
 
-    /** The pass a symbol's change is the work of: a condition's name, 6.5's types; an item's, scalar promotion (6.3); any other, structuring. */
-    private static String pass(String node) {
+    /** The pass a symbol's change is the work of: a condition's name, 6.5's types; a record class's instance or member, 6.7's records; any other item's, scalar promotion (6.3); any other, structuring. */
+    private static String pass(String node, java.util.Set<Integer> viewed) {
+        if (node.startsWith("record ") || node.startsWith("item ") && viewed.contains(Integer.parseInt(node.substring(5)))) return Records.PASS;
         return node.startsWith("condition ") ? Types.PASS : node.startsWith("item ") ? Scalars.PASS : Structuring.PASS;
     }
 

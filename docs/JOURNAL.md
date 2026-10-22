@@ -3603,3 +3603,39 @@ taken; closed by a later `decision` entry naming it).
   - No ledger line: the rule changes a statement, not a symbol.
 - **Touched:** `passes/Fits.java`, `Exact.java`, `Structuring.java`; `lower/Arith.java`, `ArithVerbs.java`,
   `Lower.java`; `test/katana/passes/FitsTest.java`; `docs/KERNEL-MAP.md`; `TODO.md`.
+
+### J-223 6.7: record classes as typed views over their bytes, with fixed tables
+- **Who:** Opus, on Ghost's word ("lets move on to 6.7", the choices "Typed view" and "Fixed OCCURS now").
+  **Class:** build; trial.
+- **Intent:** research §46, before the build. Each group 01-level of WORKING-STORAGE or the FILE SECTION that nothing
+  aliases becomes a class over its bytes:
+  - each member a named `Field` (the 01 itself `whole`);
+  - a numeric member gets a getter that returns IBM's read of its bytes;
+  - a member under a fixed OCCURS gets an accessor, `Table.at` over its first element.
+
+  No byte and no operation changes.
+- **Found:**
+  - CardDemo's batch: 143 of 178 group records are classes, with 885 members (predicted about 130). 3 of them hold
+    a table, and the largest has 62 members.
+  - CardDemo's refusals: REDEFINES 16, reference modification 12, LINKAGE 6, OCCURS DEPENDING ON 2, POINTER 2.
+  - NIST: 4,787 of 7,205 group records are classes, with 32,033 members. 263 hold a table, and the largest has 96
+    members.
+  - NIST's refusals: REDEFINES 768, LINKAGE 21, RENAMES 10, OCCURS DEPENDING ON 10, reference modification 3,
+    EXTERNAL 1, GLOBAL 1. The rest are in programs the structuring pass leaves literal (declaratives, segments
+    with ALTER), which the pass skips whole.
+  - The rival did not appear: no two members share a name in one class, since a clash takes the item's number as
+    6.3's names do, and no constructor neared the JVM's limit, since members are built in chunks.
+  - The exact form now reads a record field through its getter (`tranRecord.tranQty()`), and 6.6b's rule applies to
+    it as before.
+  - The proofs run as literal: the ledger, CardDemo's structured jobs, and the gate's NIST and autotest suites.
+- **Resolved:**
+  - `passes/Records` (`records-v1`) holds the obligations.
+  - `Lower.Plan.records` carries the result; `Structuring.Result.viewed` holds the members, for the ledger.
+  - `lower/Views` writes the classes. Every place that named a field `f<id>` now asks `Promoted.fieldName`.
+  - The ledger has a new node form, `record <id>`, for a class's instance (LEDGER.md). A member's line supersedes its
+    `f<id>`, under `records-v1`.
+  - `ManifestTest` reads the instance and member declarations, and `ExactTest` reads the guard over `r.f`.
+- **Touched:** `passes/Records.java`, `Structuring.java`, `StructuringLedger.java`; `lower/Views.java`, `Lower.java`,
+  `Promoted.java`, `Exprs.java`, `Arith.java`, `FileDecls.java`, `FileVerbs.java`, `Search.java`, `SortVerbs.java`,
+  `Values.java`; `test/katana/passes/RecordsTest.java`, `ExactTest.java`, `test/katana/lower/ManifestTest.java`;
+  `docs/LEDGER.md`, `docs/KERNEL-MAP.md`; `TODO.md`.

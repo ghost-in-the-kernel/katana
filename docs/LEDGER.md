@@ -18,8 +18,9 @@ version. `fact` is the intent fact that licensed it (`-` for none) and `state` w
 (`confirmed`, `unconfirmed`, or `-`). `run` is the oracle run that proved the Java (a proof report and its
 hash), or `-` where none has. `symbol` is the Java symbol as the lowering's manifest names it (a class, its
 fields `f<id>` and records `r<id>`, its stretch methods `s<label>`, a pass's methods such as structuring's
-`perform<first>` and scalar promotion's variables, named for their items (`wsTranCount`, pass `scalars-v1`); a nested program's class inside its container's, `Outer.Inner`), or `-` for a symbol a pass removed. `node` is the COBOL it stands on (`program
-NAME`, `item <id>`, `paragraph <index>`, a condition name's item `condition <id>` for 6.5's names, and `guard NAME` for
+`perform<first>` and scalar promotion's variables, named for their items (`wsTranCount`, pass `scalars-v1`); a record
+class's instance and its members, `tranRecord` and `TranRecord.tranAmt`, pass `records-v1`; a nested program's class inside its container's, `Outer.Inner`), or `-` for a symbol a pass removed. `node` is the COBOL it stands on (`program
+NAME`, `item <id>`, `paragraph <index>`, a condition name's item `condition <id>` for 6.5's names, a record class's instance `record <id>` for 6.7's, and `guard NAME` for
 6.4b's `valid`, the guard a program's statements over record fields run under, pass `exact-v1`). `profile` is the profile hash, `time` an instant, `supersedes` the
 earlier line this one stands in for (`-` for none). A symbol is live while some line names it and no later
 line supersedes that one.
