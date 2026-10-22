@@ -1787,3 +1787,17 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/Exact.java:Exact.places` |  | 2026-10-21 |  |
 | rt | `rt/katana/rt/Decimal.java:Decimal.exact` | R-020 | 2026-10-21 |  |
 | rt | `rt/katana/rt/Decimal.java:Decimal.exact#2` |  | 2026-10-21 |  |
+| lower | `lower/Conditions.java:Conditions.test` |  | 2026-10-22 |  |
+| lower | `lower/Promoted.java:Promoted.Promoted#2` |  | 2026-10-22 |  |
+| lower | `lower/Promoted.java:Promoted.predicate` |  | 2026-10-22 |  |
+| lower | `lower/Promoted.java:Promoted.constants` |  | 2026-10-22 |  |
+| lower | `lower/Promoted.java:Promoted.predicates` | R-069 | 2026-10-22 |  |
+| lower | `lower/Promoted.java:Promoted.setTrue` |  | 2026-10-22 |  |
+| lower | `lower/Promoted.java:Promoted.money` |  | 2026-10-22 |  |
+| passes | `passes/StructuringLedger.java:StructuringLedger.typed` |  | 2026-10-22 |  |
+| passes | `passes/Types.java:Types.Types` |  | 2026-10-22 |  |
+| passes | `passes/Types.java:Types.types` | R-069 | 2026-10-22 |  |
+| passes | `passes/Types.java:Types.table` |  | 2026-10-22 |  |
+| rt | `rt/katana/rt/Money.java:Money.zero` |  | 2026-10-22 |  |
+| rt | `rt/katana/rt/Money.java:Money.of` |  | 2026-10-22 |  |
+| rt | `rt/katana/rt/Money.java:Money.toString` |  | 2026-10-22 |  |

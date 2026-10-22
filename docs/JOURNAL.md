@@ -3470,3 +3470,23 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `rt/katana/rt/Decimal.java`; `lower/Forms.java` (new), `Arith.java`, `ArithVerbs.java`,
   `Lower.java`; `passes/Exact.java` (new), `Structuring.java`; `test/katana/passes/ExactTest.java`,
   `test/katana/rt/ExactArithmeticTest.java`; `docs/KERNEL-MAP.md`; `TODO.md`.
+
+### J-218 6.5: enum, flag and money types from the intent facts, names and a value type
+- **Who:** Opus, on Ghost's word ("lets move on to 6.5"; the choices "Open: names, not a type" and "A Money type,
+  promoted only", R-069). **Class:** build; trial; decision.
+- **Intent:** research §42, before the build: CardDemo's APPL-RESULT has the 88s 0 and 16 and is MOVEd 8 and 12, so a
+  closed `enum` would change what the program does; every fact is `unconfirmed`. So an Enum or Flag fact names: a
+  predicate per condition name (`applAok()`), the tests calling it, and a promoted item's single values constants
+  (`APPL_AOK = 0`), which a MOVE or SET ... TO TRUE of that value assigns by name; a Money fact types a promoted item
+  `Money` (`rt/Money`), its stores still `Decimal.store`'s. `passes/Types` reads the actionable facts (never a refuted
+  one); the ledger carries each new name's fact and state.
+- **Found:** as predicted on CardDemo's batch: 20 items named, 87 predicates (HTML-FIXED-LN's 34 among them), 16
+  constants (APPL-RESULT's two in 8 programs), 7 Money, 6 money record fields refused; NIST 29 named (62 predicates,
+  2 constants), 20 Money, 1 refused; every CardDemo job and NIST module as literal, at the first run.
+- **Resolved:** `passes/Types`; `lower/Promoted` (one set of names for variables, predicates and constants;
+  `Money`), `Conditions.test`, `Arith` reading a `Money` by its amount; `Structuring.Result.typed` and
+  `StructuringLedger` (pass `types-v1` for a condition's name, the fact on an item's); `ManifestTest` reads the new
+  declarations; `TypesTest` the names, the type, each refusal, a refuted fact never acted on.
+- **Touched:** `rt/katana/rt/Money.java`; `lower/Promoted.java`, `Conditions.java`, `Arith.java`, `Verbs.java`,
+  `Lower.java`; `passes/Types.java` (new), `Structuring.java`, `StructuringLedger.java`;
+  `test/katana/passes/TypesTest.java`, `test/katana/lower/ManifestTest.java`; `docs/KERNEL-MAP.md`; `TODO.md`.

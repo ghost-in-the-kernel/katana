@@ -121,8 +121,14 @@ final class Conditions {
         return "Classes.alphabetic(" + x.sending(e.operands().get(0)) + ", " + upper + ", " + lower + ")";
     }
 
-    /** A condition name: its item equal to one of its values, or within one of its THRU ranges. */
+    /** A condition name: the predicate 6.5 names it, when it has one and no subscript (R-069); else its test. */
     private String conditionName(Value.ConditionName c) {
+        String predicate = x.promoted.predicate(c.item(), c.name());
+        return predicate != null && c.subscripts().isEmpty() ? predicate + "()" : test(c);
+    }
+
+    /** A condition name's test: its item equal to one of its values, or within one of its THRU ranges. */
+    String test(Value.ConditionName c) {
         Item i = x.item(c.item());
         Value.Field f = new Value.Field(c.item(), c.subscripts(), null, null);
         List<String> alternatives = new ArrayList<>();

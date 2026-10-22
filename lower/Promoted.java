@@ -10,20 +10,86 @@ import katana.sir.types.Item;
 import katana.sir.types.Program;
 
 /**
- * The items 6.3 promotes (R-068), as Java: each a `long` (an integer item) or a `BigDecimal` (an item with
- * decimal places) named for the item, its `Field` gone; its value read directly in arithmetic, encoded into a
- * field of its own where a read needs bytes; every store the function the byte form stores by.
+ * The items 6.3 promotes (R-068), as Java: each a `long` (an integer item), a `BigDecimal` (an item with
+ * decimal places) or a `Money` (6.5, R-069) named for the item, its `Field` gone; its value read directly in
+ * arithmetic, encoded into a field of its own where a read needs bytes; every store the function the byte form
+ * stores by. With them, the names 6.5 gives an Enum or Flag item's condition names.
  */
 final class Promoted {
     /** The class's own members and locals a promoted item's name must not take. */
     private static final Set<String> TAKEN = Set.of("u", "up", "called", "cp", "in", "upsi", "out", "err", "rc", "dbg", "d", "co", "sz", "ov", "ae", "cx", "P", "t", "run", "call", "end", "initial", "cancel", "main");
     private final Program p;
     private final Map<Integer, String> names = new LinkedHashMap<>();
+    /** Money items (6.5); each Enum or Flag item's condition names as predicates, and a promoted item's single values as constants, by `item|CONDITION`. */
+    private final Set<Integer> money;
+    private final Map<String, String> predicates = new LinkedHashMap<>(), constants = new LinkedHashMap<>();
+    private final Map<String, String> values = new LinkedHashMap<>();
 
     Promoted(Program p, Set<Integer> items) {
+        this(p, items, Set.of(), Set.of());
+    }
+
+    /** The names, every one from one set so none clashes: the promoted items', then the predicates' and constants' (6.5, R-069). */
+    Promoted(Program p, Set<Integer> items, Set<Integer> money, Set<Integer> enums) {
         this.p = p;
+        this.money = Set.copyOf(money);
         Set<String> used = new HashSet<>();
-        for (Item i : p.items()) if (items.contains(i.id())) names.put(i.id(), name(i, used));
+        for (Item i : p.items()) if (items.contains(i.id())) names.put(i.id(), name(i.name(), i.id(), used));
+        for (Item i : p.items()) {
+            if (!enums.contains(i.id())) continue;
+            for (Item.Condition k : i.conditions()) {
+                String key = i.id() + "|" + k.name();
+                if (predicates.containsKey(key)) continue;
+                predicates.put(key, name(k.name(), i.id(), used));
+                String value = names.containsKey(i.id()) && !big(i.id()) && k.values().size() == 1 && k.values().get(0) instanceof katana.sir.types.Value.Literal l && l.kind() == katana.sir.types.Value.Literal.Kind.NUMERIC && l.scale() == 0 ? l.payload() : null;
+                String constant = k.name().toUpperCase().replaceAll("[^A-Z0-9]+", "_");
+                if (value != null && SourceVersion.isName(constant) && used.add(constant)) {
+                    constants.put(key, constant);
+                    values.put(key, value);
+                }
+            }
+        }
+    }
+
+    /** The predicate a condition name of an Enum or Flag item is (`applAok`), or null. */
+    String predicate(int item, String condition) {
+        return predicates.get(item + "|" + condition);
+    }
+
+    /** A promoted item's constants: each its name, its value and its condition name. */
+    java.util.List<String[]> constants(int item) {
+        java.util.List<String[]> out = new java.util.ArrayList<>();
+        for (Map.Entry<String, String> c : constants.entrySet()) if (c.getKey().startsWith(item + "|")) out.add(new String[] {c.getValue(), values.get(c.getKey()), c.getKey().substring(c.getKey().indexOf('|') + 1)});
+        return out;
+    }
+
+    /** Each predicate as a method of the class, its body the condition test as `Conditions` writes it (6.5, R-069). */
+    // Decision: R-069
+    void predicates(Emitter e, Conditions conditions) {
+        for (Map.Entry<String, String> k : predicates.entrySet()) {
+            int item = Integer.parseInt(k.getKey().substring(0, k.getKey().indexOf('|')));
+            String condition = k.getKey().substring(k.getKey().indexOf('|') + 1);
+            e.open("private boolean " + k.getValue() + "()");
+            e.line("return " + conditions.test(new katana.sir.types.Value.ConditionName(item, condition, java.util.List.of())) + ";");
+            e.close();
+            e.symbol(k.getValue(), "condition " + item);
+        }
+    }
+
+    /** SET ... TO TRUE where every condition is a promoted item's with a constant: `applResult = APPL_AOK`, its first value MOVEd by name; null otherwise. */
+    String setTrue(katana.sir.types.Statement s) {
+        java.util.List<String> out = new java.util.ArrayList<>();
+        boolean isTrue = false;
+        for (katana.sir.types.Statement.Operand o : s.operands()) {
+            if (o.role().equals("set-to-value") && o.value() instanceof katana.sir.types.Value.Literal l && l.payload().equals("TRUE")) isTrue = true;
+            else if (o.role().equals("set-to") && o.value() instanceof katana.sir.types.Value.ConditionName c && c.subscripts().isEmpty() && has(c.item()) && constants.containsKey(c.item() + "|" + c.name())) out.add(name(c.item()) + " = " + constants.get(c.item() + "|" + c.name()) + ";");
+            else if (o.role().equals("set-to")) return null;
+        }
+        return isTrue && !out.isEmpty() ? String.join(" ", out) : null;
+    }
+
+    boolean money(int item) {
+        return money.contains(item);
     }
 
     /** A promoted item a statement has as a field of its own for now (`p<id>`, research §40). */
@@ -80,14 +146,14 @@ final class Promoted {
     }
 
     /** `wsTranCount` for WS-TRAN-COUNT: lower camel case, a clash or a keyword given the item's number. */
-    private static String name(Item i, Set<String> used) {
+    private static String name(String cobol, int id, Set<String> used) {
         StringBuilder b = new StringBuilder();
-        for (String w : i.name().toLowerCase().split("[^a-z0-9]+")) {
+        for (String w : cobol.toLowerCase().split("[^a-z0-9]+")) {
             if (w.isEmpty()) continue;
             b.append(b.isEmpty() ? w : Character.toUpperCase(w.charAt(0)) + w.substring(1));
         }
         String n = b.isEmpty() || !Character.isJavaIdentifierStart(b.charAt(0)) ? "item" + b : b.toString();
-        if (!SourceVersion.isName(n) || TAKEN.contains(n) || n.matches("[frsa]\\d+|perform\\d+") || !used.add(n)) n = n + "_" + i.id();
+        if (!SourceVersion.isName(n) || TAKEN.contains(n) || n.matches("[frsa]\\d+|perform\\d+") || !used.add(n)) n = n + "_" + id;
         used.add(n);
         return n;
     }
@@ -96,15 +162,18 @@ final class Promoted {
         return p.items().get(id - 1);
     }
 
-    private boolean big(int id) {
-        return item(id).attributes().scale() > 0;
+    /** Whether the variable is a `BigDecimal` (decimal places) or `Money` (a Money fact), not a `long`. */
+    boolean big(int id) {
+        return item(id).attributes().scale() > 0 || money.contains(id);
     }
 
     /** The declaration: the variable, its item's PICTURE and usage beside it, and the attributes a read needing bytes encodes it by. */
     String declaration(int id, Exprs x) {
         Item i = item(id);
         Attributes a = i.attributes();
-        return "private " + (big(id) ? "java.math.BigDecimal " : "long ") + name(id) + (big(id) ? " = java.math.BigDecimal.ZERO.setScale(" + a.scale() + ")" : "") + "; // " + i.name() + " PIC " + a.picture() + " " + a.usage()
+        String type = money(id) ? "Money " : big(id) ? "java.math.BigDecimal " : "long ";
+        String start = money(id) ? " = Money.zero(" + a.scale() + ")" : big(id) ? " = java.math.BigDecimal.ZERO.setScale(" + a.scale() + ")" : "";
+        return "private " + type + name(id) + start + "; // " + i.name() + " PIC " + a.picture() + " " + a.usage() + (money(id) ? ", money (a Money fact: the ledger has its state)" : "")
                 + "\n    private static final Attr " + attr(id) + " = " + Lower.attr(p, i, x) + ";";
     }
 
@@ -114,7 +183,7 @@ final class Promoted {
 
     /** The value as an `rt` Decimal. */
     String decimal(int id) {
-        return big(id) ? "Scalars.of(" + name(id) + ")" : "Scalars.of(" + name(id) + ", 0)";
+        return money(id) ? "Scalars.of(" + name(id) + ".amount())" : big(id) ? "Scalars.of(" + name(id) + ")" : "Scalars.of(" + name(id) + ", 0)";
     }
 
     /** A field holding the value, for a read that needs bytes. */
@@ -124,7 +193,7 @@ final class Promoted {
 
     /** `name = <value>` for a Decimal expression already fitted to the item. */
     String assign(int id, String decimal) {
-        return name(id) + " = " + (big(id) ? "Scalars.bigOf(" : "Scalars.longOf(") + decimal + ")";
+        return name(id) + " = " + (money(id) ? "Money.of(" : big(id) ? "Scalars.bigOf(" : "Scalars.longOf(") + decimal + ")";
     }
 
     /** What a statement on a field of the item's attributes leaves, taken as its value: a MOVE into it, its VALUE. */
@@ -147,7 +216,10 @@ final class Promoted {
         if (n.scale() > a.scale() || n.signum() < 0 && !a.signed()) return null;
         java.math.BigDecimal held = n.setScale(a.scale());
         if (held.unscaledValue().abs().compareTo(java.math.BigInteger.TEN.pow(Lower.stored(a))) >= 0) return null;
-        return name(id) + " = " + (big(id) ? "new java.math.BigDecimal(\"" + held.toPlainString() + "\")" : held.unscaledValue().toString() + (held.unscaledValue().bitLength() > 31 ? "L" : ""));
+        if (money(id)) return name(id) + " = new Money(new java.math.BigDecimal(\"" + held.toPlainString() + "\"))";
+        if (big(id)) return name(id) + " = new java.math.BigDecimal(\"" + held.toPlainString() + "\")";
+        for (Map.Entry<String, String> c : values.entrySet()) if (c.getKey().startsWith(id + "|") && new java.math.BigInteger(c.getValue()).equals(held.unscaledValue())) return name(id) + " = " + constants.get(c.getKey());
+        return name(id) + " = " + held.unscaledValue() + (held.unscaledValue().bitLength() > 31 ? "L" : "");
     }
 
     /** An arithmetic store, as `Arithmetic.store` does it into the bytes; a boolean, the size error. */

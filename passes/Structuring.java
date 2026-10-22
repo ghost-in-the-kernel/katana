@@ -33,8 +33,8 @@ public final class Structuring {
     /** A range made a method, and the fact that licenses it. */
     public record Applied(int first, int last, Fact fact) {}
 
-    /** The plan lower/ takes, what was applied, and each range not structured with why. */
-    public record Result(Lower.Plan plan, List<Applied> applied, Map<String, List<String>> refused) {}
+    /** The plan lower/ takes, what was applied, each range or item not changed with why, and the fact behind each item 6.5 names or types. */
+    public record Result(Lower.Plan plan, List<Applied> applied, Map<String, List<String>> refused, Map<Integer, Fact> typed) {}
 
     private Structuring() {}
 
@@ -67,7 +67,8 @@ public final class Structuring {
         Set<Integer> main = program.isEmpty() ? MainLine.main(p, methods, loops, cycles, refused) : Set.of();
         Set<Integer> scalars = Scalars.promote(p, refused);
         Set<String> exact = Exact.exact(p, scalars, refused);
-        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles, scalars, exact), applied, refused);
+        Types.Result types = Types.types(p, intent, scalars, refused);
+        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles, scalars, exact, types.enums(), types.money()), applied, refused, types.facts());
     }
 
     /** What keeps a whole program literal: an independent segment with an ALTER, whose state the dispatcher keeps (research §16); declaratives, which run as PERFORMs of their own. */

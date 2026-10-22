@@ -96,7 +96,7 @@ final class Arith {
     /** The most integer places any operation of an all-integer expression carries; past 18 when an operand has decimal places. */
     private int integers(Value v) {
         return switch (v) {
-            case Value.Field f -> x.item(f.item()).attributes().scale() > 0 ? 99 : Lower.stored(x.item(f.item()).attributes());
+            case Value.Field f -> x.promoted.big(f.item()) ? 99 : Lower.stored(x.item(f.item()).attributes());
             case Value.Literal l -> l.scale() > 0 ? 99 : l.payload().replace("-", "").length();
             case Value.Expression e when e.operands().size() == 1 -> integers(e.operands().get(0));
             case Value.Expression e when e.operator().equals("*") -> integers(e.operands().get(0)) + integers(e.operands().get(1));
@@ -120,7 +120,8 @@ final class Arith {
     /** As `BigDecimal` arithmetic: `a.add(b)`, a `long` item `BigDecimal.valueOf(it)`, a literal at its scale. */
     private String big(Value v) {
         return switch (v) {
-            case Value.Field f when x.item(f.item()).attributes().scale() > 0 -> x.promoted.name(f.item());
+            case Value.Field f when x.promoted.money(f.item()) -> x.promoted.name(f.item()) + ".amount()";
+            case Value.Field f when x.promoted.big(f.item()) -> x.promoted.name(f.item());
             case Value.Field f -> "java.math.BigDecimal.valueOf(" + x.promoted.name(f.item()) + ")";
             case Value.Literal l -> "new java.math.BigDecimal(\"" + new java.math.BigDecimal(new java.math.BigInteger(l.payload()), l.scale()).toPlainString() + "\")";
             case Value.Expression e when e.operator().equals("neg") -> big(e.operands().get(0)) + ".negate()";
