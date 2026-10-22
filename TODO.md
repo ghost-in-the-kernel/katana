@@ -295,6 +295,11 @@ Check: `<PROGRAM>.align` maps a COBOL node, by the program's own names (R-064), 
 inferred where a name or literal matches and `unconfirmed` until a person confirms; its coverage on the oc4j
 reference predicted before it is measured; an alignment naming a node the IR does not hold is refused.
 
+Built ahead of the chain (J-234, research §51): `oracle/prove/Align`. On oc4j's CardDemo Java: paragraphs 139 of 139,
+statements 1,629 of 1,629 (its source-line comments), items 405 of the 412 the procedure names (537 of all 769:
+oc4j writes nothing for an unreferenced item). On ACCRUE's hand port: 2 of 11 statements, by literal; the rest is
+a person's to write. Every line `unconfirmed`; a line naming no node of the IR is refused.
+
 ### 8A.5 Attribution
 
 Check: for each differing field, the catalogue kinds whose probe reproduces it, ranked, "unattributed" when none
