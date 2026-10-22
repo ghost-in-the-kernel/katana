@@ -68,7 +68,10 @@ public final class Structuring {
         Set<Integer> scalars = Scalars.promote(p, refused);
         Set<String> exact = Exact.exact(p, scalars, refused);
         Types.Result types = Types.types(p, intent, scalars, refused);
-        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles, scalars, exact, types.enums(), types.money()), applied, refused, types.facts());
+        List<String> stateful = Stateless.refusals(p);
+        if (!stateful.isEmpty()) refused.put("program " + p.header().program() + " stateless", stateful);
+        return new Result(new Lower.Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles, scalars, exact, types.enums(), types.money(), stateful.isEmpty()),
+                applied, refused, types.facts());
     }
 
     /** What keeps a whole program literal: an independent segment with an ALTER, whose state the dispatcher keeps (research §16); declaratives, which run as PERFORMs of their own. */

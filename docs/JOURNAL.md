@@ -3533,3 +3533,49 @@ taken; closed by a later `decision` entry naming it).
   wait on the gate reports the gate's own line, `pre-push check: passed`, never the wrapper's exit.
 - **Touched:** `lower/Performs.java`, `lower/Regions.java`; `passes/Exact.java`, `passes/Loops.java`,
   `passes/Structuring.java`, `passes/StructuringLedger.java`; `docs/JOURNAL.md`.
+
+### J-221 6.6: stateless subprograms by a definite-assignment dataflow, and what loop bounds would unlock
+- **Who:** Opus, on Ghost's word ("lets move on to 6.6", the choice "Dataflow first, measured"). **Class:** build;
+  trial; measurement.
+- **Intent:** research §44, before the build: a program is stateless when every WORKING-STORAGE byte a statement
+  writes is written before it is read on every path, so no call can see what an earlier one left. It is lowered as
+  INITIAL, and the run unit starts each call fresh. The overflow rule's loop bounds are measured, not built.
+- **Found:**
+  - NIST: 19 of 437 programs are stateless. Of the 23 CALLed subprograms, 9 are stateless: IC105A, IC111A, IC113A,
+    IC210A, IC211A, IC212A, IC214A, IC215A and IC217A. 12 are kept for their files. IC117M and IC118M are kept
+    because each ADDs to a counter an earlier call left, which is the IC test of state kept between calls and was
+    predicted.
+  - Refusals over all of NIST: files 412, declaratives 88, NEXT SENTENCE 25, ALTER 15, independent segments 10,
+    nested programs 5, GLOBAL 3, the dataflow 2.
+  - CardDemo: 0 stateless. The batch CALLs only CBSTM03B, which has files. CSUTLDTC (the online programs' date
+    check) is kept because CALL "CEEDAYS" passes FEEDBACK-CODE before anything writes it, and a CALL's arguments
+    count as read. Its MOVEs at lines 123 and 124 and its EVALUATE at line 128 then read what the CALL may or may not
+    have written.
+  - The first build missed CSUTLDTC's `INITIALIZE WS-MESSAGE`, a group. INITIALIZE of a group now writes exactly its
+    receivers: each elementary item but FILLER, none under a REDEFINES (`lower/Initialize` reads it the same way).
+    With REPLACING it writes only the categories named, so it stays no definite write. The counts did not move.
+  - Every NIST, CardDemo, autotest and ledger proof runs as literal: no IC test reports otherwise, which was the
+    rival.
+  - The overflow rule, measured. These are arithmetic stores into promoted items, by what would prove they never
+    pass the receiver:
+
+    | | CardDemo batch | NIST |
+    | --- | --- | --- |
+    | Stores into promoted items | 67 | 6,194 |
+    | Fit by the operands' PICTUREs alone | 18 | 63 |
+    | Accumulators in a loop with literal bounds (at most) | 0 | 196 |
+    | Accumulators bounded only by input: records, calls | 47 | 5,294 |
+    | Others that may pass the receiver | 1 | 76 |
+
+    NIST also has 130 stores with ON SIZE ERROR and 435 with a division, a power or a non-numeric operand.
+    "At most" because the measurement does not check that the accumulator is reset before its loop.
+  - So loop bounds unlock nothing on CardDemo and at most 3% of NIST. The interval rule over PICTUREs alone covers
+    27% of CardDemo's stores. Whether to build it, and how far, is Ghost's.
+- **Resolved:**
+  - `passes/Dataflow` is a byte-level must-analysis over paragraphs: falls, GO TO, PERFORM ranges, and a once-only
+    PERFORM's end state.
+  - `passes/Stateless` (`stateless-v1`) holds the obligations, then runs the dataflow.
+  - `Lower.Plan.stateless` makes `Programs.entry` write `initial()` true, with a comment saying why.
+  - Stateless writes no ledger line: it changes no symbol, and the ledger records symbols.
+- **Touched:** `passes/Dataflow.java`, `Stateless.java`, `Structuring.java`; `lower/Lower.java`, `Programs.java`;
+  `test/katana/passes/DataflowTest.java`; `docs/KERNEL-MAP.md`; `TODO.md`.

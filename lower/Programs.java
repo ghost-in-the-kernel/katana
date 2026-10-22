@@ -45,7 +45,7 @@ final class Programs {
      * p. 327, and the programs it contains cancelled) and `end` (every file closed, at the run's end).
      */
     // Decision: R-019
-    static void entry(Emitter e, Program p, Exprs x, List<Program> containers) {
+    static void entry(Emitter e, Program p, Exprs x, List<Program> containers, boolean stateless) {
         for (Item i : p.items()) if (i.record() == i.id() && external(p, i)) e.line("private boolean x" + i.id() + ";");
         List<Integer> using = p.procedure().using();
         e.open("public void call(Field[] using)");
@@ -60,7 +60,9 @@ final class Programs {
         e.close();
         e.close();
         for (Item r : p.items()) if (linkage(r)) bind(e, p, x, r.id());
-        e.line("public boolean initial() { return " + p.header().initial() + "; }");
+        // A stateless program (6.6, research §44): no call can observe what an earlier one left, so each starts fresh, as INITIAL.
+        if (stateless && !p.header().initial()) e.line("// Stateless (passes/Stateless): every WORKING-STORAGE byte a statement writes is written before it is read on every path.");
+        e.line("public boolean initial() { return " + (p.header().initial() || stateless) + "; }");
         e.open("public void cancel()");
         for (FileDescriptor d : p.files()) if (!SortVerbs.sd(d) && !FileDecls.external(d)) e.line(FileVerbs.name(d.name()) + ".close();");
         for (Program n : p.nested()) e.line("k_" + Lower.className(n) + "();");

@@ -204,6 +204,12 @@ items promoted first); money in records with 6.7.
 
 Check: as above.
 
+Built (J-221, research §44): `passes/Dataflow`, a definite-assignment dataflow over WORKING-STORAGE's bytes. A program
+whose every written byte is written before it is read on every path, with no file, EXTERNAL or GLOBAL item, POINTER,
+nested program, declaratives or ALTER, is lowered as INITIAL. NIST: 9 of its 23 CALLed subprograms; CardDemo:
+none (CSUTLDTC passes CEEDAYS an argument nothing wrote first). Measured, not built: loop bounds would prove at most
+196 of NIST's 6,194 promoted stores and none of CardDemo's 67; PICTURE ranges alone would prove 63 and 18.
+
 With it (moved from 6.3): the interval rule for `NeverOverflows`, on 6.6's dataflow with loops' bounds, which lets
 a promoted item's store be plain arithmetic (R-068).
 
