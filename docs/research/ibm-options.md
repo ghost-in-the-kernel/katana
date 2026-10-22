@@ -2285,3 +2285,45 @@ CSUTLDTC and CBSTM03B take their arguments the same way.
 for LINKAGE alone). NIST: about 20 of the 21 refused for LINKAGE alone. Every run as literal. The rival: a call that
 binds the record before its class exists, or a member that keeps the start of an earlier call, seen as an IC module
 that reports otherwise.
+
+## 48. 8A.1's trial: a foreign Java port run through the lanes, and refused when it ignores the DD contract (J-229)
+
+**Ghost's word (2026-10-22).** "run the 8A.1 trial now", ahead of the chain (TODO.md puts 8A after 7.1; R-072).
+
+**What can run.** R-072 named the oc4j CardDemo reference as the first foreign port. It cannot run here: its classes
+import opensourcecobol4j's runtime (`jp.osscons.opensourcecobol.libcobj`). That runtime is in neither the tree nor the
+image, and the network is closed. Adding it is a dependency change, which waits on Ghost's approval (the supply-chain
+rules). The trial takes the other port R-072 names, hand-written ports. It writes three of a small program whose
+COBOL has the two traps a money port most often misses.
+
+**The program.** `ACCRUE`, written for the trial, has a 20-byte record, `ACCTREC`: an id, a balance and an interest,
+both `PIC 9(5)V99`. For each record it does `COMPUTE ACCT-INT = ACCT-BAL * 0.0375` and then `ADD ACCT-INT TO ACCT-BAL`,
+with no ROUNDED and no SIZE ERROR phrase. It writes the record and says how many it wrote.
+- The COMPUTE truncates the result to two places (LR 6.4 p. 263: without ROUNDED, excess low-order digits are
+  dropped).
+- The ADD drops a high-order digit when the sum passes 99999.99 (LR 6.4 p. 285: without SIZE ERROR the result is
+  truncated, under TRUNC(STD)).
+
+Five records: one whose interest has a third decimal of 5, one exact, one with a third decimal over 5, one balance
+that overflows, and one cent.
+
+**The three ports**, each a process honouring LANE-06's adapter shape, run by the java lane as the step's program:
+1. *Faithful:* `BigDecimal`, the interest set to scale 2 with `RoundingMode.DOWN`, the sum taken modulo 100000.
+2. *Naive:* the same with `HALF_UP`, the most common port of a COBOL COMPUTE.
+3. *Deaf:* it writes its output to a fixed path in its working directory and never reads `DD_OUTFILE`.
+
+**What 8A.1 builds.**
+- `oracle/prove/Prove`: the cobc lane twice through the gate, the foreign command once in the java lane, then each
+  output dataset compared by its copybook (`Compare`) and the step's stdout compared.
+- A refusal, with a finding, for a port that did not honour the contract: an output dataset the cobc lane wrote that
+  the port's step left empty or never wrote (LANE-01, LANE-04). A refused port's datasets are not compared.
+- `Prove.main`, reached as `gradle prove`, is the command until 8.1's CLI names it `katana prove`.
+
+**Predicted, before the run.**
+- The faithful port is the SAME on every dataset and on stdout.
+- The naive port differs on records 1 and 3 in `ACCT-INT` and `ACCT-BAL`, by one cent each, and on nothing else.
+- The deaf port is refused, naming `OUTFILE`.
+- What had to be adapted: only LANE-06's `main` (the DDs from `DD_` variables, the exit code as the return code).
+
+The rival: the comparator's field report does not name the field, or a port's stdout is held against cobc's in a
+way that hides the difference.
