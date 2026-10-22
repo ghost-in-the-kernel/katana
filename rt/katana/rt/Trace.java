@@ -14,6 +14,8 @@ import java.nio.charset.StandardCharsets;
 public final class Trace {
     private static final String FILE = System.getenv("KATANA_TRACE_FILE");
     private static PrintStream out;
+    /** The program and paragraph control last entered, for `Events` (8A.3): `PROGRAM PARAGRAPH`. */
+    static volatile String at = "- -";
 
     private Trace() {}
 
@@ -24,6 +26,7 @@ public final class Trace {
 
     /** Control enters a paragraph. */
     public static void paragraph(String program, String paragraph) {
+        if (Events.ON) at = program + " " + paragraph;
         PerformTrace.entered(program, paragraph);
         line(program, "Paragraph", paragraph);
     }

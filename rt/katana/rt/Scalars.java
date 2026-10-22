@@ -55,6 +55,7 @@ public final class Scalars {
     // Decision: R-068
     public static boolean store(Decimal.Term result, int digits, int scale, boolean signed, boolean rounded, boolean onSizeError, Consumer<Decimal> set) {
         Decimal.Stored s = Decimal.store(result, digits, scale, signed, rounded);
+        Events.stored(s, onSizeError, result.divisionByZero());
         if (result.divisionByZero() || (s.sizeError() && onSizeError)) return s.sizeError();
         set.accept(s.value());
         return s.sizeError();

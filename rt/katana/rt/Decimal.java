@@ -87,6 +87,7 @@ public record Decimal(BigInteger unscaled, int scale) {
         if (last) places = p.last(places, rounded);
         if (b.value().unscaled().signum() == 0 || a.divisionByZero() || b.divisionByZero()) return new Term(new Decimal(BigInteger.ZERO, places.decimal()), places, true);
         BigDecimal quotient = a.value().toBigDecimal().divide(b.value().toBigDecimal(), places.decimal(), RoundingMode.DOWN);
+        if (Events.ON && quotient.multiply(b.value().toBigDecimal()).compareTo(a.value().toBigDecimal()) != 0) Events.note("DMAX_CUT");
         return cut(quotient, places, a, b);
     }
 
@@ -118,8 +119,8 @@ public record Decimal(BigInteger unscaled, int scale) {
         return new Term(new Decimal(unscaled.remainder(limit), places.decimal()), places, a.divisionByZero() || b.divisionByZero());
     }
 
-    /** What a store left: the receiver's new value, and whether high-order digits did not fit or a division by zero was met (a size error). */
-    public record Stored(Decimal value, boolean sizeError) {}
+    /** What a store left: the receiver's new value, whether high-order digits did not fit or a division by zero was met (a size error), and whether a negative value lost its sign to an unsigned receiver. */
+    public record Stored(Decimal value, boolean sizeError, boolean signDropped) {}
 
     /**
      * A result into a receiver of `digits` digits, `scale` of them decimal: rounded half away from zero
@@ -128,12 +129,13 @@ public record Decimal(BigInteger unscaled, int scale) {
      */
     // Decision: R-020
     public static Stored store(Term result, int digits, int scale, boolean signed, boolean rounded) {
-        if (result.divisionByZero()) return new Stored(null, true);
+        if (result.divisionByZero()) return new Stored(null, true, false);
         BigDecimal aligned = result.value().toBigDecimal().setScale(scale, rounded ? RoundingMode.HALF_UP : RoundingMode.DOWN);
         BigInteger unscaled = aligned.unscaledValue();
+        boolean signDropped = !signed && unscaled.signum() < 0;
         if (!signed) unscaled = unscaled.abs();
         BigInteger limit = BigInteger.TEN.pow(digits);
         boolean sizeError = unscaled.abs().compareTo(limit) >= 0;
-        return new Stored(new Decimal(unscaled.remainder(limit), scale), sizeError);
+        return new Stored(new Decimal(unscaled.remainder(limit), scale), sizeError, signDropped);
     }
 }

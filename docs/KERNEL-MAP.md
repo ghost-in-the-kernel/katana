@@ -1880,3 +1880,12 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | oracle | `oracle/prove/Generators.java:Generators.digits` |  | 2026-10-22 |  |
 | oracle | `oracle/prove/Generators.java:Generators.bytes` |  | 2026-10-22 |  |
 | oracle | `oracle/prove/Generators.java:Generators.sha256` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Boundary.java:Boundary.Boundary` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Boundary.java:Boundary.names` | R-072 | 2026-10-22 |  |
+| oracle | `oracle/prove/Boundary.java:Boundary.statement` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Boundary.java:Boundary.fields` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Boundary.java:Boundary.targets` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Boundary.java:Boundary.perturb` |  | 2026-10-22 |  |
+| rt | `rt/katana/rt/Events.java:Events.Events` |  | 2026-10-22 |  |
+| rt | `rt/katana/rt/Events.java:Events.note` |  | 2026-10-22 |  |
+| rt | `rt/katana/rt/Events.java:Events.stored` |  | 2026-10-22 |  |
