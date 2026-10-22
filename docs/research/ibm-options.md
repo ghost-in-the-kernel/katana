@@ -2471,3 +2471,41 @@ A paragraph's place runs from its line to the next aligned paragraph's.
 Which is the point: for a hand port, the alignment is mostly a person's to write, and the file says so line by line.
 The rival: an identifier match that is wrong (a name the port reuses for another field), which only a person's
 review catches. Hence `unconfirmed`.
+
+## 52. 8A.5, attribution: which divergence kind reproduces a field's difference, by probe (J-236)
+
+**Ghost's word (2026-10-22).** "do the tithe first, then 8A.5".
+
+**What attribution claims.** When a foreign port's output differs from the cobc lane's, the report says which kind
+of divergence could have caused it. The claim is never "your Java forgot to truncate" (R-072). It is: "running the
+COBOL with exactly this rule broken gives your output on these cells". A kind's probe is Katana's literal Java for
+the same program, run under the same fixture with that one rule broken in `rt/`:
+- DV-01: a value too large for its receiver keeps its leading digits, the formatted value cut at its right end;
+- DV-02: a store without ROUNDED rounds HALF_UP;
+- DV-03: a quotient is carried in full (`MathContext.DECIMAL128`), cut only at the store.
+
+The switch is `-Dkatana.mutate=DV-0n`, read once, off by default. It is for the report's probes and the mutation
+harness only, which LANE-23 says.
+
+**The rank.** Every cell (record, field) where the port differs from the cobc lane is a cell to explain. A probe
+reproduces a cell when its output there is the port's, byte for byte. Kinds are ranked by the cells they reproduce;
+a kind that reproduces none is not listed; a difference no probe reproduces is `unattributed`.
+`oracle/prove/Attribute` does the counting. Its runs come from its caller, since oracle/ never imports lower/
+(MOD-05).
+
+**The check** (TODO.md 8A.5):
+1. The mutation harness: for each kind, Katana's literal Java of that kind's generated case (8A.2), run with the
+   kind's rule broken, is the foreign port. The attribution must name that kind first.
+2. Each mutation is red before its kind is built: with that kind's probe withheld, the same port's difference is
+   unattributed or named otherwise.
+3. A real foreign port: 8A.1's hand-written HALF_UP port of ACCRUE.
+
+**Predicted, before the run.**
+- Each kind's mutant is attributed to its own kind first, which reproduces every differing cell (3 of 3). The other
+  two probes reproduce none of its cells: DV-01's and DV-03's programs store no result whose rounding matters, and
+  DV-02's divides nothing.
+- With its own probe withheld, each mutant is unattributed (3 of 3).
+- ACCRUE's naive port: DV-02 first, reproducing all four differing cells (two records, `ACCT-INT` and `ACCT-BAL`).
+
+The rival: kinds that overlap, where one rule's break reproduces another's cells. The ranking would then show two
+kinds for one cause, and the report must show both rather than pick one.
