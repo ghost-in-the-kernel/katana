@@ -1367,6 +1367,34 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **See also:** R-020, R-029, R-032, R-057
 - **subject:** process
 
+### R-069: Exact arithmetic over a record field is guarded by the bytes being a valid number, never assumed
+- **Decision:** 6.4's exact form (plain `long` or `BigDecimal` arithmetic where IBM's step-by-step
+  arithmetic provably drops nothing) is admitted for a statement that reads an unpromoted item (a
+  record field, bytes the program or a file may hold in any state) only under a run-time guard: each
+  such operand's bytes are checked to be a valid number for its PICTURE and usage under the profile's
+  NUMPROC and INVDATA settings (the same test `rt/` uses for NUMERIC), and the statement takes the
+  exact form when every operand passes and the step-by-step form otherwise. Both forms are the same
+  statement; the ledger line names the guard. A statement is never admitted on the assumption that
+  the data is valid, and no guard ever changes what a store does (R-068). Several-receiver ADD,
+  SUBTRACT and MULTIPLY stay step-by-step (R-059's temporary).
+- **Why:** The items 6.4 left out are the ones that matter: a bank's balances and amounts are record
+  fields (CardDemo's `ACCT-CURR-BAL`, `TRAN-AMT`), 2,492 NIST statements and 10 of CardDemo's. Invalid
+  bytes decode to more digits than the PICTURE allows, and IBM's intermediate rules then wrap where
+  exact arithmetic would not, so an unguarded exact form would differ from the COBOL on exactly the
+  input a migration is least likely to have tested. A guard costs one byte scan per operand and keeps
+  the proof: on valid data the two forms agree by 6.4's property; on invalid data the step-by-step
+  form runs, and the oracle still holds.
+- **Claims:** C-1 the guarded form equals the literal on every CardDemo job and NIST module:
+  `hypothesis`; the proof runs after 6.4b are the trial. C-2 6.4's property test, extended with
+  operands holding invalid bytes (bad zones, bad signs, non-digits), shows the guard choosing the
+  step-by-step form on each and the stored value and size error equal to the literal's: `hypothesis`;
+  that test, with a mutation that removes the guard, is the trial.
+- **Held by:** `passes/` (6.4's admission rule); the extended property test; the ledger line.
+- **Source:** Opus's open choice (J-217); decided by Fable, 2026-10-21.
+- **Status:** in force
+- **See also:** R-020, R-049 (NUMPROC, INVDATA), R-059, R-068
+- **subject:** passes
+
 ### R-070: An enum or flag fact names an item's values; a money fact types a promoted item; neither changes what it holds
 - **Decision:** In 6.5 an `Enum` or `Flag` fact gives its item names, not a closed type: each condition name a
   predicate method, and a promoted numeric item's single-valued conditions constants; the item keeps its own type
