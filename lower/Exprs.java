@@ -22,6 +22,8 @@ final class Exprs {
 
     /** The items 6.3 promotes in this program (none in a literal build, or a nested program). */
     Promoted promoted;
+    /** Whether a statement was written under 6.4b's guard, so the program declares `valid` (R-069). */
+    boolean guarded;
 
     Exprs(Program p, List<String> findings) {
         this.p = p;

@@ -93,10 +93,19 @@ final class Arith {
         return "Decimal.exact(" + (integers(v) <= 18 ? whole(v) : big(v)) + ")";
     }
 
+    /** The record fields an exact expression reads, as Java Fields: what 6.4b's guard checks before the exact form runs (R-069). */
+    List<String> guards(Value v) {
+        List<String> out = new java.util.ArrayList<>();
+        if (v instanceof Value.Field f && !x.promoted.has(f.item()) && !out.contains(x.field(f))) out.add(x.field(f));
+        if (v instanceof Value.Expression e) for (Value o : e.operands()) for (String g : guards(o)) if (!out.contains(g)) out.add(g);
+        return out;
+    }
+
     /** The most integer places any operation of an all-integer expression carries; past 18 when an operand has decimal places. */
     private int integers(Value v) {
         return switch (v) {
-            case Value.Field f -> x.promoted.big(f.item()) ? 99 : Lower.stored(x.item(f.item()).attributes());
+            case Value.Field f when x.promoted.has(f.item()) -> x.promoted.big(f.item()) ? 99 : Lower.stored(x.item(f.item()).attributes());
+            case Value.Field f -> x.item(f.item()).attributes().scale() > 0 ? 99 : Lower.stored(x.item(f.item()).attributes());
             case Value.Literal l -> l.scale() > 0 ? 99 : l.payload().replace("-", "").length();
             case Value.Expression e when e.operands().size() == 1 -> integers(e.operands().get(0));
             case Value.Expression e when e.operator().equals("*") -> integers(e.operands().get(0)) + integers(e.operands().get(1));
@@ -108,7 +117,8 @@ final class Arith {
     /** As `long` arithmetic: a promoted item's name, a literal, `(a + b)`. */
     private String whole(Value v) {
         return switch (v) {
-            case Value.Field f -> x.promoted.name(f.item());
+            case Value.Field f when x.promoted.has(f.item()) -> x.promoted.name(f.item());
+            case Value.Field f -> "Scalars.longOf(" + x.field(f) + ".get())";
             case Value.Literal l -> l.payload() + (new java.math.BigInteger(l.payload()).bitLength() > 31 ? "L" : "");
             case Value.Expression e when e.operator().equals("neg") -> "(-" + whole(e.operands().get(0)) + ")";
             case Value.Expression e when e.operator().equals("pos") -> whole(e.operands().get(0));
@@ -120,6 +130,7 @@ final class Arith {
     /** As `BigDecimal` arithmetic: `a.add(b)`, a `long` item `BigDecimal.valueOf(it)`, a literal at its scale. */
     private String big(Value v) {
         return switch (v) {
+            case Value.Field f when !x.promoted.has(f.item()) -> x.field(f) + ".get().toBigDecimal()";
             case Value.Field f when x.promoted.money(f.item()) -> x.promoted.name(f.item()) + ".amount()";
             case Value.Field f when x.promoted.big(f.item()) -> x.promoted.name(f.item());
             case Value.Field f -> "java.math.BigDecimal.valueOf(" + x.promoted.name(f.item()) + ")";

@@ -16,9 +16,11 @@ import katana.sir.types.Value;
 /**
  * 6.4, exact-arithmetic substitution (research §41): an arithmetic statement whose expression IBM's step-wise
  * arithmetic carries without a cut, written as plain arithmetic. Its obligations: `+ - *` only, over promoted
- * items, numeric literals and ZERO (each within its places), every operation's places within the cap.
+ * items, numeric literals and ZERO (each within its places) and record fields under 6.4b's guard (R-069), every
+ * operation's places within the cap.
  */
 public final class Exact {
+    public static final String PASS = "exact-v1";
     /** IBM_COMPAT's cap on the places an intermediate result carries (PG 6.4 p. 795), the profile the lowering writes (`Flow`'s `P`). */
     private static final int CAP = 30;
 
@@ -45,6 +47,12 @@ public final class Exact {
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) statement(p, t, scalars, out, refused);
     }
 
+    /** A data item the guard can hold to its PICTURE: numeric, of DISPLAY, BINARY or PACKED usage, no P. */
+    private static boolean guardable(Attributes a) {
+        return a.category() == Attributes.Category.NUMERIC && Set.of(Attributes.Usage.DISPLAY, Attributes.Usage.BINARY, Attributes.Usage.PACKED).contains(a.usage()) && a.scale() >= 0
+                && (a.picture() == null || !a.picture().toUpperCase().contains("P"));
+    }
+
     /** An operand's or operation's places as IBM carries them, {integer, decimal}; a reason in `why` for anything exact arithmetic does not hold. */
     private static int[] places(Program p, Value v, Set<Integer> scalars, List<String> why) {
         switch (v) {
@@ -52,7 +60,12 @@ public final class Exact {
                 Attributes a = p.items().get(f.item() - 1).attributes();
                 return new int[] {Lower.stored(a) - a.scale(), a.scale()};
             }
-            case Value.Field f -> why.add(p.items().get(f.item() - 1).name() + " is no promoted item: its bytes may decode past its PICTURE");
+            // 6.4b (R-069): a record field, under the guard that its bytes are a valid number within its PICTURE (`Classes.exact`).
+            case Value.Field f when guardable(p.items().get(f.item() - 1).attributes()) && f.start() == null -> {
+                Attributes a = p.items().get(f.item() - 1).attributes();
+                return new int[] {Lower.stored(a) - a.scale(), a.scale()};
+            }
+            case Value.Field f -> why.add(p.items().get(f.item() - 1).name() + " is reference-modified or no numeric item of DISPLAY, BINARY or PACKED usage (a native binary's value may pass its PICTURE)");
             case Value.Literal l when l.kind() == Value.Literal.Kind.NUMERIC -> {
                 return new int[] {Math.max(0, l.payload().replace("-", "").length() - l.scale()), l.scale()};
             }

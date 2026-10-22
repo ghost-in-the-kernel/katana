@@ -26,18 +26,36 @@ final class ArithVerbs {
         boolean phrase = !Verbs.branch(s, "on-size-error-phrase").isEmpty() || !Verbs.branch(s, "not-on-size-error-phrase").isEmpty();
         f.e.line("sz = false;");
         f.e.open("");
-        // 6.4: a statement passes/Exact holds exact, its one expression as plain arithmetic into its receivers (research §41).
+        // 6.4: a statement passes/Exact holds exact, its one expression as plain arithmetic into its receivers (research §41);
+        // one reading a record field, under 6.4b's guard, the step-by-step form when a field's bytes are no valid number (R-069).
         Forms.Form form = Forms.of(s);
-        if (form != null && f.plan.exact().contains(Lower.Plan.loop(s.origin()))) storeOnce(receivers(s, form.receivers()), (r, rd) -> f.arith.exact(form.expression()), phrase);
-        else switch (s.verb()) {
+        List<String> guards = form == null ? List.of() : f.arith.guards(form.expression());
+        if (form != null && f.plan.exact().contains(Lower.Plan.loop(s.origin()))) {
+            if (!guards.isEmpty()) {
+                f.x.guarded = true;
+                f.e.open("if (valid(" + String.join(", ", guards) + "))");
+            }
+            storeOnce(receivers(s, form.receivers()), (r, rd) -> f.arith.exact(form.expression()), phrase);
+            if (!guards.isEmpty()) {
+                f.e.close();
+                f.e.open("else");
+                stepByStep(s, phrase);
+                f.e.close();
+            }
+        } else stepByStep(s, phrase);
+        f.e.close();
+        if (phrase) f.branch("sz", Verbs.branch(s, "on-size-error-phrase"), Verbs.branch(s, "not-on-size-error-phrase"));
+    }
+
+    /** The statement as Appendix A computes it, operation by operation (R-020). */
+    private void stepByStep(Statement s, boolean phrase) {
+        switch (s.verb()) {
             case "ADD" -> add(s, phrase);
             case "SUBTRACT" -> subtract(s, phrase);
             case "MULTIPLY" -> multiply(s, phrase);
             case "DIVIDE" -> divide(s, phrase);
             default -> compute(s, phrase);
         }
-        f.e.close();
-        if (phrase) f.branch("sz", Verbs.branch(s, "on-size-error-phrase"), Verbs.branch(s, "not-on-size-error-phrase"));
     }
 
     /** The receivers of the given roles in order, each ROUNDED when the keyword follows it. */

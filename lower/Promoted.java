@@ -17,7 +17,7 @@ import katana.sir.types.Program;
  */
 final class Promoted {
     /** The class's own members and locals a promoted item's name must not take. */
-    private static final Set<String> TAKEN = Set.of("u", "up", "called", "cp", "in", "upsi", "out", "err", "rc", "dbg", "d", "co", "sz", "ov", "ae", "cx", "P", "t", "run", "call", "end", "initial", "cancel", "main");
+    private static final Set<String> TAKEN = Set.of("u", "up", "called", "cp", "in", "upsi", "out", "err", "rc", "dbg", "d", "co", "sz", "ov", "ae", "cx", "P", "t", "run", "call", "end", "initial", "cancel", "main", "valid");
     private final Program p;
     private final Map<Integer, String> names = new LinkedHashMap<>();
     /** Money items (6.5); each Enum or Flag item's condition names as predicates, and a promoted item's single values as constants, by `item|CONDITION`. */

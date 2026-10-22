@@ -18,6 +18,19 @@ public final class Classes {
         };
     }
 
+    /**
+     * 6.4b's guard (R-069): a numeric item's bytes NUMERIC and its value within its PICTURE's digits, so that
+     * IBM's step-by-step arithmetic carries it uncut and exact arithmetic gives what it gives. The second test
+     * is needed too: NUMERIC passes every binary item, and a packed item of an even number of digits whatever
+     * its spare high-order nibble holds.
+     */
+    // Decision: R-069
+    public static boolean exact(Field f) {
+        Attr a = f.attr();
+        if (a.category() != Attr.Category.NUMERIC || !numeric(f)) return false;
+        return f.get().unscaled().abs().compareTo(java.math.BigInteger.TEN.pow(a.digits())) < 0;
+    }
+
     private static boolean allDigits(byte[] b, int from, int to, Codepage cp) {
         for (int k = from; k < to; k++) if (b[k] != cp.digit(cp.digitOf(b[k]), 0) || cp.digitOf(b[k]) > 9) return false;
         return true;

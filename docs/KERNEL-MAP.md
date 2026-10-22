@@ -1801,3 +1801,8 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | rt | `rt/katana/rt/Money.java:Money.zero` |  | 2026-10-22 |  |
 | rt | `rt/katana/rt/Money.java:Money.of` |  | 2026-10-22 |  |
 | rt | `rt/katana/rt/Money.java:Money.toString` |  | 2026-10-22 |  |
+| lower | `lower/Arith.java:Arith.guards` |  | 2026-10-22 |  |
+| lower | `lower/ArithVerbs.java:ArithVerbs.stepByStep` |  | 2026-10-22 |  |
+| lower | `lower/Lower.java:Lower.guard` | R-069 | 2026-10-22 |  |
+| passes | `passes/Exact.java:Exact.guardable` |  | 2026-10-22 |  |
+| rt | `rt/katana/rt/Classes.java:Classes.exact` | R-069 | 2026-10-22 |  |

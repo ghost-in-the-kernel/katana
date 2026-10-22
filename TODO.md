@@ -182,6 +182,12 @@ with a decimal operand) into the unchanged store. CardDemo's batch: 64 of 79 ari
 of NIST's kept, 10 of CardDemo's), whose bytes may decode past its PICTURE, which a check that its value fits could
 admit; ADD TO, SUBTRACT FROM and MULTIPLY BY with several receivers (R-059's temporary).
 
+Built (J-219, research §43, R-069): 6.4b, a record field in exact arithmetic under a guard, `valid(...)` (the
+NUMERIC test and the value within its PICTURE's digits), the exact form when every field passes and the
+step-by-step one otherwise. CardDemo's batch: 72 of 79 exact, 8 under the guard; NIST 8,177 exact (2,509 under
+the guard), 789 kept; every CardDemo job and NIST module as literal. A native binary or reference-modified field
+stays step-by-step.
+
 ### 6.5 Enum and flag types
 
 Check: as above.

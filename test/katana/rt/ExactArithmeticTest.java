@@ -38,6 +38,37 @@ class ExactArithmeticTest {
         assertEquals(true, checked > 4000, checked + " cases within the cap");
     }
 
+    /**
+     * R-069 C-2: an operand whose bytes are no valid number within its PICTURE (a non-digit, a bad overpunched sign, a
+     * packed spare nibble, a binary value past its digits) fails the guard, and the guarded statement stores what the
+     * step-by-step one stores; with the guard removed, the exact form stores otherwise on at least one (the mutation).
+     */
+    @Test
+    void theGuardRefusesInvalidBytesAndWithoutItTheExactFormDiffers() {
+        Codepage cp = Codepage.COBC_ASCII;
+        java.util.List<Field> invalid = java.util.List.of(
+                new Field(new Record(new byte[] {cp.digit(1, 0), cp.character('A'), cp.digit(3, 0)}, cp), 0, Attr.numeric(Attr.Usage.DISPLAY, 3, 0, false)),
+                new Field(new Record(new byte[] {cp.digit(1, 0), cp.digit(2, 0), cp.character('Z')}, cp), 0, Attr.numeric(Attr.Usage.DISPLAY, 3, 0, true)),
+                new Field(new Record(new byte[] {(byte) 0x79, (byte) 0x9F}, cp), 0, Attr.numeric(Attr.Usage.PACKED, 2, 0, false)),
+                new Field(new Record(new byte[] {(byte) 0x13, (byte) 0x88}, cp), 0, Attr.numeric(Attr.Usage.BINARY, 2, 0, false)));
+        ArithProfile p = ArithProfile.IBM_COMPAT;
+        Decimal.Term one = Decimal.operand(new Decimal(java.math.BigInteger.ONE, 0), 1);
+        boolean differs = false;
+        for (Field f : invalid) {
+            assertEquals(false, Classes.exact(f), f.attr() + ": the guard refuses it");
+            Decimal.Term step = Decimal.add(p, Decimal.operand(f.get(), f.attr().digits() - f.attr().scale()), one, 0, true, false);
+            Decimal.Term guarded = Classes.exact(f) ? Decimal.exact(f.get().toBigDecimal().add(BigDecimal.ONE)) : step;
+            Decimal.Stored a = Decimal.store(guarded, 3, 0, false, false), b = Decimal.store(step, 3, 0, false, false);
+            assertEquals(b.value().toBigDecimal(), a.value().toBigDecimal(), f.attr() + ": the guarded form stores the step-by-step value");
+            assertEquals(b.sizeError(), a.sizeError());
+            Decimal.Stored unguarded = Decimal.store(Decimal.exact(f.get().toBigDecimal().add(BigDecimal.ONE)), 3, 0, false, false);
+            differs |= !unguarded.value().toBigDecimal().equals(b.value().toBigDecimal()) || unguarded.sizeError() != b.sizeError();
+        }
+        assertEquals(true, differs, "without the guard, the exact form stores otherwise on an invalid operand: the guard is needed");
+        Field valid = new Field(new Record(new byte[] {cp.digit(4, 0), cp.digit(2, 0)}, cp), 0, Attr.numeric(Attr.Usage.DISPLAY, 2, 0, false));
+        assertEquals(true, Classes.exact(valid), "a valid field passes");
+    }
+
     /** A value of up to 12 integer and 4 decimal digits, signed, as an operand of exactly those places. */
     private static Decimal.Term operand(Random r) {
         int integers = 1 + r.nextInt(12), decimals = r.nextInt(5);

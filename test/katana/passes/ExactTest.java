@@ -21,7 +21,7 @@ class ExactTest {
         return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
     }
 
-    private static final String DATA = "01 C PIC 9(5).\n01 T PIC S9(5)V99.\n01 R.\n   05 F PIC 9(3).\n";
+    private static final String DATA = "01 C PIC 9(5).\n01 T PIC S9(5)V99.\n01 R.\n   05 F PIC 9(3).\n01 N5 PIC 9(4) COMP-5.\n";
 
     @Test
     void anIntegerSumIsLongArithmeticAndADecimalOneBigDecimals() {
@@ -34,9 +34,22 @@ class ExactTest {
         assertTrue(java.contains("Decimal.exact((c - 3))"), "SUBTRACT ... GIVING is the minuend less the subtrahends");
     }
 
+    /** 6.4b (R-069): a record field is read under the guard, the exact form when its bytes are a valid number within its PICTURE, else the step-by-step one. */
+    @Test
+    void aRecordFieldIsReadExactlyUnderTheGuard() {
+        Program p = program(DATA, "    ADD F TO C.\n    MOVE SPACES TO R.\n");
+        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        assertEquals(1, r.plan().exact().size(), r.refused().toString());
+        String java = Lower.java(p, "P", r.plan()).java();
+        int f = p.items().stream().filter(i -> i.name().equals("F")).findFirst().orElseThrow().id();
+        assertTrue(java.contains("if (valid(f" + f + ")) {") && java.contains("Decimal.exact((c + Scalars.longOf(f" + f + ".get())))") && java.contains("else {"), java);
+        assertTrue(java.contains("private static boolean valid(Field... operands) {") && java.contains("if (!Classes.exact(f)) return false;"), "one guard per program");
+    }
+
     @Test
     void eachObligationBrokenKeepsTheStepWiseForm() {
-        assertRefused("    ADD F TO C.\n    MOVE SPACES TO R.\n", "no promoted item");
+        assertRefused("    ADD N5 TO C.\n", "native binary");
+        assertRefused("    ADD F (1:2) TO C.\n", "reference-modified");
         assertRefused("    COMPUTE C = C / 2.\n", "a /");
         assertRefused("    DIVIDE 2 INTO C.\n", "a division");
         assertRefused("    ADD 1 TO C T.\n", "several receivers");

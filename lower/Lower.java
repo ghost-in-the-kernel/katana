@@ -158,6 +158,7 @@ public final class Lower {
         Flow flow = new Flow(e, p, x, containers, plan);
         flow.procedure();
         x.promoted.predicates(e, flow.conditions);
+        if (x.guarded) guard(e, p);
         List<Program> inside = new ArrayList<>(containers);
         inside.add(p);
         for (Program n : p.nested()) program(e, n, Lower.className(n), inside, findings, Plan.LITERAL);
@@ -220,6 +221,16 @@ public final class Lower {
     static String className(String program) {
         String name = program.replaceAll("[^A-Za-z0-9_]", "_");
         return Character.isJavaIdentifierStart(name.charAt(0)) ? name : "P" + name;
+    }
+
+    /** 6.4b's guard (R-069): every operand a valid number within its PICTURE, so the exact form runs; else the step-by-step one. */
+    // Decision: R-069
+    private static void guard(Emitter e, Program p) {
+        e.open("private static boolean valid(Field... operands)");
+        e.line("for (Field f : operands) if (!Classes.exact(f)) return false;");
+        e.line("return true;");
+        e.close();
+        e.symbol("valid", "guard " + p.header().program());
     }
 
     /** Each item's members: its record if it is one, and its Field, or for a promoted item its variable (6.3). */
