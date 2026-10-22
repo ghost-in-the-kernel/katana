@@ -132,6 +132,14 @@ tasks.register('metrics', JavaExec) {
     systemProperty 'katana.root', rootDir.absolutePath
 }
 
+// 8A.1 (R-072): a foreign Java port held to its COBOL through the lanes, until 8.1's CLI names it `katana prove`:
+// gradle prove --args="<fixture> <PGM>=<command...>".
+tasks.register('prove', JavaExec) {
+    description = 'Runs a foreign Java port of a fixture\'s program through the lanes and reports each dataset SAME or DIFFER.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'katana.oracle.prove.Prove'
+}
+
 tasks.register('kernelMap', JavaExec) {
     description = 'Appends to docs/KERNEL-MAP.md a row for every function in a module it does not hold.'
     classpath = sourceSets.scripts.runtimeClasspath

@@ -1859,3 +1859,13 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/Records.java:Records.refmod` |  | 2026-10-22 |  |
 | passes | `passes/Records.java:Records.refmod#2` |  | 2026-10-22 |  |
 | lower | `lower/Views.java:Views.bind` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Prove.java:Prove.Result.same` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Prove.java:Prove.Prove` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Prove.java:Prove.run` | R-072 | 2026-10-22 |  |
+| oracle | `oracle/prove/Prove.java:Prove.outputs` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Prove.java:Prove.dataset` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Prove.java:Prove.copybook` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Prove.java:Prove.read` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Prove.java:Prove.lane` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Prove.java:Prove.text` |  | 2026-10-22 |  |
+| oracle | `oracle/prove/Prove.java:Prove.main` |  | 2026-10-22 |  |
