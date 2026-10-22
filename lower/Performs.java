@@ -80,6 +80,7 @@ final class Performs {
         return s.verb().equals("PERFORM") && !loop(s).varying.isEmpty();
     }
 
+    /** A PERFORM, by its form: a VARYING the plan writes as a `for`, another VARYING, TIMES, UNTIL, or once. */
     // Decision: R-021
     void statement(Statement s) {
         Value.Target target = Flow.target(s);

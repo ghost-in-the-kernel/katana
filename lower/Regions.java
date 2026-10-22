@@ -131,6 +131,7 @@ final class Regions {
         return out;
     }
 
+    /** The paragraphs a statement's GO TOs reach forward within this level and outside its child loops: the blocks the level opens. */
     private static void gotos(Statement s, int from, List<Integer> level, java.util.Set<Integer> inside, java.util.Set<Integer> out) {
         if (s.verb().equals("GO TO")) for (Statement.Operand o : s.operands()) if (o.value() instanceof Value.Target t && t.paragraph() > from && level.contains(t.paragraph()) && !inside.contains(t.paragraph())) out.add(t.paragraph());
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) gotos(t, from, level, inside, out);

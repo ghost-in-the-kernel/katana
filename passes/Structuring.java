@@ -118,6 +118,7 @@ public final class Structuring {
     static final class Obligations {
         private Obligations() {}
 
+        /** What keeps a Function range from being a method: an entry or exit not its PERFORM's, the main line, another range overlapping it, a PERFORM of itself. */
         static List<String> refusals(Program p, Subject.Range r, List<Subject.Range> all) {
             List<String> why = new ArrayList<>();
             edges(p, r, why);

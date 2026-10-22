@@ -19,6 +19,7 @@ import katana.lower.Lower;
 public final class StructuringLedger {
     private StructuringLedger() {}
 
+    /** The passes' lines: one per symbol new to the structured build, with the fact that licensed it, and one superseding each symbol it no longer has. */
     // Decision: R-030
     public static List<Ledger.Draft> lines(Ledger literal, Lower.Result structured, Structuring.Result pass, String run, String profile, String time) {
         Map<String, Structuring.Applied> byMethod = new HashMap<>();

@@ -43,6 +43,7 @@ final class Loops {
         else refused.put("PERFORM VARYING at line " + s.origin().line(), why);
     }
 
+    /** What keeps a PERFORM VARYING from being a `for`: AFTER phrases, a BY no nonzero constant, a body not structured, a store into its counter. */
     static List<String> refusals(Program p, Statement s, Map<Integer, Integer> methods, Set<String> loops) {
         List<String> why = new ArrayList<>();
         Lower.Varying v = Lower.varying(s);
