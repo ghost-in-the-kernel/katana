@@ -3691,3 +3691,19 @@ taken; closed by a later `decision` entry naming it).
     field named, and every path existing. It is shown to fail on each.
   - CLAUDE.md's rows for the runtime, the lowering and a pass now open named files.
 - **Touched:** `docs/PASSES.md`, `test/PassesDocTest.java`, `test/DocTests.java`, `CLAUDE.md`, `docs/JOURNAL.md`.
+
+### J-227 Three readings of the codebase: a hostile test review, a navigation trial, and an advisor
+- **Who:** Opus, on Ghost's word: a hostile review of the testing methodology by an Opus agent, a navigation trial by
+  a Haiku agent, and advice on readability, agent re-entry and code reentrancy from a Fable advisor. **Class:**
+  review.
+- **Found:**
+  - The hostile review lists ten weaknesses, nine of them seen in the code. The two largest: nothing measures
+    whether a pass's rewritten sites ran, and R-056's mutations are never applied. NIST also compares five counts,
+    not the per-test report.
+  - The Haiku agent answered seven navigation questions right in about 22 tool calls, after J-226's PASSES.md. It
+    named five points of friction.
+  - The advisor ranks HANDOFF.md first: 860 lines with a 100-line section pasted twice, confirmed by md5. Then ids
+    taken by eye, and `Promoted.bound`'s toggle as the one invariant held two modules away. Opus confirmed four of
+    its claims against the code and corrected one line number.
+  - Each is a model's reading. None is acted on until Ghost places it.
+- **Touched:** `docs/research/reviews/` (three files), `docs/JOURNAL.md`.
