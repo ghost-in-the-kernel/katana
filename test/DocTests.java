@@ -51,6 +51,11 @@ class DocTests {
     }
 
     @Test
+    void passes() {
+        assertEquals(List.of(), PassesDocTest.run().problems());
+    }
+
+    @Test
     void todo() {
         assertEquals(List.of(), TodoTest.run().problems());
     }

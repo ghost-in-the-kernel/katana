@@ -10,13 +10,6 @@ the first open item has a check.
 
 ## Phase 2: the front end and the Semantic IR
 
-### 2.2 Drive che4z's CICS and DB2 grammars
-
-Check: every `EXEC CICS` and `EXEC SQL` in the corpus parses to a command tree or is a finding.
-
-Stopped (R-053, no reversible default): the graft needs che4z's EPL-2.0 grammars in the tree, which
-R-015 admits only after counsel. Measured outside the tree (J-064); waiting on Ghost (HANDOFF).
-
 ## Phase 3: literal lowering and the runtime, proven on NIST
 
 ### 3.1 `rt/` core
@@ -37,11 +30,8 @@ byte images (J-102), MOVE (J-103), editing and de-editing (J-104), INSPECT (J-10
 (hand-lowered and passing counts); the cases `rt/` holds, then the rest through the lowering (HANDOFF).
 *Reached by hand (J-112):* 24 of 378, 19 passing the testsuite, all equal to cobc -std=ibm or a finding.
 
-### 3.2 `rt/Dispatcher`
-
-Check: every NIST NC and IC program's PERFORM/GO TO behaviour reproduces its REPORT.
-*Built (J-113):* `rt/Dispatcher`, held to cobc -std=ibm by 81 control-flow programs. The check itself
-runs NIST through the lowering, so it is met at 3.3-3.4.
+Can be done now (R-071): the lowering it needs is live. Its check at scale, the runnable autotests through the
+lowering, is also every pass's unit corpus (6.1 to 6.7's "Open"), so it comes before 6.8; 6.9 carries it too.
 
 ### 3.3 `lower/`
 
@@ -64,6 +54,9 @@ but one ALL literal. *Then (J-128):* an 01 that REDEFINES another shares its sto
 NC205A (one arithmetic-osvs case to work by hand) and NC401M (TAPE1); then 3.4's next modules (SQ, IF), and the cobol85 profile's lane. J-139: NC 83 the same, 10 explained by D-019, D-020, D-021 or PROFILE-04 (where Katana fails more, a bug; where cobc fails
 more, read against IBM's text).
 
+Can be done now (R-071): what is left is a defect, not an architecture, NIST DB205A's lowering failing at an ACCEPT
+(a ClassCastException, Value$Name to Value$Field, J-212).
+
 ### 3.4 NIST, module by module, through both lanes
 
 Check: the Java lane reproduces the same PASS/FAIL lines as the 9,610 GnuCOBOL passes, under both
@@ -77,13 +70,12 @@ Carried in (R-020 C-5): an all-literal COMPUTE is excluded from the lane compari
 skipped silently: cobc folds it with more places than Appendix A, and a mainframe may yet show IBM folds
 too; the lowering applies IBM's table to literals.
 
+Moved from 3.2 (R-071), its check met here: "every NIST NC and IC program's PERFORM/GO TO behaviour
+reproduces its REPORT"; `rt/Dispatcher` built (J-113), held to cobc -std=ibm by 81 control-flow programs.
+
 ### 3.5 Findings, second set
 
 Check: every finding class has a program that raises it (Fable, 2026-10-17, J-199).
-
-### 3.6 Refactoring distance, v0
-
-Check: the distance baseline recorded for CardDemo (Fable, 2026-10-17, J-199).
 
 ### 3.7 Tithe pass 3
 
@@ -95,23 +87,7 @@ came from the code under test) has now been met four times (J-082, J-098 twice, 
 
 ## Phase 4: CardDemo batch, end to end
 
-### 4.7 Tithe pass 4
-
-Check: none in the roadmap; written here before the item starts. No change of behaviour and no golden
-changed (P-02): the largest file well under 400 lines, every main-code function the metrics name as long
-and uncommented commented or split, 4.1 to 4.6 moved to docs/DONE.md, HANDOFF's next work and the
-phase-4 boundary's open hypotheses current, pass 4 measured in AGENT.md, and the pre-push check over every
-suite timed at the boundary (J-192).
-
 ## Phase 5: the Intent IR and the proof ledger
-
-### 5.5 Tithe pass 5
-
-Check: none in the roadmap; written here before the item starts. No change of behaviour and no golden
-changed (P-02): every main-code function the metrics name as long and uncommented commented; phase 5's new
-words in the glossary; R-031 recorded (the roadmap's last phase-5 decision); 5.1 to 5.4 moved to
-docs/DONE.md; HANDOFF's next work and the phase-5 boundary's questions current; pass 5 measured in AGENT.md;
-the pre-push check over every suite timed at the boundary (J-198).
 
 ## Phase 6: proven refactoring passes
 
@@ -198,7 +174,8 @@ TRUE assigns by name; a Money fact makes a promoted item an `rt` `Money`, every 
 batch: 20 items named (87 predicates, 16 constants), 7 Money, 6 money record fields refused (6.7); NIST: 29 named
 (62 predicates), 20 Money; every CardDemo job and NIST module as literal, each new name in the ledger with its
 fact's state (all `unconfirmed`). Open: a closed enum, where a pass proves an item holds only its 88 values (PIC X
-items promoted first); money in records with 6.7.
+items promoted first); money in records with 6.7. (R-071: the closed enum can be done now, on 6.6's dataflow;
+money in records waits with 6.7's storage other than the bytes.)
 
 ### 6.6 Stateless subprograms
 
@@ -214,8 +191,8 @@ Built (J-222, research §45, 6.6b): the PICTURE rule, `passes/Fits`. An exact st
 promoted receiver is a plain assignment: 18 of CardDemo's 72 exact statements, 31 of NIST's 8,177. Loop bounds
 are not built (Ghost, 2026-10-22).
 
-With it (moved from 6.3): the interval rule for `NeverOverflows`, on 6.6's dataflow with loops' bounds, which lets
-a promoted item's store be plain arithmetic (R-068).
+Not built (R-071): the interval rule with loops' bounds, moved here from 6.3; J-221 measured it would prove none of
+CardDemo's stores, and Ghost built the PICTURE rule alone.
 
 ### 6.7 Record classes
 
@@ -228,12 +205,16 @@ Built (J-223, research §46): record classes as typed views (Ghost's choice), ea
 file that nothing aliases a class over its bytes: named `Field` members, numeric getters, fixed tables' accessors.
 CardDemo's batch 143 of 178 group records, NIST 4,787 of 7,205; every run as literal. Built (J-224, research §47,
 6.7b): LINKAGE records, each class built where its CALL binds it (CardDemo 3 of 6, NIST 17 of 21). Open: records
-with a REDEFINES (768 of NIST's refusals), and storage other than the bytes, which a later step may swap in behind
-the same class.
+with a REDEFINES (768 of NIST's refusals), which can be done now (a view over shared bytes is still exact); and
+storage other than the bytes behind the same class, with 6.5's money in records, which waits on a proof that nothing
+reaches a record's bytes but its class (no item builds that yet: Ghost's to place, R-071).
 
 ### 6.8 Refactoring distance, per pass and cumulative
 
 Check: as above.
+
+Moved from 3.6 (R-071): the literal Java's line count, nesting and dispatcher size per program, the baseline
+every pass is measured against, is this item's first column; nothing measured it before the passes it measures.
 
 ### 6.9 Tithe pass 6
 
@@ -260,6 +241,11 @@ Check: parses with no error nodes; data map built; Java compiles; time and memor
 ### 7.2 CICS facade
 
 Check: none in the roadmap; written here before the item starts.
+
+Moved from 2.2 (R-071), the graft its facades would use: every `EXEC CICS` and `EXEC SQL` in the corpus parsing to
+a command tree or a finding. Stopped (R-053): che4z's EPL-2.0 grammars enter the tree only after counsel (R-015);
+measured outside the tree (J-064). 7.2's own plan, a grammar written from IBM's published syntax, may make the graft
+unneeded; either way it waits on Ghost (HANDOFF).
 
 ### 7.3 DB2 facade
 
