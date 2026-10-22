@@ -2097,3 +2097,39 @@ the fact and its state.
 every job as literal. NIST: few facts (its names carry little meaning, the rules read names and use), every run
 as literal. The rival: a condition test the predicate changes (a subscripted reference, a condition on a group
 whose test reads otherwise), seen as a report that differs.
+
+## 43. 6.4b, a record field in exact arithmetic, under a guard (R-069; J-219)
+
+**What R-069 asks** (Ghost and Fable, 2026-10-21; HANDOFF "For Opus: 6.4b"): the statements 6.4 left out for
+reading an unpromoted item (§41) are admitted under a run-time guard, each such operand's bytes a valid number for
+its PICTURE and usage, the exact form when all pass and the step-by-step form otherwise; the ledger line names the
+guard; several receivers stay step-by-step.
+
+**The guard.** `Classes.numeric`, the NUMERIC test (`rt/`, under the profile's NUMPROC NOPFD and INVDATA NO, R-049),
+and the value within the PICTURE's digits. The second is needed besides the first: the NUMERIC test passes every
+binary item, and a binary field a READ or a group MOVE filled can hold more digits than its PICTURE; it passes a
+packed item of an even number of digits whose spare high-order nibble is not zero. Either decodes past the places
+IBM carries, where the step-by-step cut wraps and exact arithmetic would not. Within its digits, a field is an
+operand exact arithmetic holds, as §41 shows for a promoted item. `Classes.exact(Field)` is the guard.
+
+**The form.** A guarded statement is written twice, as one statement: `if (valid(f12, f13)) { <exact> } else {
+<step-by-step> }`, `valid` one method per program that has a guarded statement, which checks each operand with
+`Classes.exact`. The ledger records symbols, not statements (LED-04), so the line that names the guard is
+`valid`'s, pass `exact-v1`, one per program; a statement guarded calls it with its operands. Operands admitted: a
+numeric data item of DISPLAY, BINARY or PACKED usage, subscripted or not, never reference-modified (a native
+binary item's value may pass its PICTURE by design, and stays step-by-step); in the exact form its value is
+`f12.get()`, a `long` by `Scalars.longOf` when the expression is all integers within 18 places, else
+`toBigDecimal()`. A promoted item, a literal or ZERO needs no guard (§41).
+
+**Proof**: as §41's: every CardDemo job and NIST module as literal (R-069 C-1). `ExactArithmeticTest` gains
+operands holding invalid bytes (a bad zone, a bad sign, a non-digit, a packed spare nibble, a binary value past its
+PICTURE): the guard refuses each and the guarded form stores what the step-by-step form stores, size error with it;
+and the guard removed, the exact form stores otherwise on at least one of them (R-069 C-2, the mutation).
+
+**Predicted, before the build.** CardDemo's batch: the 10 statements §41 kept for a record field admitted, 74 of
+79 exact (the rest a division, LENGTH OF, several receivers); every job as literal, its data valid, so the guard
+passes and the exact form runs. NIST: most of the 2,492 admitted, perhaps 2,300 (those with a native binary or
+reference-modified operand, or another hold, stay), every run as literal; where a NIST test feeds invalid data the
+guard sends it step-by-step. The rival: a field whose bytes pass the guard and still decode otherwise than the
+step-by-step cut reads them (a sign the NUMERIC test admits that `get()` reads differently), seen as a report that
+differs.
