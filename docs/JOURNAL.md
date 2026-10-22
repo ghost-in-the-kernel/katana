@@ -3494,3 +3494,27 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `rt/katana/rt/Money.java`; `lower/Promoted.java`, `Conditions.java`, `Arith.java`, `Verbs.java`,
   `Lower.java`; `passes/Types.java` (new), `Structuring.java`, `StructuringLedger.java`;
   `test/katana/passes/TypesTest.java`, `test/katana/lower/ManifestTest.java`; `docs/KERNEL-MAP.md`; `TODO.md`.
+
+### J-219 6.4b: a record field in exact arithmetic, under a guard that its bytes are a valid number
+- **Who:** Opus, on Ghost's word ("yes, do 6.4b next"), as R-069 (Ghost and Fable, 2026-10-21) and HANDOFF set it.
+  **Class:** build; trial.
+- **Intent:** research §43, before the build: the guard is `Classes.exact`, the NUMERIC test under NUMPROC NOPFD and
+  INVDATA NO, and the value within the PICTURE's digits; the second because NUMERIC passes every binary item and a
+  packed item's spare high-order nibble, either of which decodes past the places IBM carries. A statement over a
+  record field is written both ways, `if (valid(f12, f13)) { exact } else { step-by-step }`.
+- **Found:** CardDemo's batch 72 of 79 arithmetic statements exact, 8 under the guard (predicted 74: two of §41's ten
+  also read LENGTH OF or have several receivers); NIST 8,177 exact, 5,659 before, 2,509 under the guard (predicted
+  about 2,300), 789 kept (a division 219, several receivers 80, a native binary or reference-modified field 40, the
+  functions); every CardDemo job and NIST module as literal (R-069 C-1's trial). `ExactArithmeticTest` (C-2's trial):
+  the guard refuses a non-digit, a bad overpunched sign, a packed spare nibble and a binary past its digits, the
+  guarded form storing the step-by-step value and size error; with the guard removed the exact form stores otherwise
+  on one at least. The ledger test caught the guard's first node, `program NAME`, which the manifest reads as a class.
+- **Resolved:** `Classes.exact`; `passes/Exact` admits a numeric DISPLAY, BINARY or PACKED field, never
+  reference-modified (`Exact.PASS`, `exact-v1`); `ArithVerbs.stepByStep`, the guarded form; `Arith.guards`, a field's
+  `get()` in the exact form; `valid` once per program, its ledger line (node `guard NAME`, LEDGER.md) the one that
+  names the guard, since the ledger records symbols and a statement is none (R-069's "the ledger line names the
+  guard", read so). DB205A's lowering still fails at an ACCEPT (J-212), the count's one program not measured.
+- **Touched:** `rt/katana/rt/Classes.java`; `lower/Arith.java`, `ArithVerbs.java`, `Exprs.java`, `Lower.java`,
+  `Promoted.java`; `passes/Exact.java`, `StructuringLedger.java`; `test/katana/passes/ExactTest.java`,
+  `test/katana/rt/ExactArithmeticTest.java`, `test/katana/lower/ManifestTest.java`; `docs/LEDGER.md`,
+  `docs/HANDOFF.md`, `docs/KERNEL-MAP.md`; `TODO.md`.

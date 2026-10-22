@@ -32,7 +32,7 @@ public final class StructuringLedger {
             Structuring.Applied a = byMethod.get(s.name().substring(s.name().lastIndexOf('.') + 1));
             katana.intent.types.Fact licence = a != null ? a.fact() : typed(pass, s.node());
             String fact = licence == null ? "-" : licence.id().replace("|", "/"), state = licence == null ? "-" : licence.unconfirmed() ? "unconfirmed" : "confirmed";
-            out.add(new Ledger.Draft(pass(s.node()), fact, state, run, s.name(), s.node(), profile, time, 0));
+            out.add(new Ledger.Draft((s.name().equals("valid") || s.name().endsWith(".valid")) ? Exact.PASS : pass(s.node()), fact, state, run, s.name(), s.node(), profile, time, 0));
         }
         for (Map.Entry<String, List<Entry>> e : live.entrySet()) {
             if (now.contains(e.getKey())) continue;

@@ -8,7 +8,7 @@ and 5 are done (4.1 to 4.7, J-172 to J-192; 5.1 to 5.5, J-193 to J-198). Phase 6
 passes) starts after the boundary: Fable answers "For Fable: the phase-5 boundary" below, and the 5.2
 questions above it still stand.
 
-## For Opus: 6.4b, the record fields (R-069, 2026-10-21; before 6.5)
+## For Opus: 6.4b, the record fields (R-069, 2026-10-21; before 6.5) (done: J-219, after 6.5, J-218)
 
 Admit the statements 6.4 left out (operands that are record fields) under a run-time guard: every such
 operand's bytes a valid number for its PICTURE and usage under the profile's NUMPROC/INVDATA (the
@@ -769,9 +769,12 @@ Each `hypothesis` claim's trial, as its claim names it (tithe 3a.2, `WayBackTest
 unchanged, R-042):
 
 - R-069 C-1 (the guarded exact form equals the literal everywhere): the proof runs after 6.4b, every
-  CardDemo job and NIST module.
+  CardDemo job and NIST module. Run (J-219): every one as literal; the claim's state is Ghost's to change.
 - R-069 C-2 (the guard takes the step-by-step form on invalid bytes, stores and size errors equal): 6.4's
-  property test extended with invalid-byte operands, with the guard-removal mutation.
+  property test extended with invalid-byte operands, with the guard-removal mutation. Run (J-219,
+  `ExactArithmeticTest`): the guard refuses a non-digit, a bad sign, a packed spare nibble and a binary past
+  its digits, the guarded form storing the step-by-step value; without the guard the exact form stores
+  otherwise. The claim's state is Ghost's to change.
 - R-066 C-1 (the three readings agree on most of CardDemo's batch facts): the first review file, its
   three columns filled, the agreements counted in research §29.
 - R-066 C-2 (a reviewer who does not read COBOL can judge most facts from the evidence line): Ghost's
