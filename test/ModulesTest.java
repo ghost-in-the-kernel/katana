@@ -52,6 +52,7 @@ final class ModulesTest {
                 .accepts("an allowed import", () -> check(json, Map.of("sir/Build.java", "package katana.sir;\nimport katana.front.Tree;\nimport java.util.List;\n")));
     }
 
+    /** The failures of docs/modules.json against the source it describes: each entry, the cycles, the rules, every import, and rt/ carrying its licence. */
     @SuppressWarnings("unchecked")
     static List<String> check(String json, Map<String, String> source) {
         List<String> failures = new ArrayList<>();

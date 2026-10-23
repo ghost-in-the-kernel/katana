@@ -133,6 +133,7 @@ class AutotestsLoweredIntegrationTest {
         return t;
     }
 
+    /** The census (TODO 3.1): every runnable case to its stage under its own flags, the floors checked before the golden is written, then the golden held fact for fact. */
     @Test
     void everyRunnableAutotestEndsAtAStage() throws Exception {
         katana.profile.Profile profile = katana.profile.Profile.read(Files.readString(PROFILE));

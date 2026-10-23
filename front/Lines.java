@@ -64,16 +64,7 @@ public final class Lines {
                     boolean starts = ENTRY_START.stream().anyMatch(upper::startsWith);
                     String areaA = content.length() > 4 ? content.toString().substring(0, 4) : content.toString();
                     built.added(INDENT, line, 0);
-                    if (starts) {
-                        int dot = content.toString().indexOf('.') + 1;
-                        built.append(content, 0, dot);
-                        if (!content.toString().substring(dot).isBlank()) built.added(" *>CE", content, dot).append(content, dot, content.length());
-                    } else if (entry && areaA.isBlank() && !content.toString().isBlank()) {
-                        int first = content.length() - content.toString().stripLeading().length();
-                        built.added("*>CE ", content, first).append(strip(content.slice(first, content.length())));
-                    } else {
-                        built.append(content);
-                    }
+                    placed(built, content, starts, entry, areaA);
                     entry = starts || (entry && areaA.isBlank());
                     logical = out.size();
                     out.add(marked(built, indicator));
@@ -86,6 +77,20 @@ public final class Lines {
             result.append(trailing(out.get(i)));
         }
         return result;
+    }
+
+    /** A source line's content added to its logical line; an entry paragraph's text is commented out from its first sentence on (`*>CE`), as the grammars read it. */
+    private static void placed(Mapped built, Mapped content, boolean starts, boolean entry, String areaA) {
+        if (starts) {
+            int dot = content.toString().indexOf('.') + 1;
+            built.append(content, 0, dot);
+            if (!content.toString().substring(dot).isBlank()) built.added(" *>CE", content, dot).append(content, dot, content.length());
+        } else if (entry && areaA.isBlank() && !content.toString().isBlank()) {
+            int first = content.length() - content.toString().stripLeading().length();
+            built.added("*>CE ", content, first).append(strip(content.slice(first, content.length())));
+        } else {
+            built.append(content);
+        }
     }
 
     /** A debugging line (LR 6.4 p. 122) marked: code only WITH DEBUGGING MODE, which `Preprocessor.run` decides. */

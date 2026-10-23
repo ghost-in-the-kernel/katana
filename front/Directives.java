@@ -115,6 +115,7 @@ final class Directives {
         return true;
     }
 
+    /** An `>>ELIF` under the extensions switch: closes the open branch and opens the next, live only when the outer text is live and no earlier branch was taken (R-081); false when no `>>IF` is open, after an `>>ELSE`, or when its condition is unknown. */
     private static boolean next(String rest, State st, int line, String text) {
         if (st.open().isEmpty() || st.open().peek().elsed) return false;
         Frame f = st.open().peek();

@@ -2016,3 +2016,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | oracle | `oracle/autotest/CompileFlags.java:CompileFlags.listing` |  | 2026-10-23 |  |
 | oracle | `oracle/autotest/CompileFlags.java:CompileFlags.grammarLeak` | R-089 | 2026-10-23 |  |
 | oracle | `oracle/autotest/CompileFlags.java:CompileFlags.ibmsOwn` | R-088 | 2026-10-23 |  |
+| front | `front/Lines.java:Lines.placed` |  | 2026-10-23 |  |

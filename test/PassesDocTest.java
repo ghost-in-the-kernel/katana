@@ -28,6 +28,7 @@ final class PassesDocTest {
                 .accepts("a sound table", () -> check("`a-v1` `f` `passes/A.java`", List.of("a-v1"), List.of("f"), p -> true));
     }
 
+    /** The failures of docs/PASSES.md against the passes: each ledger id and plan field named in backticks, and each path it names existing. */
     static List<String> check(String doc, List<String> ids, List<String> fields, Predicate<String> exists) {
         List<String> failures = new ArrayList<>();
         for (String id : ids) if (!doc.contains("`" + id + "`")) failures.add("docs/PASSES.md leaves out the pass " + id);
