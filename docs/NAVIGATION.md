@@ -40,3 +40,14 @@ An entry: `### N-<n> <date>, <task> (<commits>)`, then the lines `- **Complaints
   `test/`; nothing says how many a tithe is to take. `gradle kernelMap` after adding one private helper changed `docs/KERNEL-MAP.md`; it is not said whether a comment-only edit needs it (it did not).
 - **Suggestions:** a "Tithe" row in `docs/paths/process.md` (its start: `gradle metrics`; what it takes: one path-limit function, one near-limit file, a few
   uncommented functions; what it records: this debrief and the commits' titles); a count in the metrics output of uncommented functions in `test/` apart from the source's.
+
+### N-012 2026-10-23, variably located items (J-265)
+- **Complaints:** Docker was down (no dockerd, a stale pid file; `process.md`'s procedure worked). The brief's "four `-fodoslide` cases" are
+  not named anywhere I was routed to: TODO 3.1 says "the four" and the golden has no flag column to grep for them; I found them by
+  grepping `flags.txt` (ten cases carry the flag, four are runnable). Two of the four could not pass for other reasons (a parse gap, a
+  `-fnotrunc` hold), so "the four are its check" is not reachable by this item alone, and nothing says to expect that. `process.md`
+  asks for a prediction but not for a scan of the corpus for the construct, which would have found `run_extensions-517`. `gradle metrics`
+  found a 22-path function (`Exprs.sending`) only in the fast loop's `DocTests > metrics()`, after the build.
+- **Suggestions:** list the case ids beside TODO 3.1's item; in `process.md`, a research section's prediction names the cases a change
+  can move, found by grepping the corpus for the construct; say in `lowering.md` that a function near 20 paths (`Exprs.sending`) should be split before adding a case.
+
