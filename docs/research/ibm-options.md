@@ -2607,3 +2607,31 @@ unchanged. The 9 `NOJAVAC` cases are read, not yet changed.
 
 The rival: classifying by the construct in the source rather than the parser's first message. The first message is
 what the front end says, which is the evidence; a construct count is the reader's judgement and comes after.
+
+## 56. 3.1, the nine autotests whose lowered Java does not compile: three causes, one fixed (J-248)
+
+**Ghost's word (2026-10-23).** Read the 9 cases that do not compile; fix the cause if it is one cause with a sound fix.
+
+**Found by reading javac's first error on each** (§55 predicted all nine one cause: wrong, three):
+- Five cases (run_extensions-2260; run_fundamental-3277, 3326, 3375, 3871) hold nested programs. A nested program's class
+  names its container by the container's program-id (`private final PROG up;`), while the top-level class is written
+  under the name `Lower.java` is given (`Prog`), so `PROG` is not a class. The two names agree whenever the caller
+  passes `Lower.className(program)`, which is why no test with nested programs found it.
+- Three cases (run_extensions-2381, 4398, run_misc-13585) call `bind1`/`bind2`/`bind3` that the class does not
+  declare (a `PROCEDURE DIVISION USING` of an entry the lowering did not write). A different cause; not touched here.
+- One case (run_misc-13861) writes `Unsupported.fail("…floating-point…").value()`, a call on a method that returns
+  nothing. A different cause; not touched here.
+
+**What the step builds.** `Lower` passes the top-level class's own name down to a nested program, which names its
+container by it (only the top-level container is renamed; a nested container is still `Lower.className(n)`, the
+name its class is written under).
+
+**Predicted, before the run:**
+- the five nested cases compile (NOJAVAC 9 to 4); each then ends at NORUN, FAIL or PASS, I do not predict which;
+- the PASS count does not fall (49 or more) and no golden but `lowered.golden` changes: `gradle test` and the rt,
+  lower and passes integration tests (CallVerbsTest, ManifestTest, the NIST floors) are unchanged, because they pass
+  `Lower.className(program)` or a name equal to it;
+- the other four NOJAVAC stay, each with the cause above.
+
+The rival: fixing it in the test (load the class under `Lower.className(program)`). That hides the defect from the
+next caller who passes another name (JavaRunner and ManifestTest already do).
