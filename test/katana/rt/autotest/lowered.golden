@@ -233,7 +233,7 @@ run_initialize-655 NOPARSE parsing extraneous input 'NUMERIC'
 run_initialize-90 FAIL
 run_misc-100 NOPARSE parsing mismatched input ','
 run_misc-1029 PASS
-run_misc-10634 NOPARSE copybook not found
+run_misc-10634 NORUN
 run_misc-1075 PASS
 run_misc-11435 NOPARSE parsing missing {'66', '77', '88', INTEGERLITERAL} at 'UNBOUNDED'
 run_misc-11711 NOPARSE parsing mismatched input 'AS'
@@ -357,17 +357,17 @@ run_subscripts-437 PASS
 run_subscripts-506 FAIL
 run_subscripts-542 NORUN
 run_subscripts-71 FAIL
-syn_copy-1125 NOPARSE preprocessing the program mismatched input '=='
-syn_copy-382 NOPARSE copybook not found
+syn_copy-1125 NOLOWER
+syn_copy-382 PASS
 syn_copy-409 NOPARSE preprocessing the program extraneous input ','
-syn_copy-438 NOPARSE copybook not found
-syn_copy-468 NOPARSE preprocessing the program mismatched input '=='
-syn_copy-498 NOPARSE preprocessing the program mismatched input '=='
-syn_copy-528 NOPARSE copybook not found
-syn_copy-630 NOPARSE copybook not found
+syn_copy-438 PASS
+syn_copy-468 NOLOWER
+syn_copy-498 NOLOWER
+syn_copy-528 NORUN
+syn_copy-630 PASS
 syn_copy-660 NOPARSE parsing mismatched input 'IFICATION'
 syn_misc-2023 PASS
-syn_misc-3318 NOPARSE copybook not found
+syn_misc-3318 PASS
 syn_misc-3381 NOPARSE parsing mismatched input 'ICATION'
 syn_misc-7965 NOSOURCE
 syn_misc-8017 NOPARSE parsing mismatched input 'CONTROL'
@@ -380,4 +380,4 @@ used_binaries-359 PASS
 used_binaries-393 PASS
 used_binaries-411 PASS
 used_binaries-482 PASS
-runnable 378 NOSOURCE 36 NOPARSE 162 NOLOWER 6 NOJAVAC 4 NORUN 80 FAIL 41 PASS 49
+runnable 378 NOSOURCE 36 NOPARSE 153 NOLOWER 9 NOJAVAC 4 NORUN 82 FAIL 41 PASS 53

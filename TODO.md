@@ -14,7 +14,7 @@ the first open item has a check.
 
 ### 3.1 `rt/` core
 
-Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246: the census through the lowering, 49 pass); open: the
+Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246: the census through the lowering, 53 pass); open: the
 rest of the runnable autotests through the lowering at scale; can be done now.
 
 Check: the 359 GnuCOBOL autotests, run as unit tests of `rt/` through hand-lowered programs first,
@@ -42,16 +42,17 @@ Done:
   (a floor on PASS that only rises). Of 378: 36 have no `prog.cob`, 162 do not parse (each with its first error,
   J-248), 6 fail in the IR or the lowering, 4 fail javac, 80 stop at run time on a construct the lowering names, 41
   differ from the testsuite's stdout, 49 pass. J-248: a nested program names its container by the class it is
-  written in (5 cases compiled).
+  written in (5 cases compiled). J-249: the census gives the parser the case's own directory as its copybook path:
+  now 153 do not parse, 9 fail in the IR or the lowering, 82 stop at run time, 53 pass.
 
 Open: the 329 that do not pass; the 41 FAILs sorted into findings against the testsuite's dialect (D-010) and real
 differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
-Next, by count (J-248): the 162 that do not parse, whose largest causes are a copybook not found (13: the case's own
-directory is not on the copybook path the census gives the parser), `>>SOURCE` and other `>>` directives (13+2),
+Next, by count (J-248, J-249): the 153 that do not parse, whose largest causes are `>>SOURCE` and other `>>` directives (13+2),
 `MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower
-case or after a different header (5); the 4 javac failures (3 call `bind1`..`bind3` for a USING the class does not
+case or after a different header (5); a copybook not found (7, J-249: `xfhfcd.cpy`, which GnuCOBOL installs and the
+corpus does not hold, Ghost's word); the 4 javac failures (3 call `bind1`..`bind3` for a USING the class does not
 declare; 1 calls `.value()` on `Unsupported.fail`); the CALL of a nested program that the run unit cannot find
 (4 cases: `CALL prog2` from inside `PROG`).
 3.2, next in number, is met by 3.4's runs and folded there, R-071.

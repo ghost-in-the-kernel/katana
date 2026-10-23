@@ -253,3 +253,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-246 | Phase 3.1 at scale: a census of the 378 runnable autotests through the lowering | measurement | `J-200-299.md` |
 | J-247 | Tithe: the gaps J-246's trial found in the routing | tithe (R-008): no behaviour | `J-200-299.md` |
 | J-248 | 3.1 forward: why each autotest does not parse; a nested program names the class it is written in | measurement; failure-caught | `J-200-299.md` |
+| J-249 | 3.1 forward: the census gives each case its own directory as the copybook path | measurement; failure-caught | `J-200-299.md` |
