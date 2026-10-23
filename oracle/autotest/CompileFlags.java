@@ -57,30 +57,30 @@ public final class CompileFlags {
         return NO_SUCH_FORM.equals(reason(flag)) || flag.startsWith("-fformat=");
     }
 
-    /** One group of unmapped flags and the reason they stay unmapped (J-261). */
-    private record Why(java.util.function.Predicate<String> matches, String reason) {}
+    /** One group of unmapped flags and the reason they stay unmapped (J-261); `code` is the short key the census golden writes beside a flag, one code to one reason. */
+    private record Why(java.util.function.Predicate<String> matches, String code, String reason) {}
 
-    private static Why why(String prefixes, String reason) {
+    private static Why why(String code, String prefixes, String reason) {
         List<String> ps = List.of(prefixes.split(" "));
-        return new Why(f -> ps.stream().anyMatch(f::startsWith), reason);
+        return new Why(f -> ps.stream().anyMatch(f::startsWith), code, reason);
     }
 
     /** In order: the first group whose prefix a flag starts with names the reason. */
     private static final List<Why> WHY = List.of(
-            why("-std=", "another dialect's expected output"),
-            why("-free --free", "a source format the dialect does not have"),
-            why("-fformat=", "a source format the dialect does not have"),
-            why("-fnotrunc -fno-trunc -fno-binary-truncate", "recorded under TRUNC(BIN); the census runs ibm.profile (STD)"),
-            why("-fbinary-comp-1", "another dialect's USAGE: COMP-1 is a 16-bit integer there, short floating point in IBM's"),
-            why("-fsign=ascii", "not an IBM encoding"),
-            why("-fsign=ebcdic -fdefault-file-colseq=", "the oracle lane's byte encoding; IBM has only EBCDIC (ibm.codepage)"),
-            why("-fcomplex-odo", "an ODO form not yet sorted against the Language Reference's rules"),
-            why("-fconstant-folding -fnot-intrinsic= -fno-move-non-numeric-lit",
+            why("dialect", "-std=", "another dialect's expected output"),
+            why("format", "-free --free", "a source format the dialect does not have"),
+            why("format", "-fformat=", "a source format the dialect does not have"),
+            why("trunc-bin", "-fnotrunc -fno-trunc -fno-binary-truncate", "recorded under TRUNC(BIN); the census runs ibm.profile (STD)"),
+            why("comp-1", "-fbinary-comp-1", "another dialect's USAGE: COMP-1 is a 16-bit integer there, short floating point in IBM's"),
+            why("ascii", "-fsign=ascii", "not an IBM encoding"),
+            why("encoding", "-fsign=ebcdic -fdefault-file-colseq=", "the oracle lane's byte encoding; IBM has only EBCDIC (ibm.codepage)"),
+            why("odo", "-fcomplex-odo", "an ODO form not yet sorted against the Language Reference's rules"),
+            why("dialect-decision", "-fconstant-folding -fnot-intrinsic= -fno-move-non-numeric-lit",
                     "changes what the program computes, orders or moves; the profile does not say it, so a dialect decision"),
-            why("-frelax-syntax-checks -fcomment-paragraphs= -fmissing-statement= -fdefine-constant-directive= -fhp-octal-literals= -facu-literal -faccept-display-extensions= -fpartial-replace-when-literal-src= -fno-program-name-redefinition -freserved= -fno-areacheck -fcontrol-division= -fdpc-in-data=",
+            why("no-such-form", "-frelax-syntax-checks -fcomment-paragraphs= -fmissing-statement= -fdefine-constant-directive= -fhp-octal-literals= -facu-literal -faccept-display-extensions= -fpartial-replace-when-literal-src= -fno-program-name-redefinition -freserved= -fno-areacheck -fcontrol-division= -fdpc-in-data=",
                     NO_SUCH_FORM),
-            why("-fno-ec= -debug -fdump= -ftraceall -fprof -fremove-unreachable", "runtime checks, dumps, traces or profiling: output or checks Katana's runtime does not produce"),
-            why("-fcallfh= -fsystem-name=", "names a file handler or a system-name mapping of the cobc runtime; Katana's runtime has neither"));
+            why("runtime-output", "-fno-ec= -debug -fdump= -ftraceall -fprof -fremove-unreachable", "runtime checks, dumps, traces or profiling: output or checks Katana's runtime does not produce"),
+            why("cobc-runtime", "-fcallfh= -fsystem-name=", "names a file handler or a system-name mapping of the cobc runtime; Katana's runtime has neither"));
 
     /**
      * Why a flag the census does not map stays unmapped, or null when no reason is given (J-256, J-261): every flag left has one,
@@ -91,6 +91,18 @@ public final class CompileFlags {
     // Decision: R-089
     public static String reason(String flag) {
         for (Why w : WHY) if (w.matches().test(flag)) return w.reason();
+        return null;
+    }
+
+    /** The short key of a flag's reason (the census golden writes it beside the flag), or null when it has none. */
+    public static String reasonKey(String flag) {
+        for (Why w : WHY) if (w.matches().test(flag)) return w.code();
+        return null;
+    }
+
+    /** The text of a reason key, from the same table `reason` reads (so the golden's reasons block and a flag's reason are one source), or null for an unknown key. */
+    public static String reasonOfKey(String key) {
+        for (Why w : WHY) if (w.code().equals(key)) return w.reason();
         return null;
     }
 

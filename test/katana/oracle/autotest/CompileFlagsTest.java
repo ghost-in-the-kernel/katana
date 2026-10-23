@@ -88,6 +88,18 @@ class CompileFlagsTest {
         for (String f : List.of("-fnotrunc", "-free", "-std=mf", "-fsign=ebcdic", "-fcomplex-odo")) assertFalse(CompileFlags.grammarLeak(f), f);
     }
 
+    /** The census golden writes a reason once per key: a key names one text, the one `reason` gives every flag that has it. */
+    @Test
+    void aReasonKeyNamesTheFlagsReason() {
+        for (String f : List.of("-std=mf", "-free", "-fformat=xopen", "-fnotrunc", "-fbinary-comp-1", "-fsign=ascii", "-fsign=ebcdic", "-fdefault-file-colseq=EBCDIC", "-fcomplex-odo",
+                "-fconstant-folding", "-frelax-syntax-checks", "-fno-ec=bound", "-fcallfh=EXTFH", "-fsystem-name=USW-31")) {
+            assertTrue(CompileFlags.reasonKey(f) != null, f);
+            assertEquals(CompileFlags.reason(f), CompileFlags.reasonOfKey(CompileFlags.reasonKey(f)), f);
+        }
+        assertEquals(null, CompileFlags.reasonKey("-fsomething-new"));
+        assertEquals(null, CompileFlags.reasonOfKey("nothing"));
+    }
+
     @Test
     void noFlagsDeclaresNoDefinitionsAndReadsNoDebuggingLines() {
         var m = CompileFlags.map(List.of(), false);
