@@ -3991,3 +3991,25 @@ taken; closed by a later `decision` entry naming it).
 - **Touched:** `oracle/prove/Report.java`, `Divergences.java`, `Attribute.java`; `rt/katana/rt/Decimal.java`,
   `Events.java`; `test/katana/oracle/prove/ReportTest.java`, `ReportIntegrationTest.java`,
   `AttributionIntegrationTest.java`; `docs/LANES.md`, `docs/checks.json`, `docs/KERNEL-MAP.md`, `TODO.md`.
+
+### J-238 Tithe pass 8A: how a divergence report is made, the phase's words, R-072 held by its code
+- **Who:** Opus, on Ghost's word ("do the 8A.7 tithe, then back to 3.1"). **Class:** tithe (R-008), 8A.7. It changes
+  no behaviour and no golden: the full gate passed with every suite.
+- **Found:**
+  - 8A.7's check was not written.
+  - How a report is made lived only in `ReportIntegrationTest`.
+  - The phase's words (port, divergence, divergence kind, probe, alignment) were in no glossary row.
+  - R-072's "Held by" named only TODO.md and the roadmap.
+  - HANDOFF did not say what 8A waits on.
+- **Resolved:**
+  - 8A.7's check is written in TODO.md before the item.
+  - docs/DIVERGENCES.md says how a report is made, step by step, and what a report never claims.
+  - Five glossary rows.
+  - R-072 is held by `oracle/prove/`, `findings/Divergence`, `rt/Events` and the probe switch, and their tests.
+  - HANDOFF's "Waiting on Ghost" has 8A's two:
+    - opensourcecobol4j's runtime as an approved dependency, so oc4j's CardDemo port can run;
+    - the first report read outside the project, under NDA (R-037).
+
+  The outside reading is 8A.7's own last part; it is Ghost's to arrange.
+- **Touched:** `TODO.md`, `docs/DIVERGENCES.md`, `docs/GLOSSARY.md`, `theGhost.md` (R-072), `docs/HANDOFF.md`,
+  `docs/JOURNAL.md`.

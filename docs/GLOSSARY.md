@@ -27,6 +27,11 @@ have caught a real slip (R-039).
 | **kernel map** | the tool's own append-only function ledger, `docs/KERNEL-MAP.md` | map |
 | **literal** | the pinned Java the lowering emits, a byte-image machine; never shipped | JOBOL (quote only), intermediate, lowered Java |
 | **golden** | a recorded expected output a test holds the code to | baseline, snapshot, reference (use "reference log" only for eval-nist's files) |
+| **port** | a Java program someone else wrote from a COBOL program, which a divergence report holds to it (R-072) | translation, migration, conversion (each names the act, not the program) |
+| **divergence** | a place where a port's output differs from its COBOL's under a fixture; `proven` by a cited input, or `possible` | diff, mismatch, bug |
+| **divergence kind** | one way a port departs from its COBOL, `DV-01` onward, a row of docs/DIVERGENCES.md with its rule, exact Java and wrong shape | pattern, category, trap (the study's word) |
+| **probe** | Katana's literal Java run with one divergence kind's rule broken (LANE-23), to see whether it gives a port's output | mutant (that is the harness's port), simulation |
+| **alignment** | `<PROGRAM>.align`: each COBOL node mapped to the place in a port's Java that does it, `unconfirmed` until a person confirms | mapping (alone), correspondence, trace (that is a run's paragraphs) |
 | **fixture** | a content-addressed job description: steps, DDs with layouts and encodings, environment, stubs, optional mainframe gold | test case, scenario, harness (that is the whole oracle tool) |
 | **lane** | one runner over a fixture: the cobc lane, the java lane, the Hercules lane | side, leg, run |
 | **gate** | the double-run determinism check: the original lane twice, identical, before any oracle | precheck, sanity check |

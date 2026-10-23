@@ -327,8 +327,10 @@ question for the oc4j reference).
 
 ### 8A.7 Tithe pass 8A
 
-Check: none in the roadmap; written here before the item starts. With it, the first report read outside the project
-(8.6's rule), under NDA (R-037): the fix shows the lowering's shape.
+Check: no change of behaviour and no golden changed (P-02): how a divergence report is made written where its kinds
+are (docs/DIVERGENCES.md), the phase's words in the glossary, R-072's "Held by" naming the code that holds it, HANDOFF
+current with what 8A waits on; the first report read outside the project (8.6's rule) under NDA (R-037), since its
+fix shows the lowering's shape, handed to Ghost, whose it is to arrange.
 
 ## Phase 7: scale and the facades, continued
 
