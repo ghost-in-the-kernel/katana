@@ -43,7 +43,8 @@ arises, not before.
 The fast loop always; `scripts/prepush.sh` before a push. A refactor changes no golden (P-02). A
 construct the lowering cannot make exact is a finding, never silent output (P-03). A function that
 holds a decision cites it, `// Decision: R-021`. One commit in eight is a tithe; the gate refuses a push past sixteen since the last (R-008). A finished
-step is merged to `main` at once, after fetching it (R-040).
+step is merged to `main` at once, after fetching it (R-040). Last, before your report: your debrief in
+`docs/NAVIGATION.md`, as `docs/when/handoff.md` says (R-079).
 
 ## Two rules
 

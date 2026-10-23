@@ -14,8 +14,9 @@ the first open item has a check.
 
 ### 3.1 `rt/` core
 
-Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246: the census through the lowering, 53 pass); open: the
+Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246 to J-252: the census through the lowering, 55 pass); open: the
 rest of the runnable autotests through the lowering at scale; can be done now.
+Workpath: `docs/paths/lowering.md` (the census); each Next item names its own when it differs.
 
 Check: the 359 GnuCOBOL autotests, run as unit tests of `rt/` through hand-lowered programs first,
 then through the lowering; each tests one rule, which is why they come first.
@@ -46,7 +47,7 @@ Done:
   now 153 do not parse, 9 fail in the IR or the lowering, 82 stop at run time, 53 pass. J-251: the `>>` directives that
   decide the text (IF family, DEFINE AS literal, `>>D`) are read (R-081): 146 do not parse, 84 stop at run time, 44 differ, 55 pass.
 
-Open: the 329 that do not pass; the 41 FAILs sorted into findings against the testsuite's dialect (D-010) and real
+Open: the 323 that do not pass; the 44 FAILs sorted into findings against the testsuite's dialect (D-010) and real
 differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
@@ -65,6 +66,7 @@ lowering, is also every pass's unit corpus (6.1 to 6.7's "Open"), so it comes be
 ### 3.3 `lower/`
 
 Status: partly built (J-114 to J-139); open: NIST DB205A's ACCEPT defect (J-212); can be done now.
+Workpath: `docs/paths/lowering.md`.
 
 Check: the emitted data map equals the IR's; every statement has its comment; the Java compiles with
 `javac` against `rt/` only.
@@ -92,6 +94,7 @@ Can be done now (R-071): what is left is a defect, not an architecture, NIST DB2
 
 Status: partly built (NIST modules by floors that only rise); open: every module at its full count under both
 profiles; can be done now.
+Workpath: `docs/paths/oracle.md`.
 
 Check: the Java lane reproduces the same PASS/FAIL lines as the 9,610 GnuCOBOL passes, under both
 `-std=cobol85` and `-std=ibm` profiles; the per-module pass count is recorded and held by a test
@@ -110,12 +113,14 @@ reproduces its REPORT"; `rt/Dispatcher` built (J-113), held to cobc -std=ibm by 
 ### 3.5 Findings, second set
 
 Status: open; can be done now.
+Workpath: `docs/paths/front.md`.
 
 Check: every finding class has a program that raises it (Fable, 2026-10-17, J-199).
 
 ### 3.7 Tithe pass 3
 
 Status: open; can be done now.
+Workpath: `docs/paths/process.md`.
 
 Check: tithe pass 3's evaluation, as pass 2's was (Fable, 2026-10-17, J-199).
 
@@ -139,6 +144,7 @@ paragraph-entry trace equal; the ledger has a line per changed symbol; the pass'
 ### 6.1 Pattern structuring
 
 Status: partly built (J-210, J-211); open: its own unit corpus, which waits on 3.1.
+Workpath: `docs/paths/passes.md`.
 
 Check: as above. On the batch programs first: every CardDemo golden byte-identical after the pass, and a
 ledger line per range naming its `Function` fact and its state, `unconfirmed` until a review file a person
@@ -157,6 +163,7 @@ through the lowering (the 20 hand-lowered ones pass structured, none holding a r
 
 Status: partly built (J-212, J-213); open: a main line entered from elsewhere (Ghost's to decide), and its unit
 corpus, which waits on 3.1.
+Workpath: `docs/paths/passes.md`.
 
 Check: as above.
 
@@ -177,6 +184,7 @@ blocked only by entries, theirs or a loop's), or the paragraphs reordered so suc
 ### 6.3 Scalar promotion
 
 Status: partly built (docs/PASSES.md, its row); open: what its body lists, and its unit corpus, which waits on 3.1.
+Workpath: `docs/paths/passes.md`.
 
 Check: as above.
 
@@ -195,6 +203,7 @@ be no number), and a statement with ON OVERFLOW or ON EXCEPTION statements.
 ### 6.4 Exact-arithmetic substitution
 
 Status: partly built (docs/PASSES.md, its row); open: what its body lists, and its unit corpus, which waits on 3.1.
+Workpath: `docs/paths/passes.md`.
 
 Check: as above.
 
@@ -215,6 +224,7 @@ stays step-by-step.
 
 Status: partly built (docs/PASSES.md, its row); open: the closed enum, which can be done now; money in records,
 which waits on 6.7.
+Workpath: `docs/paths/passes.md`.
 
 Check: as above.
 
@@ -230,6 +240,7 @@ money in records waits with 6.7's storage other than the bytes.)
 ### 6.6 Stateless subprograms
 
 Status: partly built (docs/PASSES.md, its row); open: what its body lists, and its unit corpus, which waits on 3.1.
+Workpath: `docs/paths/passes.md`.
 
 Check: as above.
 
@@ -250,6 +261,7 @@ CardDemo's stores, and Ghost built the PICTURE rule alone.
 
 Status: partly built (J-223, J-224); open: views over REDEFINES, which can be done now; storage other than the
 bytes, which waits on a proof.
+Workpath: `docs/paths/passes.md`.
 
 Check: as above.
 
@@ -267,6 +279,7 @@ reaches a record's bytes but its class (no item builds that yet: Ghost's to plac
 ### 6.8 Refactoring distance, per pass and cumulative
 
 Status: open; after 3.1 (R-071).
+Workpath: `docs/paths/passes.md`.
 
 Check: as above.
 
@@ -276,6 +289,7 @@ every pass is measured against, is this item's first column; nothing measured it
 ### 6.9 Tithe pass 6
 
 Status: open; after 6.8.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
@@ -296,6 +310,7 @@ not the process), and the EVALUATE decision that sends CardDemo's online program
 ### 7.1 CNAF CGMX02
 
 Status: partly built; open: what its body lists.
+Workpath: `docs/paths/oracle.md`.
 
 Check: parses with no error nodes; data map built; Java compiles; time and memory recorded.
 
@@ -314,6 +329,7 @@ report time (R-004). Advice: docs/research/reviews/2026-10-22-divergence-report-
 ### 8A.1 The DD adapter and refusal
 
 Status: built ahead (J-229); open: a real port, which waits on Ghost (oc4j's runtime, a dependency).
+Workpath: `docs/paths/divergence.md`.
 
 Check: `katana prove --java <cmd>` runs a foreign command as the java lane's program step; one oc4j CardDemo program
 (`lower/prototypes/oc4j-carddemo-reference/`, run as a process only, never shipped) or a hand-written port of COPYREC
@@ -328,6 +344,7 @@ reference waits on its runtime, a dependency for Ghost to approve. Left for this
 ### 8A.2 The trap catalogue as data
 
 Status: built ahead (J-230).
+Workpath: `docs/paths/divergence.md`.
 
 Check: divergence kinds `DV-01` onward, from `docs/research/semantic_traps.md`, each with IBM's text, the COBOL rule,
 the wrong Java shape, Katana's exact Java and a generator, held by a doc test; every kind's generator gives a COBOL
@@ -342,6 +359,7 @@ kinds (sign, MOVE padding and alignment, collation, PERFORM fall-through, file s
 ### 8A.3 Boundary inputs from the IR
 
 Status: built ahead (J-233); open: what its body lists.
+Workpath: `docs/paths/divergence.md`.
 
 Check: for each statement, inputs crossing its receivers' boundaries, written as a fixture under the program's
 copybooks; on CardDemo the generated fixture enters every paragraph the sample data does, and drives at least one SIZE
@@ -357,6 +375,7 @@ statement, not paragraph.
 ### 8A.4 The alignment file
 
 Status: built ahead (J-234); open: what its body lists.
+Workpath: `docs/paths/divergence.md`.
 
 Check: `<PROGRAM>.align` maps a COBOL node, by the program's own names (R-064), to a Java symbol or line range,
 inferred where a name or literal matches and `unconfirmed` until a person confirms; its coverage on the oc4j
@@ -370,6 +389,7 @@ a person's to write. Every line `unconfirmed`; a line naming no node of the IR i
 ### 8A.5 Attribution
 
 Status: built ahead (J-236); open: what its body lists.
+Workpath: `docs/paths/divergence.md`.
 
 Check: for each differing field, the catalogue kinds whose probe reproduces it, ranked, "unattributed" when none
 does; a mutation harness takes Katana's literal Java, breaks one rule per kind (truncation dropped, a store HALF_UP,
@@ -383,6 +403,7 @@ ACCRUE's hand-written HALF_UP port attributed to DV-02, 4 of 4.
 ### 8A.6 The report
 
 Status: built ahead (J-237); open: what its body lists.
+Workpath: `docs/paths/divergence.md`.
 
 Check: per divergence: `proven` with the fixture record by hash or `possible`, the COBOL statement and origin, the
 aligned Java or "unaligned", the cause kind and its text, the paragraphs entered up to the statement on that record,
@@ -399,6 +420,7 @@ question for the oc4j reference).
 ### 8A.7 Tithe pass 8A
 
 Status: built ahead (J-238); open: what 8A waits on, which is Ghost's.
+Workpath: `docs/paths/divergence.md`.
 
 Check: no change of behaviour and no golden changed (P-02): how a divergence report is made written where its kinds
 are (docs/DIVERGENCES.md), the phase's words in the glossary, R-072's "Held by" naming the code that holds it, HANDOFF
@@ -410,6 +432,7 @@ fix shows the lowering's shape, handed to Ghost, whose it is to arrange.
 ### 7.2 CICS facade
 
 Status: waits on Ghost (HANDOFF).
+Workpath: `docs/paths/lowering.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
@@ -421,24 +444,28 @@ unneeded; either way it waits on Ghost (HANDOFF).
 ### 7.3 DB2 facade
 
 Status: open.
+Workpath: `docs/paths/lowering.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 7.4 JCL beyond CardDemo
 
 Status: open.
+Workpath: `docs/paths/oracle.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 7.5 The Hercules lane
 
 Status: open.
+Workpath: `docs/paths/oracle.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 7.6 Tithe pass 7
 
 Status: open.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
@@ -447,30 +474,35 @@ Check: none in the roadmap; written here before the item starts.
 ### 8.1 CLI
 
 Status: open.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 8.2 The proof report, shipped
 
 Status: open.
+Workpath: `docs/paths/oracle.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 8.3 The provenance map, shipped
 
 Status: open.
+Workpath: `docs/paths/passes.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 8.4 `pack`
 
 Status: open.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 8.6 Tithe pass 8
 
 Status: open.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
@@ -479,35 +511,41 @@ Check: none in the roadmap; written here before the item starts.
 ### 9.0 The provisional patent application is on file
 
 Status: open.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 9.1 Publish the NIST and CardDemo results
 
 Status: open.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 9.2 The regulatory translation
 
 Status: open.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 9.3 Approach the hyperscalers and IBM
 
 Status: open.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 9.4 The first paying shop names its JCL and DFSORT subset
 
 Status: open.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 9.5 A customer's z/OS output reconciles the lanes
 
 Status: open.
+Workpath: `docs/paths/process.md`.
 
 Check: none in the roadmap; written here before the item starts.
