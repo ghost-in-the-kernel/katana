@@ -1698,7 +1698,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   would be coincidence (P-03). `-strict` holds to the dialect's reserved words and refuses GnuCOBOL's extensions, the
   nearer to Katana's IBM grammar; a program that compiles strict compiles plain. `mvs` is OS/VS COBOL, not Enterprise
   COBOL 6.
-- **Held by:** `oracle/autotest/CompileFlags.java`, `test/katana/rt/autotest/lowered.golden` (once built: TODO 3.1).
+- **Held by:** `oracle/autotest/CompileFlags.java` (`map`, `reason`), `test/katana/oracle/autotest/CompileFlagsTest.java`, `test/katana/rt/autotest/lowered.golden` (J-259).
 - **Source:** Fable (J-257), on the census agent's proposal (J-256); taken by Ghost, 2026-10-23: "go with fable on the
   three proposals".
 - **Status:** in force
@@ -1714,7 +1714,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   `-D X`, which R-045 amended allows) or by IBM's DEFINE option in the Programming Guide (R-082).
 - **Why:** the value `""`, as first built, made `NAME = ""` silently true and `NAME = 1` silently false; either wrong
   branch is silent output (P-03). The cases that use a valueless `-D` ask only DEFINED, so the census is unchanged.
-- **Held by:** `test/katana/front/DirectivesTest.java` (the three errors, once built: TODO 3.1).
+- **Held by:** `front/Directives.java` (`valueless`), `test/katana/front/DirectivesTest.java` (the three errors; J-259).
 - **Source:** Fable (J-257); taken by Ghost, 2026-10-23.
 - **Status:** in force
 - **See also:** R-081
@@ -1731,7 +1731,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Why:** Enterprise COBOL's reference format is fixed (columns 1-6, 7, A and B to 72); free form is Micro Focus's
   and the 2002 standard's, the same class as `-std=mf`. Fable's recollection, unconfirmed until the manuals are here
   (R-082).
-- **Held by:** TODO 3.1 (the reason in the golden, once built).
+- **Held by:** `oracle/autotest/CompileFlags.java` (`reason`), `test/katana/rt/autotest/lowered.golden` (the reason on each `-free` case; J-259).
 - **Source:** Fable (J-257); taken by Ghost, 2026-10-23.
 - **Status:** in force
 - **See also:** R-081, R-082, R-083

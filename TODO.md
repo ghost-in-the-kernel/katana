@@ -14,7 +14,7 @@ the first open item has a check.
 
 ### 3.1 `rt/` core
 
-Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246 to J-256: the census through the lowering, 44 pass under their own flags, 15 more without a flag it does not map); open: the
+Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246 to J-256: the census through the lowering, J-259: 45 pass under their own flags, 14 more without a flag it does not map); open: the
 rest of the runnable autotests through the lowering at scale; can be done now.
 Workpath: `docs/paths/lowering.md` (the census); each Next item names its own when it differs.
 
@@ -54,8 +54,8 @@ Done:
   a flag not yet mapped, 3 cases that failed pass under their `-D`). Ghost's ruling on the floor: a case with an unmapped flag is still
   run without it; if it passes it ends at `FLAGPASS` (passes without its flag), else at `FLAG`. So of the 378: 36 no
   `prog.cob`, 72 FLAG, 15 FLAGPASS, 99 do not parse, 7 fail in the IR or the lowering, 3 fail javac, 72 stop at run time, 30
-  differ, 44 PASS. PASS and FLAGPASS each have a floor in `test/katana/rt/autotest/floors.txt` (44 and 15), raised by hand; a
-  re-record that lowers either fails the census. `ExtensionsTest` holds that no fixture or proof path
+  differ, 44 PASS. Two floors in `test/katana/rt/autotest/floors.txt`, both only rising, raised by hand: PASS, and PASS and FLAGPASS together (J-259; first 44 and 15
+  each, then 45 and 59 once R-083 moved a case up); a re-record that lowers either fails the census before it writes the golden. `ExtensionsTest` holds that no fixture or proof path
   sets `Settings.extensions` (R-081 amended).
 
 Open: the 323 that do not pass; the 44 FAILs sorted into findings against the testsuite's dialect (D-010) and real
@@ -65,10 +65,10 @@ is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census t
 Next, first (J-256): the 87 that end at `FLAG` or `FLAGPASS`, by the flag (`-std=` 17, `-fnotrunc` and `-fno-trunc` 14, `-free` 6 with
 `--free`, `-fprof` 5, `-fsystem-name`, `-fodoslide`, `-fcallfh` 4 each, ...): each flag is mapped when Katana's profile
 already means it, a front-end or lowering change when it asks for one, or left a `FLAG` with its reason. A flag is
-never mapped to nothing to turn a `FLAG` into a pass. First, the three Ghost decided (J-257): `-std=ibm` and
+never mapped to nothing to turn a `FLAG` into a pass. Built (J-259): the three Ghost decided (J-257): `-std=ibm` and
 `-std=ibm-strict` mapped, run as is (R-083); a valueless `-D NAME` defined with its value unknown, a value compared
 or redefined an error naming the flag, `Settings` carrying the marker (R-084); `-free` left a `FLAG` or `FLAGPASS`,
-"a source format the dialect does not have" (R-085). Then the reasons for every flag left, in the golden.
+"a source format the dialect does not have" (R-085). The census is now 70 FLAG, 14 FLAGPASS, 100 do not parse, 4 javac, 45 PASS (`run_fundamental-4746` moved up from FLAGPASS). Next: the reasons for every flag left, in the golden (`-std=` and `-free` have theirs).
 Then, by count (J-248, J-249, J-251): the 99 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
 `SOURCE FORMAT`, `TURN`: 6, each an error by R-081; `$SET` out of column 7: 1),
 `MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower
