@@ -39,15 +39,21 @@ Done:
 - By hand (J-110, J-112): `AutotestRtIntegrationTest`, golden `test/katana/rt/autotest/results.golden`; 24 of 378,
   19 passing the testsuite, all equal to cobc -std=ibm or a finding.
 - Through the lowering, a census (J-246, research §54): `AutotestsLoweredIntegrationTest`, golden `lowered.golden`
-  (a floor on PASS that only rises). Of 378: 36 have no `prog.cob`, 162 do not parse, 6 fail in the IR or the
-  lowering, 9 fail javac, 75 stop at run time on a construct the lowering names, 41 differ from the testsuite's
-  stdout, 49 pass.
+  (a floor on PASS that only rises). Of 378: 36 have no `prog.cob`, 162 do not parse (each with its first error,
+  J-248), 6 fail in the IR or the lowering, 4 fail javac, 80 stop at run time on a construct the lowering names, 41
+  differ from the testsuite's stdout, 49 pass. J-248: a nested program names its container by the class it is
+  written in (5 cases compiled).
 
 Open: the 329 that do not pass; the 41 FAILs sorted into findings against the testsuite's dialect (D-010) and real
 differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
-Next: a reason per NOPARSE case and the causes by count, then the 9 javac failures, then the largest cause.
+Next, by count (J-248): the 162 that do not parse, whose largest causes are a copybook not found (13: the case's own
+directory is not on the copybook path the census gives the parser), `>>SOURCE` and other `>>` directives (13+2),
+`MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower
+case or after a different header (5); the 4 javac failures (3 call `bind1`..`bind3` for a USING the class does not
+declare; 1 calls `.value()` on `Unsupported.fail`); the CALL of a nested program that the run unit cannot find
+(4 cases: `CALL prog2` from inside `PROG`).
 3.2, next in number, is met by 3.4's runs and folded there, R-071.
 
 Can be done now (R-071): the lowering it needs is live. Its check at scale, the runnable autotests through the
