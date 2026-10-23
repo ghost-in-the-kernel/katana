@@ -37,3 +37,14 @@ An entry: `### N-<n> <date>, <task> (<commits>)`, then the lines `- **Complaints
   does then, so I stopped. (4) The fast loop does not run the census, so a floor breach shows only in `gradle integration`.
 - **Suggestions:** state in TODO 3.1 or `lowering.md` what a legitimate move between the two floored stages does (a floor on
   PASS + FLAGPASS together would not need lowering); have the census check floors before writing the golden.
+
+### N-008 2026-10-23, 3.1 R-083 to R-085 under the new floors (this commit)
+- **Complaints:** (1) CLAUDE.md's "When" lines, `process.md` and the handoff file led straight to the work; N-007's two
+  suggestions (what a floor does on a move up; floors before the golden) were exactly the task, which worked. (2) The
+  Docker daemon was down with a stale `/var/run/docker.pid`; `process.md` says how to restart it, which was enough, but
+  nothing in CLAUDE.md says the daemon may need it. (3) The census (21 s) needs `corpus/gnucobol-autotests/cases` already
+  written; here they were. (4) A floor named in four places (census javadoc, TODO 3.1, `lowering.md`, `checks.json`) and
+  the "Held by" lines said "once built"; I found them by grepping "floor". (5) The golden's file mixes with a rule that it
+  changes in its own commit (`oracle.md`), while a census-test change and its golden cannot be separated by a green state.
+- **Suggestions:** one place for the floors' rule (`lowering.md`'s census row) and the others point to it; say in
+  `oracle.md` whether a golden's own commit may follow a test change that leaves it red for one commit.

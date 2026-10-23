@@ -102,6 +102,27 @@ class DirectivesTest {
         assertEquals(List.of(), Directives.apply(text, "", Settings.declared(Map.of("A", "2"), false)).errors());
     }
 
+    /** R-084: a valueless -D defines the name with its value unknown; DEFINED reads it, a value comparison or a >>DEFINE AS on it is an error naming the flag. */
+    @Test
+    void aNameDefinedWithNoValueIsDefinedAndItsValueIsUnknown() {
+        Settings job = Settings.declared(Map.of("X", Settings.UNKNOWN), false);
+        String defined = program(">>IF X DEFINED", "DISPLAY 'Y'.", ">>ELSE", "DISPLAY 'N'.", ">>END-IF", "STOP RUN.");
+        Directives.Result r = Directives.apply(defined, "", job);
+        assertEquals(List.of(), r.errors());
+        assertTrue(r.text().contains("'Y'") && !r.text().contains("'N'"));
+        String notDefined = program(">>IF X NOT DEFINED", "DISPLAY 'Y'.", ">>END-IF", "STOP RUN.");
+        assertFalse(Directives.apply(notDefined, "", job).text().contains("'Y'"));
+        for (String text : List.of(program(">>IF X = 1", ">>END-IF", "STOP RUN."), program(">>IF X = \"\"", ">>END-IF", "STOP RUN."),
+                program(">>IF X <> 1", ">>END-IF", "STOP RUN."), program(">>DEFINE X AS 1", "STOP RUN."))) {
+            Directives.Result e = Directives.apply(text, "", job);
+            assertEquals(text, e.text());
+            assertTrue(e.errors().get(0).contains("-DX gives no value; which one cobc gives is not confirmed"), e.errors().toString());
+            assertFalse(Parse.text(text, "", NONE, job).clean());
+        }
+        // A name given the value "" is a value: it is not the marker.
+        assertEquals(List.of(), Directives.apply(program(">>IF X = \"\"", ">>END-IF", "STOP RUN."), "", Settings.declared(Map.of("X", ""), false)).errors());
+    }
+
     @Test
     void elifAndDebuggingDirectivesAreReadOnlyWhereTheDialectAllowsThem() {
         Settings ibm = Settings.declared(Map.of(), false);
