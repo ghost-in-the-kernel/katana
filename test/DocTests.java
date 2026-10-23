@@ -84,4 +84,9 @@ class DocTests {
     void metrics() {
         assertEquals(List.of(), MetricsTest.run().problems());
     }
+
+    @Test
+    void escalations() {
+        assertEquals(List.of(), EscalationsTest.run().problems());
+    }
 }

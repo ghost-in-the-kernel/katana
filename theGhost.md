@@ -1484,6 +1484,64 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** process
 ---
 
+### R-074: CLAUDE.md is a pointer file; a routing row goes in the instructions file its workpath points to
+- **Decision:** CLAUDE.md names each general workpath (process, the oracle, the front end and the IR, the runtime
+  and the lowering, intent and the passes, the divergence report) and points to its instructions file under
+  `docs/paths/`. Each file carries that path's instructions and its routing rows. A new row is added to the file
+  its workpath points to, never to CLAUDE.md; a new workpath is the only reason CLAUDE.md's table grows.
+- **Why:** CLAUDE.md is read by every agent before any work; rows for every area made it long, near AGT-03's word
+  limit, and an agent read rows for areas it would not touch. A pointer keeps the mandatory context small and the
+  path's own instructions next to its rows.
+- **Held by:** `test/DocsTest.java` (every workpath CLAUDE.md names exists and every file in `docs/paths/` is
+  named; every path any of them names exists); `scripts/Metrics.java` reads the rows from the path files.
+- **Source:** Ghost, 2026-10-23: "Lets start thinking about the instructions for agents as pointers. If we need
+  more rows added, we dont add to the pointer file, we add to the instructions files that specific action points
+  to." and "the pointer file should include instructions for each general workpath."
+- **Status:** in force
+- **See also:** R-073, R-075
+- **subject:** process
+---
+
+### R-075: An escalation replays the instructions; a gap three times of one kind goes to Ghost
+- **Decision:** When a Sonnet agent escalates to Opus (R-073), the Opus agent first asks it to replay the
+  instructions it followed: its workpath, the files it was routed to, the rules it read. The Sonnet agent replays
+  them briefly if it can, and says so if it cannot remember; that is fine, and it spends little time on it. The
+  Opus agent checks the replay against what the task needed at its start, and logs the escalation in
+  `docs/ESCALATIONS.md`: what was escalated, whether the replay was given, and the gap found, by kind (a missing
+  row, a missing instruction, an instruction not read, an instruction wrong, no replay, none). When three
+  escalations log the same gap kind (other than `none`), the third raises it to Ghost in `docs/HANDOFF.md`
+  ("Waiting on Ghost") for review and a pass that updates the routing.
+- **Why:** an escalation is evidence of where the routing failed an agent. Logged by kind, a pattern shows the
+  instruction to fix rather than the one agent that missed it; three of a kind is a pattern, not chance.
+- **Held by:** `test/EscalationsTest.java` (the log's form; a kind logged three times or more is raised in
+  HANDOFF.md); CLAUDE.md, "Escalation, for a Sonnet agent".
+- **Source:** Ghost, 2026-10-23: "every time an agent comes up to query for an opus agent to assist it, the Opus
+  agent should ask the sonnet agent to replay the instructions it followed. If the sonnet agent is able to replay
+  its steps, it should, and the opus agent should validate necessary instructions got to the sonnet agent at the
+  time of task start. If the sonnet agent cannot remember, that is fine. The sonnet agent should not devote an
+  overly large amount of time to this. However, the issue should be logged. if three issues of the same type
+  occur, then the issue should be raised to the human for review, and for a potential pass with route updating.
+  This is a ghost level directive."
+- **Status:** in force
+- **See also:** R-073, R-074
+- **subject:** process
+---
+
+### R-076: A long run's output goes to a file; an agent reads its verdict and its failures
+- **Decision:** A run whose output is long (the gate, `scripts/prepush.sh`; `gradle integration`) writes it to a
+  file under `build/`, and the agent, or a sub-agent it runs, reads only the verdict line and the failures. A
+  sub-agent reports those lines, not the log.
+- **Why:** a long log read whole fills an agent's context with lines that say nothing, and the verdict is easy to
+  lose in it.
+- **Held by:** `docs/paths/process.md` (its instructions); CLAUDE.md's commands.
+- **Source:** Ghost, 2026-10-23: "npm run check and especially npm run mutate (Stryker, up to an hour) produce long
+  output. Have sub-agents send that to a file and read only the summary or failures." (said of Suite Builder's
+  commands; Katana's long runs are the gate and the integration suites.)
+- **Status:** in force
+- **See also:** R-074
+- **subject:** process
+---
+
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
 the attribute tuple; R-028 coverage in every proof; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual

@@ -28,12 +28,50 @@ final class DocsTest {
         Set<String> open = openSteps(Check.read("TODO.md"));
         Map<String, Integer> phases = modulePhases(Check.read("docs/modules.json"));
         return new Check("docs")
-                .repository(check(Check.read("CLAUDE.md"), open, phases, Check::exists))
+                .repository(routing(open, phases))
+                .rejects("a workpath file CLAUDE.md does not name", () -> pointers("| A | `docs/paths/a.md` |", List.of("docs/paths/a.md", "docs/paths/b.md")))
+                .rejects("a task row in CLAUDE.md", () -> pointers("| A | `docs/paths/a.md` |\n| B | `x/Y.java` | R-001 | `test/Y.java` |", List.of("docs/paths/a.md")))
+                .accepts("every workpath named, and only workpaths", () -> pointers("| A | `docs/paths/a.md` |", List.of("docs/paths/a.md")))
                 .rejects("a path that does not exist", () -> check("Read `docs/NOWHERE.md`.", open, phases, Check::exists))
                 .rejects("a path whose phase is done", () -> check("`x/types` (phase 2)", Set.of("3.1"), Map.of(), p -> false))
                 .accepts("a path whose phase is open", () -> check("`x/types`\nand (phase 2)", Set.of("2.4"), Map.of(), p -> false))
                 .rejects("a module whose phase is done", () -> check("`sir/`", Set.of("3.1"), Map.of("sir", 2), p -> false))
                 .accepts("a module whose phase is open", () -> check("`sir/`", Set.of("2.4"), Map.of("sir", 2), p -> false));
+    }
+
+    /** CLAUDE.md and every workpath file (R-074): the pointers hold, and every path any of them names exists. */
+    static List<String> routing(Set<String> open, Map<String, Integer> phases) {
+        List<String> files = paths();
+        List<String> failures = new ArrayList<>(pointers(Check.read("CLAUDE.md"), files));
+        failures.addAll(check(Check.read("CLAUDE.md"), open, phases, Check::exists));
+        for (String f : files) check(Check.read(f), open, phases, Check::exists).forEach(x -> failures.add(f + " " + x));
+        return failures;
+    }
+
+    /** The workpath files, `docs/paths/*.md`. */
+    static List<String> paths() {
+        try (var s = java.nio.file.Files.list(Check.ROOT.resolve("docs/paths"))) {
+            return s.map(p -> "docs/paths/" + p.getFileName()).filter(p -> p.endsWith(".md")).sorted().toList();
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * R-074: CLAUDE.md's table rows each point to one workpath file and nothing else (a task row belongs in the
+     * file), and every workpath file is pointed to.
+     */
+    static List<String> pointers(String claude, List<String> files) {
+        List<String> failures = new ArrayList<>();
+        Set<String> named = new TreeSet<>();
+        for (String line : claude.split("\n")) {
+            if (!line.startsWith("| ") || line.startsWith("| ---") || line.startsWith("| Workpath")) continue;
+            Matcher code = Pattern.compile("`(docs/paths/[^`]+)`").matcher(line);
+            if (code.find() && line.split("\\|").length == 3) named.add(code.group(1));
+            else failures.add("CLAUDE.md has a row that is not a workpath's pointer; it belongs in a docs/paths/ file (R-074): " + line);
+        }
+        for (String f : files) if (!named.contains(f)) failures.add(f + " is a workpath file CLAUDE.md does not point to (R-074)");
+        return failures;
     }
 
     /** What a document gets wrong: a code path it names that does not exist, unless a planned step or module says it will. */

@@ -45,7 +45,9 @@ final class Metrics {
         metrics.put("Pre-push check, every suite (min)", "timed by scripts/prepush.sh --all");
         metrics.put("Largest source file (lines)", largest(java));
         metrics.put("Longest line (characters)", longestLine(java));
-        metrics.put("Files a routing row opens", routing(Repo.read("CLAUDE.md")));
+        StringBuilder rows = new StringBuilder();
+        for (var f : Repo.files(".md").entrySet()) if (f.getKey().startsWith("docs/paths/")) rows.append(f.getValue()).append('\n');
+        metrics.put("Files a routing row opens", routing(rows.toString()));
         metrics.put("Functions over 20 paths", String.valueOf(functions.stream().filter(f -> f.paths() > 20).count()));
         metrics.put("Duplicate helpers (same body, two names)", String.valueOf(duplicates(functions)));
         metrics.put("Decisions without `See also`", withoutSeeAlso(Repo.read("theGhost.md")));
@@ -82,7 +84,7 @@ final class Metrics {
         return most + " (" + where + "); " + over + " lines over 200";
     }
 
-    /** The most paths a row of CLAUDE.md's routing table names under "Start here". */
+    /** The most paths a routing row names under "Start here", over the workpath files CLAUDE.md points to (R-074). */
     static String routing(String claude) {
         int most = 0;
         String which = "";

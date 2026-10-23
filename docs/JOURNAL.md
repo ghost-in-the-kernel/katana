@@ -4085,3 +4085,26 @@ taken; closed by a later `decision` entry naming it).
     LoweredAutotestsIntegrationTest keep their own, which compile against `rt/` alone.
 - **Touched:** `passes/Passes.java`, `passes/Structuring.java`, `passes/StructuringLedger.java`, `lower/Plan.java`,
   `test/katana/support/Javac.java`, eleven tests, `docs/PASSES.md`, `docs/KERNEL-MAP.md`, `docs/JOURNAL.md`.
+
+### J-243 Super tithe, part 4a: CLAUDE.md a pointer file; the escalation replay and its log; long runs to a file
+- **Who:** Opus, on Ghost's word (R-074, R-075, R-076; item 15 of the Fable advisor's plan). **Class:** tithe
+  (R-008): it changes no behaviour and no golden.
+- **Found:** CLAUDE.md carried 24 task rows for every area, 1,280 words of the 1,500 AGT-03 allows; every agent
+  read all of them, and a new row could only make it longer.
+- **Resolved:**
+  - CLAUDE.md names six workpaths and points to each one's file in `docs/paths/`: process, the oracle, the front
+    end and the IR, the runtime and the lowering, intent and the passes, the divergence report. Each file has
+    the path's instructions and its rows; the rows moved there, with two added (the CardDemo lanes' test support,
+    a test that lowers a small program) and the routing and escalation rows. CLAUDE.md is 861 words.
+  - `test/DocsTest.java` holds the pointers: each CLAUDE.md row points to one workpath file, and every file is
+    pointed to; every path in any of them exists. `scripts/Metrics.java` counts a row's files over the path files.
+  - CLAUDE.md's escalation section has R-075's replay: the Opus agent asks for it, checks it, and logs the
+    escalation by gap kind in `docs/ESCALATIONS.md`; `test/EscalationsTest.java` holds the log's form and raises
+    a kind logged three times to "Waiting on Ghost".
+  - R-076: a long run writes to a file and an agent reads its verdict and failures. Ghost said it of Suite
+    Builder's `npm run check` and `npm run mutate`; this repository's long runs are the gate and the integration
+    suites. The gate's verdict line is `pre-push check: passed` or `pre-push check: FAILED`, so a grep reads
+    `pre-push check:`, never one case of it.
+- **Touched:** `CLAUDE.md`, `docs/paths/` (six files), `theGhost.md` (R-074, R-075, R-076), `docs/ESCALATIONS.md`,
+  `test/EscalationsTest.java`, `test/DocTests.java`, `test/DocsTest.java`, `scripts/Metrics.java`,
+  `docs/JOURNAL.md`.
