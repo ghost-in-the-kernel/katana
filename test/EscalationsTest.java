@@ -6,10 +6,12 @@ import java.util.TreeMap;
 
 /**
  * Holds docs/ESCALATIONS.md (R-075): every row has a date, a replay (`yes` or `no`) and a known gap kind, and a kind
- * other than `none` logged three times or more is raised to Ghost under "Waiting on Ghost" in docs/HANDOFF.md.
+ * other than `none` logged three times or more, or a `conflict` once (R-077), is raised to Ghost under "Waiting on Ghost" in docs/HANDOFF.md.
  */
 final class EscalationsTest {
-    static final Set<String> KINDS = Set.of("missing-row", "missing-instruction", "not-read", "wrong-instruction", "no-replay", "none");
+    static final Set<String> KINDS = Set.of("missing-row", "missing-instruction", "not-read", "wrong-instruction", "no-replay", "none", "conflict");
+    /** R-077: a conflict between agents goes to Ghost at its first row. */
+    private static final int RAISE_CONFLICT = 1;
     private static final int RAISE = 3;
 
     public static void main(String[] args) {
@@ -26,6 +28,8 @@ final class EscalationsTest {
                 .rejects("a replay neither yes nor no", () -> check(log + row.replace("| no |", "| maybe |"), ""))
                 .rejects("a kind three times, not raised", () -> check(log + row + row + row, "## Waiting on Ghost\n\n## Waiting on a run\n"))
                 .accepts("a kind three times, raised", () -> check(log + row + row + row, waiting))
+                .rejects("one conflict, not raised", () -> check(log + row.replace("| no-replay |", "| conflict |"), "## Waiting on Ghost\n\n## Waiting on a run\n"))
+                .accepts("one conflict, raised", () -> check(log + row.replace("| no-replay |", "| conflict |"), "## Waiting on Ghost\n\n- Escalations, conflict: two tasks.\n\n## Waiting on a run\n"))
                 .accepts("`none` three times", () -> check(log + (row + row + row).replace("| no-replay |", "| none |"), ""));
     }
 
@@ -48,8 +52,9 @@ final class EscalationsTest {
         }
         String waiting = waiting(handoff);
         counts.forEach((kind, n) -> {
-            if (!kind.equals("none") && n >= RAISE && !waiting.contains("Escalations, " + kind + ":"))
-                failures.add("gap kind " + kind + " is logged " + n + " times and not raised under \"Waiting on Ghost\" in docs/HANDOFF.md (R-075)");
+            int raise = kind.equals("conflict") ? RAISE_CONFLICT : RAISE;
+            if (!kind.equals("none") && n >= raise && !waiting.contains("Escalations, " + kind + ":"))
+                failures.add("gap kind " + kind + " is logged " + n + " times and not raised under \"Waiting on Ghost\" in docs/HANDOFF.md (" + (raise == 1 ? "R-077" : "R-075") + ")");
         });
         return failures;
     }

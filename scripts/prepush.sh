@@ -68,10 +68,26 @@ PROPS=""
 case " $suites " in *" nist "*) ;; *" quick "*) PROPS="-Dkatana.nist.modules=NC,IF" ;; esac
 docker run --rm --network none -u "$(id -u)" -v "$ROOT":/katana -w /katana katana java scripts/TitheGate.java /katana
 echo "suites:${suites:- none (the fast loop and the doc tests only)}$why"
+# One gate at a time (R-077): another gate's clone is never removed while that gate runs. The lock holds the
+# running gate's PID; a gate waits while a live one holds it, and takes it over only from a dead one.
+LOCK=/tmp/claude-0/prepush.lock
+mkdir -p /tmp/claude-0
+while [ -f "$LOCK" ] && kill -0 "$(cat "$LOCK" 2>/dev/null)" 2>/dev/null; do
+  echo "another gate is running (pid $(cat "$LOCK")): waiting; it is never stopped (R-077)"; sleep 30
+done
+echo $$ > "$LOCK"
+trap 'rm -f "$LOCK"' EXIT
 # A passing gate removes its clone; a failing one keeps it to be read, until the next gate removes it
-# here (J-179: kept clones and test folders filled the disk). Two gates are never run at once.
-for old in /tmp/claude-0/prepush.*; do [ -d "$old" ] && echo "removing an earlier gate's clone: $old" && rm -rf "$old"; done
+# here (J-179: kept clones and test folders filled the disk). Under the lock, every clone left is a
+# finished gate's: its owner, written in it, is dead.
+for old in /tmp/claude-0/prepush.*; do
+  [ -d "$old" ] || continue
+  owner=$(cat "$old/owner" 2>/dev/null || echo)
+  if [ -n "$owner" ] && kill -0 "$owner" 2>/dev/null; then echo "keeping $old: its gate (pid $owner) is alive"; continue; fi
+  echo "removing an earlier gate's clone: $old" && rm -rf "$old"
+done
 WORK=$(mktemp -d /tmp/claude-0/prepush.XXXXXX)
+echo $$ > "$WORK/owner"
 start=$(date +%s)
 git clone -q "$ROOT" "$WORK/katana"
 for c in nist-cobol85-test-suite carddemo omp-cobol-course gnucobol-autotests; do cp -al "$ROOT/corpus/$c" "$WORK/katana/corpus/$c"; done

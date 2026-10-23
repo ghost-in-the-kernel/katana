@@ -1544,6 +1544,30 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** process
 ---
 
+### R-077: A conflict between agents stops the work and goes to Ghost at once; an agent never touches what it did not start
+- **Decision:** When another agent's work breaks an agent's own, contradicts its task, or keeps changing what it
+  just changed, the agent stops. It writes down both objectives as it understands them, plainly and without
+  guessing at intent, logs a `conflict` row in `docs/ESCALATIONS.md`, and raises it to Ghost under "Waiting on
+  Ghost" in `docs/HANDOFF.md` at once, not after three (R-075's count does not apply). It assumes a conflict of
+  objectives, never sabotage. It never touches what it did not start: it never kills or stops a process another
+  agent or a person started; it never reverts, force-pushes over or rewrites another agent's commit; it never
+  edits the escalation log or the decision record to get around a conflict.
+- **Why:** a trial Ghost read of (a LinkedIn post, 2026-10-23): three agents with conflicting objectives
+  overwrote each other's work, and some ran process-kill scripts against each other, each assuming the others
+  were sabotaging it; none told the human, who could have revised the objectives. Here the same could happen:
+  the gate removed every earlier gate's clone, running or not; restarting Docker removes a daemon's PID file;
+  two projects' agents share one container (J-245).
+- **Held by:** `test/EscalationsTest.java` (a `conflict` row not raised to Ghost fails); `scripts/prepush.sh`
+  (a lock: one gate at a time, and a clone removed only when its gate is dead); `docs/paths/process.md` (Docker
+  restarted only when no daemon runs); CLAUDE.md, "Conflicts between agents".
+- **Source:** Ghost, 2026-10-23, sharing a rule another project's agent proposed: "A conflict stops the work and
+  goes to you at once, not after three. ... Assume a conflict of objectives, never sabotage. ... Never touch
+  what you didn't start". Katana has no `docs/FOR-GHOST.md`; HANDOFF.md's "Waiting on Ghost" is its place.
+- **Status:** in force
+- **See also:** R-073, R-075, R-076
+- **subject:** process
+---
+
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
 the attribute tuple; R-028 coverage in every proof; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual

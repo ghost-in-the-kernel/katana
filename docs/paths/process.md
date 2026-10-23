@@ -17,6 +17,10 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
   `gradle journalIndex` (`docs/journal/INDEX.md`, after an entry), `gradle researchIndex`
   (`docs/research/INDEX.md`, after a research section). A test fails when one is stale.
 - `gradle metrics` warns early: a function at 16 to 20 paths, a file at 351 to 400 lines.
+- Docker, when it stops answering (R-077): restart the daemon only when none runs. `pgrep -x dockerd` finds
+  none: `rm -f /var/run/docker.pid`, then start `dockerd` in the background. One runs and does not answer: it
+  may be another agent's; do not kill it, and say so.
+- Never touch what you did not start (R-077): a conflict with another agent stops the work and goes to Ghost.
 - A function added: `gradle kernelMap`. A function moved or removed: a closing row in `docs/KERNEL-MAP.md`
   (`superseded-by:` or `removed:`).
 
@@ -31,6 +35,6 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
 | Why a rule is what it is (when it seems arbitrary) | `docs/GHOST-IN-THE-KERNEL.md` | | |
 | The agent's environment: metrics, the kernel map | `docs/AGENT.md`, `docs/KERNEL-MAP.md`, `scripts/Metrics.java`, `scripts/KernelMap.java` | `docs/ROADMAP.md` §4.3, §5 | `test/MetricsTest.java`, `test/KernelMapTest.java` |
 | The routing itself: CLAUDE.md and these files | `CLAUDE.md`, `docs/paths/` | R-074 | `test/DocsTest.java` |
-| An escalation, and its log | `docs/ESCALATIONS.md` | R-073, R-075 | `test/EscalationsTest.java` |
+| An escalation, a conflict between agents, and the log | `docs/ESCALATIONS.md` | R-073, R-075, R-077 | `test/EscalationsTest.java` |
 | The corpus | `corpus/MANIFEST.md`, `corpus/fetch.sh`, `corpus/scan.sh` | licenses in the manifest | a file with no license fails |
 | The supply chain: a vendored jar, the workflow, the image, an agent or editor config | `third_party/MANIFEST.md`, `.github/workflows/ci.yml`, `Dockerfile` | R-067, CLAUDE.md's binding rules | `test/SupplyChainTest.java` |
