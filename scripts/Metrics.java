@@ -162,6 +162,20 @@ final class Metrics {
         return Math.round((System.nanoTime() - started) / 1e9) + (status == 0 ? "" : " (failed)");
     }
 
+    /** Commits since docs/NAVIGATION.md's last review, a warning past NavigationGate.REVIEW (R-079). */
+    static String navigation() {
+        try {
+            Process git = new ProcessBuilder("git", "log", "--format=%H %s", "-n", "400").directory(Repo.ROOT.toFile()).start();
+            List<String> log = new String(git.getInputStream().readAllBytes()).lines().toList();
+            git.waitFor();
+            int since = NavigationGate.since(log, Repo.read(NavigationGate.PATH));
+            if (since < 0) return "no `Reviewed through:` commit found in docs/NAVIGATION.md";
+            return since + " commits since the last review" + (since > NavigationGate.REVIEW ? ": one is due" : "");
+        } catch (Exception e) {
+            return "not measured: " + e.getMessage();
+        }
+    }
+
     /** Commits since the last whose subject starts "Tithe", a warning past eight (J-070: the one rule held by habit). */
     static String cadence() {
         try {
@@ -194,6 +208,8 @@ final class Metrics {
                 .forEach(f -> lines.add("  " + f.key() + " (line " + f.line() + "): " + f.lines() + " lines, " + f.paths() + " paths"));
         lines.add("\nTithe cadence (R-008: one commit in eight; the gate refuses past " + TitheGate.GRACE + "):");
         lines.add("  " + cadence());
+        lines.add("\nNavigation review (R-079: about every " + NavigationGate.REVIEW + " commits; the gate refuses past " + NavigationGate.LIMIT + "):");
+        lines.add("  " + navigation());
         lines.add("\n`// Unsure:` lines (doubts written down; never failed):");
         Repo.files(".java").forEach((path, text) -> {
             String[] source = text.split("\n");

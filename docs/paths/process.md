@@ -13,6 +13,9 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
 - A long run writes to a file, and you read only its verdict and its failures (R-076): `scripts/prepush.sh --all
   > build/gate.log 2>&1`, then `grep "pre-push check:" build/gate.log`. A sub-agent does the same and reports
   only those lines.
+- `gradle nextId` gives the next R-, J- and research number (fetch main first); `gradle metrics` the numbers and
+  warnings; `gradle integration` what needs cobc and the corpus (`corpus/fetch.sh` first), each suite held by a
+  golden (`-Dkatana.record=true` rewrites them; review the diff). One class: `gradle integration --tests <class>`.
 - The generated indexes (`.gitattributes` marks them): `gradle decisions` (`docs/decisions.md`, after a decision),
   `gradle journalIndex` (`docs/journal/INDEX.md`, after an entry), `gradle researchIndex`
   (`docs/research/INDEX.md`, after a research section). A test fails when one is stale.

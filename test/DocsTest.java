@@ -29,6 +29,10 @@ final class DocsTest {
         Map<String, Integer> phases = modulePhases(Check.read("docs/modules.json"));
         return new Check("docs")
                 .repository(routing(open, phases))
+                .repository(when(Check.read("CLAUDE.md"), Check::exists))
+                .rejects("a When line naming two files", () -> when("## When\n\n- When x, read `docs/a.md` and `docs/b.md`.\n", p -> true))
+                .rejects("a When line naming a file that does not exist", () -> when("## When\n\n- When x, read `docs/a.md`.\n", p -> false))
+                .accepts("a When line naming one file", () -> when("## When\n\n- When x (`gradle integration`), read `docs/a.md`.\n", p -> true))
                 .rejects("a workpath file CLAUDE.md does not name", () -> pointers("| A | `docs/paths/a.md` |", List.of("docs/paths/a.md", "docs/paths/b.md")))
                 .rejects("a task row in CLAUDE.md", () -> pointers("| A | `docs/paths/a.md` |\n| B | `x/Y.java` | R-001 | `test/Y.java` |", List.of("docs/paths/a.md")))
                 .accepts("every workpath named, and only workpaths", () -> pointers("| A | `docs/paths/a.md` |", List.of("docs/paths/a.md")))
@@ -45,6 +49,24 @@ final class DocsTest {
         List<String> failures = new ArrayList<>(pointers(Check.read("CLAUDE.md"), files));
         failures.addAll(check(Check.read("CLAUDE.md"), open, phases, Check::exists));
         for (String f : files) check(Check.read(f), open, phases, Check::exists).forEach(x -> failures.add(f + " " + x));
+        return failures;
+    }
+
+    /** R-080: each line of CLAUDE.md's "When" section names exactly one file, and it exists. */
+    static List<String> when(String claude, Predicate<String> exists) {
+        List<String> failures = new ArrayList<>();
+        claude = "\n" + claude;
+        int start = claude.indexOf("\n## When");
+        if (start < 0) return List.of("CLAUDE.md has no \"When\" section (R-080)");
+        int end = claude.indexOf("\n## ", start + 1);
+        for (String line : claude.substring(start, end < 0 ? claude.length() : end).split("\n")) {
+            if (!line.startsWith("- ")) continue;
+            List<String> paths = new ArrayList<>();
+            Matcher code = CODE.matcher(line);
+            while (code.find()) if (path(code.group(1)) != null) paths.add(path(code.group(1)));
+            if (paths.size() != 1) failures.add("a When line names " + paths.size() + " files, not one (R-080): " + line);
+            else if (!exists.test(paths.get(0))) failures.add("a When line names `" + paths.get(0) + "`, which does not exist: " + line);
+        }
         return failures;
     }
 

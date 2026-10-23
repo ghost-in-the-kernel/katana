@@ -67,6 +67,8 @@ done
 PROPS=""
 case " $suites " in *" nist "*) ;; *" quick "*) PROPS="-Dkatana.nist.modules=NC,IF" ;; esac
 docker run --rm --network none -u "$(id -u)" -v "$ROOT":/katana -w /katana katana java scripts/TitheGate.java /katana
+# R-079: the navigation debriefs are reviewed about every ten commits; refused past twenty (scripts/NavigationGate.java).
+docker run --rm --network none -u "$(id -u)" -v "$ROOT":/katana -w /katana katana java scripts/NavigationGate.java /katana
 echo "suites:${suites:- none (the fast loop and the doc tests only)}$why"
 # One gate at a time (R-077): another gate's clone is never removed while that gate runs. The lock holds the
 # running gate's PID; a gate waits while a live one holds it, and takes it over only from a dead one.

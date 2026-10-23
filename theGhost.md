@@ -1476,7 +1476,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   entry path, where every agent reads it before work.
 - **Why:** so a Sonnet agent can work on the codebase. A second and third attempt at a hard failure by the same
   model costs more than one escalation and risks a fix that hides the cause; an easy fix needs no escalation.
-- **Held by:** CLAUDE.md, "Escalation, for a Sonnet agent".
+- **Held by:** `docs/when/escalation.md`, named by CLAUDE.md's "When" lines (R-080).
 - **Source:** Ghost, 2026-10-23: "we add an escalation rule. this is in the entrance path for agents specifically.
   IF the user agent is a claude sonnet model, it will only attempt a code fix once. If it spots something or notices
   an easy fix, it will not escalate, but if it fails at implementation in a way that is difficult, it will invoke a
@@ -1516,7 +1516,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Why:** an escalation is evidence of where the routing failed an agent. Logged by kind, a pattern shows the
   instruction to fix rather than the one agent that missed it; three of a kind is a pattern, not chance.
 - **Held by:** `test/EscalationsTest.java` (the log's form; a kind logged three times or more is raised in
-  HANDOFF.md); CLAUDE.md, "Escalation, for a Sonnet agent".
+  HANDOFF.md); `docs/when/escalation.md`, named by CLAUDE.md's "When" lines (R-080).
 - **Source:** Ghost, 2026-10-23: "every time an agent comes up to query for an opus agent to assist it, the Opus
   agent should ask the sonnet agent to replay the instructions it followed. If the sonnet agent is able to replay
   its steps, it should, and the opus agent should validate necessary instructions got to the sonnet agent at the
@@ -1559,12 +1559,71 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   two projects' agents share one container (J-245).
 - **Held by:** `test/EscalationsTest.java` (a `conflict` row not raised to Ghost fails); `scripts/prepush.sh`
   (a lock: one gate at a time, and a clone removed only when its gate is dead); `docs/paths/process.md` (Docker
-  restarted only when no daemon runs); CLAUDE.md, "Conflicts between agents".
+  restarted only when no daemon runs); `docs/when/conflict.md`, named by CLAUDE.md's "When" lines (R-080).
 - **Source:** Ghost, 2026-10-23, sharing a rule another project's agent proposed: "A conflict stops the work and
   goes to you at once, not after three. ... Assume a conflict of objectives, never sabotage. ... Never touch
   what you didn't start". Katana has no `docs/FOR-GHOST.md`; HANDOFF.md's "Waiting on Ghost" is its place.
 - **Status:** in force
 - **See also:** R-073, R-075, R-076
+- **subject:** process
+---
+
+### R-078: A new task gets a fresh Sonnet agent; an agent is resumed only within one unfinished task
+- **Decision:** Each new task is handed to a fresh Claude Sonnet agent, briefed with the task, the rules and the
+  report wanted, not with what earlier runs found. An agent is resumed only within one unfinished task, on the
+  same files, while its context is small. What a run learned is carried by the repository (the journal, TODO.md,
+  the workpath files), not by the agent.
+- **Why:** a long context weakens the instructions read at its start (CLAUDE.md, the escalation and conflict
+  rules), and carries stale counts and a run's own wrong guesses. A fresh agent tests whether the repository
+  carries what it needs, where a resumed one hides the gaps; and an escalation's replay (R-075) then shows what
+  reached the agent. Seen in J-246 to J-249: a resumed agent at about 275k tokens, then a fresh one that found
+  three gaps the resumed one could not.
+- **Held by:** `docs/when/handoff.md`, named by CLAUDE.md's "When" lines (R-080).
+- **Source:** Ghost, 2026-10-23: "would spinning up a new agent to lower context drift be better than handing to a
+  sonnet agent that had handled one coding task already?"; "yes, record the fresh-agent rule as a decision";
+  "record a rule that new tasks use fresh sonnet agents."
+- **Status:** in force
+- **See also:** R-073, R-074, R-079
+- **subject:** process
+---
+
+### R-079: Every agent debriefs on navigation; the debriefs are reviewed about every ten commits
+- **Decision:** After a task, the agent adds its complaints and suggestions about finding its way to
+  `docs/NAVIGATION.md`. About every ten commits Opus reviews the entries for what agents converge on. Nothing
+  actionable: the review writes a journal entry and empties the entries. Actionable: it writes the journal entry,
+  empties the entries, checks each item is valid against the code, and fixes the valid ones. An open question goes
+  to a Fable instance. The journal entry keeps the trace of what was wiped: how many entries, what converged, what
+  was done.
+- **Why:** one agent's complaint may be its own quirk; the same complaint from runs that did not see each other is
+  the routing's fault. A file wiped at each review starts each set fresh, so a convergence is current, not an old
+  complaint repeated.
+- **Held by:** `scripts/NavigationGate.java` (the gate refuses a push past twenty commits since the review the file
+  names; `gradle metrics` warns past ten), `test/NavigationGateTest.java`, `test/DocTests.java` (the entries'
+  form); `docs/when/handoff.md`.
+- **Source:** Ghost, 2026-10-23: "After a task, the agent debriefs and writes their complaints and suggestions
+  around navigation to a file. Every 10 commits or so we evaluate the agent navigation file and see if there is
+  actionable material that agents converge on. If no actionable items we proceed and wipe file and start the next
+  set fresh. If actionable, we still wipe file, but we also review the actionable items and see if valid. if there
+  are open questions, we escalate to a fable instance."; "agreed to wiping keeping a trace."
+- **Status:** in force
+- **See also:** R-075 (escalations, a separate log), R-078
+- **subject:** process
+---
+
+### R-080: CLAUDE.md's conditional rules are one-line triggers to the file that holds them
+- **Decision:** A rule that applies only in a situation is not written in CLAUDE.md. CLAUDE.md has one line for
+  it, "When X, read Y", and the rule is in Y (`docs/when/`). What applies to every agent at every moment stays in
+  CLAUDE.md: the workpaths, the fast loop, before calling work done, the two rules, the binding supply-chain rules.
+- **Why:** CLAUDE.md is read whole by every agent before any work. A rule for a situation most tasks never meet is
+  context spent for nothing; a one-line pointer costs a few words and loads the rule when it is needed. It extends
+  R-074 from routing rows to rules.
+- **Held by:** `test/DocsTest.java` (each "When" line names one file, and it exists).
+- **Source:** Ghost, 2026-10-23: "lets change up the conditionals to have memory management ... If you are a claude
+  sonnet model, and you encounter X situation, look up Y file ... By splitting out the memory mapping, we can
+  replace large chunks of data that would have been read into context with very cheap one line entires that point
+  to the data the agent needs at the time it needs it."
+- **Status:** in force
+- **See also:** R-074
 - **subject:** process
 ---
 
