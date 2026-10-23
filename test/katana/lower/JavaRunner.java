@@ -111,7 +111,7 @@ final class JavaRunner implements Runner {
                 Program program = built.program();
                 String name = Lower.className(program);
                 if (first == null) first = name;
-                Lower.Result lowered = Lower.java(program, name, structured ? katana.passes.Structuring.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Plan.LITERAL);
+                Lower.Result lowered = Lower.java(program, name, structured ? katana.passes.Passes.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Plan.LITERAL);
                 Files.writeString(dir.resolve(name + ".java"), lowered.java());
                 sources.add(dir.resolve(name + ".java").toString());
                 // The build's findings (a name that names nothing, or two items) are reported with the lowering's (J-160).

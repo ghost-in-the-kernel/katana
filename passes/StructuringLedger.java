@@ -21,7 +21,7 @@ public final class StructuringLedger {
 
     /** The passes' lines: one per symbol new to the structured build, with the fact that licensed it, and one superseding each symbol it no longer has. */
     // Decision: R-030
-    public static List<Ledger.Draft> lines(Ledger literal, Lower.Result structured, Structuring.Result pass, String run, String profile, String time) {
+    public static List<Ledger.Draft> lines(Ledger literal, Lower.Result structured, Passes.Result pass, String run, String profile, String time) {
         Map<String, Structuring.Applied> byMethod = new HashMap<>();
         for (Structuring.Applied a : pass.applied()) byMethod.put("perform" + a.first(), a);
         Map<String, List<Entry>> live = literal.live();
@@ -50,7 +50,7 @@ public final class StructuringLedger {
     }
 
     /** The Enum, Flag or Money fact behind an item's or a condition's new name (6.5), whose state the line carries (R-029); null for none. */
-    private static katana.intent.types.Fact typed(Structuring.Result pass, String node) {
+    private static katana.intent.types.Fact typed(Passes.Result pass, String node) {
         if (!node.startsWith("item ") && !node.startsWith("condition ")) return null;
         return pass.typed().get(Integer.parseInt(node.substring(node.indexOf(' ') + 1)));
     }

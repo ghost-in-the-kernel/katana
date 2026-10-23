@@ -25,7 +25,7 @@ class RecordsTest {
     @Test
     void aRecordIsAClassOverItsBytes() {
         Program p = program(DATA, "    MOVE 'A' TO TRAN-ID.\n    MOVE 2 TO LINE-QTY (3).\n    ADD TRAN-QTY LINE-QTY (1) TO TOTAL.\n    COMPUTE TOTAL = TRAN-QTY + 1.\n    MOVE TRAN-RECORD TO OUT-RECORD.\n    DISPLAY OUT-RECORD TOTAL.\n");
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         assertEquals(1, r.plan().records().size(), r.refused().toString());
         Lower.Result lowered = Lower.java(p, "P", r.plan());
         String java = lowered.java();
@@ -45,7 +45,7 @@ class RecordsTest {
         String source = List.of("IDENTIFICATION DIVISION.", "PROGRAM-ID. P.", "DATA DIVISION.", "LINKAGE SECTION.", "01 PARM.", "   05 PARM-CODE PIC 9(2).", "   05 PARM-TEXT PIC X(8).",
                 "PROCEDURE DIVISION USING PARM.", "MAIN.", "    MOVE 7 TO PARM-CODE.", "    GOBACK.").stream().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
         Program p = Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         assertEquals(1, r.plan().records().size(), r.refused().toString());
         String java = Lower.java(p, "P", r.plan()).java();
         assertTrue(java.contains("parm = new Parm(a.record(), a.offset());") && java.contains("parmCode = new Field(r, base + 0, ") && java.contains("parm.parmCode"), java);
@@ -62,7 +62,7 @@ class RecordsTest {
 
     private static void assertKept(String data, String procedure, String why) {
         Program p = program(data, procedure);
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         assertTrue(r.plan().records().isEmpty() && r.refused().entrySet().stream().anyMatch(e -> e.getKey().startsWith("record ") && e.getValue().stream().anyMatch(w -> w.contains(why))), why + ": " + r.refused());
     }
 }

@@ -1,6 +1,5 @@
 package katana.passes;
 
-import katana.lower.Plan;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -25,7 +24,7 @@ import katana.sir.types.Value;
  * 6.1, pattern structuring (research §35): a PERFORM range a `Function` fact names becomes a method its
  * callers call, and a GO TO to the next paragraph is left to fall, each only where its obligations hold on
  * sir/'s graph and contract (R-032); a fact no person confirmed licenses it, and its ledger line says so
- * (R-029). It decides; lower/ writes (MOD-04).
+ * (R-029). It decides; lower/ writes (MOD-04). It is the first pass of the chain `Passes` runs.
  */
 public final class Structuring {
     /** The pass as the ledger names it. */
@@ -34,17 +33,14 @@ public final class Structuring {
     /** A range made a method, and the fact that licenses it. */
     public record Applied(int first, int last, Fact fact) {}
 
-    /**
-     * The plan lower/ takes, what was applied, each range or item not changed with why, the fact behind each item 6.5
-     * names or types, and `viewed`, the items 6.7's record classes name (research §46).
-     */
-    public record Result(Plan plan, List<Applied> applied, Map<String, List<String>> refused, Map<Integer, Fact> typed, Set<Integer> viewed) {}
-
     private Structuring() {}
 
-    /** The pass on one program and its intent: the ranges that discharge every obligation, and the GO TOs that fall. */
+    /**
+     * The ranges a `Function` fact names that discharge every obligation, as methods by first paragraph to last;
+     * each made one is `applied`, each not is `refused` with why. `program`, what keeps the whole program literal.
+     */
     // Decision: R-032
-    public static Result plan(Program p, Intent intent) {
+    static Map<Integer, Integer> methods(Program p, Intent intent, List<String> program, List<Applied> applied, Map<String, List<String>> refused) {
         List<Subject.Range> ranges = new ArrayList<>();
         Map<Subject.Range, Fact> facts = new HashMap<>();
         for (Fact f : intent.actionable()) {
@@ -54,9 +50,6 @@ public final class Structuring {
             }
         }
         Map<Integer, Integer> methods = new HashMap<>();
-        List<Applied> applied = new ArrayList<>();
-        Map<String, List<String>> refused = new java.util.LinkedHashMap<>();
-        List<String> program = program(p);
         for (Subject.Range r : ranges) {
             List<String> why = new ArrayList<>(program);
             if (why.isEmpty()) why.addAll(Obligations.refusals(p, r, ranges));
@@ -65,28 +58,11 @@ public final class Structuring {
                 applied.add(new Applied(r.first(), r.last(), facts.get(r)));
             } else refused.put(name(p, r), why);
         }
-        Set<String> loops = program.isEmpty() ? Loops.loops(p, methods, refused) : Set.of();
-        Map<Integer, Integer> cycles = new HashMap<>();
-        Set<Integer> inline = program.isEmpty() ? Inline.inline(p, methods, loops, cycles, refused) : Set.of();
-        Set<Integer> main = program.isEmpty() ? MainLine.main(p, methods, loops, cycles, refused) : Set.of();
-        // The passes after structuring, in the order each needs the one before (docs/PASSES.md): 1. Scalars promotes
-        // items; 2. Exact takes their statements; 3. Fits only Exact's; 4. Types names and types promoted items; 5. Records
-        // views the records left in bytes; 6. Stateless reads the whole program.
-        Set<Integer> scalars = Scalars.promote(p, refused);
-        Set<String> exact = Exact.exact(p, scalars, refused);
-        Set<String> fits = Fits.fits(p, scalars, exact, refused);
-        Types.Result types = Types.types(p, intent, scalars, refused);
-        Set<Integer> records = Records.records(p, !program.isEmpty(), refused);
-        Set<Integer> viewed = new java.util.TreeSet<>();
-        for (katana.sir.types.Item i : p.items()) if (records.contains(i.record()) && !scalars.contains(i.id())) viewed.add(i.id());
-        List<String> stateful = Stateless.refusals(p);
-        if (!stateful.isEmpty()) refused.put("program " + p.header().program() + " stateless", stateful);
-        return new Result(new Plan(methods, program.isEmpty() ? falls(p) : Set.of(), loops, inline, main, cycles, scalars, exact, types.enums(), types.money(), stateful.isEmpty(), fits, records),
-                applied, refused, types.facts(), viewed);
+        return methods;
     }
 
     /** What keeps a whole program literal: an independent segment with an ALTER, whose state the dispatcher keeps (research §16); declaratives, which run as PERFORMs of their own. */
-    private static List<String> program(Program p) {
+    static List<String> program(Program p) {
         List<String> why = new ArrayList<>();
         boolean independent = p.procedure().sections().stream().anyMatch(s -> s.priority() >= 50);
         if (independent && p.procedure().edges().stream().anyMatch(e -> e.kind() == Procedure.Kind.ALTER)) why.add("the program is segmented and ALTERs");

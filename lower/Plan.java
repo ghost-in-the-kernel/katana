@@ -17,7 +17,7 @@ import katana.sir.types.Origin;
  * INITIAL (6.6, research §44); the exact statements whose value always fits their receiver, stored by plain
  * assignment (6.6b, research §45); the records written as classes over their bytes (6.7, research §46).
  * Empty, the literal lowering; it decides nothing (passes/Structuring and passes/Scalars discharge the obligations).
- * A new field is added here (component, copy, `LITERAL`) and set in `passes/Structuring.plan`, its only other
+ * A new field is added here (component, copy, `LITERAL`) and set in `passes/Passes.plan`, its only other
  * construction (docs/PASSES.md, "Adding a pass").
  */
 public record Plan(Map<Integer, Integer> methods, Set<Integer> falls, Set<String> loops, Set<Integer> inline,

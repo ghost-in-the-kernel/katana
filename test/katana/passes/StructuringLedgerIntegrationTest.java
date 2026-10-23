@@ -38,7 +38,7 @@ class StructuringLedgerIntegrationTest {
         for (String file : List.of("CBTRN02C.cbl", "CBTRN03C.cbl", "CBACT04C.cbl", "CBSTM03A.CBL", "CBSTM03B.CBL")) {
             Program p = Build.program(Parse.file(CARDDEMO.resolve("cbl/" + file), books, 8), ibm.hash()).program();
             Lower.Result literal = Lower.java(p, Lower.className(p));
-            Structuring.Result pass = Structuring.plan(p, Rules.infer(p));
+            Passes.Result pass = Passes.plan(p, Rules.infer(p));
             Lower.Result structured = Lower.java(p, Lower.className(p), pass.plan());
             assertEquals(ManifestTest.declared(structured.java()), ManifestTest.members(structured.symbols()), file + ": the manifest is the structured Java's own declarations");
             List<Ledger.Draft> first = new ArrayList<>();

@@ -1,10 +1,8 @@
 package katana.oracle.prove;
 
+import katana.support.Javac;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.ByteArrayOutputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -12,7 +10,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.tools.ToolProvider;
 import katana.findings.Divergence;
 import katana.front.Copybooks;
 import katana.front.Parse;
@@ -86,9 +83,7 @@ class AttributionIntegrationTest {
         Program program = Build.programs(Parse.file(cbl, new Copybooks(List.of(cpy), n -> 8), 8), "sha256:" + "0".repeat(64)).get(0).program();
         String className = Lower.className(program);
         Files.writeString(classes.resolve(className + ".java"), Lower.java(program, className).java());
-        ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
-        int status = ToolProvider.getSystemJavaCompiler().run(null, null, diagnostics, "-classpath", System.getProperty("java.class.path"), "-d", classes.toString(), classes.resolve(className + ".java").toString());
-        assertTrue(status == 0, className + " compiles: " + diagnostics.toString(StandardCharsets.UTF_8));
+        Javac.compile(className, classes, classes.resolve(className + ".java"));
         return className;
     }
 }

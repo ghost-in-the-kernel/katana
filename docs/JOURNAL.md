@@ -4070,3 +4070,18 @@ taken; closed by a later `decision` entry naming it).
   `lower/Promoted.java`, `lower/Verbs.java`, `lower/Programs.java`, `lower/Arith.java`, `lower/Places.java`,
   `lower/README.md`, `passes/Scalars.java`, callers of `Lower.Plan`, `test/PassesDocTest.java`, `docs/PASSES.md`,
   `CLAUDE.md`, `docs/KERNEL-MAP.md`, `docs/JOURNAL.md`.
+
+### J-242 Super tithe, part 3: the pass chain its own class; one javac helper for tests
+- **Who:** Opus, from the Fable advisor's plan (items 7 and 2). **Class:** tithe (R-008). It changes no behaviour
+  and no golden.
+- **Found:**
+  - `passes/Structuring.java` was both the first pass (ranges as methods, GO TOs that fall) and the chain that
+    runs every pass; a reader looking for the chain opened the pass, and the reverse.
+  - Four tests called javac by hand against the test classpath, each with its own diagnostics stream.
+- **Resolved:**
+  - `passes/Passes.java` holds the chain (`Passes.plan`) and its `Result`; `Structuring.methods` is the first
+    pass, called by it. Callers and `docs/PASSES.md` name `Passes`.
+  - `test/katana/support/Javac.compile` compiles lowered Java and fails with javac's diagnostics. JavaRunner and
+    LoweredAutotestsIntegrationTest keep their own, which compile against `rt/` alone.
+- **Touched:** `passes/Passes.java`, `passes/Structuring.java`, `passes/StructuringLedger.java`, `lower/Plan.java`,
+  `test/katana/support/Javac.java`, eleven tests, `docs/PASSES.md`, `docs/KERNEL-MAP.md`, `docs/JOURNAL.md`.

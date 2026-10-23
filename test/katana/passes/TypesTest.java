@@ -51,7 +51,7 @@ class TypesTest {
     @Test
     void anEnumFactNamesItsValuesAndAMoneyFactTypesAPromotedItem() {
         Program p = program();
-        Structuring.Result r = Structuring.plan(p, intent(p, State.INFERRED));
+        Passes.Result r = Passes.plan(p, intent(p, State.INFERRED));
         int result = id(p, "APPL-RESULT"), status = id(p, "WS-STATUS"), total = id(p, "WS-TOTAL");
         assertEquals(java.util.Set.of(result, status), r.plan().enums(), r.refused().toString());
         assertEquals(java.util.Set.of(total), r.plan().money());
@@ -66,7 +66,7 @@ class TypesTest {
     @Test
     void aRefutedFactIsNeverActedOn() {
         Program p = program();
-        Structuring.Result r = Structuring.plan(p, intent(p, new State(State.Status.REFUTED, "Ghost", "2026-10-22")));
+        Passes.Result r = Passes.plan(p, intent(p, new State(State.Status.REFUTED, "Ghost", "2026-10-22")));
         assertTrue(r.plan().enums().isEmpty() && r.plan().money().isEmpty(), "R-029: " + r.plan());
         assertEquals(Map.of(), r.typed());
     }

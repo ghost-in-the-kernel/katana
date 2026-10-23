@@ -1968,3 +1968,7 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Exprs.java:Exprs.Exprs#2` |  | 2026-10-23 |  |
 | lower | `lower/Promoted.java:Promoted.views` |  | 2026-10-23 |  |
 | lower | `lower/Promoted.java:Promoted.intercept` |  | 2026-10-23 |  |
+| passes | `passes/Passes.java:Passes.Passes` |  | 2026-10-23 |  |
+| passes | `passes/Passes.java:Passes.plan` | R-032 | 2026-10-23 |  |
+| passes | `passes/Structuring.java:Structuring.methods` | R-032 | 2026-10-23 |  |
+| passes | `passes/Structuring.java:Structuring.plan` | moved in the super tithe (J-242) | 2026-10-23 | superseded-by: `passes/Passes.java:Passes.plan` |
