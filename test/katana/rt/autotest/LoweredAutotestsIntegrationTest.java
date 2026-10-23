@@ -53,7 +53,7 @@ class LoweredAutotestsIntegrationTest {
 
     /** The same, lowered under 6.1's structuring pass when `structured` (research §35): the pass's unit corpus. */
     static Built build(String id, boolean structured) throws Exception {
-        Parse.Result parse = Parse.file(CASES.resolve(id).resolve("prog.cob"), new Copybooks(List.of(), n -> 8), 8);
+        Parse.Result parse = Parse.file(CASES.resolve(id).resolve("prog.cob"), new Copybooks(List.of(CASES.resolve(id)), n -> 8), 8);
         if (!parse.clean()) return null;
         Program program = Build.program(parse, "sha256:" + "0".repeat(64)).program();
         Lower.Result lowered = Lower.java(program, "Prog", structured ? katana.passes.Passes.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Plan.LITERAL);
