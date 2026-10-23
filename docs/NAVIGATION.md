@@ -17,3 +17,10 @@ An entry: `### N-<n> <date>, <task> (<commits>)`, then the lines `- **Complaints
 ## Entries
 
 (none since review 2, J-260)
+
+### N-009 2026-10-23, the reasons for the unmapped census flags (J-261)
+- **Complaints:** Docker was down at the start (the procedure in `docs/paths/process.md` worked). TODO 3.1's text is the only
+  place that lists the flags by count and is long; the golden is the better list (grep its FLAG lines). `docs/when/handoff.md`
+  says to run "the item's own check" but 3.1's Check is the whole 359; the census plus the fast loop was the reading I took.
+- **Suggestions:** say in 3.1's Next that the golden's FLAG lines are the current flag list; say in `docs/paths/lowering.md`
+  what "the item's own check" is for a census change.

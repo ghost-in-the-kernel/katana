@@ -40,6 +40,16 @@ class CompileFlagsTest {
         assertEquals("a source format the dialect does not have", CompileFlags.reason("--free"));
     }
 
+    /** J-261: a listing and the text of cobc's diagnostics are output of the compile, so they set nothing; the rest are named, each with a reason. */
+    @Test
+    void listingAndDiagnosticsAreMappedAndEveryOtherFlagHasAReason() {
+        assertEquals(List.of(), CompileFlags.map(List.of("-t", "-fno-theaders", "-fno-tmessages", "-fdiagnostics-show-option"), false).unmapped());
+        for (String f : List.of("-fnotrunc", "-fno-trunc", "-fno-binary-truncate", "-fsign=ebcdic", "-fodoslide", "-frelax-syntax-checks", "-fno-ec=bound",
+                "-debug", "-fdump=ALL", "-fprof", "-fcallfh=EXTFH", "-fsystem-name=USW-31", "-std=mf", "-free"))
+            assertTrue(CompileFlags.reason(f) != null, f);
+        assertEquals(null, CompileFlags.reason("-fsomething-new"));
+    }
+
     @Test
     void noFlagsDeclaresNoDefinitionsAndReadsNoDebuggingLines() {
         var m = CompileFlags.map(List.of(), false);

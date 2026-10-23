@@ -68,7 +68,7 @@ already means it, a front-end or lowering change when it asks for one, or left a
 never mapped to nothing to turn a `FLAG` into a pass. Built (J-259): the three Ghost decided (J-257): `-std=ibm` and
 `-std=ibm-strict` mapped, run as is (R-083); a valueless `-D NAME` defined with its value unknown, a value compared
 or redefined an error naming the flag, `Settings` carrying the marker (R-084); `-free` left a `FLAG` or `FLAGPASS`,
-"a source format the dialect does not have" (R-085). The census is now 70 FLAG, 14 FLAGPASS, 100 do not parse, 4 javac, 45 PASS (`run_fundamental-4746` moved up from FLAGPASS). Next: the reasons for every flag left, in the golden (`-std=` and `-free` have theirs).
+"a source format the dialect does not have" (R-085). The census is now 70 FLAG, 14 FLAGPASS, 100 do not parse, 4 javac, 45 PASS (`run_fundamental-4746` moved up from FLAGPASS). Built (J-261): a reason for every flag left, in the golden (`CompileFlags.reason`); the listing and diagnostics flags (`-t`, `-fno-theaders`, `-fno-tmessages`, `-fdiagnostics-show-option`) mapped as no-effect: 70 FLAG, 12 FLAGPASS, 100 do not parse, 4 javac, 47 PASS, floors 47 and 59. Next: the dialect decisions the reasons name, for Ghost (binary truncation, 17 cases, first).
 Then, by count (J-248, J-249, J-251): the 99 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
 `SOURCE FORMAT`, `TURN`: 6, each an error by R-081; `$SET` out of column 7: 1),
 `MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower
