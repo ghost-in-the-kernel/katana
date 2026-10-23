@@ -10,6 +10,11 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
 - A fact no person confirmed may license a pass, and its ledger line says so (R-029).
 - A pass is proven by structured equal to literal on NIST and CardDemo; the gate's `passes` suite runs it.
 
+- A new integration or golden test also gets its row in `docs/checks.json` (R-056): the oracle, why it is
+  independent, a mutation test that exists, and `gates`, which takes a pre-push suite name (as `scripts/prepush.sh`
+  lists them: `nist`, `fixture`, `lane`, `front`, `sir`, `autotest`, `rt`, `javalane`, `intent`, `ledger`,
+  `passes`) or `fast`. The fast loop's `DocTests > checks()` fails until the row is there.
+
 ## Rows
 
 | Task | Start here | Contract | Tests |

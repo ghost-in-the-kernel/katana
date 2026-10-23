@@ -56,7 +56,7 @@ public final class Lower {
         e.line("import katana.rt.*;");
         e.line("import katana.rt.Record;");
         e.line("import java.util.List;");
-        program(e, p, className, List.of(), findings, plan);
+        program(e, p, className, null, List.of(), findings, plan);
         return new Result(e.text(), findings, e.statements(), e.symbols());
     }
 
@@ -65,10 +65,11 @@ public final class Lower {
      * class inside its container's, which it reaches as `up` (LANE-19). The order is load-bearing (J-235): the names
      * first (promoted items, then record classes, which take theirs after), then the members and the constructor,
      * the items' definitions, the entry, the procedure, and only then the predicates and the guard, which the
-     * procedure's lowering asks for (`x.guarded`), then the nested programs.
+     * procedure's lowering asks for (`x.guarded`), then the nested programs. `outer` is the class a nested program is
+     * written inside, under the name it was given (not its program-id's: the caller names the top-level class).
      */
     // Decision: R-024
-    private static void program(Emitter e, Program p, String className, List<Program> containers, List<String> findings, Plan plan) {
+    private static void program(Emitter e, Program p, String className, String outer, List<Program> containers, List<String> findings, Plan plan) {
         java.util.Set<String> types = new java.util.HashSet<>(java.util.Set.of(className));
         for (Program n : p.nested()) types.add(Lower.className(n));
         Exprs x = new Exprs(p, findings, plan, types);
@@ -77,7 +78,7 @@ public final class Lower {
         e.enter(className);
         e.symbol("", "program " + p.header().program());
         e.line("private final RunUnit u;");
-        if (!top) e.line("private final " + Lower.className(containers.get(containers.size() - 1)) + " up;");
+        if (!top) e.line("private final " + outer + " up;");
         e.line("private boolean called;");
         e.line("private final Codepage cp;");
         e.line("private final Sysin in;");
@@ -93,7 +94,7 @@ public final class Lower {
             e.line("this(new RunUnit(cp, upsi, in, out, err, false));");
             e.close();
         }
-        e.open("public " + className + "(RunUnit u" + (top ? "" : ", " + Lower.className(containers.get(containers.size() - 1)) + " up") + ")");
+        e.open("public " + className + "(RunUnit u" + (top ? "" : ", " + outer + " up") + ")");
         e.line("this.u = u;");
         if (!top) e.line("this.up = up;");
         e.line("this.cp = u.cp;");
@@ -124,7 +125,7 @@ public final class Lower {
         if (x.guarded) guard(e, p);
         List<Program> inside = new ArrayList<>(containers);
         inside.add(p);
-        for (Program n : p.nested()) program(e, n, Lower.className(n), inside, findings, Plan.LITERAL);
+        for (Program n : p.nested()) program(e, n, Lower.className(n), className, inside, findings, Plan.LITERAL);
         e.leave();
         e.close();
     }

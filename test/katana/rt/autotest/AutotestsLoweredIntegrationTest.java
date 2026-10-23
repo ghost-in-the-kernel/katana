@@ -36,6 +36,17 @@ class AutotestsLoweredIntegrationTest {
     /** A case's end: the first stage it cannot pass (NOSOURCE: no prog.cob, a case of several programs or a C helper), or its verdict against the testsuite. */
     enum Stage { NOSOURCE, NOPARSE, NOLOWER, NOJAVAC, NORUN, FAIL, PASS }
 
+    /** Why a NOPARSE case does not parse: the front end's first error, without where it was (the checkout's path, line, column). */
+    private static final Map<String, String> REASONS = new TreeMap<>();
+
+    private static String firstError(String id) throws Exception {
+        var parse = katana.front.Parse.file(CASES.resolve(id).resolve("prog.cob"), new katana.front.Copybooks(List.of(), n -> 8), 8);
+        String e = parse.errors().isEmpty() ? "(no message)" : parse.errors().get(0);
+        // Where it was and what was expected vary with the case; the kind and the offending text are the cause.
+        e = e.replaceAll("\\s+", " ").replaceAll(" expecting .*$", "").replaceAll("(?<=[a-z] )\\d+:\\d+:? ?", "").replaceAll("^copybook .* not found.*$", "copybook not found").trim();
+        return e.length() > 90 ? e.substring(0, 90) : e;
+    }
+
     /**
      * The runnable cases, in name order: `corpus/gnucobol-autotests/runnable.txt`, which `AutotestCorpusIntegrationTest`
      * writes (J-093), so the count is the one `oracle/autotest/autotests.golden` holds, not a second reading of "runnable".
@@ -76,8 +87,12 @@ class AutotestsLoweredIntegrationTest {
             System.out.println("NOLOWER " + id + ": " + lowering);
             return Stage.NOLOWER;
         }
-        if (built == null) return Stage.NOPARSE;
+        if (built == null) {
+            REASONS.put(id, firstError(id));
+            return Stage.NOPARSE;
+        }
         FutureTask<byte[]> run = new FutureTask<>(() -> LoweredAutotestsIntegrationTest.run(built));
+        // Unsure: a case that loops past SECONDS is abandoned, not stopped (a Thread cannot be killed); its daemon thread keeps a core until the JVM exits. Stays: until the census runs a process per case, which would stop it (TODO 3.1, open).
         Thread t = new Thread(run, "autotest-" + id);
         t.setDaemon(true);
         t.start();
@@ -111,12 +126,15 @@ class AutotestsLoweredIntegrationTest {
             Stage s = stage(id);
             byCase.put(id, s);
             counts.merge(s, 1, Integer::sum);
-            results.append(id).append(' ').append(s).append('\n');
+            results.append(id).append(' ').append(s).append(s == Stage.NOPARSE ? " " + REASONS.get(id) : "").append('\n');
         }
         results.append("runnable ").append(ids.size());
         for (Stage s : Stage.values()) results.append(' ').append(s).append(' ').append(counts.getOrDefault(s, 0));
         results.append('\n');
         System.out.print(results.substring(results.indexOf("runnable")));
+        Map<String, Integer> causes = new TreeMap<>();
+        REASONS.values().forEach(r -> causes.merge(r, 1, Integer::sum));
+        causes.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).forEach(c -> System.out.println("CAUSE " + c.getValue() + " " + c.getKey()));
         if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, results.toString());
         assertEquals(378, ids.size(), "the runnable count autotests.golden holds");
         // The hand-lowered cases that parse must not fall behind the hand-lowering.

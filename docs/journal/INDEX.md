@@ -251,3 +251,5 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-244 | Super tithe, part 4b: the long documents behind indexes; a status per item; early warnings | tithe (R-008): it changes no behaviour and no golden | `J-200-299.md` |
 | J-245 | R-077: a conflict between agents goes to Ghost at once; the gate no longer removes a running gate's clone | decision | `J-200-299.md` |
 | J-246 | Phase 3.1 at scale: a census of the 378 runnable autotests through the lowering | measurement | `J-200-299.md` |
+| J-247 | Tithe: the gaps J-246's trial found in the routing | tithe (R-008): no behaviour | `J-200-299.md` |
+| J-248 | 3.1 forward: why each autotest does not parse; a nested program names the class it is written in | measurement; failure-caught | `J-200-299.md` |

@@ -11,6 +11,11 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
 - Nothing a run produced enters the repository (R-037): a run's output goes under `build/`.
 - Integration runs are long: `gradle integration --tests <class>` to a file, then read the result's failures.
 
+- A new integration or golden test also gets its row in `docs/checks.json` (R-056): the oracle, why it is
+  independent, a mutation test that exists, and `gates`, which takes a pre-push suite name (`nist`, `fixture`,
+  `lane`, `front`, `sir`, `autotest`, `rt`, `javalane`, `intent`, `ledger`, `passes`, or `fast`). The fast loop's
+  `DocTests > checks()` fails until it is there.
+
 ## Rows
 
 | Task | Start here | Contract | Tests |
