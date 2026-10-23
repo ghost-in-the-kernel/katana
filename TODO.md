@@ -14,8 +14,8 @@ the first open item has a check.
 
 ### 3.1 `rt/` core
 
-Status: partly built (J-093 to J-112: 24 of 378 autotests by hand); open: the runnable autotests through the
-lowering at scale; can be done now.
+Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246: the census through the lowering, 49 pass); open: the
+rest of the runnable autotests through the lowering at scale; can be done now.
 
 Check: the 359 GnuCOBOL autotests, run as unit tests of `rt/` through hand-lowered programs first,
 then through the lowering; each tests one rule, which is why they come first.
@@ -32,6 +32,9 @@ byte images (J-102), MOVE (J-103), editing and de-editing (J-104), INSPECT (J-10
 *The check by hand (J-110):* `AutotestRtIntegrationTest`, its golden `test/katana/rt/autotest/results.golden`
 (hand-lowered and passing counts); the cases `rt/` holds, then the rest through the lowering (HANDOFF).
 *Reached by hand (J-112):* 24 of 378, 19 passing the testsuite, all equal to cobc -std=ibm or a finding.
+*Through the lowering (J-246, research §54):* `AutotestsLoweredIntegrationTest`, golden `lowered.golden`: of 378, 36 have no
+`prog.cob`, 162 do not parse, 6 fail in the IR or lowering, 9 fail javac, 75 stop at run time on a construct the lowering
+names, 41 differ from the testsuite's stdout, 49 pass. Next: a reason per NOPARSE case, then the largest cause.
 (The check's 359 is the roadmap's count before the cases were extracted; J-093 counted 378 runnable of 1,446.
 3.2, next in number, is met by 3.4's runs and folded there, R-071.)
 

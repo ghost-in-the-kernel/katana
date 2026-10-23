@@ -250,3 +250,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-243 | Super tithe, part 4a: CLAUDE.md a pointer file; the escalation replay and its log; long runs to a file | tithe | `J-200-299.md` |
 | J-244 | Super tithe, part 4b: the long documents behind indexes; a status per item; early warnings | tithe (R-008): it changes no behaviour and no golden | `J-200-299.md` |
 | J-245 | R-077: a conflict between agents goes to Ghost at once; the gate no longer removes a running gate's clone | decision | `J-200-299.md` |
+| J-246 | Phase 3.1 at scale: a census of the 378 runnable autotests through the lowering | measurement | `J-200-299.md` |
