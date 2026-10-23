@@ -73,3 +73,6 @@ Written from `theGhost.md` by `gradle decisions`; do not edit by hand. A decisio
 | R-075 | An escalation replays the instructions; a gap three times of one kind goes to Ghost | in force |
 | R-076 | A long run's output goes to a file; an agent reads its verdict and its failures | in force |
 | R-077 | A conflict between agents stops the work and goes to Ghost at once; an agent never touches what it did not start | in force |
+| R-078 | A new task gets a fresh Sonnet agent; an agent is resumed only within one unfinished task | in force |
+| R-079 | Every agent debriefs on navigation; the debriefs are reviewed about every ten commits | in force |
+| R-080 | CLAUDE.md's conditional rules are one-line triggers to the file that holds them | in force |

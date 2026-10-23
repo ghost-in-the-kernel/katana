@@ -104,4 +104,16 @@ class DocTests {
     void researchIndexIsFresh() {
         assertEquals(ResearchIndex.render(Check.ROOT), Check.read(ResearchIndex.PATH), "docs/research/INDEX.md is stale: run `gradle researchIndex`");
     }
+
+    @Test
+    void navigationEntriesHaveTheirForm() {
+        String nav = Check.read(NavigationGate.PATH);
+        List<String> failures = new java.util.ArrayList<>();
+        for (String entry : nav.split("(?m)^(?=### N-)")) {
+            if (!entry.startsWith("### N-")) continue;
+            if (!entry.contains("- **Complaints:**") || !entry.contains("- **Suggestions:**"))
+                failures.add(entry.lines().findFirst().orElse("") + " lacks its Complaints or Suggestions line (R-079)");
+        }
+        assertEquals(List.of(), failures);
+    }
 }

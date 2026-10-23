@@ -25,33 +25,18 @@ the contract it names, and run its tests before and after. A new row goes in the
 
 Everything runs in the pinned image (`Dockerfile`, built once): `docker run --rm --network none -u
 "$(id -u)" -v "$PWD":/katana katana gradle test --offline` is the fast loop (doc and unit tests).
-`gradle nextId` prints the next free R-, J- and research number, after `git fetch origin main`. `gradle metrics` prints `docs/AGENT.md`'s numbers and warnings; `gradle kernelMap` adds new functions
-to the kernel map. `gradle integration` runs what needs `cobc` and the corpus (`corpus/fetch.sh`
-first): NIST, the CardDemo lane, the parser and the IR over the corpus, each held by a golden
-(`-Dkatana.record=true` rewrites them). `scripts/prepush.sh` is the check before a push: a fresh
-clone, the suites the change touches and why (`--all` at a phase boundary), quoted in the commit. A long run
-writes to a file and you read only its verdict and failures (R-076): `scripts/prepush.sh > build/gate.log 2>&1`,
-then `grep "pre-push check:" build/gate.log`.
+`scripts/prepush.sh` is the check before a push. The rest of the commands are in `docs/paths/process.md`.
 
-## Escalation, for a Sonnet agent (R-073, R-075)
+## When: read the file at the moment it applies (R-080)
 
-If you are a Claude Sonnet model, attempt a code fix once. A cause you can see and a fix that is easy: make it,
-and do not escalate. If the attempt fails in a way that is hard (the check still red after your one try, or the
-cause unclear), stop and ask a Claude Opus instance: the Agent tool with `model: "opus"`, given the task, what you
-tried, the failing output and the files. Then apply its answer and run the check yourself.
+Each line names a situation and the one file that says what to do in it. Read that file when the situation
+arises, not before.
 
-The Opus agent first asks the Sonnet agent to replay the instructions it followed (its workpath, the files it was
-routed to, the rules it read); a short replay, or "I cannot remember", is enough. It checks that what the task
-needed reached the agent at its start, and logs the escalation in `docs/ESCALATIONS.md` by gap kind. A third
-escalation of one kind goes to Ghost in `docs/HANDOFF.md`, "Waiting on Ghost", for a routing pass.
-
-## Conflicts between agents (R-077)
-
-If another agent's work breaks yours, contradicts your task, or keeps changing what you just changed: stop. Assume
-a conflict of objectives, never sabotage. Write both objectives down plainly, log a `conflict` row in
-`docs/ESCALATIONS.md`, and raise it under "Waiting on Ghost" in `docs/HANDOFF.md` at once. Never touch what you
-did not start: never kill or stop another's process; never revert, force-push over or rewrite another's commit;
-never edit the escalation log or the decision record to get around a conflict.
+- If you are a Claude Sonnet model and a code fix fails, or you are the Opus instance asked to help with one, read `docs/when/escalation.md`.
+- When another agent's work breaks yours, contradicts your task, or keeps changing what you changed, read `docs/when/conflict.md`.
+- When you hand a task to an agent, or finish one, read `docs/when/handoff.md`.
+- When you start a run whose output is long (the gate, `gradle integration`), read `docs/when/long-run.md`.
+- When you start a step (research, build, journal, gate, merge), read `docs/paths/process.md`.
 
 ## Before calling work done
 

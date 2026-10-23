@@ -254,3 +254,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-247 | Tithe: the gaps J-246's trial found in the routing | tithe (R-008): no behaviour | `J-200-299.md` |
 | J-248 | 3.1 forward: why each autotest does not parse; a nested program names the class it is written in | measurement; failure-caught | `J-200-299.md` |
 | J-249 | 3.1 forward: the census gives each case its own directory as the copybook path | measurement; failure-caught | `J-200-299.md` |
+| J-250 | R-078 to R-080: fresh agents per task, a navigation debrief per task, CLAUDE.md's conditionals as one-line triggers | decision | `J-200-299.md` |
