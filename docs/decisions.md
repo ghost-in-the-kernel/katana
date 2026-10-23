@@ -72,3 +72,4 @@ Written from `theGhost.md` by `gradle decisions`; do not edit by hand. A decisio
 | R-074 | CLAUDE.md is a pointer file; a routing row goes in the instructions file its workpath points to | in force |
 | R-075 | An escalation replays the instructions; a gap three times of one kind goes to Ghost | in force |
 | R-076 | A long run's output goes to a file; an agent reads its verdict and its failures | in force |
+| R-077 | A conflict between agents stops the work and goes to Ghost at once; an agent never touches what it did not start | in force |

@@ -45,6 +45,14 @@ routed to, the rules it read); a short replay, or "I cannot remember", is enough
 needed reached the agent at its start, and logs the escalation in `docs/ESCALATIONS.md` by gap kind. A third
 escalation of one kind goes to Ghost in `docs/HANDOFF.md`, "Waiting on Ghost", for a routing pass.
 
+## Conflicts between agents (R-077)
+
+If another agent's work breaks yours, contradicts your task, or keeps changing what you just changed: stop. Assume
+a conflict of objectives, never sabotage. Write both objectives down plainly, log a `conflict` row in
+`docs/ESCALATIONS.md`, and raise it under "Waiting on Ghost" in `docs/HANDOFF.md` at once. Never touch what you
+did not start: never kill or stop another's process; never revert, force-push over or rewrite another's commit;
+never edit the escalation log or the decision record to get around a conflict.
+
 ## Before calling work done
 
 The fast loop always; `scripts/prepush.sh` before a push. A refactor changes no golden (P-02). A

@@ -11,8 +11,11 @@ Gap kinds:
 - `wrong-instruction`: an instruction or row pointed the wrong way, or is stale.
 - `no-replay`: the agent could not replay what it followed.
 - `none`: everything needed reached the agent; the failure was the work's own.
+- `conflict` (R-077): another agent's work broke this one's, contradicted its task, or kept changing what it
+  changed. Logged by the agent that met it, escalation or not, with both objectives as it understands them; raised
+  at once, not after three.
 
-When a kind other than `none` has three rows, the third raises it to Ghost: a line under "Waiting on Ghost" in
+A `conflict` row raises it to Ghost at once. When another kind other than `none` has three rows, the third raises it to Ghost: a line under "Waiting on Ghost" in
 `docs/HANDOFF.md` starting `Escalations, <kind>:`, for review and a routing pass. `test/EscalationsTest.java` holds
 this file's form and that rule.
 
