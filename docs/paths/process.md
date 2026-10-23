@@ -8,8 +8,10 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
   `katana:dev`, tag it: `docker tag katana:dev katana` (J-253, N-004 and N-005).
 - A step runs in this order: a research section with its prediction, committed before the build; the build; a
   journal entry (`docs/JOURNAL.md`, R-046); the gate; the merge to `main` (R-040).
-- Before a research section's prediction, read the cases it predicts about, and how they are run (flags,
-  settings), not only their error messages (J-253: N-002 and N-004's predictions missed for want of it).
+- Before a research section's prediction, find the cases a change can move by searching the corpus for the
+  construct (the program text, and each autotest case's `flags.txt`), name them in the prediction, and read them and
+  how they are run (flags, settings), not only their error messages (J-253: N-002, N-004; J-266: N-012 missed
+  `run_extensions-517` for want of the scan).
 - An `// Unsure:` line says what would settle it, and ends with what stays until then (`Stays: ...`);
   `DocTests` refuses one without (J-253, N-002).
 - Take every number from `gradle nextId` after `git fetch origin main`; never guess the next R-, J- or §.
@@ -25,7 +27,9 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
 - The generated indexes (`.gitattributes` marks them): `gradle decisions` (`docs/decisions.md`, after a decision),
   `gradle journalIndex` (`docs/journal/INDEX.md`, after an entry), `gradle researchIndex`
   (`docs/research/INDEX.md`, after a research section). A test fails when one is stale.
-- `gradle metrics` warns early: a function at 16 to 20 paths, a file at 351 to 400 lines.
+- `gradle metrics` warns early: a function at 16 to 20 paths, a file at 351 to 400 lines. Before adding a branch to a
+  function, look it up in that list (output to a file, grep the name): one near 20 is split first, not after the
+  fast loop refuses it (J-266: N-011, N-012).
 - To wait for a gate, wait on its lock (the file prepush.lock in /tmp/claude-0, holding the running gate's PID), or on its
   verdict line in the log. Never on `pgrep -f` with the gate's name: the pattern is in the waiting command's own
   line, so it matches itself and waits forever (J-258; it cost an hour, and five minutes in J-246).
