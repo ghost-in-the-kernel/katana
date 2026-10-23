@@ -2012,3 +2012,5 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | oracle | `oracle/autotest/CompileFlags.java:CompileFlags.noEffect` |  | 2026-10-23 |  |
 | front | `front/Directives.java:Directives.valueless` | R-084 | 2026-10-23 |  |
 | oracle | `oracle/autotest/CompileFlags.java:CompileFlags.reason` | R-083 | 2026-10-23 |  |
+| oracle | `oracle/autotest/CompileFlags.java:CompileFlags.why` |  | 2026-10-23 |  |
+| oracle | `oracle/autotest/CompileFlags.java:CompileFlags.listing` |  | 2026-10-23 |  |
