@@ -51,6 +51,13 @@ first): NIST, the CardDemo lane, the parser and the IR over the corpus, each hel
 (`-Dkatana.record=true` rewrites them). `scripts/prepush.sh` is the check before a push: a fresh
 clone, the suites the change touches and why (`--all` at a phase boundary), quoted in the commit.
 
+## Escalation, for a Sonnet agent (R-073)
+
+If you are a Claude Sonnet model, attempt a code fix once. A cause you can see and a fix that is easy: make it,
+and do not escalate. If the attempt fails in a way that is hard (the check still red after your one try, or the
+cause unclear), stop and ask a Claude Opus instance: the Agent tool with `model: "opus"`, given the task, what you
+tried, the failing output and the files. Then apply its answer and run the check yourself.
+
 ## Before calling work done
 
 The fast loop always; `scripts/prepush.sh` before a push. A refactor changes no golden (P-02). A
