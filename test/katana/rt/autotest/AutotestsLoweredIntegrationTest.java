@@ -36,6 +36,14 @@ class AutotestsLoweredIntegrationTest {
     private static final Path GOLDEN = ROOT.resolve("test/katana/rt/autotest/lowered.golden");
     private static final Path FLOORS = ROOT.resolve("test/katana/rt/autotest/floors.txt");
     private static final int SECONDS = 20;
+    /** The golden's header: every line starts with `# `, so a reader that skips `#` lines skips all of it. */
+    private static final List<String> HEADER = List.of(
+            "# Phase 3.1's check at scale (AutotestsLoweredIntegrationTest, research 54): each runnable autotest through",
+            "# parse, the IR, the lowering, javac against rt/ and a run; the first stage it cannot pass, or PASS or FAIL",
+            "# against the testsuite's expected stdout (never shown, R-045; GnuCOBOL's dialect, D-010), each under its own compile",
+            "# flags (J-256): FLAG and FLAGPASS name the flags the compile step does not map (the case is run without them; FLAGPASS passes),",
+            "# each as `flag [reason key]`, joined by ` | `; a key's text is in the `# reason` block at the end.",
+            "# Run under profile/ibm.profile (TRUNC(STD), R-087). Written by `gradle integration -Dkatana.record=true`.");
     /** The profile the census runs under (R-087, R-081 amended): TRUNC(STD); the TRUNC(BIN) flags are held back for it, not mapped. */
     private static final Path PROFILE = ROOT.resolve("profile/ibm.profile");
     /** A FLAGPASS case's flags that ask for a form IBM does not have: grammar leaks to tighten (R-089), never passes. */
@@ -50,6 +58,8 @@ class AutotestsLoweredIntegrationTest {
 
     /** Why a NOPARSE case does not parse (the front end's first error, without where it was: the checkout's path, line, column), or which flags a FLAG case has. */
     private static final Map<String, String> REASONS = new TreeMap<>();
+    /** The reason keys the flag columns used, whose texts the golden's reasons block writes. */
+    private static final Set<String> USED_KEYS = new java.util.HashSet<>();
 
     private static String firstError(String id) throws Exception {
         var parse = katana.front.Parse.file(CASES.resolve(id).resolve("prog.cob"), new katana.front.Copybooks(List.of(CASES.resolve(id)), n -> 8), 8, LoweredAutotestsIntegrationTest.compileStep(id).settings());
@@ -91,8 +101,23 @@ class AutotestsLoweredIntegrationTest {
         List<String> flags = LoweredAutotestsIntegrationTest.compileStep(id).unmapped();
         if (flags.isEmpty() || raw == Stage.NOSOURCE) return raw;
         if (raw == Stage.PASS) LEAKS.put(id, flags.stream().filter(CompileFlags::grammarLeak).toList());
-        REASONS.put(id, flags.stream().map(f -> CompileFlags.reason(f) == null ? f : f + " (" + CompileFlags.reason(f) + ")").collect(java.util.stream.Collectors.joining(" ")));
+        REASONS.put(id, flagColumn(flags));
+        flags.stream().map(CompileFlags::reasonKey).filter(java.util.Objects::nonNull).forEach(USED_KEYS::add);
         return raw == Stage.PASS ? Stage.FLAGPASS : Stage.FLAG;
+    }
+
+    /** Between two flags in the golden: no flag in any `flags.txt` contains it (checked by `theGoldensFlagsReadBackAsTheCasesOwn`), so the column reads back whole. */
+    static final String FLAG_SEPARATOR = " | ";
+    private static final java.util.regex.Pattern KEYED = java.util.regex.Pattern.compile("(.*) \\[([a-z0-9-]+)\\]");
+
+    /** A FLAG or FLAGPASS line's flags: each as `flag [reason key]` (the key alone when `CompileFlags` gives a reason), joined by the separator. */
+    static String flagColumn(List<String> flags) {
+        return flags.stream().map(f -> CompileFlags.reasonKey(f) == null ? f : f + " [" + CompileFlags.reasonKey(f) + "]").collect(java.util.stream.Collectors.joining(FLAG_SEPARATOR));
+    }
+
+    /** The golden's flag column back to the flags it was made from. */
+    static List<String> readFlags(String column) {
+        return Arrays.stream(column.split(java.util.regex.Pattern.quote(FLAG_SEPARATOR), -1)).map(f -> { var m = KEYED.matcher(f); return m.matches() ? m.group(1) : f; }).toList();
     }
 
     /** The case run with the flags the compile step maps and none of the others. */
@@ -140,13 +165,7 @@ class AutotestsLoweredIntegrationTest {
         assertEquals("STD", profile.ibm().get("ibm.trunc"), "R-087: the census runs ibm.profile, TRUNC(STD)");
         List<String> ids = runnable();
         Map<Stage, Integer> counts = new TreeMap<>();
-        StringBuilder results = new StringBuilder("""
-                # Phase 3.1's check at scale (AutotestsLoweredIntegrationTest, research 54): each runnable autotest through
-                # parse, the IR, the lowering, javac against rt/ and a run; the first stage it cannot pass, or PASS or FAIL
-                # against the testsuite's expected stdout (never shown, R-045; GnuCOBOL's dialect, D-010), each under its own compile
-# flags (J-256): FLAG and FLAGPASS name the flags the compile step does not map (the case is run without them; FLAGPASS passes).
-                # Run under profile/ibm.profile (TRUNC(STD), R-087). Written by `gradle integration -Dkatana.record=true`.
-                """);
+        StringBuilder results = new StringBuilder(String.join("\n", HEADER) + "\n");
         Map<String, Stage> byCase = new TreeMap<>();
         for (String id : ids) {
             Stage s = stage(id);
@@ -159,7 +178,9 @@ class AutotestsLoweredIntegrationTest {
         results.append('\n');
         // A FLAGPASS under a form IBM does not have is the front end too lenient: listed, to tighten (R-089).
         LEAKS.forEach((id, flags) -> { if (!flags.isEmpty() && byCase.get(id) == Stage.FLAGPASS) results.append("# grammar leak ").append(id).append(' ').append(String.join(" ", flags)).append('\n'); });
-        System.out.print(results.substring(results.indexOf("runnable")));
+        // The reasons, once each, for the keys the flag columns use; `CompileFlags` holds the text.
+        new java.util.TreeSet<>(USED_KEYS).forEach(k -> results.append("# reason ").append(k).append(": ").append(CompileFlags.reasonOfKey(k)).append('\n'));
+        System.out.print(results.substring(results.indexOf("\nrunnable ") + 1));
         Map<String, Integer> causes = new TreeMap<>();
         byCase.forEach((id, s) -> { if (s == Stage.NOPARSE) causes.merge(REASONS.get(id), 1, Integer::sum); });
         causes.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).forEach(c -> System.out.println("CAUSE " + c.getValue() + " " + c.getKey()));
@@ -177,6 +198,49 @@ class AutotestsLoweredIntegrationTest {
             assertEquals(handPasses ? Stage.PASS : Stage.FAIL, s, l.id() + " through the lowering against by hand");
         }
         assertEquals(Files.exists(GOLDEN) ? Files.readString(GOLDEN) : "(no golden)", results.toString());
+    }
+
+    /**
+     * The golden's flag columns read back as each case's own `flags.txt` (the flags the compile step leaves unmapped, in order, whole), so the separator can never
+     * be ambiguous: no flag in any case's `flags.txt` contains it or looks like a reason key, and every key used has its text, written once, from `CompileFlags`.
+     */
+    @Test
+    void theGoldensFlagsReadBackAsTheCasesOwn() throws Exception {
+        List<String> lines = Files.readAllLines(GOLDEN);
+        assertTrue(lines.stream().takeWhile(l -> !l.isEmpty() && l.startsWith("#")).count() == HEADER.size(), "the header is all `# ` lines, then the cases");
+        Map<String, String> reasons = new TreeMap<>();
+        for (String l : lines) if (l.startsWith("# reason ")) reasons.put(l.substring(9, l.indexOf(':')), l.substring(l.indexOf(':') + 2));
+        Set<String> keysUsed = new java.util.HashSet<>();
+        int checked = 0;
+        for (String l : lines) {
+            if (l.startsWith("#") || l.startsWith("runnable ")) continue;
+            String[] part = l.split(" ", 3);
+            if (!part[1].equals("FLAG") && !part[1].equals("FLAGPASS")) continue;
+            List<String> own = Files.readAllLines(CASES.resolve(part[0]).resolve("flags.txt")).stream().filter(f -> !f.isBlank())
+                    .filter(f -> !CompileFlags.map(List.of(f), true).unmapped().isEmpty()).toList();
+            assertEquals(own, readFlags(part[2]), part[0] + ": the golden's flags against its flags.txt");
+            for (String f : own) if (CompileFlags.reasonKey(f) != null) keysUsed.add(CompileFlags.reasonKey(f));
+            checked++;
+        }
+        assertTrue(checked > 1, "FLAG and FLAGPASS lines");
+        assertEquals(keysUsed, reasons.keySet(), "a reasons block line for each key used, and no other");
+        reasons.forEach((k, text) -> assertEquals(CompileFlags.reasonOfKey(k), text, "# reason " + k));
+        // The separator and the key's brackets are in no flag of any case, so a column splits one way only.
+        try (var dirs = Files.list(CASES)) {
+            for (Path d : dirs.toList()) {
+                Path f = d.resolve("flags.txt");
+                if (Files.exists(f)) for (String flag : Files.readAllLines(f)) assertTrue(!flag.contains(FLAG_SEPARATOR) && !KEYED.matcher(flag).matches(), d.getFileName() + ": " + flag);
+            }
+        }
+    }
+
+    /** R-056's mutation for the flag columns: a flag with spaces and commas, as `run_extensions-2904` has, comes back whole, and joining with a bare space would not. */
+    @Test
+    void aFlagWithSpacesSurvivesTheColumn() {
+        List<String> flags = List.of("-fsystem-name=sw1, SwItCh\\ b, SWITCH\\ 25", "-fsystem-name=SWITCH-32", "-fsomething-new");
+        assertEquals(flags, readFlags(flagColumn(flags)));
+        assertTrue(flagColumn(flags).contains(" [cobc-runtime] | -fsystem-name=SWITCH-32 [cobc-runtime] | -fsomething-new"));
+        assertTrue(!Arrays.equals(flags.toArray(), String.join(" ", flags).split(" ")), "joined by a space the first flag is lost in three");
     }
 
     /** R-056's mutation, in both passing stages: a passing case's lowered output held to another case's expected stdout is not a pass. */

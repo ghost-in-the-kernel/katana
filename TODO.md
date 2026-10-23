@@ -71,21 +71,9 @@ never mapped to nothing to turn a `FLAG` into a pass. Built (J-259): the three G
 `-std=ibm-strict` mapped, run as is (R-083); a valueless `-D NAME` defined with its value unknown, a value compared
 or redefined an error naming the flag, `Settings` carrying the marker (R-084); `-free` left a `FLAG` or `FLAGPASS`,
 "a source format the dialect does not have" (R-085). The census is now 70 FLAG, 14 FLAGPASS, 100 do not parse, 4 javac, 45 PASS (`run_fundamental-4746` moved up from FLAGPASS). Built (J-261): a reason for every flag left, in the golden (`CompileFlags.reason`); the listing and diagnostics flags (`-t`, `-fno-theaders`, `-fno-tmessages`, `-fdiagnostics-show-option`) mapped as no-effect: 70 FLAG, 12 FLAGPASS, 100 do not parse, 4 javac, 47 PASS, floors 47 and 59. Next: the dialect decisions the reasons name, for Ghost (binary truncation, 17 cases, first).
-Open, a golden change for Ghost's go (N-009, N-010; a tithe changes no golden, so none is made): three problems in the census golden's format, each
-of which would rewrite `lowered.golden` (record it in a commit of its own with a reviewed diff, P-02, and take the format change to `AutotestsLoweredIntegrationTest`
-and `CompileFlags.reason` together):
-1. A flag containing a space cannot be read back. The golden joins a case's flags with a space, and `-fsystem-name=sw1, SwItCh\ b, SWITCH\ 25`
-   (`run_extensions-2904`, whose `flags.txt` holds four flags, one a line) runs into the next flag. Fix: one flag per line, or a flag
-   quoted as the compile command quotes it; the plainest is to join them with ` | ` (check that no flag in `flags.txt` contains it),
-   and to have the check read the golden's flags back and compare them with `flags.txt`'s lines.
-2. The header block is ragged. The text block in `everyRunnableAutotestEndsAtAStage` has its fourth line at column 0, which sets the
-   block's indent to 0, so the other four header lines keep 16 spaces of Java indentation and the fourth has none. Fix: indent that line
-   like the rest (or build the header from a `List<String>` of lines), so every header line starts with `# `; readers that skip `#` lines
-   (`aPassingCaseHeldToAnotherCasesExpectedOutputFails` tests `startsWith("#")`) then skip the whole header, which today they do not.
-3. Each flag's long reason is repeated on every case line (`-fcallfh=TSTFH (names a file handler ...)` on four lines). Fix: the line keeps
-   the flag and a reason key (`-fcallfh [R-nnn or a short code]`), and the reasons are written once, in a block at the golden's end
-   (`# reason <key>: <text>`); `CompileFlags.reason` stays the one source and the census checks every key used has a text.
-Done together, the three change the golden once. Check: the census, then the diff shows only the header, the flag columns and the new block, and the counts line (`runnable 378 ...`) unchanged.
+Built (J-267, Ghost's go; N-009, N-010): the census golden's format, three problems fixed together in one re-record (stages, counts, floors and the `runnable 378 ...` line unchanged):
+a FLAG or FLAGPASS line holds `flag [reason key]` joined by ` | ` (a flag with a space, `run_extensions-2904`, no longer runs into the next); every header line starts with `# `;
+each reason is written once in a `# reason <key>: <text>` block at the end, from `CompileFlags.reason` (`reasonKey`, `reasonOfKey` read its table). `theGoldensFlagsReadBackAsTheCasesOwn` reads the flags back and compares them with each case's `flags.txt`.
 Then, by count (J-248, J-249, J-251): the 99 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
 `SOURCE FORMAT`, `TURN`: 6, each an error by R-081; `$SET` out of column 7: 1),
 `MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower

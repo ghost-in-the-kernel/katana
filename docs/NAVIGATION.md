@@ -17,3 +17,7 @@ An entry: `### N-<n> <date>, <task> (<commits>)`, then the lines `- **Complaints
 ## Entries
 
 (none since review 3, J-266)
+
+### N-013 2026-10-23, the census golden's format (J-267; 2 commits)
+- **Complaints:** the session loaded another project's CLAUDE.md first (Suite Builder's); Katana's `CLAUDE.md` and the workpath files were enough once opened, and `docs/paths/oracle.md` and `lowering.md` led straight to the files. `docs/when/handoff.md` says the census run is for a change to what it reads, but a change to only the census test's own format also needs it (and its record flag): it is not said where the record flag is used. The golden's header lines make the first count in a `grep runnable` ambiguous (the header contains "runnable").
+- **Suggestions:** none beyond naming `-Dkatana.record=true` in the handoff's step 1 for 3.1.
