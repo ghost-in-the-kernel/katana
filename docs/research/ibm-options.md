@@ -2552,3 +2552,36 @@ identical reports.
 
 The rival: the trace by record. A program whose paragraphs are entered other than once a record has no pass per
 record; such a trace is given for the run and says so.
+
+## 54. 3.1, the runnable autotests through the lowering: a first sweep of all 378, outcomes counted by stage (J-246)
+
+**Ghost's word (2026-10-23).** Attempt TODO 3.1, the next roadmap item, as far as can be done soundly.
+
+**What the step builds.** `AutotestsLoweredIntegrationTest`: every runnable case in
+`corpus/gnucobol-autotests/cases/` (the 378 that `AutotestRtIntegrationTest.expected` finds a check for), its
+`prog.cob` through parse, the Semantic IR, `lower/`, javac against `rt/` alone, and a run with a time limit. Each
+case ends at the first stage it cannot pass, and the golden `test/katana/rt/autotest/lowered.golden` records that
+stage per case and the counts: `NOPARSE` (the front end reports the program unclean), `NOLOWER` (the IR or the
+lowering throws or reports a finding that stops it), `NOJAVAC`, `NORUN` (an exception or the time limit), then
+`PASS` or `FAIL` against the testsuite's expected stdout, which is cobc's default dialect and not IBM's (D-010; R-045:
+the expected side is only compared, never shown). The test holds a floor: the count of PASS never falls below the
+golden's. The 24 hand-lowered cases are a subset and must not fall behind: each that the hand-lowered check passes
+and that parses must also pass here, or be a listed finding.
+
+This is not the whole of 3.1's check ("run as unit tests of `rt/`, then through the lowering, each testing one
+rule"); it is the through-the-lowering half at scale, as a census, so that each later step is a named stage's count
+falling. It does not classify a FAIL as a finding against the testsuite's dialect (D-010); that is the step after,
+when the counts show which FAILs are one cause.
+
+**Predicted, before the run** (from 24 of 24 hand-lowered and 21 of 24 parsing, J-112, J-114):
+- `NOPARSE` is the largest bucket outside PASS: between 100 and 200 of the 378 (GnuCOBOL's own items, free format,
+  intrinsic functions and file verbs the grammar may not take);
+- `NOLOWER` and `NOJAVAC` together under 40, since the lowering already holds 83 of NIST NC's 95 runs;
+- `NORUN` under 30, mostly the time limit and a missing input;
+- `PASS` between 90 and 160, `FAIL` between 20 and 60, most FAILs the testsuite's dialect (D-010) and the rest
+  ignorance of the lowering;
+- the 21 hand-lowered that parse all reach `PASS` or a listed finding.
+
+The rival: reading the outcome from javac's and the lowering's messages alone. A case that lowers with a finding the
+lowering prints (P-03) would then count as lowered; the stage here is the first the case cannot pass, and a finding
+that makes the Java a stub is reported with the case, not hidden in PASS.

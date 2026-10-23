@@ -75,3 +75,4 @@ Written by `gradle researchIndex`; do not edit by hand.
 | 51 | 8A.4, the alignment file: a foreign port's Java mapped onto the COBOL by the program's own names (J-234) |
 | 52 | 8A.5, attribution: which divergence kind reproduces a field's difference, by probe (J-236) |
 | 53 | 8A.6, the divergence report: each divergence proven or possible, its statement, cause, trace and fix (J-237) |
+| 54 | 3.1, the runnable autotests through the lowering: a first sweep of all 378, outcomes counted by stage (J-246) |
