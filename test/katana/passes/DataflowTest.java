@@ -29,7 +29,7 @@ class DataflowTest {
         assertEquals(List.of(), refusals("01 I PIC 9.\n", "MAIN.\n    PERFORM VARYING I FROM 1 BY 1 UNTIL I > 3\n        DISPLAY I\n    END-PERFORM.\n    GOBACK.\n"), "FROM writes a VARYING identifier before UNTIL reads it");
         assertEquals(List.of(), refusals("01 G.\n   05 A PIC 9.\n   05 FILLER PIC X VALUE '-'.\n   05 B PIC X.\n", "MAIN.\n    INITIALIZE G.\n    DISPLAY G.\n    MOVE 1 TO A.\n    GOBACK.\n"), "INITIALIZE of a group writes its receivers, its FILLER keeping its VALUE");
         Program p = program("01 A PIC 9.\n", "MAIN.\n    MOVE 1 TO A.\n    DISPLAY A.\n    GOBACK.\n");
-        String java = Lower.java(p, "P", Structuring.plan(p, Rules.infer(p)).plan()).java();
+        String java = Lower.java(p, "P", Passes.plan(p, Rules.infer(p)).plan()).java();
         assertTrue(java.contains("public boolean initial() { return true; }") && java.contains("// Stateless (passes/Stateless)"), java);
     }
 

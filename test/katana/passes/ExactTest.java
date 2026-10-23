@@ -19,7 +19,7 @@ class ExactTest {
     @Test
     void anIntegerSumIsLongArithmeticAndADecimalOneBigDecimals() {
         Program p = program(DATA, "    ADD 1 TO C.\n    COMPUTE T ROUNDED = C * 2 + 1.5.\n    SUBTRACT 3 FROM C GIVING C.\n");
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         assertEquals(3, r.plan().exact().size(), r.refused().toString());
         String java = Lower.java(p, "P", r.plan()).java();
         assertTrue(java.contains("Scalars.store(Decimal.exact((c + 1)), 5, 0, false, false, false,"), java);
@@ -31,7 +31,7 @@ class ExactTest {
     @Test
     void aRecordFieldIsReadExactlyUnderTheGuard() {
         Program p = program(DATA, "    ADD F TO C.\n    MOVE SPACES TO R.\n");
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         assertEquals(1, r.plan().exact().size(), r.refused().toString());
         String java = Lower.java(p, "P", r.plan()).java();
         // R is a record class (6.7): F is its member `r.f`, read in the exact form through its getter.
@@ -52,7 +52,7 @@ class ExactTest {
 
     private static void assertRefused(String procedure, String why) {
         Program p = program(DATA, procedure);
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         assertTrue(r.refused().entrySet().stream().anyMatch(e -> !e.getKey().startsWith("item ") && e.getValue().stream().anyMatch(w -> w.contains(why))), why + ": " + r.refused());
     }
 }

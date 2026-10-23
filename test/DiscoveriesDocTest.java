@@ -37,7 +37,7 @@ final class DiscoveriesDocTest {
         String row = "| D-001 | cobc | x | y | `ATest`; `#killer` | J-001 | 1 | open |\n";
         Source test = new Source("test/katana/ATest.java", "/** D-001. */\nclass ATest { void killer() {} }\n");
         return new Check("discoveries")
-                .repository(check(Check.read("docs/DISCOVERIES.md"), Check.read("docs/JOURNAL.md"), sources()))
+                .repository(check(Check.read("docs/DISCOVERIES.md"), JournalIndex.text(Check.ROOT), sources()))
                 .accepts("a row its test cites", () -> check(row, journal, List.of(test)))
                 .rejects("a row whose test does not exist", () -> check(row.replace("ATest", "BTest"), journal, List.of(test)))
                 .rejects("a row naming a list its test does not hold", () -> check(row.replace("`ATest`", "`ATest` (`GONE`)"), journal, List.of(test)))
@@ -70,7 +70,7 @@ final class DiscoveriesDocTest {
     private static List<String> row(String id, String[] cells, String journal, List<Source> sources) {
         List<String> failures = new ArrayList<>();
         String entry = cells.length > 4 ? cells[4].trim() : "";
-        if (!entry.matches("J-\\d{3}") || !journal.contains("### " + entry + " ")) failures.add(id + "'s journal entry " + entry + " is not in docs/JOURNAL.md");
+        if (!entry.matches("J-\\d{3}") || !journal.contains("### " + entry + " ")) failures.add(id + "'s journal entry " + entry + " is not in the journal (docs/journal/)");
         if (!cells[cells.length - 1].trim().equals("withdrawn")) failures.addAll(proof(id, cells[3], sources));
         return failures;
     }

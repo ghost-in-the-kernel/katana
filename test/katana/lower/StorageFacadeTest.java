@@ -1,5 +1,6 @@
 package katana.lower;
 
+import katana.support.Javac;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -11,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.tools.ToolProvider;
 import katana.front.Copybooks;
 import katana.front.Parse;
 import katana.rt.Codepage;
@@ -54,9 +54,8 @@ class StorageFacadeTest {
         Lower.Result r = Lower.java(Build.programs(parse, HASH).get(0).program(), "TIOTP");
         assertEquals(List.of(), r.findings());
         Files.writeString(dir.resolve("TIOTP.java"), r.java());
-        ByteArrayOutputStream diagnostics = new ByteArrayOutputStream(), shown = new ByteArrayOutputStream();
-        assertEquals(0, ToolProvider.getSystemJavaCompiler().run(null, null, diagnostics, "-classpath", System.getProperty("java.class.path"), "-d", dir.toString(), dir.resolve("TIOTP.java").toString()),
-                diagnostics.toString(StandardCharsets.UTF_8));
+        Javac.compile("TIOTP", dir, dir.resolve("TIOTP.java"));
+        ByteArrayOutputStream shown = new ByteArrayOutputStream();
         try (URLClassLoader loader = new URLClassLoader(new URL[] {dir.toUri().toURL()}, getClass().getClassLoader())) {
             Sysout out = new Sysout(new PrintStream(shown, true, StandardCharsets.ISO_8859_1), Display.Sign.SEP);
             RunUnit u = new RunUnit(Codepage.COBC_ASCII, Upsi.of("00000000"), new Sysin(new java.io.ByteArrayInputStream(new byte[0])), out, out, false);

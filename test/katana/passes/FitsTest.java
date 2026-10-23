@@ -16,14 +16,14 @@ class FitsTest {
         return katana.support.Small.program(DATA, "MAIN.\n    MOVE 5 TO A.\n    MOVE 7 TO B.\n" + procedure + "    DISPLAY A B C S V.\n    STOP RUN.\n");
     }
 
-    private static Structuring.Result plan(Program p) {
-        return Structuring.plan(p, Rules.infer(p));
+    private static Passes.Result plan(Program p) {
+        return Passes.plan(p, Rules.infer(p));
     }
 
     @Test
     void aValueThatAlwaysFitsIsAssigned() {
         Program p = program("    COMPUTE C = A + B.\n    COMPUTE S = A - B.\n    ADD A B GIVING V.\n");
-        Structuring.Result r = plan(p);
+        Passes.Result r = plan(p);
         assertEquals(3, r.plan().fits().size(), r.refused().toString());
         String java = Lower.java(p, "P", r.plan()).java();
         assertTrue(java.contains("c = (a + b);") && java.contains("s = (a - b);"), java);
@@ -42,7 +42,7 @@ class FitsTest {
 
     private static void assertKept(String procedure, String why, String what) {
         Program p = program(procedure);
-        Structuring.Result r = plan(p);
+        Passes.Result r = plan(p);
         assertEquals(1, r.plan().exact().size(), what + ": exact first, " + r.refused());
         assertTrue(r.plan().fits().isEmpty() && r.refused().entrySet().stream().anyMatch(e -> e.getKey().endsWith(" fits") && e.getValue().stream().anyMatch(w -> w.contains(why))), what + ": " + r.refused());
         assertTrue(Lower.java(p, "P", r.plan()).java().contains("Scalars.store("), what + ": the store kept");

@@ -30,7 +30,7 @@ class StructuringTest {
     @Test
     void aRangeOnlyPerformedBecomesAMethodItsCallerCalls() {
         Program p = program(CLEAN);
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         assertEquals(2, r.applied().size(), r.refused().toString());
         String java = Lower.java(p, "P", r.plan()).java();
         int a = index(p, "A"), b = index(p, "B");
@@ -62,7 +62,7 @@ class StructuringTest {
         Program p = program(procedure);
         katana.intent.types.Subject.Range range = new katana.intent.types.Subject.Range(index(p, first), index(p, last));
         Fact given = new Fact(katana.intent.types.Kind.FUNCTION, range, new katana.intent.types.Evidence("person", 1, List.of(new katana.intent.types.Node.ParagraphNode(range.first()))), 1, State.INFERRED);
-        Structuring.Result r = Structuring.plan(p, new Intent("P", p.header().profileHash(), List.of(given)));
+        Passes.Result r = Passes.plan(p, new Intent("P", p.header().profileHash(), List.of(given)));
         assertEquals(List.of(), r.applied(), procedure);
         assertTrue(r.refused().getOrDefault(Structuring.name(p, range), List.of()).stream().anyMatch(w -> w.contains(why)), procedure + ": " + r.refused());
     }
@@ -76,7 +76,7 @@ class StructuringTest {
         Program p = program(CLEAN);
         Intent inferred = Rules.infer(p);
         List<Fact> refuted = inferred.facts().stream().map(f -> new Fact(f.kind(), f.subject(), f.evidence(), f.confidence(), new State(State.Status.REFUTED, "Ghost", "2026-10-18"))).toList();
-        Structuring.Result r = Structuring.plan(p, new Intent(inferred.program(), inferred.profileHash(), refuted));
+        Passes.Result r = Passes.plan(p, new Intent(inferred.program(), inferred.profileHash(), refuted));
         assertEquals(List.of(), r.applied());
         assertTrue(r.plan().methods().isEmpty());
     }
@@ -85,7 +85,7 @@ class StructuringTest {
     void aGoToTheNextParagraphFallsUnlessARangeEndsThere() {
         Program falls = program("MAIN.\n    DISPLAY 'M'.\n    GO TO Z.\nZ.\n    STOP RUN.\n");
         assertEquals(java.util.Set.of(falls.procedure().paragraphs().stream().filter(g -> g.name().equals("MAIN")).findFirst().orElseThrow().index()), Structuring.falls(falls));
-        assertTrue(Lower.java(falls, "P", Structuring.plan(falls, Rules.infer(falls)).plan()).java().contains("left to fall"));
+        assertTrue(Lower.java(falls, "P", Passes.plan(falls, Rules.infer(falls)).plan()).java().contains("left to fall"));
         Program ends = program("MAIN.\n    PERFORM A.\n    STOP RUN.\nA.\n    DISPLAY 'A'.\n    GO TO Z.\nZ.\n    EXIT.\n");
         int a = ends.procedure().paragraphs().stream().filter(g -> g.name().equals("A")).findFirst().orElseThrow().index();
         assertFalse(Structuring.falls(ends).contains(a), "a PERFORM range ends at A: its GO TO passes the range's end, a fall would not");
@@ -102,7 +102,7 @@ class StructuringTest {
     @Test
     void aVaryingOfOneMonotoneCounterBecomesAFor() {
         Program p = varying("MAIN.\n    PERFORM VARYING I FROM 1 BY 1 UNTIL I > 5\n        ADD I TO T\n        PERFORM A\n    END-PERFORM.\n    PERFORM A VARYING J FROM 1 BY 2 UNTIL J > 9.\n    STOP RUN.\nA.\n    ADD 1 TO T.\n");
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         assertEquals(2, r.plan().loops().size(), r.refused().toString());
         String java = Lower.java(p, "P", r.plan()).java();
         assertTrue(java.contains("for (; !("), java);
@@ -119,7 +119,7 @@ class StructuringTest {
 
     private static void assertLoopRefused(String procedure, String why) {
         Program p = varying(procedure);
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         assertEquals(java.util.Set.of(), r.plan().loops(), procedure);
         assertTrue(r.refused().entrySet().stream().anyMatch(e -> e.getKey().startsWith("PERFORM VARYING") && e.getValue().stream().anyMatch(w -> w.contains(why))), procedure + ": " + r.refused());
     }
@@ -127,7 +127,7 @@ class StructuringTest {
     @Test
     void aRangeThatLoopsOrIsDispatchedStaysOverTheSwitch() {
         Program loops = program("MAIN.\n    PERFORM A THRU A2.\n    STOP RUN.\nA.\n    ADD 1 TO I.\nA2.\n    IF I < 5 GO TO A.\n");
-        Structuring.Result r = Structuring.plan(loops, Rules.infer(loops));
+        Passes.Result r = Passes.plan(loops, Rules.infer(loops));
         int a = index(loops, "A");
         assertEquals(Set.of(a), r.plan().inline(), "a GO TO back is a loop the method's own code says (6.2b): " + r.refused());
         String java = Lower.java(loops, "P", r.plan()).java();
@@ -136,10 +136,10 @@ class StructuringTest {
         Program enclosed = program("MAIN.\n    PERFORM B.\n    PERFORM A THRU C.\n    STOP RUN.\nA.\n    DISPLAY 'A'.\nB.\n    DISPLAY 'B'.\nC.\n    DISPLAY 'C'.\n");
         katana.intent.types.Subject.Range b = new katana.intent.types.Subject.Range(index(enclosed, "B"), index(enclosed, "B"));
         Fact given = new Fact(katana.intent.types.Kind.FUNCTION, b, new katana.intent.types.Evidence("person", 1, List.of(new katana.intent.types.Node.ParagraphNode(b.first()))), 1, State.INFERRED);
-        Structuring.Result e = Structuring.plan(enclosed, new Intent("P", enclosed.header().profileHash(), List.of(given)));
+        Passes.Result e = Passes.plan(enclosed, new Intent("P", enclosed.header().profileHash(), List.of(given)));
         assertTrue(e.plan().inline().isEmpty() && e.refused().values().stream().flatMap(List::stream).anyMatch(w -> w.contains("runs through it")), "a PERFORM A THRU C runs through B, so B's stretch must stay: " + e.refused() + " " + e.plan());
         Program varying = program("MAIN.\n    PERFORM A.\n    PERFORM A VARYING I FROM 1 BY 1 UNTIL I > 3 AFTER I FROM 1 BY 1 UNTIL I > 2.\n    STOP RUN.\nA.\n    DISPLAY 'A'.\n");
-        Structuring.Result v = Structuring.plan(varying, Rules.infer(varying));
+        Passes.Result v = Passes.plan(varying, Rules.infer(varying));
         assertTrue(v.plan().inline().isEmpty() && v.refused().values().stream().flatMap(List::stream).anyMatch(w -> w.contains("through the dispatcher")), v.refused() + " " + v.plan());
     }
 
@@ -150,14 +150,14 @@ class StructuringTest {
     @Test
     void anIrreducibleOrAlteredMainLineStaysInTheSwitchWithAFinding() {
         Program twoEntries = program("MAIN.\n    IF I = 1 GO TO B.\nA.\n    ADD 1 TO I.\nB.\n    ADD 1 TO I.\n    IF I < 5 GO TO A.\n    STOP RUN.\n");
-        Structuring.Result r = Structuring.plan(twoEntries, Rules.infer(twoEntries));
+        Passes.Result r = Passes.plan(twoEntries, Rules.infer(twoEntries));
         assertTrue(r.plan().main().isEmpty() && r.refused().getOrDefault("main line", List.of()).stream().anyMatch(w -> w.contains("enters the loop")), r.refused() + " " + r.plan());
         assertTrue(Lower.java(twoEntries, "P", r.plan()).java().contains("private int step("), "the residual main line keeps its switch");
         Program altered = program("MAIN.\n    ALTER G TO PROCEED TO B.\nG.\n    GO TO A.\nA.\n    STOP RUN.\nB.\n    STOP RUN.\n");
-        Structuring.Result a = Structuring.plan(altered, Rules.infer(altered));
+        Passes.Result a = Passes.plan(altered, Rules.infer(altered));
         assertTrue(a.plan().main().isEmpty() && a.refused().getOrDefault("main line", List.of()).stream().anyMatch(w -> w.contains("ALTER")), a.refused() + " " + a.plan());
         Program reducible = program("MAIN.\n    ADD 1 TO I.\n    IF I < 5 GO TO MAIN.\n    STOP RUN.\n");
-        Structuring.Result m = Structuring.plan(reducible, Rules.infer(reducible));
+        Passes.Result m = Passes.plan(reducible, Rules.infer(reducible));
         int main = index(reducible, "MAIN");
         assertTrue(m.plan().main().contains(main), m.refused().toString());
         assertTrue(Lower.java(reducible, "P", m.plan()).java().contains("W" + main + ": while (true) {"), "a GO TO back on the main line is a labeled while");

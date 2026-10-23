@@ -14,6 +14,9 @@ the first open item has a check.
 
 ### 3.1 `rt/` core
 
+Status: partly built (J-093 to J-112: 24 of 378 autotests by hand); open: the runnable autotests through the
+lowering at scale; can be done now.
+
 Check: the 359 GnuCOBOL autotests, run as unit tests of `rt/` through hand-lowered programs first,
 then through the lowering; each tests one rule, which is why they come first.
 Its first step (from tithe pass 2, B3): `corpus/fetch.sh gnucobol-autotests`, then
@@ -36,6 +39,8 @@ Can be done now (R-071): the lowering it needs is live. Its check at scale, the 
 lowering, is also every pass's unit corpus (6.1 to 6.7's "Open"), so it comes before 6.8; 6.9 carries it too.
 
 ### 3.3 `lower/`
+
+Status: partly built (J-114 to J-139); open: NIST DB205A's ACCEPT defect (J-212); can be done now.
 
 Check: the emitted data map equals the IR's; every statement has its comment; the Java compiles with
 `javac` against `rt/` only.
@@ -61,6 +66,9 @@ Can be done now (R-071): what is left is a defect, not an architecture, NIST DB2
 
 ### 3.4 NIST, module by module, through both lanes
 
+Status: partly built (NIST modules by floors that only rise); open: every module at its full count under both
+profiles; can be done now.
+
 Check: the Java lane reproduces the same PASS/FAIL lines as the 9,610 GnuCOBOL passes, under both
 `-std=cobol85` and `-std=ibm` profiles; the per-module pass count is recorded and held by a test
 that may only rise (the bench discipline, P-01).
@@ -77,9 +85,13 @@ reproduces its REPORT"; `rt/Dispatcher` built (J-113), held to cobc -std=ibm by 
 
 ### 3.5 Findings, second set
 
+Status: open; can be done now.
+
 Check: every finding class has a program that raises it (Fable, 2026-10-17, J-199).
 
 ### 3.7 Tithe pass 3
+
+Status: open; can be done now.
 
 Check: tithe pass 3's evaluation, as pass 2's was (Fable, 2026-10-17, J-199).
 
@@ -102,6 +114,8 @@ paragraph-entry trace equal; the ledger has a line per changed symbol; the pass'
 
 ### 6.1 Pattern structuring
 
+Status: partly built (J-210, J-211); open: its own unit corpus, which waits on 3.1.
+
 Check: as above. On the batch programs first: every CardDemo golden byte-identical after the pass, and a
 ledger line per range naming its `Function` fact and its state, `unconfirmed` until a review file a person
 wrote says otherwise; no figure counts Opus's key or the trial's review edits as confirmed (J-199).
@@ -116,6 +130,9 @@ unit corpus, the GnuCOBOL autotests that exercise PERFORM, which waits on phase 
 through the lowering (the 20 hand-lowered ones pass structured, none holding a range).
 
 ### 6.2 Method extraction under the dispatcher
+
+Status: partly built (J-212, J-213); open: a main line entered from elsewhere (Ghost's to decide), and its unit
+corpus, which waits on 3.1.
 
 Check: as above.
 
@@ -135,6 +152,8 @@ blocked only by entries, theirs or a loop's), or the paragraphs reordered so suc
 
 ### 6.3 Scalar promotion
 
+Status: partly built (docs/PASSES.md, its row); open: what its body lists, and its unit corpus, which waits on 3.1.
+
 Check: as above.
 
 Built (J-215, research §39, R-068): a numeric item whose bytes nothing else reads or writes (no REDEFINES,
@@ -150,6 +169,8 @@ every run as literal. Kept out, each with why: ACCEPT from the input device and 
 be no number), and a statement with ON OVERFLOW or ON EXCEPTION statements.
 
 ### 6.4 Exact-arithmetic substitution
+
+Status: partly built (docs/PASSES.md, its row); open: what its body lists, and its unit corpus, which waits on 3.1.
 
 Check: as above.
 
@@ -168,6 +189,9 @@ stays step-by-step.
 
 ### 6.5 Enum and flag types
 
+Status: partly built (docs/PASSES.md, its row); open: the closed enum, which can be done now; money in records,
+which waits on 6.7.
+
 Check: as above.
 
 Built (J-218, research §42, R-070): an Enum or Flag fact gives its item names, not a closed type: each condition
@@ -180,6 +204,8 @@ items promoted first); money in records with 6.7. (R-071: the closed enum can be
 money in records waits with 6.7's storage other than the bytes.)
 
 ### 6.6 Stateless subprograms
+
+Status: partly built (docs/PASSES.md, its row); open: what its body lists, and its unit corpus, which waits on 3.1.
 
 Check: as above.
 
@@ -198,6 +224,9 @@ CardDemo's stores, and Ghost built the PICTURE rule alone.
 
 ### 6.7 Record classes
 
+Status: partly built (J-223, J-224); open: views over REDEFINES, which can be done now; storage other than the
+bytes, which waits on a proof.
+
 Check: as above.
 
 With it (moved from 6.3): the items 6.3 leaves in bytes because a record holding them is read, written or moved
@@ -213,12 +242,16 @@ reaches a record's bytes but its class (no item builds that yet: Ghost's to plac
 
 ### 6.8 Refactoring distance, per pass and cumulative
 
+Status: open; after 3.1 (R-071).
+
 Check: as above.
 
 Moved from 3.6 (R-071): the literal Java's line count, nesting and dispatcher size per program, the baseline
 every pass is measured against, is this item's first column; nothing measured it before the passes it measures.
 
 ### 6.9 Tithe pass 6
+
+Status: open; after 6.8.
 
 Check: none in the roadmap; written here before the item starts.
 
@@ -238,6 +271,8 @@ not the process), and the EVALUATE decision that sends CardDemo's online program
 
 ### 7.1 CNAF CGMX02
 
+Status: partly built; open: what its body lists.
+
 Check: parses with no error nodes; data map built; Java compiles; time and memory recorded.
 
 ## Phase 8A: the divergence report
@@ -254,6 +289,8 @@ report time (R-004). Advice: docs/research/reviews/2026-10-22-divergence-report-
 
 ### 8A.1 The DD adapter and refusal
 
+Status: built ahead (J-229); open: a real port, which waits on Ghost (oc4j's runtime, a dependency).
+
 Check: `katana prove --java <cmd>` runs a foreign command as the java lane's program step; one oc4j CardDemo program
 (`lower/prototypes/oc4j-carddemo-reference/`, run as a process only, never shipped) or a hand-written port of COPYREC
 runs a fixture through the lane and the comparator, and what had to be adapted is recorded; a port that ignores the
@@ -266,6 +303,8 @@ reference waits on its runtime, a dependency for Ghost to approve. Left for this
 
 ### 8A.2 The trap catalogue as data
 
+Status: built ahead (J-230).
+
 Check: divergence kinds `DV-01` onward, from `docs/research/semantic_traps.md`, each with IBM's text, the COBOL rule,
 the wrong Java shape, Katana's exact Java and a generator, held by a doc test; every kind's generator gives a COBOL
 program and inputs on which its wrong shape differs from cobc. The first three: high-order truncation, scale
@@ -277,6 +316,8 @@ the receiver alone on 10, 9 and 12 of 20 records (30% to 70% predicted). Left: t
 kinds (sign, MOVE padding and alignment, collation, PERFORM fall-through, file status).
 
 ### 8A.3 Boundary inputs from the IR
+
+Status: built ahead (J-233); open: what its body lists.
 
 Check: for each statement, inputs crossing its receivers' boundaries, written as a fixture under the program's
 copybooks; on CardDemo the generated fixture enters every paragraph the sample data does, and drives at least one SIZE
@@ -291,6 +332,8 @@ statement, not paragraph.
 
 ### 8A.4 The alignment file
 
+Status: built ahead (J-234); open: what its body lists.
+
 Check: `<PROGRAM>.align` maps a COBOL node, by the program's own names (R-064), to a Java symbol or line range,
 inferred where a name or literal matches and `unconfirmed` until a person confirms; its coverage on the oc4j
 reference predicted before it is measured; an alignment naming a node the IR does not hold is refused.
@@ -302,6 +345,8 @@ a person's to write. Every line `unconfirmed`; a line naming no node of the IR i
 
 ### 8A.5 Attribution
 
+Status: built ahead (J-236); open: what its body lists.
+
 Check: for each differing field, the catalogue kinds whose probe reproduces it, ranked, "unattributed" when none
 does; a mutation harness takes Katana's literal Java, breaks one rule per kind (truncation dropped, a store HALF_UP,
 an exact division), runs it as the foreign port, and the report names that kind first; each mutation red before the
@@ -312,6 +357,8 @@ kind's mutant attributed to its kind alone, every cell reproduced (10, 9, 12); u
 ACCRUE's hand-written HALF_UP port attributed to DV-02, 4 of 4.
 
 ### 8A.6 The report
+
+Status: built ahead (J-237); open: what its body lists.
 
 Check: per divergence: `proven` with the fixture record by hash or `possible`, the COBOL statement and origin, the
 aligned Java or "unaligned", the cause kind and its text, the paragraphs entered up to the statement on that record,
@@ -327,6 +374,8 @@ question for the oc4j reference).
 
 ### 8A.7 Tithe pass 8A
 
+Status: built ahead (J-238); open: what 8A waits on, which is Ghost's.
+
 Check: no change of behaviour and no golden changed (P-02): how a divergence report is made written where its kinds
 are (docs/DIVERGENCES.md), the phase's words in the glossary, R-072's "Held by" naming the code that holds it, HANDOFF
 current with what 8A waits on; the first report read outside the project (8.6's rule) under NDA (R-037), since its
@@ -335,6 +384,8 @@ fix shows the lowering's shape, handed to Ghost, whose it is to arrange.
 ## Phase 7: scale and the facades, continued
 
 ### 7.2 CICS facade
+
+Status: waits on Ghost (HANDOFF).
 
 Check: none in the roadmap; written here before the item starts.
 
@@ -345,17 +396,25 @@ unneeded; either way it waits on Ghost (HANDOFF).
 
 ### 7.3 DB2 facade
 
+Status: open.
+
 Check: none in the roadmap; written here before the item starts.
 
 ### 7.4 JCL beyond CardDemo
+
+Status: open.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 7.5 The Hercules lane
 
+Status: open.
+
 Check: none in the roadmap; written here before the item starts.
 
 ### 7.6 Tithe pass 7
+
+Status: open.
 
 Check: none in the roadmap; written here before the item starts.
 
@@ -363,21 +422,31 @@ Check: none in the roadmap; written here before the item starts.
 
 ### 8.1 CLI
 
+Status: open.
+
 Check: none in the roadmap; written here before the item starts.
 
 ### 8.2 The proof report, shipped
+
+Status: open.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 8.3 The provenance map, shipped
 
+Status: open.
+
 Check: none in the roadmap; written here before the item starts.
 
 ### 8.4 `pack`
 
+Status: open.
+
 Check: none in the roadmap; written here before the item starts.
 
 ### 8.6 Tithe pass 8
+
+Status: open.
 
 Check: none in the roadmap; written here before the item starts.
 
@@ -385,24 +454,36 @@ Check: none in the roadmap; written here before the item starts.
 
 ### 9.0 The provisional patent application is on file
 
+Status: open.
+
 Check: none in the roadmap; written here before the item starts.
 
 ### 9.1 Publish the NIST and CardDemo results
+
+Status: open.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 9.2 The regulatory translation
 
+Status: open.
+
 Check: none in the roadmap; written here before the item starts.
 
 ### 9.3 Approach the hyperscalers and IBM
+
+Status: open.
 
 Check: none in the roadmap; written here before the item starts.
 
 ### 9.4 The first paying shop names its JCL and DFSORT subset
 
+Status: open.
+
 Check: none in the roadmap; written here before the item starts.
 
 ### 9.5 A customer's z/OS output reconciles the lanes
+
+Status: open.
 
 Check: none in the roadmap; written here before the item starts.

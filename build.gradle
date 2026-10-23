@@ -148,6 +148,27 @@ tasks.register('nextId', JavaExec) {
     systemProperty 'katana.root', rootDir.absolutePath
 }
 
+tasks.register('decisions', JavaExec) {
+    description = 'Writes docs/decisions.md, the index of theGhost.md.'
+    classpath = sourceSets.scripts.runtimeClasspath
+    mainClass = 'Decisions'
+    systemProperty 'katana.root', rootDir.absolutePath
+}
+
+tasks.register('journalIndex', JavaExec) {
+    description = 'Writes docs/journal/INDEX.md, the index of the journal\'s parts.'
+    classpath = sourceSets.scripts.runtimeClasspath
+    mainClass = 'JournalIndex'
+    systemProperty 'katana.root', rootDir.absolutePath
+}
+
+tasks.register('researchIndex', JavaExec) {
+    description = 'Writes docs/research/INDEX.md, the research notes\' contents.'
+    classpath = sourceSets.scripts.runtimeClasspath
+    mainClass = 'ResearchIndex'
+    systemProperty 'katana.root', rootDir.absolutePath
+}
+
 tasks.register('kernelMap', JavaExec) {
     description = 'Appends to docs/KERNEL-MAP.md a row for every function in a module it does not hold.'
     classpath = sourceSets.scripts.runtimeClasspath

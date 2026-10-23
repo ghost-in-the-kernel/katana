@@ -17,8 +17,9 @@ code at its value there (R-042, R-054); until then it is "not armed" and not com
 - **AGT-03 Mandatory context stays under 1,500 words.** `CLAUDE.md` plus whatever an agent must read
   before a task.
 - **AGT-04 A routing row opens at most five files, none over 400 lines.**
-- **AGT-05 Generated files are marked and kept out of diff review** (`.gitattributes`
-  `linguist-generated -diff`).
+- **AGT-05 Generated files are marked and kept out of diff review** (`.gitattributes`: `docs/decisions.md`, the research index,
+  the journal's index, `linguist-generated -diff`; the kernel map `linguist-generated` only, its closing rows
+  being written by hand).
 - **AGT-06 Every generated artifact has a command that regenerates it and a test that fails when it
   is stale.**
 - **AGT-07 The container image is pinned** (GnuCOBOL 3.1.2 by digest per R-003, JDK 21, Gradle, the

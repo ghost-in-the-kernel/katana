@@ -45,7 +45,9 @@ final class Metrics {
         metrics.put("Pre-push check, every suite (min)", "timed by scripts/prepush.sh --all");
         metrics.put("Largest source file (lines)", largest(java));
         metrics.put("Longest line (characters)", longestLine(java));
-        metrics.put("Files a routing row opens", routing(Repo.read("CLAUDE.md")));
+        StringBuilder rows = new StringBuilder();
+        for (var f : Repo.files(".md").entrySet()) if (f.getKey().startsWith("docs/paths/")) rows.append(f.getValue()).append('\n');
+        metrics.put("Files a routing row opens", routing(rows.toString()));
         metrics.put("Functions over 20 paths", String.valueOf(functions.stream().filter(f -> f.paths() > 20).count()));
         metrics.put("Duplicate helpers (same body, two names)", String.valueOf(duplicates(functions)));
         metrics.put("Decisions without `See also`", withoutSeeAlso(Repo.read("theGhost.md")));
@@ -82,7 +84,7 @@ final class Metrics {
         return most + " (" + where + "); " + over + " lines over 200";
     }
 
-    /** The most paths a row of CLAUDE.md's routing table names under "Start here". */
+    /** The most paths a routing row names under "Start here", over the workpath files CLAUDE.md points to (R-074). */
     static String routing(String claude) {
         int most = 0;
         String which = "";
@@ -180,6 +182,13 @@ final class Metrics {
         List<Scan.Function> functions = Repo.functions(Repo.files(".java"));
         lines.add("\nOver 20 paths (split it, each step a function named for what it does):");
         functions.stream().filter(f -> f.paths() > 20).forEach(f -> lines.add("  " + f.key() + " (line " + f.line() + "): " + f.paths() + " paths"));
+        lines.add("\nNearing 20 paths (16 to 20; split it before the next branch, J-244):");
+        functions.stream().filter(f -> f.paths() > 15 && f.paths() <= 20).forEach(f -> lines.add("  " + f.key() + " (line " + f.line() + "): " + f.paths() + " paths"));
+        lines.add("\nNearing 400 lines (351 to 400; a refactor of its own makes room before the next feature, J-244):");
+        Repo.files(".java").forEach((path, text) -> {
+            int n = Repo.lines(text);
+            if (n > 350 && n <= 400) lines.add("  " + path + ": " + n + " lines");
+        });
         lines.add("\nOver 15 lines or 6 paths, with no comment saying what it is for:");
         functions.stream().filter(f -> !f.documented() && (f.lines() > 15 || f.paths() > 6))
                 .forEach(f -> lines.add("  " + f.key() + " (line " + f.line() + "): " + f.lines() + " lines, " + f.paths() + " paths"));

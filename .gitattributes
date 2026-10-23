@@ -1,0 +1,7 @@
+# AGT-05: generated files, marked and kept out of diff review. Each has its command and a test that fails when
+# it is stale (AGT-06). The goldens are not here: a golden's diff is read line by line before it is committed.
+docs/decisions.md linguist-generated -diff
+docs/journal/INDEX.md linguist-generated -diff
+# Appended by `gradle kernelMap`, but its closing rows are written by hand, so its diff is kept.
+docs/KERNEL-MAP.md linguist-generated
+docs/research/INDEX.md linguist-generated -diff

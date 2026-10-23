@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Holds docs/JOURNAL.md (R-046; written in tithe pass 2, C4, because R-046 named this test and none
+ * Holds the journal, docs/journal/ (R-046, J-244; written in tithe pass 2, C4, because R-046 named this test and none
  * existed): every entry's id is greater than every id before it, and every entry says who was there
  * and its class. One exception is listed, not allowed again: the phase-2 boundary review was written
  * as a second J-073, and R-056's Why cites it by that number.
@@ -22,7 +22,7 @@ final class JournalTest {
     static Check run() {
         String entry = "### J-%s A title\n- **Who:** Opus. **Class:** build.\n- **Found:** x\n\n";
         return new Check("journal")
-                .repository(check(Check.read("docs/JOURNAL.md")))
+                .repository(check(JournalIndex.text(Check.ROOT)))
                 .rejects("an id used twice", () -> check(entry.formatted("001") + entry.formatted("001")))
                 .rejects("an id out of order", () -> check(entry.formatted("002") + entry.formatted("001")))
                 .rejects("an entry with no class", () -> check(entry.formatted("001").replace(" **Class:** build.", "")))

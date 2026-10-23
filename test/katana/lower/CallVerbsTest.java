@@ -1,5 +1,6 @@
 package katana.lower;
 
+import katana.support.Javac;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -12,7 +13,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.tools.ToolProvider;
 import katana.front.Copybooks;
 import katana.front.Parse;
 import katana.rt.Codepage;
@@ -69,16 +69,16 @@ class CallVerbsTest {
     private List<String> run(boolean dynam) throws Exception {
         Parse.Result parse = Parse.text(SOURCE.stream().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n")), new Copybooks(List.of(), n -> 8));
         assertEquals(List.of(), parse.errors());
-        List<String> files = new ArrayList<>(List.of("-classpath", System.getProperty("java.class.path"), "-d", dir.toString()));
+        List<Path> files = new ArrayList<>();
         for (Build.Result b : Build.programs(parse, HASH)) {
             Lower.Result r = Lower.java(b.program(), Lower.className(b.program()));
             assertEquals(List.of(), r.findings());
             Path java = dir.resolve(Lower.className(b.program()) + ".java");
             Files.writeString(java, r.java());
-            files.add(java.toString());
+            files.add(java);
         }
-        ByteArrayOutputStream diagnostics = new ByteArrayOutputStream(), shown = new ByteArrayOutputStream();
-        assertEquals(0, ToolProvider.getSystemJavaCompiler().run(null, null, diagnostics, files.toArray(String[]::new)), diagnostics.toString(StandardCharsets.UTF_8));
+        Javac.compile("the run unit", dir, files.toArray(Path[]::new));
+        ByteArrayOutputStream shown = new ByteArrayOutputStream();
         ClassLoader before = Thread.currentThread().getContextClassLoader();
         try (URLClassLoader loader = new URLClassLoader(new URL[] {dir.toUri().toURL()}, getClass().getClassLoader())) {
             Thread.currentThread().setContextClassLoader(loader);

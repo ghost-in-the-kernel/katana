@@ -28,7 +28,7 @@ class ScalarsTest {
     void aCounterAndATotalBecomeVariablesEveryStoreExact() {
         Program p = program("01 WS-COUNT PIC 9(3) VALUE 5.\n01 WS-TOTAL PIC S9(5)V99 COMP-3.\n",
                 "    ADD 1 TO WS-COUNT.\n    COMPUTE WS-TOTAL = WS-COUNT / 3.\n    MOVE 7 TO WS-COUNT.\n    MOVE 1000 TO WS-COUNT.\n    IF WS-COUNT > 2 DISPLAY WS-COUNT WS-TOTAL.\n");
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         int count = id(p, "WS-COUNT"), total = id(p, "WS-TOTAL");
         assertEquals(Set.of(count, total), r.plan().scalars(), r.refused().toString());
         String java = Lower.java(p, "P", r.plan()).java();
@@ -46,7 +46,7 @@ class ScalarsTest {
         Program p = program("01 A PIC 9(3) VALUE 5.\n01 B PIC 9(3).\n   88 B-DONE VALUE 9.\n01 C PIC 99 VALUE 1.\n01 D PIC 9(6).\n01 E PIC 9(4).\n01 S PIC X(20).\n",
                 "    INITIALIZE A.\n    SET B-DONE TO TRUE.\n    SET A UP BY 2.\n    STRING 'AB' DELIMITED BY SIZE INTO S WITH POINTER C.\n"
                         + "    UNSTRING S DELIMITED BY ' ' INTO E.\n    ACCEPT D FROM DATE.\n    CALL 'SUB' USING BY CONTENT A.\n    DISPLAY A B C D E.\n");
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         assertEquals(Set.of(id(p, "A"), id(p, "B"), id(p, "C"), id(p, "D"), id(p, "E")), r.plan().scalars(), r.refused().toString());
         String java = Lower.java(p, "P", r.plan()).java();
         int a = id(p, "A");
@@ -91,7 +91,7 @@ class ScalarsTest {
     void aPhrasesStatementGoesThroughItsOwnItemsAfterTheStatementsBlock() {
         Program p = program("01 I PIC 9 VALUE 1.\n01 K PIC 9(3) VALUE 0.\n01 A PIC X(5) VALUE 'HELLO'.\n01 G.\n   05 T PIC X(3) OCCURS 2.\n",
                 "    STRING A DELIMITED BY SIZE INTO T (I) ON OVERFLOW SET K UP BY 1 END-STRING.\n    DISPLAY K.\n");
-        Structuring.Result r = Structuring.plan(p, Rules.infer(p));
+        Passes.Result r = Passes.plan(p, Rules.infer(p));
         int i = p.items().stream().filter(x -> x.name().equals("I")).findFirst().orElseThrow().id(), k = p.items().stream().filter(x -> x.name().equals("K")).findFirst().orElseThrow().id();
         assertTrue(r.plan().scalars().containsAll(java.util.Set.of(i, k)), "I and K promoted: " + r.refused());
         String java = Lower.java(p, "P", r.plan()).java();

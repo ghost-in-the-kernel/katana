@@ -36,12 +36,33 @@ final class TodoTest {
     static Check run() {
         return new Check("todo")
                 .repository(check(Check.read("TODO.md"), Check.read("docs/DONE.md")))
+                .repository(statuses(Check.read("TODO.md")))
+                .rejects("an item with no Status line", () -> statuses("### 3.1 A\n\nCheck: x\n"))
+                .rejects("a status in no known word", () -> statuses("### 3.1 A\n\nStatus: nearly.\n"))
+                .accepts("an item with a status", () -> statuses("### 3.1 A\n\nStatus: partly built (J-001); open: y.\n"))
                 .rejects("items out of order", () -> check(OUT_OF_ORDER, ""))
                 .accepts("a lettered phase after the item it names", () -> check(INSERTED, ""))
                 .rejects("a lettered phase placed before the item it names", () -> check(INSERTED_LATE, ""))
                 .rejects("a first open item with no check", () -> check(FIRST_UNCHECKED, ""))
                 .rejects("an item both open and done", () -> check(SOUND, "### 0.3 The container\n"))
                 .accepts("a sound list", () -> check(SOUND, "### 0.1 Repo\n"));
+    }
+
+    /** Each item's state at a glance (J-244): a `Status:` line opening with one of these. */
+    static final List<String> STATES = List.of("open", "partly built", "built ahead", "waits on");
+
+    /** The items with no `Status:` line, or one that opens with none of `STATES`. */
+    static List<String> statuses(String todo) {
+        List<String> failures = new ArrayList<>();
+        String[] parts = todo.split("(?m)^(?=### )");
+        for (String part : parts) {
+            if (!part.startsWith("### ")) continue;
+            String number = part.substring(4).split(" ")[0];
+            java.util.regex.Matcher st = Pattern.compile("(?m)^Status: (.*)$").matcher(part);
+            if (!st.find()) failures.add(number + " has no Status line");
+            else if (STATES.stream().noneMatch(st.group(1)::startsWith)) failures.add(number + "'s status opens with none of " + STATES);
+        }
+        return failures;
     }
 
     /** What TODO.md gets wrong: items out of order, an item with no Check line, a first open item whose check is not written, or one also in DONE.md. */

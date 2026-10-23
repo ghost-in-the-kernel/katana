@@ -1,17 +1,15 @@
 package katana.oracle.lane;
 
+import katana.support.Javac;
 import katana.lower.Plan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.ByteArrayOutputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.tools.ToolProvider;
 import katana.front.Copybooks;
 import katana.front.Parse;
 import katana.lower.Lower;
@@ -101,11 +99,9 @@ static CobcLane.Setup setup(Path dir, Map<String, List<String>> java) {
         assertEquals(List.of(), parse.errors(), name + " parses");
         Program program = Build.programs(parse, "sha256:" + "0".repeat(64)).get(0).program();
         String className = Lower.className(program);
-        Plan plan = structured ? katana.passes.Structuring.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Plan.LITERAL;
+        Plan plan = structured ? katana.passes.Passes.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Plan.LITERAL;
         Files.writeString(classes.resolve(className + ".java"), Lower.java(program, className, plan).java());
-        ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
-        int status = ToolProvider.getSystemJavaCompiler().run(null, null, diagnostics, "-classpath", System.getProperty("java.class.path"), "-d", classes.toString(), classes.resolve(className + ".java").toString());
-        assertEquals(0, status, name + " compiles: " + diagnostics.toString(StandardCharsets.UTF_8));
+        Javac.compile(name, classes, classes.resolve(className + ".java"));
         return className;
     }
 

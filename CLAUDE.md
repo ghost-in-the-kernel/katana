@@ -6,40 +6,20 @@ compiler: front end → Semantic IR (`sir/`) → literal lowering (`lower/`, a b
 oracle holds as golden) → Intent IR (`intent/`) → proven passes (`passes/`) → proof ledger
 (`ledger/`). No model runs at conversion time (theGhost.md R-004).
 
-## Where to start: find the task's row
+## Where to start: find the workpath, then its row
 
-Open the two to five files the row starts at, nothing else yet; read the contract it names; run its
-tests before and after. Read further only when the code points there. A row with no files yet points
-at the plan.
+This file points; it holds no task rows (R-074). Pick the workpath your task is on, open its file, and follow its
+instructions; then find the task's row there, open the two to five files it starts at and nothing else yet, read
+the contract it names, and run its tests before and after. A new row goes in the path's file, never here.
 
-| Task | Start here | Contract | Tests |
-| --- | --- | --- | --- |
-| A module: add one, or change its imports | `docs/modules.json` (its `adding` line) | `docs/ROADMAP.md` §3.3 | `test/ModulesTest.java` |
-| A decision, a plan, what to work on | `theGhost.md`, `TODO.md`, `docs/HANDOFF.md` | `theGhost.md` | `test/GhostTest.java` |
-| Writing down what happened | `docs/JOURNAL.md` (one entry, its fields) | R-046 | |
-| A word | `docs/GLOSSARY.md` | | `test/GlossaryTest.java` |
-| Why a rule is what it is (when it seems arbitrary) | `docs/GHOST-IN-THE-KERNEL.md` | | |
-| A job fixture: what a lane runs; the CardDemo jobs | `oracle/fixture/Schema.java`, `oracle/fixture/FixtureCheck.java`, `oracle/fixture/carddemo/` | `docs/FIXTURE.md` | `test/katana/oracle/fixture/FixtureTest.java`, `test/katana/oracle/fixture/FixtureDocTest.java` |
-| The cobc lane and the determinism gate | `oracle/lane/CobcLane.java`, `oracle/lane/Steps.java`, `oracle/lane/Gate.java`, `oracle/lane/carddemo.golden` | `docs/FIXTURE.md`, R-048 | `test/katana/oracle/lane/CardDemoLaneIntegrationTest.java`, `test/katana/oracle/lane/GateIntegrationTest.java` |
-| Katana's DFSORT: a SORT step's cards over its records | `oracle/sort/Dfsort.java`, `oracle/sort/SortCards.java`, `oracle/lane/Sorts.java` | R-010, R-026, R-051; P-11 (SUM, INREC and other cards are built when a fixture needs them) | `test/katana/oracle/sort/SortTest.java` |
-| The java lane and the DD contract both lanes keep, record formats (RECFM) included | `docs/LANES.md`, `oracle/lane/JavaPrograms.java`, `oracle/lane/ProgramRunner.java`, `oracle/fixture/trivial/COPY.fixture` | `docs/LANES.md` | `test/katana/oracle/lane/TrivialLanesIntegrationTest.java` |
-| The comparator: two datasets field by field | `oracle/compare/Compare.java`, `oracle/compare/Layout.java`, `oracle/compare/Decode.java` | R-011 | `test/katana/oracle/compare/CompareTest.java`, `test/katana/oracle/compare/CompareOmpIntegrationTest.java` |
-| The front end: COBOL to a parse tree, COPY and REPLACE, the source map | `front/Parse.java`, `front/Lines.java`, `front/Preprocessor.java`, `front/Mapped.java`; front/grammar (ProLeap's, forked, MIT) | docs/ROADMAP.md 2.1, 2.3 | `test/katana/front/ParseTest.java`, `test/katana/front/CorpusIntegrationTest.java` (`front/corpus.golden`) |
-| The Semantic IR: what a program does, as data, and its contract | `sir/types/Program.java`, `sir/types/Item.java`, `sir/types/Statement.java`, `sir/contract/Contract.java` | `docs/SEMANTIC-IR.md` (SIR-01 onward), R-007 | `test/katana/sir/SirDocTest.java`, `test/katana/sir/SirTypesTest.java` |
-| Tree to IR (`sir/build`), its findings (`sir/check`), JSON (`sir/json`) | `sir/build/Build.java`, `sir/build/DataMap.java`, `sir/build/Paragraphs.java`, `sir/build/Values.java` | `cobc -C`'s layout (`sir/datamap.golden`); SIR-01 onward | `test/katana/sir/BuildTest.java`, `test/katana/front/CorpusIntegrationTest.java` (`sir/ir.golden`, `sir/datamap.golden`) |
-| Findings: what cannot be made exact, said first | `findings/Finding.java`, `sir/check/NonExact.java` | `docs/FINDINGS.md` | `test/katana/sir/NonExactTest.java` |
-| The proof report, v0 | `oracle/proof/ProofReport.java`, `docs/PROOF.md`, `oracle/proof/POSTTRAN.report.md`, `oracle/lane/Paragraphs.java` | `docs/PROOF.md` (PROOF-01 to 03), R-013 | `test/katana/oracle/proof/ProofReportTest.java`, `test/katana/oracle/lane/ProofIntegrationTest.java` |
-| The dialect profile | `profile/Profile.java`, `profile/ibm.profile` | `docs/PROFILE.md` | `test/katana/profile/ProfileTest.java` |
-| The runtime: a record's bytes, arithmetic, MOVE, files | `rt/katana/rt/Field.java`, `rt/katana/rt/Decimal.java`, `rt/katana/rt/Arithmetic.java`, `rt/katana/rt/Move.java` | `docs/PROFILE.md`, R-019, R-020 | `test/katana/rt/`, `test/katana/rt/autotest/AutotestRtIntegrationTest.java` |
-| The literal lowering: a statement to Java | `lower/Lower.java` (a program's class), `lower/Storage.java` (its items), `lower/Verbs.java` (each verb), `lower/Exprs.java` (a field reference) | `docs/SEMANTIC-IR.md`, R-024 | `test/katana/lower/`, `test/katana/lower/NistJavaLaneIntegrationTest.java` |
-| The Intent IR: what a program means, as facts with evidence and a state | `intent/types/Fact.java`, `intent/types/Intent.java`, `intent/rules/Rules.java`, `intent/review/Review.java` | `docs/INTENT-IR.md` (INT-01 onward), R-029, R-064 | `test/katana/intent/IntentDocTest.java`, `test/katana/intent/IntentTypesTest.java` |
-| The proof ledger: what was done to the Java and why, and the provenance map | `ledger/Ledger.java`, `ledger/Entry.java`, `ledger/ProvenanceMap.java`, `lower/Lower.java` (its manifest) | `docs/LEDGER.md` (LED-01 onward), R-030 | `test/katana/ledger/LedgerTest.java`, `test/katana/ledger/LiteralLedgerIntegrationTest.java` |
-| The divergence report (phase 8A): a foreign Java port held to its COBOL | `oracle/prove/Prove.java` (the lanes), `oracle/prove/Generators.java` and `oracle/prove/Boundary.java` (inputs), `oracle/prove/Align.java` (the alignment), `findings/Divergence.java` (the kinds) | `docs/DIVERGENCES.md`, R-072 | `test/katana/oracle/prove/`, `test/katana/oracle/lane/BoundaryIntegrationTest.java` |
-| What a pass writes in `lower/`: a numeric item as a Java variable, a record as a class, exact arithmetic | `docs/PASSES.md` (its row's "Written by"), then that file | `docs/PASSES.md` | its row's unit test |
-| A pass: what it proves and where the lowering writes it | `docs/PASSES.md` (its row), `passes/Structuring.java` (the order), the pass's file | `docs/PASSES.md`, R-032 | its row's unit test; `test/katana/passes/StructuringLedgerIntegrationTest.java` and the structured runs |
-| The agent's environment: metrics, the kernel map | `docs/AGENT.md`, `docs/KERNEL-MAP.md`, `scripts/Metrics.java`, `scripts/KernelMap.java` | `docs/ROADMAP.md` §4.3, §5 | `test/MetricsTest.java`, `test/KernelMapTest.java` |
-| The corpus | `corpus/MANIFEST.md`, `corpus/fetch.sh`, `corpus/scan.sh` | licenses in the manifest | a file with no license fails |
-| The supply chain: a vendored jar, the workflow, the image, an agent or editor config | `third_party/MANIFEST.md`, `.github/workflows/ci.yml`, `Dockerfile` | R-067, the binding rules below | `test/SupplyChainTest.java` |
+| Workpath | Instructions and rows |
+| --- | --- |
+| Process: a decision, the plan, the journal, metrics, the routing, an escalation, the supply chain | `docs/paths/process.md` |
+| The oracle: fixtures, the cobc and java lanes, DFSORT, the comparator, the proof report | `docs/paths/oracle.md` |
+| The front end and the Semantic IR: parsing, the IR and its contract, findings, the profile | `docs/paths/front.md` |
+| The runtime and the lowering: `rt/`, `lower/` | `docs/paths/lowering.md` |
+| Intent and the passes: `intent/`, `passes/`, `ledger/` | `docs/paths/passes.md` |
+| The divergence report (phase 8A): a foreign Java port held to its COBOL | `docs/paths/divergence.md` |
 
 ## Commands
 
@@ -49,14 +29,21 @@ Everything runs in the pinned image (`Dockerfile`, built once): `docker run --rm
 to the kernel map. `gradle integration` runs what needs `cobc` and the corpus (`corpus/fetch.sh`
 first): NIST, the CardDemo lane, the parser and the IR over the corpus, each held by a golden
 (`-Dkatana.record=true` rewrites them). `scripts/prepush.sh` is the check before a push: a fresh
-clone, the suites the change touches and why (`--all` at a phase boundary), quoted in the commit.
+clone, the suites the change touches and why (`--all` at a phase boundary), quoted in the commit. A long run
+writes to a file and you read only its verdict and failures (R-076): `scripts/prepush.sh > build/gate.log 2>&1`,
+then `grep "pre-push check:" build/gate.log`.
 
-## Escalation, for a Sonnet agent (R-073)
+## Escalation, for a Sonnet agent (R-073, R-075)
 
 If you are a Claude Sonnet model, attempt a code fix once. A cause you can see and a fix that is easy: make it,
 and do not escalate. If the attempt fails in a way that is hard (the check still red after your one try, or the
 cause unclear), stop and ask a Claude Opus instance: the Agent tool with `model: "opus"`, given the task, what you
 tried, the failing output and the files. Then apply its answer and run the check yourself.
+
+The Opus agent first asks the Sonnet agent to replay the instructions it followed (its workpath, the files it was
+routed to, the rules it read); a short replay, or "I cannot remember", is enough. It checks that what the task
+needed reached the agent at its start, and logs the escalation in `docs/ESCALATIONS.md` by gap kind. A third
+escalation of one kind goes to Ghost in `docs/HANDOFF.md`, "Waiting on Ghost", for a routing pass.
 
 ## Before calling work done
 

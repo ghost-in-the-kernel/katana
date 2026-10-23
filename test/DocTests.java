@@ -84,4 +84,24 @@ class DocTests {
     void metrics() {
         assertEquals(List.of(), MetricsTest.run().problems());
     }
+
+    @Test
+    void escalations() {
+        assertEquals(List.of(), EscalationsTest.run().problems());
+    }
+
+    @Test
+    void decisionsIndexIsFresh() {
+        assertEquals(Decisions.render(Check.read("theGhost.md")), Check.read(Decisions.PATH), "docs/decisions.md is stale: run `gradle decisions`");
+    }
+
+    @Test
+    void journalIndexIsFresh() {
+        assertEquals(JournalIndex.render(Check.ROOT), Check.read(JournalIndex.PATH), "docs/journal/INDEX.md is stale: run `gradle journalIndex`");
+    }
+
+    @Test
+    void researchIndexIsFresh() {
+        assertEquals(ResearchIndex.render(Check.ROOT), Check.read(ResearchIndex.PATH), "docs/research/INDEX.md is stale: run `gradle researchIndex`");
+    }
 }
