@@ -36,13 +36,13 @@ arises, not before.
 - When another agent's work breaks yours, contradicts your task, or keeps changing what you changed, read `docs/when/conflict.md`.
 - When you hand a task to an agent, or finish one, read `docs/when/handoff.md`.
 - When you start a run whose output is long (the gate, `gradle integration`), read `docs/when/long-run.md`.
-- When you start a step (research, build, journal, gate, merge), read `docs/paths/process.md`.
+- When you start a step (research, build, journal, gate, merge), or Docker does not answer, read `docs/paths/process.md`.
 
 ## Before calling work done
 
 The fast loop always; `scripts/prepush.sh` before a push. A refactor changes no golden (P-02). A
 construct the lowering cannot make exact is a finding, never silent output (P-03). A function that
-holds a decision cites it, `// Decision: R-021`. One commit in eight is a tithe; the gate refuses a push past sixteen since the last (R-008). A finished
+holds a decision cites it, `// Decision: R-021`; a function added or moved: `gradle kernelMap`. One commit in eight is a tithe; the gate refuses a push past sixteen since the last (R-008). A finished
 step is merged to `main` at once, after fetching it (R-040). Last, before your report: your debrief in
 `docs/NAVIGATION.md`, as `docs/when/handoff.md` says (R-079).
 

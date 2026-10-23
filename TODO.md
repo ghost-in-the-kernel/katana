@@ -54,7 +54,7 @@ Done:
   a flag not yet mapped, 3 cases that failed pass under their `-D`). Ghost's ruling on the floor: a case with an unmapped flag is still
   run without it; if it passes it ends at `FLAGPASS` (passes without its flag), else at `FLAG`. So of the 378: 36 no
   `prog.cob`, 72 FLAG, 15 FLAGPASS, 99 do not parse, 7 fail in the IR or the lowering, 3 fail javac, 72 stop at run time, 30
-  differ, 44 PASS. Two floors in `test/katana/rt/autotest/floors.txt`, both only rising, raised by hand: PASS, and PASS and FLAGPASS together (J-259; first 44 and 15
+  differ, 44 PASS. Two floors in `test/katana/rt/autotest/floors.txt`, both only rising, raised by hand: PASS, and PASS and FLAGPASS together (R-086, J-259; first 44 and 15
   each, then 45 and 59 once R-083 moved a case up); a re-record that lowers either fails the census before it writes the golden. `ExtensionsTest` holds that no fixture or proof path
   sets `Settings.extensions` (R-081 amended).
 

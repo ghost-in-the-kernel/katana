@@ -188,9 +188,10 @@ class AutotestsLoweredIntegrationTest {
     private static final String BOTH = "PASS+FLAGPASS";
 
     /**
-     * Which floor the counts fall below, or null. Two floors, both only rising (J-259): PASS, and PASS and FLAGPASS together, so a case
+     * Which floor the counts fall below, or null. Two floors, both only rising (R-086): PASS, and PASS and FLAGPASS together, so a case
      * that moves from FLAGPASS up to PASS lowers neither; its stage in the golden shows a case that falls back.
      */
+    // Decision: R-086
     static String floorBreach(int pass, int flagpass, int passFloor, int bothFloor) {
         if (pass < passFloor) return "PASS " + pass + " falls below its floor " + passFloor + " in floors.txt (a floor is raised by hand, never lowered by a re-record)";
         if (pass + flagpass < bothFloor) return BOTH + " " + (pass + flagpass) + " falls below its floor " + bothFloor + " in floors.txt (a floor is raised by hand, never lowered by a re-record)";

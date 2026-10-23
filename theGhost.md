@@ -1738,6 +1738,24 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** front
 ---
 
+### R-086: The census keeps two floors, PASS and PASS with FLAGPASS, both only rising, checked before the golden is written
+- **Decision:** The autotest census holds two floors in `test/katana/rt/autotest/floors.txt`: the cases at PASS, and
+  the cases at PASS and FLAGPASS together. Both only rise. A re-record never writes the file and never lowers a floor;
+  a floor is raised by hand when the census reaches more, and lowered only by a hand edit that shows in the diff, with
+  its reason in the journal. The census checks the floors before it writes its golden, so a refused re-record leaves
+  the golden as it was. A case that moves up from FLAGPASS to PASS lowers neither floor; a single case that falls back
+  shows in the golden's diff, which is reviewed.
+- **Why:** a floor kept inside the golden was lowered by the re-record it guards (J-256), the self-graded golden the
+  methodology review warned of (§9). Separate floors on PASS and FLAGPASS refused a case that moved up, though nothing
+  was lost (J-258); a floor on the two together guards the total without punishing a promotion.
+- **Held by:** `AutotestsLoweredIntegrationTest.floorBreach` and its tests; `floors.txt`.
+- **Source:** Ghost, 2026-10-23: a separate stage with its own floor (J-256), then "option 1" of a PASS floor and a
+  combined floor (J-259); "yes record R-086".
+- **Status:** in force
+- **See also:** R-083, P-01
+- **subject:** census
+---
+
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
 the attribute tuple; R-028 coverage in every proof; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual
