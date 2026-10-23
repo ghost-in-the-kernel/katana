@@ -36,3 +36,14 @@ An entry: `### N-<n> <date>, <task> (<commits>)`, then the lines `- **Complaints
   `gradle integration --tests`, said nowhere; 3.1's Next list said 13 cases lacked their directory where 6 did.
 - **Suggestions:** a `Workpath:` line on each TODO item; a row for the census tests with its command in
   `docs/paths/lowering.md`.
+
+### N-004 2026-10-23, TODO 3.1: the `>>` directives (research 58, R-081)
+- **Complaints:** the Docker image is tagged `katana:dev`, not `katana` as CLAUDE.md's command says, and the daemon was
+  not running (R-077's recipe worked; the tag I added by hand); TODO 3.1 names no command for the census and no workpath
+  (the same as N-003); the Next list counted the `>>` cause by one error message ("mismatched input '>'"), so a case with
+  "extraneous input '>'" was missed; R-045's reach is unclear for a case's `check-N.sh` (it holds the compile flags the
+  census needs, and the expected stdout beside it), so I grepped for flags only; `docs/paths/front.md` has no row for
+  `front/Lines.java`'s directives or for how to read a case's `case.txt`.
+- **Suggestions:** one line in CLAUDE.md or `docs/paths/process.md` on the image name and how to build it; the census
+  command in `docs/paths/lowering.md`; the census records each case's compile flags (from `check-0.sh`, flags only) so a
+  FAIL caused by `-D` or `-fdebugging-line` is told apart from a real difference.

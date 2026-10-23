@@ -1625,6 +1625,23 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Status:** in force
 - **See also:** R-074
 - **subject:** process
+
+### R-081: a `>>` directive is read only when it can be read exactly; the rest stay parse errors
+- **Decision:** `front/Directives.java` reads `>>IF`, `>>ELIF`, `>>ELSE`, `>>END-IF` over `name [IS] [NOT] DEFINED` or
+  `name = literal`, `>>DEFINE name AS literal`, and `>>D` (a debugging line), before the lines are read, and blanks what
+  they exclude without moving a line or a column. No name is predefined. Every other `>>` directive (SET CONSTANT,
+  DEFINE ... AS PARAMETER, SOURCE, TURN), a condition it does not read, and an unbalanced `>>IF` leave the source as it
+  was, so the parser stops on it.
+- **Why:** a directive changes which text is the program (or, for TURN and SOURCE, how it is checked and read). Reading
+  one wrongly would be silent output (P-03); an error names the directive. Blanking before the grammar keeps the forked
+  grammar and the source map as they are.
+- **Held by:** `test/katana/front/DirectivesTest.java`; `test/katana/rt/autotest/lowered.golden` (the census).
+- **Source:** research 58 (J-251); TODO 3.1's Next list.
+- **Status:** in force
+- **See also:** R-019, P-03
+- **subject:** front
+---
+
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018

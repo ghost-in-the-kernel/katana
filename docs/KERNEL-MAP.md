@@ -1972,3 +1972,15 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/Passes.java:Passes.plan` | R-032 | 2026-10-23 |  |
 | passes | `passes/Structuring.java:Structuring.methods` | R-032 | 2026-10-23 |  |
 | passes | `passes/Structuring.java:Structuring.plan` | moved in the super tithe (J-242) | 2026-10-23 | superseded-by: `passes/Passes.java:Passes.plan` |
+| front | `front/Directives.java:Directives.Frame.Frame` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.Directives` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.apply` | R-081 | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.directive` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.condition` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.unquote` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.blank` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.debugging` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.opened` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.next` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.otherwise` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.closed` |  | 2026-10-23 |  |
