@@ -258,3 +258,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-251 | 3.1: the `>>` directives, conditional text and `>>D` read, the rest left as errors (research 58, R-081) | measurement | `J-200-299.md` |
 | J-252 | 3.1: the `>>` directives amended after Opus's review: an outside name is an error, compiled-out code seen, ELIF and `>>D` not IBM's (research 59, R-081) | correction | `J-200-299.md` |
 | J-253 | Navigation review 1: five debriefs, three convergences fixed, three questions to Fable and Ghost | measurement | `J-200-299.md` |
+| J-254 | The tithe gate counted merge commits; it refused navigation review 1 for it | failure-caught | `J-200-299.md` |

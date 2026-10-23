@@ -10,7 +10,7 @@ open questions sent to a Fable instance), fixes what is valid, then empties the 
 `Reviewed through:` to the review's commit. `scripts/NavigationGate.java` refuses a push past twenty commits
 since it.
 
-Reviewed through: bae5c81bd225
+Reviewed through: 9cdf2cc
 
 An entry: `### N-<n> <date>, <task> (<commits>)`, then the lines `- **Complaints:**` and `- **Suggestions:**`.
 

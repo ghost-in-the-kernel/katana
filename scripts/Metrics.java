@@ -165,7 +165,7 @@ final class Metrics {
     /** Commits since docs/NAVIGATION.md's last review, a warning past NavigationGate.REVIEW (R-079). */
     static String navigation() {
         try {
-            Process git = new ProcessBuilder("git", "log", "--format=%H %s", "-n", "400").directory(Repo.ROOT.toFile()).start();
+            Process git = new ProcessBuilder("git", "log", "--no-merges", "--format=%H %s", "-n", "400").directory(Repo.ROOT.toFile()).start();
             List<String> log = new String(git.getInputStream().readAllBytes()).lines().toList();
             git.waitFor();
             int since = NavigationGate.since(log, Repo.read(NavigationGate.PATH));
@@ -179,7 +179,7 @@ final class Metrics {
     /** Commits since the last whose subject starts "Tithe", a warning past eight (J-070: the one rule held by habit). */
     static String cadence() {
         try {
-            Process git = new ProcessBuilder("git", "log", "--format=%s", "-n", "200").directory(Repo.ROOT.toFile()).redirectErrorStream(true).start();
+            Process git = new ProcessBuilder("git", "log", "--no-merges", "--format=%s", "-n", "200").directory(Repo.ROOT.toFile()).redirectErrorStream(true).start();
             List<String> subjects = new String(git.getInputStream().readAllBytes()).lines().toList();
             if (git.waitFor() != 0) return "not counted (no git history here)";
             int since = 0;
