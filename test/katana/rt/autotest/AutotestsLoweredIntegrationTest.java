@@ -78,6 +78,7 @@ class AutotestsLoweredIntegrationTest {
         }
         if (built == null) return Stage.NOPARSE;
         FutureTask<byte[]> run = new FutureTask<>(() -> LoweredAutotestsIntegrationTest.run(built));
+        // Unsure: a case that loops past SECONDS is abandoned, not stopped (a Thread cannot be killed); its daemon thread keeps a core until the JVM exits. Stays: until the census runs a process per case, which would stop it (TODO 3.1, open).
         Thread t = new Thread(run, "autotest-" + id);
         t.setDaemon(true);
         t.start();

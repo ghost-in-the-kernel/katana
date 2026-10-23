@@ -11,6 +11,17 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
 - The literal lowering is held by NIST and CardDemo through both lanes; a change selects the java lane and the
   passes in the gate. Read only its verdict and failures.
 
+- The autotest cases (`corpus/gnucobol-autotests/cases/`) and the list of the 378 runnable ones
+  (`corpus/gnucobol-autotests/runnable.txt`) are written by `AutotestCorpusIntegrationTest`, which holds the
+  definition of "runnable" (`runnable(Case)`); read the list, do not read the word a second way.
+- A test of this path that adds an integration test or a golden also adds its row to `docs/checks.json` (R-056): the
+  oracle, why it is independent, a mutation test that exists, and `gates`, which takes a pre-push suite name
+  (`rt`, `lane`, `javalane`, ... as `scripts/prepush.sh` lists; `rt` selects `katana.rt.*`). The fast loop's
+  `DocTests > checks()` fails until the row is there.
+- A program under test opens its files relative to the JVM's working directory, the repository root (the DD
+  contract in `rt/` resolves a bare name as itself): a test that runs lowered programs removes what they leave
+  (`AutotestsLoweredIntegrationTest`). The older autotest tests run only programs that open no file.
+
 ## Rows
 
 | Task | Start here | Contract | Tests |
