@@ -48,7 +48,7 @@ class BoundaryIntegrationTest {
         Map<String, Integer> news = new TreeMap<>();
         List<String> report = new ArrayList<>();
         for (String job : JOBS) {
-            Fixture sample = CardDemoJavaLaneIntegrationTest.fixture(job);
+            Fixture sample = CardDemoLane.fixture(job);
             Path gen = work.resolve(job + "/carddemo");
             Fixture boundary = boundary(job, sample, gen, report);
             Run s = java(job, sample, CARDDEMO, work.resolve(job + "/sample"), false), b = java(job, boundary, gen, work.resolve(job + "/boundary"), false);
@@ -79,7 +79,7 @@ class BoundaryIntegrationTest {
         Path classes = Files.createDirectories(dir.resolve("classes")), run = Files.createDirectories(dir.resolve("run")), events = dir.resolve("events.txt");
         Files.deleteIfExists(events);
         Map<String, List<String>> commands = new LinkedHashMap<>();
-        CardDemoJavaLaneIntegrationTest.commands(fixture, classes, structured).forEach((pgm, c) -> {
+        CardDemoLane.commands(fixture, classes, structured).forEach((pgm, c) -> {
             List<String> with = new ArrayList<>(c);
             with.add(1, "-Dkatana.events=" + events);
             commands.put(pgm, with);
@@ -135,7 +135,7 @@ class BoundaryIntegrationTest {
     private static List<String> lanes(String job, Fixture fixture, Path gen, Path dir, Run java) throws Exception {
         Path run = Files.createDirectories(dir);
         String cobc = CobcLane.run(fixture, setup(gen, run, null).traced(run)).text();
-        List<String> a = CardDemoJavaLaneIntegrationTest.comparable(cobc), b = CardDemoJavaLaneIntegrationTest.comparable(java.report);
+        List<String> a = CardDemoLane.comparable(cobc), b = CardDemoLane.comparable(java.report);
         List<String> out = new ArrayList<>();
         for (String l : b) if (!a.contains(l) && !(l.startsWith("stdout ") && compat(run, java.dir, l.split(" ")[1]))) out.add("java lane, not cobc: " + l);
         for (String l : a) if (!b.contains(l) && !(l.startsWith("stdout ") && compat(run, java.dir, l.split(" ")[1]))) out.add("cobc lane, not java: " + l);
@@ -147,7 +147,7 @@ class BoundaryIntegrationTest {
         try {
             List<String> c = Files.readAllLines(cobc.resolve("sysout/" + step + ".stdout"), StandardCharsets.ISO_8859_1), j = Files.readAllLines(java.resolve("sysout/" + step + ".stdout"), StandardCharsets.ISO_8859_1);
             if (c.size() != j.size()) return false;
-            for (int k = 0; k < c.size(); k++) if (!c.get(k).equals(j.get(k)) && !CardDemoJavaLaneIntegrationTest.compat(c.get(k)).equals(j.get(k))) return false;
+            for (int k = 0; k < c.size(); k++) if (!c.get(k).equals(j.get(k)) && !CardDemoLane.compat(c.get(k)).equals(j.get(k))) return false;
             return true;
         } catch (java.io.IOException e) {
             return false;

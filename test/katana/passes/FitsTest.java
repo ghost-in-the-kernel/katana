@@ -3,13 +3,8 @@ package katana.passes;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import katana.front.Copybooks;
-import katana.front.Parse;
 import katana.intent.rules.Rules;
 import katana.lower.Lower;
-import katana.sir.build.Build;
 import katana.sir.types.Program;
 import org.junit.jupiter.api.Test;
 
@@ -18,9 +13,7 @@ class FitsTest {
     private static final String DATA = "01 A PIC 9(3).\n01 B PIC 9(3).\n01 C PIC 9(4).\n01 S PIC S9(4).\n01 V PIC 9(4)V9.\n";
 
     private static Program program(String procedure) {
-        String source = ("IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n" + DATA + "PROCEDURE DIVISION.\nMAIN.\n    MOVE 5 TO A.\n    MOVE 7 TO B.\n" + procedure + "    DISPLAY A B C S V.\n    STOP RUN.\n")
-                .lines().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
-        return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
+        return katana.support.Small.program(DATA, "MAIN.\n    MOVE 5 TO A.\n    MOVE 7 TO B.\n" + procedure + "    DISPLAY A B C S V.\n    STOP RUN.\n");
     }
 
     private static Structuring.Result plan(Program p) {

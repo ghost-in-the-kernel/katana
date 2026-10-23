@@ -5,21 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import katana.front.Copybooks;
-import katana.front.Parse;
 import katana.intent.rules.Rules;
 import katana.lower.Lower;
-import katana.sir.build.Build;
 import katana.sir.types.Program;
 import org.junit.jupiter.api.Test;
 
 /** 6.6's dataflow and stateless subprograms (research §44) on programs small enough to read: each rule kept, and each broken. */
 class DataflowTest {
     private static Program program(String data, String procedure) {
-        String source = ("IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n" + data + "PROCEDURE DIVISION.\n" + procedure)
-                .lines().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
-        return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
+        return katana.support.Small.program(data, procedure);
     }
 
     private static List<String> refusals(String data, String procedure) {

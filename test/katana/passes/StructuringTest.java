@@ -21,9 +21,7 @@ import org.junit.jupiter.api.Test;
 /** 6.1 on programs small enough to read (research §35): each obligation kept and broken, the plan lower/ writes, and a refuted fact never acted on (R-029). */
 class StructuringTest {
     private static Program program(String procedure) {
-        String source = ("IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n01 I PIC 9.\nPROCEDURE DIVISION.\n" + procedure)
-                .lines().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
-        return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
+        return katana.support.Small.program("01 I PIC 9.\n", procedure);
     }
 
     private static final String CLEAN = "MAIN.\n    PERFORM A.\n    PERFORM B THRU B-EXIT UNTIL I = 3.\n    STOP RUN.\nA.\n    ADD 1 TO I.\nB.\n    IF I = 1 GO TO B-EXIT.\n    ADD 1 TO I.\nB-EXIT.\n    EXIT.\n";

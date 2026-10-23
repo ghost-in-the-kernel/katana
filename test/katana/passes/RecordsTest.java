@@ -17,9 +17,7 @@ import org.junit.jupiter.api.Test;
 /** 6.7's record classes on programs small enough to read (research §46): the class, its getters and a table's accessor, and each obligation broken. */
 class RecordsTest {
     private static Program program(String data, String procedure) {
-        String source = ("IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n" + data + "PROCEDURE DIVISION.\nMAIN.\n" + procedure + "    STOP RUN.\n")
-                .lines().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
-        return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
+        return katana.support.Small.program(data, "MAIN.\n" + procedure + "    STOP RUN.\n");
     }
 
     private static final String DATA = "01 TRAN-RECORD.\n   05 TRAN-ID PIC X(4).\n   05 TRAN-AMT PIC S9(5)V99.\n   05 TRAN-QTY PIC 9(3).\n   05 TRAN-LINE OCCURS 3.\n      10 LINE-QTY PIC 9(2).\n01 OUT-RECORD PIC X(20).\n01 TOTAL PIC 9(5).\n";

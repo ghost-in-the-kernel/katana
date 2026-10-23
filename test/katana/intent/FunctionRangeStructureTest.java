@@ -1,22 +1,17 @@
 package katana.intent;
 
+import katana.support.Small;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import katana.front.Copybooks;
-import katana.front.Parse;
-import katana.sir.build.Build;
 import katana.sir.types.Program;
 import org.junit.jupiter.api.Test;
 
 /** T-F1 on programs small enough to read: one entry, one exit, no GO TO out, each kept and broken (research §33). */
 class FunctionRangeStructureTest {
     private static Program program(String procedure) {
-        String source = ("IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n01 I PIC 9.\nPROCEDURE DIVISION.\n" + procedure)
-                .lines().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
-        return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
+        return katana.support.Small.program("01 I PIC 9.\n", procedure);
     }
 
     private static List<String> refused(Program p, String subject) {

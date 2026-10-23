@@ -3,22 +3,15 @@ package katana.passes;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import katana.front.Copybooks;
-import katana.front.Parse;
 import katana.intent.rules.Rules;
 import katana.lower.Lower;
-import katana.sir.build.Build;
 import katana.sir.types.Program;
 import org.junit.jupiter.api.Test;
 
 /** 6.4 on programs small enough to read (research §41): the statements written as exact arithmetic, the Java each becomes, and each obligation refused. */
 class ExactTest {
     private static Program program(String data, String procedure) {
-        String source = ("IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n" + data + "PROCEDURE DIVISION.\nMAIN.\n" + procedure + "    DISPLAY C T.\n    STOP RUN.\n")
-                .lines().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
-        return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
+        return katana.support.Small.program(data, "MAIN.\n" + procedure + "    DISPLAY C T.\n    STOP RUN.\n");
     }
 
     private static final String DATA = "01 C PIC 9(5).\n01 T PIC S9(5)V99.\n01 R.\n   05 F PIC 9(3).\n01 N5 PIC 9(4) COMP-5.\n";

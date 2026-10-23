@@ -4026,3 +4026,21 @@ taken; closed by a later `decision` entry naming it).
   - The super tithe Ghost asked for next, for traversability, low context and separation of concerns, starts
     from a Fable advisor's plan.
 - **Touched:** `CLAUDE.md`, `theGhost.md` (R-073), `docs/JOURNAL.md`.
+
+### J-240 Super tithe, part 1: test support, one helper for a small program and one for the CardDemo lanes
+- **Who:** Opus, on Ghost's word: a super tithe for traversability, low agent context and separation of concerns,
+  from the Fable advisor's plan (docs/research/reviews/2026-10-23-super-tithe.md). **Class:** tithe (R-008). It
+  changes no behaviour and no golden: the full gate passed with every suite.
+- **Found:**
+  - Nine unit tests each kept a copy of the same helper, a small program built from its storage and procedure,
+    beside a tenth in `intent/Small`. The duplicate-helpers metric reads only the modules, so it did not see them.
+  - Three integration tests and the proof test reached into `CardDemoJavaLaneIntegrationTest` for its static setup,
+    its lowering and its comparisons, so a test was another test's library.
+- **Resolved:**
+  - `test/katana/support/Small` is the one helper, public. The nine tests call it in one line each, and
+    `intent/Small` is gone.
+  - `test/katana/oracle/lane/CardDemoLane` holds the CardDemo lanes' support: a job's fixture, its programs
+    lowered and compiled, the setup, and the stdout and report comparisons. `CardDemoJavaLaneIntegrationTest` is a
+    test only.
+- **Touched:** `test/katana/support/Small.java`, nine unit tests, `test/katana/oracle/lane/CardDemoLane.java`,
+  `CardDemoJavaLaneIntegrationTest.java` and its four callers, `docs/KERNEL-MAP.md`, `docs/JOURNAL.md`.
