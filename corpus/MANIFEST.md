@@ -51,6 +51,12 @@ ODO = `OCCURS ... DEPENDING`, C3 = COMP-3/COMPUTATIONAL-3, GOTO = `GO TO`, ALTER
   GnuCOBOL indexed files (a small loader program or `-std=ibm` with sequential override) first.
   The JCL (`app/jcl/POSTTRAN.jcl` etc.) documents the DD-to-file mapping.
 
+### IBM's manuals (Enterprise COBOL for z/OS)
+- What: the Language Reference (SC27-8713) and the Programming Guide (SC27-8714), as PDFs Ghost supplies into
+  `corpus/ibm-manuals/`.
+- License: IBM's terms; restricted, private study only. Never committed (`.gitignore`'s `corpus/*/`; LicenseTest
+  refuses a PDF anywhere else). Only the shortest cited quotation enters `docs/research/` (R-082).
+
 ### BankDemo (Rocket Software, formerly Micro Focus)
 - URL: https://github.com/RocketSoftwareCOBOLandMainframe/BankDemo
 - License: **restrictive**, LICENSE.txt: "may be used, modified, and distributed (provided this

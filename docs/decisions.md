@@ -77,3 +77,4 @@ Written from `theGhost.md` by `gradle decisions`; do not edit by hand. A decisio
 | R-079 | Every agent debriefs on navigation; the debriefs are reviewed about every ten commits | in force |
 | R-080 | CLAUDE.md's conditional rules are one-line triggers to the file that holds them | in force |
 | R-081 | a `>>` directive is read only when it can be read exactly; the rest stay parse errors | in force |
+| R-082 | IBM's manuals: the shortest cited quotation enters the repository, the manuals never do | in force |

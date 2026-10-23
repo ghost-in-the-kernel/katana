@@ -182,14 +182,10 @@ unchanged, R-042):
 
 ## Waiting on Ghost
 
-- **Navigation review 1's three questions (J-253), Fable's answers to decide:**
-  1. IBM's manuals: only the shortest cited quotation enters `docs/research/`, never a page; you supply the PDFs
-     uncommitted (gitignored, under `corpus/`) for agents to read; counsel confirms.
-  2. R-045's reach: a case's compile command is test input, like its program and expected output; `Autotests`
-     extracts the flags mechanically, the census maps or marks them (`FLAG`), and R-045 is reworded to say so.
-  3. Non-IBM directives (R-081): keep the caller's `Settings.extensions`; add `dialect.extensions` to the profile
-     when a fixture or proof first needs it, or at the next profile change; a test holds that no proof sets it.
-
+- **IBM's manuals (R-082, J-255):** the Language Reference (SC27-8713) and Programming Guide (SC27-8714) PDFs, the
+  editions the lane's profile names, into `corpus/ibm-manuals/` (gitignored), so an agent can confirm a directive or a
+  rule; §59's `>>ELIF` and `>>D` are the first to confirm. Counsel confirms R-082's quotation rule and R-045's
+  amended reading.
 - **Phase 8A's two that are Ghost's (J-237, R-072):** opensourcecobol4j's runtime (`libcobj`, LGPL) as an approved
   dependency, run as a process only, so 8A.1's first real port, oc4j's CardDemo Java, can run; and the first divergence
   report read outside the project (8.6's rule), under NDA (R-037), since its fix shows the lowering's shape.

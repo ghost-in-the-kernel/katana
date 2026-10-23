@@ -51,7 +51,12 @@ Open: the 323 that do not pass; the 44 FAILs sorted into findings against the te
 differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
-Next, by count (J-248, J-249, J-251): the 146 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
+Next, first (R-045 amended, R-081 amended, J-255): `Autotests` extracts each case's compile flags from its check
+command into the case (by code; no agent reads the `.at` files whole); the census maps the flags it understands to
+`Settings` (`-D` to the definitions, `-fdebugging-line`, `-free`/`-fixed`) and gives a case with a flag it does not map
+a stage of its own, `FLAG` naming it, instead of FAIL; and a test holds that no fixture or proof path sets
+`Settings.extensions`. Workpath: `docs/paths/lowering.md` (the census), `docs/paths/oracle.md` (`Autotests`).
+Then, by count (J-248, J-249, J-251): the 146 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
 `SOURCE FORMAT`, `TURN`: 6, each an error by R-081; `$SET` out of column 7: 1),
 `MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower
 case or after a different header (5); a copybook not found (7, J-249: `xfhfcd.cpy`, which GnuCOBOL installs and the

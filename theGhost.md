@@ -743,6 +743,14 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   with the reference on the shelf is not a clean room. Removed in the same commit as this decision:
   `expand.pl`, `report.pl`, `summary.pl`, the per-module `EXEC85.conf`, and GnuCOBOL's shipped
   `*.txt` expectations.
+- **Amended 2026-10-23 (J-255), on Ghost's word:** an autotest case's program, its expected output and its compile
+  command are test input. `oracle/autotest/Autotests` reads them mechanically from `tests/testsuite.src`, and an agent
+  may read them one case at a time while working that case; a case's flags (`-D`, `-fdebugging-line`, `-free`) are
+  extracted by code into the case, so no agent reads the `.at` files whole. GnuCOBOL's source, its dialect
+  configuration files, its build and harness scripts (`atlocal`, `testsuite`, `Makefile`) and expectations shipped
+  outside the cases stay off the screen. Why: the rule guards against GnuCOBOL's design beside an agent writing
+  Katana's equivalent; a case's flags are a property of the test (what it is run under), and cobc's command line is
+  the oracle's public interface. Fable's reading (J-253), not legal advice.
 - **Held by:** `.gitignore` and `corpus/fetch.sh`; `oracle/prototypes/README.md`; `test/LicenseTest.java`
   (written in tithe pass 2, C4; named here since phase 1, missing until then), which fails on a file
   whose header names the GPL outside `corpus/` and `third_party/`.
@@ -1648,12 +1656,35 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   `test/katana/oracle/fixture/FixtureTest.java` (`define`); `test/katana/sir/CompiledOutTest.java`,
   `test/katana/oracle/proof/ProofReportTest.java` (CO-01); `test/katana/rt/autotest/lowered.golden` (the census, which
   declares no definitions and the extensions).
-- **Source:** research 58 (J-251), amended by research 59 (J-252) on Opus's review; TODO 3.1's Next list.
+- **Amended 2026-10-23 (J-255), on Ghost's word:** the switch stays the caller's (`Settings.extensions`), set only by
+  the autotest census, until a fixture or a proof first parses under the extensions, or the next profile change made
+  for another reason, whichever comes first. Then the profile gets `dialect.extensions`, a list of names (`ELIF, D`),
+  since a setting that reaches a proof must be named by the profile it is proven under. Until then a test holds that
+  no fixture or proof path sets the extensions.
+- **Source:** research 58 (J-251), amended by research 59 (J-252) on Opus's review; TODO 3.1's Next list; Fable's
+  answer to navigation review 1 (J-253), taken by Ghost (J-255).
 - **Status:** in force
 - **See also:** R-019, P-03
 - **subject:** front
 ---
 
+### R-082: IBM's manuals: the shortest cited quotation enters the repository, the manuals never do
+- **Decision:** An IBM passage enters `docs/research/` only as the shortest quotation that makes a claim checkable,
+  tagged `[verbatim, document, edition, page]`; no page, section or table is copied whole, and the manuals never
+  enter the tree. Ghost supplies the manuals an agent needs (Enterprise COBOL's Language Reference, SC27-8713, and
+  Programming Guide, SC27-8714) as PDFs in `corpus/ibm-manuals/`, which `.gitignore` keeps out (`corpus/*/`), for an
+  agent to read a page and quote the sentence a decision rests on; a research section says which edition it read.
+- **Why:** IBM's manuals are copyrighted and their terms allow reading, not redistribution. A cited sentence for a
+  fact is the shape quotation has always taken in the research notes; a whole page is a reproduction, and the
+  repository does not stay unread: counsel, evaluators and partners read it under NDA (R-002, R-037). Agents in the
+  sandbox cannot reach ibm.com (J-252), so without a local copy a directive's research can only say "unconfirmed".
+- **Held by:** `.gitignore` (`corpus/*/`); `corpus/MANIFEST.md` (the manuals, restricted, private study only, as
+  BankDemo); `test/LicenseTest.java` (no `.pdf` outside `corpus/`).
+- **Source:** Fable's answer to navigation review 1 (J-253), on N-005; taken by Ghost, 2026-10-23: "yes to ibm
+  manuals." Not legal advice: counsel confirms.
+- **Status:** in force
+- **See also:** R-002, R-037, R-045
+- **subject:** license
 ---
 
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
