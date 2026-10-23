@@ -120,7 +120,10 @@ public final class CobcLane {
         Files.createDirectories(setup.work().resolve("sysout"));
         Files.createDirectories(setup.work().resolve("inline"));
         List<Path> shadows = Tabs.shadow(setup.copybooks(), setup.work().resolve("shadow"), widths, tabbedCopybooks);
-        Compiler compiler = new Compiler(profile, shadows, setup.cache(), setup.limit(), setup.trace() ? List.of("-ftrace") : List.of());
+        // The fixture's DEFINE option (R-081): cobc compiles with the definitions the front end reads the source under.
+        List<String> options = new ArrayList<>(Definitions.cobcArguments(fixture));
+        if (setup.trace()) options.add("-ftrace");
+        Compiler compiler = new Compiler(profile, shadows, setup.cache(), setup.limit(), options);
         datasets = new Datasets(setup.work(), compiler, setup.limit(), setup.java() == null ? null : setup.java().get(KSDS));
         programs = new Programs(setup.programs(), compiler, setup.work(), setup.limit(), widths, setup.trace());
     }
@@ -184,7 +187,7 @@ public final class CobcLane {
             for (Schema.Line line : fixture.header()) if (line.keyword().equals("module")) ran.add(line.values().get(0));
         }
         for (String name : ran) {
-            List<String> all = Paragraphs.of(programs.source(name), setup.copybooks(), widths);
+            List<String> all = Paragraphs.of(programs.source(name), setup.copybooks(), widths, Definitions.settings(fixture));
             java.util.Set<String> entered = Paragraphs.entered(traces.toString(), name);
             List<String> not = all.stream().filter(p -> !entered.contains(p)).toList();
             report.coverage(name, all.size() - not.size(), all.size(), not);

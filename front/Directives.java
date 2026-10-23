@@ -1,8 +1,10 @@
 package katana.front;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -11,7 +13,9 @@ import java.util.regex.Pattern;
 /**
  * The `>>` compiler directives that decide which text the program has, read before the lines are
  * (Lines): `>>IF`, `>>ELIF`, `>>ELSE` and `>>END-IF` over `name [IS] [NOT] DEFINED` or `name = literal`,
- * `>>DEFINE name AS literal`, and `>>D` (a debugging line, which becomes a `D` indicator for R-019's rule).
+ * `>>DEFINE name AS literal`, and, where the dialect allows them (Settings.extensions), `>>ELIF` and `>>D` (a
+ * debugging line, which becomes a `D` indicator for R-019's rule); IBM's own directives are not known to include
+ * those two (research 59), so under IBM's dialect they are errors.
  * The text keeps its length, every line and every column: a directive line and a line a false condition
  * excludes are blanked. No name is predefined. Any other `>>` directive (SET CONSTANT, DEFINE ... AS
  * PARAMETER, SOURCE, TURN), a condition not read here or a `>>IF` left open or closed twice gives the
@@ -27,6 +31,8 @@ final class Directives {
     /** One open `>>IF`: whether its enclosing text is live, whether a branch was taken, whether this branch is live. */
     private static final class Frame {
         final boolean outer;
+        int start;
+        String reason = "";
         boolean taken;
         boolean live;
         boolean elsed;
@@ -36,97 +42,137 @@ final class Directives {
         }
     }
 
+    /** The text with its directives applied, what stopped it, and the lines a false condition excluded. */
+    record Result(String text, List<String> errors, List<Excluded> excluded) {}
+
+    /** The pass's working state: the names defined so far, the open conditionals, and what it found. */
+    private record State(Settings settings, Map<String, String> defined, Deque<Frame> open, List<String> errors, List<Excluded> excluded, String file) {}
+
     private Directives() {}
 
-    /** The source (tabs already expanded) with its directives applied, or as it was when one is not read here. */
+    /** The source (tabs already expanded) with its directives applied, or as it was when one is not read here or has an error. */
     // Decision: R-081
-    static String apply(String source) {
-        if (!source.contains(">>")) return source;
-        Map<String, String> defined = new HashMap<>();
-        Deque<Frame> open = new ArrayDeque<>();
+    static Result apply(String source, String file, Settings settings) {
+        if (!source.contains(">>")) return new Result(source, List.of(), List.of());
+        State st = new State(settings, new HashMap<>(settings.isDeclared() ? settings.defines() : Map.of()), new ArrayDeque<>(), new ArrayList<>(), new ArrayList<>(), file);
         String[] lines = source.split("\n", -1);
         StringBuilder out = new StringBuilder(source.length());
         for (int i = 0; i < lines.length; i++) {
             String line = lines[i];
-            boolean live = open.isEmpty() || open.peek().live;
+            boolean live = st.open().isEmpty() || st.open().peek().live;
             Matcher m = DIRECTIVE.matcher(line.endsWith("\r") ? line.substring(0, line.length() - 1) : line);
             boolean directive = m.matches() && m.group(2).isBlank();
             if (!directive) {
                 out.append(live ? line : blank(line));
             } else {
                 String word = m.group(3).toUpperCase(Locale.ROOT), rest = m.group(4);
-                if (word.equals("D")) {
+                if (word.equals("D") && settings.extensions()) {
                     out.append(live ? debugging(line) : blank(line));
-                } else if (!directive(word, rest, live, open, defined)) {
-                    return source;
+                } else if (!directive(word, rest, live, st, i + 1)) {
+                    return new Result(source, st.errors(), List.of());
                 } else {
                     out.append(blank(line));
                 }
             }
             if (i < lines.length - 1) out.append('\n');
         }
-        return open.isEmpty() ? out.toString() : source;
+        return st.open().isEmpty() ? new Result(out.toString(), List.of(), st.excluded()) : new Result(source, List.of(), List.of());
     }
 
-    /** One conditional or DEFINE directive applied; false when it is not one this reads. */
-    private static boolean directive(String word, String rest, boolean live, Deque<Frame> open, Map<String, String> defined) {
+    /** One conditional or DEFINE directive applied at `line`; false when it is not one this reads, or is an error. */
+    private static boolean directive(String word, String rest, boolean live, State st, int line) {
         if (word.equals("DEFINE")) {
             Matcher m = DEFINE.matcher(rest);
             if (!m.matches()) return false;
-            if (live) defined.put(m.group(1).toUpperCase(Locale.ROOT), unquote(m.group(2)));
+            String name = m.group(1).toUpperCase(Locale.ROOT), value = unquote(m.group(2));
+            if (live && st.settings().isDeclared() && st.settings().defines().containsKey(name) && !st.settings().defines().get(name).equals(value)) {
+                st.errors().add(where(st, line) + ">>DEFINE " + name + " AS " + value + " contradicts the job's DEFINE(" + name + "=" + st.settings().defines().get(name)
+                        + "); which one governs is not known (R-081)");
+                return false;
+            }
+            if (live) st.defined().put(name, value);
             return true;
         }
+        String text = ">>" + word + (rest.isEmpty() ? "" : " " + rest);
         return switch (word) {
-            case "IF" -> opened(rest, live, open, defined);
-            case "ELIF" -> next(rest, open, defined);
-            case "ELSE" -> otherwise(rest, open);
-            case "END-IF" -> closed(rest, open);
+            case "IF" -> opened(rest, live, st, line, text);
+            case "ELIF" -> st.settings().extensions() && next(rest, st, line, text);
+            case "ELSE" -> otherwise(rest, st, line, text);
+            case "END-IF" -> closed(rest, st, line);
             default -> false;
         };
     }
 
-    private static boolean opened(String rest, boolean live, Deque<Frame> open, Map<String, String> defined) {
+    private static boolean opened(String rest, boolean live, State st, int line, String text) {
         Frame f = new Frame(live);
-        Boolean value = live ? condition(rest, defined) : Boolean.FALSE;
+        Boolean value = live ? condition(rest, st, line) : Boolean.FALSE;
         if (value == null) return false;
         f.taken = value;
         f.live = live && value;
-        open.push(f);
+        st.open().push(f);
+        branch(f, st, line, text);
         return true;
     }
 
-    private static boolean next(String rest, Deque<Frame> open, Map<String, String> defined) {
-        if (open.isEmpty() || open.peek().elsed) return false;
-        Frame f = open.peek();
-        Boolean value = f.outer && !f.taken ? condition(rest, defined) : Boolean.FALSE;
+    private static boolean next(String rest, State st, int line, String text) {
+        if (st.open().isEmpty() || st.open().peek().elsed) return false;
+        Frame f = st.open().peek();
+        leave(f, st, line);
+        Boolean value = f.outer && !f.taken ? condition(rest, st, line) : Boolean.FALSE;
         if (value == null) return false;
         f.live = f.outer && !f.taken && value;
         f.taken |= value;
+        branch(f, st, line, text);
         return true;
     }
 
-    private static boolean otherwise(String rest, Deque<Frame> open) {
-        if (open.isEmpty() || open.peek().elsed || !rest.isEmpty()) return false;
-        Frame f = open.peek();
+    private static boolean otherwise(String rest, State st, int line, String text) {
+        if (st.open().isEmpty() || st.open().peek().elsed || !rest.isEmpty()) return false;
+        Frame f = st.open().peek();
+        leave(f, st, line);
         f.live = f.outer && !f.taken;
         f.taken = true;
         f.elsed = true;
+        branch(f, st, line, text);
         return true;
     }
 
-    private static boolean closed(String rest, Deque<Frame> open) {
-        if (open.isEmpty() || !rest.isEmpty()) return false;
-        open.pop();
+    private static boolean closed(String rest, State st, int line) {
+        if (st.open().isEmpty() || !rest.isEmpty()) return false;
+        leave(st.open().pop(), st, line);
         return true;
     }
 
-    /** A condition's value, or null when it is not one of the two forms read. */
-    private static Boolean condition(String text, Map<String, String> defined) {
+    /** A branch begins after the directive on `line`: when its condition is false inside live text, its range starts. */
+    private static void branch(Frame f, State st, int line, String text) {
+        f.start = f.outer && !f.live ? line + 1 : 0;
+        f.reason = text;
+    }
+
+    /** A directive on `line` ends the frame's branch: its excluded range, if it has lines, is recorded. */
+    private static void leave(Frame f, State st, int line) {
+        if (f.start > 0 && line - 1 >= f.start) st.excluded().add(new Excluded(st.file(), f.start, line - 1, f.reason));
+        f.start = 0;
+    }
+
+    private static String where(State st, int line) {
+        return (st.file().isEmpty() ? "" : st.file() + " ") + "line " + line + ": ";
+    }
+
+    /** A condition's value, null when it is not one of the two forms read, or when it tests a name the job may define from outside the source. */
+    private static Boolean condition(String text, State st, int line) {
         Matcher d = DEFINED.matcher(text);
-        if (d.matches()) return defined.containsKey(d.group(1).toUpperCase(Locale.ROOT)) != (d.group(2) != null);
         Matcher e = EQUALS.matcher(text);
-        if (!e.matches()) return null;
-        String value = defined.get(e.group(1).toUpperCase(Locale.ROOT));
+        boolean isDefined = d.matches();
+        if (!isDefined && !e.matches()) return null;
+        String name = (isDefined ? d.group(1) : e.group(1)).toUpperCase(Locale.ROOT);
+        if (!st.settings().isDeclared() && !st.defined().containsKey(name)) {
+            st.errors().add(where(st, line) + ">>IF tests " + name + ", which the source never >>DEFINEs and the job does not declare; the DEFINE compiler option may define it,"
+                    + " so the branch is not chosen silently (R-081)");
+            return null;
+        }
+        if (isDefined) return st.defined().containsKey(name) != (d.group(2) != null);
+        String value = st.defined().get(name);
         boolean same = value != null && value.equals(unquote(e.group(4)));
         return same != (e.group(2) != null || e.group(3).equals("<>"));
     }

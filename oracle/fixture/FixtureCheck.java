@@ -79,8 +79,9 @@ public final class FixtureCheck {
         else if (!actual.equals(hash)) refusals.add("profile " + name + " is " + actual + ", the fixture says " + hash);
     }
 
-    /** FIXTURE-09: `dfsort.pad` and `dfsort.trunc` are RC0, RC4 or RC16 (R-051); `tabs` is a width of 1 to 16 and a file-name pattern (R-016). */
+    /** FIXTURE-09: `dfsort.pad` and `dfsort.trunc` are RC0, RC4 or RC16 (R-051); `tabs` is a width of 1 to 16 and a file-name pattern (R-016); `define` is `-` or `NAME=VALUE`, each name once, `-` alone (R-081). */
     private static void options(Fixture fixture, List<String> refusals) {
+        defines(fixture, refusals);
         for (Schema.Line line : fixture.header()) {
             List<String> v = line.values();
             boolean dfsort = line.keyword().startsWith("dfsort.");
@@ -89,6 +90,26 @@ public final class FixtureCheck {
                 refusals.add("line " + line.number() + ": tabs is a width of 1 to 16 and a file-name pattern");
             }
         }
+    }
+
+    /** FIXTURE-09's `define` lines: `define -` says the compile step defined nothing; otherwise each is a name and a value, once, and `-` is not mixed with them. */
+    private static void defines(Fixture fixture, List<String> refusals) {
+        java.util.Set<String> names = new java.util.HashSet<>();
+        boolean none = false, some = false;
+        for (Schema.Line line : fixture.header()) {
+            if (!line.keyword().equals("define") || line.values().isEmpty()) continue;
+            String v = line.values().get(0);
+            if (v.equals("-")) {
+                none = true;
+            } else if (!v.matches("[A-Za-z0-9][A-Za-z0-9_-]*=[A-Za-z0-9._-]+")) {
+                refusals.add("line " + line.number() + ": define is - (none) or NAME=VALUE");
+            } else if (!names.add(v.substring(0, v.indexOf('=')).toUpperCase(java.util.Locale.ROOT))) {
+                refusals.add("line " + line.number() + ": define " + v.substring(0, v.indexOf('=')) + " twice");
+            } else {
+                some = true;
+            }
+        }
+        if (none && some) refusals.add("define - says nothing is defined, and another define line defines a name");
     }
 
     /** FIXTURE-03: an unpinned clock is refused; seconds alone are unpinned, since hundredths leak (F-02). */

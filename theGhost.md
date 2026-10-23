@@ -1627,16 +1627,28 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** process
 
 ### R-081: a `>>` directive is read only when it can be read exactly; the rest stay parse errors
-- **Decision:** `front/Directives.java` reads `>>IF`, `>>ELIF`, `>>ELSE`, `>>END-IF` over `name [IS] [NOT] DEFINED` or
-  `name = literal`, `>>DEFINE name AS literal`, and `>>D` (a debugging line), before the lines are read, and blanks what
-  they exclude without moving a line or a column. No name is predefined. Every other `>>` directive (SET CONSTANT,
-  DEFINE ... AS PARAMETER, SOURCE, TURN), a condition it does not read, and an unbalanced `>>IF` leave the source as it
-  was, so the parser stops on it.
+- **Decision:** `front/Directives.java` reads `>>IF`, `>>ELSE`, `>>END-IF` over `name [IS] [NOT] DEFINED` or
+  `name = literal`, and `>>DEFINE name AS literal`, before the lines are read, and blanks what they exclude without
+  moving a line or a column. `>>ELIF` and `>>D` (a debugging line) are read only where the caller says the dialect
+  allows the GnuCOBOL extensions (`Settings.extensions`); IBM's Language Reference is not known to have them (research
+  59, unconfirmed: no network), so under IBM's dialect, the default, they are errors. No name is predefined, and a name's
+  value can come from outside the source (z/OS's DEFINE compiler option): a condition on a name the source has not
+  `>>DEFINE`d is an error, not the other branch, unless the job declares its compile-time definitions (a fixture's
+  `define` lines, `define -` for none), which both lanes then use (cobc `-D NAME=VALUE`; the front end's `Settings`); a
+  `>>DEFINE` that contradicts a declared name is an error. Each range a false condition excludes is recorded with its
+  directive and is a `CO-01` finding, said in the proof report in a section of its own. Every other `>>` directive (SET
+  CONSTANT, DEFINE ... AS PARAMETER, SOURCE, TURN), a condition it does not read, and an unbalanced `>>IF` leave the
+  source as it was, so the parser stops on it.
 - **Why:** a directive changes which text is the program (or, for TURN and SOURCE, how it is checked and read). Reading
-  one wrongly would be silent output (P-03); an error names the directive. Blanking before the grammar keeps the forked
+  one wrongly would be silent output (P-03); an error names the directive. An error rather than a finding for the
+  unknown name: which text is the program is decided before there is a program (a finding is said of a program that
+  parsed), and both lanes would agree on the wrong branch. Blanking before the grammar keeps the forked
   grammar and the source map as they are.
-- **Held by:** `test/katana/front/DirectivesTest.java`; `test/katana/rt/autotest/lowered.golden` (the census).
-- **Source:** research 58 (J-251); TODO 3.1's Next list.
+- **Held by:** `test/katana/front/DirectivesTest.java`; `test/katana/oracle/lane/DefinitionsTest.java`,
+  `test/katana/oracle/fixture/FixtureTest.java` (`define`); `test/katana/sir/CompiledOutTest.java`,
+  `test/katana/oracle/proof/ProofReportTest.java` (CO-01); `test/katana/rt/autotest/lowered.golden` (the census, which
+  declares no definitions and the extensions).
+- **Source:** research 58 (J-251), amended by research 59 (J-252) on Opus's review; TODO 3.1's Next list.
 - **Status:** in force
 - **See also:** R-019, P-03
 - **subject:** front

@@ -25,7 +25,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  */
 public final class Preprocessor extends CobolPreprocessorBaseListener {
     /** The text, each character with its origin, and what went wrong. */
-    public record Result(Mapped mapped, List<String> errors) {
+    public record Result(Mapped mapped, List<String> errors, List<Excluded> excluded) {
         public String text() {
             return mapped.toString();
         }
@@ -39,11 +39,14 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
     private final List<String> errors;
     private final int depth;
 
-    private Preprocessor(Mapped input, CommonTokenStream tokens, Copybooks copybooks, List<String> errors, int depth) {
+    private final Run run;
+
+    private Preprocessor(Mapped input, CommonTokenStream tokens, Copybooks copybooks, Run run, int depth) {
+        this.run = run;
         this.input = input;
         this.tokens = tokens;
         this.copybooks = copybooks;
-        this.errors = errors;
+        this.errors = run.errors();
         this.depth = depth;
         contexts.push(new Mapped());
     }
@@ -55,10 +58,16 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
 
     /** Preprocesses a file's text (tabs expanded, not yet normalized), its origins in that file. */
     public static Result run(String source, String file, Copybooks copybooks) {
+        return run(source, file, copybooks, Settings.UNDECLARED);
+    }
+
+    /** The same under the compile step's settings (R-081). */
+    public static Result run(String source, String file, Copybooks copybooks, Settings settings) {
         List<String> errors = new ArrayList<>();
-        Mapped text = text(source, file, copybooks, errors, 0, "the program");
+        List<Excluded> excluded = new ArrayList<>();
+        Mapped text = text(source, file, copybooks, new Run(settings, errors, excluded), 0, "the program");
         if (!debuggingMode(text.toString())) for (int i = 0; i < text.length(); i++) if (text.charAt(i) != '\n' && text.debugging(i)) text.blank(i);
-        return new Result(text, errors);
+        return new Result(text, errors, excluded);
     }
 
     /**
@@ -77,13 +86,17 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
 
     private static final java.util.regex.Pattern DEBUGGING_MODE = java.util.regex.Pattern.compile("(?i)(^|[\\s.])DEBUGGING\\s+MODE([\\s.]|$)");
 
-    private static Mapped text(String source, String file, Copybooks copybooks, List<String> errors, int depth, String where) {
-        Mapped input = Lines.normalize(source, file);
+    /** What one run shares across the program and its copybooks: the settings, the errors and the excluded ranges. */
+    private record Run(Settings settings, List<String> errors, List<Excluded> excluded) {}
+
+    private static Mapped text(String source, String file, Copybooks copybooks, Run run, int depth, String where) {
+        List<String> errors = run.errors();
+        Mapped input = Lines.normalize(source, file, run.settings(), errors, run.excluded());
         CobolPreprocessorLexer lexer = new CobolPreprocessorLexer(CharStreams.fromString(input.toString()));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CobolPreprocessorParser parser = new CobolPreprocessorParser(tokens);
         Errors.listen(lexer, parser, errors, "preprocessing " + where);
-        Preprocessor listener = new Preprocessor(input, tokens, copybooks, errors, depth);
+        Preprocessor listener = new Preprocessor(input, tokens, copybooks, run, depth);
         ParseTreeWalker.DEFAULT.walk(listener, parser.startRule());
         return listener.contexts.peek();
     }
@@ -147,7 +160,7 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
             errors.add("copybook " + name + " nested " + DEPTH + " deep (line " + ctx.getStart().getLine() + ")");
             return;
         }
-        Mapped text = text(copybook.text(), copybook.file(), copybooks, errors, depth + 1, "copybook " + name);
+        Mapped text = text(copybook.text(), copybook.file(), copybooks, run, depth + 1, "copybook " + name);
         for (CobolPreprocessorParser.ReplacingPhraseContext replacing : ctx.replacingPhrase()) text = replace(text, replacing.replaceClause());
         // "The compiler treats the copied text as the debugging line or lines" of a COPY on one (LR 6.4 p. 760).
         if (input.debugging(ctx.getStart().getStartIndex())) text.debugging();

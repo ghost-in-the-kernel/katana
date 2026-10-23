@@ -25,7 +25,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
  */
 public final class Parse {
     /** The tree, the text it was parsed from with each character's origin, and every error on the way to it. */
-    public record Result(ParserRuleContext tree, Mapped text, List<String> errors) {
+    public record Result(ParserRuleContext tree, Mapped text, List<String> errors, List<Excluded> excluded) {
         public boolean clean() {
             return errors.isEmpty();
         }
@@ -45,9 +45,14 @@ public final class Parse {
 
     /** A program file, its tabs expanded at the width its copybooks are given. */
     public static Result file(Path program, Copybooks copybooks, int tabWidth) {
+        return file(program, copybooks, tabWidth, Settings.UNDECLARED);
+    }
+
+    /** The same under the compile step's settings: the job's DEFINE names and the dialect's extensions (R-081). */
+    public static Result file(Path program, Copybooks copybooks, int tabWidth, Settings settings) {
         try {
             byte[] bytes = Tabs.expand(Files.readAllBytes(program), tabWidth);
-            return text(new String(bytes, StandardCharsets.ISO_8859_1), program.toString(), copybooks);
+            return text(new String(bytes, StandardCharsets.ISO_8859_1), program.toString(), copybooks, settings);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -60,14 +65,19 @@ public final class Parse {
 
     /** A program's text (tabs expanded) and the file it came from, for the origins. */
     public static Result text(String source, String file, Copybooks copybooks) {
-        Preprocessor.Result pre = Preprocessor.run(source, file, copybooks);
+        return text(source, file, copybooks, Settings.UNDECLARED);
+    }
+
+    /** The same under the compile step's settings (R-081). */
+    public static Result text(String source, String file, Copybooks copybooks, Settings settings) {
+        Preprocessor.Result pre = Preprocessor.run(source, file, copybooks, settings);
         List<String> errors = new ArrayList<>(pre.errors());
         List<String> sll = new ArrayList<>();
         ParserRuleContext tree = parse(pre.text(), PredictionMode.SLL, sll);
         if (!sll.isEmpty()) tree = parse(pre.text(), PredictionMode.LL, errors);
         int nodes = errorNodes(tree);
         if (nodes > 0 && errors.size() == pre.errors().size()) errors.add(nodes + " error nodes in the tree");
-        return new Result(tree, pre.mapped(), errors);
+        return new Result(tree, pre.mapped(), errors, pre.excluded());
     }
 
     /** SPECIAL-NAMES' DECIMAL-POINT IS COMMA, which makes a comma in a numeric literal its decimal point. */

@@ -27,7 +27,15 @@ public final class Lines {
 
     /** The source (tabs already expanded) as the grammars read it, each character with its place in the file. */
     public static Mapped normalize(String raw, String file) {
-        String source = Directives.apply(raw);
+        return normalize(raw, file, Settings.UNDECLARED, new java.util.ArrayList<>(), new java.util.ArrayList<>());
+    }
+
+    /** The same under the compile step's settings (R-081): the directives' errors and the ranges a false condition excluded are added to the lists. */
+    static Mapped normalize(String raw, String file, Settings settings, java.util.List<String> errors, java.util.List<Excluded> excluded) {
+        Directives.Result applied = Directives.apply(raw, file, settings);
+        errors.addAll(applied.errors());
+        excluded.addAll(applied.excluded());
+        String source = applied.text();
         Mapped all = Mapped.source(source, file);
         List<Mapped> out = new ArrayList<>();
         List<Integer> ends = new ArrayList<>();

@@ -28,7 +28,7 @@ class ParagraphsTest {
     void theSectionsAndParagraphsInTextualOrder() throws Exception {
         Path source = Files.createTempDirectory("paragraphs").resolve("T.cbl");
         Files.writeString(source, SOURCE + "\n");
-        assertEquals(List.of("MAIN", "MAIN-PARA", "A-PARA", "B-PARA"), Paragraphs.of(source, List.of(), f -> 8));
+        assertEquals(List.of("MAIN", "MAIN-PARA", "A-PARA", "B-PARA"), Paragraphs.of(source, List.of(), f -> 8, katana.front.Settings.UNDECLARED));
     }
 
     @Test

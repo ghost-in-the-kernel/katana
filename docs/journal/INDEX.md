@@ -256,3 +256,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-249 | 3.1 forward: the census gives each case its own directory as the copybook path | measurement; failure-caught | `J-200-299.md` |
 | J-250 | R-078 to R-080: fresh agents per task, a navigation debrief per task, CLAUDE.md's conditionals as one-line triggers | decision | `J-200-299.md` |
 | J-251 | 3.1: the `>>` directives, conditional text and `>>D` read, the rest left as errors (research 58, R-081) | measurement | `J-200-299.md` |
+| J-252 | 3.1: the `>>` directives amended after Opus's review: an outside name is an error, compiled-out code seen, ELIF and `>>D` not IBM's (research 59, R-081) | correction | `J-200-299.md` |

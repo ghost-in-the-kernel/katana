@@ -17,7 +17,7 @@ class FindingsDocTest {
     void theTableIsTheKinds() throws Exception {
         String doc = Files.readString(Path.of(System.getProperty("katana.root", "."), "docs/FINDINGS.md"));
         List<String> table = new ArrayList<>();
-        Matcher m = Pattern.compile("(?m)^\\| `((?:NE|HY)-\\d\\d)` \\| (.+?) \\| (.+?) \\|$").matcher(doc);
+        Matcher m = Pattern.compile("(?m)^\\| `((?:NE|HY|CO)-\\d\\d)` \\| (.+?) \\| (.+?) \\|$").matcher(doc);
         while (m.find()) table.add(m.group(1) + " " + m.group(2) + ": " + m.group(3));
         assertEquals(Arrays.stream(Finding.Kind.values()).map(k -> k.code + " " + k.title + ": " + k.why).toList(), table);
     }

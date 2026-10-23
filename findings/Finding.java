@@ -18,7 +18,13 @@ public record Finding(Kind kind, String where, String detail) {
         NE_05("NE-05", "ODO data beyond the count", "bytes of a table past its OCCURS DEPENDING count are undefined, and a move of its record carries them"),
         NE_06("NE-06", "COMP-1 or COMP-2", "IBM's hexadecimal floating point has no exact Java equivalent"),
         NE_08("NE-08", "overlapping arithmetic operands", "IBM calls the result of an arithmetic statement whose operands share storage unpredictable; Katana evaluates the sending operands once, before any receiver changes (LR 6.4 pp. 297-298)"),
-        HY_01("HY-01", "GO TO out of a PERFORM range", "exact under cobc's reading of PERFORM's return (R-021 C-1), which a mainframe run settles for every such program at once");
+        HY_01("HY-01", "GO TO out of a PERFORM range", "exact under cobc's reading of PERFORM's return (R-021 C-1), which a mainframe run settles for every such program at once"),
+        CO_01("CO-01", "compiled-out code", "a `>>` condition that was false removed these lines, so the program proved is the text without them (R-081); a reviewer reads them as the code the proof does not cover");
+
+        /** Whether it names source Katana did not read because a false `>>` condition excluded it (`CO-`), not something inexact in the program that was read. */
+        public boolean compiledOut() {
+            return code.startsWith("CO-");
+        }
 
         public final String code, title, why;
 
