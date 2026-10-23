@@ -1687,6 +1687,57 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** license
 ---
 
+### R-083: The census maps `-std=ibm` and `-std=ibm-strict` to Katana's dialect; every other `-std=` stays FLAG
+- **Decision:** An autotest case compiled with `-std=ibm` or `-std=ibm-strict` runs in the census as is, nothing set:
+  its expected output was recorded under the dialect the lane's oracle runs (`-std=ibm`, PROFILE-03). Every other
+  `-std=` (`mf`, `mvs`, `acu-strict`, `gcos-strict`, `cobol2002`, `cobol2014`) stays at `FLAG` or `FLAGPASS` with the
+  reason "another dialect's expected output". A FAIL among the mapped cases on binary truncation (the profile adds
+  `-fbinary-truncate`, the expectation was recorded without it) is a finding against cobc's ibm config
+  (`oracle/nist/IBM-CHANGES.md`), sorted with the other FAILs, never a reason to drop the flag.
+- **Why:** every other `-std=` case is a D-010 by construction (an expectation of another dialect), so a pass there
+  would be coincidence (P-03). `-strict` holds to the dialect's reserved words and refuses GnuCOBOL's extensions, the
+  nearer to Katana's IBM grammar; a program that compiles strict compiles plain. `mvs` is OS/VS COBOL, not Enterprise
+  COBOL 6.
+- **Held by:** `oracle/autotest/CompileFlags.java`, `test/katana/rt/autotest/lowered.golden` (once built: TODO 3.1).
+- **Source:** Fable (J-257), on the census agent's proposal (J-256); taken by Ghost, 2026-10-23: "go with fable on the
+  three proposals".
+- **Status:** in force
+- **See also:** R-045, R-081, D-010
+- **subject:** census
+---
+
+### R-084: A valueless `-D NAME` is defined with its value unknown
+- **Decision:** A compile flag `-D NAME` with no value defines NAME: `>>IF NAME [IS] DEFINED` is true and `NOT DEFINED`
+  false. Its value is unknown: `NAME = literal`, `NAME <> literal` and a source `>>DEFINE NAME AS literal` on it are
+  errors naming the flag ("-DNAME gives no value; which one cobc gives is not confirmed"). `Settings` carries the
+  marker distinct from `""`. It is lifted by a probe on the pinned cobc (`>>IF X = 1` and `>>IF X = ""` built with
+  `-D X`, which R-045 amended allows) or by IBM's DEFINE option in the Programming Guide (R-082).
+- **Why:** the value `""`, as first built, made `NAME = ""` silently true and `NAME = 1` silently false; either wrong
+  branch is silent output (P-03). The cases that use a valueless `-D` ask only DEFINED, so the census is unchanged.
+- **Held by:** `test/katana/front/DirectivesTest.java` (the three errors, once built: TODO 3.1).
+- **Source:** Fable (J-257); taken by Ghost, 2026-10-23.
+- **Status:** in force
+- **See also:** R-081
+- **subject:** front
+---
+
+### R-085: Free-form source is not read under the IBM dialect
+- **Decision:** The `-free` cases stay at `FLAG` or `FLAGPASS` with the reason "a source format the dialect does not
+  have"; one at `FLAGPASS` is never relabelled PASS. Free-form reading is not on 3.1's list. It wakes when a customer
+  source is in free form, or an IBM edition reads it. If it is ever built: a profile field names the format (R-081
+  amended: a setting that reaches a proof is named by its profile); the reader reads the original text, and the
+  source map reports the original file's line and column for every token; `Directives` still blanks before it, at the
+  same length.
+- **Why:** Enterprise COBOL's reference format is fixed (columns 1-6, 7, A and B to 72); free form is Micro Focus's
+  and the 2002 standard's, the same class as `-std=mf`. Fable's recollection, unconfirmed until the manuals are here
+  (R-082).
+- **Held by:** TODO 3.1 (the reason in the golden, once built).
+- **Source:** Fable (J-257); taken by Ghost, 2026-10-23.
+- **Status:** in force
+- **See also:** R-081, R-082, R-083
+- **subject:** front
+---
+
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
 the attribute tuple; R-028 coverage in every proof; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual

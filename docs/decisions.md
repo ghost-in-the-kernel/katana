@@ -78,3 +78,6 @@ Written from `theGhost.md` by `gradle decisions`; do not edit by hand. A decisio
 | R-080 | CLAUDE.md's conditional rules are one-line triggers to the file that holds them | in force |
 | R-081 | a `>>` directive is read only when it can be read exactly; the rest stay parse errors | in force |
 | R-082 | IBM's manuals: the shortest cited quotation enters the repository, the manuals never do | in force |
+| R-083 | The census maps `-std=ibm` and `-std=ibm-strict` to Katana's dialect; every other `-std=` stays FLAG | in force |
+| R-084 | A valueless `-D NAME` is defined with its value unknown | in force |
+| R-085 | Free-form source is not read under the IBM dialect | in force |

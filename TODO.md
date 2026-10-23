@@ -64,9 +64,11 @@ is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census t
 
 Next, first (J-256): the 87 that end at `FLAG` or `FLAGPASS`, by the flag (`-std=` 17, `-fnotrunc` and `-fno-trunc` 14, `-free` 6 with
 `--free`, `-fprof` 5, `-fsystem-name`, `-fodoslide`, `-fcallfh` 4 each, ...): each flag is mapped when Katana's profile
-already means it (`-std=ibm` and `-std=ibm-strict` are the dialect Katana reads, D-010), a front-end or lowering change when
-it asks for one (`-free` is free-form reading, which the front end lacks), or left a `FLAG` with its reason. A flag is
-never mapped to nothing to turn a `FLAG` into a pass.
+already means it, a front-end or lowering change when it asks for one, or left a `FLAG` with its reason. A flag is
+never mapped to nothing to turn a `FLAG` into a pass. First, the three Ghost decided (J-257): `-std=ibm` and
+`-std=ibm-strict` mapped, run as is (R-083); a valueless `-D NAME` defined with its value unknown, a value compared
+or redefined an error naming the flag, `Settings` carrying the marker (R-084); `-free` left a `FLAG` or `FLAGPASS`,
+"a source format the dialect does not have" (R-085). Then the reasons for every flag left, in the golden.
 Then, by count (J-248, J-249, J-251): the 99 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
 `SOURCE FORMAT`, `TURN`: 6, each an error by R-081; `$SET` out of column 7: 1),
 `MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower
