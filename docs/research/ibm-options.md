@@ -2635,3 +2635,27 @@ name its class is written under).
 
 The rival: fixing it in the test (load the class under `Lower.className(program)`). That hides the defect from the
 next caller who passes another name (JavaRunner and ManifestTest already do).
+
+## 57. 3.1, the census gives the parser the case's own directory as its copybook path (J-249)
+
+**Ghost's word (2026-10-23).** Take 3.1's "Next" in order; the first is the copybook-not-found cause (13 of the 162
+that do not parse).
+
+**Found by reading the 13 cases.** `LoweredAutotestsIntegrationTest.build` and the census's `firstError` both build
+`new Copybooks(List.of(), ...)`, no folder at all, so no `COPY` can be found. Six of the 13 keep the file they copy in
+the case's own directory (`syn_copy-382`, `438`, `528`, `630`, `syn_misc-3318`: `*.inc`; `run_misc-10634`: `cpyabrt`).
+The other seven (`run_file-10289`, `10468`, `10661`, `11040`, `11361`, `11692`, `11881`) copy `xfhfcd.cpy` or
+`xfhfcd3.cpy`, which GnuCOBOL installs beside `libcob` and no case directory or the extracted tests holds; the case's
+directory cannot find them, and a copybook is not ours to write (R-037, R-045).
+
+**What the step builds.** Both calls pass `List.of(CASES.resolve(id))`. Nothing in `front/`, `lower/` or `rt/` changes.
+
+**Predicted, before the run:**
+- the "copybook not found" cause falls from 13 to 7 (the `xfhfcd` ones);
+- of the six that now read their copybook, none is a PASS-by-luck: each moves to a later stage or to a different
+  first error (a `.inc` that holds a fragment, `syn_*` cases are syntax tests that may expect an error);
+- NOPARSE 162 to between 150 and 156; PASS stays 49 or rises by at most 2; the 21 hand-lowered cases are unchanged;
+- no golden but `lowered.golden` changes.
+
+The rival: pointing the parser at the whole `cases/` tree. A case would then find another case's file of the same
+name, and `copy.inc` is in four cases with different text.

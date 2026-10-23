@@ -78,3 +78,4 @@ Written by `gradle researchIndex`; do not edit by hand.
 | 54 | 3.1, the runnable autotests through the lowering: a first sweep of all 378, outcomes counted by stage (J-246) |
 | 55 | 3.1, a reason for each autotest that does not parse, and the causes by count (J-248) |
 | 56 | 3.1, the nine autotests whose lowered Java does not compile: three causes, one fixed (J-248) |
+| 57 | 3.1, the census gives the parser the case's own directory as its copybook path (J-249) |
