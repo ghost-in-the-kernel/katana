@@ -85,6 +85,7 @@ final class Directives {
             Matcher m = DEFINE.matcher(rest);
             if (!m.matches()) return false;
             String name = m.group(1).toUpperCase(Locale.ROOT), value = unquote(m.group(2));
+            if (live && valueless(name, st, line)) return false;
             if (live && st.settings().isDeclared() && st.settings().defines().containsKey(name) && !st.settings().defines().get(name).equals(value)) {
                 st.errors().add(where(st, line) + ">>DEFINE " + name + " AS " + value + " contradicts the job's DEFINE(" + name + "=" + st.settings().defines().get(name)
                         + "); which one governs is not known (R-081)");
@@ -172,9 +173,18 @@ final class Directives {
             return null;
         }
         if (isDefined) return st.defined().containsKey(name) != (d.group(2) != null);
+        if (valueless(name, st, line)) return null;
         String value = st.defined().get(name);
         boolean same = value != null && value.equals(unquote(e.group(4)));
         return same != (e.group(2) != null || e.group(3).equals("<>"));
+    }
+
+    /** True, with the error said, when the job defined `name` with no value (`-D NAME`) and the source asks or sets its value. */
+    // Decision: R-084
+    private static boolean valueless(String name, State st, int line) {
+        if (!Settings.UNKNOWN.equals(st.defined().get(name))) return false;
+        st.errors().add(where(st, line) + "-D" + name + " gives no value; which one cobc gives is not confirmed (R-084)");
+        return true;
     }
 
     private static String unquote(String literal) {
