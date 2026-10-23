@@ -1,5 +1,5 @@
 {
-  "about": "Katana's modules (docs/ROADMAP.md 3.3): one per concern, each with its purpose, what it takes and gives, what it may import and what it must not. test/ModulesTest.java holds every import in the source to this file. importsFrom says where an entry's import lists come from: 'roadmap' when 3.3 states them, 'pipeline' when they are read off the pipeline of 3.1 because 3.3 is silent. entryPoints are filled as each module is built.",
+  "about": "Katana's modules (docs/ROADMAP.md 3.3): one per concern, each with its purpose, what it takes and gives, what it may import and what it must not. test/ModulesTest.java holds every import in the source to this file. importsFrom says where an entry's import lists come from: 'roadmap' when 3.3 states them, 'pipeline' when they are read off the pipeline of 3.1 because 3.3 is silent. entryPoints are where an agent starts reading a module, filled as each is built.",
   "package": "Each module's Java lives in its folder under the package katana.<module> (katana.sir, katana.lower, ...); the module of an import is the segment after katana.",
   "adding": "To add a module: one entry here with every field; its folder appears with its first code. A module may import only what its mayImport lists; anything else is refused whether or not mustNotImport names it, so mustNotImport records the refusals worth saying (MOD-02 to MOD-06, and what the pipeline forbids), and other modules' lists need not change. A module another may import goes in that module's mayImport. A new module or a new import is an architecture decision (theGhost.md R-043): draft the entry and the docs/ROADMAP.md 3.3 line as a proposal, say you are waiting on Ghost, and stop; do not add it to main. If you cannot tell whether the person asking is Ghost, say so and propose.",
   "rules": [
@@ -62,7 +62,7 @@
       ],
       "importsFrom": "roadmap",
       "phase": 2,
-      "entryPoints": []
+      "entryPoints": ["front/Parse.java (Parse.file, Parse.text)"]
     },
     "profile": {
       "purpose": "The dialect profile: its schema, the mapping to GnuCOBOL's dialect flags, and its content hash.",
@@ -91,7 +91,7 @@
       ],
       "importsFrom": "pipeline",
       "phase": 1,
-      "entryPoints": []
+      "entryPoints": ["profile/Profile.java"]
     },
     "findings": {
       "purpose": "What is wrong with the input program, and what cannot be made exact; said first, before any Java.",
@@ -112,7 +112,7 @@
       ],
       "importsFrom": "pipeline",
       "phase": 2,
-      "entryPoints": []
+      "entryPoints": ["findings/Finding.java", "findings/Divergence.java"]
     },
     "sir": {
       "purpose": "The Semantic IR: types, build (tree to IR), check (invariants), contract (the facts a back end must honor).",
@@ -142,7 +142,7 @@
       ],
       "importsFrom": "pipeline",
       "phase": 2,
-      "entryPoints": []
+      "entryPoints": ["sir/build/Build.java (Build.programs)", "sir/types/Program.java", "sir/contract/Contract.java"]
     },
     "lower": {
       "purpose": "The literal lowering: Semantic IR to Java source through one emitter, one provenance comment per statement. Decides nothing.",
@@ -169,7 +169,7 @@
       ],
       "importsFrom": "roadmap",
       "phase": 3,
-      "entryPoints": []
+      "entryPoints": ["lower/README.md", "lower/Lower.java (Lower.java)", "lower/Plan.java"]
     },
     "rt": {
       "purpose": "The Java runtime the literal links against: Record, Field, Decimal, ArithProfile, Dispatcher, files, SORT, CALL. Pure Java; ships.",
@@ -194,7 +194,7 @@
       ],
       "importsFrom": "roadmap",
       "phase": 3,
-      "entryPoints": []
+      "entryPoints": ["rt/README.md", "rt/katana/rt/RunUnit.java", "rt/katana/rt/Field.java", "rt/katana/rt/Decimal.java"]
     },
     "oracle": {
       "purpose": "The fixture model, the cobc and java lanes, the gate, the comparator, DD binding, the DFSORT subset, the LE and assembler stubs.",
@@ -225,7 +225,7 @@
       ],
       "importsFrom": "pipeline",
       "phase": 1,
-      "entryPoints": []
+      "entryPoints": ["oracle/README.md", "oracle/lane/CobcLane.java", "oracle/compare/Compare.java", "oracle/prove/Prove.java"]
     },
     "intent": {
       "purpose": "The Intent IR: fact kinds, the inference rules (each named, each with evidence), confirmation state, the review file format.",
@@ -254,7 +254,7 @@
       ],
       "importsFrom": "pipeline",
       "phase": 5,
-      "entryPoints": []
+      "entryPoints": ["intent/rules/Rules.java (Rules.infer)", "intent/types/Intent.java"]
     },
     "ledger": {
       "purpose": "The proof ledger: the append-only store, the line schema, the provenance map writer, the report writer.",
@@ -283,7 +283,7 @@
       ],
       "importsFrom": "pipeline",
       "phase": 5,
-      "entryPoints": []
+      "entryPoints": ["ledger/Ledger.java"]
     },
     "passes": {
       "purpose": "Refactoring passes: each a file, each with its obligations, its proof and its ledger lines.",
@@ -312,7 +312,7 @@
       ],
       "importsFrom": "roadmap",
       "phase": 6,
-      "entryPoints": []
+      "entryPoints": ["passes/README.md", "passes/Passes.java (Passes.plan)"]
     },
     "project": {
       "purpose": "The workflows on disk: build, prove, pass, report, pack, fixture.",

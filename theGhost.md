@@ -764,8 +764,10 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   messages. The journal's first thirteen entries are the day's own contradictions and their
   resolutions, each already cited in a decision; a record that exists only as decisions loses the
   failures that produced no decision (J-006, J-007, J-011).
-- **Held by:** `docs/JOURNAL.md`; `test/JournalTest.java` (written in tithe pass 2, C4; named here
-  since phase 1, missing until then): each id above every earlier one, every entry its Who and Class.
+- **Held by:** `docs/JOURNAL.md` (the fields); the entries in `docs/journal/`, a hundred to a file, behind a
+  generated index (amended 2026-10-23, J-244, on Ghost's answer "Index + split": one file of 4,000 lines was read
+  whole to find one entry); `test/JournalTest.java` (written in tithe pass 2, C4; named here since phase 1, missing
+  until then): each id above every earlier one, every entry its Who and Class.
 - **Source:** Ghost, 2026-10-04 (the brief to the Suite Builder session); recorded by Fable.
 - **Status:** in force
 - **See also:** R-008 (tithe), R-042 (who writes what)

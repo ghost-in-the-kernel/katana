@@ -32,7 +32,7 @@ final class WayBackTest {
         String claims = "### R-001: x\n- **Decision:** x.\n- **Claims:** C-1 a thing: `hypothesis`; a trial.\n- **Status:** in force\n";
         return new Check("way back")
                 .repository(discoveries(Check.read("docs/DISCOVERIES.md"), sections(Check.read("docs/research/ibm-options.md")), WayBackTest::source))
-                .repository(hypotheses(ghost, trials(Check.read("docs/HANDOFF.md")), Check.read("docs/JOURNAL.md")))
+                .repository(hypotheses(ghost, trials(Check.read("docs/HANDOFF.md")), JournalIndex.text(Check.ROOT)))
                 .repository(decisions(ghost, sources()))
                 .repository(doubts(sources()))
                 .rejects("a doubt that says nothing of what settles it", () -> doubts(Map.of("x.java", "    // Unsure: which reading.\n")))

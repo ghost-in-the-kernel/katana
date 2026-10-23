@@ -13,6 +13,10 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
 - A long run writes to a file, and you read only its verdict and its failures (R-076): `scripts/prepush.sh --all
   > build/gate.log 2>&1`, then `grep "pre-push check:" build/gate.log`. A sub-agent does the same and reports
   only those lines.
+- The generated indexes (`.gitattributes` marks them): `gradle decisions` (`docs/decisions.md`, after a decision),
+  `gradle journalIndex` (`docs/journal/INDEX.md`, after an entry), `gradle researchIndex`
+  (`docs/research/INDEX.md`, after a research section). A test fails when one is stale.
+- `gradle metrics` warns early: a function at 16 to 20 paths, a file at 351 to 400 lines.
 - A function added: `gradle kernelMap`. A function moved or removed: a closing row in `docs/KERNEL-MAP.md`
   (`superseded-by:` or `removed:`).
 
@@ -21,8 +25,8 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
 | Task | Start here | Contract | Tests |
 | --- | --- | --- | --- |
 | A module: add one, or change its imports | `docs/modules.json` (its `adding` line) | `docs/ROADMAP.md` §3.3 | `test/ModulesTest.java` |
-| A decision, a plan, what to work on | `theGhost.md`, `TODO.md`, `docs/HANDOFF.md` | `theGhost.md` | `test/GhostTest.java` |
-| Writing down what happened | `docs/JOURNAL.md` (one entry, its fields) | R-046 | |
+| A decision, a plan, what to work on | `docs/decisions.md` (the index), `theGhost.md`, `TODO.md` (each item's `Status:`), `docs/HANDOFF.md` | `theGhost.md` | `test/GhostTest.java`, `test/TodoTest.java` |
+| Writing down what happened | `docs/JOURNAL.md` (the fields), the newest file in `docs/journal/`, `docs/journal/INDEX.md` | R-046 | `test/JournalTest.java` |
 | A word | `docs/GLOSSARY.md` | | `test/GlossaryTest.java` |
 | Why a rule is what it is (when it seems arbitrary) | `docs/GHOST-IN-THE-KERNEL.md` | | |
 | The agent's environment: metrics, the kernel map | `docs/AGENT.md`, `docs/KERNEL-MAP.md`, `scripts/Metrics.java`, `scripts/KernelMap.java` | `docs/ROADMAP.md` §4.3, §5 | `test/MetricsTest.java`, `test/KernelMapTest.java` |
