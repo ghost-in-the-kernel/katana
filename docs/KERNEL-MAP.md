@@ -2017,3 +2017,12 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | oracle | `oracle/autotest/CompileFlags.java:CompileFlags.grammarLeak` | R-089 | 2026-10-23 |  |
 | oracle | `oracle/autotest/CompileFlags.java:CompileFlags.ibmsOwn` | R-088 | 2026-10-23 |  |
 | front | `front/Lines.java:Lines.placed` |  | 2026-10-23 |  |
+| lower | `lower/Exprs.java:Exprs.occurrences#2` |  | 2026-10-23 |  |
+| lower | `lower/Exprs.java:Exprs.occurrences#3` |  | 2026-10-23 |  |
+| lower | `lower/Slide.java:Slide.Slide` |  | 2026-10-23 |  |
+| lower | `lower/Slide.java:Slide.tables` |  | 2026-10-23 |  |
+| lower | `lower/Slide.java:Slide.shortfall` |  | 2026-10-23 |  |
+| lower | `lower/Slide.java:Slide.before` |  | 2026-10-23 |  |
+| lower | `lower/Slide.java:Slide.where` |  | 2026-10-23 |  |
+| rt | `rt/katana/rt/Table.java:Table.slide` | R-088 | 2026-10-23 |  |
+| lower | `lower/Exprs.java:Exprs.length` |  | 2026-10-23 |  |

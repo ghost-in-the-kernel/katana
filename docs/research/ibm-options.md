@@ -2744,3 +2744,47 @@ for every fixture (docs/PROFILE.md), so a decision to give the profile that fiel
 
 The rival: predefining the names IBM's compiler defines. None is known to be documented, and a name wrongly defined is
 the same silent error as a name wrongly undefined.
+
+## 60. 3.1, variably located items: what follows an OCCURS DEPENDING ON table is located after its current length (R-088; J-265)
+
+**Ghost's word (2026-10-23).** Take TODO 3.1's variably-located-items lowering item; the four `-fodoslide` cases are its
+check (R-088). `lower/Exprs.variable`'s `// Unsure:` (J-133) is where Katana keeps the maximum.
+
+**What the existing notes quote** (`semantic_traps.md`, line 122, from IBM Enterprise COBOL 6.4 LR, OCCURS DEPENDING ON
+clause, quoted there and not re-read here): "Any nonsubordinate item that follows an item described with an OCCURS
+DEPENDING ON clause is a variably located item"; a sending group uses "only that part of the table area that is
+specified by the object at the start of the operation"; a receiving group whose object is inside it uses "the maximum
+length of the group item". `semantic_traps.md` line 147 states the consequence for the runtime (an offset computed at
+each reference, the group's length as sender and as receiver). **From recollection, not read** (R-082; no manual in the
+sandbox, `corpus/ibm-manuals/` absent): that an item subordinate to the same group but after the table is also located
+after its current length; that LENGTH OF and FUNCTION LENGTH of such a group give its current length; that more than one
+ODO table in one record is allowed in Enterprise COBOL 6; and what INITIALIZE does to a table with an ODO (current or
+maximum occurrences). Where only the cases' expected output speaks, it is the evidence (the cobc `-fodoslide` run), not IBM.
+
+**The cases, read one at a time (R-045 as amended).** Four runnable cases carry `-fodoslide`:
+- `run_extensions-609` and `-739`: a group of three ODO tables (VX, VY, ZZ; objects I, J, K), 739 with a fixed item VFIX
+  after the last. They display `LENGTH OF` and `FUNCTION LENGTH` of the group and the group itself at I,J,K = 1,1,1 and
+  at 3,2,1: expected lengths 6 and 10 (609), 9 and 13 (739): the sum of the current lengths, the trailing item included.
+  Both stop today at `not lowered: sending LENGTH OF` (a MOVE of `LENGTH OF` a group), a gap next to the slide, not the slide.
+- `run_extensions-1151`: no ODO use that depends on the slide; it stops at the parser (`INITIALIZE ... ALL TO VALUE`).
+- `run_file-11361`: held by `-fnotrunc` (R-087) and calls EXTFH; it cannot pass in this step.
+So the check is reachable for two of the four; the other two are blocked by things that are not this item.
+
+**Design.** An item is variably located when, in its record, an ODO table lies wholly before it in the maximum layout and
+does not contain it. Its offset at a reference is its static offset plus, for each such table, (object's value - maximum)
+times the occurrence length. This is one function of the item and the object values, so it belongs in one place in
+`lower/` (reference sites call it) and decides nothing the IR does not (R-024): the table, its object and its bounds
+are the IR's. A group's current length as sender is its maximum length plus the same sum over the tables under it
+(identical to the existing `Table.current` for one table at the end; the existing text is kept for that shape). A table
+nested in an OCCURS (complex ODO) stays at the maximum, with the `// Unsure:` kept for that shape only.
+
+**Predicted, before the build:**
+- the fast loop stays green;
+- the census moves two cases, `run_extensions-609` and `-739`, from NORUN to PASS: 48 PASS to 50, FLAG 65, FLAGPASS 11,
+  NOPARSE 102, NOLOWER 7, NOJAVAC 4, NORUN 74 to 72, FAIL 31; floors 48 and 59 raised by hand to 50 and 61 (R-086);
+  `-1151` stays NOPARSE and `-11361` stays FLAG;
+- no other golden changes: NIST through the Java lane, CardDemo and the passes' goldens hold no program with an item
+  after an ODO table in its record (the lowering tests' ODOS and VARTRIAL have the table last), so the shift is never
+  emitted for them; the one risk is a NIST program (NC247A, IX/SQ ODO records) that does, which the suites show;
+- what could make it wrong: INITIALIZE of a group holding ODO tables (current or maximum occurrences) changes a byte
+  the cases display; I expect not, both read the same displayed bytes.

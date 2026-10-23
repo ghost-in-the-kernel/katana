@@ -31,8 +31,8 @@ final class Initialize {
             }
             for (Item i : f.p.items()) {
                 if (!receives(f, i, target.item())) continue;
-                if (replacing.isEmpty()) move(f, i);
-                else if (replacing.containsKey(i.attributes().category())) replace(f, i, replacing.get(i.attributes().category()));
+                if (replacing.isEmpty()) move(f, i, f.x.item(target.item()));
+                else if (replacing.containsKey(i.attributes().category())) replace(f, i, replacing.get(i.attributes().category()), f.x.item(target.item()));
             }
         }
     }
@@ -62,8 +62,8 @@ final class Initialize {
     }
 
     /** One receiver given REPLACING's sender for its category, each occurrence. */
-    private static void replace(Flow f, Item i, Value from) {
-        String each = f.x.occurrences(i), target = each == null ? f.x.promoted.fieldName(i.id()) : "t";
+    private static void replace(Flow f, Item i, Value from, Item scope) {
+        String each = f.x.occurrences(i, scope), target = each == null ? f.x.slide.where(i, scope) : "t";
         String move = f.x.moveInto(from, target, i);
         f.e.line(each == null ? move + ";" : each + "t -> " + move + ");");
     }
@@ -78,9 +78,9 @@ final class Initialize {
         return false;
     }
 
-    private static void move(Flow f, Item i) {
+    private static void move(Flow f, Item i, Item scope) {
         boolean zero = List.of(Attributes.Category.NUMERIC, Attributes.Category.NUMERIC_EDITED).contains(i.attributes().category());
-        String each = f.x.occurrences(i), target = each == null ? f.x.promoted.fieldName(i.id()) : "t";
+        String each = f.x.occurrences(i, scope), target = each == null ? f.x.slide.where(i, scope) : "t";
         String move = zero ? "Move.move(Literal.number(\"0\", 0, cp), " + target + ")" : "Move.fill(" + target + ", new byte[] {Literal.figurative(\"SPACE\", cp)}, false)";
         f.e.line(each == null ? move + ";" : each + "t -> " + move + ");");
     }

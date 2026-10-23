@@ -81,3 +81,4 @@ Written by `gradle researchIndex`; do not edit by hand.
 | 57 | 3.1, the census gives the parser the case's own directory as its copybook path (J-249) |
 | 58 | 3.1, the `>>` directives: conditional compilation and `>>D`, the rest left as errors (J-251) |
 | 59 | 3.1, the `>>` directives amended: a name from outside the source, compiled-out code seen, IBM's own directives (J-252) |
+| 60 | 3.1, variably located items: what follows an OCCURS DEPENDING ON table is located after its current length (R-088; J-265) |
