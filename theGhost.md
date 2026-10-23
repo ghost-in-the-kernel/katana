@@ -1465,6 +1465,25 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** product
 ---
 
+### R-073: A Sonnet agent tries a code fix once, then escalates a hard failure to Opus
+- **Decision:** An agent working in this repository that is a Claude Sonnet model attempts a code fix once. When it
+  spots the cause or an easy fix, it makes it and does not escalate. When its attempt fails in a way that is
+  difficult (the check still red after the one try, or the cause not clear), it does not try again: it invokes a
+  Claude Opus instance to assist (the Agent tool with `model: "opus"`), handing it the task, what it tried, the
+  failing output and the files, then applies the answer and runs the check itself. The rule is in CLAUDE.md's
+  entry path, where every agent reads it before work.
+- **Why:** so a Sonnet agent can work on the codebase. A second and third attempt at a hard failure by the same
+  model costs more than one escalation and risks a fix that hides the cause; an easy fix needs no escalation.
+- **Held by:** CLAUDE.md, "Escalation, for a Sonnet agent".
+- **Source:** Ghost, 2026-10-23: "we add an escalation rule. this is in the entrance path for agents specifically.
+  IF the user agent is a claude sonnet model, it will only attempt a code fix once. If it spots something or notices
+  an easy fix, it will not escalate, but if it fails at implementation in a way that is difficult, it will invoke a
+  claude opus instance to assist it. the goal here is to allow a claude sonnet agent to work on the code base."
+- **Status:** in force
+- **See also:** R-052, R-072
+- **subject:** process
+---
+
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
 the attribute tuple; R-028 coverage in every proof; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual

@@ -4013,3 +4013,16 @@ taken; closed by a later `decision` entry naming it).
   The outside reading is 8A.7's own last part; it is Ghost's to arrange.
 - **Touched:** `TODO.md`, `docs/DIVERGENCES.md`, `docs/GLOSSARY.md`, `theGhost.md` (R-072), `docs/HANDOFF.md`,
   `docs/JOURNAL.md`.
+
+### J-239 R-073: a Sonnet agent tries a code fix once, then escalates a hard failure to Opus
+- **Who:** Opus, on Ghost's word ("we add an escalation rule. this is in the entrance path for agents
+  specifically..."). **Class:** process.
+- **Resolved:**
+  - R-073 records the rule.
+  - CLAUDE.md's entry path has a section, "Escalation, for a Sonnet agent": one attempt; an easy fix made without
+    escalating; a hard failure handed to a Claude Opus instance through the Agent tool, with the task, the attempt,
+    the failing output and the files.
+  - CLAUDE.md is 1,277 words, under AGT-03's 1,500.
+  - The super tithe Ghost asked for next, for traversability, low context and separation of concerns, starts
+    from a Fable advisor's plan.
+- **Touched:** `CLAUDE.md`, `theGhost.md` (R-073), `docs/JOURNAL.md`.
