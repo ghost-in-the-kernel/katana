@@ -2585,3 +2585,25 @@ when the counts show which FAILs are one cause.
 The rival: reading the outcome from javac's and the lowering's messages alone. A case that lowers with a finding the
 lowering prints (P-03) would then count as lowered; the stage here is the first the case cannot pass, and a finding
 that makes the Java a stub is reported with the case, not hidden in PASS.
+
+## 55. 3.1, a reason for each autotest that does not parse, and the causes by count (J-248)
+
+**Ghost's word (2026-10-23).** Part B of the follow-up to J-246: record a reason for each case that does not parse,
+report the causes by count; then read the 9 cases that do not compile.
+
+**What the step builds.** The golden `lowered.golden` gets, on each `NOPARSE` line, the first error the front end
+reports for the program (its message, without the path, line and column, which vary with the checkout), and the
+test prints the causes by count. No behaviour of the front end, the lowering or `rt/` changes; the PASS floor is
+unchanged. The 9 `NOJAVAC` cases are read, not yet changed.
+
+**Predicted, before the run** (from what the 162 are: GnuCOBOL's own tests, not IBM's):
+- one or two syntax causes cover half of the 162: GnuCOBOL-only data items (`BINARY-CHAR`, `BINARY-LONG`,
+  `FLOAT-SHORT`, 78-level constants) and statements or phrases of the GnuCOBOL dialect the forked IBM grammar lacks;
+- free-format source (`>>SOURCE FORMAT IS FREE`) a visible cause of at least 10 cases;
+- cases of a preprocessing error (COPY, REPLACE) at most 15;
+- more than 20 distinct messages in all (a long tail), the largest under 40 cases;
+- the 9 `NOJAVAC` cases share one cause (a "cannot find symbol" from one missing helper or a name the emitter writes
+  and `rt/` does not have): all 9 say "cannot find symbol".
+
+The rival: classifying by the construct in the source rather than the parser's first message. The first message is
+what the front end says, which is the evidence; a construct count is the reader's judgement and comes after.
