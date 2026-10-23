@@ -62,7 +62,11 @@ Open: the 323 that do not pass; the 44 FAILs sorted into findings against the te
 differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
-Next, first (J-256): the 87 that end at `FLAG` or `FLAGPASS`, by the flag (`-std=` 17, `-fnotrunc` and `-fno-trunc` 14, `-free` 6 with
+Next, first (J-262): build R-087 to R-089 in `CompileFlags`' table and the census (the census names its profile;
+the TRUNC(BIN) reason; `-fbinary-comp-1` permanent; `-farithmetic-osvs`, `-fmove-ibm`, `-fodoslide` set nothing;
+the encoding and ODO reasons; the acceptance group, with any FLAGPASS under it listed as a grammar leak); then the
+variably-located-items lowering item, which `-fodoslide`'s four cases check (`lower/Exprs.java`'s `// Unsure:`).
+Before (J-256): the 87 that end at `FLAG` or `FLAGPASS`, by the flag (`-std=` 17, `-fnotrunc` and `-fno-trunc` 14, `-free` 6 with
 `--free`, `-fprof` 5, `-fsystem-name`, `-fodoslide`, `-fcallfh` 4 each, ...): each flag is mapped when Katana's profile
 already means it, a front-end or lowering change when it asks for one, or left a `FLAG` with its reason. A flag is
 never mapped to nothing to turn a `FLAG` into a pass. Built (J-259): the three Ghost decided (J-257): `-std=ibm` and
