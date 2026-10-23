@@ -1,6 +1,8 @@
 package katana.rt.autotest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Files;
@@ -15,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import katana.oracle.autotest.CompileFlags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +25,7 @@ import org.junit.jupiter.api.Test;
  * Phase 3.1's check at scale, as a census (research §54): every runnable GnuCOBOL autotest through parse,
  * the Semantic IR, `lower/`, javac against `rt/` alone and a run, each case ending at the first stage it
  * cannot pass. The golden holds the stage per case and the counts; a floor that only rises: the count of
- * cases that pass the testsuite's expected stdout never falls below `floors.txt`'s, for PASS and for FLAGPASS alike. The expected side is
+ * cases that pass the testsuite's expected stdout never falls below `floors.txt`'s, for PASS and for PASS and FLAGPASS together (checked before the golden is written). The expected side is
  * compared and never shown (R-045); it is GnuCOBOL's default dialect, not IBM's (D-010), so a FAIL is not
  * yet a finding against Katana.
  */
@@ -37,8 +40,7 @@ class AutotestsLoweredIntegrationTest {
     /**
      * A case's end: the first stage it cannot pass (NOSOURCE: no prog.cob, a case of several programs or a C helper; FLAG: its compile command
      * has a flag the compile step does not understand, named in the golden; the case is still run without the flag, and FLAGPASS says it
-     * passes anyway, which is not a pass under the reading it was written for), or its verdict against the testsuite. PASS and FLAGPASS each
-     * have a floor of their own in `floors.txt`, which a re-record never writes (J-256).
+     * passes anyway, which is not a pass under the reading it was written for), or its verdict against the testsuite. The floors in `floors.txt` (PASS; PASS and FLAGPASS together), which a re-record never writes, are on those two (J-259).
      */
     enum Stage { NOSOURCE, FLAG, FLAGPASS, NOPARSE, NOLOWER, NOJAVAC, NORUN, FAIL, PASS }
 
@@ -84,7 +86,7 @@ class AutotestsLoweredIntegrationTest {
         Stage raw = rawStageOf(id);
         List<String> flags = LoweredAutotestsIntegrationTest.compileStep(id).unmapped();
         if (flags.isEmpty() || raw == Stage.NOSOURCE) return raw;
-        REASONS.put(id, String.join(" ", flags));
+        REASONS.put(id, flags.stream().map(f -> CompileFlags.reason(f) == null ? f : f + " (" + CompileFlags.reason(f) + ")").collect(java.util.stream.Collectors.joining(" ")));
         return raw == Stage.PASS ? Stage.FLAGPASS : Stage.FLAG;
     }
 
@@ -151,6 +153,9 @@ class AutotestsLoweredIntegrationTest {
         Map<String, Integer> causes = new TreeMap<>();
         byCase.forEach((id, s) -> { if (s == Stage.NOPARSE) causes.merge(REASONS.get(id), 1, Integer::sum); });
         causes.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).forEach(c -> System.out.println("CAUSE " + c.getValue() + " " + c.getKey()));
+        // The floors first: a refused re-record leaves the golden as it was (J-259).
+        String breach = floorBreach(counts.getOrDefault(Stage.PASS, 0), counts.getOrDefault(Stage.FLAGPASS, 0), floor("PASS"), floor(BOTH));
+        assertNull(breach, breach);
         if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, results.toString());
         assertEquals(378, ids.size(), "the runnable count autotests.golden holds");
         // The hand-lowered cases that parse must not fall behind the hand-lowering.
@@ -162,8 +167,6 @@ class AutotestsLoweredIntegrationTest {
             assertEquals(handPasses ? Stage.PASS : Stage.FAIL, s, l.id() + " through the lowering against by hand");
         }
         assertEquals(Files.exists(GOLDEN) ? Files.readString(GOLDEN) : "(no golden)", results.toString());
-        for (Stage floored : List.of(Stage.PASS, Stage.FLAGPASS))
-            assertTrue(counts.getOrDefault(floored, 0) >= floor(floored), floored + " falls below its floor in floors.txt (a floor is raised by hand, never lowered by a re-record)");
     }
 
     /** R-056's mutation, in both passing stages: a passing case's lowered output held to another case's expected stdout is not a pass. */
@@ -181,8 +184,29 @@ class AutotestsLoweredIntegrationTest {
         }
     }
 
-    /** A stage's floor, from `floors.txt` (`<STAGE> <count>` a line): raised by hand when the census rises, never written by a re-record. */
-    private static int floor(Stage stage) throws Exception {
-        return Files.readAllLines(FLOORS).stream().filter(l -> l.startsWith(stage + " ")).mapToInt(l -> Integer.parseInt(l.substring(l.indexOf(' ') + 1).trim())).findFirst().orElseThrow();
+    /** The second floor's name in `floors.txt`: the cases that pass, PASS and FLAGPASS together. */
+    private static final String BOTH = "PASS+FLAGPASS";
+
+    /**
+     * Which floor the counts fall below, or null. Two floors, both only rising (J-259): PASS, and PASS and FLAGPASS together, so a case
+     * that moves from FLAGPASS up to PASS lowers neither; its stage in the golden shows a case that falls back.
+     */
+    static String floorBreach(int pass, int flagpass, int passFloor, int bothFloor) {
+        if (pass < passFloor) return "PASS " + pass + " falls below its floor " + passFloor + " in floors.txt (a floor is raised by hand, never lowered by a re-record)";
+        if (pass + flagpass < bothFloor) return BOTH + " " + (pass + flagpass) + " falls below its floor " + bothFloor + " in floors.txt (a floor is raised by hand, never lowered by a re-record)";
+        return null;
+    }
+
+    @Test
+    void aCaseMovingUpFromFlagpassLowersNeitherFloorAndAFallLowersOne() {
+        assertNull(floorBreach(45, 14, 44, 59), "FLAGPASS to PASS: nothing lost");
+        assertNull(floorBreach(44, 15, 44, 59));
+        assertNotNull(floorBreach(43, 16, 44, 59), "a PASS case fell back to FLAGPASS");
+        assertNotNull(floorBreach(45, 13, 44, 59), "a case lost altogether");
+    }
+
+    /** A floor, from `floors.txt` (`<NAME> <count>` a line): raised by hand when the census rises, never written by a re-record. */
+    private static int floor(String name) throws Exception {
+        return Files.readAllLines(FLOORS).stream().filter(l -> l.startsWith(name + " ")).mapToInt(l -> Integer.parseInt(l.substring(l.indexOf(' ') + 1).trim())).findFirst().orElseThrow();
     }
 }
