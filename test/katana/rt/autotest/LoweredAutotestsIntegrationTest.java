@@ -41,8 +41,14 @@ import org.junit.jupiter.api.Test;
  */
 @Tag("integration")
 class LoweredAutotestsIntegrationTest {
-    /** The census declares that the compile step defined nothing (it compiles every case with no `-D`) and reads GnuCOBOL's extensions (D-010, R-081). */
-    static final katana.front.Settings CENSUS = katana.front.Settings.declared(java.util.Map.of(), true);
+    /**
+     * The compile step's settings for a case: its own flags (`flags.txt`, which `Autotests.write` extracts from its compile command; R-045 amended,
+     * J-255) as `CompileFlags` maps them, and GnuCOBOL's extensions (D-010, R-081), which only the census sets.
+     */
+    static katana.oracle.autotest.CompileFlags.Mapped compileStep(String id) throws Exception {
+        Path flags = CASES.resolve(id).resolve("flags.txt");
+        return katana.oracle.autotest.CompileFlags.map(Files.exists(flags) ? Files.readAllLines(flags).stream().filter(l -> !l.isBlank()).toList() : List.of(), true);
+    }
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final Path CASES = ROOT.resolve("corpus/gnucobol-autotests/cases");
 
@@ -55,7 +61,7 @@ class LoweredAutotestsIntegrationTest {
 
     /** The same, lowered under 6.1's structuring pass when `structured` (research §35): the pass's unit corpus. */
     static Built build(String id, boolean structured) throws Exception {
-        Parse.Result parse = Parse.file(CASES.resolve(id).resolve("prog.cob"), new Copybooks(List.of(CASES.resolve(id)), n -> 8), 8, CENSUS);
+        Parse.Result parse = Parse.file(CASES.resolve(id).resolve("prog.cob"), new Copybooks(List.of(CASES.resolve(id)), n -> 8), 8, compileStep(id).settings());
         if (!parse.clean()) return null;
         Program program = Build.program(parse, "sha256:" + "0".repeat(64)).program();
         Lower.Result lowered = Lower.java(program, "Prog", structured ? katana.passes.Passes.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Plan.LITERAL);

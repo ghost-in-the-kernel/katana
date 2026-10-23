@@ -85,4 +85,32 @@ class AutotestsTest {
         assertEquals("x", Files.readString(out.resolve("nested-1/SUB/copy.inc")));
         assertThrows(Autotests.Malformed.class, () -> Autotests.write(Autotests.read("escape.at", nested.replace("SUB/", "../../")), out));
     }
+
+    @Test
+    void aCasesCompileFlagsAreExtractedByCode() {
+        String text = String.join("\n",
+                "AT_SETUP([flags])",
+                "AT_DATA([prog.cob], [x])",
+                "AT_CHECK([$COMPILE -o ascii ascii.c], [0], [], [])",
+                "AT_CHECK([ENVX=1 $COMPILE -free -D ONE -DTWO=2 -std=ibm -o prog \\",
+                "  prog.cob], [0], [], [])",
+                "AT_CHECK([$COBCRUN_DIRECT ./prog], [0], [out",
+                "])",
+                "AT_CHECK([$COMPILE -fother prog.cob], [0], [], [])",
+                "AT_CLEANUP",
+                "AT_SETUP([none])",
+                "AT_CHECK([$COMPILE_ONLY prog.cob], [0], [], [])",
+                "AT_CLEANUP",
+                "");
+        List<Autotests.Case> cases = Autotests.read("f.at", text);
+        assertEquals(List.of("-free", "-DONE", "-DTWO=2", "-std=ibm", "-o"), cases.get(0).flags(), "the compile before the run that expects output");
+        assertEquals(List.of(), cases.get(1).flags());
+    }
+
+    @Test
+    void theFlagsAreWrittenBesideTheCase() throws Exception {
+        Path out = Files.createTempDirectory("autotests");
+        Autotests.write(Autotests.read("f.at", "AT_SETUP([x])\nAT_CHECK([$COMPILE -free prog.cob])\nAT_CLEANUP\n"), out);
+        assertEquals("-free\n", Files.readString(out.resolve("f-1/flags.txt")));
+    }
 }

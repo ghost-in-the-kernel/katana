@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
  * Phase 3.1's check at scale, as a census (research §54): every runnable GnuCOBOL autotest through parse,
  * the Semantic IR, `lower/`, javac against `rt/` alone and a run, each case ending at the first stage it
  * cannot pass. The golden holds the stage per case and the counts; a floor that only rises: the count of
- * cases that pass the testsuite's expected stdout never falls below the golden's. The expected side is
+ * cases that pass the testsuite's expected stdout never falls below `floors.txt`'s, for PASS and for FLAGPASS alike. The expected side is
  * compared and never shown (R-045); it is GnuCOBOL's default dialect, not IBM's (D-010), so a FAIL is not
  * yet a finding against Katana.
  */
@@ -31,16 +31,22 @@ class AutotestsLoweredIntegrationTest {
     private static final Path ROOT = Path.of(System.getProperty("katana.root", "."));
     private static final Path CASES = ROOT.resolve("corpus/gnucobol-autotests/cases");
     private static final Path GOLDEN = ROOT.resolve("test/katana/rt/autotest/lowered.golden");
+    private static final Path FLOORS = ROOT.resolve("test/katana/rt/autotest/floors.txt");
     private static final int SECONDS = 20;
 
-    /** A case's end: the first stage it cannot pass (NOSOURCE: no prog.cob, a case of several programs or a C helper), or its verdict against the testsuite. */
-    enum Stage { NOSOURCE, NOPARSE, NOLOWER, NOJAVAC, NORUN, FAIL, PASS }
+    /**
+     * A case's end: the first stage it cannot pass (NOSOURCE: no prog.cob, a case of several programs or a C helper; FLAG: its compile command
+     * has a flag the compile step does not understand, named in the golden; the case is still run without the flag, and FLAGPASS says it
+     * passes anyway, which is not a pass under the reading it was written for), or its verdict against the testsuite. PASS and FLAGPASS each
+     * have a floor of their own in `floors.txt`, which a re-record never writes (J-256).
+     */
+    enum Stage { NOSOURCE, FLAG, FLAGPASS, NOPARSE, NOLOWER, NOJAVAC, NORUN, FAIL, PASS }
 
-    /** Why a NOPARSE case does not parse: the front end's first error, without where it was (the checkout's path, line, column). */
+    /** Why a NOPARSE case does not parse (the front end's first error, without where it was: the checkout's path, line, column), or which flags a FLAG case has. */
     private static final Map<String, String> REASONS = new TreeMap<>();
 
     private static String firstError(String id) throws Exception {
-        var parse = katana.front.Parse.file(CASES.resolve(id).resolve("prog.cob"), new katana.front.Copybooks(List.of(CASES.resolve(id)), n -> 8), 8, LoweredAutotestsIntegrationTest.CENSUS);
+        var parse = katana.front.Parse.file(CASES.resolve(id).resolve("prog.cob"), new katana.front.Copybooks(List.of(CASES.resolve(id)), n -> 8), 8, LoweredAutotestsIntegrationTest.compileStep(id).settings());
         String e = parse.errors().isEmpty() ? "(no message)" : parse.errors().get(0);
         // Where it was and what was expected vary with the case; the kind and the offending text are the cause.
         e = e.replaceAll("\\s+", " ").replaceAll(" expecting .*$", "").replaceAll("(?<=[a-z] )\\d+:\\d+:? ?", "").replaceAll("^copybook .* not found.*$", "copybook not found").trim();
@@ -75,6 +81,15 @@ class AutotestsLoweredIntegrationTest {
     }
 
     private static Stage stageOf(String id) throws Exception {
+        Stage raw = rawStageOf(id);
+        List<String> flags = LoweredAutotestsIntegrationTest.compileStep(id).unmapped();
+        if (flags.isEmpty() || raw == Stage.NOSOURCE) return raw;
+        REASONS.put(id, String.join(" ", flags));
+        return raw == Stage.PASS ? Stage.FLAGPASS : Stage.FLAG;
+    }
+
+    /** The case run with the flags the compile step maps and none of the others. */
+    private static Stage rawStageOf(String id) throws Exception {
         // Several programs, or a C helper: the case has no prog.cob, and the lowering makes one program (a CALL between them is 3.4's).
         if (!Files.exists(CASES.resolve(id).resolve("prog.cob"))) return Stage.NOSOURCE;
         LoweredAutotestsIntegrationTest.Built built;
@@ -118,7 +133,8 @@ class AutotestsLoweredIntegrationTest {
         StringBuilder results = new StringBuilder("""
                 # Phase 3.1's check at scale (AutotestsLoweredIntegrationTest, research 54): each runnable autotest through
                 # parse, the IR, the lowering, javac against rt/ and a run; the first stage it cannot pass, or PASS or FAIL
-                # against the testsuite's expected stdout (never shown, R-045; GnuCOBOL's dialect, D-010). Written by
+                # against the testsuite's expected stdout (never shown, R-045; GnuCOBOL's dialect, D-010), each under its own compile
+# flags (J-256): FLAG and FLAGPASS name the flags the compile step does not map (the case is run without them; FLAGPASS passes). Written by
                 # `gradle integration -Dkatana.record=true`.
                 """);
         Map<String, Stage> byCase = new TreeMap<>();
@@ -126,43 +142,47 @@ class AutotestsLoweredIntegrationTest {
             Stage s = stage(id);
             byCase.put(id, s);
             counts.merge(s, 1, Integer::sum);
-            results.append(id).append(' ').append(s).append(s == Stage.NOPARSE ? " " + REASONS.get(id) : "").append('\n');
+            results.append(id).append(' ').append(s).append(s == Stage.NOPARSE || s == Stage.FLAG || s == Stage.FLAGPASS ? " " + REASONS.get(id) : "").append('\n');
         }
         results.append("runnable ").append(ids.size());
         for (Stage s : Stage.values()) results.append(' ').append(s).append(' ').append(counts.getOrDefault(s, 0));
         results.append('\n');
         System.out.print(results.substring(results.indexOf("runnable")));
         Map<String, Integer> causes = new TreeMap<>();
-        REASONS.values().forEach(r -> causes.merge(r, 1, Integer::sum));
+        byCase.forEach((id, s) -> { if (s == Stage.NOPARSE) causes.merge(REASONS.get(id), 1, Integer::sum); });
         causes.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).forEach(c -> System.out.println("CAUSE " + c.getValue() + " " + c.getKey()));
         if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, results.toString());
         assertEquals(378, ids.size(), "the runnable count autotests.golden holds");
         // The hand-lowered cases that parse must not fall behind the hand-lowering.
         for (Lowered l : AutotestRtIntegrationTest.LOWERED) {
             Stage s = byCase.get(l.id());
-            if (s == Stage.NOPARSE) continue; // 21 of the 24 parse (J-114); the front end's gap, counted above
+            if (s == Stage.NOPARSE || s == Stage.FLAG || s == Stage.FLAGPASS) continue; // 21 of the 24 parse (J-114); the front end's gap, counted above
             assertTrue(s == Stage.PASS || s == Stage.FAIL, l.id() + " is hand-lowered and ends at " + s);
             boolean handPasses = Arrays.equals(AutotestRtIntegrationTest.katana(l), AutotestRtIntegrationTest.expected(l.id()));
             assertEquals(handPasses ? Stage.PASS : Stage.FAIL, s, l.id() + " through the lowering against by hand");
         }
         assertEquals(Files.exists(GOLDEN) ? Files.readString(GOLDEN) : "(no golden)", results.toString());
-        assertTrue(counts.getOrDefault(Stage.PASS, 0) >= floor(), "PASS falls below the golden's");
+        for (Stage floored : List.of(Stage.PASS, Stage.FLAGPASS))
+            assertTrue(counts.getOrDefault(floored, 0) >= floor(floored), floored + " falls below its floor in floors.txt (a floor is raised by hand, never lowered by a re-record)");
     }
 
-    /** R-056's mutation: a passing case's lowered output held to another case's expected stdout is not a pass. */
+    /** R-056's mutation, in both passing stages: a passing case's lowered output held to another case's expected stdout is not a pass. */
     @Test
     void aPassingCaseHeldToAnotherCasesExpectedOutputFails() throws Exception {
-        List<String> passing = Files.readAllLines(GOLDEN).stream().filter(l -> l.endsWith(" PASS") && !l.startsWith("#")).map(l -> l.substring(0, l.indexOf(' '))).toList();
-        assertTrue(passing.size() > 1);
-        byte[] got = LoweredAutotestsIntegrationTest.run(LoweredAutotestsIntegrationTest.build(passing.get(0)));
-        assertTrue(Arrays.equals(got, AutotestRtIntegrationTest.expected(passing.get(0))));
-        for (String other : passing.subList(1, passing.size()))
-            if (!Arrays.equals(AutotestRtIntegrationTest.expected(other), got)) return;
-        throw new AssertionError("every passing case expects the same stdout: the check could not fail");
+        for (Stage stage : List.of(Stage.PASS, Stage.FLAGPASS)) {
+            List<String> passing = Files.readAllLines(GOLDEN).stream().filter(l -> !l.startsWith("#") && l.split(" ")[1].equals(stage.name())).map(l -> l.substring(0, l.indexOf(' '))).toList();
+            assertTrue(passing.size() > 1, stage + "");
+            byte[] got = LoweredAutotestsIntegrationTest.run(LoweredAutotestsIntegrationTest.build(passing.get(0)));
+            assertTrue(Arrays.equals(got, AutotestRtIntegrationTest.expected(passing.get(0))), stage + "");
+            boolean seen = false;
+            for (String other : passing.subList(1, passing.size()))
+                if (!Arrays.equals(AutotestRtIntegrationTest.expected(other), got)) seen = true;
+            assertTrue(seen, stage + ": every passing case expects the same stdout: the check could not fail");
+        }
     }
 
-    /** The PASS count the golden holds: the floor, which only rises. */
-    private static int floor() throws Exception {
-        return (int) Files.readAllLines(GOLDEN).stream().filter(l -> l.endsWith(" PASS") && !l.startsWith("#")).count();
+    /** A stage's floor, from `floors.txt` (`<STAGE> <count>` a line): raised by hand when the census rises, never written by a re-record. */
+    private static int floor(Stage stage) throws Exception {
+        return Files.readAllLines(FLOORS).stream().filter(l -> l.startsWith(stage + " ")).mapToInt(l -> Integer.parseInt(l.substring(l.indexOf(' ') + 1).trim())).findFirst().orElseThrow();
     }
 }

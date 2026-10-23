@@ -14,7 +14,7 @@ the first open item has a check.
 
 ### 3.1 `rt/` core
 
-Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246 to J-252: the census through the lowering, 55 pass); open: the
+Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246 to J-256: the census through the lowering, 44 pass under their own flags, 15 more without a flag it does not map); open: the
 rest of the runnable autotests through the lowering at scale; can be done now.
 Workpath: `docs/paths/lowering.md` (the census); each Next item names its own when it differs.
 
@@ -46,17 +46,30 @@ Done:
   written in (5 cases compiled). J-249: the census gives the parser the case's own directory as its copybook path:
   now 153 do not parse, 9 fail in the IR or the lowering, 82 stop at run time, 53 pass. J-251: the `>>` directives that
   decide the text (IF family, DEFINE AS literal, `>>D`) are read (R-081): 146 do not parse, 84 stop at run time, 44 differ, 55 pass.
+- The census runs each case under its own compile flags (J-256, R-045 amended): `Autotests` extracts them from the check
+  that compiles the program (`Case.flags`, written as `flags.txt`); `CompileFlags` maps `-DNAME[=VALUE]`,
+  `-fdebugging-line` (`Settings.debugging`) and `-fixed` to the front end's settings and sets nothing else; a case with a
+  flag it does not map ends at `FLAG`, the flags named in the golden. Of 378: 36 no `prog.cob`, 87 FLAG, 99 do not parse,
+  7 fail in the IR or the lowering, 3 fail javac, 72 stop at run time, 30 differ, 44 pass (14 of the old 55 passes carry
+  a flag not yet mapped, 3 cases that failed pass under their `-D`). Ghost's ruling on the floor: a case with an unmapped flag is still
+  run without it; if it passes it ends at `FLAGPASS` (passes without its flag), else at `FLAG`. So of the 378: 36 no
+  `prog.cob`, 72 FLAG, 15 FLAGPASS, 99 do not parse, 7 fail in the IR or the lowering, 3 fail javac, 72 stop at run time, 30
+  differ, 44 PASS. PASS and FLAGPASS each have a floor in `test/katana/rt/autotest/floors.txt` (44 and 15), raised by hand; a
+  re-record that lowers either fails the census. `ExtensionsTest` holds that no fixture or proof path
+  sets `Settings.extensions` (R-081 amended).
 
 Open: the 323 that do not pass; the 44 FAILs sorted into findings against the testsuite's dialect (D-010) and real
 differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
-Next, first (R-045 amended, R-081 amended, J-255): `Autotests` extracts each case's compile flags from its check
-command into the case (by code; no agent reads the `.at` files whole); the census maps the flags it understands to
-`Settings` (`-D` to the definitions, `-fdebugging-line`, `-free`/`-fixed`) and gives a case with a flag it does not map
-a stage of its own, `FLAG` naming it, instead of FAIL; and a test holds that no fixture or proof path sets
-`Settings.extensions`. Workpath: `docs/paths/lowering.md` (the census), `docs/paths/oracle.md` (`Autotests`).
-Then, by count (J-248, J-249, J-251): the 146 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
+Next, first (J-256): the 87 that end at `FLAG` or `FLAGPASS`, by the flag (`-std=` 17, `-fnotrunc` and `-fno-trunc` 14, `-free` 6 with
+`--free`, `-fprof` 5, `-fsystem-name`, `-fodoslide`, `-fcallfh` 4 each, ...): each flag is mapped when Katana's profile
+already means it, a front-end or lowering change when it asks for one, or left a `FLAG` with its reason. A flag is
+never mapped to nothing to turn a `FLAG` into a pass. First, the three Ghost decided (J-257): `-std=ibm` and
+`-std=ibm-strict` mapped, run as is (R-083); a valueless `-D NAME` defined with its value unknown, a value compared
+or redefined an error naming the flag, `Settings` carrying the marker (R-084); `-free` left a `FLAG` or `FLAGPASS`,
+"a source format the dialect does not have" (R-085). Then the reasons for every flag left, in the golden.
+Then, by count (J-248, J-249, J-251): the 99 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
 `SOURCE FORMAT`, `TURN`: 6, each an error by R-081; `$SET` out of column 7: 1),
 `MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower
 case or after a different header (5); a copybook not found (7, J-249: `xfhfcd.cpy`, which GnuCOBOL installs and the

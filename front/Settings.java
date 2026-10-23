@@ -9,10 +9,12 @@ import java.util.TreeMap;
  * and whether the dialect reads the directives that are not IBM's (`>>ELIF`, `>>D`). `defines` is null when the
  * job declared nothing: a condition on a name the source never `>>DEFINE`s is then an error, because the name's
  * value may have come from outside the source. A declaration, empty or not, makes every name outside it undefined.
+ * `debugging` says the compile step reads a debugging line (an indicator `D` in column 7) as code, whether or not the
+ * program says WITH DEBUGGING MODE (a compiler option; the default is the language's rule).
  */
-public record Settings(Map<String, String> defines, boolean extensions) {
+public record Settings(Map<String, String> defines, boolean extensions, boolean debugging) {
     /** The job declared nothing and the dialect is IBM's: the default of every parse. */
-    public static final Settings UNDECLARED = new Settings(null, false);
+    public static final Settings UNDECLARED = new Settings(null, false, false);
 
     public Settings {
         if (defines != null) {
@@ -22,9 +24,18 @@ public record Settings(Map<String, String> defines, boolean extensions) {
         }
     }
 
+    public Settings(Map<String, String> defines, boolean extensions) {
+        this(defines, extensions, false);
+    }
+
     /** The job's compile-time definitions as declared (an empty map says there are none), and the dialect's extensions. */
     public static Settings declared(Map<String, String> defines, boolean extensions) {
         return new Settings(defines, extensions);
+    }
+
+    /** The same with the compile step reading debugging lines as code. */
+    public Settings withDebugging() {
+        return new Settings(defines, extensions, true);
     }
 
     public boolean isDeclared() {
