@@ -268,3 +268,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-261 | A reason for every flag the census leaves unmapped; four listing and diagnostics flags mapped | measurement | `J-200-299.md` |
 | J-262 | Ghost takes Fable's answers on the census's dialect flags: R-087 to R-089 | decision | `J-200-299.md` |
 | J-263 | R-087 to R-089 built in the census's flag table; five flags set nothing, 17 cases moved | measurement | `J-200-299.md` |
+| J-264 | Tithe: census notes, TODO 3.1's golden-format item, one path-limit split, four comments | tithe (R-008): no behaviour | `J-200-299.md` |
