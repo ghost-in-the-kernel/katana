@@ -41,4 +41,11 @@ class DebuggingLinesTest {
         assertTrue(plain.indexOf("COPIED") >= 0 && plain.indexOf("COPIED") == plain.lastIndexOf("COPIED"), "the plain COPY's text stays, the debugging one's goes: " + plain);
         assertTrue(Parse.text(program(false, "           COPY BOOK.", "      D    COPY BOOK.", "           STOP RUN."), books).clean());
     }
+
+    @Test
+    void theCompileStepCanReadThemAsCode() {
+        String source = program(false, "      D    DISPLAY \"TRACE\".", "           STOP RUN.");
+        String read = Preprocessor.run(source, "", NONE, Settings.UNDECLARED.withDebugging()).mapped().toString();
+        assertTrue(read.contains("DISPLAY \"TRACE\""), read);
+    }
 }

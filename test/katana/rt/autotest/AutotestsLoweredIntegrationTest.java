@@ -33,14 +33,18 @@ class AutotestsLoweredIntegrationTest {
     private static final Path GOLDEN = ROOT.resolve("test/katana/rt/autotest/lowered.golden");
     private static final int SECONDS = 20;
 
-    /** A case's end: the first stage it cannot pass (NOSOURCE: no prog.cob, a case of several programs or a C helper), or its verdict against the testsuite. */
-    enum Stage { NOSOURCE, NOPARSE, NOLOWER, NOJAVAC, NORUN, FAIL, PASS }
+    /**
+     * A case's end: the first stage it cannot pass (NOSOURCE: no prog.cob, a case of several programs or a C helper; FLAG: its compile command
+     * has a flag the compile step does not understand, named in the golden, so the case is not run under a reading it was not written for),
+     * or its verdict against the testsuite.
+     */
+    enum Stage { NOSOURCE, FLAG, NOPARSE, NOLOWER, NOJAVAC, NORUN, FAIL, PASS }
 
-    /** Why a NOPARSE case does not parse: the front end's first error, without where it was (the checkout's path, line, column). */
+    /** Why a NOPARSE case does not parse (the front end's first error, without where it was: the checkout's path, line, column), or which flags a FLAG case has. */
     private static final Map<String, String> REASONS = new TreeMap<>();
 
     private static String firstError(String id) throws Exception {
-        var parse = katana.front.Parse.file(CASES.resolve(id).resolve("prog.cob"), new katana.front.Copybooks(List.of(CASES.resolve(id)), n -> 8), 8, LoweredAutotestsIntegrationTest.CENSUS);
+        var parse = katana.front.Parse.file(CASES.resolve(id).resolve("prog.cob"), new katana.front.Copybooks(List.of(CASES.resolve(id)), n -> 8), 8, LoweredAutotestsIntegrationTest.compileStep(id).settings());
         String e = parse.errors().isEmpty() ? "(no message)" : parse.errors().get(0);
         // Where it was and what was expected vary with the case; the kind and the offending text are the cause.
         e = e.replaceAll("\\s+", " ").replaceAll(" expecting .*$", "").replaceAll("(?<=[a-z] )\\d+:\\d+:? ?", "").replaceAll("^copybook .* not found.*$", "copybook not found").trim();
@@ -77,6 +81,11 @@ class AutotestsLoweredIntegrationTest {
     private static Stage stageOf(String id) throws Exception {
         // Several programs, or a C helper: the case has no prog.cob, and the lowering makes one program (a CALL between them is 3.4's).
         if (!Files.exists(CASES.resolve(id).resolve("prog.cob"))) return Stage.NOSOURCE;
+        var flags = LoweredAutotestsIntegrationTest.compileStep(id).unmapped();
+        if (!flags.isEmpty()) {
+            REASONS.put(id, String.join(" ", flags));
+            return Stage.FLAG;
+        }
         LoweredAutotestsIntegrationTest.Built built;
         try {
             built = LoweredAutotestsIntegrationTest.build(id);
@@ -118,7 +127,8 @@ class AutotestsLoweredIntegrationTest {
         StringBuilder results = new StringBuilder("""
                 # Phase 3.1's check at scale (AutotestsLoweredIntegrationTest, research 54): each runnable autotest through
                 # parse, the IR, the lowering, javac against rt/ and a run; the first stage it cannot pass, or PASS or FAIL
-                # against the testsuite's expected stdout (never shown, R-045; GnuCOBOL's dialect, D-010). Written by
+                # against the testsuite's expected stdout (never shown, R-045; GnuCOBOL's dialect, D-010), each under its own compile
+# flags (J-256): FLAG names the flags the compile step does not map. Written by
                 # `gradle integration -Dkatana.record=true`.
                 """);
         Map<String, Stage> byCase = new TreeMap<>();
@@ -126,21 +136,21 @@ class AutotestsLoweredIntegrationTest {
             Stage s = stage(id);
             byCase.put(id, s);
             counts.merge(s, 1, Integer::sum);
-            results.append(id).append(' ').append(s).append(s == Stage.NOPARSE ? " " + REASONS.get(id) : "").append('\n');
+            results.append(id).append(' ').append(s).append(s == Stage.NOPARSE || s == Stage.FLAG ? " " + REASONS.get(id) : "").append('\n');
         }
         results.append("runnable ").append(ids.size());
         for (Stage s : Stage.values()) results.append(' ').append(s).append(' ').append(counts.getOrDefault(s, 0));
         results.append('\n');
         System.out.print(results.substring(results.indexOf("runnable")));
         Map<String, Integer> causes = new TreeMap<>();
-        REASONS.values().forEach(r -> causes.merge(r, 1, Integer::sum));
+        byCase.forEach((id, s) -> { if (s == Stage.NOPARSE) causes.merge(REASONS.get(id), 1, Integer::sum); });
         causes.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).forEach(c -> System.out.println("CAUSE " + c.getValue() + " " + c.getKey()));
         if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, results.toString());
         assertEquals(378, ids.size(), "the runnable count autotests.golden holds");
         // The hand-lowered cases that parse must not fall behind the hand-lowering.
         for (Lowered l : AutotestRtIntegrationTest.LOWERED) {
             Stage s = byCase.get(l.id());
-            if (s == Stage.NOPARSE) continue; // 21 of the 24 parse (J-114); the front end's gap, counted above
+            if (s == Stage.NOPARSE || s == Stage.FLAG) continue; // 21 of the 24 parse (J-114); the front end's gap, counted above
             assertTrue(s == Stage.PASS || s == Stage.FAIL, l.id() + " is hand-lowered and ends at " + s);
             boolean handPasses = Arrays.equals(AutotestRtIntegrationTest.katana(l), AutotestRtIntegrationTest.expected(l.id()));
             assertEquals(handPasses ? Stage.PASS : Stage.FAIL, s, l.id() + " through the lowering against by hand");

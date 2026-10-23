@@ -2003,3 +2003,10 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | sir | `sir/check/CompiledOut.java:CompiledOut.CompiledOut` |  | 2026-10-23 |  |
 | sir | `sir/check/CompiledOut.java:CompiledOut.findings` | R-081 | 2026-10-23 |  |
 | sir | `sir/check/CompiledOut.java:CompiledOut.finding` |  | 2026-10-23 |  |
+| front | `front/Settings.java:Settings.Settings#2` |  | 2026-10-23 |  |
+| front | `front/Settings.java:Settings.withDebugging` |  | 2026-10-23 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.compileFlags` | R-045 | 2026-10-23 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.words` |  | 2026-10-23 |  |
+| oracle | `oracle/autotest/CompileFlags.java:CompileFlags.CompileFlags` |  | 2026-10-23 |  |
+| oracle | `oracle/autotest/CompileFlags.java:CompileFlags.map` | R-045 | 2026-10-23 |  |
+| oracle | `oracle/autotest/CompileFlags.java:CompileFlags.noEffect` |  | 2026-10-23 |  |

@@ -66,7 +66,7 @@ public final class Preprocessor extends CobolPreprocessorBaseListener {
         List<String> errors = new ArrayList<>();
         List<Excluded> excluded = new ArrayList<>();
         Mapped text = text(source, file, copybooks, new Run(settings, errors, excluded), 0, "the program");
-        if (!debuggingMode(text.toString())) for (int i = 0; i < text.length(); i++) if (text.charAt(i) != '\n' && text.debugging(i)) text.blank(i);
+        if (!settings.debugging() && !debuggingMode(text.toString())) for (int i = 0; i < text.length(); i++) if (text.charAt(i) != '\n' && text.debugging(i)) text.blank(i);
         return new Result(text, errors, excluded);
     }
 

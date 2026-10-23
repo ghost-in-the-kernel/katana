@@ -22,8 +22,11 @@ public final class Autotests {
     /** One `AT_CHECK`: its shell command, expected status ("0" when not given, "ignore" allowed), stdout and stderr ("" when not given). */
     public record Check(String command, String status, String stdout, String stderr, int line) {}
 
-    /** One test case: where it starts, its title and keywords, the files it writes, its checks in order, and whether `AT_SKIP_IF` or `AT_XFAIL_IF` marks it. */
-    public record Case(String file, int line, String title, List<String> keywords, Map<String, String> files, List<Check> checks, boolean conditional) {}
+    /**
+     * One test case: where it starts, its title and keywords, the files it writes, its checks in order, whether `AT_SKIP_IF` or `AT_XFAIL_IF`
+     * marks it, and the flags of the command that compiles its program (`compileFlags`; J-255).
+     */
+    public record Case(String file, int line, String title, List<String> keywords, Map<String, String> files, List<Check> checks, boolean conditional, List<String> flags) {}
 
     /** A file the reader cannot read as Autotest, with the line. */
     public static final class Malformed extends RuntimeException {
@@ -78,7 +81,7 @@ public final class Autotests {
             }
             case "AT_CLEANUP" -> {
                 if (open == null) throw new Malformed(file, line, "AT_CLEANUP with no AT_SETUP");
-                cases.add(new Case(file, open.line, open.title, open.keywords, open.files, open.checks, open.conditional));
+                cases.add(new Case(file, open.line, open.title, open.keywords, open.files, open.checks, open.conditional, compileFlags(open.checks)));
                 return null;
             }
             default -> {
@@ -94,6 +97,70 @@ public final class Autotests {
                 return open;
             }
         }
+    }
+
+    /**
+     * The flags the case compiles its program under (R-045 amended, J-255): of the last `$COMPILE` command naming a `.cob` file that comes
+     * before the first check that runs something against an expected stdout (the check whose stdout the census compares), the words that
+     * begin with `-`, a `-D NAME` joined as `-DNAME`, and `-o NAME` kept as `-o` (its argument is a file, not a flag). Empty when no check compiles a `.cob`.
+     */
+    // Decision: R-045
+    static List<String> compileFlags(List<Check> checks) {
+        List<String> flags = List.of();
+        boolean compiled = false;
+        for (Check k : checks) {
+            String command = k.command();
+            if (command.contains("$COMPILE ") || command.contains("$COMPILE\t")) {
+                compiled = true;
+                List<String> words = words(command);
+                int at = words.indexOf("$COMPILE");
+                if (at < 0 || words.stream().noneMatch(w -> w.endsWith(".cob"))) continue;
+                List<String> found = new ArrayList<>();
+                for (int i = at + 1; i < words.size(); i++) {
+                    String w = words.get(i);
+                    if (!w.startsWith("-") || w.equals("-")) continue;
+                    if (w.equals("-o")) {
+                        i++;
+                        found.add("-o");
+                    } else if (w.equals("-D") && i + 1 < words.size()) {
+                        found.add("-D" + words.get(++i));
+                    } else {
+                        found.add(w);
+                    }
+                }
+                flags = List.copyOf(found);
+            } else if (compiled && !k.stdout().isEmpty() && (command.contains("COBCRUN_DIRECT") || command.contains("./"))) {
+                break;
+            }
+        }
+        return flags;
+    }
+
+    /** A shell command's words: split on blanks, a backslash-newline joined, single and double quotes removed (enough for the compile commands). */
+    private static List<String> words(String command) {
+        List<String> words = new ArrayList<>();
+        StringBuilder w = new StringBuilder();
+        boolean in = false;
+        char quote = 0;
+        String text = command.replace("\\\n", " ");
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (quote != 0) {
+                if (c == quote) quote = 0;
+                else w.append(c);
+            } else if (c == '"' || c == '\'') {
+                quote = c;
+                in = true;
+            } else if (Character.isWhitespace(c)) {
+                if (in || w.length() > 0) words.add(w.toString());
+                w.setLength(0);
+                in = false;
+            } else {
+                w.append(c);
+            }
+        }
+        if (in || w.length() > 0) words.add(w.toString());
+        return words;
     }
 
     private static final class Builder {
@@ -195,7 +262,7 @@ public final class Autotests {
     /**
      * Each case to a folder of its own under `out` (`<file>-<line>/`): the files it writes, and
      * `case.txt` with its title, keywords and each check's status and line (each check's command beside
-     * it as `check-<n>.sh`, its stdout and stderr as `.stdout` and `.stderr`). For phase 3's runner;
+     * it as `check-<n>.sh`, its stdout and stderr as `.stdout` and `.stderr`), and `flags.txt`, the compile flags one a line (`compileFlags`). For phase 3's runner;
      * under corpus/, never committed (R-045).
      */
     public static void write(List<Case> cases, Path out) {
@@ -216,6 +283,7 @@ public final class Autotests {
                     Files.writeString(dir.resolve("check-" + i + ".stdout"), k.stdout(), StandardCharsets.ISO_8859_1);
                     Files.writeString(dir.resolve("check-" + i + ".stderr"), k.stderr(), StandardCharsets.ISO_8859_1);
                 }
+                Files.writeString(dir.resolve("flags.txt"), String.join("\n", c.flags()) + (c.flags().isEmpty() ? "" : "\n"), StandardCharsets.ISO_8859_1);
                 Files.writeString(dir.resolve("case.txt"), about, StandardCharsets.ISO_8859_1);
             }
         } catch (IOException e) {

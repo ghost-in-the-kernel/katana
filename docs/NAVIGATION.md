@@ -16,4 +16,13 @@ An entry: `### N-<n> <date>, <task> (<commits>)`, then the lines `- **Complaints
 
 ## Entries
 
-(none since review 1, J-253)
+### N-006 2026-10-23, 3.1 compile flags (this commit)
+- **Complaints:** (1) the CLAUDE.md "When" lines and the task row led straight to the census and `Autotests`, which worked well;
+  but `docs/paths/oracle.md` has no row for `oracle/autotest/Autotests.java`, though TODO's Next names it as a workpath, so I
+  found the reader by grepping. (2) The census's inputs (`corpus/gnucobol-autotests/cases/`) are written by
+  `AutotestCorpusIntegrationTest`, so a change to what `Autotests.write` writes needs that test run before the census; the
+  lowering workpath says the list is written there, not that the cases are. (3) `gradle kernelMap` and `gradle journalIndex` are
+  needed after a change that adds a method or an entry; I met `kernelMap` only through a failing `DocTests`. (4) A `Settings`
+  record change: no doc says which callers construct one; I grepped.
+- **Suggestions:** an `Autotests` row in `docs/paths/oracle.md`; in `lowering.md`'s census row, "run `AutotestCorpusIntegrationTest`
+  first when the reader's output changes"; list `kernelMap` in the "before calling work done" line of CLAUDE.md.
