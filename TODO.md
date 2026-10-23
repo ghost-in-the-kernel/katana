@@ -14,7 +14,7 @@ the first open item has a check.
 
 ### 3.1 `rt/` core
 
-Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246 to J-256: the census through the lowering, 44 pass under their own flags); open: the
+Status: partly built (J-093 to J-112: 24 of 378 autotests by hand; J-246 to J-256: the census through the lowering, 44 pass under their own flags, 15 more without a flag it does not map); open: the
 rest of the runnable autotests through the lowering at scale; can be done now.
 Workpath: `docs/paths/lowering.md` (the census); each Next item names its own when it differs.
 
@@ -51,14 +51,18 @@ Done:
   `-fdebugging-line` (`Settings.debugging`) and `-fixed` to the front end's settings and sets nothing else; a case with a
   flag it does not map ends at `FLAG`, the flags named in the golden. Of 378: 36 no `prog.cob`, 87 FLAG, 99 do not parse,
   7 fail in the IR or the lowering, 3 fail javac, 72 stop at run time, 30 differ, 44 pass (14 of the old 55 passes carry
-  a flag not yet mapped, 3 cases that failed pass under their `-D`). `ExtensionsTest` holds that no fixture or proof path
+  a flag not yet mapped, 3 cases that failed pass under their `-D`). Ghost's ruling on the floor: a case with an unmapped flag is still
+  run without it; if it passes it ends at `FLAGPASS` (passes without its flag), else at `FLAG`. So of the 378: 36 no
+  `prog.cob`, 72 FLAG, 15 FLAGPASS, 99 do not parse, 7 fail in the IR or the lowering, 3 fail javac, 72 stop at run time, 30
+  differ, 44 PASS. PASS and FLAGPASS each have a floor in `test/katana/rt/autotest/floors.txt` (44 and 15), raised by hand; a
+  re-record that lowers either fails the census. `ExtensionsTest` holds that no fixture or proof path
   sets `Settings.extensions` (R-081 amended).
 
 Open: the 323 that do not pass; the 44 FAILs sorted into findings against the testsuite's dialect (D-010) and real
 differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
-Next, first (J-256): the 87 that end at `FLAG`, by the flag (`-std=` 17, `-fnotrunc` and `-fno-trunc` 14, `-free` 6 with
+Next, first (J-256): the 87 that end at `FLAG` or `FLAGPASS`, by the flag (`-std=` 17, `-fnotrunc` and `-fno-trunc` 14, `-free` 6 with
 `--free`, `-fprof` 5, `-fsystem-name`, `-fodoslide`, `-fcallfh` 4 each, ...): each flag is mapped when Katana's profile
 already means it (`-std=ibm` and `-std=ibm-strict` are the dialect Katana reads, D-010), a front-end or lowering change when
 it asks for one (`-free` is free-form reading, which the front end lacks), or left a `FLAG` with its reason. A flag is

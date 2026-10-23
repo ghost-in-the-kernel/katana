@@ -24,5 +24,6 @@ An entry: `### N-<n> <date>, <task> (<commits>)`, then the lines `- **Complaints
   lowering workpath says the list is written there, not that the cases are. (3) `gradle kernelMap` and `gradle journalIndex` are
   needed after a change that adds a method or an entry; I met `kernelMap` only through a failing `DocTests`. (4) A `Settings`
   record change: no doc says which callers construct one; I grepped.
+  (5) A floor that lives in the golden is lowered by a re-record without a trace; `floors.txt` now holds the census's.
 - **Suggestions:** an `Autotests` row in `docs/paths/oracle.md`; in `lowering.md`'s census row, "run `AutotestCorpusIntegrationTest`
   first when the reader's output changes"; list `kernelMap` in the "before calling work done" line of CLAUDE.md.

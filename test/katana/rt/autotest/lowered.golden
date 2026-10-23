@@ -1,7 +1,7 @@
                 # Phase 3.1's check at scale (AutotestsLoweredIntegrationTest, research 54): each runnable autotest through
                 # parse, the IR, the lowering, javac against rt/ and a run; the first stage it cannot pass, or PASS or FAIL
                 # against the testsuite's expected stdout (never shown, R-045; GnuCOBOL's dialect, D-010), each under its own compile
-# flags (J-256): FLAG names the flags the compile step does not map. Written by
+# flags (J-256): FLAG and FLAGPASS name the flags the compile step does not map (the case is run without them; FLAGPASS passes). Written by
                 # `gradle integration -Dkatana.record=true`.
 backcomp-816 NOSOURCE
 data_binary-1133 NOSOURCE
@@ -18,9 +18,9 @@ data_binary-763 NOSOURCE
 data_binary-945 NOSOURCE
 data_display-128 FLAG -fsign=ebcdic
 data_display-174 NORUN
-data_display-22 FLAG -fsign=ascii
+data_display-22 FLAGPASS -fsign=ascii
 data_display-410 FAIL
-data_display-82 FLAG -fsign=ascii
+data_display-82 FLAGPASS -fsign=ascii
 data_packed-1026 PASS
 data_packed-1399 NOPARSE parsing mismatched input 'COMP-6'
 data_packed-163 NOPARSE parsing mismatched input 'BINARY-LONG'
@@ -74,7 +74,7 @@ run_extensions-5124 FLAG -fformat=xopen -fno-areacheck
 run_extensions-517 FLAG -std=mvs
 run_extensions-5173 FLAG -fformat=terminal -fcomment-paragraphs=ok
 run_extensions-5257 FLAG -free
-run_extensions-5307 FLAG -fbinary-comp-1
+run_extensions-5307 FLAGPASS -fbinary-comp-1
 run_extensions-5338 NOPARSE parsing mismatched input '$'
 run_extensions-5374 FLAG -std=mvs
 run_extensions-5405 FLAG -facu-literal=ok -fno-trunc
@@ -96,7 +96,7 @@ run_file-11692 FLAG -fnotrunc
 run_file-11881 NOPARSE copybook not found
 run_file-12062 FLAG -fnotrunc
 run_file-12428 NORUN
-run_file-13484 FLAG -fcallfh=TSTFH
+run_file-13484 FLAGPASS -fcallfh=TSTFH
 run_file-1351 NORUN
 run_file-13907 FLAG -fdefault-file-colseq=EBCDIC
 run_file-14000 NOPARSE parsing extraneous input 'COLLATING'
@@ -111,7 +111,7 @@ run_file-1637 NOPARSE preprocessing the program extraneous input 'SUPPRESS'
 run_file-2324 NOPARSE preprocessing the program extraneous input 'suppress'
 run_file-241 FAIL
 run_file-2600 NOPARSE parsing mismatched input 'linage'
-run_file-3101 FLAG -fdefault-file-colseq=EBCDIC
+run_file-3101 FLAGPASS -fdefault-file-colseq=EBCDIC
 run_file-3161 NOPARSE parsing extraneous input 'FILE'
 run_file-3523 PASS
 run_file-4179 NOPARSE parsing mismatched input 'COMP-X'
@@ -174,7 +174,7 @@ run_fundamental-25 NORUN
 run_fundamental-2513 PASS
 run_fundamental-2585 PASS
 run_fundamental-2628 PASS
-run_fundamental-2673 FLAG -fdiagnostics-show-option
+run_fundamental-2673 FLAGPASS -fdiagnostics-show-option
 run_fundamental-296 PASS
 run_fundamental-3016 PASS
 run_fundamental-3100 FLAG -fmove-ibm
@@ -197,7 +197,7 @@ run_fundamental-4649 NOPARSE parsing mismatched input 'REPOSITORY'
 run_fundamental-4674 PASS
 run_fundamental-4697 NOPARSE parsing extraneous input 'NORMAL'
 run_fundamental-4719 NOPARSE parsing extraneous input 'MODE'
-run_fundamental-4746 FLAG -std=ibm-strict
+run_fundamental-4746 FLAGPASS -std=ibm-strict
 run_fundamental-4773 NOPARSE parsing extraneous input 'MODE'
 run_fundamental-4836 NOPARSE parsing extraneous input 'MODE'
 run_fundamental-4899 NOPARSE parsing extraneous input 'MODE'
@@ -213,8 +213,8 @@ run_fundamental-72 FAIL
 run_fundamental-7456 PASS
 run_fundamental-7479 PASS
 run_fundamental-7502 NOPARSE parsing extraneous input 'UPON'
-run_fundamental-7528 FLAG -free
-run_fundamental-7551 FLAG -free
+run_fundamental-7528 FLAGPASS -free
+run_fundamental-7551 FLAGPASS -free
 run_fundamental-7574 PASS
 run_fundamental-7619 PASS
 run_fundamental-7664 FAIL
@@ -239,7 +239,7 @@ run_misc-1075 PASS
 run_misc-11435 FLAG -fdump=ALL
 run_misc-11711 NOPARSE parsing mismatched input 'AS'
 run_misc-11790 NOPARSE parsing extraneous input 'WITH'
-run_misc-11873 FLAG -free
+run_misc-11873 FLAGPASS -free
 run_misc-11899 NOPARSE parsing extraneous input 'WHEN'
 run_misc-12020 NORUN
 run_misc-12088 NORUN
@@ -254,7 +254,7 @@ run_misc-12796 FLAG -fno-ec=bound
 run_misc-128 NOPARSE parsing mismatched input ','
 run_misc-12873 FAIL
 run_misc-12977 NOPARSE parsing extraneous input 'MODE'
-run_misc-13028 FLAG -farithmetic-osvs
+run_misc-13028 FLAGPASS -farithmetic-osvs
 run_misc-13145 FLAG -std=ibm
 run_misc-13202 FLAG -std=mf
 run_misc-13305 FLAG -fdefine-constant-directive=ok
@@ -272,9 +272,9 @@ run_misc-14367 NOPARSE parsing mismatched input 'ENTRY'
 run_misc-1467 NOSOURCE
 run_misc-14872 NOPARSE parsing mismatched input 'signed-int'
 run_misc-14909 FAIL
-run_misc-15189 FLAG -fprof
-run_misc-15220 FLAG -fprof
-run_misc-15254 FLAG -fprof
+run_misc-15189 FLAGPASS -fprof
+run_misc-15220 FLAGPASS -fprof
+run_misc-15254 FLAGPASS -fprof
 run_misc-15280 FLAG -fprof
 run_misc-15407 NOSOURCE
 run_misc-156 FAIL
@@ -368,7 +368,7 @@ syn_copy-528 FLAG -fpartial-replace-when-literal-src=skip
 syn_copy-630 PASS
 syn_copy-660 FLAG -free
 syn_misc-2023 PASS
-syn_misc-3318 FLAG -fno-theaders -fno-tmessages -t
+syn_misc-3318 FLAGPASS -fno-theaders -fno-tmessages -t
 syn_misc-3381 FLAG --free
 syn_misc-7965 NOSOURCE
 syn_misc-8017 FLAG -fcontrol-division=ok
@@ -381,4 +381,4 @@ used_binaries-359 PASS
 used_binaries-393 PASS
 used_binaries-411 PASS
 used_binaries-482 PASS
-runnable 378 NOSOURCE 36 FLAG 87 NOPARSE 99 NOLOWER 7 NOJAVAC 3 NORUN 72 FAIL 30 PASS 44
+runnable 378 NOSOURCE 36 FLAG 72 FLAGPASS 15 NOPARSE 99 NOLOWER 7 NOJAVAC 3 NORUN 72 FAIL 30 PASS 44
