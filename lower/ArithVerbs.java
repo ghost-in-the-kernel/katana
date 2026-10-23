@@ -30,13 +30,13 @@ final class ArithVerbs {
         // one reading a record field, under 6.4b's guard, the step-by-step form when a field's bytes are no valid number (R-069).
         Forms.Form form = Forms.of(s);
         List<String> guards = form == null ? List.of() : f.arith.guards(form.expression());
-        if (form != null && f.plan.exact().contains(Lower.Plan.loop(s.origin()))) {
+        if (form != null && f.plan.exact().contains(Plan.loop(s.origin()))) {
             if (!guards.isEmpty()) {
                 f.x.guarded = true;
                 f.e.open("if (valid(" + String.join(", ", guards) + "))");
             }
             // 6.6b: a value passes/Fits proves always fits its one receiver, assigned (research §45, R-068).
-            if (f.plan.fits().contains(Lower.Plan.loop(s.origin()))) f.e.line(f.arith.assign(receivers(s, form.receivers()).get(0).field().item(), form.expression()) + ";");
+            if (f.plan.fits().contains(Plan.loop(s.origin()))) f.e.line(f.arith.assign(receivers(s, form.receivers()).get(0).field().item(), form.expression()) + ";");
             else storeOnce(receivers(s, form.receivers()), (r, rd) -> f.arith.exact(form.expression()), phrase);
             if (!guards.isEmpty()) {
                 f.e.close();
@@ -232,7 +232,7 @@ final class ArithVerbs {
         f.e.line("boolean qs = " + f.x.store(q.field(), "qt", String.valueOf(q.rounded()), String.valueOf(phrase)) + ";");
         f.e.line("sz |= qs;");
         f.e.open("if (!qt.divisionByZero()" + (phrase ? " && !qs" : "") + ")");
-        f.e.line("Decimal.Term tq = Decimal.operand(Decimal.store(qt, " + Lower.stored(qi.attributes()) + ", " + qi.attributes().scale() + ", true, false).value(), " + Arith.integerPlaces(qi) + ");");
+        f.e.line("Decimal.Term tq = Decimal.operand(Decimal.store(qt, " + Storage.stored(qi.attributes()) + ", " + qi.attributes().scale() + ", true, false).value(), " + Arith.integerPlaces(qi) + ");");
         f.e.line("Decimal.Term rt = Decimal.subtract(P, " + f.arith.operand(dividend) + ", Decimal.multiply(P, tq, " + f.arith.operand(divisor) + ", " + dmax + ", false, false), " + dmax + ", true, false);");
         f.e.line("sz |= " + f.x.store(r.field(), "rt", "false", String.valueOf(phrase)) + ";");
         f.e.close();

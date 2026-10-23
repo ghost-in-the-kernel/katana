@@ -20,15 +20,26 @@ final class Exprs {
     }
     private final List<String> findings;
 
-    /** The items 6.3 promotes in this program (none in a literal build, or a nested program). */
-    Promoted promoted;
+    /** The items 6.3 promotes in this program (none in a literal build, or a nested program), and its record classes. */
+    final Promoted promoted;
     /** Whether a statement was written under 6.4b's guard, so the program declares `valid` (R-069). */
     boolean guarded;
 
+    /** A literal program's: nothing promoted, no record classes. */
     Exprs(Program p, List<String> findings) {
+        this(p, findings, Plan.LITERAL, java.util.Set.of());
+    }
+
+    /**
+     * The one place lower/'s per-program state is built, in its load-bearing order (lower/README.md): the promoted
+     * items take their names first, then the record classes (`taken`, the class names they must not take) take
+     * theirs from what is left, reaching back through this Exprs.
+     */
+    Exprs(Program p, List<String> findings, Plan plan, java.util.Set<String> taken) {
         this.p = p;
         this.findings = findings;
-        this.promoted = new Promoted(p, java.util.Set.of());
+        this.promoted = new Promoted(p, plan.scalars(), plan.money(), plan.enums());
+        promoted.views = new Views(p, plan.records(), this, taken);
     }
 
     /**
@@ -96,7 +107,7 @@ final class Exprs {
             List<String> subs = new ArrayList<>();
             for (Value s : v.subscripts()) subs.add(index(s));
             // 6.7: a record class's table member by its accessor (research §46), the same `Table.at`.
-            f = promoted.views != null && promoted.views.path(v.item()) != null ? promoted.views.at(v.item(), subs) : "Table.at(" + f + ", " + ints(dimensions(i), false) + ", " + String.join(", ", subs) + ")";
+            f = promoted.views().path(v.item()) != null ? promoted.views().at(v.item(), subs) : "Table.at(" + f + ", " + ints(dimensions(i), false) + ", " + String.join(", ", subs) + ")";
         }
         if (v.start() == null) f = variable(i, f, receiving);
         if (v.start() != null) f = "Table.ref(" + f + ", " + index(v.start()) + ", " + (v.length() == null ? "0" : index(v.length())) + ")";

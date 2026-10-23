@@ -1,5 +1,6 @@
 package katana.passes;
 
+import katana.lower.Plan;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -106,7 +107,7 @@ final class Inline {
     private static void dispatched(Statement s, int first, int last, Set<String> loops, List<String> why) {
         Value.Target t = Loops.target(s);
         boolean whole = t != null && t.paragraph() == first && t.thru() == last;
-        if (s.verb().equals("PERFORM") && whole && !Lower.varying(s).ids().isEmpty() && !loops.contains(Lower.Plan.loop(s.origin()))) why.add("line " + s.origin().line() + " PERFORMs it VARYING through the dispatcher");
+        if (s.verb().equals("PERFORM") && whole && !Lower.varying(s).ids().isEmpty() && !loops.contains(Plan.loop(s.origin()))) why.add("line " + s.origin().line() + " PERFORMs it VARYING through the dispatcher");
         if ((s.verb().equals("SORT") || s.verb().equals("MERGE")) && s.operands().stream().anyMatch(o -> o.value() instanceof Value.Target v && v.paragraph() == first)) why.add("line " + s.origin().line() + " runs it as a procedure");
         for (Statement.Branch b : s.branches()) for (Statement u : b.statements()) dispatched(u, first, last, loops, why);
     }

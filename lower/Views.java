@@ -78,7 +78,7 @@ final class Views {
         Attributes a = i.attributes();
         if (a.category() != Attributes.Category.NUMERIC || !Set.of(Attributes.Usage.DISPLAY, Attributes.Usage.BINARY, Attributes.Usage.PACKED).contains(a.usage()) || a.scale() < 0) return null;
         if (a.picture() != null && a.picture().toUpperCase().contains("P") || !x.dimensions(i).isEmpty()) return null;
-        return a.scale() == 0 && Lower.stored(a) <= 18 ? "long" : "java.math.BigDecimal";
+        return a.scale() == 0 && Storage.stored(a) <= 18 ? "long" : "java.math.BigDecimal";
     }
 
     /** The record's instance and its class: a `Field` per member, built by chunks from the record; the getters and the tables' accessors. */
@@ -102,7 +102,7 @@ final class Views {
         for (int c = 0; c * Lower.CHUNK < own.size(); c++) {
             e.open("private void members" + c + "(Record r, int base)");
             for (Item i : own.subList(c * Lower.CHUNK, Math.min(own.size(), (c + 1) * Lower.CHUNK)))
-                e.line(members.get(i.id()) + " = new Field(r, base + " + i.offset() + ", " + Lower.attr(p, i, x) + ");");
+                e.line(members.get(i.id()) + " = new Field(r, base + " + i.offset() + ", " + Storage.attr(p, i, x) + ");");
             e.close();
         }
         for (Item i : own) accessors(e, i);

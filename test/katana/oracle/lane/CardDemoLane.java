@@ -1,5 +1,6 @@
 package katana.oracle.lane;
 
+import katana.lower.Plan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -100,7 +101,7 @@ static CobcLane.Setup setup(Path dir, Map<String, List<String>> java) {
         assertEquals(List.of(), parse.errors(), name + " parses");
         Program program = Build.programs(parse, "sha256:" + "0".repeat(64)).get(0).program();
         String className = Lower.className(program);
-        Lower.Plan plan = structured ? katana.passes.Structuring.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Lower.Plan.LITERAL;
+        Plan plan = structured ? katana.passes.Structuring.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Plan.LITERAL;
         Files.writeString(classes.resolve(className + ".java"), Lower.java(program, className, plan).java());
         ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
         int status = ToolProvider.getSystemJavaCompiler().run(null, null, diagnostics, "-classpath", System.getProperty("java.class.path"), "-d", classes.toString(), classes.resolve(className + ".java").toString());

@@ -78,7 +78,7 @@ final class FileDecls {
             String counter;
             if (l.body() instanceof Value.Field b) {
                 katana.sir.types.Item i = x.item(b.item());
-                counter = "new Field(Record.of(" + i.length() + ", cp), 0, " + Lower.attr(p, i, x) + ")";
+                counter = "new Field(Record.of(" + i.length() + ", cp), 0, " + Storage.attr(p, i, x) + ")";
             } else {
                 int digits = ((Value.Literal) l.body()).payload().length();
                 counter = "new Field(Record.of(" + (digits <= 4 ? 2 : digits <= 9 ? 4 : 8) + ", cp), 0, Attr.numeric(Attr.Usage.BINARY, " + digits + ", 0, false))";

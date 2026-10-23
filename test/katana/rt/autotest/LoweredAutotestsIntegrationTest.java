@@ -1,5 +1,6 @@
 package katana.rt.autotest;
 
+import katana.lower.Plan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,7 +56,7 @@ class LoweredAutotestsIntegrationTest {
         Parse.Result parse = Parse.file(CASES.resolve(id).resolve("prog.cob"), new Copybooks(List.of(), n -> 8), 8);
         if (!parse.clean()) return null;
         Program program = Build.program(parse, "sha256:" + "0".repeat(64)).program();
-        Lower.Result lowered = Lower.java(program, "Prog", structured ? katana.passes.Structuring.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Lower.Plan.LITERAL);
+        Lower.Result lowered = Lower.java(program, "Prog", structured ? katana.passes.Structuring.plan(program, katana.intent.rules.Rules.infer(program)).plan() : Plan.LITERAL);
         Path dir = Files.createDirectories(ROOT.resolve("build/lowered/" + id + (structured ? "-structured" : "")));
         Files.writeString(dir.resolve("Prog.java"), lowered.java());
         JavaCompiler javac = ToolProvider.getSystemJavaCompiler();

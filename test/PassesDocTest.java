@@ -1,4 +1,5 @@
 import java.nio.file.Files;
+import katana.lower.Plan;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +7,7 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** Holds docs/PASSES.md to the code: every pass's ledger id and every field of `Lower.Plan` named in it, every path it names existing. */
+/** Holds docs/PASSES.md to the code: every pass's ledger id and every field of `Plan` named in it, every path it names existing. */
 final class PassesDocTest {
     private static final Pattern PASS = Pattern.compile("PASS = \"([a-z]+-v\\d+)\"");
     private static final Pattern PLAN = Pattern.compile("public record Plan\\((.*?)\\) \\{", Pattern.DOTALL);
@@ -18,7 +19,7 @@ final class PassesDocTest {
 
     static Check run() {
         String doc = Check.read("docs/PASSES.md");
-        List<String> ids = ids(), fields = fields(Check.read("lower/Lower.java"));
+        List<String> ids = ids(), fields = fields(Check.read("lower/Plan.java"));
         return new Check("passes")
                 .repository(check(doc, ids, fields, Check::exists))
                 .rejects("a pass the table leaves out", () -> check("`a-v1`", List.of("a-v1", "b-v1"), List.of(), p -> true))
@@ -50,7 +51,7 @@ final class PassesDocTest {
         return out;
     }
 
-    /** The names of `Lower.Plan`'s fields. */
+    /** The names of `Plan`'s fields. */
     static List<String> fields(String lower) {
         Matcher m = PLAN.matcher(lower);
         if (!m.find()) return List.of("Plan (not found)");

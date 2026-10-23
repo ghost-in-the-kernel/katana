@@ -34,11 +34,33 @@ final class Promoted {
     private final Map<String, String> values = new LinkedHashMap<>();
     /** Every name the program's members take, so 6.7's record classes take none of them (research §46). */
     private final Set<String> used = new HashSet<>();
-    /** 6.7's record classes, whose members a field is reached by (research §46); none until `Lower` sets them. */
+    /** 6.7's record classes, whose members a field is reached by (research §46); set once by `Exprs`' constructor, read through `views()`. */
     Views views;
+
+    /** The record classes; never null once `Exprs` is built (an empty set in a literal build). */
+    Views views() {
+        if (views == null) throw new IllegalStateException("record classes read before Exprs built them");
+        return views;
+    }
 
     Promoted(Program p, Set<Integer> items) {
         this(p, items, Set.of(), Set.of());
+    }
+
+    /**
+     * A statement the promoted items change, written here and true; false leaves it to its verb. SET of a promoted
+     * item's condition TO TRUE is the constant 6.5 names (R-070); a verb in `Plan.THROUGH` that writes a promoted
+     * item's bytes runs `lowering` with the item as a field of its own (research §40).
+     */
+    boolean intercept(Statement s, Emitter e, Runnable lowering) {
+        String named = s.verb().equals("SET") ? setTrue(s) : null;
+        if (named != null) {
+            e.line(named);
+            return true;
+        }
+        if (!Plan.THROUGH.contains(s.verb()) || in(s).isEmpty()) return false;
+        through(in(s), e, lowering);
+        return true;
     }
 
     /** The names, every one from one set so none clashes: the promoted items', then the predicates' and constants' (6.5, R-070). */
@@ -114,7 +136,7 @@ final class Promoted {
     /** The name of the Field an item is reached by: its own `f<id>`, its record class's member (6.7), or for a statement that has a promoted item as a field, `p<id>`. */
     String fieldName(int item) {
         if (bound.contains(item)) return "p" + item;
-        String member = views == null ? null : views.path(item);
+        String member = views == null ? null : views.path(item); // null only while the record classes are being named
         return member != null ? member : "f" + item;
     }
 
@@ -199,7 +221,7 @@ final class Promoted {
         String type = money(id) ? "Money " : big(id) ? "java.math.BigDecimal " : "long ";
         String start = money(id) ? " = Money.zero(" + a.scale() + ")" : big(id) ? " = java.math.BigDecimal.ZERO.setScale(" + a.scale() + ")" : "";
         return "private " + type + name(id) + start + "; // " + i.name() + " PIC " + a.picture() + " " + a.usage() + (money(id) ? ", money (a Money fact: the ledger has its state)" : "")
-                + "\n    private static final Attr " + attr(id) + " = " + Lower.attr(p, i, x) + ";";
+                + "\n    private static final Attr " + attr(id) + " = " + Storage.attr(p, i, x) + ";";
     }
 
     String attr(int id) {
@@ -240,7 +262,7 @@ final class Promoted {
         else return null;
         if (n.scale() > a.scale() || n.signum() < 0 && !a.signed()) return null;
         BigDecimal held = n.setScale(a.scale());
-        if (held.unscaledValue().abs().compareTo(BigInteger.TEN.pow(Lower.stored(a))) >= 0) return null;
+        if (held.unscaledValue().abs().compareTo(BigInteger.TEN.pow(Storage.stored(a))) >= 0) return null;
         if (money(id)) return name(id) + " = new Money(new java.math.BigDecimal(\"" + held.toPlainString() + "\"))";
         if (big(id)) return name(id) + " = new java.math.BigDecimal(\"" + held.toPlainString() + "\")";
         for (Map.Entry<String, String> c : values.entrySet()) if (c.getKey().startsWith(id + "|") && new BigInteger(c.getValue()).equals(held.unscaledValue())) return name(id) + " = " + constants.get(c.getKey());
@@ -251,6 +273,6 @@ final class Promoted {
     // Decision: R-068
     String store(int id, String term, String rounded, String onSizeError) {
         Attributes a = item(id).attributes();
-        return "Scalars.store(" + term + ", " + Lower.stored(a) + ", " + a.scale() + ", " + a.signed() + ", " + rounded + ", " + onSizeError + ", stored -> " + assign(id, "stored") + ")";
+        return "Scalars.store(" + term + ", " + Storage.stored(a) + ", " + a.scale() + ", " + a.signed() + ", " + rounded + ", " + onSizeError + ", stored -> " + assign(id, "stored") + ")";
     }
 }

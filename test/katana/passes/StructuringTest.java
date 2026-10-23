@@ -1,5 +1,6 @@
 package katana.passes;
 
+import katana.lower.Plan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -41,7 +42,7 @@ class StructuringTest {
         assertTrue(java.contains("B" + exit + ": {") && java.contains("if (true) break B" + exit + ";"), "B's GO TO B-EXIT is a break out of the block that ends before B-EXIT");
         assertFalse(java.contains("private int s" + a + "()") || java.contains("case " + a + " ->"), "A's stretch has left the switch");
         assertTrue(r.applied().stream().allMatch(x -> x.fact().unconfirmed()), "the facts are no person's word: unconfirmed (R-029)");
-        assertEquals(Lower.java(p, "P").java().replace("Literal", "x"), Lower.java(p, "P", Lower.Plan.LITERAL).java().replace("Literal", "x"), "the empty plan is the literal lowering");
+        assertEquals(Lower.java(p, "P").java().replace("Literal", "x"), Lower.java(p, "P", Plan.LITERAL).java().replace("Literal", "x"), "the empty plan is the literal lowering");
     }
 
     /**
