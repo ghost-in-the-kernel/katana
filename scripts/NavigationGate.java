@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * R-079's gate: docs/NAVIGATION.md, the agents' debriefs on finding their way, is reviewed about every ten
  * commits. The file's line `Reviewed through: <commit>` names the last review; `gradle metrics` warns past
  * REVIEW commits since, and the gate refuses a push past LIMIT, as R-008's does for a tithe (J-070: a rule held by
- * habit lapses). A push whose head is a review (its title names "navigation review"; a review is a tithe, so usually "Tithe:
+ * habit lapses). Merge commits are not counted, as in R-008's gate (J-254). A push whose head is a review (its title names "navigation review"; a review is a tithe, so usually "Tithe:
  * navigation review <n>") always goes.
  */
 // Decision: R-079
@@ -37,7 +37,7 @@ final class NavigationGate {
 
     public static void main(String[] args) throws Exception {
         Path root = Path.of(args.length > 0 ? args[0] : ".");
-        Process git = new ProcessBuilder("git", "log", "--format=%H %s", "-n", "400").directory(root.toFile()).redirectErrorStream(true).start();
+        Process git = new ProcessBuilder("git", "log", "--no-merges", "--format=%H %s", "-n", "400").directory(root.toFile()).redirectErrorStream(true).start();
         List<String> log = new String(git.getInputStream().readAllBytes()).lines().toList();
         if (git.waitFor() != 0) throw new IllegalStateException("git log failed: " + log);
         String refused = verdict(log, Files.readString(root.resolve(PATH)));

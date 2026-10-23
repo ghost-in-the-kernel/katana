@@ -7,7 +7,8 @@ import java.util.regex.Pattern;
 /**
  * R-008's gate (amended 2026-10-09, J-154): past sixteen commits since the last one titled "Tithe", a
  * push whose head is not a tithe is refused, unless theGhost.md records a deferral, a line `Tithe
- * deferred through <commit>`, naming a commit at or after which the count restarts. The metrics tool's
+ * deferred through <commit>`, naming a commit at or after which the count restarts. Merge commits are not
+ * counted (J-254): R-040 merges every finished step at once, so they mark steps, not work. The metrics tool's
  * "one is due" warned seventy-three times and stopped nothing; this is its verdict given teeth.
  */
 // Decision: R-008
@@ -40,7 +41,7 @@ final class TitheGate {
 
     public static void main(String[] args) throws Exception {
         Path root = Path.of(args.length > 0 ? args[0] : ".");
-        Process git = new ProcessBuilder("git", "log", "--format=%H %s", "-n", "400").directory(root.toFile()).redirectErrorStream(true).start();
+        Process git = new ProcessBuilder("git", "log", "--no-merges", "--format=%H %s", "-n", "400").directory(root.toFile()).redirectErrorStream(true).start();
         List<String> log = new String(git.getInputStream().readAllBytes()).lines().toList();
         if (git.waitFor() != 0) throw new IllegalStateException("git log failed: " + log);
         String refused = verdict(log, Files.readString(root.resolve("theGhost.md")));

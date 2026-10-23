@@ -21,5 +21,5 @@ read as the whole finish, and the debrief is missed (J-253, N-005).
 Read `docs/NAVIGATION.md`'s entries for what agents converge on. Nothing actionable: write the journal entry and
 empty the entries. Actionable: write the journal entry, empty the entries, check each item is valid against the
 code, and fix the valid ones (a tithe). An open question goes to a Fable instance; its answer goes in the
-journal entry. A review changes no behaviour, so it is a tithe: title the commit "Tithe: navigation review <n>", and set `Reviewed through:` to the commit the review read up to (the
-review's own parent: a commit cannot name itself).
+journal entry. Title the commit "Navigation review <n>" ("Tithe: navigation review <n>" only when it is also the tithe due), and set `Reviewed through:` to the last commit the review read that is not a merge
+(the gates count work, not merges: J-254).
