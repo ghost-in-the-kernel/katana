@@ -262,3 +262,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-255 | Ghost takes Fable's three answers: R-045 and R-081 amended, R-082 recorded | decision | `J-200-299.md` |
 | J-256 | The census runs each case under its own compile flags | measurement | `J-200-299.md` |
 | J-257 | Ghost takes Fable's answers on the census's three proposals: R-083 to R-085 | decision | `J-200-299.md` |
+| J-258 | A wait loop matched itself and held the second gate for an hour; the floors refuse a case that moves up | failure-caught | `J-200-299.md` |

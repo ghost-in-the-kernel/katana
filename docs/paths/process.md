@@ -26,6 +26,9 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
   `gradle journalIndex` (`docs/journal/INDEX.md`, after an entry), `gradle researchIndex`
   (`docs/research/INDEX.md`, after a research section). A test fails when one is stale.
 - `gradle metrics` warns early: a function at 16 to 20 paths, a file at 351 to 400 lines.
+- To wait for a gate, wait on its lock (the file prepush.lock in /tmp/claude-0, holding the running gate's PID), or on its
+  verdict line in the log. Never on `pgrep -f` with the gate's name: the pattern is in the waiting command's own
+  line, so it matches itself and waits forever (J-258; it cost an hour, and five minutes in J-246).
 - Docker, when it stops answering (R-077): restart the daemon only when none runs. `pgrep -x dockerd` finds
   none: `rm -f /var/run/docker.pid`, then start `dockerd` in the background. One runs and does not answer: it
   may be another agent's; do not kill it, and say so.
