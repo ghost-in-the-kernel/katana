@@ -264,3 +264,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-257 | Ghost takes Fable's answers on the census's three proposals: R-083 to R-085 | decision | `J-200-299.md` |
 | J-258 | A wait loop matched itself and held the second gate for an hour; the floors refuse a case that moves up | failure-caught | `J-200-299.md` |
 | J-259 | R-083 to R-085 built under Ghost's ruling on the census floors: PASS and PASS+FLAGPASS, both only rising; floors checked before the golden | decision | `J-200-299.md` |
+| J-260 | Navigation review 2: three debriefs; the census's inputs, floors and place in the loop, an `Autotests` row | measurement | `J-200-299.md` |
