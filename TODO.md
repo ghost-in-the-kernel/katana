@@ -62,10 +62,7 @@ Open: the 323 that do not pass; the 44 FAILs sorted into findings against the te
 differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
-Next, first (J-262): build R-087 to R-089 in `CompileFlags`' table and the census (the census names its profile;
-the TRUNC(BIN) reason; `-fbinary-comp-1` permanent; `-farithmetic-osvs`, `-fmove-ibm`, `-fodoslide` set nothing;
-the encoding and ODO reasons; the acceptance group, with any FLAGPASS under it listed as a grammar leak); then the
-variably-located-items lowering item, which `-fodoslide`'s four cases check (`lower/Exprs.java`'s `// Unsure:`).
+Built (J-263): R-087 to R-089 in `CompileFlags` and the census: the census names its profile (`profile/ibm.profile`, TRUNC(STD), asserted); `-fnotrunc`, `-fno-trunc`, `-fno-binary-truncate` stay FLAG with "recorded under TRUNC(BIN); the census runs ibm.profile (STD)", `-fbinary-comp-1` with its permanent reason; `-farithmetic-osvs`, `-fmove-ibm`, `-fodoslide`, `-fcomment-paragraphs=ok`, `-faccept-display-extensions=error` set nothing; `-fsign=ebcdic` and `-fdefault-file-colseq=` wait for the lane's codepage, `-fsign=ascii` is permanent, `-fcomplex-odo` waits for the Language Reference; the acceptance group reads "a form the dialect does not have", and a FLAGPASS under it is listed in the golden as `# grammar leak` (none today). The census is now 65 FLAG, 11 FLAGPASS, 102 do not parse, 4 javac, 74 stop at run time, 31 differ, 48 PASS, floors 48 and 59. Next: the variably-located-items lowering item, which `-fodoslide`'s four cases check (`lower/Exprs.java`'s `// Unsure:`; two of the four now stop at run time, one does not parse on `ALL`, the fourth is still held by `-fnotrunc`).
 Before (J-256): the 87 that end at `FLAG` or `FLAGPASS`, by the flag (`-std=` 17, `-fnotrunc` and `-fno-trunc` 14, `-free` 6 with
 `--free`, `-fprof` 5, `-fsystem-name`, `-fodoslide`, `-fcallfh` 4 each, ...): each flag is mapped when Katana's profile
 already means it, a front-end or lowering change when it asks for one, or left a `FLAG` with its reason. A flag is

@@ -36,6 +36,10 @@ class AutotestsLoweredIntegrationTest {
     private static final Path GOLDEN = ROOT.resolve("test/katana/rt/autotest/lowered.golden");
     private static final Path FLOORS = ROOT.resolve("test/katana/rt/autotest/floors.txt");
     private static final int SECONDS = 20;
+    /** The profile the census runs under (R-087, R-081 amended): TRUNC(STD); the TRUNC(BIN) flags are held back for it, not mapped. */
+    private static final Path PROFILE = ROOT.resolve("profile/ibm.profile");
+    /** A FLAGPASS case's flags that ask for a form IBM does not have: grammar leaks to tighten (R-089), never passes. */
+    private static final Map<String, List<String>> LEAKS = new TreeMap<>();
 
     /**
      * A case's end: the first stage it cannot pass (NOSOURCE: no prog.cob, a case of several programs or a C helper; FLAG: its compile command
@@ -86,6 +90,7 @@ class AutotestsLoweredIntegrationTest {
         Stage raw = rawStageOf(id);
         List<String> flags = LoweredAutotestsIntegrationTest.compileStep(id).unmapped();
         if (flags.isEmpty() || raw == Stage.NOSOURCE) return raw;
+        if (raw == Stage.PASS) LEAKS.put(id, flags.stream().filter(CompileFlags::grammarLeak).toList());
         REASONS.put(id, flags.stream().map(f -> CompileFlags.reason(f) == null ? f : f + " (" + CompileFlags.reason(f) + ")").collect(java.util.stream.Collectors.joining(" ")));
         return raw == Stage.PASS ? Stage.FLAGPASS : Stage.FLAG;
     }
@@ -130,14 +135,16 @@ class AutotestsLoweredIntegrationTest {
 
     @Test
     void everyRunnableAutotestEndsAtAStage() throws Exception {
+        katana.profile.Profile profile = katana.profile.Profile.read(Files.readString(PROFILE));
+        assertEquals("STD", profile.ibm().get("ibm.trunc"), "R-087: the census runs ibm.profile, TRUNC(STD)");
         List<String> ids = runnable();
         Map<Stage, Integer> counts = new TreeMap<>();
         StringBuilder results = new StringBuilder("""
                 # Phase 3.1's check at scale (AutotestsLoweredIntegrationTest, research 54): each runnable autotest through
                 # parse, the IR, the lowering, javac against rt/ and a run; the first stage it cannot pass, or PASS or FAIL
                 # against the testsuite's expected stdout (never shown, R-045; GnuCOBOL's dialect, D-010), each under its own compile
-# flags (J-256): FLAG and FLAGPASS name the flags the compile step does not map (the case is run without them; FLAGPASS passes). Written by
-                # `gradle integration -Dkatana.record=true`.
+# flags (J-256): FLAG and FLAGPASS name the flags the compile step does not map (the case is run without them; FLAGPASS passes).
+                # Run under profile/ibm.profile (TRUNC(STD), R-087). Written by `gradle integration -Dkatana.record=true`.
                 """);
         Map<String, Stage> byCase = new TreeMap<>();
         for (String id : ids) {
@@ -149,6 +156,8 @@ class AutotestsLoweredIntegrationTest {
         results.append("runnable ").append(ids.size());
         for (Stage s : Stage.values()) results.append(' ').append(s).append(' ').append(counts.getOrDefault(s, 0));
         results.append('\n');
+        // A FLAGPASS under a form IBM does not have is the front end too lenient: listed, to tighten (R-089).
+        LEAKS.forEach((id, flags) -> { if (!flags.isEmpty() && byCase.get(id) == Stage.FLAGPASS) results.append("# grammar leak ").append(id).append(' ').append(String.join(" ", flags)).append('\n'); });
         System.out.print(results.substring(results.indexOf("runnable")));
         Map<String, Integer> causes = new TreeMap<>();
         byCase.forEach((id, s) -> { if (s == Stage.NOPARSE) causes.merge(REASONS.get(id), 1, Integer::sum); });
