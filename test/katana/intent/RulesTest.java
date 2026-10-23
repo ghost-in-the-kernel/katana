@@ -1,17 +1,14 @@
 package katana.intent;
 
+import katana.support.Small;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import katana.front.Copybooks;
-import katana.front.Parse;
 import katana.intent.rules.Rule;
 import katana.intent.rules.Rules;
 import katana.intent.types.Fact;
 import katana.intent.types.Kind;
 import katana.intent.types.Subject;
-import katana.sir.build.Build;
 import katana.sir.types.Program;
 import org.junit.jupiter.api.Test;
 
@@ -20,9 +17,7 @@ class RulesTest {
     private static final String HASH = "sha256:" + "0".repeat(64);
 
     private static Program program(String data, String procedure) {
-        String source = ("IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n" + data + "PROCEDURE DIVISION.\n" + procedure)
-                .lines().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
-        return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), HASH).program();
+        return katana.support.Small.program(data, procedure);
     }
 
     /** The names of what a program's facts of one kind are about: items by name, ranges as `FIRST` or `FIRST THRU LAST`. */

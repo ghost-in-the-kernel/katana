@@ -8,12 +8,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-import katana.front.Copybooks;
-import katana.front.Parse;
 import katana.intent.rules.Rules;
 import katana.lower.Lower;
-import katana.sir.build.Build;
 import katana.sir.types.Item;
 import katana.sir.types.Program;
 import org.junit.jupiter.api.Test;
@@ -21,9 +17,7 @@ import org.junit.jupiter.api.Test;
 /** 6.3 on programs small enough to read (research §39, R-068): an item each obligation keeps, an item each one refuses, and the Java a promoted one becomes. */
 class ScalarsTest {
     private static Program program(String data, String procedure) {
-        String source = ("IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n" + data + "PROCEDURE DIVISION.\nMAIN.\n" + procedure + "    STOP RUN.\n")
-                .lines().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
-        return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), "sha256:" + "0".repeat(64)).program();
+        return katana.support.Small.program(data, "MAIN.\n" + procedure + "    STOP RUN.\n");
     }
 
     private static int id(Program p, String name) {

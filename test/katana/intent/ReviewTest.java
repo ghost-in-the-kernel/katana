@@ -1,13 +1,11 @@
 package katana.intent;
 
+import katana.support.Small;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import katana.front.Copybooks;
-import katana.front.Parse;
 import katana.intent.review.Review;
 import katana.intent.rules.Rules;
 import katana.intent.types.Evidence;
@@ -15,7 +13,6 @@ import katana.intent.types.Fact;
 import katana.intent.types.Intent;
 import katana.intent.types.Kind;
 import katana.intent.types.State;
-import katana.sir.build.Build;
 import katana.sir.types.Program;
 import org.junit.jupiter.api.Test;
 
@@ -46,9 +43,7 @@ class ReviewTest {
             """;
 
     private static Program program(String data, String procedure) {
-        String source = ("IDENTIFICATION DIVISION.\nPROGRAM-ID. P.\nDATA DIVISION.\nWORKING-STORAGE SECTION.\n" + data + "PROCEDURE DIVISION.\n" + procedure)
-                .lines().map(l -> "       " + l).collect(Collectors.joining("\n", "", "\n"));
-        return Build.program(Parse.text(source, new Copybooks(List.of(), n -> 8)), HASH).program();
+        return katana.support.Small.program(data, procedure);
     }
 
     private static Review.Result rebuild(Program p, String review) {

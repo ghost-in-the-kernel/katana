@@ -30,7 +30,7 @@ class StructuringCardDemoIntegrationTest {
         Map<String, String> differ = new LinkedHashMap<>();
         int traced = 0, methods = 0;
         for (String job : JOBS) {
-            Fixture fixture = CardDemoJavaLaneIntegrationTest.fixture(job);
+            Fixture fixture = CardDemoLane.fixture(job);
             Path literal = run(work, job, fixture, false), structured = run(work, job, fixture, true);
             if (!Files.readString(literal.resolve("report")).equals(Files.readString(structured.resolve("report")))) differ.put(job, "the report");
             Map<String, String> a = traces(literal), b = traces(structured);
@@ -48,7 +48,7 @@ class StructuringCardDemoIntegrationTest {
     private static Path run(Path work, String job, Fixture fixture, boolean structured) throws Exception {
         Path dir = Files.createDirectories(work.resolve(job + (structured ? "-structured" : "-literal")));
         Path classes = Files.createDirectories(work.resolve(job + (structured ? "-structured" : "-literal") + "-classes"));
-        String text = CobcLane.run(fixture, CardDemoJavaLaneIntegrationTest.setup(dir, CardDemoJavaLaneIntegrationTest.commands(fixture, classes, structured)).traced(dir)).text();
+        String text = CobcLane.run(fixture, CardDemoLane.setup(dir, CardDemoLane.commands(fixture, classes, structured)).traced(dir)).text();
         Files.writeString(work.resolve(job + (structured ? "-structured" : "-literal") + ".report"), text);
         Files.writeString(dir.resolve("report"), text);
         return dir;

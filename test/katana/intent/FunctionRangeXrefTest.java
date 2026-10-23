@@ -1,5 +1,6 @@
 package katana.intent;
 
+import katana.support.Small;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

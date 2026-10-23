@@ -46,7 +46,7 @@ class ProofV1IntegrationTest {
 
     /** One job: the gate between two cobc runs, the cobc trace unchanged by tracing, the java lane's trace and datasets compared with the cobc lane's, its v1 report held. */
     private static void prove(String job, LaneRuns runA, LaneRuns runB, Map<String, Map<String, Report.Coverage>> byJob, Map<String, List<String>> differ) throws Exception {
-        Fixture fixture = CardDemoJavaLaneIntegrationTest.fixture(job);
+        Fixture fixture = CardDemoLane.fixture(job);
         Report a = runA.run(job), b = runB.run(job);
         Gate.Result gate = Gate.compare(fixture, a, runA.work(job), b, runB.work(job));
         Path cobcTrace = ROOT.resolve("build/proof1-trace/" + job), javaDir = ROOT.resolve("build/proof1-java/" + job), classes = Files.createDirectories(ROOT.resolve("build/proof1-classes/" + job));
@@ -56,7 +56,7 @@ class ProofV1IntegrationTest {
         List<String> changed = Gate.compare(fixture, a, runA.work(job), traced, cobcTrace).differences().stream()
                 .filter(d -> signalled.stream().noneMatch(step -> d.startsWith(step + ".stderr:"))).toList();
         assertEquals(List.of(), changed, job + ": tracing changed the run");
-        Report java = CobcLane.run(fixture, CardDemoJavaLaneIntegrationTest.setup(javaDir, CardDemoJavaLaneIntegrationTest.commands(fixture, classes)).traced(javaDir));
+        Report java = CobcLane.run(fixture, CardDemoLane.setup(javaDir, CardDemoLane.commands(fixture, classes)).traced(javaDir));
         Set<String> javaOnly = javaOnly(fixture, a);
         Map<String, Report.Coverage> coverage = new TreeMap<>();
         Map<String, String> from = new TreeMap<>();
