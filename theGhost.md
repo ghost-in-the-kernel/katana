@@ -1756,6 +1756,62 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** census
 ---
 
+### R-087: Binary truncation: the census runs under a named profile; TRUNC(BIN) waits for its first job
+- **Decision:** The census runs under a named profile, `ibm.profile` (TRUNC(STD)). The cases compiled with
+  `-fnotrunc`, `-fno-trunc` or `-fno-binary-truncate` stay at `FLAG` or `FLAGPASS` with the reason "recorded under
+  TRUNC(BIN); the census runs ibm.profile (STD)", and a FLAGPASS is never relabelled PASS. When the first job declares
+  `ibm.trunc BIN`, or BIN semantics reach `rt/` for any reason, `profile/ibm-truncbin.profile` is added as a second
+  file (`ibm.trunc BIN`, `binary-truncate=no`; no existing profile's hash changes, per PROFILE.md), these flags select
+  it, and a size difference against cobc there is a finding in `oracle/nist/IBM-CHANGES.md`, as R-083 rules for STD.
+  `-fbinary-comp-1` is another dialect's USAGE (COMP-1 as a 16-bit integer; IBM's COMP-1 is short floating point):
+  a permanent reason.
+- **Why:** `profile/Profile.java` already takes `ibm.trunc STD|OPT|BIN` and PROFILE-04 maps BIN, but nothing reads
+  BIN: `rt/` and the lowering truncate only as STD. Real shops compile TRUNC(BIN), so BIN mode will be built; these
+  cases are then its unit corpus. A setting reaches a run only through a named profile (R-081 amended).
+- **Held by:** `oracle/autotest/CompileFlags.java` (the reasons), the census (once built: TODO 3.1).
+- **Source:** Fable (J-262), on the flags agent's proposal (J-261); taken by Ghost, 2026-10-23: "yes, go with fable,
+  record them". IBM's behaviour from recollection, to confirm from the manuals (R-082).
+- **Status:** in force
+- **See also:** R-081, R-083, R-086
+- **subject:** census
+---
+
+### R-088: Three behaviour flags are IBM's own; ODO forms and the lane's encoding wait
+- **Decision:** `-farithmetic-osvs` (IBM's intermediate rules, which the profile's arithmetic already is),
+  `-fmove-ibm` (MOVE as IBM does it, which `rt/Move` is held to) and `-fodoslide` (items after an OCCURS DEPENDING ON
+  table are variably located, IBM's behaviour with no option) set nothing: their cases run as is, a FAIL a real
+  difference. The four `-fodoslide` cases are the check of the variably-located-items lowering item, on TODO 3.1.
+  `-fcomplex-odo` stays at `FLAG` until each case is sorted against the Language Reference's ODO rules: a form IBM
+  allows joins odoslide's, one it forbids is "a form the dialect rejects". `-fsign=ebcdic` and
+  `-fdefault-file-colseq=` are the lane's byte encoding, not a dialect choice: `FLAG`, "the oracle lane's byte
+  encoding; IBM has only EBCDIC (ibm.codepage)", until the lane's data runs in the profile's codepage; `-fsign=ascii` is
+  a permanent reason (not an IBM encoding). The `-fsign=` reason cites `ibm.codepage`, not `ibm.dispsign`.
+- **Why:** a flag that names IBM's own behaviour selects what the census already runs; one that names an encoding
+  depends on the lane, not the dialect.
+- **Held by:** `oracle/autotest/CompileFlags.java`, the census (once built: TODO 3.1).
+- **Source:** Fable (J-262); taken by Ghost, 2026-10-23. IBM's behaviour from recollection (R-082).
+- **Status:** in force
+- **See also:** R-083, R-087
+- **subject:** census
+---
+
+### R-089: An acceptance flag never maps to a front-end mode
+- **Decision:** Katana's grammar is IBM's and has no acceptance switch. A flag for a form IBM does not have
+  (`-frelax-syntax-checks`, `-fhp-octal-literals=`, `-facu-literal(s)=`, `-fcontrol-division=`,
+  `-fdefine-constant-directive=`, `-fdpc-in-data=`, `-fpartial-replace-when-literal-src=`, `-freserved=`,
+  `-fno-areacheck`, `-fmissing-statement=`, `-fformat=`) stays at `FLAG` or `FLAGPASS` with "a form the dialect does not
+  have" (`-fformat=` with R-085's reason). `-fcomment-paragraphs=ok` and `-faccept-display-extensions=error` set
+  nothing, IBM accepting or refusing the same. `-fno-program-name-redefinition` sets nothing only if the Language
+  Reference confirms IBM refuses the redefinition; until then it stays with the first group. A FLAGPASS under a form
+  IBM does not have is listed as a grammar leak to tighten (the front end accepted a form IBM rejects), never a pass.
+- **Why:** a pass under a form the dialect lacks is the front end being too lenient, not a success.
+- **Held by:** `oracle/autotest/CompileFlags.java`, the census (once built: TODO 3.1).
+- **Source:** Fable (J-262); taken by Ghost, 2026-10-23. IBM's behaviour from recollection (R-082).
+- **Status:** in force
+- **See also:** R-085, R-088
+- **subject:** front
+---
+
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
 the attribute tuple; R-028 coverage in every proof; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual

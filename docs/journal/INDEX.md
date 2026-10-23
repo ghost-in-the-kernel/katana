@@ -266,3 +266,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-259 | R-083 to R-085 built under Ghost's ruling on the census floors: PASS and PASS+FLAGPASS, both only rising; floors checked before the golden | decision | `J-200-299.md` |
 | J-260 | Navigation review 2: three debriefs; the census's inputs, floors and place in the loop, an `Autotests` row | measurement | `J-200-299.md` |
 | J-261 | A reason for every flag the census leaves unmapped; four listing and diagnostics flags mapped | measurement | `J-200-299.md` |
+| J-262 | Ghost takes Fable's answers on the census's dialect flags: R-087 to R-089 | decision | `J-200-299.md` |

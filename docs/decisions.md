@@ -82,3 +82,6 @@ Written from `theGhost.md` by `gradle decisions`; do not edit by hand. A decisio
 | R-084 | A valueless `-D NAME` is defined with its value unknown | in force |
 | R-085 | Free-form source is not read under the IBM dialect | in force |
 | R-086 | The census keeps two floors, PASS and PASS with FLAGPASS, both only rising, checked before the golden is written | in force |
+| R-087 | Binary truncation: the census runs under a named profile; TRUNC(BIN) waits for its first job | in force |
+| R-088 | Three behaviour flags are IBM's own; ODO forms and the lane's encoding wait | in force |
+| R-089 | An acceptance flag never maps to a front-end mode | in force |
