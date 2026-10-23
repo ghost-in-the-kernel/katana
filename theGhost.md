@@ -1768,7 +1768,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **Why:** `profile/Profile.java` already takes `ibm.trunc STD|OPT|BIN` and PROFILE-04 maps BIN, but nothing reads
   BIN: `rt/` and the lowering truncate only as STD. Real shops compile TRUNC(BIN), so BIN mode will be built; these
   cases are then its unit corpus. A setting reaches a run only through a named profile (R-081 amended).
-- **Held by:** `oracle/autotest/CompileFlags.java` (the reasons), the census (once built: TODO 3.1).
+- **Held by:** `oracle/autotest/CompileFlags.java` (the reasons), `CompileFlagsTest`, the census (`AutotestsLoweredIntegrationTest` reads `profile/ibm.profile`; J-263).
 - **Source:** Fable (J-262), on the flags agent's proposal (J-261); taken by Ghost, 2026-10-23: "yes, go with fable,
   record them". IBM's behaviour from recollection, to confirm from the manuals (R-082).
 - **Status:** in force
@@ -1788,7 +1788,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   a permanent reason (not an IBM encoding). The `-fsign=` reason cites `ibm.codepage`, not `ibm.dispsign`.
 - **Why:** a flag that names IBM's own behaviour selects what the census already runs; one that names an encoding
   depends on the lane, not the dialect.
-- **Held by:** `oracle/autotest/CompileFlags.java`, the census (once built: TODO 3.1).
+- **Held by:** `oracle/autotest/CompileFlags.java`, `CompileFlagsTest`, the census (J-263).
 - **Source:** Fable (J-262); taken by Ghost, 2026-10-23. IBM's behaviour from recollection (R-082).
 - **Status:** in force
 - **See also:** R-083, R-087
@@ -1805,7 +1805,7 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   Reference confirms IBM refuses the redefinition; until then it stays with the first group. A FLAGPASS under a form
   IBM does not have is listed as a grammar leak to tighten (the front end accepted a form IBM rejects), never a pass.
 - **Why:** a pass under a form the dialect lacks is the front end being too lenient, not a success.
-- **Held by:** `oracle/autotest/CompileFlags.java`, the census (once built: TODO 3.1).
+- **Held by:** `oracle/autotest/CompileFlags.java`, `CompileFlagsTest`, the census (J-263).
 - **Source:** Fable (J-262); taken by Ghost, 2026-10-23. IBM's behaviour from recollection (R-082).
 - **Status:** in force
 - **See also:** R-085, R-088
