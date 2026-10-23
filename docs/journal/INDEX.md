@@ -271,3 +271,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-264 | Tithe: census notes, TODO 3.1's golden-format item, one path-limit split, four comments | tithe (R-008): no behaviour | `J-200-299.md` |
 | J-265 | Items after an OCCURS DEPENDING ON table are located after its current length; 609, 739 pass, 517 moves up | measurement | `J-200-299.md` |
 | J-266 | Navigation review 3: four debriefs; the corpus scan before a prediction, case lists, metrics before a branch | measurement | `J-200-299.md` |
+| J-267 | The census golden's format: three problems fixed in one re-record (TODO 3.1, N-009, N-010) | measurement | `J-200-299.md` |
