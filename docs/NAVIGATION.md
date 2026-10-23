@@ -47,3 +47,16 @@ An entry: `### N-<n> <date>, <task> (<commits>)`, then the lines `- **Complaints
 - **Suggestions:** one line in CLAUDE.md or `docs/paths/process.md` on the image name and how to build it; the census
   command in `docs/paths/lowering.md`; the census records each case's compile flags (from `check-0.sh`, flags only) so a
   FAIL caused by `-D` or `-fdebugging-line` is told apart from a real difference.
+
+### N-005 2026-10-23, TODO 3.1: the `>>` directives amended (research 59, R-081)
+- **Complaints:** I did not read `docs/when/handoff.md` on finishing, though CLAUDE.md's "When" line names it: I had
+  the report format in my brief and went to the report, so the debrief step was missed until asked; the "When" lines sit
+  in the middle of CLAUDE.md and nothing at the end of a run points back to them. Docker answered nothing at first and
+  the image is `katana:dev` (as N-004); `nextId` says to fetch main first, but the sandbox has no route to it. A new
+  finding code has no row in `docs/paths/front.md` (`Finding.Kind`, FINDINGS.md, `FindingsDocTest`'s regex, the proof
+  report's sections were found by grepping); nor does a new fixture keyword (`Schema`, `FixtureCheck`, FIXTURE.md's
+  table and invariant). IBM's manuals are unreachable from the sandbox and no copy is kept, so a research section on a
+  directive can only say "unconfirmed".
+- **Suggestions:** put "finishing: docs/when/handoff.md" in the brief's closing line, or last in CLAUDE.md; add rows to
+  `docs/paths/front.md` and `oracle.md` for a new finding kind and a new fixture keyword, each listing the files that
+  must change together; keep the few IBM pages a decision rests on as text under `docs/research/`.
