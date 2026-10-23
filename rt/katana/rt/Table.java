@@ -48,4 +48,10 @@ public final class Table {
     public static Field current(Field group, long length) {
         return new Field(group.record(), group.offset(), Attr.text((int) length, false));
     }
+
+    /** An item after an OCCURS DEPENDING ON table, moved by how far the table's current length falls short of its maximum (R-088). */
+    // Decision: R-088
+    public static Field slide(Field f, long delta) {
+        return new Field(f.record(), f.offset() + (int) delta, f.attr());
+    }
 }

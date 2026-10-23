@@ -71,7 +71,7 @@ run_extensions-4963 PASS
 run_extensions-5046 NOPARSE parsing mismatched input '>'
 run_extensions-5085 NOPARSE parsing mismatched input '>'
 run_extensions-5124 FLAG -fformat=xopen (a source format the dialect does not have) -fno-areacheck (a form the dialect does not have)
-run_extensions-517 FLAG -std=mvs (another dialect's expected output)
+run_extensions-517 FLAGPASS -std=mvs (another dialect's expected output)
 run_extensions-5173 FLAG -fformat=terminal (a source format the dialect does not have)
 run_extensions-5257 FLAG -free (a source format the dialect does not have)
 run_extensions-5307 FLAGPASS -fbinary-comp-1 (another dialect's USAGE: COMP-1 is a 16-bit integer there, short floating point in IBM's)
@@ -81,10 +81,10 @@ run_extensions-5405 FLAG -facu-literal=ok (a form the dialect does not have) -fn
 run_extensions-546 FLAG -std=mf (another dialect's expected output)
 run_extensions-5508 FLAG -std=mf (another dialect's expected output) -fno-trunc (recorded under TRUNC(BIN); the census runs ibm.profile (STD))
 run_extensions-5583 FLAG -std=gcos-strict (another dialect's expected output)
-run_extensions-609 NORUN
+run_extensions-609 PASS
 run_extensions-673 FLAG -fcomplex-odo (an ODO form not yet sorted against the Language Reference's rules)
 run_extensions-72 NORUN
-run_extensions-739 NORUN
+run_extensions-739 PASS
 run_extensions-908 NOSOURCE
 run_file-10289 FLAG -fnotrunc (recorded under TRUNC(BIN); the census runs ibm.profile (STD))
 run_file-10468 FLAG -fnotrunc (recorded under TRUNC(BIN); the census runs ibm.profile (STD))
@@ -381,4 +381,4 @@ used_binaries-359 PASS
 used_binaries-393 PASS
 used_binaries-411 PASS
 used_binaries-482 PASS
-runnable 378 NOSOURCE 36 FLAG 65 FLAGPASS 11 NOPARSE 102 NOLOWER 7 NOJAVAC 4 NORUN 74 FAIL 31 PASS 48
+runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 102 NOLOWER 7 NOJAVAC 4 NORUN 72 FAIL 31 PASS 50

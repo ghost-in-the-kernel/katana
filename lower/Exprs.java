@@ -12,6 +12,8 @@ final class Exprs {
     final Program p;
     final Funcs funcs = new Funcs(this);
     private Arith arith;
+    /** Items located after an OCCURS DEPENDING ON table (R-088). */
+    final Slide slide = new Slide(this);
 
     /** The arithmetic a function's arguments are computed with. */
     Arith arith() {
@@ -75,9 +77,18 @@ final class Exprs {
 
     /** `Table.each(f, counts, strides, ` for a table's item, null for an item that occurs once. */
     String occurrences(Item i) {
+        return occurrences(i, null, false);
+    }
+
+    /** The same, from where the item is now (R-088): the tables under `scope` (an INITIALIZE's target) keep the maximum layout. */
+    String occurrences(Item i, Item scope) {
+        return occurrences(i, scope, true);
+    }
+
+    private String occurrences(Item i, Item scope, boolean now) {
         List<Item> dims = dimensions(i);
         if (dims.isEmpty()) return null;
-        return "Table.each(" + promoted.fieldName(i.id()) + ", " + ints(dims, true) + ", " + ints(dims, false) + ", ";
+        return "Table.each(" + (now ? slide.where(i, scope) : promoted.fieldName(i.id())) + ", " + ints(dims, true) + ", " + ints(dims, false) + ", ";
     }
 
     private static String ints(List<Item> dims, boolean counts) {
@@ -102,7 +113,7 @@ final class Exprs {
         if (promoted.has(v.item()) && receiving) throw new IllegalStateException("promoted item " + item(v.item()).name() + " reached a receiving path not converted");
         if (promoted.has(v.item())) return promoted.field(v.item());
         Item i = item(v.item());
-        String f = promoted.fieldName(v.item());
+        String f = slide.where(i, null);
         if (!v.subscripts().isEmpty()) {
             List<String> subs = new ArrayList<>();
             for (Value s : v.subscripts()) subs.add(index(s));
@@ -115,26 +126,33 @@ final class Exprs {
     }
 
     /**
-     * A group holding an OCCURS DEPENDING ON table (LR 6.4 pp. 204-205): the part of the table its object
-     * says, the object's value at the start of the operation; as a receiver whose own object is in the
-     * group, its maximum length. One table at the group's end; any other shape at its maximum.
+     * A group holding OCCURS DEPENDING ON tables (LR 6.4 pp. 204-205): the part of each table its object says, the
+     * object's value at the start of the operation, whatever follows a table slid up (R-088); as a receiver whose
+     * own object is in the group, its maximum length. A table inside another OCCURS stays at the maximum.
      */
-    // Decision: R-019
-    // Unsure: a group whose ODO table is followed by other items, holds two, or nests one in an OCCURS (IBM's complex ODO) keeps its maximum length here (J-133). Stays: IBM's complex-ODO rules read, and a program that needs them, settle it.
+    // Decision: R-088
+    // Unsure: a table nested in an OCCURS (IBM's complex ODO) keeps its maximum length here, and a group whose object is outside it but which is INITIALIZEd or given a VALUE is taken at its maximum (J-133, J-265). Stays: IBM's complex-ODO rules read from the Language Reference (TODO 3.1, `-fcomplex-odo`), and a program that needs them, settle it.
     private String variable(Item group, String f, boolean receiving) {
         if (group.attributes().category() != Attributes.Category.GROUP) return f;
         List<Item> tables = new ArrayList<>();
         for (Item t : p.items()) if (t.occurs() != null && t.occurs().dependingOn() != 0 && t.id() != group.id() && under(t, group)) tables.add(t);
-        if (tables.size() != 1) return f;
-        Item t = tables.get(0), object = item(t.occurs().dependingOn());
-        int before = t.offset() - group.offset();
-        boolean last = before + t.occurs().max() * t.length() == group.length();
-        boolean inside = object.record() == group.record() && object.offset() >= group.offset() && object.offset() < group.offset() + group.length();
-        if (!last || dimensions(t).size() != 1 || (receiving && inside)) return f;
-        return "Table.current(" + f + ", " + before + " + Table.index(" + promoted.fieldName(object.id()) + ") * " + t.length() + ")";
+        if (tables.isEmpty()) return f;
+        boolean inside = false, last = tables.size() == 1;
+        for (Item t : tables) {
+            Item object = item(t.occurs().dependingOn());
+            if (dimensions(t).size() != 1) return f;
+            inside |= object.record() == group.record() && object.offset() >= group.offset() && object.offset() < group.offset() + group.length();
+        }
+        if (receiving && inside) return f;
+        Item t = tables.get(0);
+        if (last && t.offset() - group.offset() + t.occurs().max() * t.length() == group.length())
+            return "Table.current(" + f + ", " + (t.offset() - group.offset()) + " + Table.index(" + slide.where(item(t.occurs().dependingOn()), null) + ") * " + t.length() + ")";
+        StringBuilder length = new StringBuilder(String.valueOf(group.length()));
+        for (Item s : tables) length.append(" + ").append(slide.shortfall(s));
+        return "Table.current(" + f + ", " + length + ")";
     }
 
-    private boolean under(Item i, Item group) {
+    boolean under(Item i, Item group) {
         for (Item a = i; a != null; a = a.parent() == 0 ? null : item(a.parent())) if (a.id() == group.id()) return true;
         return false;
     }
@@ -165,9 +183,23 @@ final class Exprs {
         return paged.size() == 1 ? FileVerbs.name(paged.get(0).name()) + ".counter()" : unsupported("LINAGE-COUNTER unqualified, with " + paged.size() + " LINAGE files");
     }
 
+    /**
+     * A length as a sending item, a number: LENGTH OF a data item, "the number of bytes used by a data item" (LR 6.4 p. 22), and FUNCTION LENGTH;
+     * a group holding an ODO table, its current length (R-088). Null for any other value.
+     */
+    private String length(Value v) {
+        if (v instanceof Value.Expression e && e.operator().equals("LENGTH OF") && e.operands().get(0) instanceof Value.Field f && item(f.item()).occurs() == null && f.start() == null)
+            return "Literal.number(" + (item(f.item()).attributes().category() == Attributes.Category.GROUP ? "Long.toString(" + field(f) + ".attr().length())" : Emitter.quote(String.valueOf(item(f.item()).length()))) + ", 0, cp)";
+        if (v instanceof Value.Expression e && "LENGTH".equals(Funcs.name(e)) && e.operands().size() == 1)
+            return "Literal.number(Functions.length(" + sending(e.operands().get(0)) + ").toBigDecimal().toPlainString(), 0, cp)";
+        return null;
+    }
+
     /** A value as a sending item (a Field), for MOVE and comparison. */
     String sending(Value v) {
         if (counter(v) != null) return counter(v);
+        String size = length(v);
+        if (size != null) return size;
         if (returnCode(v)) return "rc";
         if (v instanceof Value.Name n && n.kind().equals("register") && Debugging.held(p) && Debugging.register(n.text()) != null) return Debugging.register(n.text());
         return switch (v) {
