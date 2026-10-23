@@ -35,12 +35,12 @@ final class Flow {
     final List<Program> containers;
 
     /** A pass's plan: the ranges called as methods and the GO TOs left to fall (6.1). */
-    final Lower.Plan plan;
+    final Plan plan;
 
     /** The pass's structured control: its methods, regions and `dispatch` (6.1, 6.2). */
     final Regions regions;
 
-    Flow(Emitter e, Program p, Exprs x, List<Program> containers, Lower.Plan plan) {
+    Flow(Emitter e, Program p, Exprs x, List<Program> containers, Plan plan) {
         this.plan = plan;
         this.regions = new Regions(this);
         this.containers = containers;
@@ -160,7 +160,7 @@ final class Flow {
 
     /** Whether the plan writes this PERFORM VARYING as a `for` (research §36). */
     boolean loop(Statement s) {
-        return plan.loops().contains(Lower.Plan.loop(s.origin()));
+        return plan.loops().contains(Plan.loop(s.origin()));
     }
 
     /** Whether the plan calls this PERFORM's range as a method. */

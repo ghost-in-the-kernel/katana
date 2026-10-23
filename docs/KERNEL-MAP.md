@@ -1942,3 +1942,29 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | oracle | `oracle/prove/Report.java:Report.write` | R-072 | 2026-10-22 |  |
 | oracle | `oracle/prove/Report.java:Report.entry` |  | 2026-10-22 |  |
 | oracle | `oracle/prove/Report.java:Report.refusals` |  | 2026-10-22 |  |
+| lower | `lower/Plan.java:Plan.Plan` |  | 2026-10-23 |  |
+| lower | `lower/Plan.java:Plan.structured` |  | 2026-10-23 |  |
+| lower | `lower/Plan.java:Plan.loop` |  | 2026-10-23 |  |
+| lower | `lower/Storage.java:Storage.Storage` |  | 2026-10-23 |  |
+| lower | `lower/Storage.java:Storage.declareItems` |  | 2026-10-23 |  |
+| lower | `lower/Storage.java:Storage.defineItems` |  | 2026-10-23 |  |
+| lower | `lower/Storage.java:Storage.area` | R-019 | 2026-10-23 |  |
+| lower | `lower/Storage.java:Storage.recordLength` |  | 2026-10-23 |  |
+| lower | `lower/Storage.java:Storage.attr` |  | 2026-10-23 |  |
+| lower | `lower/Storage.java:Storage.index` |  | 2026-10-23 |  |
+| lower | `lower/Storage.java:Storage.stored` |  | 2026-10-23 |  |
+| lower | `lower/Storage.java:Storage.edit` |  | 2026-10-23 |  |
+| lower | `lower/Lower.java:Lower.declareItems` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Storage.java:Storage.declareItems` |
+| lower | `lower/Lower.java:Lower.defineItems` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Storage.java:Storage.defineItems` |
+| lower | `lower/Lower.java:Lower.recordLength` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Storage.java:Storage.recordLength` |
+| lower | `lower/Lower.java:Lower.attr` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Storage.java:Storage.attr` |
+| lower | `lower/Lower.java:Lower.index` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Storage.java:Storage.index` |
+| lower | `lower/Lower.java:Lower.stored` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Storage.java:Storage.stored` |
+| lower | `lower/Lower.java:Lower.edit` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Storage.java:Storage.edit` |
+| lower | `lower/Lower.java:Lower.area` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Storage.java:Storage.area` |
+| lower | `lower/Lower.java:Lower.Plan.Plan` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Plan.java:Plan.Plan` |
+| lower | `lower/Lower.java:Lower.Plan.loop` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Plan.java:Plan.loop` |
+| lower | `lower/Lower.java:Lower.Plan.structured` | moved in the super tithe (J-241) | 2026-10-23 | superseded-by: `lower/Plan.java:Plan.structured` |
+| lower | `lower/Exprs.java:Exprs.Exprs#2` |  | 2026-10-23 |  |
+| lower | `lower/Promoted.java:Promoted.views` |  | 2026-10-23 |  |
+| lower | `lower/Promoted.java:Promoted.intercept` |  | 2026-10-23 |  |

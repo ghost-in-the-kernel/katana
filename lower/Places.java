@@ -57,7 +57,7 @@ final class Places {
     }
 
     /**
-     * An item's: its PICTURE's integer digits, those it stores (`Lower.stored`), numeric or numeric
+     * An item's: its PICTURE's integer digits, those it stores (`Storage.stored`), numeric or numeric
      * edited; an index, which has no
      * PICTURE, the nine of the fullword `rt` holds it in (`Lower.index`, J-167); a pointer refused, as
      * IBM allows it "only" in ALLOCATE, FREE, SET, a relation condition and USING (LR 6.4 p. 243); a
@@ -70,9 +70,9 @@ final class Places {
             case POINTER -> Size.refused(i.name() + ", a pointer, which no arithmetic takes (LR 6.4 p. 243)");
             case NUMERIC -> a.usage() == Attributes.Usage.FLOAT_SHORT || a.usage() == Attributes.Usage.FLOAT_LONG
                     ? Size.refused(i.name() + ", a floating-point item, which rt does not hold")
-                    : Size.of(Math.max(0, Lower.stored(a) - a.scale()));
+                    : Size.of(Math.max(0, Storage.stored(a) - a.scale()));
             // A numeric-edited item has its PICTURE's digits too: a DIVIDE's quotient GIVING one sizes the REMAINDER's (NC203A, J-170).
-            case NUMERIC_EDITED -> Size.of(Math.max(0, Lower.stored(a) - a.scale()));
+            case NUMERIC_EDITED -> Size.of(Math.max(0, Storage.stored(a) - a.scale()));
             default -> Size.refused(i.name() + ": not a numeric item");
         };
     }

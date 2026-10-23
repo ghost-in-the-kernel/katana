@@ -1,7 +1,7 @@
 # The passes: what each proves, and where it is written
 
 Phase 6's passes (`passes/`) prove facts about one program and hand the lowering (`lower/`) a plan,
-`Lower.Plan`; the lowering writes what the plan says and decides nothing (MOD-04). `passes/Structuring.plan`
+`Plan` (`lower/Plan.java`); the lowering writes what the plan says and decides nothing (MOD-04). `passes/Structuring.plan`
 runs them in this order, each refusing what fails its obligations with why (R-032): the refusals are in its
 `Result.refused`, by `paragraph`, `item`, `record` or a statement's `VERB at line N`. The literal lowering is
 `Plan.LITERAL`, every field empty. `test/PassesDocTest.java` holds this table to the code: every pass's id and
@@ -34,7 +34,7 @@ on small programs.
 1. Research first: a section in `docs/research/ibm-options.md` with Ghost's choice and the prediction, committed
    before the build.
 2. The pass in `passes/`: a `PASS` id, one public function returning what it proves, each refusal with why.
-3. A field on `Lower.Plan` (`lower/Lower.java`, and `Plan.LITERAL`), set in `passes/Structuring.plan`.
+3. A field on `Plan` (`lower/Plan.java`, and `Plan.LITERAL`), set in `passes/Structuring.plan`.
 4. The lowering reads the field where it writes the construct; nothing else in `lower/` decides.
 5. Its ledger attribution in `passes/StructuringLedger.java` if it adds or removes a symbol.
 6. A unit test in `test/katana/passes/`, a row here, a journal entry, then the proof runs and the gate.

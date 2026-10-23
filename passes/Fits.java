@@ -1,5 +1,7 @@
 package katana.passes;
 
+import katana.lower.Storage;
+import katana.lower.Plan;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +17,7 @@ import katana.sir.types.Value;
 
 /**
  * 6.6b, the PICTURE rule (research §45, R-068), run after passes/Exact and only on its statements: an exact
- * statement (the precondition, `Lower.Plan.exact`) whose value always fits its one promoted
+ * statement (the precondition, `Plan.exact`) whose value always fits its one promoted
  * receiver, by its operands' PICTUREs, stores it as plain assignment: the store would truncate nothing, round
  * nothing and raise no size error. Its obligations: one promoted receiver, whole; the expression's integer places
  * within the receiver's integer digits and its decimal places within its scale; for an unsigned receiver, every
@@ -26,7 +28,7 @@ public final class Fits {
 
     private Fits() {}
 
-    /** The exact statements whose store is plain assignment, by where each starts (`Lower.Plan.loop`); each one refused, by its line, with why. */
+    /** The exact statements whose store is plain assignment, by where each starts (`Plan.loop`); each one refused, by its line, with why. */
     // Decision: R-068
     public static Set<String> fits(Program p, Set<Integer> scalars, Set<String> exact, Map<String, List<String>> refused) {
         Set<String> out = new TreeSet<>();
@@ -36,9 +38,9 @@ public final class Fits {
 
     /** One exact statement held to the obligations (its branches' statements after it). */
     private static void statement(Program p, Statement s, Set<Integer> scalars, Set<String> exact, Set<String> out, Map<String, List<String>> refused) {
-        if (exact.contains(Lower.Plan.loop(s.origin()))) {
+        if (exact.contains(Plan.loop(s.origin()))) {
             List<String> why = refusals(p, s, scalars);
-            if (why.isEmpty()) out.add(Lower.Plan.loop(s.origin()));
+            if (why.isEmpty()) out.add(Plan.loop(s.origin()));
             else refused.put(s.verb() + " at line " + s.origin().line() + " fits", why);
         }
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) statement(p, t, scalars, exact, out, refused);
@@ -56,7 +58,7 @@ public final class Fits {
         Attributes a = p.items().get(r.item() - 1).attributes();
         String name = p.items().get(r.item() - 1).name();
         int[] places = Exact.places(p, form.expression(), scalars, why);
-        int digits = Lower.stored(a) - a.scale();
+        int digits = Storage.stored(a) - a.scale();
         if (places[0] > digits) why.add("its value carries " + places[0] + " integer places, past " + name + "'s " + digits);
         if (places[1] > a.scale()) why.add("its value carries " + places[1] + " decimal places, past " + name + "'s " + a.scale());
         if (!a.signed() && signed(p, form.expression())) why.add(name + " is unsigned and the value may be negative");

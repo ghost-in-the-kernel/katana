@@ -4044,3 +4044,29 @@ taken; closed by a later `decision` entry naming it).
     test only.
 - **Touched:** `test/katana/support/Small.java`, nine unit tests, `test/katana/oracle/lane/CardDemoLane.java`,
   `CardDemoJavaLaneIntegrationTest.java` and its four callers, `docs/KERNEL-MAP.md`, `docs/JOURNAL.md`.
+
+### J-241 Super tithe, part 2: lower/'s three jobs apart, its construction order in one place
+- **Who:** Opus, from the Fable advisor's plan (items 4, 5, 6, 8, 9). **Class:** tithe (R-008). It changes no
+  behaviour and no golden: the full gate passed with every suite.
+- **Found:**
+  - `lower/Lower.java` (380 lines) did three jobs: the class skeleton, storage and attributes, and the pass
+    contract `Plan`.
+  - lower/'s per-program state was built in three steps across `Lower.program`: an `Exprs` with an empty
+    `Promoted`, then a second `Promoted` assigned over it, then its `Views` assigned late. Two readers tested
+    `views` for null.
+  - `Verbs.statement` held the promoted-item policy (SET TO TRUE by a constant, the verbs written through a
+    field of the item's own) beside its dispatch, and `Plan.THROUGH`'s set lived in `Lower`, which passes/Scalars
+    read.
+- **Resolved:**
+  - `lower/Storage.java` holds the items' declarations, definitions and attributes; `lower/Plan.java` the pass
+    contract, with `THROUGH` beside it. `Lower.java` is 213 lines.
+  - `Exprs`' constructor is the one place the state is built, in its order; `Exprs.promoted` is final, and
+    `Promoted.views()` refuses a read before the record classes exist. A literal build has an empty `Views`.
+  - `Promoted.intercept` holds the policy; `Verbs.statement` is one line.
+  - `lower/README.md` gives the entry points and the object graph in its order.
+  - Not done: item 6, `Plan` built by name. It has two constructions (`LITERAL` and `Structuring.plan`), so a
+    builder would add a place to edit per field rather than remove one. Plan's comment names the places instead.
+- **Touched:** `lower/Lower.java`, `lower/Storage.java`, `lower/Plan.java`, `lower/Exprs.java`,
+  `lower/Promoted.java`, `lower/Verbs.java`, `lower/Programs.java`, `lower/Arith.java`, `lower/Places.java`,
+  `lower/README.md`, `passes/Scalars.java`, callers of `Lower.Plan`, `test/PassesDocTest.java`, `docs/PASSES.md`,
+  `CLAUDE.md`, `docs/KERNEL-MAP.md`, `docs/JOURNAL.md`.

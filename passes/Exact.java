@@ -1,5 +1,7 @@
 package katana.passes;
 
+import katana.lower.Storage;
+import katana.lower.Plan;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,7 @@ public final class Exact {
 
     private Exact() {}
 
-    /** The arithmetic statements written exact, by where each starts (`Lower.Plan.loop`); each one refused, by its line, with why. */
+    /** The arithmetic statements written exact, by where each starts (`Plan.loop`); each one refused, by its line, with why. */
     // Decision: R-032
     public static Set<String> exact(Program p, Set<Integer> scalars, Map<String, List<String>> refused) {
         Set<String> out = new TreeSet<>();
@@ -42,7 +44,7 @@ public final class Exact {
             if (form == null) why.add(s.verb().equals("DIVIDE") ? "a division" : "CORRESPONDING, or several receivers sharing a temporary (R-059)");
             else if (!(form.expression() instanceof Value.Expression)) why.add("no operation");
             else places(p, form.expression(), scalars, why);
-            if (why.isEmpty()) out.add(Lower.Plan.loop(s.origin()));
+            if (why.isEmpty()) out.add(Plan.loop(s.origin()));
             else refused.put(s.verb() + " at line " + s.origin().line(), why);
         }
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) statement(p, t, scalars, out, refused);
@@ -59,12 +61,12 @@ public final class Exact {
         switch (v) {
             case Value.Field f when scalars.contains(f.item()) && f.subscripts().isEmpty() && f.start() == null -> {
                 Attributes a = p.items().get(f.item() - 1).attributes();
-                return new int[] {Lower.stored(a) - a.scale(), a.scale()};
+                return new int[] {Storage.stored(a) - a.scale(), a.scale()};
             }
             // 6.4b (R-069): a record field, under the guard that its bytes are a valid number within its PICTURE (`Classes.exact`).
             case Value.Field f when guardable(p.items().get(f.item() - 1).attributes()) && f.start() == null -> {
                 Attributes a = p.items().get(f.item() - 1).attributes();
-                return new int[] {Lower.stored(a) - a.scale(), a.scale()};
+                return new int[] {Storage.stored(a) - a.scale(), a.scale()};
             }
             case Value.Field f -> why.add(p.items().get(f.item() - 1).name() + " is reference-modified or no numeric item of DISPLAY, BINARY or PACKED usage (a native binary's value may pass its PICTURE)");
             case Value.Literal l when l.kind() == Value.Literal.Kind.NUMERIC -> {

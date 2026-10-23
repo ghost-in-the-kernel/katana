@@ -95,8 +95,8 @@ final class Programs {
         for (int c = 0; c == 0 || c * Lower.CHUNK < bound.size(); c++) {
             e.open("private void bind" + record + (c == 0 ? "" : "_" + c) + "(Field a)");
             // 6.7b: a record class is bound whole (research §47), its members with it.
-            if (c == 0 && x.promoted.views.record(record)) e.line(x.promoted.views.bind(record));
-            for (Item i : bound.subList(c * Lower.CHUNK, Math.min(bound.size(), (c + 1) * Lower.CHUNK))) if (x.promoted.views.path(i.id()) == null) e.line("f" + i.id() + " = new Field(a.record(), a.offset() + " + i.offset() + ", " + Lower.attr(p, i, x) + ");");
+            if (c == 0 && x.promoted.views().record(record)) e.line(x.promoted.views().bind(record));
+            for (Item i : bound.subList(c * Lower.CHUNK, Math.min(bound.size(), (c + 1) * Lower.CHUNK))) if (x.promoted.views().path(i.id()) == null) e.line("f" + i.id() + " = new Field(a.record(), a.offset() + " + i.offset() + ", " + Storage.attr(p, i, x) + ");");
             if ((c + 1) * Lower.CHUNK < bound.size()) e.line("bind" + record + "_" + (c + 1) + "(a);");
             e.close();
         }

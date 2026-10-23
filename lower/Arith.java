@@ -108,7 +108,7 @@ final class Arith {
 
     /** A record class's getter for a numeric member read whole (6.7, research §46), null for any other field. */
     private String getter(Value.Field f) {
-        return x.promoted.views == null || !f.subscripts().isEmpty() || f.start() != null ? null : x.promoted.views.getter(f.item());
+        return !f.subscripts().isEmpty() || f.start() != null ? null : x.promoted.views().getter(f.item());
     }
 
     /** The record fields an exact expression reads, as Java Fields: what 6.4b's guard checks before the exact form runs (R-069). */
@@ -122,8 +122,8 @@ final class Arith {
     /** The most integer places any operation of an all-integer expression carries; past 18 when an operand has decimal places. */
     private int integers(Value v) {
         return switch (v) {
-            case Value.Field f when x.promoted.has(f.item()) -> x.promoted.big(f.item()) ? 99 : Lower.stored(x.item(f.item()).attributes());
-            case Value.Field f -> x.item(f.item()).attributes().scale() > 0 ? 99 : Lower.stored(x.item(f.item()).attributes());
+            case Value.Field f when x.promoted.has(f.item()) -> x.promoted.big(f.item()) ? 99 : Storage.stored(x.item(f.item()).attributes());
+            case Value.Field f -> x.item(f.item()).attributes().scale() > 0 ? 99 : Storage.stored(x.item(f.item()).attributes());
             case Value.Literal l -> l.scale() > 0 ? 99 : l.payload().replace("-", "").length();
             case Value.Expression e when e.operands().size() == 1 -> integers(e.operands().get(0));
             case Value.Expression e when e.operator().equals("*") -> integers(e.operands().get(0)) + integers(e.operands().get(1));
@@ -149,7 +149,7 @@ final class Arith {
     /** As `BigDecimal` arithmetic: `a.add(b)`, a `long` item `BigDecimal.valueOf(it)`, a literal at its scale. */
     private String big(Value v) {
         return switch (v) {
-            case Value.Field f when !x.promoted.has(f.item()) && getter(f) != null -> x.promoted.views.big(f.item()) ? getter(f) : "java.math.BigDecimal.valueOf(" + getter(f) + ")";
+            case Value.Field f when !x.promoted.has(f.item()) && getter(f) != null -> x.promoted.views().big(f.item()) ? getter(f) : "java.math.BigDecimal.valueOf(" + getter(f) + ")";
             case Value.Field f when !x.promoted.has(f.item()) -> x.field(f) + ".get().toBigDecimal()";
             case Value.Field f when x.promoted.money(f.item()) -> x.promoted.name(f.item()) + ".amount()";
             case Value.Field f when x.promoted.big(f.item()) -> x.promoted.name(f.item());

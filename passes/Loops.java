@@ -1,5 +1,6 @@
 package katana.passes;
 
+import katana.lower.Plan;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -39,7 +40,7 @@ final class Loops {
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) visit(p, t, methods, out, refused);
         if (!s.verb().equals("PERFORM") || Lower.varying(s).ids().isEmpty()) return;
         List<String> why = refusals(p, s, methods, out);
-        if (why.isEmpty()) out.add(Lower.Plan.loop(s.origin()));
+        if (why.isEmpty()) out.add(Plan.loop(s.origin()));
         else refused.put("PERFORM VARYING at line " + s.origin().line(), why);
     }
 
@@ -60,7 +61,7 @@ final class Loops {
 
     /** What keeps code from being structured Java: a VARYING no `for`, a SEARCH, a SORT's procedure (a PERFORM of a range no method is `dispatch`, research §38). */
     static void unstructured(Statement t, Map<Integer, Integer> methods, Set<String> loops, List<String> why) {
-        if (t.verb().equals("PERFORM") && !Lower.varying(t).ids().isEmpty() && !loops.contains(Lower.Plan.loop(t.origin()))) why.add("line " + t.origin().line() + " is a VARYING that is no for");
+        if (t.verb().equals("PERFORM") && !Lower.varying(t).ids().isEmpty() && !loops.contains(Plan.loop(t.origin()))) why.add("line " + t.origin().line() + " is a VARYING that is no for");
         if (t.verb().equals("SEARCH")) why.add("line " + t.origin().line() + " is a SEARCH");
         if ((t.verb().equals("SORT") || t.verb().equals("MERGE")) && t.operands().stream().anyMatch(o -> o.value() instanceof Value.Target)) why.add("line " + t.origin().line() + " has a procedure");
         for (Statement.Branch b : t.branches()) for (Statement u : b.statements()) unstructured(u, methods, loops, why);
