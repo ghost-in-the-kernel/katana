@@ -41,6 +41,17 @@ class FixtureTest {
         assertRefused(posttran.replace("tz UTC\n", ""), "no tz line");
     }
 
+    /** R-081, FIXTURE-09: `define` is `-` or `NAME=VALUE`, a name once, `-` not mixed with a name. */
+    @Test
+    void theCompileStepsDefinitionsAreDeclaredOrRefused() throws Exception {
+        String posttran = carddemo("POSTTRAN");
+        assertEquals(List.of(), refusals(posttran + "define -\n"));
+        assertEquals(List.of(), refusals(posttran + "define ACTIVATE=1\ndefine CS=EBCDIC\n"));
+        assertRefused(posttran + "define ACTIVATE\n", "define is - (none) or NAME=VALUE");
+        assertRefused(posttran + "define A=1\ndefine a=2\n", "define a twice");
+        assertRefused(posttran + "define -\ndefine A=1\n", "define - says nothing is defined");
+    }
+
     @Test
     void aFixtureValidForNoProfileOrAnotherIsRefused() throws Exception {
         String posttran = carddemo("POSTTRAN");

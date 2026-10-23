@@ -8,7 +8,7 @@ import java.util.Locale;
  * Reference format to the text the forked grammars read (front/grammar/), one output line for each
  * source line so a line number stays a line number, each character with its origin (Mapped). Columns
  * 1-6 are the sequence area, 7 the indicator, 8-72 areas A and B; past 72 is not read. A comment line
- * (`*`, `/`) becomes `*> text`; a `$` directive line is blank; a debug line (`D`) is read as code. A
+ * (`*`, `/`) becomes `*> text`; a `$` directive line is blank; a `>>` directive is applied first (Directives); a debug line (`D`) is read as code. A
  * continuation line (`-`) is joined to the line it continues, which keeps its text to column 72 when
  * a literal is open there, and is left blank. In the IDENTIFICATION DIVISION the comment entries after
  * AUTHOR., INSTALLATION., DATE-WRITTEN., DATE-COMPILED., SECURITY. and REMARKS. are marked `*>CE` until
@@ -26,7 +26,16 @@ public final class Lines {
     }
 
     /** The source (tabs already expanded) as the grammars read it, each character with its place in the file. */
-    public static Mapped normalize(String source, String file) {
+    public static Mapped normalize(String raw, String file) {
+        return normalize(raw, file, Settings.UNDECLARED, new java.util.ArrayList<>(), new java.util.ArrayList<>());
+    }
+
+    /** The same under the compile step's settings (R-081): the directives' errors and the ranges a false condition excluded are added to the lists. */
+    static Mapped normalize(String raw, String file, Settings settings, java.util.List<String> errors, java.util.List<Excluded> excluded) {
+        Directives.Result applied = Directives.apply(raw, file, settings);
+        errors.addAll(applied.errors());
+        excluded.addAll(applied.excluded());
+        String source = applied.text();
         Mapped all = Mapped.source(source, file);
         List<Mapped> out = new ArrayList<>();
         List<Integer> ends = new ArrayList<>();

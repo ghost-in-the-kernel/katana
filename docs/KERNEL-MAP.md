@@ -1972,3 +1972,34 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | passes | `passes/Passes.java:Passes.plan` | R-032 | 2026-10-23 |  |
 | passes | `passes/Structuring.java:Structuring.methods` | R-032 | 2026-10-23 |  |
 | passes | `passes/Structuring.java:Structuring.plan` | moved in the super tithe (J-242) | 2026-10-23 | superseded-by: `passes/Passes.java:Passes.plan` |
+| front | `front/Directives.java:Directives.Frame.Frame` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.Directives` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.apply` | R-081 | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.directive` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.condition` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.unquote` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.blank` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.debugging` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.opened` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.next` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.otherwise` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.closed` |  | 2026-10-23 |  |
+| findings | `findings/Finding.java:Finding.Kind.compiledOut` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.branch` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.leave` |  | 2026-10-23 |  |
+| front | `front/Directives.java:Directives.where` |  | 2026-10-23 |  |
+| front | `front/Lines.java:Lines.normalize#3` |  | 2026-10-23 |  |
+| front | `front/Parse.java:Parse.file#2` |  | 2026-10-23 |  |
+| front | `front/Parse.java:Parse.text#3` |  | 2026-10-23 |  |
+| front | `front/Preprocessor.java:Preprocessor.run#3` |  | 2026-10-23 |  |
+| front | `front/Settings.java:Settings.Settings` |  | 2026-10-23 |  |
+| front | `front/Settings.java:Settings.declared` |  | 2026-10-23 |  |
+| front | `front/Settings.java:Settings.isDeclared` |  | 2026-10-23 |  |
+| oracle | `oracle/fixture/FixtureCheck.java:FixtureCheck.defines` |  | 2026-10-23 |  |
+| oracle | `oracle/lane/Definitions.java:Definitions.Definitions` |  | 2026-10-23 |  |
+| oracle | `oracle/lane/Definitions.java:Definitions.of` |  | 2026-10-23 |  |
+| oracle | `oracle/lane/Definitions.java:Definitions.settings` | R-081 | 2026-10-23 |  |
+| oracle | `oracle/lane/Definitions.java:Definitions.cobcArguments` |  | 2026-10-23 |  |
+| sir | `sir/check/CompiledOut.java:CompiledOut.CompiledOut` |  | 2026-10-23 |  |
+| sir | `sir/check/CompiledOut.java:CompiledOut.findings` | R-081 | 2026-10-23 |  |
+| sir | `sir/check/CompiledOut.java:CompiledOut.finding` |  | 2026-10-23 |  |

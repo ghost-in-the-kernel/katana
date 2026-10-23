@@ -58,7 +58,7 @@ public final class ProofReport {
      * under a reading not yet proven on IBM (`HY-`, R-049), which one mainframe run clears.
      */
     private static void findings(List<Finding> findings, List<String> out) {
-        List<Finding> notExact = findings.stream().filter(f -> !f.kind().hypothesis()).toList(), hypotheses = findings.stream().filter(f -> f.kind().hypothesis()).toList();
+        List<Finding> notExact = findings.stream().filter(f -> !f.kind().hypothesis() && !f.kind().compiledOut()).toList(), hypotheses = findings.stream().filter(f -> f.kind().hypothesis()).toList();
         out.add("## Findings");
         out.add("");
         out.add(notExact.isEmpty() ? "None." : Finding.report(notExact).stripTrailing());
@@ -66,6 +66,13 @@ public final class ProofReport {
         out.add("## Valid under hypothesis");
         out.add("");
         out.add(hypotheses.isEmpty() ? "None." : Finding.report(hypotheses).stripTrailing());
+        List<Finding> compiledOut = findings.stream().filter(f -> f.kind().compiledOut()).toList();
+        if (!compiledOut.isEmpty()) {
+            out.add("");
+            out.add("## Compiled-out code");
+            out.add("");
+            out.add(Finding.report(compiledOut).stripTrailing());
+        }
     }
 
     private static String profileLine(Report expected) {

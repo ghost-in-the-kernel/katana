@@ -76,3 +76,4 @@ Written from `theGhost.md` by `gradle decisions`; do not edit by hand. A decisio
 | R-078 | A new task gets a fresh Sonnet agent; an agent is resumed only within one unfinished task | in force |
 | R-079 | Every agent debriefs on navigation; the debriefs are reviewed about every ten commits | in force |
 | R-080 | CLAUDE.md's conditional rules are one-line triggers to the file that holds them | in force |
+| R-081 | a `>>` directive is read only when it can be read exactly; the rest stay parse errors | in force |

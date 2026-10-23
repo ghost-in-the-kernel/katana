@@ -28,8 +28,8 @@ final class Paragraphs {
     private static final String ANY_PROFILE = "sha256:" + "0".repeat(64);
 
     /** The section and paragraph names of a program and those nested in it, from the IR's paragraph graph, in textual order. */
-    static List<String> of(Path source, List<Path> copybooks, ToIntFunction<String> widths) {
-        Parse.Result parse = Parse.file(source, new Copybooks(copybooks, widths), widths.applyAsInt(source.getFileName().toString()));
+    static List<String> of(Path source, List<Path> copybooks, ToIntFunction<String> widths, katana.front.Settings settings) {
+        Parse.Result parse = Parse.file(source, new Copybooks(copybooks, widths), widths.applyAsInt(source.getFileName().toString()), settings);
         if (!parse.clean()) throw new IllegalStateException(source + " does not parse: " + parse.errors().get(0));
         List<String> names = new ArrayList<>();
         for (Build.Result r : Build.programs(parse, ANY_PROFILE)) names(r.program(), names);

@@ -27,5 +27,15 @@ the findings above, and one mainframe run clears every program that carries it a
 | --- | --- | --- |
 | `HY-01` | GO TO out of a PERFORM range | exact under cobc's reading of PERFORM's return (R-021 C-1), which a mainframe run settles for every such program at once |
 
+## Compiled-out code
+
+Not a fault of the program: source a false `>>IF`, `>>ELIF` or `>>ELSE` condition excluded (R-081). The proof is of the
+text without it, so the proof report lists each excluded range apart, with its directive, and a reviewer reads it as
+the code the proof does not cover. One finding a range, from the front end's parse (`sir/check/CompiledOut`).
+
+| Code | Kind | Why it is said |
+| --- | --- | --- |
+| `CO-01` | compiled-out code | a `>>` condition that was false removed these lines, so the program proved is the text without them (R-081); a reviewer reads them as the code the proof does not cover |
+
 Not yet found: reads of uninitialized storage (F-08's last class), which needs the data flow the
 Intent IR builds (phase 5); until then it is listed here and nowhere else.

@@ -46,6 +46,16 @@ class ProofReportTest {
         org.junit.jupiter.api.Assertions.assertTrue(report.contains("not proven (R-057)"), report);
     }
 
+    /** R-081: the ranges a false condition excluded are said in a section of their own, only when there are any. */
+    @Test
+    void compiledOutCodeIsSaidInASectionOfItsOwn() throws Exception {
+        var co = new katana.findings.Finding(katana.findings.Finding.Kind.CO_01, "P.cbl:5:1", "lines 5 to 6 excluded by >>IF A DEFINED");
+        String with = ProofReport.write(FIXTURE, "t.fixture", new Report(), new Gate.Result(true, List.of()), "nothing", List.of(), new Report(), proof(), List.of(co));
+        String findings = with.substring(with.indexOf("## Findings"), with.indexOf("## Valid under hypothesis"));
+        assertTrue(!findings.contains("CO-01") && with.contains("## Compiled-out code\n\nCO-01 compiled-out code: lines 5 to 6 excluded by >>IF A DEFINED (P.cbl:5:1)"), with);
+        assertEquals(-1, ProofReport.write(FIXTURE, "t.fixture", new Report(), new Gate.Result(true, List.of()), "nothing", List.of(), new Report(), proof(), List.of()).indexOf("Compiled-out"));
+    }
+
     /** v1 (research §27): a dataset only the java lane leaves is said, not compared; coverage names where it comes from. */
     @Test
     void v1SaysWhatItCouldNotCompareAndWhereCoverageCameFrom() throws Exception {

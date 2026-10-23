@@ -43,13 +43,15 @@ Done:
   J-248), 6 fail in the IR or the lowering, 4 fail javac, 80 stop at run time on a construct the lowering names, 41
   differ from the testsuite's stdout, 49 pass. J-248: a nested program names its container by the class it is
   written in (5 cases compiled). J-249: the census gives the parser the case's own directory as its copybook path:
-  now 153 do not parse, 9 fail in the IR or the lowering, 82 stop at run time, 53 pass.
+  now 153 do not parse, 9 fail in the IR or the lowering, 82 stop at run time, 53 pass. J-251: the `>>` directives that
+  decide the text (IF family, DEFINE AS literal, `>>D`) are read (R-081): 146 do not parse, 84 stop at run time, 44 differ, 55 pass.
 
 Open: the 329 that do not pass; the 41 FAILs sorted into findings against the testsuite's dialect (D-010) and real
 differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
-Next, by count (J-248, J-249): the 153 that do not parse, whose largest causes are `>>SOURCE` and other `>>` directives (13+2),
+Next, by count (J-248, J-249, J-251): the 146 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
+`SOURCE FORMAT`, `TURN`: 6, each an error by R-081; `$SET` out of column 7: 1),
 `MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower
 case or after a different header (5); a copybook not found (7, J-249: `xfhfcd.cpy`, which GnuCOBOL installs and the
 corpus does not hold, Ghost's word); the 4 javac failures (3 call `bind1`..`bind3` for a USING the class does not

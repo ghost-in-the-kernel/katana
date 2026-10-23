@@ -37,6 +37,7 @@ public final class Schema {
         s.put("module", new Spec(1, Set.of(), Set.of(), Set.of()));
         s.put("stub", new Spec(1, Set.of(), Set.of(), Set.of()));
         s.put("tabs", new Spec(2, Set.of(), Set.of(), Set.of()));
+        s.put("define", new Spec(1, Set.of(), Set.of(), Set.of()));
         s.put("dfsort.pad", new Spec(1, Set.of(), Set.of(), Set.of()));
         s.put("dfsort.trunc", new Spec(1, Set.of(), Set.of(), Set.of()));
         s.put("dataset", new Spec(1, ordered("org", "lrecl", "keys", "over", "unique", "from", "framing", "sha256", "signs", "defined-by"),

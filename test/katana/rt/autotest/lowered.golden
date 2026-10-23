@@ -64,9 +64,9 @@ run_extensions-4509 NOPARSE parsing mismatched input 'BINARY-CHAR'
 run_extensions-4619 NOPARSE parsing mismatched input 'PROGRAM-POINTER'
 run_extensions-4718 NOPARSE parsing mismatched input 'PROGRAM-POINTER'
 run_extensions-4799 NOLOWER
-run_extensions-4913 NOPARSE parsing mismatched input '>'
-run_extensions-4938 NOPARSE parsing mismatched input '>'
-run_extensions-4963 NOPARSE parsing mismatched input '>'
+run_extensions-4913 PASS
+run_extensions-4938 FAIL
+run_extensions-4963 FAIL
 run_extensions-5046 NOPARSE parsing mismatched input '>'
 run_extensions-5085 NOPARSE parsing mismatched input '>'
 run_extensions-5124 NOPARSE parsing mismatched input 'e'
@@ -74,7 +74,7 @@ run_extensions-517 FAIL
 run_extensions-5173 NOPARSE parsing mismatched input 'e'
 run_extensions-5257 NOPARSE parsing mismatched input 'ICATION'
 run_extensions-5307 PASS
-run_extensions-5338 NOPARSE parsing mismatched input '>'
+run_extensions-5338 NOPARSE parsing mismatched input '$'
 run_extensions-5374 NORUN
 run_extensions-5405 NOPARSE parsing mismatched input 'B-OR'
 run_extensions-546 NORUN
@@ -164,7 +164,7 @@ run_functions-656 NOPARSE parsing extraneous input 'ANY'
 run_functions-716 NORUN
 run_functions-934 NORUN
 run_functions-969 NORUN
-run_fundamental-105 NOPARSE parsing mismatched input '>'
+run_fundamental-105 NORUN
 run_fundamental-146 FAIL
 run_fundamental-193 FAIL
 run_fundamental-2433 PASS
@@ -183,7 +183,7 @@ run_fundamental-3375 NORUN
 run_fundamental-3459 NOPARSE parsing mismatched input 'FUNCTION-ID'
 run_fundamental-3642 NORUN
 run_fundamental-3871 NORUN
-run_fundamental-3926 NOPARSE parsing extraneous input '>'
+run_fundamental-3926 NORUN
 run_fundamental-4014 NOPARSE parsing mismatched input 'PROGRAM-POINTER'
 run_fundamental-4110 NOPARSE parsing mismatched input 'PROTOTYPE'
 run_fundamental-4483 NORUN
@@ -212,8 +212,8 @@ run_fundamental-72 FAIL
 run_fundamental-7456 PASS
 run_fundamental-7479 FAIL
 run_fundamental-7502 NOPARSE parsing extraneous input 'UPON'
-run_fundamental-7528 NOPARSE parsing mismatched input '>'
-run_fundamental-7551 NOPARSE parsing mismatched input '>'
+run_fundamental-7528 PASS
+run_fundamental-7551 FAIL
 run_fundamental-7574 PASS
 run_fundamental-7619 PASS
 run_fundamental-7664 FAIL
@@ -259,7 +259,7 @@ run_misc-13202 NOPARSE parsing mismatched input '$'
 run_misc-13305 NOPARSE parsing mismatched input '>'
 run_misc-13371 NOPARSE parsing mismatched input '>'
 run_misc-13437 NOPARSE parsing extraneous input '*'
-run_misc-13505 NOPARSE parsing mismatched input '>'
+run_misc-13505 NOPARSE parsing extraneous input '&'
 run_misc-1358 NOSOURCE
 run_misc-13585 NOJAVAC
 run_misc-13687 NOPARSE parsing mismatched input 'FLOAT-DECIMAL-16'
@@ -380,4 +380,4 @@ used_binaries-359 PASS
 used_binaries-393 PASS
 used_binaries-411 PASS
 used_binaries-482 PASS
-runnable 378 NOSOURCE 36 NOPARSE 153 NOLOWER 9 NOJAVAC 4 NORUN 82 FAIL 41 PASS 53
+runnable 378 NOSOURCE 36 NOPARSE 146 NOLOWER 9 NOJAVAC 4 NORUN 84 FAIL 44 PASS 55
