@@ -4,8 +4,14 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
 
 ## Instructions
 
+- The image is `katana`, built as CI builds it: `docker build -t katana .`. If `docker image ls` shows only
+  `katana:dev`, tag it: `docker tag katana:dev katana` (J-253, N-004 and N-005).
 - A step runs in this order: a research section with its prediction, committed before the build; the build; a
   journal entry (`docs/JOURNAL.md`, R-046); the gate; the merge to `main` (R-040).
+- Before a research section's prediction, read the cases it predicts about, and how they are run (flags,
+  settings), not only their error messages (J-253: N-002 and N-004's predictions missed for want of it).
+- An `// Unsure:` line says what would settle it, and ends with what stays until then (`Stays: ...`);
+  `DocTests` refuses one without (J-253, N-002).
 - Take every number from `gradle nextId` after `git fetch origin main`; never guess the next R-, J- or §.
 - A decision is a row in `theGhost.md`, and the function that holds it cites it (`// Decision: R-xxx`).
 - One commit in eight is a tithe (its message starts `Tithe`); the gate refuses a push past sixteen since the

@@ -6,6 +6,8 @@ A new task gets a fresh Claude Sonnet agent, briefed with the task, the rules, a
 what earlier runs found: what a run learned is carried by the repository (the journal, TODO.md, the workpath
 files). Resume an agent only within one unfinished task, on the same files, while its context is small. A
 fresh agent at a merge boundary or a change of workpath also tests that the repository carries what it needs.
+End the brief with "finish as `docs/when/handoff.md` says, then report": a brief that describes only the report is
+read as the whole finish, and the debrief is missed (J-253, N-005).
 
 ## Finishing a task
 
@@ -19,4 +21,5 @@ fresh agent at a merge boundary or a change of workpath also tests that the repo
 Read `docs/NAVIGATION.md`'s entries for what agents converge on. Nothing actionable: write the journal entry and
 empty the entries. Actionable: write the journal entry, empty the entries, check each item is valid against the
 code, and fix the valid ones (a tithe). An open question goes to a Fable instance; its answer goes in the
-journal entry. Title the commit "Navigation review <n>" and move `Reviewed through:` to it.
+journal entry. A review changes no behaviour, so it is a tithe: title the commit "Tithe: navigation review <n>", and set `Reviewed through:` to the commit the review read up to (the
+review's own parent: a commit cannot name itself).

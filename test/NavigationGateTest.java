@@ -31,7 +31,7 @@ class NavigationGateTest {
     @Test
     void aReviewAtTheHeadIsAlwaysAllowed() {
         List<String> log = log(40);
-        log.add(0, String.format("%-40s", "c2000e").replace(' ', '0') + " Navigation review 2: two converged");
+        log.add(0, String.format("%-40s", "c2000e").replace(' ', '0') + " Tithe: navigation review 2: two converged");
         assertNull(NavigationGate.verdict(log, REVIEWED));
     }
 

@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
  * R-079's gate: docs/NAVIGATION.md, the agents' debriefs on finding their way, is reviewed about every ten
  * commits. The file's line `Reviewed through: <commit>` names the last review; `gradle metrics` warns past
  * REVIEW commits since, and the gate refuses a push past LIMIT, as R-008's does for a tithe (J-070: a rule held by
- * habit lapses). A push whose head is a review (titled "Navigation review") always goes.
+ * habit lapses). A push whose head is a review (its title names "navigation review"; a review is a tithe, so usually "Tithe:
+ * navigation review <n>") always goes.
  */
 // Decision: R-079
 final class NavigationGate {
@@ -27,7 +28,7 @@ final class NavigationGate {
 
     /** Null when the push may go, else why not. */
     static String verdict(List<String> log, String navigation) {
-        if (!log.isEmpty() && log.get(0).split(" ", 2).length > 1 && log.get(0).split(" ", 2)[1].startsWith("Navigation review")) return null;
+        if (!log.isEmpty() && log.get(0).toLowerCase(java.util.Locale.ROOT).contains("navigation review")) return null;
         int since = since(log, navigation);
         if (since < 0) return PATH + " names no `Reviewed through: <commit>` in the recent history (R-079)";
         if (since <= LIMIT) return null;

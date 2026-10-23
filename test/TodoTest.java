@@ -38,6 +38,10 @@ final class TodoTest {
                 .repository(check(Check.read("TODO.md"), Check.read("docs/DONE.md")))
                 .repository(statuses(Check.read("TODO.md")))
                 .rejects("an item with no Status line", () -> statuses("### 3.1 A\n\nCheck: x\n"))
+                .repository(workpaths(Check.read("TODO.md"), Check::exists))
+                .rejects("an item with no Workpath line", () -> workpaths("### 3.1 A\n\nStatus: open.\n", x -> true))
+                .rejects("a Workpath naming no file that exists", () -> workpaths("### 3.1 A\n\nStatus: open.\nWorkpath: `docs/paths/x.md`.\n", x -> false))
+                .accepts("an item with its workpath", () -> workpaths("### 3.1 A\n\nStatus: open.\nWorkpath: `docs/paths/x.md`.\n", x -> true))
                 .rejects("a status in no known word", () -> statuses("### 3.1 A\n\nStatus: nearly.\n"))
                 .accepts("an item with a status", () -> statuses("### 3.1 A\n\nStatus: partly built (J-001); open: y.\n"))
                 .rejects("items out of order", () -> check(OUT_OF_ORDER, ""))
@@ -50,6 +54,19 @@ final class TodoTest {
 
     /** Each item's state at a glance (J-244): a `Status:` line opening with one of these. */
     static final List<String> STATES = List.of("open", "partly built", "built ahead", "waits on");
+
+    /** Each item names where an agent starts (J-253, N-003 and N-004): a `Workpath:` line naming a workpath file that exists. */
+    static List<String> workpaths(String todo, java.util.function.Predicate<String> exists) {
+        List<String> failures = new ArrayList<>();
+        for (String part : todo.split("(?m)^(?=### )")) {
+            if (!part.startsWith("### ")) continue;
+            String number = part.substring(4).split(" ")[0];
+            java.util.regex.Matcher w = Pattern.compile("(?m)^Workpath: `(docs/paths/[^`]+)`").matcher(part);
+            if (!w.find()) failures.add(number + " has no Workpath line naming a docs/paths/ file");
+            else if (!exists.test(w.group(1))) failures.add(number + "'s workpath `" + w.group(1) + "` does not exist");
+        }
+        return failures;
+    }
 
     /** The items with no `Status:` line, or one that opens with none of `STATES`. */
     static List<String> statuses(String todo) {
