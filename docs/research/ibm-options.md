@@ -2659,3 +2659,36 @@ directory cannot find them, and a copybook is not ours to write (R-037, R-045).
 
 The rival: pointing the parser at the whole `cases/` tree. A case would then find another case's file of the same
 name, and `copy.inc` is in four cases with different text.
+
+## 58. 3.1, the `>>` directives: conditional compilation and `>>D`, the rest left as errors (J-251)
+
+**Ghost's word (2026-10-23).** Take 3.1's "Next" in order; with the copybook cause done (J-249), the first is the
+`>>` directives (13 of the 153 that do not parse, all with "mismatched input '>'").
+
+**Found by reading the 13 cases.** `Lines` reads a line whose text starts `>>` as code, so the grammar meets `>`.
+They are five different things: `>>IF`/`>>ELIF`/`>>ELSE`/`>>END-IF` over `NAME [IS] [NOT] DEFINED` or
+`NAME = 'literal'` (`run_extensions-4913`, `4938`, `4963`, `5338`, `run_fundamental-105`); `>>D` before a line, the
+free-form debugging line (`run_fundamental-7528`, `7551`: the `>>D` starts in column 7, so the `D` is in column 9);
+`>>SET CONSTANT` and `>>DEFINE ... AS PARAMETER` (`run_misc-13305`, `13371`, `13505`: a constant the program's
+text uses, a value from the command line or the environment); `>>SOURCE FORMAT` (`run_extensions-5046`, `5085`: the
+rest of the file in another format); `>>TURN ... CHECKING` (`run_misc-881`: runtime checks on and off). Each case's
+`case.txt` has a second check that compiles with a `-D`; the census compiles with none, so every name is undefined.
+
+**What the step builds.** `front/Directives.java`, run by `Lines.normalize` before the lines are read: it blanks
+the directive lines and the lines a false `>>IF` excludes (same length, so every line and column stays), and turns
+`>>D` into a `D` indicator, which the existing debugging-line rule (R-019) then decides. `>>DEFINE name AS literal`
+is read. Anything else after `>>` (`SET CONSTANT`, `DEFINE ... AS PARAMETER`, `SOURCE`, `TURN`, a condition it does
+not read, an unbalanced `>>END-IF`) leaves the whole source as it was, so the parser still stops on it: an unread
+directive is an error, never a silent gap (P-03). No name is predefined, so `CHARSET = 'EBCDIC'` is false.
+
+**Predicted, before the run:**
+- the seven cases with only IF-family or `>>D` directives (`4913`, `4938`, `4963`, `5338`, `run_fundamental-105`,
+  `7528`, `7551`) no longer stop at `>`; the other six still do;
+- NOPARSE 153 to between 146 and 149 (one of the seven may meet a different first error, `5338`'s `COMP-1` or
+  `105`'s `CALL "dump"` into a C file are the likely ones);
+- PASS 53 rises by 3 to 5 (`4913`, `4938`, `4963`, `7528`, `7551` print only OK, so they pass if the run is exact;
+  `7528` and `7551` only if the `D` lines are comments without WITH DEBUGGING MODE); FAIL, NORUN or NOLOWER take the rest;
+- no golden but `lowered.golden` changes; `front/corpus.golden` is untouched (no corpus program holds a `>>`).
+
+The rival: reading `>>` in the grammar's lexer. The directives would then reach the parse tree, and the source map
+(R-019's origins) would have to carry them through; blanking before the grammar keeps the grammar as it is forked.
