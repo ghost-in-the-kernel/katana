@@ -1454,7 +1454,9 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   detect a divergence; what the market lacks is the cause, the trace and the fix, and only a reproduced input makes
   a claim about someone else's code credible.
 - **Held by:** TODO.md's phase 8A, each item's check; `test/TodoTest.java` (a lettered phase in the chain after the item
-  it names); docs/ROADMAP.md's phase 8A.
+  it names); docs/ROADMAP.md's phase 8A; `oracle/prove/` (`Prove`, `Generators`, `Boundary`, `Align`, `Attribute`,
+  `Divergences`, `Report`), `findings/Divergence.java` and docs/DIVERGENCES.md, `rt/Events` and `rt/Decimal`'s probe
+  switch (LANE-22, LANE-23); `test/katana/oracle/prove/`, chiefly `ReportIntegrationTest` (J-229 to J-237).
 - **Source:** Ghost, 2026-10-22: the goal ("We want to be able to take in a finished java implementation, and a cobol
   source code..."), then "follow the advisor's recommendations, phase 8A after 7.1"; the advice in
   docs/research/reviews/2026-10-22-divergence-report-goal.md.
