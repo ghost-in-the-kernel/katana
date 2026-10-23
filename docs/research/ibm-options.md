@@ -2692,3 +2692,55 @@ directive is an error, never a silent gap (P-03). No name is predefined, so `CHA
 
 The rival: reading `>>` in the grammar's lexer. The directives would then reach the parse tree, and the source map
 (R-019's origins) would have to carry them through; blanking before the grammar keeps the grammar as it is forked.
+
+## 59. 3.1, the `>>` directives amended: a name from outside the source, compiled-out code seen, IBM's own directives (J-252)
+
+**Ghost's word (2026-10-23), after Opus reviewed R-081.** R-081 is not fail-closed in one case, and has two smaller gaps.
+
+**1. A name's value can come from outside the source.** On z/OS the DEFINE compiler option on the compile step can
+define a name that `>>IF NAME IS DEFINED` or `NAME = literal` tests. R-081 predefines nothing, so a program that relies
+on it compiles the other branch without a word, and both lanes agree on it because cobc is also run without the
+definition: the oracle cannot see this error. Read from the code: `Directives.condition` answers `false` for a name
+nothing `>>DEFINE`d. *Choice, error or finding:* the front end reports what stops it as an error in a list
+(`Preprocessor.Result.errors`, `Parse.Result.errors`; `Parse.clean()` is false and the IR is not built); findings
+(`NE-`, `HY-`) are said of a program that parsed, about what the lowering cannot make exact. Which text is the program
+is decided before there is a program, and a wrong answer is a wrong program, not an inexact one, so it is an error
+(P-03: not silent output). It is lifted only by a declaration: the job says its compile-time definitions (a fixture
+line, as `tabs` and `dfsort.pad` say theirs), and the front end takes them as an argument. A declaration may say
+"none": then an undefined name is undefined by the job's word, and the census, which compiles every case with no
+`-D`, says exactly that.
+*The lanes:* the cobc lane builds with `Compiler`'s argument list, to which `-D name=value` can be added (to be
+checked on the pinned cobc 3.1.2 with a case: a `>>IF X DEFINED` program built with and without `-D X`); the java lane
+takes no compile options of its own, the front end lowering the source being its compile step, so it gets the same
+definitions as an argument to the parse.
+
+**2. Compiled-out code must be visible.** A false condition removes lines from the program that is proven, and
+nothing in the report says so. *Where findings reach the report:* `ProofReport.write` takes the programs' findings
+(`NonExact.findings`, per Semantic IR program) and prints them under "Findings" and "Valid under hypothesis". The
+excluded ranges are known to the front end only, so the parse result carries them and `sir/check` turns them into
+findings, one a range, with the directive that excluded it; the report prints them in a section of their own when
+there are any (so no existing report changes).
+
+**3. Which directives are IBM's.** Katana's dialect is IBM Enterprise COBOL. *What I recall of IBM's Language
+Reference (6.4), not read this session:* its conditional-compilation directives are `>>DEFINE` (`AS literal`,
+`PARAMETER`, `OFF`), `>>IF` ... `>>ELSE` ... `>>END-IF`, and `>>EVALUATE` ... `>>WHEN` ... `>>END-EVALUATE`; I recall no
+`>>ELIF` among them (GnuCOBOL's and Micro Focus's), and `>>D` is a free-form debugging line of Micro Focus and
+GnuCOBOL, where IBM's debugging line is a `D` in column 7 (R-019). *Could not confirm:* this session has no network
+(ibm.com and publibfp.dhe.ibm.com answer 403 or do not resolve), and no copy of the manual is in the repository, so
+the recollection is unverified. Settled the fail-closed way: an unconfirmed directive is not read under IBM's dialect.
+`>>ELIF` and `>>D` stay errors unless the caller says the dialect allows them (the GnuCOBOL extensions, which the
+autotest census is in, D-010); no fixture, and no profile field, says it yet, a profile field being a new profile hash
+for every fixture (docs/PROFILE.md), so a decision to give the profile that field is proposed, not made.
+
+**Predicted, before the build:**
+- the fast loop stays green; `DirectivesTest` gains cases for the undeclared name (an error naming the name and the
+  line), a declared one (read), "none" declared, `ELIF` and `>>D` as errors under IBM and read with the extensions, and
+  the excluded ranges;
+- the census, declaring no definitions and the extensions, is unchanged: NOPARSE 146, PASS 55, `lowered.golden` not
+  rewritten; run without any declaration, the cases that test an undefined name (`4913`, `4938`, `4963` and the others
+  that read a name never defined) would stop at the new error, which is the point;
+- `front/corpus.golden` and the other goldens are untouched (no corpus program holds a `>>`); `-D` on cobc 3.1.2 defines
+  a name `>>IF` sees, so a fixture's declaration reaches both lanes.
+
+The rival: predefining the names IBM's compiler defines. None is known to be documented, and a name wrongly defined is
+the same silent error as a name wrongly undefined.
