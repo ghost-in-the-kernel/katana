@@ -33,7 +33,7 @@ run_accept-369 NOPARSE parsing mismatched input 'OMITTED'
 run_extensions-101 FLAG -facu-literals=ok
 run_extensions-1151 FLAG -fodoslide
 run_extensions-127 FLAG -fhp-octal-literals=ok
-run_extensions-1625 FLAG -std=mf
+run_extensions-1625 FLAG -std=mf (another dialect's expected output)
 run_extensions-1761 NOSOURCE
 run_extensions-1826 NOSOURCE
 run_extensions-188 NORUN
@@ -42,7 +42,7 @@ run_extensions-2019 NOSOURCE
 run_extensions-217 PASS
 run_extensions-2172 NOSOURCE
 run_extensions-2260 NORUN
-run_extensions-2292 FLAG -std=acu-strict
+run_extensions-2292 FLAG -std=acu-strict (another dialect's expected output)
 run_extensions-2381 NOJAVAC
 run_extensions-25 NORUN
 run_extensions-2610 NOSOURCE
@@ -54,7 +54,7 @@ run_extensions-2854 FAIL
 run_extensions-287 NOPARSE parsing mismatched input 'LENGTH'
 run_extensions-2880 FAIL
 run_extensions-2904 FLAG -fsystem-name=sw1, SwItCh\ b, SWITCH\ 25 -fsystem-name=SWITCH-32 -fsystem-name=SWITCH\ Z -fsystem-name=USW-31
-run_extensions-3108 FLAG -std=cobol2014
+run_extensions-3108 FLAG -std=cobol2014 (another dialect's expected output)
 run_extensions-3181 NORUN
 run_extensions-3300 NOSOURCE
 run_extensions-4148 NOPARSE parsing mismatched input 'BINARY-LONG'
@@ -63,24 +63,24 @@ run_extensions-4268 NOPARSE parsing mismatched input 'BINARY-LONG'
 run_extensions-4398 NOJAVAC
 run_extensions-4509 NOPARSE parsing mismatched input 'BINARY-CHAR'
 run_extensions-4619 NOPARSE parsing mismatched input 'PROGRAM-POINTER'
-run_extensions-4718 FLAG -std=mf
-run_extensions-4799 FLAG -std=mf
+run_extensions-4718 FLAG -std=mf (another dialect's expected output)
+run_extensions-4799 FLAG -std=mf (another dialect's expected output)
 run_extensions-4913 PASS
 run_extensions-4938 PASS
 run_extensions-4963 PASS
 run_extensions-5046 NOPARSE parsing mismatched input '>'
 run_extensions-5085 NOPARSE parsing mismatched input '>'
 run_extensions-5124 FLAG -fformat=xopen -fno-areacheck
-run_extensions-517 FLAG -std=mvs
+run_extensions-517 FLAG -std=mvs (another dialect's expected output)
 run_extensions-5173 FLAG -fformat=terminal -fcomment-paragraphs=ok
-run_extensions-5257 FLAG -free
+run_extensions-5257 FLAG -free (a source format the dialect does not have)
 run_extensions-5307 FLAGPASS -fbinary-comp-1
 run_extensions-5338 NOPARSE parsing mismatched input '$'
-run_extensions-5374 FLAG -std=mvs
+run_extensions-5374 FLAG -std=mvs (another dialect's expected output)
 run_extensions-5405 FLAG -facu-literal=ok -fno-trunc
-run_extensions-546 FLAG -std=mf
-run_extensions-5508 FLAG -std=mf -fno-trunc
-run_extensions-5583 FLAG -std=gcos-strict
+run_extensions-546 FLAG -std=mf (another dialect's expected output)
+run_extensions-5508 FLAG -std=mf (another dialect's expected output) -fno-trunc
+run_extensions-5583 FLAG -std=gcos-strict (another dialect's expected output)
 run_extensions-609 FLAG -fodoslide
 run_extensions-673 FLAG -fcomplex-odo
 run_extensions-72 NORUN
@@ -197,7 +197,7 @@ run_fundamental-4649 NOPARSE parsing mismatched input 'REPOSITORY'
 run_fundamental-4674 PASS
 run_fundamental-4697 NOPARSE parsing extraneous input 'NORMAL'
 run_fundamental-4719 NOPARSE parsing extraneous input 'MODE'
-run_fundamental-4746 FLAGPASS -std=ibm-strict
+run_fundamental-4746 PASS
 run_fundamental-4773 NOPARSE parsing extraneous input 'MODE'
 run_fundamental-4836 NOPARSE parsing extraneous input 'MODE'
 run_fundamental-4899 NOPARSE parsing extraneous input 'MODE'
@@ -213,8 +213,8 @@ run_fundamental-72 FAIL
 run_fundamental-7456 PASS
 run_fundamental-7479 PASS
 run_fundamental-7502 NOPARSE parsing extraneous input 'UPON'
-run_fundamental-7528 FLAGPASS -free
-run_fundamental-7551 FLAGPASS -free
+run_fundamental-7528 FLAGPASS -free (a source format the dialect does not have)
+run_fundamental-7551 FLAGPASS -free (a source format the dialect does not have)
 run_fundamental-7574 PASS
 run_fundamental-7619 PASS
 run_fundamental-7664 FAIL
@@ -239,7 +239,7 @@ run_misc-1075 PASS
 run_misc-11435 FLAG -fdump=ALL
 run_misc-11711 NOPARSE parsing mismatched input 'AS'
 run_misc-11790 NOPARSE parsing extraneous input 'WITH'
-run_misc-11873 FLAGPASS -free
+run_misc-11873 FLAGPASS -free (a source format the dialect does not have)
 run_misc-11899 NOPARSE parsing extraneous input 'WHEN'
 run_misc-12020 NORUN
 run_misc-12088 NORUN
@@ -255,14 +255,14 @@ run_misc-128 NOPARSE parsing mismatched input ','
 run_misc-12873 FAIL
 run_misc-12977 NOPARSE parsing extraneous input 'MODE'
 run_misc-13028 FLAGPASS -farithmetic-osvs
-run_misc-13145 FLAG -std=ibm
-run_misc-13202 FLAG -std=mf
+run_misc-13145 NOPARSE parsing extraneous input 'MODE'
+run_misc-13202 FLAG -std=mf (another dialect's expected output)
 run_misc-13305 FLAG -fdefine-constant-directive=ok
 run_misc-13371 FLAG -fdefine-constant-directive=ok
 run_misc-13437 NOPARSE parsing extraneous input '*'
 run_misc-13505 NOPARSE parsing extraneous input '&'
 run_misc-1358 NOSOURCE
-run_misc-13585 FLAG -std=ibm
+run_misc-13585 NOJAVAC
 run_misc-13687 NOPARSE parsing mismatched input 'FLOAT-DECIMAL-16'
 run_misc-13861 NOJAVAC
 run_misc-14060 NOPARSE parsing no viable alternative at input 'display 'SIZE ERROR, last value = ' floatValue\n e
@@ -326,8 +326,8 @@ run_misc-7552 NOPARSE parsing no viable alternative at input 'GOBACK RETURNING'
 run_misc-7593 FLAG -faccept-display-extensions=error
 run_misc-7631 NOPARSE parsing mismatched input 'LAST'
 run_misc-7667 NOSOURCE
-run_misc-7696 FLAG -std=mf
-run_misc-7758 FLAG -std=mf -fno-move-non-numeric-lit-to-numeric-is-zero
+run_misc-7696 FLAG -std=mf (another dialect's expected output)
+run_misc-7758 FLAG -std=mf (another dialect's expected output) -fno-move-non-numeric-lit-to-numeric-is-zero
 run_misc-793 NOPARSE parsing extraneous input '-'
 run_misc-815 PASS
 run_misc-8509 FLAG -ftraceall
@@ -350,7 +350,7 @@ run_refmod-25 PASS
 run_refmod-313 FLAG -fno-ec=BOUND-REF-MOD
 run_refmod-57 PASS
 run_reportwriter-4436 FLAG -debug -fdump=ALL
-run_reportwriter-9346 FLAG -std=cobol2002
+run_reportwriter-9346 FLAG -std=cobol2002 (another dialect's expected output)
 run_reportwriter-9520 NOPARSE parsing mismatched input 'CONTROLS'
 run_subscripts-298 PASS
 run_subscripts-351 NORUN
@@ -366,10 +366,10 @@ syn_copy-468 NOLOWER
 syn_copy-498 NOLOWER
 syn_copy-528 FLAG -fpartial-replace-when-literal-src=skip
 syn_copy-630 PASS
-syn_copy-660 FLAG -free
+syn_copy-660 FLAG -free (a source format the dialect does not have)
 syn_misc-2023 PASS
 syn_misc-3318 FLAGPASS -fno-theaders -fno-tmessages -t
-syn_misc-3381 FLAG --free
+syn_misc-3381 FLAG --free (a source format the dialect does not have)
 syn_misc-7965 NOSOURCE
 syn_misc-8017 FLAG -fcontrol-division=ok
 syn_misc-8043 FLAG -fcontrol-division=ok
@@ -381,4 +381,4 @@ used_binaries-359 PASS
 used_binaries-393 PASS
 used_binaries-411 PASS
 used_binaries-482 PASS
-runnable 378 NOSOURCE 36 FLAG 72 FLAGPASS 15 NOPARSE 99 NOLOWER 7 NOJAVAC 3 NORUN 72 FAIL 30 PASS 44
+runnable 378 NOSOURCE 36 FLAG 70 FLAGPASS 14 NOPARSE 100 NOLOWER 7 NOJAVAC 4 NORUN 72 FAIL 30 PASS 45
