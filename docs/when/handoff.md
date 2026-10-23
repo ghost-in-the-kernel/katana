@@ -11,7 +11,11 @@ read as the whole finish, and the debrief is missed (J-253, N-005).
 
 ## Finishing a task
 
-1. The fast loop green, and the item's own check where it has one.
+1. The fast loop green, and the item's own check where it has one: the check the TODO item's `Check:` names that fits your
+   change. Where that is a whole set too large to run for each change, it is the part you touched. For 3.1 (the 359
+   autotests) it is the census, `gradle integration --tests katana.rt.autotest.AutotestsLoweredIntegrationTest`, run after a change
+   to what the census reads or maps (`oracle/autotest/`, `front/`, `lower/`, `rt/`, `profile/`); a change to what `Autotests` writes
+   runs `AutotestCorpusIntegrationTest` first. A change to documents or a comment: the fast loop alone.
 2. Add your debrief to `docs/NAVIGATION.md`: what slowed you down or misled you in finding your way, and what you
    suggest. Not the task's own findings; those go in the journal.
 3. Report what you did, what you read, what is left.

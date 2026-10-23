@@ -62,10 +62,7 @@ Open: the 323 that do not pass; the 44 FAILs sorted into findings against the te
 differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
-Next, first (J-262): build R-087 to R-089 in `CompileFlags`' table and the census (the census names its profile;
-the TRUNC(BIN) reason; `-fbinary-comp-1` permanent; `-farithmetic-osvs`, `-fmove-ibm`, `-fodoslide` set nothing;
-the encoding and ODO reasons; the acceptance group, with any FLAGPASS under it listed as a grammar leak); then the
-variably-located-items lowering item, which `-fodoslide`'s four cases check (`lower/Exprs.java`'s `// Unsure:`).
+Built (J-263): R-087 to R-089 in `CompileFlags` and the census: the census names its profile (`profile/ibm.profile`, TRUNC(STD), asserted); `-fnotrunc`, `-fno-trunc`, `-fno-binary-truncate` stay FLAG with "recorded under TRUNC(BIN); the census runs ibm.profile (STD)", `-fbinary-comp-1` with its permanent reason; `-farithmetic-osvs`, `-fmove-ibm`, `-fodoslide`, `-fcomment-paragraphs=ok`, `-faccept-display-extensions=error` set nothing; `-fsign=ebcdic` and `-fdefault-file-colseq=` wait for the lane's codepage, `-fsign=ascii` is permanent, `-fcomplex-odo` waits for the Language Reference; the acceptance group reads "a form the dialect does not have", and a FLAGPASS under it is listed in the golden as `# grammar leak` (none today). The census is now 65 FLAG, 11 FLAGPASS, 102 do not parse, 4 javac, 74 stop at run time, 31 differ, 48 PASS, floors 48 and 59. Next: the variably-located-items lowering item, which `-fodoslide`'s four cases check (`lower/Exprs.java`'s `// Unsure:`; two of the four now stop at run time, one does not parse on `ALL`, the fourth is still held by `-fnotrunc`).
 Before (J-256): the 87 that end at `FLAG` or `FLAGPASS`, by the flag (`-std=` 17, `-fnotrunc` and `-fno-trunc` 14, `-free` 6 with
 `--free`, `-fprof` 5, `-fsystem-name`, `-fodoslide`, `-fcallfh` 4 each, ...): each flag is mapped when Katana's profile
 already means it, a front-end or lowering change when it asks for one, or left a `FLAG` with its reason. A flag is
@@ -73,6 +70,21 @@ never mapped to nothing to turn a `FLAG` into a pass. Built (J-259): the three G
 `-std=ibm-strict` mapped, run as is (R-083); a valueless `-D NAME` defined with its value unknown, a value compared
 or redefined an error naming the flag, `Settings` carrying the marker (R-084); `-free` left a `FLAG` or `FLAGPASS`,
 "a source format the dialect does not have" (R-085). The census is now 70 FLAG, 14 FLAGPASS, 100 do not parse, 4 javac, 45 PASS (`run_fundamental-4746` moved up from FLAGPASS). Built (J-261): a reason for every flag left, in the golden (`CompileFlags.reason`); the listing and diagnostics flags (`-t`, `-fno-theaders`, `-fno-tmessages`, `-fdiagnostics-show-option`) mapped as no-effect: 70 FLAG, 12 FLAGPASS, 100 do not parse, 4 javac, 47 PASS, floors 47 and 59. Next: the dialect decisions the reasons name, for Ghost (binary truncation, 17 cases, first).
+Open, a golden change for Ghost's go (N-009, N-010; a tithe changes no golden, so none is made): three problems in the census golden's format, each
+of which would rewrite `lowered.golden` (record it in a commit of its own with a reviewed diff, P-02, and take the format change to `AutotestsLoweredIntegrationTest`
+and `CompileFlags.reason` together):
+1. A flag containing a space cannot be read back. The golden joins a case's flags with a space, and `-fsystem-name=sw1, SwItCh\ b, SWITCH\ 25`
+   (`run_extensions-2904`, whose `flags.txt` holds four flags, one a line) runs into the next flag. Fix: one flag per line, or a flag
+   quoted as the compile command quotes it; the plainest is to join them with ` | ` (check that no flag in `flags.txt` contains it),
+   and to have the check read the golden's flags back and compare them with `flags.txt`'s lines.
+2. The header block is ragged. The text block in `everyRunnableAutotestEndsAtAStage` has its fourth line at column 0, which sets the
+   block's indent to 0, so the other four header lines keep 16 spaces of Java indentation and the fourth has none. Fix: indent that line
+   like the rest (or build the header from a `List<String>` of lines), so every header line starts with `# `; readers that skip `#` lines
+   (`aPassingCaseHeldToAnotherCasesExpectedOutputFails` tests `startsWith("#")`) then skip the whole header, which today they do not.
+3. Each flag's long reason is repeated on every case line (`-fcallfh=TSTFH (names a file handler ...)` on four lines). Fix: the line keeps
+   the flag and a reason key (`-fcallfh [R-nnn or a short code]`), and the reasons are written once, in a block at the golden's end
+   (`# reason <key>: <text>`); `CompileFlags.reason` stays the one source and the census checks every key used has a text.
+Done together, the three change the golden once. Check: the census, then the diff shows only the header, the flag columns and the new block, and the counts line (`runnable 378 ...`) unchanged.
 Then, by count (J-248, J-249, J-251): the 99 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
 `SOURCE FORMAT`, `TURN`: 6, each an error by R-081; `$SET` out of column 7: 1),
 `MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower

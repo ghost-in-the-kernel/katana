@@ -44,10 +44,48 @@ class CompileFlagsTest {
     @Test
     void listingAndDiagnosticsAreMappedAndEveryOtherFlagHasAReason() {
         assertEquals(List.of(), CompileFlags.map(List.of("-t", "-fno-theaders", "-fno-tmessages", "-fdiagnostics-show-option"), false).unmapped());
-        for (String f : List.of("-fnotrunc", "-fno-trunc", "-fno-binary-truncate", "-fsign=ebcdic", "-fodoslide", "-frelax-syntax-checks", "-fno-ec=bound",
+        for (String f : List.of("-fnotrunc", "-fno-trunc", "-fno-binary-truncate", "-fsign=ebcdic", "-fcomplex-odo", "-frelax-syntax-checks", "-fno-ec=bound",
                 "-debug", "-fdump=ALL", "-fprof", "-fcallfh=EXTFH", "-fsystem-name=USW-31", "-std=mf", "-free"))
             assertTrue(CompileFlags.reason(f) != null, f);
         assertEquals(null, CompileFlags.reason("-fsomething-new"));
+    }
+
+    /** R-087: the TRUNC(BIN) flags wait for their first job with the census's reason; -fbinary-comp-1 is another dialect's USAGE. */
+    @Test
+    void binaryTruncationFlagsStayUnmappedWithTheirReason() {
+        var flags = List.of("-fnotrunc", "-fno-trunc", "-fno-binary-truncate", "-fbinary-comp-1");
+        assertEquals(flags, CompileFlags.map(flags, false).unmapped());
+        for (String f : flags.subList(0, 3)) assertEquals("recorded under TRUNC(BIN); the census runs ibm.profile (STD)", CompileFlags.reason(f), f);
+        assertTrue(CompileFlags.reason("-fbinary-comp-1").startsWith("another dialect's USAGE"));
+    }
+
+    /** R-088: IBM's own behaviour sets nothing; the encodings and ODO forms wait, each with its reason. */
+    @Test
+    void ibmsOwnBehaviourSetsNothingAndTheEncodingsAndOdoFormsWait() {
+        var m = CompileFlags.map(List.of("-farithmetic-osvs", "-fmove-ibm", "-fodoslide"), false);
+        assertEquals(List.of(), m.unmapped());
+        assertEquals(Settings.declared(Map.of(), false), m.settings());
+        var waits = List.of("-fcomplex-odo", "-fsign=ebcdic", "-fsign=ascii", "-fdefault-file-colseq=EBCDIC");
+        assertEquals(waits, CompileFlags.map(waits, false).unmapped());
+        String lane = "the oracle lane's byte encoding; IBM has only EBCDIC (ibm.codepage)";
+        assertEquals(lane, CompileFlags.reason("-fsign=ebcdic"));
+        assertEquals(lane, CompileFlags.reason("-fdefault-file-colseq=EBCDIC"));
+        assertEquals("not an IBM encoding", CompileFlags.reason("-fsign=ascii"));
+        assertTrue(CompileFlags.reason("-fcomplex-odo").contains("Language Reference"));
+    }
+
+    /** R-089: a flag for a form IBM lacks stays unmapped and is a grammar leak if its case passes; the two IBM accepts or refuses alike set nothing. */
+    @Test
+    void acceptanceFlagsNeverMap() {
+        var absent = List.of("-frelax-syntax-checks", "-fhp-octal-literals=ok", "-facu-literals=ok", "-facu-literal=ok", "-fcontrol-division=ok",
+                "-fdefine-constant-directive=ok", "-fdpc-in-data=none", "-fpartial-replace-when-literal-src=skip", "-freserved=EXAMINE", "-fno-areacheck",
+                "-fmissing-statement=ok", "-fno-program-name-redefinition", "-fformat=terminal");
+        assertEquals(absent, CompileFlags.map(absent, false).unmapped());
+        for (String f : absent) assertTrue(CompileFlags.grammarLeak(f), f);
+        assertEquals("a form the dialect does not have", CompileFlags.reason("-frelax-syntax-checks"));
+        assertEquals("a source format the dialect does not have", CompileFlags.reason("-fformat=xopen"));
+        assertEquals(List.of(), CompileFlags.map(List.of("-fcomment-paragraphs=ok", "-faccept-display-extensions=error"), false).unmapped());
+        for (String f : List.of("-fnotrunc", "-free", "-std=mf", "-fsign=ebcdic", "-fcomplex-odo")) assertFalse(CompileFlags.grammarLeak(f), f);
     }
 
     @Test
