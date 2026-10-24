@@ -87,3 +87,4 @@ Written by `gradle researchIndex`; do not edit by hand.
 | 63 | 3.1, R-090's four steps: EXIT PERFORM [CYCLE] / PARAGRAPH / SECTION built, a `$` line, a level outside IBM's set, ACCEPT FROM and DISPLAY UPON names (J-273) |
 | 64 | 3.1, R-090's steps 3 and 4 after Ghost's word: a level outside IBM's set, and the names ACCEPT FROM and DISPLAY UPON take (J-277) |
 | 65 | 3.1, the census runs each case's own command: a process per case, in a copy of the case's folder, with the check's environment, arguments, input and pipe (J-278) |
+| 66 | 3.1, variable-length records over text files: `run_file-241`, `-5646`, `-5782`; ASSIGN TO EXTERNAL named "EXTERNAL X" (J-282) |
