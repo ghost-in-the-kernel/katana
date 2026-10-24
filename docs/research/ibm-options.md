@@ -2788,3 +2788,49 @@ nested in an OCCURS (complex ODO) stays at the maximum, with the `// Unsure:` ke
   emitted for them; the one risk is a NIST program (NC247A, IX/SQ ODO records) that does, which the suites show;
 - what could make it wrong: INITIALIZE of a group holding ODO tables (current or maximum occurrences) changes a byte
   the cases display; I expect not, both read the same displayed bytes.
+
+## 61. 3.1, `ROUNDED MODE`: ten autotests that do not parse, and what accepting the phrase would need (J-268)
+
+**Ghost's word (2026-10-24).** Take TODO 3.1's next item: the autotests that do not parse, by cause, the largest first;
+`MODE` after ROUNDED leads. R-089's rule: a form is accepted only if IBM has it.
+
+**The cases, found by searching the corpus** (`ROUNDED MODE` in every `prog.cob` under `corpus/gnucobol-autotests/cases/`, and
+each case's `flags.txt`). Twelve programs hold the phrase; ten are in the 378 and end at NOPARSE on `extraneous input 'MODE'`:
+`run_fundamental-4719` (AWAY-FROM-ZERO), `-4773` (AWAY-FROM-ZERO), `-4836` (NEAREST-AWAY-FROM-ZERO), `-4899` (NEAREST-EVEN),
+`-4962` (NEAREST-TOWARD-ZERO), `-5025` (TOWARD-GREATER), `-5088` (TOWARD-LESSER), `-5151` (TRUNCATION), `run_misc-12977` and
+`-13145` (AWAY-FROM-ZERO after a plain ROUNDED; `-13145` carries `-std=ibm`, mapped). `run_fundamental-*` and `run_misc-12977` carry no flags; none carries one the census does not
+map. The two others that hold it (`data_display-16942`, `data_packed-28785`) are not in the runnable 378. (The other files a
+looser search for `mode is` finds hold ACCESS MODE and the like.) The next causes are
+single cases or a defect of the extraction, not an IBM form: PROGRAM-ID with no division header (`run_misc-190`, `-221`,
+`run_ml-605`, `-685`, `-716`, `-753`: the program text starts at PROGRAM-ID), `procedure` after a stray `[` first line
+(`run_ml-1081`, `-1170`, `-1253`, `-1328`, `-789`, `-856`: each case file begins with a line holding `[`; the `[[x]]` hypothesis of J-093 is open), `BINARY-LONG`
+(4), `,` (6, in `run_misc-*`), each one-off after that.
+
+**What IBM has: not confirmed.** Recollection, not read (R-082; `corpus/ibm-manuals/` is absent from the sandbox): Enterprise COBOL
+has a `ROUNDED [MODE IS] mode` phrase with AWAY-FROM-ZERO, NEAREST-AWAY-FROM-ZERO, NEAREST-EVEN, NEAREST-TOWARD-ZERO, PROHIBITED,
+TOWARD-GREATER, TOWARD-LESSER and TRUNCATION, plain ROUNDED meaning NEAREST-AWAY-FROM-ZERO. The only text in the repository is
+`semantic_traps.md` line 48, which cites a COBOL 2002 tutorial, not IBM; no repository file quotes IBM on it, and the 10 cases speak
+for GnuCOBOL, whose acceptance is no evidence of IBM's (D-010, R-089). So the phrase cannot be confirmed here, and the rule is: say so,
+and keep it an error.
+
+**What accepting it would also need** (the meaning, P-03). Every mode but the default is a different rounding of the stored result, and
+`rt/` carries ROUNDED as one boolean from `lower/ArithVerbs` through `Decimal.store` (HALF_UP) and `Scalars.store`. The last operation
+keeps one extra place under ROUNDED (`ArithProfile.last`) and truncates the rest, so a mode that must know whether anything non-zero was
+dropped (TOWARD-GREATER, TOWARD-LESSER, AWAY-FROM-ZERO, NEAREST-EVEN on an exact half) cannot be decided from that cut value: a
+sticky digit is lost. That is a change to Appendix A's carry rule (`rt/Decimal`, R-020), which is a design question for Ghost, and a
+differential against IBM's text, which is not in the sandbox. Only NEAREST-AWAY-FROM-ZERO and TRUNCATION (no ROUNDED) are today's
+two behaviours.
+
+**Options.** (1) Accept the phrase in the grammar and the IR, and stop the lowering with a finding on every mode but
+NEAREST-AWAY-FROM-ZERO: sound on meaning, but acceptance is the unconfirmed step; a case under NEAREST-AWAY-FROM-ZERO could pass, and
+if IBM lacks the phrase that pass is a grammar leak (R-089). (2) Build the modes in `rt/` and lowering as well: a design change, and
+unconfirmed. (3) Keep the phrase an error, record why, and pin it with a test so no change accepts it by accident (taken).
+
+**Predicted, before the build:**
+- no front-end change, so no corpus golden changes (`front/corpus.golden`, `sir/ir.golden`, `sir/datamap.golden`): none of the corpus
+  programs outside the autotests holds `ROUNDED MODE` (searched: `grep -rli "ROUNDED MODE"` over `corpus/` and `oracle/` finds only the
+  autotest cases);
+- the census unchanged: 36 NOSOURCE, 64 FLAG, 12 FLAGPASS, 102 NOPARSE, 7 NOLOWER, 4 NOJAVAC, 72 NORUN, 31 FAIL, 50 PASS; floors 50
+  and 62 as they are; the ten cases stay at NOPARSE `extraneous input 'MODE'`;
+- the fast loop green with one added test (a ROUNDED MODE is a syntax error);
+- what could make it wrong: a program in the NIST or CardDemo corpus that uses the phrase (the search says none).
