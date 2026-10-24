@@ -39,11 +39,12 @@ public final class Stateless {
         return why;
     }
 
-    /** What the dataflow does not model: NEXT SENTENCE, EXIT PARAGRAPH or SECTION, ADDRESS OF. */
+    /** What the dataflow does not model: NEXT SENTENCE, EXIT PARAGRAPH, SECTION or PERFORM (a body's later statements may not run: R-090), ADDRESS OF. */
     private static void unmodelled(Statement s, List<String> why) {
         if (s.verb().equals("NEXT SENTENCE")) why.add("line " + s.origin().line() + " is a NEXT SENTENCE");
         if (s.verb().equals("EXIT") && s.operands().stream().anyMatch(o -> o.value() instanceof Value.Name n && (n.text().equals("PARAGRAPH") || n.text().equals("SECTION"))))
             why.add("line " + s.origin().line() + " is an EXIT " + "PARAGRAPH or SECTION");
+        if (s.verb().equals("EXIT") && s.operands().stream().anyMatch(o -> o.value() instanceof Value.Name n && n.text().equals("PERFORM"))) why.add("line " + s.origin().line() + " is an EXIT PERFORM");
         for (Statement.Operand o : s.operands()) if (address(o.value())) why.add("line " + s.origin().line() + " takes an ADDRESS OF");
         for (Statement.Branch b : s.branches()) for (Statement t : b.statements()) unmodelled(t, why);
     }

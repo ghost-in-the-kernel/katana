@@ -13,9 +13,12 @@ import katana.sir.types.Value;
  */
 final class Performs {
     private final Flow f;
+    /** The way out of the inline PERFORM being lowered: EXIT PERFORM [CYCLE] (R-090). */
+    final Exits exits;
 
     Performs(Flow f) {
         this.f = f;
+        this.exits = new Exits(f);
     }
 
     /** One VARYING or AFTER phrase: the identifier, FROM, BY, UNTIL. */
@@ -102,7 +105,7 @@ final class Performs {
 
     private void once(Value.Target target, List<Statement> body) {
         if (target == null) {
-            f.statements(body);
+            inline(body);
             return;
         }
         if (f.called(target)) {
@@ -114,12 +117,29 @@ final class Performs {
         f.split(back);
     }
 
+    /** An inline PERFORM's body once; one holding an EXIT PERFORM is a block it can leave, or stretches when the body is (R-090). */
+    private void inline(List<Statement> body) {
+        if (!Exits.holds(body)) {
+            f.statements(body);
+        } else if (!f.splits(body)) {
+            f.e.open("do");
+            exits.plain("if (true) break;", () -> f.statements(body));
+            f.e.close();
+            f.e.line("while (false);");
+        } else {
+            int after = f.label();
+            exits.stretch(after, after, () -> f.statements(body));
+            f.e.line("return " + after + ";");
+            f.split(after);
+        }
+    }
+
     /** Repeats the procedures or the body until `done` holds, tested before each time (or after, for TEST AFTER). */
     private void repeat(Value.Target target, List<Statement> body, String done, boolean testAfter) {
         if (target == null && !f.splits(body) || f.called(target)) {
             f.e.open(testAfter ? "do" : "while (!(" + done + "))");
             if (target != null) f.e.line(f.call(target));
-            else f.statements(body);
+            else exits.plain("if (true) continue;", () -> f.statements(body));
             if (testAfter) {
                 f.e.close();
                 f.e.line("while (!(" + done + "));");
@@ -127,12 +147,17 @@ final class Performs {
             return;
         }
         int test = f.label(), afterLoop = f.label();
-        if (testAfter) perform(target, body, test);
+        if (testAfter) performed(target, body, test, afterLoop);
         else f.e.line("return " + test + ";");
         f.split(test);
         f.e.line("if (" + done + ") return " + afterLoop + ";");
-        perform(target, body, test);
+        performed(target, body, test, afterLoop);
         f.split(afterLoop);
+    }
+
+    /** One cycle of a stretch loop: `perform`, EXIT PERFORM leaving to `leave` and its CYCLE going to `cycle`, where the loop goes on (R-090). */
+    private void performed(Value.Target target, List<Statement> body, int cycle, int leave) {
+        exits.stretch(leave, cycle, () -> perform(target, body, cycle));
     }
 
     /** Once more: the procedures through the dispatcher, or the body, then on to `back`. */
@@ -183,7 +208,7 @@ final class Performs {
                 f.e.close();
             }
             if (k + 1 < n) f.e.line("return " + tests[k + 1] + ";");
-            else perform(target, body, steps[k]);
+            else performed(target, body, steps[k], afterLoop);
         }
         f.split(steps[n - 1]);
         step(l.varying.get(n - 1));
@@ -205,7 +230,7 @@ final class Performs {
         for (Phrase p : l.varying) f.e.line(f.x.moveInto(p.from, f.x.field(p.id), f.x.item(p.id.item())) + ";");
         f.e.line("return " + run + ";");
         f.split(run);
-        perform(target, body, checks[n - 1]);
+        performed(target, body, checks[n - 1], afterLoop);
         for (int k = n - 1; k >= 0; k--) {
             f.split(checks[k]);
             f.e.open("if (!(" + f.conditions.of(l.varying.get(k).until) + "))");
@@ -240,7 +265,7 @@ final class Performs {
         f.e.line(f.x.moveInto(p.from, f.x.field(p.id), f.x.item(p.id.item())) + ";");
         f.e.open(l.testAfter ? "for (;; " + stepped(p) + ")" : "for (; !(" + f.conditions.of(p.until) + "); " + stepped(p) + ")");
         if (target != null) f.e.line(f.call(target));
-        else f.statements(body);
+        else exits.plain(l.testAfter ? "if (true) { if (" + f.conditions.of(p.until) + ") break; continue; }" : "if (true) continue;", () -> f.statements(body));
         if (l.testAfter) f.e.line("if (" + f.conditions.of(p.until) + ") break;");
         f.e.close();
     }

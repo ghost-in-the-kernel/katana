@@ -51,6 +51,13 @@ class DataflowTest {
         assertTrue(refusals("01 A PIC 9.\n", "MAIN.\n    MOVE 1 TO A.\n    GO TO M2.\nM2.\n    ALTER M3 TO PROCEED TO M2.\nM3.\n    GO TO M2.\n").stream().anyMatch(w -> w.contains("ALTER")));
     }
 
+    /** R-090: the statements after an EXIT PERFORM may not run, which the must-analysis does not model, so a program holding one keeps its state. */
+    @Test
+    void anExitPerformKeepsAProgramOut() {
+        List<String> why = refusals("01 A PIC 9.\n01 I PIC 9.\n", "MAIN.\n    MOVE 0 TO A.\n    PERFORM VARYING I FROM 1 BY 1 UNTIL I > 3\n        IF I = 2\n            EXIT PERFORM\n        END-IF\n        MOVE 1 TO A\n    END-PERFORM.\n    DISPLAY A.\n    GOBACK.\n");
+        assertTrue(why.stream().anyMatch(w -> w.contains("is an EXIT PERFORM")), why.toString());
+    }
+
     private static void assertRefused(String data, String procedure, String what) {
         List<String> why = refusals(data, procedure);
         assertFalse(why.isEmpty(), what + ": should keep its state");

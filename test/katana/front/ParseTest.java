@@ -54,6 +54,16 @@ class ParseTest {
         assertFalse(parse(program("COMPUTE N ROUNDED MODE IS TRUNCATION = 7 / 2.", "STOP RUN."), NONE).clean());
     }
 
+    /** R-090 (J-273): EXIT PERFORM [CYCLE], EXIT PARAGRAPH and EXIT SECTION are IBM's; PARAGRAPH and CYCLE stay unreserved, usable as a name. */
+    @Test
+    void exitPerformParagraphAndSectionParseAndTheirWordsStayNames() {
+        assertTrue(parse(program("PERFORM 2 TIMES", "    EXIT PERFORM CYCLE", "    EXIT PERFORM", "END-PERFORM", "EXIT PARAGRAPH", "EXIT SECTION", "EXIT PROGRAM", "STOP RUN."), NONE).clean());
+        assertTrue(parse(program("PERFORM", "    IF N = 1 EXIT PERFORM END-IF", "    DISPLAY X", "END-PERFORM", "EXIT.", "STOP RUN."), NONE).clean());
+        String named = program("MOVE 1 TO CYCLE.", "MOVE 2 TO PARAGRAPH.", "EXIT.", "STOP RUN.").replace("01  N PIC 9(4).", "01  N PIC 9(4).\n       01  CYCLE PIC 9.\n       01  PARAGRAPH PIC 9.");
+        assertEquals(List.of(), parse(named, NONE).errors());
+        assertFalse(parse(program("EXIT PERFORM STOP.", "STOP RUN."), NONE).clean(), "EXIT PERFORM takes CYCLE or nothing");
+    }
+
     @Test
     void commentsContinuationsAndSequenceNumbersAreReferenceFormat() {
         String text = program("STOP RUN.").replace("       PROCEDURE DIVISION.\n", """
