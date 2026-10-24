@@ -356,8 +356,8 @@ run_reportwriter-9346 FLAG -std=cobol2002 [dialect]
 run_reportwriter-9520 NOPARSE parsing mismatched input 'CONTROLS'
 run_subscripts-298 PASS
 run_subscripts-351 NORUN
-run_subscripts-437 PASS
-run_subscripts-506 FAIL ssrange
+run_subscripts-437 NOPARSE a `$` in column 7 (another dialect's directive line, as `$SET`); IBM's indicators are `*`,
+run_subscripts-506 NOPARSE a `$` in column 7 (another dialect's directive line, as `$SET`); IBM's indicators are `*`,
 run_subscripts-542 NORUN
 run_subscripts-71 FAIL setting
 syn_copy-1125 NOLOWER
@@ -383,7 +383,7 @@ used_binaries-359 PASS
 used_binaries-393 PASS
 used_binaries-411 PASS
 used_binaries-482 PASS
-runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 100 NOLOWER 7 NOJAVAC 5 NORUN 72 FAIL 30 PASS 52
+runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 102 NOLOWER 7 NOJAVAC 5 NORUN 72 FAIL 29 PASS 51
 # reason ascii: not an IBM encoding
 # reason cobc-runtime: names a file handler or a system-name mapping of the cobc runtime; Katana's runtime has neither
 # reason comp-1: another dialect's USAGE: COMP-1 is a 16-bit integer there, short floating point in IBM's
@@ -408,4 +408,3 @@ runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 100 NOLOWER 7 NOJAVAC 5 NOR
 # sorting move-overlap: MOVE between overlapping reference-modified parts of one item: Katana copies as if through a buffer, cobc -std=ibm with -fmove-ibm propagates byte by byte as the expectation does; R-088 said rt/Move is held to IBM's MOVE
 # sorting pscale: DISPLAY of an item with P (assumed scaling) positions: Katana writes the stored digits (Display.of: the bytes), cobc -std=ibm writes the PICTURE's digits with the P positions, the expectation the value with a point; no D- row lists it; IBM's rule waits for the Language Reference (R-082)
 # sorting setting: the expectation was recorded with runtime checks on (cobc -debug: OCCURS DEPENDING ON bounds); IBM's default is NOSSRANGE, which Katana runs; cobc -std=ibm -debug prints the expectation
-# sorting ssrange: `$SET SSRANGE` (a directive cobc's ibm config honours): Katana ignores it, a subscript out of range is read as it stands and the run does not stop; the profile has no SSRANGE

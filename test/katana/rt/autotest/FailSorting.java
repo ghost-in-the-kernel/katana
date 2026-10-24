@@ -27,7 +27,6 @@ final class FailSorting {
             Map.entry("pscale", "DISPLAY of an item with P (assumed scaling) positions: Katana writes the stored digits (Display.of: the bytes), cobc -std=ibm writes the PICTURE's digits with the P positions, the expectation the value with a point; no D- row lists it; IBM's rule waits for the Language Reference (R-082)"),
             Map.entry("env-name", "DISPLAY ... UPON ENVIRONMENT-NAME / ENVIRONMENT-VALUE, ACCEPT FROM ENVIRONMENT-VALUE, ARGUMENT-VALUE and ARGUMENT-NUMBER (GnuCOBOL's): Katana writes the names to stdout and reads blanks; no finding (P-03)"),
             Map.entry("move-overlap", "MOVE between overlapping reference-modified parts of one item: Katana copies as if through a buffer, cobc -std=ibm with -fmove-ibm propagates byte by byte as the expectation does; R-088 said rt/Move is held to IBM's MOVE"),
-            Map.entry("ssrange", "`$SET SSRANGE` (a directive cobc's ibm config honours): Katana ignores it, a subscript out of range is read as it stands and the run does not stop; the profile has no SSRANGE"),
             Map.entry("float-lit", "DISPLAY of numeric literals: a floating-point literal (1,23E0) is written as its mantissa digits and E0, where cobc -std=ibm writes its value; a plus-signed literal loses its sign, which cobc -std=ibm keeps (whether IBM keeps it waits for the Language Reference)"),
             Map.entry("invdata", "comparisons of numeric DISPLAY items holding spaces (invalid data, ibm.invdata NO): Katana, cobc -std=ibm and the expectation each give another result; IBM's is undefined without INVDATA, so none is the oracle")));
 
@@ -44,7 +43,7 @@ final class FailSorting {
             Map.entry("run_file-241", "files"), Map.entry("run_file-5646", "files"), Map.entry("run_file-5782", "files"),
             Map.entry("data_display-410", "pscale"), Map.entry("run_fundamental-8760", "pscale"), Map.entry("data_binary-2143", "pscale"),
             Map.entry("run_extensions-2785", "env-name"), Map.entry("run_fundamental-3100", "move-overlap"),
-            Map.entry("run_subscripts-506", "ssrange"), Map.entry("run_fundamental-72", "float-lit"), Map.entry("run_misc-14909", "invdata"));
+            Map.entry("run_fundamental-72", "float-lit"), Map.entry("run_misc-14909", "invdata"));
 
     /** A FAIL case's key; a case not sorted yet refuses, with what to do. */
     static String of(String id) {

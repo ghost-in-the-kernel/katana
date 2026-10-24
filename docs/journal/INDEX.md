@@ -278,3 +278,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-271 | The census's 31 FAIL cases sorted against cobc -std=ibm: 6 D-010, 1 setting, 3 harness, 21 for Katana or the Language Reference (TODO 3.1) | measurement | `J-200-299.md` |
 | J-272 | Ghost takes Fable's rule for GnuCOBOL extensions IBM lacks: R-090 | decision | `J-200-299.md` |
 | J-273 | R-090 step 1: EXIT PERFORM [CYCLE], EXIT PARAGRAPH and EXIT SECTION parse and are lowered (TODO 3.1) | measurement | `J-200-299.md` |
+| J-274 | R-090 step 2: a `$` in column 7 is an error; one coincidental PASS goes, its floor lowered by hand (TODO 3.1) | measurement | `J-200-299.md` |
