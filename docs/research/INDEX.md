@@ -84,3 +84,4 @@ Written by `gradle researchIndex`; do not edit by hand.
 | 60 | 3.1, variably located items: what follows an OCCURS DEPENDING ON table is located after its current length (R-088; J-265) |
 | 61 | 3.1, `ROUNDED MODE`: ten autotests that do not parse, and what accepting the phrase would need (J-268) |
 | 62 | 3.1, the reader's `[[x]]` quoting and the missing division header: two groups of autotests that do not parse (J-269) |
+| 63 | 3.1, R-090's four steps: EXIT PERFORM [CYCLE] / PARAGRAPH / SECTION built, a `$` line, a level outside IBM's set, ACCEPT FROM and DISPLAY UPON names (J-273) |
