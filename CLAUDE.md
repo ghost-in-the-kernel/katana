@@ -36,7 +36,7 @@ arises, not before.
 - When another agent's work breaks yours, contradicts your task, or keeps changing what you changed, read `docs/when/conflict.md`.
 - When you hand a task to an agent, or finish one, read `docs/when/handoff.md`.
 - When you start a run whose output is long (the gate, `gradle integration`), read `docs/when/long-run.md`.
-- When you start a step (research, build, journal, gate, merge), or Docker does not answer, read `docs/paths/process.md`.
+- When you start a step (research, build, journal, gate, merge), or Docker does not answer ("Cannot connect to the Docker daemon"), read `docs/paths/process.md`.
 
 ## Before calling work done
 
