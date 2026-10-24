@@ -61,8 +61,11 @@ class AutotestRtIntegrationTest {
             "run_initialize-90", NO_POINT,
             "run_misc-12873", "Appendix A truncates intermediate results (PG 6.4 pp. 793-801); the testsuite expects GnuCOBOL's default arithmetic, as the program's own last line says");
 
-    /** The testsuite's expected stdout for a case: the first check after the program is compiled that runs it and expects output. */
-    static byte[] expected(String id) throws Exception {
+    /** The expected check of a case: its shell text (what the run is given, `CaseCommand`) and the stdout the testsuite expects of it. */
+    record Expected(String command, byte[] stdout) {}
+
+    /** The testsuite's expected check for a case: the first check after the program is compiled that runs it and expects output. */
+    static Expected expectedCheck(String id) throws Exception {
         Path dir = CASES.resolve(id);
         Matcher m = Pattern.compile("(?m)^check (\\d+)").matcher(Files.readString(dir.resolve("case.txt"), StandardCharsets.ISO_8859_1));
         boolean compiled = false;
@@ -70,9 +73,14 @@ class AutotestRtIntegrationTest {
             String n = m.group(1), command = Files.readString(dir.resolve("check-" + n + ".sh"), StandardCharsets.ISO_8859_1);
             byte[] stdout = Files.readAllBytes(dir.resolve("check-" + n + ".stdout"));
             if (command.contains("$COMPILE")) compiled = true;
-            else if (compiled && stdout.length > 0 && (command.contains("COBCRUN_DIRECT") || command.contains("./"))) return stdout;
+            else if (compiled && stdout.length > 0 && (command.contains("COBCRUN_DIRECT") || command.contains("./"))) return new Expected(command, stdout);
         }
         throw new IllegalStateException(id + ": no check runs the program against an expected stdout");
+    }
+
+    /** The testsuite's expected stdout for a case. */
+    static byte[] expected(String id) throws Exception {
+        return expectedCheck(id).stdout();
     }
 
     /** cobc -std=ibm's output for a case's program; null when its ibm dialect rejects the program. */
