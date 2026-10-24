@@ -2040,3 +2040,4 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Performs.java:Performs.inline` |  | 2026-10-24 |  |
 | lower | `lower/Performs.java:Performs.performed` |  | 2026-10-24 |  |
 | front | `front/Lines.java:Lines.dollar` | R-090 | 2026-10-24 |  |
+| lower | `lower/Verbs.java:Verbs.foreignName` | R-090 | 2026-10-24 |  |

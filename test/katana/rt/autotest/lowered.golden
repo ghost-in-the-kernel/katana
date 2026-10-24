@@ -50,7 +50,7 @@ run_extensions-25 NORUN
 run_extensions-2610 NOSOURCE
 run_extensions-2665 NORUN
 run_extensions-2723 NORUN
-run_extensions-2785 FAIL env-name
+run_extensions-2785 NORUN
 run_extensions-2831 NOLOWER
 run_extensions-2854 NOLOWER
 run_extensions-287 NOPARSE parsing mismatched input 'LENGTH'
@@ -383,7 +383,7 @@ used_binaries-359 PASS
 used_binaries-393 PASS
 used_binaries-411 PASS
 used_binaries-482 PASS
-runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 102 NOLOWER 12 NOJAVAC 5 NORUN 70 FAIL 26 PASS 51
+runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 102 NOLOWER 12 NOJAVAC 5 NORUN 71 FAIL 25 PASS 51
 # reason ascii: not an IBM encoding
 # reason cobc-runtime: names a file handler or a system-name mapping of the cobc runtime; Katana's runtime has neither
 # reason comp-1: another dialect's USAGE: COMP-1 is a 16-bit integer there, short floating point in IBM's
@@ -399,7 +399,6 @@ runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 102 NOLOWER 12 NOJAVAC 5 NO
 # sorting d010-cobc: D-010, and cobc -std=ibm itself differs from IBM's text in the same output (D-004 binary DISPLAY digits, D-005 the sign beside the overpunch); Katana follows IBM's text, the expectation is the default dialect's
 # sorting debug-data: USE FOR DEBUGGING on a data name or a file (a GnuCOBOL extension its ibm config accepts): the lowering names it as not lowered, IBM debugs procedures only (LR 6.4 p. 708), so no debug line is written
 # sorting debug-line: USE FOR DEBUGGING on procedures: the census sets no katana.debug (the case's command sets COB_SET_DEBUG=1); with it Katana differs from cobc -std=ibm only in DEBUG-ITEM's line (six zero-padded digits, and a line for START PROGRAM, where cobc blank-pads and leaves START PROGRAM blank); IBM's form waits for the Language Reference (R-082)
-# sorting env-name: DISPLAY ... UPON ENVIRONMENT-NAME / ENVIRONMENT-VALUE, ACCEPT FROM ENVIRONMENT-VALUE, ARGUMENT-VALUE and ARGUMENT-NUMBER (GnuCOBOL's): Katana writes the names to stdout and reads blanks; no finding (P-03)
 # sorting files: READ of a RECORD VARYING file over text (the case's DD_ file or ASSIGN EXTERNAL name): run under the case's command Katana ends in status 47 or an EOFException from SeqFile.readVarying where cobc -std=ibm reads; the census as run has neither the file nor the variable
 # sorting float-lit: DISPLAY of numeric literals: a floating-point literal (1,23E0) is written as its mantissa digits and E0, where cobc -std=ibm writes its value; a plus-signed literal loses its sign, which cobc -std=ibm keeps (whether IBM keeps it waits for the Language Reference)
 # sorting harness: not Katana: the census runs prog.cob from the repository root without the expected check's own command (working folder and date variable, a pipe, or another program of the case); under that command Katana equals cobc -std=ibm and the expectation, or the expectation is of another program

@@ -160,6 +160,11 @@ final class Verbs {
     /** DISPLAY: each operand's bytes, a figurative constant's "single occurrence" (LR 6.4 p. 333), ALL "ABCD" its literal once. */
     // Unsure: a numeric literal is displayed as its sign and digits as written, no point, as cobc -std=ibm shows it (J-114, J-130). Stays: an IBM run of DISPLAY of a numeric literal settles it.
     private void display(Statement s) {
+        String foreign = foreignName(s, "display-upon", IBM_OUTPUT_NAMES);
+        if (foreign != null) {
+            f.e.line(f.x.unsupported("DISPLAY at " + s.origin() + " UPON " + foreign + ": neither a SPECIAL-NAMES mnemonic nor an IBM environment-name (" + String.join(", ", IBM_OUTPUT_NAMES) + ") (recollection, R-082)") + ";");
+            return;
+        }
         List<String> parts = new ArrayList<>();
         for (Value v : operands(s, "display-operand")) parts.add(shown(v));
         Value upon = operand(s, "display-upon");
@@ -193,10 +198,27 @@ final class Verbs {
         for (Statement.Operand o : s.operands()) if (o.role().equals("accept-from-date-statement") && o.value() instanceof Value.Name n && !n.text().equals("FROM")) conceptual.add(n.text());
         boolean other = s.operands().stream().anyMatch(o -> o.role().equals("accept-message-count-statement") || o.role().equals("accept-from-escape-key-statement"));
         String from = String.join(" ", conceptual);
-        if (!s.branches().isEmpty() || other || !(conceptual.isEmpty() || IBM_CONCEPTUAL.contains(from))) {
+        String foreign = foreignName(s, "accept-from-mnemonic-statement", IBM_INPUT_NAMES);
+        if (foreign != null) {
+            f.e.line(f.x.unsupported("ACCEPT at " + s.origin() + " FROM " + foreign + ": neither a SPECIAL-NAMES mnemonic nor an IBM environment-name (" + String.join(", ", IBM_INPUT_NAMES) + ") (recollection, R-082)") + ";");
+        } else if (!s.branches().isEmpty() || other || !(conceptual.isEmpty() || IBM_CONCEPTUAL.contains(from))) {
             f.e.line(f.x.unsupported("ACCEPT at " + s.origin() + " " + s.operands()) + ";");
         } else if (conceptual.isEmpty()) f.e.line("in.accept(" + f.x.receiving(into) + ");");
         else f.e.line("Accept.from(" + f.x.receiving(into) + ", " + Emitter.quote(from) + ");");
+    }
+
+    /** The environment-names ACCEPT FROM takes without a SPECIAL-NAMES mnemonic, and those DISPLAY UPON takes; IBM's by recollection (R-082), the Language Reference not yet read. */
+    private static final List<String> IBM_INPUT_NAMES = List.of("SYSIN", "SYSIPT", "CONSOLE");
+    private static final List<String> IBM_OUTPUT_NAMES = List.of("SYSOUT", "SYSLIST", "SYSLST", "SYSPUNCH", "SYSPCH", "CONSOLE", "SYSERR");
+
+    /** The name a statement's role carries that is neither a SPECIAL-NAMES mnemonic nor one of IBM's `ibm`, else null: ENVIRONMENT-NAME, STDOUT, ARGUMENT-VALUE are GnuCOBOL's. */
+    // Decision: R-090
+    private String foreignName(Statement s, String role, List<String> ibm) {
+        for (Statement.Operand o : s.operands()) {
+            if (!o.role().equals(role) || !(o.value() instanceof Value.Name n) || n.kind().equals("keyword") || n.text().equals("FROM") || n.text().equals("UPON")) continue;
+            if (!ibm.contains(n.text()) && f.p.header().mnemonics().stream().noneMatch(m -> m.name().equals(n.text()))) return n.text();
+        }
+        return null;
     }
 
     /** ACCEPT format 2's conceptual items (LR 6.4 p. 309); the grammar's others are not IBM's. */
