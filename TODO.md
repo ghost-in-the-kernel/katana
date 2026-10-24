@@ -74,6 +74,7 @@ or redefined an error naming the flag, `Settings` carrying the marker (R-084); `
 Built (J-267, Ghost's go; N-009, N-010): the census golden's format, three problems fixed together in one re-record (stages, counts, floors and the `runnable 378 ...` line unchanged):
 a FLAG or FLAGPASS line holds `flag [reason key]` joined by ` | ` (a flag with a space, `run_extensions-2904`, no longer runs into the next); every header line starts with `# `;
 each reason is written once in a `# reason <key>: <text>` block at the end, from `CompileFlags.reason` (`reasonKey`, `reasonOfKey` read its table). `theGoldensFlagsReadBackAsTheCasesOwn` reads the flags back and compares them with each case's `flags.txt`.
+Taken and not built (J-268, research 61): `ROUNDED MODE` (10 cases) stays an error: IBM's phrase is recollection only (no manual in the sandbox, R-082) and its modes need a sticky digit `rt/` does not carry (`ArithProfile.last`); pinned by `ParseTest`. Census unchanged. It waits for the Language Reference or Ghost's ruling; the causes after it are one-offs.
 Then, by count (J-248, J-249, J-251): the 99 that do not parse, whose largest causes are the `>>` directives left (`SET CONSTANT`, `DEFINE ... AS PARAMETER`,
 `SOURCE FORMAT`, `TURN`: 6, each an error by R-081; `$SET` out of column 7: 1),
 `MODE` after ROUNDED (10+), a PROGRAM-ID where the grammar expects an identification header (7), `procedure` in lower
