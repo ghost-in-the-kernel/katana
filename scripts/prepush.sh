@@ -28,7 +28,7 @@ else
     case "$f" in
       *.md|theGhost.md|docs/*|README*|LICENSE) ;;
       oracle/nist/*|test/katana/oracle/nist/*) add nist "$f" ;;
-      oracle/autotest/*|test/katana/oracle/autotest/*) add autotest "$f" ;;
+      oracle/autotest/*|test/katana/oracle/autotest/*) add autotest "$f"; add rt "$f (the census reads what the reader writes)" ;;
       oracle/fixture/*|test/katana/oracle/fixture/*) add fixture "$f"; add lane "$f" ;;
       oracle/*|test/katana/oracle/*) add lane "$f" ;;
       profile/*|test/katana/profile/*) add nist "$f"; add fixture "$f"; add lane "$f" ;;
