@@ -1597,11 +1597,12 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 
 ### R-079: Every agent debriefs on navigation; the debriefs are reviewed about every ten commits
 - **Decision:** After a task, the agent adds its complaints and suggestions about finding its way to
-  `docs/NAVIGATION.md`. About every ten commits Opus reviews the entries for what agents converge on. Nothing
-  actionable: the review writes a journal entry and empties the entries. Actionable: it writes the journal entry,
-  empties the entries, checks each item is valid against the code, and fixes the valid ones. An open question goes
-  to a Fable instance. The journal entry keeps the trace of what was wiped: how many entries, what converged, what
-  was done.
+  `docs/NAVIGATION.md`. About every ten commits a fresh Sonnet agent reviews the entries for what agents converge
+  on, and Opus gates and merges the review (amended 2026-10-24, J-281; first Opus, until review 5 showed a Sonnet
+  agent does it well). Nothing actionable: the review writes a journal entry and empties the entries. Actionable: it
+  writes the journal entry, empties the entries, checks each item is valid against the code, and fixes the valid ones.
+  An open question goes to Opus, who sends it to a Fable instance. The journal entry keeps the trace of what was
+  wiped: how many entries, what converged, what was done.
 - **Why:** one agent's complaint may be its own quirk; the same complaint from runs that did not see each other is
   the routing's fault. A file wiped at each review starts each set fresh, so a convergence is current, not an old
   complaint repeated.

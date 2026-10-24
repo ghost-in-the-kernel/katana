@@ -285,3 +285,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-278 | The census runs each case's own command: a process per case, in a copy of the case's folder, with the check's environment, arguments, input and pipe (TODO 3.1) | measurement | `J-200-299.md` |
 | J-279 | Navigation review 5: two debriefs; where the census decides a stage and finds a command, the autotest folder's source tree, Docker's symptom | measurement | `J-200-299.md` |
 | J-280 | A backticked path the fresh clone lacks failed the gate a third time; the doc test's message now says how to write it | failure-caught | `J-200-299.md` |
+| J-281 | R-079 amended: a fresh Sonnet agent runs the navigation review | decision | `J-200-299.md` |
