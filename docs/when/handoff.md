@@ -25,8 +25,8 @@ read as the whole finish, and the debrief is missed (J-253, N-005).
 Read `docs/NAVIGATION.md`'s entries for what agents converge on. Nothing actionable: write the journal entry and
 empty the entries. Actionable: write the journal entry, empty the entries, check each item is valid against the
 code as it is now (a debrief records what an agent met, not the tree: J-264), and fix the valid ones in docs, never
-behaviour or a golden. A complaint is acted on when agents that did not see each other raise it; one alone is kept as
-evidence. An open question is listed in the journal entry and the report for Opus to send to a Fable instance. The
+behaviour or a golden. A complaint is acted on when agents that did not see each other raise it, in this set or in an
+earlier review's kept evidence (reviews 3 and 4 counted it so: J-266, J-276); one alone is kept as evidence. An open question is listed in the journal entry and the report for Opus to send to a Fable instance. The
 journal entry keeps the trace (J-266 is the shape): how many entries, what was already fixed, what converged and
 was fixed, what was kept, what is open. Which count says the tithe is due is `scripts/TitheGate.java`'s (sixteen
 commits of work since the last "Tithe", merges not counted), not CLAUDE.md's one in eight, which is the aim. Title the commit "Navigation review <n>" ("Tithe: navigation review <n>" only when it is also the tithe due), and set `Reviewed through:` to the last commit the review read that is not a merge

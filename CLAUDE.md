@@ -25,6 +25,7 @@ the contract it names, and run its tests before and after. A new row goes in the
 
 Everything runs in the pinned image (`Dockerfile`, built once): `docker run --rm --network none -u
 "$(id -u)" -v "$PWD":/katana katana gradle test --offline` is the fast loop (doc and unit tests).
+If `docker image ls` shows only `katana:dev`, run `docker tag katana:dev katana` first (`docs/paths/process.md`).
 `scripts/prepush.sh` is the check before a push. The rest of the commands are in `docs/paths/process.md`.
 
 ## When: read the file at the moment it applies (R-080)
