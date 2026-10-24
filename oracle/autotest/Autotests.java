@@ -14,7 +14,7 @@ import java.util.Map;
  * GNU Autotest test cases (the `.at` format the Autoconf manual describes) to plain data (tithe pass 2,
  * B3): each `AT_SETUP` … `AT_CLEANUP` a case with its title, its `AT_KEYWORDS`, the files its
  * `AT_DATA` writes, and each `AT_CHECK`'s command, expected exit status, stdout and stderr. m4's
- * quoting is undone one level (`[`…`]`, nesting) and the quadrigraphs (`@<:@` `@:>@` `@S|@` `@%:@`
+ * quoting is undone one level (`[`…`]`, nesting), and a second where an argument written out is one whole `[[x]]`, and the quadrigraphs (`@<:@` `@:>@` `@S|@` `@%:@`
  * `@&t@`) are replaced. It reads GnuCOBOL's autotests as test input only (R-045): they are fetched in
  * phase 3, under corpus/, and what this writes from them stays there, never in the repository.
  */
@@ -62,7 +62,7 @@ public final class Autotests {
             } else if (text.startsWith("AT_", at) && (at == 0 || !wordChar(text.charAt(at - 1)))) {
                 int line = line(at);
                 String name = name();
-                List<String> args = at < text.length() && text.charAt(at) == '(' ? arguments(line) : List.of();
+                List<String> args = at < text.length() && text.charAt(at) == '(' ? arguments(line, name) : List.of();
                 open = macro(name, args, line, open, cases);
             } else {
                 at++;
@@ -177,8 +177,11 @@ public final class Autotests {
         }
     }
 
-    /** The arguments of a macro call at `(`: split on commas at depth 0 outside quotes, each unquoted one level, leading unquoted blanks dropped. */
-    private List<String> arguments(int line) {
+    /**
+     * The arguments of a macro call at `(`: split on commas at depth 0 outside quotes, each unquoted one level, leading unquoted blanks dropped;
+     * an argument the macro writes out (`written`) is unquoted a second level when it is one whole `[`…`]`, before the quadrigraphs.
+     */
+    private List<String> arguments(int line, String macro) {
         List<String> args = new ArrayList<>();
         StringBuilder arg = new StringBuilder();
         int depth = 0;
@@ -199,11 +202,11 @@ public final class Autotests {
             at++;
             if (c == '(') depth++;
             if (c == ')' && depth-- == 0) {
-                args.add(quadrigraphs(arg.toString()));
+                args.add(finish(arg.toString(), macro, args.size()));
                 return args;
             }
             if (c == ',' && depth == 0) {
-                args.add(quadrigraphs(arg.toString()));
+                args.add(finish(arg.toString(), macro, args.size()));
                 arg.setLength(0);
                 leading = true;
                 continue;
@@ -212,8 +215,7 @@ public final class Autotests {
         }
     }
 
-    /** A quoted string at `[`: its text with the outer quotes removed and inner ones kept. */
-    // Unsure: whether Autotest strips a second level from an expected stdout written `[[x]]`; two runnable cases bear on it (run_misc.at:1762, run_ml.at:856) and both stop before printing under 3.1's trial (exit 127, a command not mapped; J-093); AutotestCorpusIntegrationTest names them. Stays: the two cases settle it once their commands are mapped.
+    /** A quoted string at `[`: its text with the outer quotes removed and inner ones kept (the second level of `[[x]]` is removed by `finish`, for the arguments m4 rescans). */
     private String quoted() {
         int line = line(at), depth = 0;
         StringBuilder out = new StringBuilder();
@@ -225,6 +227,32 @@ public final class Autotests {
             out.append(c);
         } while (true);
         return out.toString();
+    }
+
+    /** One argument's final text: the second quote level where the macro writes the argument out, then the quadrigraphs. */
+    private static String finish(String arg, String macro, int index) {
+        return quadrigraphs(written(macro, index) ? unquoteWhole(arg) : arg);
+    }
+
+    /** Whether the macro's argument is written into a file or compared as output, so m4 rescans it (AT_DATA's contents, AT_CHECK's stdout and stderr). */
+    private static boolean written(String macro, int index) {
+        return macro.equals("AT_DATA") && index == 1 || macro.equals("AT_CHECK") && (index == 2 || index == 3);
+    }
+
+    /**
+     * `[x]` to `x` when the text is one whole quoted string, its first `[` closed by its last `]`: what `AT_DATA([f], [[x]])` holds after the
+     * first level, and what m4's rescan of the macro body removes. Any other text is returned as it is.
+     */
+    // Decision: R-045
+    static String unquoteWhole(String s) {
+        if (s.length() < 2 || s.charAt(0) != '[' || s.charAt(s.length() - 1) != ']') return s;
+        int depth = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '[') depth++;
+            else if (c == ']' && --depth == 0 && i < s.length() - 1) return s;
+        }
+        return depth == 0 ? s.substring(1, s.length() - 1) : s;
     }
 
     private static String quadrigraphs(String s) {

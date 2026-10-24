@@ -63,7 +63,8 @@ class AutotestCorpusIntegrationTest {
                 all.stream().filter(AutotestCorpusIntegrationTest::runnable).map(c -> c.file().replaceAll("\\.at$", "") + "-" + c.line()).toList());
         List<String> bracketed = all.stream().filter(AutotestCorpusIntegrationTest::runnable)
                 .filter(c -> c.checks().stream().anyMatch(k -> k.stdout().contains("[") || k.stdout().contains("]"))).map(c -> c.file() + ":" + c.line()).toList();
-        assertEquals(List.of("run_misc.at:1762", "run_ml.at:856"), bracketed, "the cases whose expected stdout holds a bracket, on which the reader's one hypothesis turns (J-093)");
+        assertEquals(List.of("run_misc.at:1762", "run_ml.at:856"), bracketed,
+                "the runnable cases whose expected stdout holds a bracket, both real: run_misc.at:1762's is a quadrigraph, run_ml.at:856's the CDATA its program holds (J-269: the `[[x]]` second level is gone)");
         System.out.print(out);
         if (Boolean.getBoolean("katana.record")) Files.writeString(GOLDEN, out.toString());
         assertEquals(Files.exists(GOLDEN) ? Files.readString(GOLDEN) : "(no golden)", out.toString());
