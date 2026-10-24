@@ -2977,3 +2977,43 @@ by these lists or by a SPECIAL-NAMES mnemonic (the mnemonic's own environment-na
   and every other golden do not change: each name they use is a declared mnemonic or an IBM name above. If the NIST lane moves, a mnemonic is not resolved and that is the bug.
 - What could make it wrong: a case's FLAG that is really a FLAGPASS under the new throw (none of the 31 is a PASS today, so no); a copybook of a case holding a 78 (the scan read every file of the case);
   the display-upon or accept-from operand of a declared mnemonic arriving as another value kind than `mnemonic`.
+
+## 65. 3.1, the census runs each case's own command: a process per case, in a copy of the case's folder, with the check's environment, arguments, input and pipe (J-278)
+
+**The task.** TODO 3.1's first next item, from the FAIL sorting (J-271): the census ran every case in the test JVM's thread, from the repository root, with no environment, no arguments, no input and no
+pipe, and left a looping case to the JVM's exit (the `// Unsure:` on the daemon thread). The expected check (the first check after the compile that runs the program against a non-empty stdout, the one
+`AutotestRtIntegrationTest.expected` reads) is run by the testsuite as `[NAME=value ...] $COBCRUN_DIRECT ./prog [args] [| head -n N]`, in the case's folder. The program stays Katana's lowering
+compiled against `rt/`; the command is read for what it gives the run, by code, and never executed as a shell script (so cobc is never in Katana's place). R-045 as amended: a case's own files, one case at a time.
+
+**The scan.** By code, over the 378 expected checks' command shapes (numbers normalised, nothing of a case shown): 324 are the plain `$COBCRUN_DIRECT ./X`; 19 + 4 + 3 + 3 carry `NAME=value` prefixes (one an `export` line,
+`run_reportwriter-4436`); 8 pass arguments (`run_extensions-2381`, `-2785`, `-3181`, `-4268`, `-4398`, `run_file-4179`, `run_misc-4703`, `-4784`, `-11435`, `-13585`); `run_accept-369` has `< input.txt`; `used_binaries-1453` has
+`| head -n 2`; `run_extensions-2665` and `-2723` are `cat TEST-FILE | prog` (the file is made by an earlier run); `run_file-13907` is `echo && prog && echo && prog`; `used_binaries-1474` starts the program in the
+background and kills it; `run_misc-10634` redirects stderr to a file. The reader will read the first group, the argument group, `<`, `| head -n N`, `export` lines and a redirect of stderr; the `cat`
+pipe, `&&` and `&`/`kill` shapes it reads as unread (the run stays as it was: no environment, no arguments, in a process in the case's folder) and the census prints them. The program run is still `prog.cob`:
+a check that runs another program of the case (`./prog3` in `run_file-975`) is not changed here, so `run_file-975` stays a FAIL under `harness` (its key's text already says "or another program of the case").
+Cases with a non-plain command and a run stage in the golden: NORUN `run_extensions-2665`, `-2723`, `-2785`, `-3181`, `run_misc-2210`, `-4355`, `-10634`, `-12088`; FAIL the 11 below; PASS `run_fundamental-7574`
+(`COB_SET_DEBUG=1`), `-7619` (`=0`), `used_binaries-411` (`./prog.exe`); FLAGPASS `run_misc-15189`, `-15220`, `-15254` (`COB_PROF_*`); FLAG 17 (`run_extensions-2904`, `-5257`, `run_file-10289`, `-10468`, `-12062`, `-13907`,
+`run_fundamental-7812`, `-8016`, `run_misc-11435`, `-13305`, `-15280`, `run_reportwriter-4436`, `-9346`, `syn_copy-528`, and with data files only `run_file-6205`, `run_misc-8509`, `syn_copy-660`). Cases with data files
+beside the program that today are read from the wrong folder: those 17 FLAG, `run_extensions-2665`, `-2723`, `run_misc-10634`, `run_misc-13585` (NOJAVAC, unchanged), the PASS `syn_copy-382`, `-438`, `-630`, `syn_misc-3318`
+(copybooks, read by the front end from the case's folder already), the NOLOWER `syn_copy-468`, `-498`, `-1125` (no run).
+
+**The reading (mechanical, R-045).** The environment is passed as written, except `COB_CURRENT_DATE`, whose cobc form `YYYY/MM/DD HH:MM:SS` is written in `Now`'s form (`YYYY-MM-DD HH:MM:SS.00 +00:00`, the lane's, LANE-03), and
+`COB_SET_DEBUG` with a true value (`1`, `Y`), which also sets `-Dkatana.debug=Y`, Katana's switch (LANE-13); the value `0` leaves it off. Nothing else is translated. A run stops at `SECONDS` (20): the process is killed and the case is
+NORUN; `head -n N` is the first N lines of what the process wrote, the process killed when it has written them, as `head` closes the pipe. A run is NORUN when it ends in an uncaught exception or an abend (the
+stderr marks `Exception in thread` and `CEE3ABD abend`), as it was when the exception reached the test; a COBOL return code is not a failure, as before.
+
+**Predicted, before the build.**
+- Up: `run_file-5918` FAIL to PASS (the date and the program's own source in its folder; J-271 ran it so) and `used_binaries-1453` FAIL to PASS (the pipe). PASS 51 to 53, PASS+FLAGPASS 63 to 65, FAIL 25 to 23; the floors
+  raised by hand to 53 and 65.
+- The five debugging cases other than `-7933` and the two `debug-line`: with `katana.debug=Y` the six debugging FAILs (`run_fundamental-7664`, `-7715`, `-7892`, `-7933`, `-7983`, `-8071`) stay FAIL: `debug-line` for the two,
+  `debug-data` for the four (the lowering names USE FOR DEBUGGING on data and files, J-271); a debug run that ends in an exception would be NORUN, and then the key is stale and the census says so. `run_fundamental-7574` (PASS,
+  `COB_SET_DEBUG=1`): predicted to stay PASS; if it does not, the census shows whether its pass was coincidental (a program with no debugging mode ignores the switch).
+- Files: `run_file-241` and `-5646` FAIL to NORUN (the `EOFException` from `SeqFile.readVarying`, J-271); `run_file-5782` stays FAIL (status 47 writes a different output). Their `files` key is then stale for two cases and the census
+  names them; the key's text and the case lines are changed with the stage.
+- `run_file-975` stays FAIL (`harness`): the program is not the check's. 
+- Not predictable from the files: what the data files, the arguments and the environment do to the NORUN and FLAG cases above; each can move NORUN to FAIL or PASS, or FLAG to FLAGPASS (a FLAG case that passes without its
+  unmapped flag), and a PASS cannot be expected to stay one only because it did. Every move is listed in the journal with its cause; a PASS that falls back stops the work and is reported (unless its pass was coincidental,
+  R-086). NOPARSE, NOLOWER, NOJAVAC and NOSOURCE cases do not run, so none moves.
+- Repo root: no regular file of the root is left by the census (the cleanup loop goes, and the census asserts the root as it found it). Time: the test method was 34 s (its parse, lowering and javac included, the 33.8 s of the report) with every run in the JVM; about 220 cases run
+  (NORUN 71 + FAIL 25 + PASS 51 + FLAG 64 + FLAGPASS 12 less those that stop before a run), a JVM each at about 0.4 s: predicted 100 to 160 s, 2 to 5 times the old, against the gate's ceilings (10 min selected, 15 min every
+  suite, last measured 10.3); a pool of runs, four at a time, if it comes near.
