@@ -106,7 +106,7 @@ final class DocsTest {
                 if (path == null || exists.test(path)) continue;
                 Integer phase = modulePhases.get(path.split("/")[0]);
                 String named = phase == null ? unit : unit + " phase " + phase;
-                if (!planned(named, openSteps)) failures.add("names `" + path + "`, which does not exist");
+                if (!planned(named, openSteps)) failures.add("names `" + path + "`, which does not exist in a fresh clone (a place the corpus fetch or a run makes is written plain, without backticks: J-280)");
             }
         }
         return failures;

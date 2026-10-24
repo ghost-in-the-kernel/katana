@@ -21,7 +21,7 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
   (`rt`, `lane`, `javalane`, ... as `scripts/prepush.sh` lists; `rt` selects `katana.rt.*`). The fast loop's
   `DocTests > checks()` fails until the row is there.
 - A program under test opens its files relative to the JVM's working directory (the DD contract in `rt/` resolves a bare name as itself): the census runs each case in a process of its own, in a
-  copy of the case's folder under `build/census-run/`, with the environment, arguments, input file and pipe its expected check gives (`CaseCommand`, `CaseRun`, J-278), so nothing is left in the
+  copy of the case's folder under build/census-run/, with the environment, arguments, input file and pipe its expected check gives (`CaseCommand`, `CaseRun`, J-278), so nothing is left in the
   repository root and a case that loops is killed. The older autotest tests run only programs that open no file.
 
 ## Rows
