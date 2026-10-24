@@ -46,6 +46,14 @@ class ParseTest {
         assertFalse(parse(program("IF X = Y DISPLAY X.", "END-IF.", "STOP RUN."), NONE).clean());
     }
 
+    /** Research 61 (J-268): ROUNDED MODE is not confirmed as IBM's and its modes are not built in `rt/`, so it stays an error (R-089, P-03). */
+    @Test
+    void roundedModeIsAnErrorUntilIbmsTextIsRead() {
+        assertTrue(parse(program("COMPUTE N ROUNDED = 7 / 2.", "STOP RUN."), NONE).clean());
+        assertFalse(parse(program("COMPUTE N ROUNDED MODE NEAREST-EVEN = 7 / 2.", "STOP RUN."), NONE).clean());
+        assertFalse(parse(program("COMPUTE N ROUNDED MODE IS TRUNCATION = 7 / 2.", "STOP RUN."), NONE).clean());
+    }
+
     @Test
     void commentsContinuationsAndSequenceNumbersAreReferenceFormat() {
         String text = program("STOP RUN.").replace("       PROCEDURE DIVISION.\n", """
