@@ -90,4 +90,27 @@ class BuildTest {
         var files = Build.program(parse, HASH).program().files();
         assertEquals(List.of("my  data.txt", "INFILE"), files.stream().map(katana.sir.types.FileDescriptor::assign).toList());
     }
+
+    private static String withLevels(String... entries) {
+        List<String> lines = new java.util.ArrayList<>(List.of("       IDENTIFICATION DIVISION.", "       PROGRAM-ID. A.", "       DATA DIVISION.", "       WORKING-STORAGE SECTION."));
+        lines.addAll(List.of(entries));
+        lines.addAll(List.of("       PROCEDURE DIVISION.", "           STOP RUN.", ""));
+        return String.join("\n", lines);
+    }
+
+    /** R-090: a level number outside IBM's set (01-49, 66, 77, 88) cannot be placed, so the IR build refuses it, naming the construct and the set. */
+    @Test
+    void aLevelOutsideIbmsSetIsRefused() {
+        for (String level : List.of("78", "50", "00", "99")) {
+            var parse = katana.front.Parse.text(withLevels("       01  G.", "           05  X PIC X.", "       " + level + "  Y VALUE 'A'."), new katana.front.Copybooks(List.of(), n -> 8));
+            var e = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> Build.program(parse, HASH), level);
+            assertTrue(e.getMessage().contains("level number " + Integer.parseInt(level)) && e.getMessage().contains("01-49, 66, 77, 88") && e.getMessage().contains("(recollection, R-082)"), e.getMessage());
+        }
+    }
+
+    @Test
+    void theLevelsIbmHasAreBuilt() {
+        var parse = katana.front.Parse.text(withLevels("       01  G.", "           05  X PIC 9.", "           49  Z PIC X.", "           66  R RENAMES X.", "           88  ON-X VALUE 1.", "       77  W PIC X."), new katana.front.Copybooks(List.of(), n -> 8));
+        assertEquals(List.of("G", "X", "Z", "R", "W"), Build.program(parse, HASH).program().items().stream().map(Item::name).toList());
+    }
 }

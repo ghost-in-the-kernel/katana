@@ -51,10 +51,10 @@ run_extensions-2610 NOSOURCE
 run_extensions-2665 NORUN
 run_extensions-2723 NORUN
 run_extensions-2785 FAIL env-name
-run_extensions-2831 FAIL level78
-run_extensions-2854 FAIL level78
+run_extensions-2831 NOLOWER
+run_extensions-2854 NOLOWER
 run_extensions-287 NOPARSE parsing mismatched input 'LENGTH'
-run_extensions-2880 FAIL level78
+run_extensions-2880 NOLOWER
 run_extensions-2904 FLAG -fsystem-name=sw1, SwItCh\ b, SWITCH\ 25 [cobc-runtime] | -fsystem-name=SWITCH-32 [cobc-runtime] | -fsystem-name=SWITCH\ Z [cobc-runtime] | -fsystem-name=USW-31 [cobc-runtime]
 run_extensions-3108 FLAG -std=cobol2014 [dialect]
 run_extensions-3181 NORUN
@@ -97,7 +97,7 @@ run_file-11361 FLAG -fnotrunc [trunc-bin]
 run_file-11692 FLAG -fnotrunc [trunc-bin]
 run_file-11881 NOPARSE copybook not found
 run_file-12062 FLAG -fnotrunc [trunc-bin]
-run_file-12428 NORUN
+run_file-12428 NOLOWER
 run_file-13484 FLAGPASS -fcallfh=TSTFH [cobc-runtime]
 run_file-1351 NORUN
 run_file-13907 FLAG -fdefault-file-colseq=EBCDIC [encoding]
@@ -182,7 +182,7 @@ run_fundamental-3016 PASS
 run_fundamental-3100 FAIL move-overlap
 run_fundamental-3277 NORUN
 run_fundamental-3326 NORUN
-run_fundamental-3375 NORUN
+run_fundamental-3375 NOLOWER
 run_fundamental-3459 NOPARSE parsing mismatched input 'FUNCTION-ID'
 run_fundamental-3642 NORUN
 run_fundamental-3871 NORUN
@@ -383,7 +383,7 @@ used_binaries-359 PASS
 used_binaries-393 PASS
 used_binaries-411 PASS
 used_binaries-482 PASS
-runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 102 NOLOWER 7 NOJAVAC 5 NORUN 72 FAIL 29 PASS 51
+runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 102 NOLOWER 12 NOJAVAC 5 NORUN 70 FAIL 26 PASS 51
 # reason ascii: not an IBM encoding
 # reason cobc-runtime: names a file handler or a system-name mapping of the cobc runtime; Katana's runtime has neither
 # reason comp-1: another dialect's USAGE: COMP-1 is a 16-bit integer there, short floating point in IBM's
@@ -404,7 +404,6 @@ runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 102 NOLOWER 7 NOJAVAC 5 NOR
 # sorting float-lit: DISPLAY of numeric literals: a floating-point literal (1,23E0) is written as its mantissa digits and E0, where cobc -std=ibm writes its value; a plus-signed literal loses its sign, which cobc -std=ibm keeps (whether IBM keeps it waits for the Language Reference)
 # sorting harness: not Katana: the census runs prog.cob from the repository root without the expected check's own command (working folder and date variable, a pipe, or another program of the case); under that command Katana equals cobc -std=ibm and the expectation, or the expectation is of another program
 # sorting invdata: comparisons of numeric DISPLAY items holding spaces (invalid data, ibm.invdata NO): Katana, cobc -std=ibm and the expectation each give another result; IBM's is undefined without INVDATA, so none is the oracle
-# sorting level78: level 78 constants (GnuCOBOL's; its ibm config accepts them): Katana reads `78 X VALUE ...` as an item with no PICTURE, DISPLAYs nothing for it, and names no finding (P-03)
 # sorting move-overlap: MOVE between overlapping reference-modified parts of one item: Katana copies as if through a buffer, cobc -std=ibm with -fmove-ibm propagates byte by byte as the expectation does; R-088 said rt/Move is held to IBM's MOVE
 # sorting pscale: DISPLAY of an item with P (assumed scaling) positions: Katana writes the stored digits (Display.of: the bytes), cobc -std=ibm writes the PICTURE's digits with the P positions, the expectation the value with a point; no D- row lists it; IBM's rule waits for the Language Reference (R-082)
 # sorting setting: the expectation was recorded with runtime checks on (cobc -debug: OCCURS DEPENDING ON bounds); IBM's default is NOSSRANGE, which Katana runs; cobc -std=ibm -debug prints the expectation

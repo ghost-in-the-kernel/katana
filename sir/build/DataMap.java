@@ -60,10 +60,14 @@ final class DataMap {
         }
     }
 
-    /** A level 01-49 or 77 entry: its place under the open groups, its clauses, its INDEXED BY items. */
+    /** A level 01-49 or 77 entry: its place under the open groups, its clauses, its INDEXED BY items. A level outside IBM's set is refused. */
+    // Decision: R-090
     private void format1(Item.Section section, CobolParser.DataDescriptionEntryFormat1Context e, List<Node> open) {
         Node n = new Node();
         n.level = e.LEVEL_NUMBER_77() != null ? 77 : Integer.parseInt(e.INTEGERLITERAL().getText());
+        if (n.level < 1 || (n.level > 49 && n.level != 77)) {
+            throw new IllegalArgumentException("level number " + n.level + " at " + Origins.at(parse, e) + " is not in IBM's set (01-49, 66, 77, 88; a 78 is another dialect's constant entry) (recollection, R-082)");
+        }
         n.name = e.dataName() != null ? e.dataName().getText().toUpperCase(Locale.ROOT) : "FILLER";
         n.section = section;
         n.currency = currency;
