@@ -2028,3 +2028,6 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | lower | `lower/Exprs.java:Exprs.length` |  | 2026-10-23 |  |
 | oracle | `oracle/autotest/CompileFlags.java:CompileFlags.reasonKey` |  | 2026-10-23 |  |
 | oracle | `oracle/autotest/CompileFlags.java:CompileFlags.reasonOfKey` |  | 2026-10-23 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.finish` |  | 2026-10-24 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.written` |  | 2026-10-24 |  |
+| oracle | `oracle/autotest/Autotests.java:Autotests.unquoteWhole` | R-045 | 2026-10-24 |  |

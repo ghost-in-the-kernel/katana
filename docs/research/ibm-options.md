@@ -2834,3 +2834,47 @@ unconfirmed. (3) Keep the phrase an error, record why, and pin it with a test so
   and 62 as they are; the ten cases stay at NOPARSE `extraneous input 'MODE'`;
 - the fast loop green with one added test (a ROUNDED MODE is a syntax error);
 - what could make it wrong: a program in the NIST or CardDemo corpus that uses the phrase (the search says none).
+
+## 62. 3.1, the reader's `[[x]]` quoting and the missing division header: two groups of autotests that do not parse (J-269)
+
+**Ghost's word (2026-10-24).** Settle, for the two groups J-268 left (TODO 3.1), whether each is a fault of `oracle/autotest/Autotests` or
+the case's real text. R-045 as amended: the reader's own extraction first (`corpus/gnucobol-autotests/cases/<case>/`), and a case's own
+text in `tests/testsuite.src/<file>.at` only for the one case, by line range.
+
+**The cases, found by scanning what the reader wrote** (every file under `cases/`, not only `prog.cob`; first character `[` and last `]`):
+- *`[` first line.* J-268 counted six `run_ml-*` cases; only two begin with `[` (`run_ml-1081`, `run_ml-856`). The other four it listed
+  (`-1170`, `-1253`, `-1328`, `-789`) begin with a blank line, as the rest do, and stop at `processing procedure` of an `XML PARSE`: a different
+  cause. The reader writes a leading `[` line and a closing `]` line into 46 other files besides: `prog.cob` of `listings-7099`,
+  `run_extensions-6264`, `run_manual_screen-1219`, `-1350`, `progs.cob` of `run_file-11361`, the C files of `backcomp-*`, `run_file-*`,
+  `run_misc-*`, an expected stdout (`listings-7099`, `run_ml-856`) and expected stderr files. Every one is an argument the .at wrote as
+  `[[ ... ]]`. Of the 378 runnable, only `run_ml-1081`, `run_ml-856` and `run_file-11361` (FLAG on `-fnotrunc`) are among them.
+- *PROGRAM-ID with no division header.* `run_misc-190`, `-221`, `run_ml-605`, `-685`, `-716`, `-753`: the file's first text line is
+  `PROGRAM-ID.`. The case's own text in the .at (read for `run_misc-190` and `run_ml-605`, lines around their `AT_DATA`) is the same: `AT_DATA([prog.cob], [`
+  then a blank line and `       PROGRAM-ID.`, single-quoted, nothing to undo.
+
+**The reading.** m4 strips a quote level when it collects a macro's arguments, and strips again when the macro's body, with the argument
+substituted, is rescanned: `AT_DATA([f], [[x]])` writes `x`, `AT_DATA([f], [x])` writes `x`. The reader strips once (`quoted()` keeps inner
+brackets), so `[[x]]` comes out `[x]`. This is my recollection of how Autoconf's Autotest works (the manual is not read here); the cases bear it
+out without it: `run_ml-856`'s `$COMPILE prog.cob` is expected to exit 0, yet its program text begins with a line `[` (no COBOL), and its expected
+stdout begins `[len: 400` where the program DISPLAYs `'len: '` and ends with a line `]`. The other `@<:@`-style brackets (`run_misc-1762`'s `|@:>@`)
+are quadrigraphs for a real `]` and must stay.
+
+**Verdicts, before the build.**
+- `[` first line: a fault of the reader, a second quote level left in. The fix: in `AT_DATA`'s second argument and `AT_CHECK`'s stdout and stderr, an
+  argument that is, after the first strip, one whole `[ ... ]`, is unquoted once more, before the quadrigraphs are replaced (so a real `[` from `@<:@`
+  is never taken for a quote). The hypothesis of J-093 is thereby settled for these arguments.
+- No division header: the case's real text. A grammar form (`IDENTIFICATION DIVISION.` header omitted). Whether IBM has it: not confirmed
+  (R-082); my recollection is that Enterprise COBOL's format shows the header as required. The front end is left alone.
+
+**Predicted, before the build:**
+- the reader's unit sample passes as it is (its `[[1]]` is an inner pair, not a whole argument); one added test for the whole-argument case and one for
+  a quadrigraph `[` that is not unquoted;
+- `AutotestCorpusIntegrationTest`: the cases folder is rewritten; the bracketed-stdout list loses `run_ml.at:856` and keeps `run_misc.at:1762`
+  (a quadrigraph); its assertion and the reader's `// Unsure:` are amended; `oracle/autotest/autotests.golden` (counts of cases, runnable,
+  conditional) does not change, since the change touches text, not the shape of a case;
+- the census does not move: 36 NOSOURCE, 64 FLAG, 12 FLAGPASS, 102 NOPARSE, 7 NOLOWER, 4 NOJAVAC, 72 NORUN, 31 FAIL, 50 PASS; floors 50 and 62.
+  `run_ml-1081` and `run_ml-856` stay NOPARSE: a fixed-form parse already takes a `[` in the sequence area (columns 1 to 6) as nothing, so the
+  `[` line was not their cause; they stop at `processing procedure`, `XML PARSE`, which the grammar lacks. `run_file-11361` stays FLAG. The only line of
+  `lowered.golden` that could change is `run_ml-856`'s reason text (its trailing `]` line is gone), and I expect none does;
+- the cases it can move: `run_ml-1081`, `run_ml-856`, `run_file-11361` (runnable), and nothing else in the census;
+- what could make it wrong: a runnable case whose prog.cob has a `[`-wrapped whole argument that I did not find (the scan covers every file of every case).

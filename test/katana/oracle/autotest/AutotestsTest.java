@@ -65,6 +65,28 @@ class AutotestsTest {
     }
 
     @Test
+    void aWholeDoubleQuotedArgumentLosesItsSecondLevelAndAQuadrigraphBracketKeepsItsBrackets() {
+        String at = String.join("\n", "AT_SETUP([q])",
+                "AT_DATA([prog.cob], [[", "       PROGRAM-ID. p.", "]])",
+                "AT_DATA([one.txt], [", "       PROGRAM-ID. p.", "])",
+                "AT_DATA([quad.txt], [@<:@x@:>@])",
+                "AT_DATA([inner.txt], [a [b] c])",
+                "AT_CHECK([[test -f x]], [0], [[out]], [[err", "]])",
+                "AT_CLEANUP", "");
+        Autotests.Case c = Autotests.read("q.at", at).get(0);
+        assertEquals("\n       PROGRAM-ID. p.\n", c.files().get("prog.cob"));
+        assertEquals("\n       PROGRAM-ID. p.\n", c.files().get("one.txt"));
+        assertEquals("[x]", c.files().get("quad.txt"));
+        assertEquals("a [b] c", c.files().get("inner.txt"));
+        assertEquals("[test -f x]", c.checks().get(0).command());
+        assertEquals("out", c.checks().get(0).stdout());
+        assertEquals("err\n", c.checks().get(0).stderr());
+        assertEquals("a", Autotests.unquoteWhole("[a]"));
+        assertEquals("[a][b]", Autotests.unquoteWhole("[a][b]"));
+        assertEquals("[a", Autotests.unquoteWhole("[a"));
+    }
+
+    @Test
     void aMalformedFileIsRefusedWithItsLine() {
         assertEquals("bad.at:1: AT_SETUP with no AT_CLEANUP", assertThrows(Autotests.Malformed.class, () -> Autotests.read("bad.at", "AT_SETUP([x])\n")).getMessage());
         assertEquals("bad.at:2: a quote that does not close", assertThrows(Autotests.Malformed.class,

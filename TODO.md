@@ -32,8 +32,8 @@ packages, and `AutotestRtIntegrationTest.expected` is a third reading of the che
 Done:
 - The reader (J-093): 1,446 cases in 37 files, 378 runnable, counts held by `oracle/autotest/autotests.golden`; a
   first run under plain cobc passes 227 of 378 (most failures an exit status: compile flags the testsuite sets,
-  R-045 forbidding a look at its configuration). The `[[x]]` hypothesis stays open: the two cases it turns on stop
-  before printing.
+  R-045 forbidding a look at its configuration). The `[[x]]` hypothesis was settled by J-269: an argument written out whole
+  as `[[x]]` is `x`.
 - `rt/`, each held to IBM's text and to cobc by a differential: arithmetic (J-101), field byte images (J-102),
   MOVE (J-103), editing and de-editing (J-104), INSPECT (J-105), STRING and UNSTRING (J-106), comparison and
   collation (J-107), SIZE ERROR (J-108), DISPLAY (J-109).
@@ -59,7 +59,7 @@ Done:
   sets `Settings.extensions` (R-081 amended).
 
 Open: the 323 that do not pass; the 44 FAILs sorted into findings against the testsuite's dialect (D-010) and real
-differences; the 36 with no `prog.cob` (CALL between programs, 3.4); the `[[x]]` hypothesis; and a run that loops
+differences; the 36 with no `prog.cob` (CALL between programs, 3.4); six that begin at PROGRAM-ID with no IDENTIFICATION DIVISION header (`run_misc-190`, `-221`, `run_ml-605`, `-685`, `-716`, `-753`: the case's own text, J-269; whether IBM allows it waits for the Language Reference, R-082); `XML PARSE ... PROCESSING PROCEDURE` (`run_ml-1081`, `-1170`, `-1253`, `-1328`, `-789`, `-856`); and a run that loops
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
 Built (J-263): R-087 to R-089 in `CompileFlags` and the census: the census names its profile (`profile/ibm.profile`, TRUNC(STD), asserted); `-fnotrunc`, `-fno-trunc`, `-fno-binary-truncate` stay FLAG with "recorded under TRUNC(BIN); the census runs ibm.profile (STD)", `-fbinary-comp-1` with its permanent reason; `-farithmetic-osvs`, `-fmove-ibm`, `-fodoslide`, `-fcomment-paragraphs=ok`, `-faccept-display-extensions=error` set nothing; `-fsign=ebcdic` and `-fdefault-file-colseq=` wait for the lane's codepage, `-fsign=ascii` is permanent, `-fcomplex-odo` waits for the Language Reference; the acceptance group reads "a form the dialect does not have", and a FLAGPASS under it is listed in the golden as `# grammar leak` (none today). The census is now 65 FLAG, 11 FLAGPASS, 102 do not parse, 4 javac, 74 stop at run time, 31 differ, 48 PASS, floors 48 and 59.  The variably-located-items lowering item, which `-fodoslide`'s four cases check (`lower/Exprs.java`'s `// Unsure:`; two of the four now stop at run time, one does not parse on `ALL`, the fourth is still held by `-fnotrunc`).
