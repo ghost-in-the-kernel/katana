@@ -13,10 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import katana.oracle.autotest.CompileFlags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -35,7 +31,6 @@ class AutotestsLoweredIntegrationTest {
     private static final Path CASES = ROOT.resolve("corpus/gnucobol-autotests/cases");
     private static final Path GOLDEN = ROOT.resolve("test/katana/rt/autotest/lowered.golden");
     private static final Path FLOORS = ROOT.resolve("test/katana/rt/autotest/floors.txt");
-    private static final int SECONDS = 20;
     /** The golden's header: every line starts with `# `, so a reader that skips `#` lines skips all of it. */
     private static final List<String> HEADER = List.of(
             "# Phase 3.1's check at scale (AutotestsLoweredIntegrationTest, research 54): each runnable autotest through",
@@ -80,17 +75,12 @@ class AutotestsLoweredIntegrationTest {
         return Files.readAllLines(list).stream().filter(l -> !l.isBlank()).sorted().toList();
     }
 
-    /** One case to its end. A run that does not stop in SECONDS is NORUN; its thread is left to the JVM's exit. */
+    /** One case to its end. A run that does not stop in `CaseRun.SECONDS` is killed and is NORUN. */
     static Stage stage(String id) throws Exception {
-        // A case's files open relative to the working directory, which is the repository root: take away what the run leaves.
-        Set<String> before = ls();
-        try {
-            return stageOf(id);
-        } finally {
-            for (String name : ls()) if (!before.contains(name)) Files.deleteIfExists(ROOT.resolve(name));
-        }
+        return stageOf(id);
     }
 
+    /** The regular files of the repository root: a run in a folder of its own leaves none there. */
     private static Set<String> ls() throws Exception {
         try (var list = Files.list(ROOT)) {
             return list.filter(Files::isRegularFile).map(p -> p.getFileName().toString()).collect(java.util.stream.Collectors.toSet());
@@ -139,24 +129,24 @@ class AutotestsLoweredIntegrationTest {
             REASONS.put(id, firstError(id));
             return Stage.NOPARSE;
         }
-        FutureTask<byte[]> run = new FutureTask<>(() -> LoweredAutotestsIntegrationTest.run(built));
-        // Unsure: a case that loops past SECONDS is abandoned, not stopped (a Thread cannot be killed); its daemon thread keeps a core until the JVM exits. Stays: until the census runs a process per case, which would stop it (TODO 3.1, open).
-        Thread t = new Thread(run, "autotest-" + id);
-        t.setDaemon(true);
-        t.start();
-        byte[] got;
-        try {
-            got = run.get(SECONDS, TimeUnit.SECONDS);
-        } catch (TimeoutException | ExecutionException | InterruptedException failed) {
-            System.out.println("NORUN " + id + ": " + root(failed));
+        CaseRun.Result ran = runCase(id);
+        if (ran.failure() != null) {
+            System.out.println("NORUN " + id + ": " + ran.failure());
             return Stage.NORUN;
         }
-        return Arrays.equals(got, AutotestRtIntegrationTest.expected(id)) ? Stage.PASS : Stage.FAIL;
+        return Arrays.equals(ran.stdout(), AutotestRtIntegrationTest.expected(id)) ? Stage.PASS : Stage.FAIL;
     }
 
-    private static Throwable root(Throwable t) {
-        while (t.getCause() != null) t = t.getCause();
-        return t;
+    /**
+     * A built case run as its expected check runs it (TODO 3.1, J-278): `Prog`'s `main` in a process of its own, in a copy of the case's folder under
+     * `build/census-run/`, with the environment, arguments, input and pipe the check gives; a check `CaseCommand` cannot read is run with none, and said.
+     */
+    // Decision: R-045
+    static CaseRun.Result runCase(String id) throws Exception {
+        CaseCommand command = CaseCommand.read(AutotestRtIntegrationTest.expectedCheck(id).command());
+        if (command.unread() != null) System.out.println("UNREAD " + id + ": " + command.unread());
+        String classpath = LoweredAutotestsIntegrationTest.rtClasses() + java.io.File.pathSeparator + ROOT.resolve("build/lowered/" + id).toAbsolutePath();
+        return CaseRun.run(CASES.resolve(id), ROOT.resolve("build/census-run/" + id).toAbsolutePath(), classpath, "Prog", command, CaseRun.SECONDS);
     }
 
     /** The census (TODO 3.1): every runnable case to its stage under its own flags, the floors checked before the golden is written, then the golden held fact for fact. */
@@ -168,12 +158,14 @@ class AutotestsLoweredIntegrationTest {
         Map<Stage, Integer> counts = new TreeMap<>();
         StringBuilder results = new StringBuilder(String.join("\n", HEADER) + "\n");
         Map<String, Stage> byCase = new TreeMap<>();
+        Set<String> rootBefore = ls();
         for (String id : ids) {
             Stage s = stage(id);
             byCase.put(id, s);
             counts.merge(s, 1, Integer::sum);
             results.append(id).append(' ').append(s).append(s == Stage.NOPARSE || s == Stage.FLAG || s == Stage.FLAGPASS ? " " + REASONS.get(id) : s == Stage.FAIL ? " " + FailSorting.of(id) : "").append('\n');
         }
+        assertEquals(rootBefore, ls(), "a case left a file in the repository root: it runs in a folder of its own");
         results.append("runnable ").append(ids.size());
         for (Stage s : Stage.values()) results.append(' ').append(s).append(' ').append(counts.getOrDefault(s, 0));
         results.append('\n');
@@ -266,7 +258,7 @@ class AutotestsLoweredIntegrationTest {
         assertEquals(used, texts.keySet(), "a sorting line for each key used, and no other");
         texts.forEach((k, text) -> assertEquals(FailSorting.TEXTS.get(k), text, "# sorting " + k));
         assertEquals(FailSorting.cases().size(), fails, "every sorted case is a FAIL line");
-        assertTrue(!FailSorting.of("run_initialize-90").equals(FailSorting.of("run_file-241")), "two keys: swapping them would not read back");
+        assertTrue(!FailSorting.of("run_initialize-90").equals(FailSorting.of("run_file-5646")), "two keys: swapping them would not read back");
     }
 
     /** R-056's mutation for the flag columns: a flag with spaces and commas, as `run_extensions-2904` has, comes back whole, and joining with a bare space would not. */
@@ -284,7 +276,8 @@ class AutotestsLoweredIntegrationTest {
         for (Stage stage : List.of(Stage.PASS, Stage.FLAGPASS)) {
             List<String> passing = Files.readAllLines(GOLDEN).stream().filter(l -> !l.startsWith("#") && l.split(" ")[1].equals(stage.name())).map(l -> l.substring(0, l.indexOf(' '))).toList();
             assertTrue(passing.size() > 1, stage + "");
-            byte[] got = LoweredAutotestsIntegrationTest.run(LoweredAutotestsIntegrationTest.build(passing.get(0)));
+            LoweredAutotestsIntegrationTest.build(passing.get(0));
+            byte[] got = runCase(passing.get(0)).stdout();
             assertTrue(Arrays.equals(got, AutotestRtIntegrationTest.expected(passing.get(0))), stage + "");
             boolean seen = false;
             for (String other : passing.subList(1, passing.size()))

@@ -282,3 +282,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-275 | R-090 steps 3 and 4 wait for Ghost: BankDemo, a corpus a golden holds, uses level 78 and ENVIRONMENT-NAME (TODO 3.1) | deferred (R-053: a question parked, the default taken: neither step built) | `J-200-299.md` |
 | J-276 | Tithe: navigation review 4: five debriefs; a case's files, where the corpus is, case lists by text, new grammar forms | tithe (R-008), and the review R-079 asks | `J-200-299.md` |
 | J-277 | R-090 steps 3 and 4 built on Ghost's word: a level outside IBM's set, and ACCEPT FROM / DISPLAY UPON names (TODO 3.1) | measurement (closes J-275's `deferred`) | `J-200-299.md` |
+| J-278 | The census runs each case's own command: a process per case, in a copy of the case's folder, with the check's environment, arguments, input and pipe (TODO 3.1) | measurement | `J-200-299.md` |
