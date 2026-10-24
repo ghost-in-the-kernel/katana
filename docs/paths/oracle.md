@@ -10,7 +10,7 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
   (P-02).
 - Nothing a run produced enters the repository (R-037): a run's output goes under `build/`.
 - GnuCOBOL's autotest folder (`corpus/gnucobol-autotests/`) holds its whole source tree beside its cases folder. Open only a case's own
-  files, in its folder under the cases folder beside it: `prog.cob` and `flags.txt` (and its expected output, one case at a time while working that case):
+  files, in its folder under the cases folder beside it: `prog.cob`, `flags.txt`, `case.txt` and its check-N.sh files (the check's command and environment), and its expected output, one case at a time while working that case (J-276, N-016). For a suspected fault in the reader, scan every extracted file under the cases folder for the symptom before reading any `.at` line (N-015):
   R-045 as amended allows those and nothing else there, no `.at` file, configuration, `atlocal`, `testsuite` or `Makefile`.
   To see the flags of every case, read the census golden (`test/katana/rt/autotest/lowered.golden`), not the tree.
 - Integration runs are long: `gradle integration --tests <class>` to a file, then read the result's failures.

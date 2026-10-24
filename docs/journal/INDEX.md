@@ -280,3 +280,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-273 | R-090 step 1: EXIT PERFORM [CYCLE], EXIT PARAGRAPH and EXIT SECTION parse and are lowered (TODO 3.1) | measurement | `J-200-299.md` |
 | J-274 | R-090 step 2: a `$` in column 7 is an error; one coincidental PASS goes, its floor lowered by hand (TODO 3.1) | measurement | `J-200-299.md` |
 | J-275 | R-090 steps 3 and 4 wait for Ghost: BankDemo, a corpus a golden holds, uses level 78 and ENVIRONMENT-NAME (TODO 3.1) | deferred (R-053: a question parked, the default taken: neither step built) | `J-200-299.md` |
+| J-276 | Tithe: navigation review 4: five debriefs; a case's files, where the corpus is, case lists by text, new grammar forms | tithe (R-008), and the review R-079 asks | `J-200-299.md` |
