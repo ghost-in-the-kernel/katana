@@ -22,10 +22,8 @@ final class FailSorting {
             Map.entry("harness", "not Katana: the census runs prog.cob from the repository root without the expected check's own command (working folder and date variable, a pipe, or another program of the case); under that command Katana equals cobc -std=ibm and the expectation, or the expectation is of another program"),
             Map.entry("debug-line", "USE FOR DEBUGGING on procedures: the census sets no katana.debug (the case's command sets COB_SET_DEBUG=1); with it Katana differs from cobc -std=ibm only in DEBUG-ITEM's line (six zero-padded digits, and a line for START PROGRAM, where cobc blank-pads and leaves START PROGRAM blank); IBM's form waits for the Language Reference (R-082)"),
             Map.entry("debug-data", "USE FOR DEBUGGING on a data name or a file (a GnuCOBOL extension its ibm config accepts): the lowering names it as not lowered, IBM debugs procedures only (LR 6.4 p. 708), so no debug line is written"),
-            Map.entry("level78", "level 78 constants (GnuCOBOL's; its ibm config accepts them): Katana reads `78 X VALUE ...` as an item with no PICTURE, DISPLAYs nothing for it, and names no finding (P-03)"),
             Map.entry("files", "READ of a RECORD VARYING file over text (the case's DD_ file or ASSIGN EXTERNAL name): run under the case's command Katana ends in status 47 or an EOFException from SeqFile.readVarying where cobc -std=ibm reads; the census as run has neither the file nor the variable"),
             Map.entry("pscale", "DISPLAY of an item with P (assumed scaling) positions: Katana writes the stored digits (Display.of: the bytes), cobc -std=ibm writes the PICTURE's digits with the P positions, the expectation the value with a point; no D- row lists it; IBM's rule waits for the Language Reference (R-082)"),
-            Map.entry("env-name", "DISPLAY ... UPON ENVIRONMENT-NAME / ENVIRONMENT-VALUE, ACCEPT FROM ENVIRONMENT-VALUE, ARGUMENT-VALUE and ARGUMENT-NUMBER (GnuCOBOL's): Katana writes the names to stdout and reads blanks; no finding (P-03)"),
             Map.entry("move-overlap", "MOVE between overlapping reference-modified parts of one item: Katana copies as if through a buffer, cobc -std=ibm with -fmove-ibm propagates byte by byte as the expectation does; R-088 said rt/Move is held to IBM's MOVE"),
             Map.entry("float-lit", "DISPLAY of numeric literals: a floating-point literal (1,23E0) is written as its mantissa digits and E0, where cobc -std=ibm writes its value; a plus-signed literal loses its sign, which cobc -std=ibm keeps (whether IBM keeps it waits for the Language Reference)"),
             Map.entry("invdata", "comparisons of numeric DISPLAY items holding spaces (invalid data, ibm.invdata NO): Katana, cobc -std=ibm and the expectation each give another result; IBM's is undefined without INVDATA, so none is the oracle")));
@@ -39,10 +37,9 @@ final class FailSorting {
             Map.entry("run_fundamental-7664", "debug-line"), Map.entry("run_fundamental-7715", "debug-line"),
             Map.entry("run_fundamental-7892", "debug-data"), Map.entry("run_fundamental-7933", "debug-data"),
             Map.entry("run_fundamental-7983", "debug-data"), Map.entry("run_fundamental-8071", "debug-data"),
-            Map.entry("run_extensions-2831", "level78"), Map.entry("run_extensions-2854", "level78"), Map.entry("run_extensions-2880", "level78"),
             Map.entry("run_file-241", "files"), Map.entry("run_file-5646", "files"), Map.entry("run_file-5782", "files"),
             Map.entry("data_display-410", "pscale"), Map.entry("run_fundamental-8760", "pscale"), Map.entry("data_binary-2143", "pscale"),
-            Map.entry("run_extensions-2785", "env-name"), Map.entry("run_fundamental-3100", "move-overlap"),
+            Map.entry("run_fundamental-3100", "move-overlap"),
             Map.entry("run_fundamental-72", "float-lit"), Map.entry("run_misc-14909", "invdata"));
 
     /** A FAIL case's key; a case not sorted yet refuses, with what to do. */

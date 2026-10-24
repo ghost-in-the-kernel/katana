@@ -1826,8 +1826,9 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
   and a PERFORM of a paragraph CYCLE. Silent output breaks P-03; refusing is fail-closed. `Settings.extensions` opens
   only directives that decide which text is the program (R-081), and a setting that reaches a proof must be named by a
   profile; there is no IBM profile under which a non-IBM construct could be proven.
-- **Held by:** `front/Lines.java`, `sir/build/DataMap.java`, `lower/Verbs.java`, the grammar's exit statement, their
-  tests, and the census (once built: TODO 3.1).
+- **Held by:** `front/Lines.java` (the `$` line), `sir/build/DataMap.java` (levels; `BuildTest`), `lower/Verbs.java`
+  (ACCEPT FROM, DISPLAY UPON; `EnvironmentNamesTest`), the grammar's exit statement and `lower/Exits.java` (`ExitsTest`,
+  `EXITS.cbl` against cobc), and the census (J-273 to J-277).
 - **Source:** Fable (J-272), on the FAIL sorting's proposal (J-271); taken by Ghost, 2026-10-24: "yes, record it".
   IBM's sets are recollection (R-082): levels ~95%, ENVIRONMENT-NAME not IBM's ~90%, `$SET` Micro Focus's ~95%, EXIT
   PERFORM CYCLE IBM's ~85%.
