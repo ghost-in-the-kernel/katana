@@ -8,17 +8,17 @@ final class FileDecls {
     private FileDecls() {}
 
     /** Each file's object, by the name it is ASSIGNed to; with a relative or indexed file, the flags its INVALID KEY phrases read. */
-    static void declare(Emitter e, katana.sir.types.Program p) {
+    static void declare(Emitter e, katana.sir.types.Program p, Exprs x) {
         if (p.files().stream().anyMatch(FileVerbs::keyed)) e.line("private boolean ik, ok;");
         for (FileDescriptor d : p.files()) {
             String type = type(d);
-            e.line("private final " + type + " " + FileVerbs.name(d.name()) + (external(d) ? ";" : " = " + made(d) + ";"));
+            e.line("private final " + type + " " + FileVerbs.name(d.name()) + (external(d) ? ";" : " = " + made(d, x) + ";"));
         }
     }
 
     /** In the constructor: each EXTERNAL file the run unit's one connector of that name, the first program to describe it making it (LANE-19). */
-    static void externals(Emitter e, katana.sir.types.Program p) {
-        for (FileDescriptor d : p.files()) if (external(d)) e.line(FileVerbs.name(d.name()) + " = u.externalFile(" + Emitter.quote(d.name()) + ", () -> " + made(d) + ");");
+    static void externals(Emitter e, katana.sir.types.Program p, Exprs x) {
+        for (FileDescriptor d : p.files()) if (external(d)) e.line(FileVerbs.name(d.name()) + " = u.externalFile(" + Emitter.quote(d.name()) + ", () -> " + made(d, x) + ");");
     }
 
     static boolean external(FileDescriptor d) {
@@ -31,8 +31,21 @@ final class FileDecls {
         return "SeqFile";
     }
 
-    /** A file's object as made. */
-    private static String made(FileDescriptor d) {
+    /**
+     * The word a file's ASSIGN clause begins with that IBM's does not have, EXTERNAL or DYNAMIC, else null: IBM's ASSIGN names a ddname (or USING a data item), and cobc -std=ibm's
+     * "ASSIGN TO EXTERNAL name" takes name from the environment, which no lane passes and IBM lacks (R-090; recollection, R-082). The SIR keeps the clause's words, so the name here is "EXTERNAL name".
+     */
+    // Decision: R-090
+    // Unsure: a literal ASSIGN whose payload begins "EXTERNAL " or "DYNAMIC " reads as the clause words, the SIR holding both as one string. Stays: a program with such a literal settles it; none is known, and the refusal names the file.
+    static String foreignAssign(FileDescriptor d) {
+        for (String w : new String[] {"EXTERNAL", "DYNAMIC"}) if (d.assign().startsWith(w + " ")) return w;
+        return null;
+    }
+
+    /** A file's object as made; an ASSIGN IBM lacks is a finding, the object failing where the program is built. */
+    private static String made(FileDescriptor d, Exprs x) {
+        String foreign = foreignAssign(d);
+        if (foreign != null && !SortVerbs.sd(d)) return x.unsupported("file " + d.name() + " ASSIGN " + foreign + " " + d.assign().substring(foreign.length() + 1) + ": IBM's ASSIGN names a ddname, not an environment name (R-090; recollection, R-082)");
         if (SortVerbs.sd(d)) return "new SortFile()";
         if (FileVerbs.keyed(d)) return "new " + type(d) + "(" + Emitter.quote(d.assign()) + ", " + Emitter.quote(d.name()) + ", " + (d.status() != 0) + ", " + d.optional() + ", KeyedFile.Access." + d.access() + ")";
         boolean lines = d.organization() == FileDescriptor.Organization.LINE_SEQUENTIAL;

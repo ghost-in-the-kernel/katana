@@ -113,13 +113,13 @@ run_file-1637 NOPARSE preprocessing the program extraneous input 'SUPPRESS'
 run_file-2324 NOPARSE preprocessing the program extraneous input 'suppress'
 run_file-241 NORUN
 run_file-2600 NOPARSE parsing mismatched input 'linage'
-run_file-3101 FLAGPASS -fdefault-file-colseq=EBCDIC [encoding]
+run_file-3101 FLAG -fdefault-file-colseq=EBCDIC [encoding]
 run_file-3161 NOPARSE parsing extraneous input 'FILE'
 run_file-3523 PASS
 run_file-4179 NOPARSE parsing mismatched input 'COMP-X'
 run_file-5542 NOPARSE parsing mismatched input 'EXIT'
-run_file-5646 FAIL files
-run_file-5782 FAIL files
+run_file-5646 NORUN
+run_file-5782 NORUN
 run_file-5918 PASS
 run_file-6205 FLAGPASS -fcallfh=EXTFH [cobc-runtime]
 run_file-6495 NOPARSE parsing no viable alternative at input 'DISPLAY "Failed: EOF"\n STOP RUN ERROR'
@@ -383,7 +383,7 @@ used_binaries-359 PASS
 used_binaries-393 PASS
 used_binaries-411 PASS
 used_binaries-482 PASS
-runnable 378 NOSOURCE 36 FLAG 63 FLAGPASS 13 NOPARSE 102 NOLOWER 12 NOJAVAC 5 NORUN 72 FAIL 22 PASS 53
+runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 102 NOLOWER 12 NOJAVAC 5 NORUN 74 FAIL 20 PASS 53
 # reason ascii: not an IBM encoding
 # reason cobc-runtime: names a file handler or a system-name mapping of the cobc runtime; Katana's runtime has neither
 # reason comp-1: another dialect's USAGE: COMP-1 is a 16-bit integer there, short floating point in IBM's
@@ -399,7 +399,6 @@ runnable 378 NOSOURCE 36 FLAG 63 FLAGPASS 13 NOPARSE 102 NOLOWER 12 NOJAVAC 5 NO
 # sorting d010-cobc: D-010, and cobc -std=ibm itself differs from IBM's text in the same output (D-004 binary DISPLAY digits, D-005 the sign beside the overpunch); Katana follows IBM's text, the expectation is the default dialect's
 # sorting debug-data: USE FOR DEBUGGING on a data name or a file (a GnuCOBOL extension its ibm config accepts): the lowering names it as not lowered, IBM debugs procedures only (LR 6.4 p. 708), so no debug line is written
 # sorting debug-line: USE FOR DEBUGGING on procedures, run with katana.debug=Y as the case's command sets COB_SET_DEBUG=1 (J-278): Katana differs from cobc -std=ibm only in DEBUG-ITEM's line (six zero-padded digits, and a line for START PROGRAM, where cobc blank-pads and leaves START PROGRAM blank); IBM's form waits for the Language Reference (R-082)
-# sorting files: READ of a RECORD VARYING LINE SEQUENTIAL file assigned EXTERNAL, run under the case's own command (J-278): the command sets OUTFILE and Katana opens a file named `EXTERNAL OUTFILE` instead, and ends in status 47 after the OPEN where cobc -std=ibm reads; why is not diagnosed
 # sorting float-lit: DISPLAY of numeric literals: a floating-point literal (1,23E0) is written as its mantissa digits and E0, where cobc -std=ibm writes its value; a plus-signed literal loses its sign, which cobc -std=ibm keeps (whether IBM keeps it waits for the Language Reference)
 # sorting harness: not Katana: the expected check runs another program of the case (run_file-975's check runs ./prog3, the census's program is prog.cob); the census runs the check's own command otherwise (J-278), so this is the one gap left in the harness
 # sorting invdata: comparisons of numeric DISPLAY items holding spaces (invalid data, ibm.invdata NO): Katana, cobc -std=ibm and the expectation each give another result; IBM's is undefined without INVDATA, so none is the oracle

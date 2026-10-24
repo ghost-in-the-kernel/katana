@@ -258,7 +258,7 @@ class AutotestsLoweredIntegrationTest {
         assertEquals(used, texts.keySet(), "a sorting line for each key used, and no other");
         texts.forEach((k, text) -> assertEquals(FailSorting.TEXTS.get(k), text, "# sorting " + k));
         assertEquals(FailSorting.cases().size(), fails, "every sorted case is a FAIL line");
-        assertTrue(!FailSorting.of("run_initialize-90").equals(FailSorting.of("run_file-5646")), "two keys: swapping them would not read back");
+        assertTrue(!FailSorting.of("run_initialize-90").equals(FailSorting.of("run_misc-14909")), "two keys: swapping them would not read back");
     }
 
     /** R-056's mutation for the flag columns: a flag with spaces and commas, as `run_extensions-2904` has, comes back whole, and joining with a bare space would not. */

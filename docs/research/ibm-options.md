@@ -3056,3 +3056,6 @@ the plain variable `OUTFILE` (not IBM's, not in the lane's environment), LINE SE
   The `files` sorting goes (no FAIL left under it).
 - Every other golden does not move: no program of CardDemo, omp-cobol-course, BankDemo, NIST, the fixture or the SIR goldens has an EXTERNAL or DYNAMIC ASSIGN (searched); the CardDemo lanes and NIST java lane are run to show it.
 - What could make it wrong: an ASSIGN of a real program that is spelled `EXTERNAL` in a word (a file named EXTERNAL-X: the check is on the clause's leading word followed by a name, not on a prefix of the name).
+
+**Result (J-282).** The census as predicted, case for case: `run_file-5646`, `-5782` FAIL to NORUN; `run_file-3101` FLAGPASS to FLAG; PASS 53, PASS+FLAGPASS 65 (the floor lowered by hand for
+`run_file-3101`), FLAG 64, FLAGPASS 12, NORUN 74, FAIL 20; no other line of the golden moved. The refusal is `FileDecls.foreignAssign` (R-090), held by `ForeignAssignTest`.
