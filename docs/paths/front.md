@@ -16,6 +16,9 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
   lists them: `nist`, `fixture`, `lane`, `front`, `sir`, `autotest`, `rt`, `javalane`, `intent`, `ledger`,
   `passes`) or `fast`. The fast loop's `DocTests > checks()` fails until the row is there.
 
+- A new grammar form: build it only if IBM has it, with its meaning, before it parses (R-090). Where IBM's status is
+  only recollection, confirm it in the manuals (R-082) or keep the form an error and say so (J-276, N-014).
+
 ## Rows
 
 | Task | Start here | Contract | Tests |

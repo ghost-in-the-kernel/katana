@@ -8,7 +8,7 @@ import java.util.Locale;
  * Reference format to the text the forked grammars read (front/grammar/), one output line for each
  * source line so a line number stays a line number, each character with its origin (Mapped). Columns
  * 1-6 are the sequence area, 7 the indicator, 8-72 areas A and B; past 72 is not read. A comment line
- * (`*`, `/`) becomes `*> text`; a `$` directive line is blank; a `>>` directive is applied first (Directives); a debug line (`D`) is read as code. A
+ * (`*`, `/`) becomes `*> text`; a `$` in column 7 is an error (R-090) and the line blank; a `>>` directive is applied first (Directives); a debug line (`D`) is read as code. A
  * continuation line (`-`) is joined to the line it continues, which keeps its text to column 72 when
  * a literal is open there, and is left blank. In the IDENTIFICATION DIVISION the comment entries after
  * AUTHOR., INSTALLATION., DATE-WRITTEN., DATE-COMPILED., SECURITY. and REMARKS. are marked `*>CE` until
@@ -50,7 +50,10 @@ public final class Lines {
             Mapped built = new Mapped();
             switch (indicator) {
                 case '*', '/' -> out.add(built.added(INDENT + "*> ", line, 6).append(strip(content)));
-                case '$' -> out.add(built);
+                case '$' -> {
+                    errors.add(dollar(file, out.size() + 1));
+                    out.add(built);
+                }
                 case '-' -> {
                     if (logical < 0) {
                         out.add(built.added(INDENT, line, 0).append(strip(content)));
@@ -77,6 +80,15 @@ public final class Lines {
             result.append(trailing(out.get(i)));
         }
         return result;
+    }
+
+    /**
+     * A `$` in column 7 is a refusal (R-090): IBM's indicators are `*`, `/`, `-`, `D` and a blank, so the directive lines of another dialect
+     * (`$SET`, `$IF`) are not IBM's and are never read as comments or applied.
+     */
+    // Decision: R-090
+    private static String dollar(String file, int line) {
+        return (file.isEmpty() ? "" : file + " ") + "line " + line + ": a `$` in column 7 (another dialect's directive line, as `$SET`); IBM's indicators are `*`, `/`, `-`, `D` and a blank (recollection, R-082)";
     }
 
     /** A source line's content added to its logical line; an entry paragraph's text is commented out from its first sentence on (`*>CE`), as the grammars read it. */

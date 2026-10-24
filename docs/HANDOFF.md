@@ -182,6 +182,10 @@ unchanged, R-042):
 
 ## Waiting on Ghost
 
+- **R-090's steps 3 and 4 (J-275):** a level outside IBM's set refused (`DataMap`) and ACCEPT FROM / DISPLAY UPON resolved against SPECIAL-NAMES and IBM's
+  environment-names (`Verbs`). The brief's guard stopped before them: BankDemo, held by `front/corpus.golden` and built privately by `CorpusIntegrationTest`, has a level 78
+  (`DFHUAINS.cbl`, which already does not build: `comp-x`) and `DISPLAY ... UPON ENVIRONMENT-NAME` (`DFHZCSGM.cbl`, parse and IR only). Measured: neither moves a golden but
+  the census. Ghost's word to build them as R-090 says, or to weigh BankDemo first.
 - **IBM's manuals (R-082, J-255):** the Language Reference (SC27-8713) and Programming Guide (SC27-8714) PDFs, the
   editions the lane's profile names, into `corpus/ibm-manuals/` (gitignored), so an agent can confirm a directive or a
   rule; §59's `>>ELIF` and `>>D` are the first to confirm. Counsel confirms R-082's quotation rule and R-045's

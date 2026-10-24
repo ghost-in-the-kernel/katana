@@ -11,7 +11,13 @@ Pointed to by CLAUDE.md (R-074). A new row for this path goes in this file's tab
 - Before a research section's prediction, find the cases a change can move by searching the corpus for the
   construct (the program text, and each autotest case's `flags.txt`), name them in the prediction, and read them and
   how they are run (flags, settings), not only their error messages (J-253: N-002, N-004; J-266: N-012 missed
-  `run_extensions-517` for want of the scan).
+  `run_extensions-517` for want of the scan). The corpus the lanes and goldens run is (the fetched and built places written plain: a fresh clone lacks them): corpus/carddemo/app,
+  corpus/omp-cobol-course, corpus/bankdemo (parsed and built by the front end's corpus test only), NIST's
+  programs as written to build/corpus-nist once the front end's corpus test has run (not the raw `newcob.val`,
+  whose sequence columns fake level numbers), `oracle/fixture/`, `sir/golden/`, `front/ibm/`, the programs inline
+  in `test/`, and every file of each autotest case under its cases folder (nothing else of that folder, R-045). A
+  case list is taken from the files or the census golden (`grep` it by stage or reason), never from a parser's
+  message, which undercounts (J-276: N-014, N-015, N-017).
 - An `// Unsure:` line says what would settle it, and ends with what stays until then (`Stays: ...`);
   `DocTests` refuses one without (J-253, N-002).
 - Take every number from `gradle nextId` after `git fetch origin main`; never guess the next R-, J- or §.

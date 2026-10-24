@@ -54,6 +54,29 @@ class ParseTest {
         assertFalse(parse(program("COMPUTE N ROUNDED MODE IS TRUNCATION = 7 / 2.", "STOP RUN."), NONE).clean());
     }
 
+    /** R-090 (J-273): EXIT PERFORM [CYCLE], EXIT PARAGRAPH and EXIT SECTION are IBM's; PARAGRAPH and CYCLE stay unreserved, usable as a name. */
+    @Test
+    void exitPerformParagraphAndSectionParseAndTheirWordsStayNames() {
+        assertTrue(parse(program("PERFORM 2 TIMES", "    EXIT PERFORM CYCLE", "    EXIT PERFORM", "END-PERFORM", "EXIT PARAGRAPH", "EXIT SECTION", "EXIT PROGRAM", "STOP RUN."), NONE).clean());
+        assertTrue(parse(program("PERFORM", "    IF N = 1 EXIT PERFORM END-IF", "    DISPLAY X", "END-PERFORM", "EXIT.", "STOP RUN."), NONE).clean());
+        String named = program("MOVE 1 TO CYCLE.", "MOVE 2 TO PARAGRAPH.", "EXIT.", "STOP RUN.").replace("01  N PIC 9(4).", "01  N PIC 9(4).\n       01  CYCLE PIC 9.\n       01  PARAGRAPH PIC 9.");
+        assertEquals(List.of(), parse(named, NONE).errors());
+        assertFalse(parse(program("EXIT PERFORM STOP.", "STOP RUN."), NONE).clean(), "EXIT PERFORM takes CYCLE or nothing");
+    }
+
+    /** R-090 (J-273): a `$` in column 7 is another dialect's directive line (`$SET`), not an IBM indicator: an error naming the line, IBM's set and the recollection. */
+    @Test
+    void aDollarInColumnSevenIsAnError() {
+        String text = program("MOVE 'A' TO X.", "STOP RUN.").replace("       PROCEDURE DIVISION.\n", "      $SET SSRANGE\n       PROCEDURE DIVISION.\n");
+        Parse.Result r = parse(text, NONE);
+        assertFalse(r.clean());
+        assertEquals(1, r.errors().size(), r.errors().toString());
+        String error = r.errors().get(0);
+        assertTrue(error.contains("line 8:") && error.contains("`$` in column 7") && error.contains("`*`, `/`, `-`, `D` and a blank") && error.endsWith("(recollection, R-082)"), error);
+        assertTrue(parse(text.replace("      $SET SSRANGE\n", "      *SET SSRANGE\n"), NONE).clean(), "the same line as a comment is clean");
+        assertTrue(parse(program("MOVE '$' TO X.", "STOP RUN."), NONE).clean(), "a $ elsewhere in a line is no indicator");
+    }
+
     @Test
     void commentsContinuationsAndSequenceNumbersAreReferenceFormat() {
         String text = program("STOP RUN.").replace("       PROCEDURE DIVISION.\n", """

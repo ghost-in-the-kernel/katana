@@ -35,6 +35,11 @@ grammar Cobol;
         }
         return false;
     }
+
+    // Katana (R-090, J-273): the next token is this unreserved word (PARAGRAPH, CYCLE: reserved words would take them from the programs that name an item so).
+    boolean word(String text) {
+        return _input.LT(1).getText().equalsIgnoreCase(text);
+    }
 }
 
 startRule : compilationUnit EOF;
@@ -1515,8 +1520,9 @@ exhibitOperand
 
 // exit statement
 
+// Katana (R-090, J-273): EXIT PERFORM [CYCLE], EXIT PARAGRAPH and EXIT SECTION are IBM's (recollection, R-082).
 exitStatement
-   : EXIT PROGRAM?
+   : EXIT (PROGRAM | PERFORM ({word("CYCLE")}? IDENTIFIER)? | {word("PARAGRAPH")}? IDENTIFIER | SECTION)?
    ;
 
 // generate statement

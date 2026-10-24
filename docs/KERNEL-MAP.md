@@ -2031,3 +2031,12 @@ goes away gets a later line with `superseded-by:` or `removed:`.
 | oracle | `oracle/autotest/Autotests.java:Autotests.finish` |  | 2026-10-24 |  |
 | oracle | `oracle/autotest/Autotests.java:Autotests.written` |  | 2026-10-24 |  |
 | oracle | `oracle/autotest/Autotests.java:Autotests.unquoteWhole` | R-045 | 2026-10-24 |  |
+| lower | `lower/Exits.java:Exits.Exits` |  | 2026-10-24 |  |
+| lower | `lower/Exits.java:Exits.plain` |  | 2026-10-24 |  |
+| lower | `lower/Exits.java:Exits.stretch` |  | 2026-10-24 |  |
+| lower | `lower/Exits.java:Exits.within` |  | 2026-10-24 |  |
+| lower | `lower/Exits.java:Exits.exit` | R-090 | 2026-10-24 |  |
+| lower | `lower/Exits.java:Exits.holds` |  | 2026-10-24 |  |
+| lower | `lower/Performs.java:Performs.inline` |  | 2026-10-24 |  |
+| lower | `lower/Performs.java:Performs.performed` |  | 2026-10-24 |  |
+| front | `front/Lines.java:Lines.dollar` | R-090 | 2026-10-24 |  |

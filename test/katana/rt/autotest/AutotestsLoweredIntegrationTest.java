@@ -66,7 +66,7 @@ class AutotestsLoweredIntegrationTest {
         var parse = katana.front.Parse.file(CASES.resolve(id).resolve("prog.cob"), new katana.front.Copybooks(List.of(CASES.resolve(id)), n -> 8), 8, LoweredAutotestsIntegrationTest.compileStep(id).settings());
         String e = parse.errors().isEmpty() ? "(no message)" : parse.errors().get(0);
         // Where it was and what was expected vary with the case; the kind and the offending text are the cause.
-        e = e.replaceAll("\\s+", " ").replaceAll(" expecting .*$", "").replaceAll("(?<=[a-z] )\\d+:\\d+:? ?", "").replaceAll("^copybook .* not found.*$", "copybook not found").trim();
+        e = e.replaceAll("\\s+", " ").replaceAll("^\\S+ line \\d+: ", "").replaceAll(" expecting .*$", "").replaceAll("(?<=[a-z] )\\d+:\\d+:? ?", "").replaceAll("^copybook .* not found.*$", "copybook not found").trim();
         return e.length() > 90 ? e.substring(0, 90) : e;
     }
 

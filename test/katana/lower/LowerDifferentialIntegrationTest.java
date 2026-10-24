@@ -124,6 +124,20 @@ class LowerDifferentialIntegrationTest {
         assertEquals(List.of(), differ);
     }
 
+    /** R-090: EXIT PERFORM [CYCLE] under 6.1's structuring pass too (a VARYING written as a `for`, bodies as Java), the same output as cobc -std=ibm and as the literal lowering. */
+    @Test
+    void exitPerformHoldsUnderTheStructuringPass() throws Exception {
+        Path dir = Files.createDirectories(ROOT.resolve("build/lower-differential-structured/EXITS"));
+        Files.copy(PROGRAMS.resolve("EXITS.cbl"), dir.resolve("EXITS.cbl"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        Cobc cobc = new Cobc(Duration.ofSeconds(60), "ibm");
+        assertEquals(true, cobc.compile(dir, "EXITS.cbl", List.of()).ok());
+        String expected = cobc.execute(dir, "EXITS", Map.of(), new byte[0]).output();
+        JavaRunner lane = new JavaRunner(60).structured();
+        katana.oracle.nist.Runner.Result j = lane.program(dir, "EXITS.cbl");
+        assertEquals(true, j.ok(), j.output());
+        assertEquals(expected, lane.run(dir, "EXITS", Map.of(), new byte[0]).output());
+    }
+
     /** R-056's mutation: each program's output held to the next program's cobc output differs. */
     @Test
     void anotherProgramsOutputDiffers() throws Exception {

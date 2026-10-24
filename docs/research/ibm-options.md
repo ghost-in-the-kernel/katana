@@ -2878,3 +2878,60 @@ are quadrigraphs for a real `]` and must stay.
   `lowered.golden` that could change is `run_ml-856`'s reason text (its trailing `]` line is gone), and I expect none does;
 - the cases it can move: `run_ml-1081`, `run_ml-856`, `run_file-11361` (runnable), and nothing else in the census;
 - what could make it wrong: a runnable case whose prog.cob has a `[`-wrapped whole argument that I did not find (the scan covers every file of every case).
+
+## 63. 3.1, R-090's four steps: EXIT PERFORM [CYCLE] / PARAGRAPH / SECTION built, a `$` line, a level outside IBM's set, ACCEPT FROM and DISPLAY UPON names (J-273)
+
+**The task (Ghost, R-090, J-272).** In this order: (1) the grammar's exit statement (`EXIT PROGRAM?`) gets `PERFORM [CYCLE]`, `PARAGRAPH`, `SECTION`;
+(2) a `$` in column 7 is an error (`front/Lines.java`); (3) a level number outside 01-49, 66, 77, 88 is refused (`sir/build/DataMap.java`);
+(4) ACCEPT FROM and DISPLAY UPON resolved against SPECIAL-NAMES and IBM's environment-names, else a finding (`lower/Verbs.java`). Each refusal names the
+construct, IBM's set and "(recollection, R-082)": the Language Reference is not in `corpus/ibm-manuals/` here.
+
+**The scan, before any prediction** (the program text of CardDemo, OMP, BankDemo, the NIST programs `NistSources` writes to `build/corpus-nist`, the fixtures,
+`sir/golden`, `front/ibm`, the tests' inline programs, and every file of every autotest case, not only `prog.cob`; R-045: the cases' own files only).
+- *`$` in column 7.* None in CardDemo, OMP, BankDemo, NIST, the fixtures, the goldens' programs or the tests. In the autotests, 16 cases hold one in a
+  `.cob`; 8 of them runnable, and in only two is it `prog.cob`, the file the census compiles: `run_subscripts-437` (`$SET BOUND`; PASS today) and
+  `run_subscripts-506` (`$SET NOSSRANGE`, `$SET SSRANGE`; FAIL `ssrange`). The other six runnable ones hold it in a second program the census never compiles
+  (`run_extensions-5257` `prog2.cob`, `run_file-11361` `progs.cob`, `syn_misc-2023` `prog2.cob`, and `backcomp-816`, `data_binary-23`, `-205` are NOSOURCE).
+- *A level outside IBM's set.* Only 78 appears (2416 lines in 83 cases; no 00, 50-65, 67-76, 79-87, 89-99 anywhere). Outside the autotests: **BankDemo's
+  `DFHUAINS.cbl` line 94, `78 78-srv-cmsg-entry-name value 'SRV_CONSOLE_MSG'`**; none in CardDemo, OMP, NIST (the `66`, `69` and `SECTION 50` the scan
+  catches are an alphabet's ordinals and section names), the fixtures or the goldens' programs. Of the 83 cases, the runnable ones by stage today: FAIL
+  `level78` 3 (`run_extensions-2831`, `-2854`, `-2880`); NORUN 2 (`run_file-12428`, `run_fundamental-3375`); NOLOWER 2 (`data_packed-1971`, `-2083`);
+  FLAG about 20; NOPARSE about 11; the rest not reached.
+- *ACCEPT FROM / DISPLAY UPON a name.* In the autotests: `STDOUT` (`run_extensions-101`, FLAG; `run_fundamental-7502`, NOPARSE), `PRINTER`
+  (`run_misc-13585`, NOJAVAC), `ENVIRONMENT-NAME`/`-VALUE`/`ARGUMENT-VALUE`/`ARGUMENT-NUMBER` (`run_extensions-2785` FAIL `env-name`; `run_misc-13305` and
+  `-13371` FLAG), `MICROSECOND-TIME` (`run_accept-141`, NOPARSE), and `SYSERR`, `SYSOUT`, `CONSOLE`, `SYSPCH`, `SYSPUNCH` in cases at other stages. In the
+  NIST programs: `UPON DISPLAY-OUTPUT-DEVICE` (NC220M), `UPON THE-SYSTEM-PRINTER` (DB203A), `UPON VDUNIT` (NC401M), `ACCEPT ... FROM ACCEPT-INPUT-DEVICE`,
+  `INPUT-DEVICE`, `SYSIN`: mnemonics, which SPECIAL-NAMES must resolve. **BankDemo's `DFHZCSGM.cbl` has `DISPLAY ... UPON ENVIRONMENT-NAME` (3) and
+  `ACCEPT ... FROM ENVIRONMENT-VALUE` (1).** CardDemo and OMP: none.
+- *EXIT forms.* In the autotests, runnable: `run_misc-2433` (`EXIT PERFORM CYCLE`), `run_misc-2410` (`EXIT PERFORM`), `run_file-5542` (`PERFORM UNTIL EXIT`
+  and `AT END EXIT PERFORM`), `run_file-13907`, `run_misc-14060`, `-14111`, `-14367` (`EXIT PERFORM`), `run_misc-15280` (`EXIT PARAGRAPH`, `EXIT SECTION`).
+  None in CardDemo, OMP, BankDemo or NIST (its `CCVS-EXIT SECTION.` is a section name, one word).
+
+**The guard.** BankDemo is held by `front/corpus.golden` (`corpus bankdemo 82/82`, parse only) and its IR is built and counted privately by
+`CorpusIntegrationTest` (printed, not asserted); no lane lowers it. Steps 3 and 4 touch two of its programs. R-090 did not weigh BankDemo; if steps 3 or 4
+would move a golden or lane over a program they hold, they wait for Ghost. Steps 1 and 2 touch no program outside the autotests.
+
+**The reading, step 1.** `EXIT PERFORM` leaves the innermost inline PERFORM; `EXIT PERFORM CYCLE` ends the current cycle and "continues with the next
+iteration": for TIMES the count is decremented as at the end of a body, for UNTIL the condition is tested next, for VARYING the step runs first and then the
+test. (My recollection of Enterprise COBOL 6.x, ~85%, R-082; cobc -std=ibm accepts it: the differential below holds the meaning, not the census case.) EXIT
+PARAGRAPH goes to the end of the paragraph, EXIT SECTION to the end of the section; the lowering already writes both (`Verbs.exit`, by a keyword the grammar
+never produces), so they are a grammar gap.
+
+**Predicted, before the build.**
+- Step 1 (grammar `exitStatement`, `Verbs.exit`, `Performs`): `run_misc-2433` FAIL to PASS, `run_misc-2410` NOPARSE to PASS (its error `extraneous input '.\n'`
+  is `PERFORM` read as a statement after `EXIT`); census PASS 50 to 52 (PASS+FLAGPASS 62 to 64), floors raised by hand to 52 and 64 (more only for a named 'could move' case that passes). Could move, stage unknown: `run_misc-14060` and
+  `-14111` (the `exit perform` inside ON SIZE ERROR; they may parse past it and stop at FLOAT or UPON SYSERR), `run_misc-15280` (FLAG, may become FLAGPASS) and
+  `run_file-13907` (FLAG, may become FLAGPASS). Will not move: `run_file-5542` (its `UNTIL EXIT` is not IBM's; NOPARSE stays, perhaps with another message),
+  `run_misc-14367` (ENTRY). Goldens besides the census and the corpus: none changes (no program of CardDemo, OMP, NIST, BankDemo or the fixtures has the forms).
+  A differential program in `test/katana/lower/programs/` (TIMES, UNTIL and VARYING with EXIT PERFORM CYCLE; nested loops; the step run) agrees with cobc -std=ibm.
+- Step 2 (`Lines.normalize` adds an error): `run_subscripts-437` PASS to NOPARSE, `run_subscripts-506` FAIL to NOPARSE; after step 2 PASS 52 to 51 and PASS+FLAGPASS 64 to 63 (437 alone; 50 and 62 before step 1): the floor lowered by hand, reason "`$SET BOUND` was blanked; the pass was a coincidence (R-090)". 506's FAIL
+  line (`ssrange`) goes. No other golden changes: no `$` line in any program they hold.
+- Step 3 (not built unless Ghost rules on BankDemo): would move `run_extensions-2831`, `-2854`, `-2880` FAIL to NOLOWER, `run_file-12428` and
+  `run_fundamental-3375` NORUN to NOLOWER; the FLAG cases stay FLAG; BankDemo `DFHUAINS` would no longer build, in the private IR count only (the parse golden
+  `bankdemo 82/82` is unchanged).
+- Step 4 (not built unless Ghost rules): would move `run_extensions-2785` FAIL to NOLOWER (a finding), maybe `run_misc-13305`/`-13371` (FLAG, stay); the NIST
+  lane's mnemonics must still resolve; BankDemo `DFHZCSGM` is parsed only.
+- The fast loop green after each step. After steps 1 and 2 the census, by stage: PASS 51 (50 +2433 +2410 -437); FAIL 29 (-2433, -506); NOPARSE 103
+  (-2410, +437, +506); PASS+FLAGPASS 63; the other stages as they are unless a named 'could move' case moves.
+- What could make it wrong: a `$` or EXIT form in a copybook a case pulls from outside its folder; `EXIT PERFORM` inside a PERFORM of a paragraph (not inline): IBM
+  allows EXIT PERFORM only in an inline PERFORM, so the build must refuse or ignore it; the census's FLAG cases whose stage I cannot read from the golden alone.
