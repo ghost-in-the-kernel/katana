@@ -1812,6 +1812,30 @@ Ghost's alone, or an agent's with Ghost's explicit word in the same session (R-0
 - **subject:** front
 ---
 
+### R-090: A construct cobc -std=ibm accepts that IBM lacks is refused; one IBM has is built
+- **Decision:** A construct cobc -std=ibm accepts that IBM Enterprise COBOL does not have is refused, never built,
+  never approximated and never read under `Settings.extensions`: in the front end as an error when it decides the
+  text (a `$` indicator line); in the IR build as an error when a declaration cannot be placed (a level number outside
+  01-49, 66, 77, 88); in the lowering as a finding with `Unsupported.fail` when a statement has no IBM meaning (ACCEPT
+  FROM or DISPLAY UPON a name that is neither a SPECIAL-NAMES mnemonic nor an IBM environment-name). A construct IBM
+  has is a grammar gap and is built (EXIT PERFORM [CYCLE], EXIT PARAGRAPH, EXIT SECTION). Each refusal names the
+  construct and IBM's set, marked "(recollection, R-082)" until the Language Reference confirms it. A floor that falls
+  because a pass was coincidental is lowered by hand with its reason (R-086).
+- **Why:** these were accepted and lowered silently: a level-78 item displayed nothing; ENVIRONMENT-NAME and
+  ARGUMENT-VALUE read and wrote plain SYSOUT and blanks; every `$` line was blanked; EXIT PERFORM CYCLE parsed as EXIT
+  and a PERFORM of a paragraph CYCLE. Silent output breaks P-03; refusing is fail-closed. `Settings.extensions` opens
+  only directives that decide which text is the program (R-081), and a setting that reaches a proof must be named by a
+  profile; there is no IBM profile under which a non-IBM construct could be proven.
+- **Held by:** `front/Lines.java`, `sir/build/DataMap.java`, `lower/Verbs.java`, the grammar's exit statement, their
+  tests, and the census (once built: TODO 3.1).
+- **Source:** Fable (J-272), on the FAIL sorting's proposal (J-271); taken by Ghost, 2026-10-24: "yes, record it".
+  IBM's sets are recollection (R-082): levels ~95%, ENVIRONMENT-NAME not IBM's ~90%, `$SET` Micro Focus's ~95%, EXIT
+  PERFORM CYCLE IBM's ~85%.
+- **Status:** in force
+- **See also:** P-03, R-081, R-082, R-086, R-089
+- **subject:** front
+---
+
 Reserved, to be recorded when their phase arrives (docs/ROADMAP.md names each): R-014 CICS/DB2 grammar graft; R-018
 the attribute tuple; R-028 coverage in every proof; R-032 passes apply only when
 obligations are discharged; R-033 Erosa–Hendren total structuring refused; R-034 the residual

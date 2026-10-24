@@ -85,3 +85,4 @@ Written from `theGhost.md` by `gradle decisions`; do not edit by hand. A decisio
 | R-087 | Binary truncation: the census runs under a named profile; TRUNC(BIN) waits for its first job | in force |
 | R-088 | Three behaviour flags are IBM's own; ODO forms and the lane's encoding wait | in force |
 | R-089 | An acceptance flag never maps to a front-end mode | in force |
+| R-090 | A construct cobc -std=ibm accepts that IBM lacks is refused; one IBM has is built | in force |

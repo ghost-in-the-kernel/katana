@@ -276,3 +276,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-269 | The reader's `[[x]]` quoting settled, and the missing division header is the case's own text (TODO 3.1, research 62) | trial | `J-200-299.md` |
 | J-270 | The gate did not run the census for a change to the autotest reader | failure-caught | `J-200-299.md` |
 | J-271 | The census's 31 FAIL cases sorted against cobc -std=ibm: 6 D-010, 1 setting, 3 harness, 21 for Katana or the Language Reference (TODO 3.1) | measurement | `J-200-299.md` |
+| J-272 | Ghost takes Fable's rule for GnuCOBOL extensions IBM lacks: R-090 | decision | `J-200-299.md` |

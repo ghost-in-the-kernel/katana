@@ -62,7 +62,12 @@ Open: the 323 that do not pass; the 21 FAILs left after the sorting (J-271), as 
 is left to the JVM's exit (a daemon thread, see the `// Unsure:` in the census test).
 
 Built (J-271): the 31 FAIL cases sorted against cobc -std=ibm, each run under its expected check's own command beside Katana's (method and per-case table in J-271); the golden's FAIL lines end with the key (`FailSorting`): 6 D-010 (`d010` 3; `d010-cobc` 3, where cobc's ibm config also differs from IBM's text, D-004/D-005), 1 setting (`run_subscripts-71`, recorded with runtime checks on), 3 harness (the census's run is not the case's command), 21 left. Counts, stages and floors unchanged.
-Next, from the sorting, largest first (each case once; `grep FAIL test/katana/rt/autotest/lowered.golden` lists them by key):
+Next, first (R-090, J-272): in order, (1) EXIT PERFORM [CYCLE], EXIT PARAGRAPH, EXIT SECTION built (the grammar's exit
+statement, `Verbs.exit`, `Performs`; `run_misc-2433`); (2) a `$` line in column 7 an error (`front/Lines.java`;
+`run_subscripts-506`, and `run_subscripts-437`, a coincidental PASS: the floor lowered by hand with its reason);
+(3) a level number outside IBM's set refused (`sir/build/DataMap.java`); (4) ACCEPT FROM and DISPLAY UPON resolved
+against SPECIAL-NAMES and IBM's environment-names, else a finding (`lower/Verbs.java`). Each with `FailSorting`, the
+golden, the floors and the journal in the same commits. Then, from the sorting, largest first (each case once; `grep FAIL test/katana/rt/autotest/lowered.golden` lists them by key):
 1. The census runs the case's own command (13 cases: `harness` 3, `debug-line` 2 and `debug-data` 4 which need `katana.debug=Y` for `COB_SET_DEBUG`, `files` 3 and `env-name` 1 which need their working folder, `DD_` variables and arguments): a process per case in a copy of the case's folder, the expected check's environment (`COB_CURRENT_DATE` in `Now`'s form), arguments and pipe, which also ends the daemon thread `// Unsure:`. `run_file-5918` and `used_binaries-1453` then PASS (two cases up, the floors raised by hand); the rest become differences the census can name.
 2. Debugging (6): `debug-line` (DEBUG-ITEM's line: Katana six zero-padded digits and a line at START PROGRAM; cobc blank-padded; needs LR 6.4 p. 19, R-082) and `debug-data` (4, an extension; the lowering already names it, so only the census's switch is missing).
 3. Level 78 constants (3: `run_extensions-2831`, `-2854`, `-2880`): read as an item with no PICTURE, DISPLAYed as nothing, no finding (P-03). Either build the constant or name it; the construct is not IBM's, so Ghost's ruling on R-081's extensions first.
