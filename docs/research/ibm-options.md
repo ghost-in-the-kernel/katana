@@ -2935,3 +2935,45 @@ never produces), so they are a grammar gap.
   (-2410, +437, +506); PASS+FLAGPASS 63; the other stages as they are unless a named 'could move' case moves.
 - What could make it wrong: a `$` or EXIT form in a copybook a case pulls from outside its folder; `EXIT PERFORM` inside a PERFORM of a paragraph (not inline): IBM
   allows EXIT PERFORM only in an inline PERFORM, so the build must refuse or ignore it; the census's FLAG cases whose stage I cannot read from the golden alone.
+
+## 64. 3.1, R-090's steps 3 and 4 after Ghost's word: a level outside IBM's set, and the names ACCEPT FROM and DISPLAY UPON take (J-277)
+
+**The task.** Ghost's word (2026-10-24, on J-275's question): BankDemo's `DFHUAINS.cbl` (a level 78) and `DFHZCSGM.cbl` (`DISPLAY UPON ENVIRONMENT-NAME`, `ACCEPT FROM
+ENVIRONMENT-VALUE`) do not stop these steps; go ahead. (3) `sir/build/DataMap.java` refuses a level number outside 01-49, 66, 77, 88, in the IR build; (4) `lower/Verbs.java` resolves
+ACCEPT FROM and DISPLAY UPON against SPECIAL-NAMES and IBM's environment-names, else a finding with `Unsupported.fail`. Each refusal names the construct, IBM's set and
+"(recollection, R-082)": the Language Reference is not in `corpus/ibm-manuals/`. Section 63 predicted both before Ghost's word; this section repeats the scan from the files
+and the census golden, with the stage a throw and a finding each give, which 63 did not separate.
+
+**The scan, repeated.** Every file of every runnable autotest case (a `.cob`, `.cbl`, `.cpy` in the case's folder, not only `prog.cob`; R-045), and CardDemo, OMP, BankDemo,
+the NIST programs `CorpusIntegrationTest` writes, the fixtures, `sir/golden`, `front/ibm`, `oracle/` and the tests' inline programs.
+- *Levels.* Only 78 is a level number anywhere (the 91, 60, 64 and 65 a looser scan finds in `run_initialize-655`, `run_reportwriter-9346` and `run_misc-16006` are table values,
+  a REPORT's COLUMNS and a THRU range). Outside the autotests: BankDemo `DFHUAINS.cbl` (parse only in `front/corpus.golden`; its IR is built and counted privately, and it
+  already does not build, `comp-x`, so `built 81` of 82 stays). None in CardDemo, OMP, NIST, the fixtures, `sir/golden`, `oracle/` or the tests. In the autotests, 31 runnable
+  cases hold a 78 as a level; their stages in `lowered.golden`: FAIL (`level78`) `run_extensions-2831`, `-2854`, `-2880`; NORUN `run_file-12428`, `run_fundamental-3375`; NOLOWER
+  `data_packed-1971`, `-2083`; FLAG 14; NOPARSE 10 (and `run_misc-15671`'s second program, which the census never builds).
+- *Names.* ACCEPT FROM / DISPLAY UPON targets, outside the date and time words: CardDemo `ACCEPT ... FROM SYSIN` (COBSWAIT, CBPAUP0C, no SPECIAL-NAMES: SYSIN must resolve as an
+  IBM environment-name); BankDemo `UPON CONSOLE` (six, IBM's) and `UPON ENVIRONMENT-NAME`/`ACCEPT FROM ENVIRONMENT-VALUE` (`DFHZCSGM`, parse and IR only, no lane lowers it); the NIST
+  programs `UPON DISPLAY-OUTPUT-DEVICE`, `THE-SYSTEM-PRINTER`, `VDUNIT` and `ACCEPT FROM ACCEPT-INPUT-DEVICE`, each declared in its SPECIAL-NAMES (`SYSOUT IS ...`); the fixtures and
+  `sir/golden`: none; the lane's `Generated.java` writes `UPON SYSERR`. In the autotests (29 runnable cases hold an UPON or a FROM name): `SYSERR` (13 cases, `run_misc-1075` PASS),
+  `CONSOLE` (10), `SYSOUT` (4), `SYSPCH`/`SYSPUNCH` (`run_misc-13585`), `PRINTER` (`run_misc-13585`, declared `PRINTER IS PRINTER`), `STDOUT` (`run_extensions-101` FLAG,
+  `run_fundamental-7502` NOPARSE), `ENVIRONMENT-NAME`/`-VALUE`, `ARGUMENT-VALUE` (`run_extensions-2785` FAIL, `run_misc-13305` and `-13371` FLAG), `MICROSECOND-TIME`
+  (`run_accept-141` NOPARSE, already refused by `Verbs.accept`).
+
+**The reading (recollection, R-082).** IBM's level numbers: 01-49, 66, 77, 88 (about 95%). IBM's environment-names: for ACCEPT FROM, SYSIN, SYSIPT and CONSOLE; for DISPLAY UPON,
+SYSOUT, SYSLIST, SYSLST, SYSPUNCH, SYSPCH and CONSOLE, and SYSERR, which the lowering already writes to the error stream and the lane's own programs use (about 70% that
+the Language Reference lists SYSERR for DISPLAY: kept because dropping it would take `run_misc-1075`'s pass and the lane's abend messages away on a doubt). A name is IBM's
+by these lists or by a SPECIAL-NAMES mnemonic (the mnemonic's own environment-name is not checked here). The lowering's writing of each (all to SYSOUT but SYSERR) is not changed.
+
+**Predicted, before the build.**
+- Step 3 (`DataMap.format1` throws `IllegalArgumentException` for a level outside the set; the census's `build` then ends at NOLOWER, since the parse was clean): FAIL to NOLOWER
+  `run_extensions-2831`, `-2854`, `-2880`; NORUN to NOLOWER `run_file-12428`, `run_fundamental-3375`. Unchanged: `data_packed-1971`, `-2083` (already NOLOWER), the 14 FLAG (FLAG
+  holds whatever the raw stage that is not PASS), the 10 NOPARSE (the parse fails first). Census by stage: FAIL 29 to 26, NORUN 72 to 70, NOLOWER 7 to 12; PASS 51 and
+  PASS+FLAGPASS 63 unchanged, so the floors stay. `FailSorting`'s three `level78` lines and the `# sorting level78` line go. No other golden changes: no program any
+  other golden holds has a level outside the set (BankDemo's is parse-only there, and its private IR count stays 81 of 82).
+- Step 4 (a finding, `Unsupported.fail`, which stops the run when reached, so the stage is NORUN, not NOLOWER as 63 guessed): `run_extensions-2785` FAIL to NORUN (its first statement is
+  `DISPLAY "TEST_ENV" UPON ENVIRONMENT-NAME`). Unchanged: `run_misc-13305`, `-13371` (FLAG), `run_extensions-101` (FLAG), `run_fundamental-7502`, `run_accept-141` (NOPARSE),
+  `run_misc-13585` (NOJAVAC at its own cause; PRINTER is declared), every SYSERR, CONSOLE, SYSOUT, SYSPCH and SYSPUNCH case (IBM's), `run_misc-1075` (PASS stays), CardDemo's
+  `FROM SYSIN`. Census: FAIL 26 to 25, NORUN 70 to 71 after step 3; `FailSorting`'s `env-name` line and its sorting line go. The NIST java lane's output, the fixture lane, CardDemo's goldens
+  and every other golden do not change: each name they use is a declared mnemonic or an IBM name above. If the NIST lane moves, a mnemonic is not resolved and that is the bug.
+- What could make it wrong: a case's FLAG that is really a FLAGPASS under the new throw (none of the 31 is a PASS today, so no); a copybook of a case holding a 78 (the scan read every file of the case);
+  the display-upon or accept-from operand of a declared mnemonic arriving as another value kind than `mnemonic`.
