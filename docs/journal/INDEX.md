@@ -286,3 +286,4 @@ Written from `docs/journal/` by `gradle journalIndex`; do not edit by hand. The 
 | J-279 | Navigation review 5: two debriefs; where the census decides a stage and finds a command, the autotest folder's source tree, Docker's symptom | measurement | `J-200-299.md` |
 | J-280 | A backticked path the fresh clone lacks failed the gate a third time; the doc test's message now says how to write it | failure-caught | `J-200-299.md` |
 | J-281 | R-079 amended: a fresh Sonnet agent runs the navigation review | decision | `J-200-299.md` |
+| J-282 | Variable-length records over text files diagnosed: the status 47 was the file's name; ASSIGN TO EXTERNAL and DYNAMIC refused under R-090 (TODO 3.1 item 4, research 66) | measurement | `J-200-299.md` |

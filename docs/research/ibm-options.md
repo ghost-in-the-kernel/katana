@@ -3017,3 +3017,45 @@ stderr marks `Exception in thread` and `CEE3ABD abend`), as it was when the exce
 - Repo root: no regular file of the root is left by the census (the cleanup loop goes, and the census asserts the root as it found it). Time: the test method was 34 s (its parse, lowering and javac included, the 33.8 s of the report) with every run in the JVM; about 220 cases run
   (NORUN 71 + FAIL 25 + PASS 51 + FLAG 64 + FLAGPASS 12 less those that stop before a run), a JVM each at about 0.4 s: predicted 100 to 160 s, 2 to 5 times the old, against the gate's ceilings (10 min selected, 15 min every
   suite, last measured 10.3); a pool of runs, four at a time, if it comes near.
+
+## 66. 3.1, variable-length records over text files: `run_file-241`, `-5646`, `-5782`; ASSIGN TO EXTERNAL named "EXTERNAL X" (J-282)
+
+**The task.** TODO 3.1's next item 4 (J-271, J-278): "cause not diagnosed". Each case run by its expected check's own command, in a copy of its folder, beside cobc 3.1.2 under the lane's arguments
+(`-std=ibm -fno-arithmetic-osvs -fbinary-size=1-2-4-8 -fbinary-truncate`, `Profile.cobcArguments`), the case's own files and nothing else of the testsuite (R-045 as amended).
+
+**Diagnosis (measured).**
+- `run_file-5646` and `-5782` are one program: two `LINE SEQUENTIAL` files `ASSIGN TO EXTERNAL INFILE` and `EXTERNAL OUTFILE`, each `RECORD IS VARYING IN SIZE FROM 18 TO 40 ... DEPENDING ON`; the commands set
+  `DD_INFILE=./inp_data OUTFILE=TEST-FILE` (5646 also `COB_LS_SPLIT=FALSE`). The status 47 is not about variable records. `sir/build/Files.assign` keeps the clause's words, so the SIR says `EXTERNAL OUTFILE`, and
+  `lower/FileDecls.made` passes that text to `SeqFile` as the name: `DD_EXTERNAL INFILE` is no variable, the file `EXTERNAL INFILE` does not exist, OPEN INPUT ends 35 (the program does not look at it), READ ends 47, and
+  the output file is written as `EXTERNAL OUTFILE` (the census folder shows it). The variable `OUTFILE` the command sets was never going to be read: `SeqFile.path` reads `DD_name` and `dd_name` only (LANE-01), and the
+  lanes pass no other variable (LANE-03).
+- What cobc -std=ibm does with them: it takes the word after EXTERNAL as the name and finds the file by `DD_INFILE`, and by the plain variable `OUTFILE`; it reads three lines (status 00 each, LENGTH 040, 030, 040: the
+  DEPENDING ON item is set to the line's length, a longer line is cut to 40 silently), then 10; it writes `Record 1.` (9 bytes, the DEPENDING ON value) and 40 bytes for a value of 64. The testsuite expects 04 and 06 on the
+  long lines (GnuCOBOL 3.2's LS truncation statuses, `COB_LS_SPLIT`): cobc 3.1.2 under the lane's arguments prints 00, so even a Katana equal to cobc -std=ibm stays a FAIL against the expectation (D-010's kind). No
+  case of the two can reach PASS by any change to `rt/`.
+- `lower/FileDecls.sizes` returns null for LINE SEQUENTIAL, so Katana never sets a DEPENDING ON item on an LS READ nor reads one on a WRITE: after the name, the lengths would still differ from cobc's.
+- `run_file-241` is a different thing: ORGANIZATION SEQUENTIAL (the default), `RECORD VARYING FROM 5 TO 500`, ASSIGN `'DATA'` found by `DD_DATA=TEST1`, and TEST1 is an XML text file of 665 bytes. Katana's variable
+  records (LANE-10) are a 4-byte descriptor then the data: `<?xm` reads as a length of 15423 bytes, `readFully` runs off the end, `EOFException` out of `Varying.read`. cobc -std=ibm reads 61 "records" of the text (its
+  answer moves with the program: 34 when a DEPENDING ON item is added), the testsuite expects `OPEN ERROR: 39` (a GnuCOBOL file-attribute check at OPEN). The file is not a data set in any format the program
+  declares; IBM's answer for a bad descriptor is not in what the repository holds (recollection: an I/O error, status 30 or an abend). Three answers, none to be matched.
+- What IBM has (recollection, R-082, the Language Reference not yet in the repository): no `ASSIGN TO EXTERNAL name` or `DYNAMIC name` (IBM's forms are `ASSIGN TO assignment-name` and `ASSIGN USING data-name`; EXTERNAL
+  belongs to FD and 01 entries), about 80%. `ORGANIZATION IS LINE SEQUENTIAL`: a GnuCOBOL and Micro Focus organization; whether a late Enterprise COBOL release has a z/OS UNIX line-sequential file I do not know
+  (about 50%), so it is not refused here: no program of CardDemo, omp-cobol-course, BankDemo, NIST (as written to build/corpus-nist) or the fixture uses it, and eight runnable autotests do, one of them a PASS
+  (`run_file-5918`). That is a dialect question for Ghost, R-090's reasoning, not a fix.
+
+**The change.** R-090's reading applied to the declaration: `ASSIGN TO EXTERNAL name` and `DYNAMIC name` are refused with a finding in the lowering (`FileDecls`, the file's object becomes `Unsupported.fail(...)`, text
+"(recollection, R-082)"), instead of being built as a file named "EXTERNAL name". The DD contract is not touched: a name reaches the runtime as `DD_<name>`, as before, for every ASSIGN IBM has. Not built: reading
+the plain variable `OUTFILE` (not IBM's, not in the lane's environment), LINE SEQUENTIAL variable records (a dialect, and the expectation is 3.2's), a status for a bad descriptor (nothing to match).
+
+**Predicted, before the build.**
+- Cases that can move, by the scan of every program of every case for `ASSIGN [TO] EXTERNAL|DYNAMIC` (the census's golden for their stages): `run_file-5646`, `-5782` FAIL to NORUN (the finding stops them at construction);
+  `run_file-3101` FLAGPASS to FLAG (an INDEXED file ASSIGNed EXTERNAL fdata, it passes today on a name nothing reads; its unmapped flag `-fdefault-file-colseq=EBCDIC` is the case's subject and ASCII and EBCDIC order its
+  three keys alike, so the pass is coincidental twice over). No move: `run_file-8562`, `-9875`, `run_misc-8509`, `run_reportwriter-4436` (FLAG already), `run_misc-10634` (NORUN already), `run_file-12428` (NOLOWER),
+  `run_file-14240`, `-3161` (NOPARSE), `syn_file-337` (DYNAMIC; not runnable). `run_file-241` stays NORUN: nothing in it is touched.
+- The census: PASS 53 (unchanged), FLAGPASS 13 to 12, FAIL 22 to 20, NORUN 72 to 74, FLAG 63 to 64; the floors 53 and 66: PASS+FLAGPASS falls to 65 and is lowered by hand for `run_file-3101`, with this reason.
+  The `files` sorting goes (no FAIL left under it).
+- Every other golden does not move: no program of CardDemo, omp-cobol-course, BankDemo, NIST, the fixture or the SIR goldens has an EXTERNAL or DYNAMIC ASSIGN (searched); the CardDemo lanes and NIST java lane are run to show it.
+- What could make it wrong: an ASSIGN of a real program that is spelled `EXTERNAL` in a word (a file named EXTERNAL-X: the check is on the clause's leading word followed by a name, not on a prefix of the name).
+
+**Result (J-282).** The census as predicted, case for case: `run_file-5646`, `-5782` FAIL to NORUN; `run_file-3101` FLAGPASS to FLAG; PASS 53, PASS+FLAGPASS 65 (the floor lowered by hand for
+`run_file-3101`), FLAG 64, FLAGPASS 12, NORUN 74, FAIL 20; no other line of the golden moved. The refusal is `FileDecls.foreignAssign` (R-090), held by `ForeignAssignTest`.

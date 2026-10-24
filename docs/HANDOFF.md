@@ -182,6 +182,7 @@ unchanged, R-042):
 
 ## Waiting on Ghost
 
+- **LINE SEQUENTIAL and ASSIGN TO EXTERNAL (J-282, research 66), R-090's reasoning:** `ASSIGN TO EXTERNAL|DYNAMIC name` is refused now (IBM's ASSIGN names a ddname, by recollection about 80%, R-082). `ORGANIZATION IS LINE SEQUENTIAL` is not refused: no program of CardDemo, omp-cobol-course, BankDemo, NIST or the fixture uses it, eight runnable autotests do (`run_file-5918` is a PASS), and whether Enterprise COBOL 6.4 has a z/OS UNIX line-sequential file I cannot say (about 50%). Refuse it under R-090, keep it as a dialect Katana reads, or wait for the Language Reference? Refusing would take `run_file-5918` out of the PASS floor (53 to 52, by hand with the reason). Proposed, not recorded: a decision R-091 that names the answer.
 - **R-090's steps 3 and 4: answered and built (J-277).** Ghost's word, 2026-10-24: BankDemo's `DFHUAINS.cbl` (a level 78) and `DFHZCSGM.cbl` (`DISPLAY UPON ENVIRONMENT-NAME`, `ACCEPT FROM ENVIRONMENT-VALUE`) do not stop them; go ahead. Nothing waits on Ghost here but
   the sets themselves, IBM's by recollection (R-082): the level numbers, and the environment-names ACCEPT FROM (SYSIN, SYSIPT, CONSOLE) and DISPLAY UPON (SYSOUT, SYSLIST, SYSLST, SYSPUNCH, SYSPCH, CONSOLE, SYSERR; SYSERR about 70%) take, which the Language Reference confirms.
 - **IBM's manuals (R-082, J-255):** the Language Reference (SC27-8713) and Programming Guide (SC27-8714) PDFs, the

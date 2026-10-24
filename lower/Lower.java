@@ -88,7 +88,7 @@ public final class Lower {
         if (Debugging.held(p)) e.line("private final Debug dbg;");
         e.line("private final Dispatcher d = new Dispatcher(" + (Flow.segmented(p) ? Flow.segments(p) : String.valueOf(Math.max(1, p.procedure().paragraphs().size()))) + ");");
         Storage.declareItems(e, p, x);
-        FileDecls.declare(e, p);
+        FileDecls.declare(e, p, x);
         if (top) {
             e.open("public " + className + "(Codepage cp, Upsi upsi, Sysin in, Sysout out, Sysout err)");
             e.line("this(new RunUnit(cp, upsi, in, out, err, false));");
@@ -106,7 +106,7 @@ public final class Lower {
         e.line("this.err = u.err;");
         // RETURN-CODE, the run unit's (LR 6.4 p. 24).
         e.line("this.rc = u.rc;");
-        FileDecls.externals(e, p);
+        FileDecls.externals(e, p, x);
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("items" + c + "();");
         Programs.externals(e, p);
         for (int c = 0; c * CHUNK < p.items().size(); c++) e.line("values" + c + "();");
