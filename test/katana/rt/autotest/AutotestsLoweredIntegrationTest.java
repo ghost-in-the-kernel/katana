@@ -43,7 +43,8 @@ class AutotestsLoweredIntegrationTest {
             "# against the testsuite's expected stdout (never shown, R-045; GnuCOBOL's dialect, D-010), each under its own compile",
             "# flags (J-256): FLAG and FLAGPASS name the flags the compile step does not map (the case is run without them; FLAGPASS passes),",
             "# each as `flag [reason key]`, joined by ` | `; a key's text is in the `# reason` block at the end.",
-            "# Run under profile/ibm.profile (TRUNC(STD), R-087). Written by `gradle integration -Dkatana.record=true`.");
+            "# Run under profile/ibm.profile (TRUNC(STD), R-087). Written by `gradle integration -Dkatana.record=true`.",
+            "# A FAIL line ends with its sorting key (FailSorting, J-271): why the output differs from the expectation; a key's text is in the `# sorting` block at the end.");
     /** The profile the census runs under (R-087, R-081 amended): TRUNC(STD); the TRUNC(BIN) flags are held back for it, not mapped. */
     private static final Path PROFILE = ROOT.resolve("profile/ibm.profile");
     /** A FLAGPASS case's flags that ask for a form IBM does not have: grammar leaks to tighten (R-089), never passes. */
@@ -171,7 +172,7 @@ class AutotestsLoweredIntegrationTest {
             Stage s = stage(id);
             byCase.put(id, s);
             counts.merge(s, 1, Integer::sum);
-            results.append(id).append(' ').append(s).append(s == Stage.NOPARSE || s == Stage.FLAG || s == Stage.FLAGPASS ? " " + REASONS.get(id) : "").append('\n');
+            results.append(id).append(' ').append(s).append(s == Stage.NOPARSE || s == Stage.FLAG || s == Stage.FLAGPASS ? " " + REASONS.get(id) : s == Stage.FAIL ? " " + FailSorting.of(id) : "").append('\n');
         }
         results.append("runnable ").append(ids.size());
         for (Stage s : Stage.values()) results.append(' ').append(s).append(' ').append(counts.getOrDefault(s, 0));
@@ -180,6 +181,14 @@ class AutotestsLoweredIntegrationTest {
         LEAKS.forEach((id, flags) -> { if (!flags.isEmpty() && byCase.get(id) == Stage.FLAGPASS) results.append("# grammar leak ").append(id).append(' ').append(String.join(" ", flags)).append('\n'); });
         // The reasons, once each, for the keys the flag columns use; `CompileFlags` holds the text.
         new java.util.TreeSet<>(USED_KEYS).forEach(k -> results.append("# reason ").append(k).append(": ").append(CompileFlags.reasonOfKey(k)).append('\n'));
+        // The FAIL cases' sorting keys, once each; a sorted case that no longer FAILs is refused, so the sorting never outlives its failure.
+        byCase.entrySet().stream().filter(e -> e.getValue() == Stage.FAIL).map(e -> FailSorting.of(e.getKey())).collect(java.util.stream.Collectors.toCollection(java.util.TreeSet::new))
+                .forEach(k -> results.append("# sorting ").append(k).append(": ").append(FailSorting.TEXTS.get(k)).append('\n'));
+        Set<String> failing = new java.util.TreeSet<>();
+        byCase.forEach((id, s) -> { if (s == Stage.FAIL) failing.add(id); });
+        Set<String> stale = new java.util.TreeSet<>(FailSorting.cases());
+        stale.removeAll(failing);
+        assertTrue(stale.isEmpty(), "sorted in FailSorting but no longer a FAIL (remove the line, and say why in the journal): " + stale);
         System.out.print(results.substring(results.indexOf("\nrunnable ") + 1));
         Map<String, Integer> causes = new TreeMap<>();
         byCase.forEach((id, s) -> { if (s == Stage.NOPARSE) causes.merge(REASONS.get(id), 1, Integer::sum); });
@@ -232,6 +241,32 @@ class AutotestsLoweredIntegrationTest {
                 if (Files.exists(f)) for (String flag : Files.readAllLines(f)) assertTrue(!flag.contains(FLAG_SEPARATOR) && !KEYED.matcher(flag).matches(), d.getFileName() + ": " + flag);
             }
         }
+    }
+
+    /**
+     * The golden's FAIL lines read back against the sorting: each ends with a key `FailSorting` gives that case, each key used has its `# sorting` line with
+     * the text written there, and no other key has one (J-271). Its mutation: a key swapped between two cases of different keys no longer reads back.
+     */
+    @Test
+    void theGoldensFailLinesReadBackAsTheSorting() throws Exception {
+        List<String> lines = Files.readAllLines(GOLDEN);
+        Map<String, String> texts = new TreeMap<>();
+        for (String l : lines) if (l.startsWith("# sorting ")) texts.put(l.substring(10, l.indexOf(':')), l.substring(l.indexOf(':') + 2));
+        Set<String> used = new java.util.TreeSet<>();
+        int fails = 0;
+        for (String l : lines) {
+            if (l.startsWith("#") || l.startsWith("runnable ")) continue;
+            String[] part = l.split(" ", 3);
+            if (!part[1].equals("FAIL")) continue;
+            assertEquals(FailSorting.of(part[0]), part[2], part[0] + ": the golden's sorting key");
+            used.add(part[2]);
+            fails++;
+        }
+        assertTrue(fails > 1, "FAIL lines");
+        assertEquals(used, texts.keySet(), "a sorting line for each key used, and no other");
+        texts.forEach((k, text) -> assertEquals(FailSorting.TEXTS.get(k), text, "# sorting " + k));
+        assertEquals(FailSorting.cases().size(), fails, "every sorted case is a FAIL line");
+        assertTrue(!FailSorting.of("run_initialize-90").equals(FailSorting.of("run_file-241")), "two keys: swapping them would not read back");
     }
 
     /** R-056's mutation for the flag columns: a flag with spaces and commas, as `run_extensions-2904` has, comes back whole, and joining with a bare space would not. */

@@ -4,14 +4,15 @@
 # flags (J-256): FLAG and FLAGPASS name the flags the compile step does not map (the case is run without them; FLAGPASS passes),
 # each as `flag [reason key]`, joined by ` | `; a key's text is in the `# reason` block at the end.
 # Run under profile/ibm.profile (TRUNC(STD), R-087). Written by `gradle integration -Dkatana.record=true`.
+# A FAIL line ends with its sorting key (FailSorting, J-271): why the output differs from the expectation; a key's text is in the `# sorting` block at the end.
 backcomp-816 NOSOURCE
 data_binary-1133 NOSOURCE
 data_binary-1215 FLAG -fnotrunc [trunc-bin]
 data_binary-1242 FLAG -fnotrunc [trunc-bin]
-data_binary-1262 FAIL
+data_binary-1262 FAIL d010-cobc
 data_binary-1323 FLAG -fnotrunc [trunc-bin]
 data_binary-205 NOSOURCE
-data_binary-2143 FAIL
+data_binary-2143 FAIL pscale
 data_binary-23 NOSOURCE
 data_binary-393 NOSOURCE
 data_binary-575 NOSOURCE
@@ -20,7 +21,7 @@ data_binary-945 NOSOURCE
 data_display-128 FLAG -fsign=ebcdic [encoding]
 data_display-174 NORUN
 data_display-22 FLAGPASS -fsign=ascii [ascii]
-data_display-410 FAIL
+data_display-410 FAIL pscale
 data_display-82 FLAGPASS -fsign=ascii [ascii]
 data_packed-1026 PASS
 data_packed-1399 NOPARSE parsing mismatched input 'COMP-6'
@@ -49,11 +50,11 @@ run_extensions-25 NORUN
 run_extensions-2610 NOSOURCE
 run_extensions-2665 NORUN
 run_extensions-2723 NORUN
-run_extensions-2785 FAIL
-run_extensions-2831 FAIL
-run_extensions-2854 FAIL
+run_extensions-2785 FAIL env-name
+run_extensions-2831 FAIL level78
+run_extensions-2854 FAIL level78
 run_extensions-287 NOPARSE parsing mismatched input 'LENGTH'
-run_extensions-2880 FAIL
+run_extensions-2880 FAIL level78
 run_extensions-2904 FLAG -fsystem-name=sw1, SwItCh\ b, SWITCH\ 25 [cobc-runtime] | -fsystem-name=SWITCH-32 [cobc-runtime] | -fsystem-name=SWITCH\ Z [cobc-runtime] | -fsystem-name=USW-31 [cobc-runtime]
 run_extensions-3108 FLAG -std=cobol2014 [dialect]
 run_extensions-3181 NORUN
@@ -110,23 +111,23 @@ run_file-15500 NOLOWER
 run_file-1595 NOPARSE parsing extraneous input '='
 run_file-1637 NOPARSE preprocessing the program extraneous input 'SUPPRESS'
 run_file-2324 NOPARSE preprocessing the program extraneous input 'suppress'
-run_file-241 FAIL
+run_file-241 FAIL files
 run_file-2600 NOPARSE parsing mismatched input 'linage'
 run_file-3101 FLAGPASS -fdefault-file-colseq=EBCDIC [encoding]
 run_file-3161 NOPARSE parsing extraneous input 'FILE'
 run_file-3523 PASS
 run_file-4179 NOPARSE parsing mismatched input 'COMP-X'
 run_file-5542 NOPARSE parsing mismatched input 'EXIT'
-run_file-5646 FAIL
-run_file-5782 FAIL
-run_file-5918 FAIL
+run_file-5646 FAIL files
+run_file-5782 FAIL files
+run_file-5918 FAIL harness
 run_file-6205 FLAG -fcallfh=EXTFH [cobc-runtime]
 run_file-6495 NOPARSE parsing no viable alternative at input 'DISPLAY "Failed: EOF"\n STOP RUN ERROR'
 run_file-6570 NOPARSE parsing no viable alternative at input 'DISPLAY "Failed: EOF"\n STOP RUN ERROR'
 run_file-7196 NOPARSE parsing no viable alternative at input 'DISPLAY "Failed: EOF"\n STOP RUN ERROR'
 run_file-7308 NOPARSE parsing no viable alternative at input 'DISPLAY "Failed: EOF"\n STOP RUN ERROR'
 run_file-8562 FLAG -fcallfh=TSTFH [cobc-runtime]
-run_file-975 FAIL
+run_file-975 FAIL harness
 run_file-9875 FLAG -fcallfh=TSTFH [cobc-runtime]
 run_functions-1057 NORUN
 run_functions-1092 NORUN
@@ -167,8 +168,8 @@ run_functions-716 NORUN
 run_functions-934 NORUN
 run_functions-969 NORUN
 run_fundamental-105 NORUN
-run_fundamental-146 FAIL
-run_fundamental-193 FAIL
+run_fundamental-146 FAIL d010-cobc
+run_fundamental-193 FAIL d010-cobc
 run_fundamental-2433 PASS
 run_fundamental-247 PASS
 run_fundamental-25 NORUN
@@ -178,7 +179,7 @@ run_fundamental-2628 PASS
 run_fundamental-2673 PASS
 run_fundamental-296 PASS
 run_fundamental-3016 PASS
-run_fundamental-3100 FAIL
+run_fundamental-3100 FAIL move-overlap
 run_fundamental-3277 NORUN
 run_fundamental-3326 NORUN
 run_fundamental-3375 NORUN
@@ -210,7 +211,7 @@ run_fundamental-6260 NORUN
 run_fundamental-6758 NOPARSE parsing extraneous input '>'
 run_fundamental-6950 NORUN
 run_fundamental-6980 FLAG -fno-ec=DATA-INCOMPATIBLE [runtime-output]
-run_fundamental-72 FAIL
+run_fundamental-72 FAIL float-lit
 run_fundamental-7456 PASS
 run_fundamental-7479 PASS
 run_fundamental-7502 NOPARSE parsing extraneous input 'UPON'
@@ -218,21 +219,21 @@ run_fundamental-7528 FLAGPASS -free [format]
 run_fundamental-7551 FLAGPASS -free [format]
 run_fundamental-7574 PASS
 run_fundamental-7619 PASS
-run_fundamental-7664 FAIL
-run_fundamental-7715 FAIL
+run_fundamental-7664 FAIL debug-line
+run_fundamental-7715 FAIL debug-line
 run_fundamental-7763 NOPARSE parsing mismatched input 'ENVIRONMENT'
 run_fundamental-7812 FLAG -fmissing-statement=ok [no-such-form]
-run_fundamental-7892 FAIL
-run_fundamental-7933 FAIL
-run_fundamental-7983 FAIL
+run_fundamental-7892 FAIL debug-data
+run_fundamental-7933 FAIL debug-data
+run_fundamental-7983 FAIL debug-data
 run_fundamental-8016 FLAG -frelax-syntax-checks [no-such-form]
-run_fundamental-8071 FAIL
+run_fundamental-8071 FAIL debug-data
 run_fundamental-8512 NORUN
-run_fundamental-8760 FAIL
+run_fundamental-8760 FAIL pscale
 run_fundamental-8846 PASS
 run_fundamental-8897 PASS
 run_initialize-655 FLAG -fno-binary-truncate [trunc-bin] | -fcomplex-odo [odo] | -frelax-syntax-checks [no-such-form]
-run_initialize-90 FAIL
+run_initialize-90 FAIL d010
 run_misc-100 NOPARSE parsing mismatched input ','
 run_misc-1029 PASS
 run_misc-10634 NORUN
@@ -253,7 +254,7 @@ run_misc-1267 NOSOURCE
 run_misc-12695 FLAG -frelax-syntax-checks [no-such-form]
 run_misc-12796 FLAG -fno-ec=bound [runtime-output]
 run_misc-128 NOPARSE parsing mismatched input ','
-run_misc-12873 FAIL
+run_misc-12873 FAIL d010
 run_misc-12977 NOPARSE parsing extraneous input 'MODE'
 run_misc-13028 PASS
 run_misc-13145 NOPARSE parsing extraneous input 'MODE'
@@ -272,13 +273,13 @@ run_misc-14243 FLAG -fconstant-folding [dialect-decision] | -fremove-unreachable
 run_misc-14367 NOPARSE parsing mismatched input 'ENTRY'
 run_misc-1467 NOSOURCE
 run_misc-14872 NOPARSE parsing mismatched input 'signed-int'
-run_misc-14909 FAIL
+run_misc-14909 FAIL invdata
 run_misc-15189 FLAGPASS -fprof [runtime-output]
 run_misc-15220 FLAGPASS -fprof [runtime-output]
 run_misc-15254 FLAGPASS -fprof [runtime-output]
 run_misc-15280 FLAG -fprof [runtime-output]
 run_misc-15407 NOSOURCE
-run_misc-156 FAIL
+run_misc-156 FAIL d010
 run_misc-15646 NORUN
 run_misc-15671 NOSOURCE
 run_misc-1570 NOSOURCE
@@ -297,7 +298,7 @@ run_misc-2314 PASS
 run_misc-2340 NOPARSE parsing mismatched input 'FLOAT-LONG'
 run_misc-2379 NOPARSE parsing mismatched input 'UNTIL'
 run_misc-2410 NOPARSE parsing extraneous input '.\n'
-run_misc-2433 FAIL
+run_misc-2433 FAIL exit-cycle
 run_misc-268 NOSOURCE
 run_misc-2799 NOPARSE parsing mismatched input ''data''
 run_misc-2916 NOPARSE parsing extraneous input 'INTO'
@@ -356,9 +357,9 @@ run_reportwriter-9520 NOPARSE parsing mismatched input 'CONTROLS'
 run_subscripts-298 PASS
 run_subscripts-351 NORUN
 run_subscripts-437 PASS
-run_subscripts-506 FAIL
+run_subscripts-506 FAIL ssrange
 run_subscripts-542 NORUN
-run_subscripts-71 FAIL
+run_subscripts-71 FAIL setting
 syn_copy-1125 NOLOWER
 syn_copy-382 PASS
 syn_copy-409 NOPARSE preprocessing the program extraneous input ','
@@ -376,7 +377,7 @@ syn_misc-8017 FLAG -fcontrol-division=ok [no-such-form]
 syn_misc-8043 FLAG -fcontrol-division=ok [no-such-form]
 syn_misc-8077 FLAG -fcontrol-division=ok [no-such-form]
 syn_misc-8588 FLAG -freserved=XX*=BYTE-LENGTH [no-such-form]
-used_binaries-1453 FAIL
+used_binaries-1453 FAIL harness
 used_binaries-1474 NOPARSE parsing extraneous input 'AFTER'
 used_binaries-359 PASS
 used_binaries-393 PASS
@@ -394,3 +395,18 @@ runnable 378 NOSOURCE 36 FLAG 64 FLAGPASS 12 NOPARSE 102 NOLOWER 7 NOJAVAC 4 NOR
 # reason odo: an ODO form not yet sorted against the Language Reference's rules
 # reason runtime-output: runtime checks, dumps, traces or profiling: output or checks Katana's runtime does not produce
 # reason trunc-bin: recorded under TRUNC(BIN); the census runs ibm.profile (STD)
+# sorting d010: D-010: Katana's output equals cobc -std=ibm's; the expectation is GnuCOBOL's default dialect (DISPLAY shows a decimal point, default arithmetic), which cobc's default dialect prints; IBM shows none (LR 6.4 p. 333) and truncates intermediates (Appendix A)
+# sorting d010-cobc: D-010, and cobc -std=ibm itself differs from IBM's text in the same output (D-004 binary DISPLAY digits, D-005 the sign beside the overpunch); Katana follows IBM's text, the expectation is the default dialect's
+# sorting debug-data: USE FOR DEBUGGING on a data name or a file (a GnuCOBOL extension its ibm config accepts): the lowering names it as not lowered, IBM debugs procedures only (LR 6.4 p. 708), so no debug line is written
+# sorting debug-line: USE FOR DEBUGGING on procedures: the census sets no katana.debug (the case's command sets COB_SET_DEBUG=1); with it Katana differs from cobc -std=ibm only in DEBUG-ITEM's line (six zero-padded digits, and a line for START PROGRAM, where cobc blank-pads and leaves START PROGRAM blank); IBM's form waits for the Language Reference (R-082)
+# sorting env-name: DISPLAY ... UPON ENVIRONMENT-NAME / ENVIRONMENT-VALUE, ACCEPT FROM ENVIRONMENT-VALUE, ARGUMENT-VALUE and ARGUMENT-NUMBER (GnuCOBOL's): Katana writes the names to stdout and reads blanks; no finding (P-03)
+# sorting exit-cycle: EXIT PERFORM CYCLE: the grammar's exit statement is EXIT [PROGRAM], so the CYCLE does not skip the rest of the loop body; no finding (P-03)
+# sorting files: READ of a RECORD VARYING file over text (the case's DD_ file or ASSIGN EXTERNAL name): run under the case's command Katana ends in status 47 or an EOFException from SeqFile.readVarying where cobc -std=ibm reads; the census as run has neither the file nor the variable
+# sorting float-lit: DISPLAY of numeric literals: a floating-point literal (1,23E0) is written as its mantissa digits and E0, where cobc -std=ibm writes its value; a plus-signed literal loses its sign, which cobc -std=ibm keeps (whether IBM keeps it waits for the Language Reference)
+# sorting harness: not Katana: the census runs prog.cob from the repository root without the expected check's own command (working folder and date variable, a pipe, or another program of the case); under that command Katana equals cobc -std=ibm and the expectation, or the expectation is of another program
+# sorting invdata: comparisons of numeric DISPLAY items holding spaces (invalid data, ibm.invdata NO): Katana, cobc -std=ibm and the expectation each give another result; IBM's is undefined without INVDATA, so none is the oracle
+# sorting level78: level 78 constants (GnuCOBOL's; its ibm config accepts them): Katana reads `78 X VALUE ...` as an item with no PICTURE, DISPLAYs nothing for it, and names no finding (P-03)
+# sorting move-overlap: MOVE between overlapping reference-modified parts of one item: Katana copies as if through a buffer, cobc -std=ibm with -fmove-ibm propagates byte by byte as the expectation does; R-088 said rt/Move is held to IBM's MOVE
+# sorting pscale: DISPLAY of an item with P (assumed scaling) positions: Katana writes the stored digits (Display.of: the bytes), cobc -std=ibm writes the PICTURE's digits with the P positions, the expectation the value with a point; no D- row lists it; IBM's rule waits for the Language Reference (R-082)
+# sorting setting: the expectation was recorded with runtime checks on (cobc -debug: OCCURS DEPENDING ON bounds); IBM's default is NOSSRANGE, which Katana runs; cobc -std=ibm -debug prints the expectation
+# sorting ssrange: `$SET SSRANGE` (a directive cobc's ibm config honours): Katana ignores it, a subscript out of range is read as it stands and the run does not stop; the profile has no SSRANGE
